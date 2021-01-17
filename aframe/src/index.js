@@ -18,8 +18,7 @@ AFRAME.registerComponent('zesty-clickable', {
       sendMetric(
         'click', // event
         0, // duration
-        this.el.adId, // adId
-        this.el.auId, // auId
+        this.el.adURI, // adURI
       );
       const scene = document.querySelector('a-scene');
       scene.exitVR();
@@ -34,13 +33,14 @@ AFRAME.registerComponent('zesty-clickable', {
 AFRAME.registerComponent('zesty-ad', {
   data: {},
   schema: {
-    auId: { type: 'string', default: 'ce6f68fc-4809-4409-8f57-c631283ce5a3' },
-    adId: { type: 'string' },
+    tokenGroup: { type: 'string' },
+    publisher: { type: 'string' },
+    adURI: { type: 'string' },
     url: { type: 'string' },
   },
 
   init: function() {
-    this.system.registerEntity(this.el, this.data.auId);
+    this.system.registerEntity(this.el, this.data.tokenGroup, this.data.publisher);
   },
 
   // on every frame check for `visible` component
@@ -51,10 +51,10 @@ AFRAME.registerComponent('zesty-ad', {
         component.removeChild(component.lastChild);
       }
     }
-
-    if (!!component.getAttribute('visible') && !component.firstChild) {
-      this.init();
-    }
+    
+    // if (!!component.getAttribute('visible') && !component.firstChild) {
+    //   this.init();
+    // }
   },
 
   remove: function() {
@@ -62,16 +62,17 @@ AFRAME.registerComponent('zesty-ad', {
   },
 });
 
-async function loadAd(auId) {
-  const ad = await fetchAd(auId);
 
+async function loadAd(tokenGroup, publisher) {
+  const ad = await fetchAd(tokenGroup, publisher);
   const img = document.createElement('img');
-  img.setAttribute('id', ad.id);
+
+  img.setAttribute('id', ad.uri)
   img.setAttribute('crossorigin', '');
-  if (ad.asset) {
-    img.setAttribute('src', ad.asset);
+  if (ad.data.image) {
+    img.setAttribute('src', ad.data.image);
     return new Promise((resolve, reject) => {
-      img.onload = () => resolve({ img: img, url: ad.url, id: ad.id, auId: auId });
+      img.onload = () => resolve({ img: img, uri: ad.uri, cta: ad.data.properties.cta });
       img.onerror = () => reject('img load error');
     });
   } else {
@@ -88,7 +89,7 @@ AFRAME.registerSystem('zesty-ad', {
     this.entities = [];
   },
 
-  registerEntity: function(el, auId) {
+  registerEntity: function(el, tokenGroup, publisher) {
     const scene = document.querySelector('a-scene');
     let assets = scene.querySelector('a-assets');
     if (!assets) {
@@ -96,12 +97,9 @@ AFRAME.registerSystem('zesty-ad', {
       scene.appendChild(assets);
     }
 
-    log(`Ad unit ID: ${auId}`);
+    log(`Loading tokenGroup: ${tokenGroup}, publisher: ${publisher}`);
 
-    this.adPromise = loadAd(auId).then((ad) => {
-      this.adId = ad.id;
-      this.auId = ad.auId;
-      log('Loaded ad:', this.adId);
+    this.adPromise = loadAd(tokenGroup, publisher).then((ad) => {
       if (ad.img) {
         assets.appendChild(ad.img);
       }
@@ -113,7 +111,7 @@ AFRAME.registerSystem('zesty-ad', {
       if (el.getAttribute('visible') !== false) {
         const plane = document.createElement('a-plane');
         if (ad.img) {
-          plane.setAttribute('src', `#${ad.id}`);
+          plane.setAttribute('src', `#${ad.uri}`);
           // for textures that are 1024x1024, not setting this causes white border
           plane.setAttribute('transparent', 'true');
           plane.setAttribute('shader', 'flat');
@@ -124,11 +122,11 @@ AFRAME.registerSystem('zesty-ad', {
         plane.setAttribute('side', 'double');
         plane.setAttribute('class', 'clickable'); // required for BE
         el.appendChild(plane);
-
+        
         // Set ad properties
-        el.url = ad.url;
-        el.adId = this.adId;
-        el.auId = this.auId;
+        el.url = ad.cta;
+        el.adURI = ad.uri;
+        console.log(el)
       }
     });
 
@@ -149,7 +147,7 @@ AFRAME.registerSystem('zesty-ad', {
 
 AFRAME.registerPrimitive('a-zesty-ad', {
   defaultComponents: {
-    'zesty-ad': { auId: 'ce6f68fc-4809-4409-8f57-c631283ce5a3' },
+    'zesty-ad': { tokenGroup: '', publisher: '' },
     'visibility-check': {},
     'zesty-clickable': {},
   },

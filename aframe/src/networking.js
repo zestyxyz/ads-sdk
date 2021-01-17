@@ -1,32 +1,61 @@
 import {log} from './logger';
+import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 
 // Modify to test a local server
 // const API_BASE = 'http://localhost:3000/1.0';
 
 // TODO: Need to change the API base The Graph to fetch correct ad
-const API_BASE = null;
-const AD_ENDPOINT = API_BASE + '/ad';
+const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-rinkeby'
 
 // TODO: Metrics should go to something like Textile
 const METRICS_ENDPOINT = null;
 
 const sessionId = uuidv4();
 
-const fetchAd = async (auId) => {
-  log(`Ad unit ID: ${auId}`);
+const fetchAd = async (tokenGroup, publisher) => {
+  const currentTime = Math.floor(Date.now() / 1000);
 
-  return fetch(`${AD_ENDPOINT}?au_id=${auId}`, {
-    method: 'GET',
+  return axios.post(AD_ENDPOINT, {
+    query: `
+      query {
+        adDatas (
+          first: 1
+          where: {
+            publisher: "${publisher}"
+            tokenGroup: ${tokenGroup}
+            timeStart_gte: ${currentTime}
+          } 
+        ) {
+          id
+          tokenGroup
+          publisher
+          advertiser
+          timeCreated
+          timeStart
+          timeEnd
+          location
+          uri
+          timeModified
+        }
+      }
+    `
   })
+  .then((res) => {
+    return res.status == 200 ? res.data : null
+  })
+  .then((data) => {
+    const uri = data.data.adDatas[0].uri
+    
+    // fetch ad asset data
+    return axios.get(uri)
     .then((res) => {
-      return res.ok ? res.text() : null;
+      return res.status == 200 ? { uri: uri, data: res.data } : null
     })
-    .then((text) => {
-      return text ? JSON.parse(text) : null;
-    });
+  });
 };
 
+// TODO
 const sendMetric = (event, duration, adId, auId) => {
   const currentMs = Date.now();
 

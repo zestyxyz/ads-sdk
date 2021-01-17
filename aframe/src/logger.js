@@ -1,4 +1,4 @@
-const debug = true;
+const debug = false;
 
 export function log(message) {
     if (debug) {

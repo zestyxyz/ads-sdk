@@ -25,9 +25,9 @@ AFRAME.registerComponent('zesty-ad', {
       }
     }
     
-    // if (!!component.getAttribute('visible') && !component.firstChild) {
-    //   this.init();
-    // }
+    if (!!component.getAttribute('visible') && !component.firstChild) {
+      this.init();
+    }
   },
 
   remove: function() {
@@ -122,10 +122,6 @@ AFRAME.registerSystem('zesty-ad', {
 
     if (!el.hasAttribute('visibility-check')) {
       el.setAttribute('visibility-check', '');
-    }
-
-    if (!el.hasAttribute('zesty-clickable')) {
-      el.setAttribute('zesty-clickable', '');
     }
 
     this.entities.push(el);

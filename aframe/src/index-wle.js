@@ -1,6 +1,7 @@
-import { fetchAd, sendMetric } from './networking';
+import { fetchNFT, fetchActiveAd, sendMetric } from './networking';
 
 window.Zesty = {
-    fetchAd: fetchAd,
+    fetchNFT: fetchNFT,
+    fetchActiveAd: fetchActiveAd,
     sendMetric: sendMetric
 };

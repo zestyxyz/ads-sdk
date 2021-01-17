@@ -13,9 +13,8 @@ const METRICS_ENDPOINT = null;
 
 const sessionId = uuidv4();
 
-const fetchAd = async (tokenGroup, publisher) => {
+const fetchNFT = async (tokenGroup, publisher) => {
   const currentTime = Math.floor(Date.now() / 1000);
-
   return axios.post(AD_ENDPOINT, {
     query: `
       query {
@@ -44,16 +43,14 @@ const fetchAd = async (tokenGroup, publisher) => {
   .then((res) => {
     return res.status == 200 ? res.data : null
   })
-  .then((data) => {
-    const uri = data.data.adDatas[0].uri
-    
-    // fetch ad asset data
-    return axios.get(uri)
-    .then((res) => {
-      return res.status == 200 ? { uri: uri, data: res.data } : null
-    })
-  });
 };
+
+const fetchActiveAd = async (uri) => {
+  return axios.get(uri)
+  .then((res) => {
+    return res.status == 200 ? { uri: uri, data: res.data } : null
+  })
+}
 
 // TODO
 const sendMetric = (event, duration, adId, auId) => {
@@ -85,4 +82,4 @@ const sendMetric = (event, duration, adId, auId) => {
   });
 };
 
-export { fetchAd, sendMetric };
+export { fetchNFT, fetchActiveAd, sendMetric };

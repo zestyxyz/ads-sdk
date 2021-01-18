@@ -1,46 +1,19 @@
-import { fetchAd, sendMetric } from './networking';
+import { fetchNFT, fetchActiveAd, sendMetric } from './networking';
 import { log } from './logger';
 import './visibility_check';
 
-AFRAME.registerComponent('zesty-clickable', {
-  init: function() {
-    this.object = this.el.object3D;
-    this.el.addEventListener('click', this.check.bind(this));
-  },
-
-  check: function(event) {
-    if (!event || !event.path || event.path.length === 0) {
-      return;
-    }
-    const intersection = event.path[0].object3D;
-    if (intersection && this.object.getObjectById(intersection.id)) {
-      log(`${this.object.id} - click!`);
-      sendMetric(
-        'click', // event
-        0, // duration
-        this.el.adId, // adId
-        this.el.auId, // auId
-      );
-      const scene = document.querySelector('a-scene');
-      scene.exitVR();
-      // Open link in new tab
-      if (this.el.url) {
-        window.open(this.el.url, '_blank');
-      }
-    }
-  },
-});
 
 AFRAME.registerComponent('zesty-ad', {
   data: {},
   schema: {
-    auId: { type: 'string', default: 'ce6f68fc-4809-4409-8f57-c631283ce5a3' },
-    adId: { type: 'string' },
+    tokenGroup: { type: 'string' },
+    publisher: { type: 'string' },
+    adURI: { type: 'string' },
     url: { type: 'string' },
   },
 
   init: function() {
-    this.system.registerEntity(this.el, this.data.auId);
+    this.system.registerEntity(this.el, this.data.tokenGroup, this.data.publisher);
   },
 
   // on every frame check for `visible` component
@@ -51,7 +24,7 @@ AFRAME.registerComponent('zesty-ad', {
         component.removeChild(component.lastChild);
       }
     }
-
+    
     if (!!component.getAttribute('visible') && !component.firstChild) {
       this.init();
     }
@@ -62,16 +35,19 @@ AFRAME.registerComponent('zesty-ad', {
   },
 });
 
-async function loadAd(auId) {
-  const ad = await fetchAd(auId);
+
+async function loadAd(tokenGroup, publisher) {
+  const activeNFT = await fetchNFT(tokenGroup, publisher);
+  const activeAd = await fetchActiveAd(activeNFT.data.adDatas[0].uri);
 
   const img = document.createElement('img');
-  img.setAttribute('id', ad.id);
+
+  img.setAttribute('id', activeAd.uri)
   img.setAttribute('crossorigin', '');
-  if (ad.asset) {
-    img.setAttribute('src', ad.asset);
+  if (activeAd.data.image) {
+    img.setAttribute('src', activeAd.data.image);
     return new Promise((resolve, reject) => {
-      img.onload = () => resolve({ img: img, url: ad.url, id: ad.id, auId: auId });
+      img.onload = () => resolve({ img: img, uri: activeAd.uri, cta: activeAd.data.properties.cta });
       img.onerror = () => reject('img load error');
     });
   } else {
@@ -88,7 +64,7 @@ AFRAME.registerSystem('zesty-ad', {
     this.entities = [];
   },
 
-  registerEntity: function(el, auId) {
+  registerEntity: function(el, tokenGroup, publisher) {
     const scene = document.querySelector('a-scene');
     let assets = scene.querySelector('a-assets');
     if (!assets) {
@@ -96,12 +72,9 @@ AFRAME.registerSystem('zesty-ad', {
       scene.appendChild(assets);
     }
 
-    log(`Ad unit ID: ${auId}`);
+    log(`Loading tokenGroup: ${tokenGroup}, publisher: ${publisher}`);
 
-    this.adPromise = loadAd(auId).then((ad) => {
-      this.adId = ad.id;
-      this.auId = ad.auId;
-      log('Loaded ad:', this.adId);
+    this.adPromise = loadAd(tokenGroup, publisher).then((ad) => {
       if (ad.img) {
         assets.appendChild(ad.img);
       }
@@ -113,7 +86,7 @@ AFRAME.registerSystem('zesty-ad', {
       if (el.getAttribute('visible') !== false) {
         const plane = document.createElement('a-plane');
         if (ad.img) {
-          plane.setAttribute('src', `#${ad.id}`);
+          plane.setAttribute('src', `#${ad.uri}`);
           // for textures that are 1024x1024, not setting this causes white border
           plane.setAttribute('transparent', 'true');
           plane.setAttribute('shader', 'flat');
@@ -123,12 +96,27 @@ AFRAME.registerSystem('zesty-ad', {
         }
         plane.setAttribute('side', 'double');
         plane.setAttribute('class', 'clickable'); // required for BE
-        el.appendChild(plane);
 
+        // handle clicks
+        plane.onclick = () => {
+          const scene = document.querySelector('a-scene');
+          scene.exitVR();
+          // Open link in new tab
+          if (ad.cta) {
+            window.open(ad.cta, '_blank');
+    
+            // TODO: Report metrics on click
+            // sendMetric(
+            //   'click', // event
+            //   0, // duration
+            //   this.el.adURI, // adURI
+            // );
+          }};
+        el.appendChild(plane);
+        
         // Set ad properties
-        el.url = ad.url;
-        el.adId = this.adId;
-        el.auId = this.auId;
+        el.url = ad.cta;
+        el.adURI = ad.uri;
       }
     });
 
@@ -136,9 +124,6 @@ AFRAME.registerSystem('zesty-ad', {
       el.setAttribute('visibility-check', '');
     }
 
-    if (!el.hasAttribute('zesty-clickable')) {
-      el.setAttribute('zesty-clickable', '');
-    }
     this.entities.push(el);
   },
 
@@ -149,8 +134,7 @@ AFRAME.registerSystem('zesty-ad', {
 
 AFRAME.registerPrimitive('a-zesty-ad', {
   defaultComponents: {
-    'zesty-ad': { auId: 'ce6f68fc-4809-4409-8f57-c631283ce5a3' },
-    'visibility-check': {},
-    'zesty-clickable': {},
+    'zesty-ad': { tokenGroup: '', publisher: '' },
+    'visibility-check': {}
   },
 });

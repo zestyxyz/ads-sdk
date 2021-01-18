@@ -95,12 +95,15 @@ AFRAME.registerComponent('visibility-check', {
         // is not enough because we could miss out on events e.g. if a game is turned off
         // without triggering isVisible=false.
         const duration = new Date().getTime() - this.lastVisible;
-        sendMetric(
-          'gaze', // event
-          duration, // duration
-          this.el.adId, // adId
-          this.el.auId, // auId
-        );
+
+        // TODO
+        // sendMetric(
+        //   'gaze', // event
+        //   duration, // duration
+        //   this.el.adId, // adId
+        //   this.el.auId, // auId
+        // );
+
         log(`${this.object.id} - Gaze for ${duration}ms`);
         this.lastVisible = null;
       }

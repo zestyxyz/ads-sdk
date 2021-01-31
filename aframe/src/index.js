@@ -38,10 +38,9 @@ AFRAME.registerComponent('zesty-ad', {
 
 async function loadAd(tokenGroup, publisher) {
   const activeNFT = await fetchNFT(tokenGroup, publisher);
-  const activeAd = await fetchActiveAd(activeNFT.data.adDatas[0].uri);
+  const activeAd = await fetchActiveAd(activeNFT.uri);
 
   const img = document.createElement('img');
-
   img.setAttribute('id', activeAd.uri)
   img.setAttribute('crossorigin', '');
   if (activeAd.data.image) {
@@ -108,7 +107,7 @@ AFRAME.registerSystem('zesty-ad', {
               publisher,
               tokenGroup,
               ad.uri,
-              ad.img,
+              ad.img.src,
               ad.cta,
               'click', // event
               0, // durationInMs

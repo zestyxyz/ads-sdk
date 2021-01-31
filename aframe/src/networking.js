@@ -11,6 +11,18 @@ const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-m
 
 const sessionId = uuidv4();
 
+const DEFAULT_AD_DATAS = {
+  "uri": undefined,
+}
+const DEFAULT_AD_URI_CONTENT = {
+    "name": "Default Ad",
+    "description": "This is the default ad that would be displayed ipsum",
+    "image": "https://ipfs.fleek.co/ipfs/QmPAZBYDYkHntYNNhx9HmS1KCzMg9tzaf2fxZH7KTHjtRd/assets/zesty-market-ad.png",
+    "properties": {
+      "cta": "https://zesty.market"
+    }
+}
+
 const fetchNFT = async (tokenGroup, publisher) => {
   const currentTime = Math.floor(Date.now() / 1000);
   return axios.post(AD_ENDPOINT, {
@@ -39,11 +51,19 @@ const fetchNFT = async (tokenGroup, publisher) => {
     `
   })
   .then((res) => {
-    return res.status == 200 ? res.data : null
+    // console.log(!res.data.adDatas)
+    if (!res.data.adDatas) {
+      return DEFAULT_AD_DATAS
+    }
+    return res.status == 200 ? res.data.adDatas[0] : null
   })
 };
 
 const fetchActiveAd = async (uri) => {
+  if (!uri) {
+    return { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT }
+  }
+
   return axios.get(uri)
   .then((res) => {
     return res.status == 200 ? { uri: uri, data: res.data } : null
@@ -59,29 +79,26 @@ const sendMetric = (
   event,
   durationInMs,
   ) => {
-  const currentMs = Date.now();
-
-  fetch(METRICS_ENDPOINT, {
-    method: 'POST',
+  const currentMs = Math.floor(Date.now() / 1000);
+  const config = {
     headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      _id: uuidv4(),
-      // request_created_at_ms: currentMs,
-      publisher,
-      tokenGroup,
-      uri,
-      image,
-      cta,
-      event,
-      durationInMs,
-      sessionId,
-      timestampeInMs: currentMs,
-      sdkVersion: 1,
-      sdkType: 'aframe',
-    }),
-  });
+      'Content-Type': 'text/plain'
+    }
+  }
+  return axios.post(METRICS_ENDPOINT, {
+    _id: uuidv4(),
+    publisher: publisher,
+    tokenGroup: tokenGroup,
+    uri: uri,
+    image: image,
+    cta: cta,
+    event: event,
+    durationInMs: durationInMs,
+    sessionId: sessionId,
+    timestampInMs: currentMs,
+    sdkVersion: 1,
+    sdkType: 'aframe',
+  }, config)
 };
 
 export { fetchNFT, fetchActiveAd, sendMetric };

@@ -104,13 +104,15 @@ AFRAME.registerSystem('zesty-ad', {
           // Open link in new tab
           if (ad.cta) {
             window.open(ad.cta, '_blank');
-    
-            // TODO: Report metrics on click
-            // sendMetric(
-            //   'click', // event
-            //   0, // duration
-            //   this.el.adURI, // adURI
-            // );
+            sendMetric(
+              publisher,
+              tokenGroup,
+              ad.uri,
+              ad.img,
+              ad.cta,
+              'click', // event
+              0, // durationInMs
+            );
           }};
         el.appendChild(plane);
         

@@ -3,13 +3,11 @@ import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 
 // Modify to test a local server
-// const API_BASE = 'http://localhost:3000/1.0';
+const API_BASE = 'http://localhost:2354';
+const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
 // TODO: Need to change the API base The Graph to fetch correct ad
 const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-rinkeby'
-
-// TODO: Metrics should go to something like Textile
-const METRICS_ENDPOINT = null;
 
 const sessionId = uuidv4();
 
@@ -52,18 +50,16 @@ const fetchActiveAd = async (uri) => {
   })
 }
 
-// TODO
-const sendMetric = (event, duration, adId, auId) => {
+const sendMetric = (
+  publisher,
+  tokenGroup,
+  uri,
+  image,
+  cta,
+  event,
+  durationInMs,
+  ) => {
   const currentMs = Date.now();
-
-  const body = {
-    event,
-    duration,
-    ad_id: adId,
-    au_id: auId,
-    datetime: new Date(currentMs),
-    session_id: sessionId,
-  };
 
   fetch(METRICS_ENDPOINT, {
     method: 'POST',
@@ -71,13 +67,19 @@ const sendMetric = (event, duration, adId, auId) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      request_id: uuidv4(),
-      request_created_at_ms: currentMs,
-      event: body.event,
-      duration_ms: body.duration,
-      ad_id: body.ad_id,
-      au_id: body.au_id,
-      session_id: body.session_id
+      _id: uuidv4(),
+      // request_created_at_ms: currentMs,
+      publisher,
+      tokenGroup,
+      uri,
+      image,
+      cta,
+      event,
+      durationInMs,
+      sessionId,
+      timestampeInMs: currentMs,
+      sdkVersion: 1,
+      sdkType: 'aframe',
     }),
   });
 };

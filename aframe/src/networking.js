@@ -6,7 +6,7 @@ import uuidv4 from 'uuid/v4';
 // const API_BASE = 'http://localhost:3000/1.0';
 
 // TODO: Need to change the API base The Graph to fetch correct ad
-const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-rinkeby'
+const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-graph-rinkeby'
 
 // TODO: Metrics should go to something like Textile
 const METRICS_ENDPOINT = null;
@@ -23,13 +23,13 @@ const fetchNFT = async (tokenGroup, publisher) => {
           where: {
             publisher: "${publisher}"
             tokenGroup: ${tokenGroup}
-            timeStart_gte: ${currentTime}
+            timeStart_lte: ${currentTime}
+            timeEnd_gte: ${currentTime}
           } 
         ) {
           id
           tokenGroup
           publisher
-          advertiser
           timeCreated
           timeStart
           timeEnd
@@ -41,6 +41,7 @@ const fetchNFT = async (tokenGroup, publisher) => {
     `
   })
   .then((res) => {
+    console.log(res);
     return res.status == 200 ? res.data : null
   })
 };

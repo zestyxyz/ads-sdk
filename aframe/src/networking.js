@@ -3,15 +3,25 @@ import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 
 // Modify to test a local server
-// const API_BASE = 'http://localhost:3000/1.0';
+const API_BASE = 'http://localhost:2354';
+const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
 // TODO: Need to change the API base The Graph to fetch correct ad
 const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-graph-rinkeby'
 
-// TODO: Metrics should go to something like Textile
-const METRICS_ENDPOINT = null;
-
 const sessionId = uuidv4();
+
+const DEFAULT_AD_DATAS = {
+  "uri": undefined,
+}
+const DEFAULT_AD_URI_CONTENT = {
+    "name": "Default Ad",
+    "description": "This is the default ad that would be displayed ipsum",
+    "image": "https://ipfs.fleek.co/ipfs/QmPAZBYDYkHntYNNhx9HmS1KCzMg9tzaf2fxZH7KTHjtRd/assets/zesty-market-ad.png",
+    "properties": {
+      "cta": "https://zesty.market"
+    }
+}
 
 const fetchNFT = async (tokenGroup, publisher) => {
   const currentTime = Math.floor(Date.now() / 1000);
@@ -41,46 +51,53 @@ const fetchNFT = async (tokenGroup, publisher) => {
     `
   })
   .then((res) => {
-    console.log(res);
-    return res.status == 200 ? res.data : null
+    if (!res.data.adDatas) {
+      return DEFAULT_AD_DATAS
+    }
+    return res.status == 200 ? res.data.adDatas[0] : null
   })
 };
 
 const fetchActiveAd = async (uri) => {
+  if (!uri) {
+    return { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT }
+  }
+
   return axios.get(uri)
   .then((res) => {
     return res.status == 200 ? { uri: uri, data: res.data } : null
   })
 }
 
-// TODO
-const sendMetric = (event, duration, adId, auId) => {
-  const currentMs = Date.now();
-
-  const body = {
-    event,
-    duration,
-    ad_id: adId,
-    au_id: auId,
-    datetime: new Date(currentMs),
-    session_id: sessionId,
-  };
-
-  fetch(METRICS_ENDPOINT, {
-    method: 'POST',
+const sendMetric = (
+  publisher,
+  tokenGroup,
+  uri,
+  image,
+  cta,
+  event,
+  durationInMs,
+  ) => {
+  const currentMs = Math.floor(Date.now() / 1000);
+  const config = {
     headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      request_id: uuidv4(),
-      request_created_at_ms: currentMs,
-      event: body.event,
-      duration_ms: body.duration,
-      ad_id: body.ad_id,
-      au_id: body.au_id,
-      session_id: body.session_id
-    }),
-  });
+      'Content-Type': 'text/plain'
+    }
+  }
+  return axios.post(METRICS_ENDPOINT, {
+    _id: uuidv4(),
+    publisher: publisher,
+    tokenGroup: tokenGroup,
+    uri: uri,
+    image: image,
+    cta: cta,
+    event: event,
+    durationInMs: durationInMs,
+    sessionId: sessionId,
+    timestampInMs: currentMs,
+    sdkVersion: 1,
+    sdkType: 'aframe',
+  }, config)
 };
 
 export { fetchNFT, fetchActiveAd, sendMetric };

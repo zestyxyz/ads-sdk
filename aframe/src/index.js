@@ -38,10 +38,9 @@ AFRAME.registerComponent('zesty-ad', {
 
 async function loadAd(tokenGroup, publisher) {
   const activeNFT = await fetchNFT(tokenGroup, publisher);
-  const activeAd = await fetchActiveAd(activeNFT.data.adDatas[0].uri);
+  const activeAd = await fetchActiveAd(activeNFT.uri);
 
   const img = document.createElement('img');
-
   img.setAttribute('id', activeAd.uri)
   img.setAttribute('crossorigin', '');
   if (activeAd.data.image) {
@@ -104,13 +103,15 @@ AFRAME.registerSystem('zesty-ad', {
           // Open link in new tab
           if (ad.cta) {
             window.open(ad.cta, '_blank');
-    
-            // TODO: Report metrics on click
-            // sendMetric(
-            //   'click', // event
-            //   0, // duration
-            //   this.el.adURI, // adURI
-            // );
+            sendMetric(
+              publisher,
+              tokenGroup,
+              ad.uri,
+              ad.img.src,
+              ad.cta,
+              'click', // event
+              0, // durationInMs
+            );
           }};
         el.appendChild(plane);
         

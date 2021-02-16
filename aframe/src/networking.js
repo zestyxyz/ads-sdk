@@ -7,7 +7,7 @@ const API_BASE = 'http://localhost:2354';
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
 // TODO: Need to change the API base The Graph to fetch correct ad
-const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-rinkeby'
+const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-graph-rinkeby'
 
 const sessionId = uuidv4();
 
@@ -33,13 +33,13 @@ const fetchNFT = async (tokenGroup, publisher) => {
           where: {
             publisher: "${publisher}"
             tokenGroup: ${tokenGroup}
-            timeStart_gte: ${currentTime}
+            timeStart_lte: ${currentTime}
+            timeEnd_gte: ${currentTime}
           } 
         ) {
           id
           tokenGroup
           publisher
-          advertiser
           timeCreated
           timeStart
           timeEnd
@@ -51,7 +51,6 @@ const fetchNFT = async (tokenGroup, publisher) => {
     `
   })
   .then((res) => {
-    // console.log(!res.data.adDatas)
     if (!res.data.adDatas) {
       return DEFAULT_AD_DATAS
     }

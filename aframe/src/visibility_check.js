@@ -96,7 +96,6 @@ AFRAME.registerComponent('visibility-check', {
         // without triggering isVisible=false.
         const duration = new Date().getTime() - this.lastVisible;
 
-        // TODO
         // sendMetric(
         //   'gaze', // event
         //   duration, // duration

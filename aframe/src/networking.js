@@ -3,7 +3,8 @@ import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 
 // Modify to test a local server
-const API_BASE = 'http://localhost:2354';
+// const API_BASE = 'http://localhost:2354';
+const API_BASE = 'http://node-1.zesty.market:2354'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
 // TODO: Need to change the API base The Graph to fetch correct ad
@@ -28,7 +29,7 @@ const fetchNFT = async (tokenGroup, publisher) => {
   return axios.post(AD_ENDPOINT, {
     query: `
       query {
-        adDatas (
+        tokenDatas (
           first: 1
           where: {
             publisher: "${publisher}"
@@ -78,7 +79,7 @@ const sendMetric = (
   event,
   durationInMs,
   ) => {
-  const currentMs = Math.floor(Date.now() / 1000);
+  const currentMs = Math.floor(Date.now());
   const config = {
     headers: {
       'Content-Type': 'text/plain'

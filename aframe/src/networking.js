@@ -29,7 +29,7 @@ const fetchNFT = async (tokenGroup, publisher) => {
   return axios.post(AD_ENDPOINT, {
     query: `
       query {
-        adDatas (
+        tokenDatas (
           first: 1
           where: {
             publisher: "${publisher}"
@@ -79,7 +79,7 @@ const sendMetric = (
   event,
   durationInMs,
   ) => {
-  const currentMs = Math.floor(Date.now() / 1000);
+  const currentMs = Math.floor(Date.now());
   const config = {
     headers: {
       'Content-Type': 'text/plain'

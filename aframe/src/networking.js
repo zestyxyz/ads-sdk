@@ -4,7 +4,7 @@ import uuidv4 from 'uuid/v4';
 
 // Modify to test a local server
 // const API_BASE = 'http://localhost:2354';
-const API_BASE = 'http://node-1.zesty.market:2354'
+const API_BASE = 'http://node-1.zesty.market'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
 // TODO: Need to change the API base The Graph to fetch correct ad
@@ -18,9 +18,9 @@ const DEFAULT_AD_DATAS = {
 const DEFAULT_AD_URI_CONTENT = {
     "name": "Default Ad",
     "description": "This is the default ad that would be displayed ipsum",
-    "image": "https://ipfs.fleek.co/ipfs/QmPAZBYDYkHntYNNhx9HmS1KCzMg9tzaf2fxZH7KTHjtRd/assets/zesty-market-ad.png",
+    "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
     "properties": {
-      "cta": "https://zesty.market"
+      "cta": "https://wonderleap.co/advertisers"
     }
 }
 

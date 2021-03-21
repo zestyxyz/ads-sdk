@@ -13,10 +13,16 @@ AFRAME.registerComponent('zesty-ad', {
   },
 
   init: function() {
+    // This slows down the tick
+    this.tick = AFRAME.utils.throttleTick(this.tick, 200, this);
+    this.registerEntity()
+  },
+
+  registerEntity: function() {
     this.system.registerEntity(this.el, this.data.tokenGroup, this.data.publisher);
   },
 
-  // on every frame check for `visible` component
+  // Every 200ms check for `visible` component
   tick: function() {
     let component = this.el;
     if (component.getAttribute('visible') == false) {
@@ -24,9 +30,9 @@ AFRAME.registerComponent('zesty-ad', {
         component.removeChild(component.lastChild);
       }
     }
-    
+
     if (!!component.getAttribute('visible') && !component.firstChild) {
-      this.init();
+      this.registerEntity();
     }
   },
 
@@ -64,6 +70,8 @@ AFRAME.registerSystem('zesty-ad', {
   },
 
   registerEntity: function(el, tokenGroup, publisher) {
+    if((this.adPromise && this.adPromise.isPending && this.adPromise.isPending()) || this.entities.length) return; // Checks if it is a promise, stops more requests from being made
+
     const scene = document.querySelector('a-scene');
     let assets = scene.querySelector('a-assets');
     if (!assets) {
@@ -114,7 +122,7 @@ AFRAME.registerSystem('zesty-ad', {
             );
           }};
         el.appendChild(plane);
-        
+
         // Set ad properties
         el.url = ad.cta;
         el.adURI = ad.uri;

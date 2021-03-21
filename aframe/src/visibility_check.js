@@ -1,5 +1,6 @@
 import { sendMetric } from './networking';
 import { log } from './logger';
+import { invert } from './math-utils/matrix'
 
 function getCameraHelper(callback) {
   const camera = document.querySelector('[camera]');
@@ -23,24 +24,52 @@ async function getCamera() {
 }
 
 const cameraFuture = getCamera();
+const frustum = new THREE.Frustum();
+const cameraViewProjectionMatrix = new THREE.Matrix4();
+const box = new THREE.Box3();
+const parentPosition = new THREE.Vector3();
+const objectPosition = new THREE.Vector3();
 
-function isObjectInCameraFrustum(object, camera) {
-  if (!camera) {
+function isObjectInCameraFrustum(object, camera, sceneEl) {
+  if (!camera || !sceneEl.camera) {
     return false;
   }
-  const frustum = new THREE.Frustum();
-  const cameraViewProjectionMatrix = new THREE.Matrix4();
 
-  camera.updateMatrixWorld();
-  camera.matrixWorldInverse.getInverse(camera.matrixWorld);
-  cameraViewProjectionMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
-  frustum.setFromMatrix(cameraViewProjectionMatrix);
+  if(sceneEl.renderer.xr.isPresenting) {
+    let currentCameraPose = document.querySelector('a-scene').renderer.xr.getCameraPose();
+    let inverse = currentCameraPose.transform.matrix;
 
-  const box = new THREE.Box3().setFromObject(object);
-  object.center = new THREE.Vector3();
-  box.getCenter(object.center);
+    // Adding parent position to Camera in WebXR space
+    sceneEl.camera.parent.getWorldPosition(parentPosition);
+    inverse[12] += parentPosition.x;
+    inverse[13] += parentPosition.y;
+    inverse[14] += parentPosition.z;
 
-  return frustum.containsPoint(object.center);
+    // TODO: Add rotational offset from the parent
+
+    // Object with elements is needed for multiplyMatrices
+    inverse = { elements: invert(inverse, inverse) };
+    let projectionMatrix = { elements: currentCameraPose.views[0].projectionMatrix };
+
+    cameraViewProjectionMatrix.multiplyMatrices(projectionMatrix, inverse);
+    frustum.setFromProjectionMatrix(cameraViewProjectionMatrix);
+
+    box.setFromObject(object);
+    if(!object.center)
+      object.center = new THREE.Vector3();
+    box.getCenter(object.center);
+
+    return frustum.containsPoint(object.center);
+  } else {
+    let currentCamera = camera;
+    cameraViewProjectionMatrix.multiplyMatrices(currentCamera.projectionMatrix, currentCamera.matrixWorldInverse);
+    frustum.setFromProjectionMatrix(cameraViewProjectionMatrix);
+    box.setFromObject(object);
+    if(!object.center)
+      object.center = new THREE.Vector3();
+    box.getCenter(object.center);
+    return frustum.containsPoint(object.center);
+  }
 }
 
 function rayIntersectsObject(object, camera, scene) {
@@ -65,13 +94,47 @@ function rayIntersectsObject(object, camera, scene) {
   return object.getObjectById(intersection.object.id) !== undefined;
 }
 
+function getDistanceToCamera(object, camera, sceneEl) {
+  if (!camera || !sceneEl.camera) {
+    return false;
+  }
+
+  if(sceneEl.renderer.xr.isPresenting) {
+    let currentCameraPose = document.querySelector('a-scene').renderer.xr.getCameraPose();
+    let position = currentCameraPose.transform.position;
+
+    // Adding parent position to Camera in WebXR space
+    sceneEl.camera.parent.getWorldPosition(parentPosition);
+    parentPosition.x += position.x;
+    parentPosition.y += position.y;
+    parentPosition.z += position.z;
+
+    object.getWorldPosition(objectPosition);
+
+    return objectPosition.distanceTo(parentPosition);
+  } else {
+    camera.getWorldPosition(parentPosition);
+    object.getWorldPosition(objectPosition);
+
+    return objectPosition.distanceTo(parentPosition);
+  }
+}
+
+const maxDistance = 15.0;
+
 AFRAME.registerComponent('visibility-check', {
   init: function() {
     this.object = this.el.object3D;
     cameraFuture.then((camera) => {
       this.camera = camera;
     });
-    this.scene = document.querySelector('a-scene').object3D;
+
+    this.sceneEl = document.querySelector('a-scene')
+    this.sceneEl.addEventListener('enter-vr', (e) => {
+      console.log(e);
+    })
+    this.scene = this.sceneEl.object3D;
+
     this.lastVisible = null;
     this.durationThreshold = 10000;
 
@@ -83,25 +146,26 @@ AFRAME.registerComponent('visibility-check', {
   },
 
   check: function() {
+    let distanceToCamera = getDistanceToCamera(this.object, this.camera, this.sceneEl);
     const isVisible =
-      isObjectInCameraFrustum(this.object, this.camera) &&
-      rayIntersectsObject(this.object, this.camera, this.scene);
+      isObjectInCameraFrustum(this.object, this.camera, this.sceneEl) &&
+      distanceToCamera < maxDistance;
     if (!this.lastVisible && isVisible) {
       this.lastVisible = new Date().getTime();
     } else if (this.lastVisible) {
       const duration = new Date().getTime() - this.lastVisible;
       if (!isVisible || duration > this.durationThreshold) {
-        // Only logging when a gaze session is interrupted through isVisible=false
+        // Only logging when a view session is interrupted through isVisible=false
         // is not enough because we could miss out on events e.g. if a game is turned off
         // without triggering isVisible=false.
         const duration = new Date().getTime() - this.lastVisible;
 
-        // sendMetric(
-        //   'gaze', // event
-        //   duration, // duration
-        //   this.el.adId, // adId
-        //   this.el.auId, // auId
-        // );
+        sendMetric(
+          'view', // event
+          duration, // duration
+          this.el.adId, // adId
+          this.el.auId, // auId
+        );
 
         log(`${this.object.id} - Gaze for ${duration}ms`);
         this.lastVisible = null;

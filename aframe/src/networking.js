@@ -16,12 +16,12 @@ const DEFAULT_AD_DATAS = {
   "uri": undefined,
 }
 const DEFAULT_AD_URI_CONTENT = {
-    "name": "Default Ad",
-    "description": "This is the default ad that would be displayed ipsum",
-    "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
-    "properties": {
-      "cta": "https://wonderleap.co/advertisers"
-    }
+  "name": "Default Ad",
+  "description": "This is the default ad that would be displayed ipsum",
+  "image": "https://ipfs.io/ipfs/QmNmyaN9QeE3ic3kPyAcSBbfwgfNCXT7LaUViRcW2E1mWr/assets/zesty-market-ad.png",
+  "properties": {
+    "cta": "https://zesty.market"
+  }
 }
 
 const fetchNFT = async (tokenGroup, publisher) => {
@@ -33,7 +33,7 @@ const fetchNFT = async (tokenGroup, publisher) => {
           first: 1
           where: {
             publisher: "${publisher}"
-            tokenGroup: ${tokenGroup}
+            tokenGroup: "${tokenGroup}"
             timeStart_lte: ${currentTime}
             timeEnd_gte: ${currentTime}
           } 
@@ -44,9 +44,8 @@ const fetchNFT = async (tokenGroup, publisher) => {
           timeCreated
           timeStart
           timeEnd
-          location
           uri
-          timeModified
+          timestamp
         }
       }
     `

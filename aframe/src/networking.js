@@ -18,9 +18,9 @@ const DEFAULT_AD_DATAS = {
 const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
-  "image": "https://ipfs.io/ipfs/QmNmyaN9QeE3ic3kPyAcSBbfwgfNCXT7LaUViRcW2E1mWr/assets/zesty-market-ad.png",
+  "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
   "properties": {
-    "cta": "https://zesty.market"
+    "cta": "https://wonderleap.co/advertisers"
   }
 }
 

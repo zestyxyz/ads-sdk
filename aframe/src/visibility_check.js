@@ -160,12 +160,12 @@ AFRAME.registerComponent('visibility-check', {
         // without triggering isVisible=false.
         const duration = new Date().getTime() - this.lastVisible;
 
-        sendMetric(
-          'view', // event
-          duration, // duration
-          this.el.adId, // adId
-          this.el.auId, // auId
-        );
+        // sendMetric(
+        //   'view', // event
+        //   duration, // duration
+        //   this.el.adId, // adId
+        //   this.el.auId, // auId
+        // );
 
         log(`${this.object.id} - Gaze for ${duration}ms`);
         this.lastVisible = null;

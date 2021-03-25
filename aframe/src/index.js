@@ -124,8 +124,9 @@ AFRAME.registerSystem('zesty-ad', {
         el.appendChild(plane);
 
         // Set ad properties
-        el.url = ad.cta;
         el.adURI = ad.uri;
+        el.imgSrc = ad.img.src;
+        el.cta = ad.cta;
       }
     });
 

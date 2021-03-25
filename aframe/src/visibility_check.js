@@ -35,8 +35,8 @@ function isObjectInCameraFrustum(object, camera, sceneEl) {
     return false;
   }
 
-  if(sceneEl.renderer.xr.isPresenting) {
-    let currentCameraPose = document.querySelector('a-scene').renderer.xr.getCameraPose();
+  if(sceneEl.is('vr-mode')) {
+    let currentCameraPose = sceneEl.renderer.xr.getCameraPose();
     let inverse = currentCameraPose.transform.matrix;
 
     // Adding parent position to Camera in WebXR space
@@ -50,9 +50,13 @@ function isObjectInCameraFrustum(object, camera, sceneEl) {
     // Object with elements is needed for multiplyMatrices
     inverse = { elements: invert(inverse, inverse) };
     let projectionMatrix = { elements: currentCameraPose.views[0].projectionMatrix };
-
     cameraViewProjectionMatrix.multiplyMatrices(projectionMatrix, inverse);
-    frustum.setFromProjectionMatrix(cameraViewProjectionMatrix);
+
+    // Check for different THREE versions
+    if(frustum.setFromProjectionMatrix)
+      frustum.setFromProjectionMatrix(cameraViewProjectionMatrix);
+    else
+      frustum.setFromMatrix(cameraViewProjectionMatrix);
 
     box.setFromObject(object);
     if(!object.center)
@@ -63,7 +67,13 @@ function isObjectInCameraFrustum(object, camera, sceneEl) {
   } else {
     let currentCamera = camera;
     cameraViewProjectionMatrix.multiplyMatrices(currentCamera.projectionMatrix, currentCamera.matrixWorldInverse);
-    frustum.setFromProjectionMatrix(cameraViewProjectionMatrix);
+
+    // Check for different THREE versions
+    if(frustum.setFromProjectionMatrix)
+      frustum.setFromProjectionMatrix(cameraViewProjectionMatrix);
+    else
+      frustum.setFromMatrix(cameraViewProjectionMatrix);
+
     box.setFromObject(object);
     if(!object.center)
       object.center = new THREE.Vector3();
@@ -99,8 +109,8 @@ function getDistanceToCamera(object, camera, sceneEl) {
     return false;
   }
 
-  if(sceneEl.renderer.xr.isPresenting) {
-    let currentCameraPose = document.querySelector('a-scene').renderer.xr.getCameraPose();
+  if(sceneEl.is('vr-mode')) {
+    let currentCameraPose = sceneEl.renderer.xr.getCameraPose();
     let position = currentCameraPose.transform.position;
 
     // Adding parent position to Camera in WebXR space
@@ -130,9 +140,6 @@ AFRAME.registerComponent('visibility-check', {
     });
 
     this.sceneEl = document.querySelector('a-scene')
-    this.sceneEl.addEventListener('enter-vr', (e) => {
-      console.log(e);
-    })
     this.scene = this.sceneEl.object3D;
 
     this.lastVisible = null;

@@ -142,6 +142,8 @@ AFRAME.registerComponent('visibility-check', {
     this.sceneEl = document.querySelector('a-scene')
     this.scene = this.sceneEl.object3D;
 
+    this.ad = this.el.components['zesty-ad'];
+
     this.lastVisible = null;
     this.durationThreshold = 10000;
 
@@ -166,16 +168,19 @@ AFRAME.registerComponent('visibility-check', {
         // is not enough because we could miss out on events e.g. if a game is turned off
         // without triggering isVisible=false.
         const duration = new Date().getTime() - this.lastVisible;
+        this.lastVisible = null;
 
-        // sendMetric(
-        //   'view', // event
-        //   duration, // duration
-        //   this.el.adId, // adId
-        //   this.el.auId, // auId
-        // );
+        sendMetric(
+          this.ad.data.publisher,
+          this.ad.data.tokenGroup,
+          this.el.adURI,
+          this.el.imgSrc,
+          this.el.cta,
+          'view', // event
+          duration,
+        );
 
         log(`${this.object.id} - Gaze for ${duration}ms`);
-        this.lastVisible = null;
       }
     }
   },

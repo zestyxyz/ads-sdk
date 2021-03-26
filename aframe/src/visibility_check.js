@@ -170,15 +170,15 @@ AFRAME.registerComponent('visibility-check', {
         const duration = new Date().getTime() - this.lastVisible;
         this.lastVisible = null;
 
-        sendMetric(
-          this.ad.data.publisher,
-          this.ad.data.tokenGroup,
-          this.el.adURI,
-          this.el.imgSrc,
-          this.el.cta,
-          'view', // event
-          duration,
-        );
+        // sendMetric(
+        //   this.ad.data.publisher,
+        //   this.ad.data.tokenGroup,
+        //   this.el.adURI,
+        //   this.el.imgSrc,
+        //   this.el.cta,
+        //   'view', // event
+        //   duration,
+        // );
 
         log(`${this.object.id} - Gaze for ${duration}ms`);
       }

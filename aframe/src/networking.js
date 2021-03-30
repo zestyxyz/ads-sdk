@@ -49,10 +49,15 @@ const fetchNFT = async (tokenGroup, publisher) => {
     `
   })
   .then((res) => {
-    if (!res.data.data.tokenDatas) {
-      return DEFAULT_AD_DATAS
+    if (res.data.data.tokenDatas && res.data.data.tokenDatas.length > 0) {
+      return res.status == 200 ? res.data.data.tokenDatas[0] : null
     }
-    return res.status == 200 ? res.data.data.tokenDatas[0] : null
+
+    return DEFAULT_AD_DATAS;
+  })
+  .catch((err) => {
+    console.log(err);
+    return DEFAULT_AD_DATAS;
   })
 };
 

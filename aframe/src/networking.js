@@ -19,9 +19,7 @@ const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
   "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
-  "properties": {
-    "cta": "https://wonderleap.co/advertisers"
-  }
+  "cta": "https://wonderleap.co/advertisers"
 }
 
 const fetchNFT = async (tokenGroup, publisher) => {
@@ -51,10 +49,10 @@ const fetchNFT = async (tokenGroup, publisher) => {
     `
   })
   .then((res) => {
-    if (!res.data.adDatas) {
+    if (!res.data.data.tokenDatas) {
       return DEFAULT_AD_DATAS
     }
-    return res.status == 200 ? res.data.adDatas[0] : null
+    return res.status == 200 ? res.data.data.tokenDatas[0] : null
   })
 };
 

@@ -52,7 +52,7 @@ async function loadAd(tokenGroup, publisher) {
   if (activeAd.data.image) {
     img.setAttribute('src', activeAd.data.image);
     return new Promise((resolve, reject) => {
-      img.onload = () => resolve({ img: img, uri: activeAd.uri, cta: activeAd.data.properties.cta });
+      img.onload = () => resolve({ img: img, uri: activeAd.uri, cta: activeAd.data.cta });
       img.onerror = () => reject('img load error');
     });
   } else {

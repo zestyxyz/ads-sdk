@@ -94,6 +94,8 @@ AFRAME.registerSystem('zesty-ad', {
         const plane = document.createElement('a-plane');
         if (ad.img) {
           plane.setAttribute('src', `#${ad.uri}`);
+          plane.setAttribute('width', 0.75);
+          plane.setAttribute('height', 1);
           // for textures that are 1024x1024, not setting this causes white border
           plane.setAttribute('transparent', 'true');
           plane.setAttribute('shader', 'flat');

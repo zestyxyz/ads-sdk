@@ -16,10 +16,10 @@ const DEFAULT_AD_DATAS = {
   "uri": undefined,
 }
 const DEFAULT_AD_URI_CONTENT = {
-  "name": "Default Ad",
-  "description": "This is the default ad that would be displayed ipsum",
-  "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
-  "cta": "https://wonderleap.co/advertisers"
+  "name": "Default OBS Ad",
+  "description": "This is the default ad that would be displayed for OBS",
+  "image": "https://ipfs.io/ipfs/QmQvEfYbeCri4ySqbN1eUNXmRLaULgrCAoi8tEU7a4S8Gw/assets/zesty-ad-obs.png",
+  "cta": "https://zesty.market"
 }
 
 const fetchNFT = async (tokenGroup, publisher) => {

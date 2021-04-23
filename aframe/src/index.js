@@ -91,6 +91,16 @@ AFRAME.registerSystem('zesty-ad', {
     this.adPromise.then((ad) => {
       // don't attach plane if element's visibility is false
       if (el.getAttribute('visible') !== false) {
+        sendMetric(
+          publisher,
+          tokenGroup,
+          ad.uri,
+          ad.img.src,
+          ad.cta,
+          'load', // event
+          0, // durationInMs
+        );
+
         const plane = document.createElement('a-plane');
         if (ad.img) {
           plane.setAttribute('src', `#${ad.uri}`);

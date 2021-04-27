@@ -1,14 +1,14 @@
 import './App.css';
 import ZestyAd from './components/ZestyAd';
 import { OrbitControls, Stats } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { VRCanvas, DefaultXRControllers } from '@react-three/xr'
 
 function App() {
 
 
   return (
     <>
-    <Canvas>
+    <VRCanvas>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <OrbitControls />
@@ -17,7 +17,8 @@ function App() {
        publisher={'0xa1F14fc2CCb14EA4856208dC21d9b77B83C2134d'}
        position={[0, -1, 0]} />
       <Stats />
-    </Canvas>
+      <DefaultXRControllers />
+    </VRCanvas>
     </>
   );
 }

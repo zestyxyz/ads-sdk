@@ -2,7 +2,5 @@
 	"name": "Default Ad",
 	"description": "This is the default ad that would be displayed ipsum",
 	"image": "https://ipfs.io/ipfs/QmNmyaN9QeE3ic3kPyAcSBbfwgfNCXT7LaUViRcW2E1mWr/assets/zesty-market-ad.png",
-	"properties": {
-		"cta": "https://zesty.market"
-	}
+	"cta": "https://zesty.market"
 }

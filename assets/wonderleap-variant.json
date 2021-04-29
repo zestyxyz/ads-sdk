@@ -2,7 +2,5 @@
 	"name": "Default Ad",
 	"description": "This is the default ad that would be displayed ipsum",
 	"image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
-	"properties": {
-		"cta": "https://wonderleap.co/advertisers"
-	}
+    "cta": "https://wonderleap.co/advertisers"
 }

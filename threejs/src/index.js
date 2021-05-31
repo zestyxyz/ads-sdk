@@ -124,9 +124,8 @@ const fetchNFT = async (tokenGroup, publisher) => {
   })
   .then((r) => r.json())
   .then((res) => {
-    console.log(res)
-    if (res.data.tokenDatas && res.data.tokenDatas.length > 0) {
-      return res.status == 200 ? res.data.data.tokenDatas[0] : null
+    if (res.data.tokenDatas && res.data.tokenDatas.length) {
+      return res.data.tokenDatas[0];
     }
 
     return DEFAULT_AD_DATAS;
@@ -145,7 +144,7 @@ const fetchActiveAd = async (uri) => {
   return fetch(uri)
   .then((r) => r.json())
   .then((res) => {
-    return res.status == 200 ? { uri: uri, data: res.data } : null
+    return { uri: uri, data: res };
   })
 }
 
@@ -181,3 +180,5 @@ const sendMetric = (
     body: JSON.stringify(body)
   })
 };
+
+window.ZestyAd = ZestyAd;

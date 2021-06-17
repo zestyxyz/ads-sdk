@@ -24,7 +24,6 @@ const DEFAULT_AD_URI_CONTENT = {
 
 const fetchNFT = async (tokenGroup, creator) => {
   const currentTime = Math.floor(Date.now() / 1000);
-  console.log(creator);
   return axios.post(AD_ENDPOINT, {
     query: `
       query {

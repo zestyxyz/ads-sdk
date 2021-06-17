@@ -122,7 +122,6 @@ const fetchNFT = async (tokenGroup, creator) => {
   })
   .then((r) => r.json())
   .then((res) => {
-    console.log(res);
     if (res.data.tokenDatas && res.data.tokenDatas.length) {
       return res.data.tokenDatas[0];
     }

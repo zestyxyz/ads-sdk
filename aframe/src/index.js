@@ -7,7 +7,7 @@ AFRAME.registerComponent('zesty-ad', {
   data: {},
   schema: {
     tokenGroup: { type: 'string' },
-    publisher: { type: 'string' },
+    creator: { type: 'string' },
     adURI: { type: 'string' },
     url: { type: 'string' },
   },
@@ -19,7 +19,7 @@ AFRAME.registerComponent('zesty-ad', {
   },
 
   registerEntity: function() {
-    this.system.registerEntity(this.el, this.data.tokenGroup, this.data.publisher);
+    this.system.registerEntity(this.el, this.data.tokenGroup, this.data.creator);
   },
 
   // Every 200ms check for `visible` component
@@ -42,17 +42,21 @@ AFRAME.registerComponent('zesty-ad', {
 });
 
 
-async function loadAd(tokenGroup, publisher) {
-  const activeNFT = await fetchNFT(tokenGroup, publisher);
+async function loadAd(tokenGroup, creator) {
+  const activeNFT = await fetchNFT(tokenGroup, creator);
   const activeAd = await fetchActiveAd(activeNFT.uri);
+
+  // Need to add https:// if missing for page to open properly
+  let cta = activeAd.data.location;
+  cta = cta.match(/^http[s]?:\/\//) ? cta : 'https://' + cta;
 
   const img = document.createElement('img');
   img.setAttribute('id', activeAd.uri)
   img.setAttribute('crossorigin', '');
   if (activeAd.data.image) {
-    img.setAttribute('src', activeAd.data.image);
+    img.setAttribute('src', `https://ipfs.io/ipfs/${activeAd.data.image}`);
     return new Promise((resolve, reject) => {
-      img.onload = () => resolve({ img: img, uri: activeAd.uri, cta: activeAd.data.cta });
+      img.onload = () => resolve({ img: img, uri: activeAd.uri, cta: cta });
       img.onerror = () => reject('img load error');
     });
   } else {
@@ -69,7 +73,7 @@ AFRAME.registerSystem('zesty-ad', {
     this.entities = [];
   },
 
-  registerEntity: function(el, tokenGroup, publisher) {
+  registerEntity: function(el, tokenGroup, creator) {
     if((this.adPromise && this.adPromise.isPending && this.adPromise.isPending()) || this.entities.length) return; // Checks if it is a promise, stops more requests from being made
 
     const scene = document.querySelector('a-scene');
@@ -79,9 +83,9 @@ AFRAME.registerSystem('zesty-ad', {
       scene.appendChild(assets);
     }
 
-    log(`Loading tokenGroup: ${tokenGroup}, publisher: ${publisher}`);
+    log(`Loading tokenGroup: ${tokenGroup}, creator: ${creator}`);
 
-    this.adPromise = loadAd(tokenGroup, publisher).then((ad) => {
+    this.adPromise = loadAd(tokenGroup, creator).then((ad) => {
       if (ad.img) {
         assets.appendChild(ad.img);
       }
@@ -92,7 +96,7 @@ AFRAME.registerSystem('zesty-ad', {
       // don't attach plane if element's visibility is false
       if (el.getAttribute('visible') !== false) {
         sendMetric(
-          publisher,
+          creator,
           tokenGroup,
           ad.uri,
           ad.img.src,
@@ -124,7 +128,7 @@ AFRAME.registerSystem('zesty-ad', {
           if (ad.cta) {
             window.open(ad.cta, '_blank');
             sendMetric(
-              publisher,
+              creator,
               tokenGroup,
               ad.uri,
               ad.img.src,
@@ -156,7 +160,7 @@ AFRAME.registerSystem('zesty-ad', {
 
 AFRAME.registerPrimitive('a-zesty-ad', {
   defaultComponents: {
-    'zesty-ad': { tokenGroup: '', publisher: '' },
+    'zesty-ad': { tokenGroup: '', creator: '' },
     'visibility-check': {}
   },
 });

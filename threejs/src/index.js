@@ -1,13 +1,13 @@
-class ZestyAd extends THREE.Mesh {
-  constructor(width = 2, height = 3, tokenGroup, publisher) {
+export default class ZestyAd extends THREE.Mesh {
+  constructor(width = 2, height = 3, tokenGroup, creator) {
     super();
     this.geometry = new THREE.PlaneGeometry(width, height, 1, 1);
 
     this.type = "ZestyAd";
     this.tokenGroup = tokenGroup;
-    this.publisher = publisher;
+    this.creator = creator;
 
-    this.adPromise = loadAd(tokenGroup, publisher).then( ad => {
+    this.adPromise = loadAd(tokenGroup, creator).then( ad => {
       this.material = new THREE.MeshBasicMaterial( {
         map: ad.texture
       });
@@ -15,7 +15,7 @@ class ZestyAd extends THREE.Mesh {
       this.ad = ad;
 
       sendMetric(
-        publisher,
+        creator,
         tokenGroup,
         ad.uri,
         ad.src,
@@ -30,13 +30,14 @@ class ZestyAd extends THREE.Mesh {
   onClick() {
     if(this.ad.cta) {
       // TODO: Exit VR
+      // Need a way to hook into the active threejs WebGLRenderer and reach XRSession
 
       window.open(this.ad.cta, '_blank');
       sendMetric(
-        this.publisher,
+        this.creator,
         this.tokenGroup,
         this.ad.uri,
-        this.ad.img.src,
+        this.ad.texture.image.src,
         this.ad.cta,
         'click', // event
         0, // durationInMs
@@ -45,17 +46,21 @@ class ZestyAd extends THREE.Mesh {
   }
 }
 
-async function loadAd(tokenGroup, publisher) {
-  const activeNFT = await fetchNFT(tokenGroup, publisher);
-  const activeAd = await fetchActiveAd(activeNFT.uri);
+async function loadAd(tokenGroup, creator) {
+  const activeNFT = await fetchNFT(tokenGroup, creator);
+  const activeAd = await fetchActiveAd(`https://ipfs.io/ipfs/${activeNFT.uri}`);
+
+  // Need to add https:// if missing for page to open properly
+  let cta = activeAd.data.location;
+  cta = cta.match(/^http[s]?:\/\//) ? cta : 'https://' + cta;
 
   return new Promise((resolve, reject) => {
     const loader = new THREE.TextureLoader();
 
     loader.load(
-      activeAd.data.image,
+      `https://ipfs.io/ipfs/${activeAd.data.image}`,
       function ( texture ) {
-        resolve({ texture: texture, src: activeAd.data.image, uri: activeAd.uri, cta: activeAd.data.cta });
+        resolve({ texture: texture, src: activeAd.data.image, uri: activeAd.uri, cta: cta });
       },
       undefined,
       function ( err ) {
@@ -73,11 +78,12 @@ function uuidv4() {
   });
 }
 
+// Modify to test a local server
+//const API_BASE = 'http://localhost:2354';
 const API_BASE = 'https://node-1.zesty.market'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
-// TODO: Need to change the API base The Graph to fetch correct ad
-const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-graph-rinkeby'
+const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
 
 const sessionId = uuidv4();
 
@@ -87,32 +93,24 @@ const DEFAULT_AD_DATAS = {
 const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
-  "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
-  "cta": "https://wonderleap.co/advertisers"
+  "image": "https://ipfs.fleek.co/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-aframe.png",
+  "cta": "https://www.zesty.market"
 }
 
-const fetchNFT = async (tokenGroup, publisher) => {
+const fetchNFT = async (tokenGroup, creator) => {
   const currentTime = Math.floor(Date.now() / 1000);
   const body = {
     query: `
       query {
         tokenDatas (
-          first: 1
           where: {
-            publisher: "${publisher}"
-            tokenGroup: "${tokenGroup}"
-            timeStart_lte: ${currentTime}
-            timeEnd_gte: ${currentTime}
+            creator: "${creator}"
           }
         ) {
           id
-          tokenGroup
-          publisher
+          creator
           timeCreated
-          timeStart
-          timeEnd
           uri
-          timestamp
         }
       }
     `
@@ -124,6 +122,7 @@ const fetchNFT = async (tokenGroup, publisher) => {
   })
   .then((r) => r.json())
   .then((res) => {
+    console.log(res);
     if (res.data.tokenDatas && res.data.tokenDatas.length) {
       return res.data.tokenDatas[0];
     }
@@ -175,7 +174,8 @@ const sendMetric = (
   return fetch(METRICS_ENDPOINT, {
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify(body)
   })

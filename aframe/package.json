@@ -1,7 +1,7 @@
 {
-  "name": "zesty-aframe-sdk",
+  "name": "@zestymarket/aframe-sdk",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is the A-Frame SDK for Zesty Ads integration.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

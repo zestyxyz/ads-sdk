@@ -1,7 +1,7 @@
 {
-  "name": "zesty-threejs-sdk",
+  "name": "@zestymarket/threejs-sdk",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is the three.js SDK for Zesty Ads integration.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

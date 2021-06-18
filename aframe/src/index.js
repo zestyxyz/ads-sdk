@@ -6,7 +6,7 @@ import './visibility_check';
 AFRAME.registerComponent('zesty-ad', {
   data: {},
   schema: {
-    tokenGroup: { type: 'string' },
+    adSpace: { type: 'string' },
     creator: { type: 'string' },
     adURI: { type: 'string' },
     url: { type: 'string' },
@@ -19,7 +19,7 @@ AFRAME.registerComponent('zesty-ad', {
   },
 
   registerEntity: function() {
-    this.system.registerEntity(this.el, this.data.tokenGroup, this.data.creator);
+    this.system.registerEntity(this.el, this.data.adSpace, this.data.creator);
   },
 
   // Every 200ms check for `visible` component
@@ -42,8 +42,8 @@ AFRAME.registerComponent('zesty-ad', {
 });
 
 
-async function loadAd(tokenGroup, creator) {
-  const activeNFT = await fetchNFT(tokenGroup, creator);
+async function loadAd(adSpace, creator) {
+  const activeNFT = await fetchNFT(adSpace, creator);
   const activeAd = await fetchActiveAd(activeNFT.uri);
 
   // Need to add https:// if missing for page to open properly
@@ -73,7 +73,7 @@ AFRAME.registerSystem('zesty-ad', {
     this.entities = [];
   },
 
-  registerEntity: function(el, tokenGroup, creator) {
+  registerEntity: function(el, adSpace, creator) {
     if((this.adPromise && this.adPromise.isPending && this.adPromise.isPending()) || this.entities.length) return; // Checks if it is a promise, stops more requests from being made
 
     const scene = document.querySelector('a-scene');
@@ -83,9 +83,9 @@ AFRAME.registerSystem('zesty-ad', {
       scene.appendChild(assets);
     }
 
-    log(`Loading tokenGroup: ${tokenGroup}, creator: ${creator}`);
+    log(`Loading adSpace: ${adSpace}, creator: ${creator}`);
 
-    this.adPromise = loadAd(tokenGroup, creator).then((ad) => {
+    this.adPromise = loadAd(adSpace, creator).then((ad) => {
       if (ad.img) {
         assets.appendChild(ad.img);
       }
@@ -97,7 +97,7 @@ AFRAME.registerSystem('zesty-ad', {
       if (el.getAttribute('visible') !== false) {
         sendMetric(
           creator,
-          tokenGroup,
+          adSpace,
           ad.uri,
           ad.img.src,
           ad.cta,
@@ -129,7 +129,7 @@ AFRAME.registerSystem('zesty-ad', {
             window.open(ad.cta, '_blank');
             sendMetric(
               creator,
-              tokenGroup,
+              adSpace,
               ad.uri,
               ad.img.src,
               ad.cta,
@@ -160,7 +160,7 @@ AFRAME.registerSystem('zesty-ad', {
 
 AFRAME.registerPrimitive('a-zesty-ad', {
   defaultComponents: {
-    'zesty-ad': { tokenGroup: '', creator: '' },
+    'zesty-ad': { adSpace: '', creator: '' },
     'visibility-check': {}
   },
 });

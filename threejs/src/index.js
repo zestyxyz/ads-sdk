@@ -1,13 +1,13 @@
 export default class ZestyAd extends THREE.Mesh {
-  constructor(width = 2, height = 3, tokenGroup, creator) {
+  constructor(width = 2, height = 3, adSpace, creator) {
     super();
     this.geometry = new THREE.PlaneGeometry(width, height, 1, 1);
 
     this.type = "ZestyAd";
-    this.tokenGroup = tokenGroup;
+    this.adSpace = adSpace;
     this.creator = creator;
 
-    this.adPromise = loadAd(tokenGroup, creator).then( ad => {
+    this.adPromise = loadAd(adSpace, creator).then( ad => {
       this.material = new THREE.MeshBasicMaterial( {
         map: ad.texture
       });
@@ -16,7 +16,7 @@ export default class ZestyAd extends THREE.Mesh {
 
       sendMetric(
         creator,
-        tokenGroup,
+        adSpace,
         ad.uri,
         ad.src,
         ad.cta,
@@ -35,7 +35,7 @@ export default class ZestyAd extends THREE.Mesh {
       window.open(this.ad.cta, '_blank');
       sendMetric(
         this.creator,
-        this.tokenGroup,
+        this.adSpace,
         this.ad.uri,
         this.ad.texture.image.src,
         this.ad.cta,
@@ -46,8 +46,8 @@ export default class ZestyAd extends THREE.Mesh {
   }
 }
 
-async function loadAd(tokenGroup, creator) {
-  const activeNFT = await fetchNFT(tokenGroup, creator);
+async function loadAd(adSpace, creator) {
+  const activeNFT = await fetchNFT(adSpace, creator);
   const activeAd = await fetchActiveAd(`https://ipfs.io/ipfs/${activeNFT.uri}`);
 
   // Need to add https:// if missing for page to open properly
@@ -97,7 +97,7 @@ const DEFAULT_AD_URI_CONTENT = {
   "cta": "https://www.zesty.market"
 }
 
-const fetchNFT = async (tokenGroup, creator) => {
+const fetchNFT = async (adSpace, creator) => {
   const currentTime = Math.floor(Date.now() / 1000);
   const body = {
     query: `
@@ -148,7 +148,7 @@ const fetchActiveAd = async (uri) => {
 
 const sendMetric = (
   publisher,
-  tokenGroup,
+  adSpace,
   uri,
   image,
   cta,
@@ -159,7 +159,7 @@ const sendMetric = (
   const body = {
     _id: uuidv4(),
     publisher: publisher,
-    tokenGroup: tokenGroup,
+    adSpace: adSpace,
     uri: uri,
     image: image,
     cta: cta,

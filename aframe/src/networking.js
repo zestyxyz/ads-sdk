@@ -22,7 +22,7 @@ const DEFAULT_AD_URI_CONTENT = {
   "cta": "https://www.zesty.market/"
 }
 
-const fetchNFT = async (tokenGroup, creator) => {
+const fetchNFT = async (adSpace, creator) => {
   const currentTime = Math.floor(Date.now() / 1000);
   return axios.post(AD_ENDPOINT, {
     query: `
@@ -66,7 +66,7 @@ const fetchActiveAd = async (uri) => {
 
 const sendMetric = (
   publisher,
-  tokenGroup,
+  adSpace,
   uri,
   image,
   cta,
@@ -83,7 +83,7 @@ const sendMetric = (
   return axios.post(METRICS_ENDPOINT, {
     _id: uuidv4(),
     publisher: publisher,
-    tokenGroup: tokenGroup,
+    adSpace: adSpace,
     uri: uri,
     image: image,
     cta: cta,

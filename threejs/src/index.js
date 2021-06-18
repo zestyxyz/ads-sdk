@@ -1,11 +1,12 @@
 export default class ZestyAd extends THREE.Mesh {
-  constructor(width = 2, height = 3, adSpace, creator) {
+  constructor(width = 2, height = 3, adSpace, creator, renderer = null) {
     super();
     this.geometry = new THREE.PlaneGeometry(width, height, 1, 1);
 
     this.type = "ZestyAd";
     this.adSpace = adSpace;
     this.creator = creator;
+    this.renderer = renderer;
 
     this.adPromise = loadAd(adSpace, creator).then( ad => {
       this.material = new THREE.MeshBasicMaterial( {
@@ -29,8 +30,9 @@ export default class ZestyAd extends THREE.Mesh {
 
   onClick() {
     if(this.ad.cta) {
-      // TODO: Exit VR
-      // Need a way to hook into the active threejs WebGLRenderer and reach XRSession
+      if (this.renderer != null) {
+        this.renderer.xr.getSession().end();
+      }
 
       window.open(this.ad.cta, '_blank');
       sendMetric(

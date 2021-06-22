@@ -1,13 +1,14 @@
-class ZestyAd extends THREE.Mesh {
-  constructor(width = 2, height = 3, tokenGroup, publisher) {
+export default class ZestyAd extends THREE.Mesh {
+  constructor(width = 2, height = 3, adSpace, creator, renderer = null) {
     super();
     this.geometry = new THREE.PlaneGeometry(width, height, 1, 1);
 
     this.type = "ZestyAd";
-    this.tokenGroup = tokenGroup;
-    this.publisher = publisher;
+    this.adSpace = adSpace;
+    this.creator = creator;
+    this.renderer = renderer;
 
-    this.adPromise = loadAd(tokenGroup, publisher).then( ad => {
+    this.adPromise = loadAd(adSpace, creator).then( ad => {
       this.material = new THREE.MeshBasicMaterial( {
         map: ad.texture
       });
@@ -15,8 +16,8 @@ class ZestyAd extends THREE.Mesh {
       this.ad = ad;
 
       sendMetric(
-        publisher,
-        tokenGroup,
+        creator,
+        adSpace,
         ad.uri,
         ad.src,
         ad.cta,
@@ -29,14 +30,16 @@ class ZestyAd extends THREE.Mesh {
 
   onClick() {
     if(this.ad.cta) {
-      // TODO: Exit VR
+      if (this.renderer != null) {
+        this.renderer.xr.getSession().end();
+      }
 
       window.open(this.ad.cta, '_blank');
       sendMetric(
-        this.publisher,
-        this.tokenGroup,
+        this.creator,
+        this.adSpace,
         this.ad.uri,
-        this.ad.img.src,
+        this.ad.texture.image.src,
         this.ad.cta,
         'click', // event
         0, // durationInMs
@@ -45,17 +48,21 @@ class ZestyAd extends THREE.Mesh {
   }
 }
 
-async function loadAd(tokenGroup, publisher) {
-  const activeNFT = await fetchNFT(tokenGroup, publisher);
-  const activeAd = await fetchActiveAd(activeNFT.uri);
+async function loadAd(adSpace, creator) {
+  const activeNFT = await fetchNFT(adSpace, creator);
+  const activeAd = await fetchActiveAd(`https://ipfs.io/ipfs/${activeNFT.uri}`);
+
+  // Need to add https:// if missing for page to open properly
+  let cta = activeAd.data.location;
+  cta = cta.match(/^http[s]?:\/\//) ? cta : 'https://' + cta;
 
   return new Promise((resolve, reject) => {
     const loader = new THREE.TextureLoader();
 
     loader.load(
-      activeAd.data.image,
+      `https://ipfs.io/ipfs/${activeAd.data.image}`,
       function ( texture ) {
-        resolve({ texture: texture, src: activeAd.data.image, uri: activeAd.uri, cta: activeAd.data.cta });
+        resolve({ texture: texture, src: activeAd.data.image, uri: activeAd.uri, cta: cta });
       },
       undefined,
       function ( err ) {
@@ -73,11 +80,12 @@ function uuidv4() {
   });
 }
 
+// Modify to test a local server
+//const API_BASE = 'http://localhost:2354';
 const API_BASE = 'https://node-1.zesty.market'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
-// TODO: Need to change the API base The Graph to fetch correct ad
-const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-graph-rinkeby'
+const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
 
 const sessionId = uuidv4();
 
@@ -87,32 +95,24 @@ const DEFAULT_AD_DATAS = {
 const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
-  "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
-  "cta": "https://wonderleap.co/advertisers"
+  "image": "https://ipfs.fleek.co/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-aframe.png",
+  "cta": "https://www.zesty.market"
 }
 
-const fetchNFT = async (tokenGroup, publisher) => {
+const fetchNFT = async (adSpace, creator) => {
   const currentTime = Math.floor(Date.now() / 1000);
   const body = {
     query: `
       query {
         tokenDatas (
-          first: 1
           where: {
-            publisher: "${publisher}"
-            tokenGroup: "${tokenGroup}"
-            timeStart_lte: ${currentTime}
-            timeEnd_gte: ${currentTime}
+            creator: "${creator}"
           }
         ) {
           id
-          tokenGroup
-          publisher
+          creator
           timeCreated
-          timeStart
-          timeEnd
           uri
-          timestamp
         }
       }
     `
@@ -150,7 +150,7 @@ const fetchActiveAd = async (uri) => {
 
 const sendMetric = (
   publisher,
-  tokenGroup,
+  adSpace,
   uri,
   image,
   cta,
@@ -161,7 +161,7 @@ const sendMetric = (
   const body = {
     _id: uuidv4(),
     publisher: publisher,
-    tokenGroup: tokenGroup,
+    adSpace: adSpace,
     uri: uri,
     image: image,
     cta: cta,
@@ -175,7 +175,8 @@ const sendMetric = (
   return fetch(METRICS_ENDPOINT, {
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify(body)
   })

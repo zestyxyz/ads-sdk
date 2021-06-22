@@ -106,8 +106,9 @@ const fetchNFT = async (adSpace, creator) => {
       query {
         tokenDatas (
           where: {
+            id: "${adSpace}"
             creator: "${creator}"
-          }
+          } 
         ) {
           id
           creator

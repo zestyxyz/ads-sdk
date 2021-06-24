@@ -19,7 +19,7 @@ const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
   "image": "https://ipfs.fleek.co/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-aframe.png",
-  "cta": "https://www.zesty.market/"
+  "url": "https://www.zesty.market/"
 }
 
 const fetchNFT = async (adSpace, creator) => {
@@ -83,7 +83,7 @@ const sendMetric = (
   adSpace,
   uri,
   image,
-  cta,
+  url,
   event,
   durationInMs,
   ) => {
@@ -100,7 +100,7 @@ const sendMetric = (
     adSpace: adSpace,
     uri: uri,
     image: image,
-    cta: cta,
+    cta: url,
     event: event,
     durationInMs: durationInMs,
     sessionId: sessionId,

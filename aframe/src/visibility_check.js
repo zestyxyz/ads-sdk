@@ -175,7 +175,7 @@ AFRAME.registerComponent('visibility-check', {
         //   this.ad.data.tokenGroup,
         //   this.el.adURI,
         //   this.el.imgSrc,
-        //   this.el.cta,
+        //   this.el.url,
         //   'view', // event
         //   duration,
         // );

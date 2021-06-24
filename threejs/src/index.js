@@ -150,7 +150,7 @@ const fetchActiveAd = async (uri) => {
 }
 
 const sendMetric = (
-  publisher,
+  creator,
   adSpace,
   uri,
   image,
@@ -161,7 +161,7 @@ const sendMetric = (
   const currentMs = Math.floor(Date.now());
   const body = {
     _id: uuidv4(),
-    publisher: publisher,
+    creator: creator,
     adSpace: adSpace,
     uri: uri,
     image: image,

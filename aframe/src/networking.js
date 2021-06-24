@@ -4,7 +4,7 @@ import uuidv4 from 'uuid/v4';
 import { stringify } from 'uuid';
 
 // Modify to test a local server
-//const API_BASE = 'http://localhost:2354';
+// const API_BASE = 'http://localhost:2354';
 const API_BASE = 'https://node-1.zesty.market'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
@@ -66,7 +66,7 @@ const fetchActiveAd = async (uri) => {
 }
 
 const sendMetric = (
-  publisher,
+  creator,
   adSpace,
   uri,
   image,
@@ -83,7 +83,7 @@ const sendMetric = (
   }
   return axios.post(METRICS_ENDPOINT, {
     _id: uuidv4(),
-    publisher: publisher,
+    creator: creator,
     adSpace: adSpace,
     uri: uri,
     image: image,

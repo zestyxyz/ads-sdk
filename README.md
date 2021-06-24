@@ -8,7 +8,7 @@ Zesty is an open and permissionless monetization protocol for creators of AR/VR 
 
 ## Analytics
 
-The Zesty SDK will collect analytics to give advertisers and publishers an indication of the the performance of the ads. As is verifiable throughout our codebase, we take care to ensure that no personally identifiable information (PII) is recorded.
+The Zesty SDK will collect analytics to give advertisers and creators an indication of the the performance of the ads. As is verifiable throughout our codebase, we take care to ensure that no personally identifiable information (PII) is recorded.
 
 For more info on description of the kind of data that is collected, refer to the [Analytics](https://docs.zesty.market/data/analytics) section of our docs.
 

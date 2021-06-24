@@ -171,7 +171,7 @@ AFRAME.registerComponent('visibility-check', {
         this.lastVisible = null;
 
         // sendMetric(
-        //   this.ad.data.publisher,
+        //   this.ad.data.creator,
         //   this.ad.data.tokenGroup,
         //   this.el.adURI,
         //   this.el.imgSrc,

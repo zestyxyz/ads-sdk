@@ -31,22 +31,35 @@ const fetchNFT = async (adSpace, creator) => {
           where: {
             id: "${adSpace}"
             creator: "${creator}"
-          } 
-        ) {
+          }
+        )
+        { 
+          sellerNFTSetting {
+            sellerAuctions (
+              first: 1
+              where: {
+                contractTimeStart_lte: ${currentTime}
+                contractTimeEnd_gte: ${currentTime}
+              }
+            ) {
+              id
+              buyerCampaigns {
+                id
+                uri
+              }
+            }
+          }
           id
-          creator
-          timeCreated
-          uri
         }
       }
     `
   })
   .then((res) => {
-    if (res.data.data.tokenDatas && res.data.data.tokenDatas.length > 0) {
-      return res.status == 200 ? res.data.data.tokenDatas[0] : null
+    if (res.status != 200) {
+      return DEFAULT_AD_DATAS 
     }
-
-    return DEFAULT_AD_DATAS;
+    let data = res.data.data
+    return data.tokenDatas[0].sellerNFTSetting.sellerAuctions[0].buyerCampaigns[0]
   })
   .catch((err) => {
     console.log(err);

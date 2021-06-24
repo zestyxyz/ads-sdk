@@ -4,8 +4,8 @@ import uuidv4 from 'uuid/v4';
 import { stringify } from 'uuid';
 
 // Modify to test a local server
-const API_BASE = 'http://localhost:2354';
-// const API_BASE = 'https://node-1.zesty.market'
+// const API_BASE = 'http://localhost:2354';
+const API_BASE = 'https://node-1.zesty.market'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
 const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'

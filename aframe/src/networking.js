@@ -4,8 +4,8 @@ import uuidv4 from 'uuid/v4';
 import { stringify } from 'uuid';
 
 // Modify to test a local server
-//const API_BASE = 'http://localhost:2354';
-const API_BASE = 'https://node-1.zesty.market'
+const API_BASE = 'http://localhost:2354';
+// const API_BASE = 'https://node-1.zesty.market'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
 const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
@@ -19,7 +19,7 @@ const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
   "image": "https://ipfs.fleek.co/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-aframe.png",
-  "cta": "https://www.zesty.market/"
+  "url": "https://www.zesty.market/"
 }
 
 const fetchNFT = async (adSpace, creator) => {
@@ -31,22 +31,35 @@ const fetchNFT = async (adSpace, creator) => {
           where: {
             id: "${adSpace}"
             creator: "${creator}"
-          } 
-        ) {
+          }
+        )
+        { 
+          sellerNFTSetting {
+            sellerAuctions (
+              first: 1
+              where: {
+                contractTimeStart_lte: ${currentTime}
+                contractTimeEnd_gte: ${currentTime}
+              }
+            ) {
+              id
+              buyerCampaigns {
+                id
+                uri
+              }
+            }
+          }
           id
-          creator
-          timeCreated
-          uri
         }
       }
     `
   })
   .then((res) => {
-    if (res.data.data.tokenDatas && res.data.data.tokenDatas.length > 0) {
-      return res.status == 200 ? res.data.data.tokenDatas[0] : null
+    if (res.status != 200) {
+      return DEFAULT_AD_DATAS 
     }
-
-    return DEFAULT_AD_DATAS;
+    let data = res.data.data
+    return data.tokenDatas[0].sellerNFTSetting.sellerAuctions[0].buyerCampaigns[0]
   })
   .catch((err) => {
     console.log(err);
@@ -66,11 +79,11 @@ const fetchActiveAd = async (uri) => {
 }
 
 const sendMetric = (
-  publisher,
+  creator,
   adSpace,
   uri,
   image,
-  cta,
+  url,
   event,
   durationInMs,
   ) => {
@@ -83,11 +96,11 @@ const sendMetric = (
   }
   return axios.post(METRICS_ENDPOINT, {
     _id: uuidv4(),
-    publisher: publisher,
+    creator: creator,
     adSpace: adSpace,
     uri: uri,
     image: image,
-    cta: cta,
+    url: url,
     event: event,
     durationInMs: durationInMs,
     sessionId: sessionId,

@@ -47,8 +47,8 @@ async function loadAd(adSpace, creator) {
   const activeAd = await fetchActiveAd(activeNFT.uri);
 
   // Need to add https:// if missing for page to open properly
-  let cta = activeAd.data.location;
-  cta = cta.match(/^http[s]?:\/\//) ? cta : 'https://' + cta;
+  let url = activeAd.data.url;
+  url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
   const img = document.createElement('img');
   img.setAttribute('id', activeAd.uri)
@@ -56,7 +56,7 @@ async function loadAd(adSpace, creator) {
   if (activeAd.data.image) {
     img.setAttribute('src', `https://ipfs.io/ipfs/${activeAd.data.image}`);
     return new Promise((resolve, reject) => {
-      img.onload = () => resolve({ img: img, uri: activeAd.uri, cta: cta });
+      img.onload = () => resolve({ img: img, uri: activeAd.uri, url: url });
       img.onerror = () => reject('img load error');
     });
   } else {
@@ -100,7 +100,7 @@ AFRAME.registerSystem('zesty-ad', {
           adSpace,
           ad.uri,
           ad.img.src,
-          ad.cta,
+          ad.url,
           'load', // event
           0, // durationInMs
         );
@@ -125,14 +125,14 @@ AFRAME.registerSystem('zesty-ad', {
           const scene = document.querySelector('a-scene');
           scene.exitVR();
           // Open link in new tab
-          if (ad.cta) {
-            window.open(ad.cta, '_blank');
+          if (ad.url) {
+            window.open(ad.url, '_blank');
             sendMetric(
               creator,
               adSpace,
               ad.uri,
               ad.img.src,
-              ad.cta,
+              ad.url,
               'click', // event
               0, // durationInMs
             );
@@ -142,7 +142,7 @@ AFRAME.registerSystem('zesty-ad', {
         // Set ad properties
         el.adURI = ad.uri;
         el.imgSrc = ad.img.src;
-        el.cta = ad.cta;
+        el.url = ad.cta;
       }
     });
 

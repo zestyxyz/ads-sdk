@@ -1,7 +1,5 @@
-import {log} from './logger';
 import axios from 'axios';
-import uuidv4 from 'uuid/v4';
-import { stringify } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 // Modify to test a local server
 // const API_BASE = 'http://localhost:2354';
@@ -15,6 +13,7 @@ const sessionId = uuidv4();
 const DEFAULT_AD_DATAS = {
   "uri": undefined,
 }
+
 const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
@@ -55,11 +54,11 @@ const fetchNFT = async (adSpace, creator) => {
     `
   })
   .then((res) => {
-    if (res.status != 200) {
-      return DEFAULT_AD_DATAS 
+    if (res.data.data.tokenDatas && res.data.data.tokenDatas.length > 0) {
+      return res.status === 200 ? res.data.data.tokenDatas[0] : null
     }
-    let data = res.data.data
-    return data.tokenDatas[0].sellerNFTSetting.sellerAuctions[0].buyerCampaigns[0]
+
+    return DEFAULT_AD_DATAS;
   })
   .catch((err) => {
     console.log(err);
@@ -72,9 +71,9 @@ const fetchActiveAd = async (uri) => {
     return { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT }
   }
 
-  return axios.get(`https://ipfs.io/ipfs/${uri}`)
+  return axios.get(uri)
   .then((res) => {
-    return res.status == 200 ? { uri: uri, data: res.data } : null
+    return res.status === 200 ? { uri: uri, data: res.data } : null
   })
 }
 
@@ -90,8 +89,7 @@ const sendMetric = (
   const currentMs = Math.floor(Date.now());
   const config = {
     headers: {
-      'Content-Type': 'text/plain',
-      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'text/plain'
     }
   }
   return axios.post(METRICS_ENDPOINT, {
@@ -106,7 +104,7 @@ const sendMetric = (
     sessionId: sessionId,
     timestampInMs: currentMs,
     sdkVersion: 1,
-    sdkType: 'aframe',
+    sdkType: 'r3f',
   }, config)
 };
 

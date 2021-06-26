@@ -29,18 +29,18 @@ export default class ZestyAd extends THREE.Mesh {
   }
 
   onClick() {
-    if(this.ad.cta) {
-      if (this.renderer != null) {
+    if(this.ad.url) {
+      if (this.renderer != null && this.renderer.xr.getSession() != null) {
         this.renderer.xr.getSession().end();
       }
 
-      window.open(this.ad.cta, '_blank');
+      window.open(this.ad.url, '_blank');
       sendMetric(
         this.creator,
         this.adSpace,
         this.ad.uri,
         this.ad.texture.image.src,
-        this.ad.cta,
+        this.ad.url,
         'click', // event
         0, // durationInMs
       );
@@ -53,16 +53,19 @@ async function loadAd(adSpace, creator) {
   const activeAd = await fetchActiveAd(`https://ipfs.io/ipfs/${activeNFT.uri}`);
 
   // Need to add https:// if missing for page to open properly
-  let cta = activeAd.data.location;
-  cta = cta.match(/^http[s]?:\/\//) ? cta : 'https://' + cta;
+  let url = activeAd.data.url;
+  url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
+
+  let image = activeAd.data.image;
+  image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.io/ipfs/${image}`;
 
   return new Promise((resolve, reject) => {
     const loader = new THREE.TextureLoader();
 
     loader.load(
-      `https://ipfs.io/ipfs/${activeAd.data.image}`,
+      image,
       function ( texture ) {
-        resolve({ texture: texture, src: activeAd.data.image, uri: activeAd.uri, cta: cta });
+        resolve({ texture: texture, src: image, uri: activeAd.uri, url: url });
       },
       undefined,
       function ( err ) {
@@ -95,8 +98,8 @@ const DEFAULT_AD_DATAS = {
 const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
-  "image": "https://ipfs.fleek.co/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-aframe.png",
-  "cta": "https://www.zesty.market"
+  "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
+  "cta": "https://wonderleap.co/"
 }
 
 const fetchNFT = async (adSpace, creator) => {
@@ -108,12 +111,25 @@ const fetchNFT = async (adSpace, creator) => {
           where: {
             id: "${adSpace}"
             creator: "${creator}"
-          } 
-        ) {
+          }
+        )
+        { 
+          sellerNFTSetting {
+            sellerAuctions (
+              first: 1
+              where: {
+                contractTimeStart_lte: ${currentTime}
+                contractTimeEnd_gte: ${currentTime}
+              }
+            ) {
+              id
+              buyerCampaigns {
+                id
+                uri
+              }
+            }
+          }
           id
-          creator
-          timeCreated
-          uri
         }
       }
     `
@@ -125,11 +141,12 @@ const fetchNFT = async (adSpace, creator) => {
   })
   .then((r) => r.json())
   .then((res) => {
-    if (res.data.tokenDatas && res.data.tokenDatas.length) {
-      return res.data.tokenDatas[0];
+    let sellerAuctions = res.data.tokenDatas[0].sellerNFTSetting.sellerAuctions;
+    if (sellerAuctions.length == 0 || sellerAuctions == null) {
+      return DEFAULT_AD_DATAS 
     }
 
-    return DEFAULT_AD_DATAS;
+    return sellerAuctions[0].buyerCampaigns[0]
   })
   .catch((err) => {
     console.log(err);
@@ -138,7 +155,7 @@ const fetchNFT = async (adSpace, creator) => {
 };
 
 const fetchActiveAd = async (uri) => {
-  if (!uri) {
+  if (!uri || uri.includes("undefined")) {
     return { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT }
   }
 

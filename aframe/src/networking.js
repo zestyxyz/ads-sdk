@@ -59,7 +59,10 @@ const fetchNFT = async (adSpace, creator) => {
       return DEFAULT_AD_DATAS 
     }
     let data = res.data.data
-    return data.tokenDatas[0].sellerNFTSetting.sellerAuctions[0].buyerCampaigns[0]
+    if (data.tokenDatas[0].sellerNFTSetting.sellerAuctions[0].buyerCampaigns[0]) {
+      return data.tokenDatas[0].sellerNFTSetting.sellerAuctions[0].buyerCampaigns[0]
+    }
+    return DEFAULT_AD_DATAS
   })
   .catch((err) => {
     console.log(err);

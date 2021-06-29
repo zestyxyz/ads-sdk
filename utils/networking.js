@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 const API_BASE = 'https://node-1.zesty.market'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
-const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
+const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic'
 
 const sessionId = uuidv4();
 
@@ -17,8 +17,8 @@ const DEFAULT_AD_DATAS = {
 const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
-  "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
-  "url": "https://wonderleap.co/"
+  "image": "https://ipfs.fleek.co/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-aframe.png",
+  "url": "https://www.zesty.market"
 }
 
 /**
@@ -65,7 +65,7 @@ const fetchNFT = async (adSpace, creator) => {
     }
 
     let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-    if (sellerAuctions == null) {
+    if (sellerAuctions == null || sellerAuctions[0] == null) {
         return DEFAULT_AD_DATAS 
     }
 

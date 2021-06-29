@@ -67,6 +67,9 @@ async function loadAd(adSpace, creator) {
   // Need to add https:// if missing for page to open properly
   let url = activeAd.data.url;
   url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
+  if (url == 'https://www.zesty.market') {
+    url = `https://app.zesty.market/ad-space/${adSpace}`;
+  }
 
   let image = activeAd.data.image;
   image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.io/ipfs/${image}`;

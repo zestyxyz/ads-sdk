@@ -1,4 +1,4 @@
-import { fetchNFT, fetchActiveAd, sendMetric } from './networking';
+import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking';
 import { log } from './logger';
 import './visibility_check';
 
@@ -50,11 +50,14 @@ async function loadAd(adSpace, creator) {
   let url = activeAd.data.url;
   url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
+  let image = activeAd.data.image;
+  image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.io/ipfs/${image}`;
+
   const img = document.createElement('img');
   img.setAttribute('id', activeAd.uri)
   img.setAttribute('crossorigin', '');
   if (activeAd.data.image) {
-    img.setAttribute('src', `https://ipfs.io/ipfs/${activeAd.data.image}`);
+    img.setAttribute('src', image);
     return new Promise((resolve, reject) => {
       img.onload = () => resolve({ img: img, uri: activeAd.uri, url: url });
       img.onerror = () => reject('img load error');
@@ -103,6 +106,7 @@ AFRAME.registerSystem('zesty-ad', {
           ad.url,
           'load', // event
           0, // durationInMs
+          'aframe' //sdkType
         );
 
         const plane = document.createElement('a-plane');
@@ -135,6 +139,7 @@ AFRAME.registerSystem('zesty-ad', {
               ad.url,
               'click', // event
               0, // durationInMs
+              'aframe' //sdkType
             );
           }};
         el.appendChild(plane);

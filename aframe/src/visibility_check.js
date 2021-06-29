@@ -1,4 +1,4 @@
-import { sendMetric } from './networking';
+import { sendMetric } from '../../utils/networking';
 import { log } from './logger';
 import { invert } from './math-utils/matrix'
 

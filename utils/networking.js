@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
 // Modify to test a local server
 // const API_BASE = 'http://localhost:2354';
@@ -18,9 +18,15 @@ const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
   "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
-  "cta": "https://wonderleap.co/"
+  "url": "https://wonderleap.co/"
 }
 
+/**
+ * Queries The Graph to retrieve NFT information for the ad space.
+ * @param {string} adSpace The ad space ID
+ * @param {string} creator The wallet address of the creator
+ * @returns An object with the requested ad space information, or a default if it cannot be retrieved.
+ */
 const fetchNFT = async (adSpace, creator) => {
   const currentTime = Math.floor(Date.now() / 1000);
   return axios.post(AD_ENDPOINT, {
@@ -54,11 +60,16 @@ const fetchNFT = async (adSpace, creator) => {
     `
   })
   .then((res) => {
-    if (res.data.data.tokenDatas && res.data.data.tokenDatas.length > 0) {
-      return res.status === 200 ? res.data.data.tokenDatas[0] : null
+    if (res.status != 200) {
+      return DEFAULT_AD_DATAS 
     }
 
-    return DEFAULT_AD_DATAS;
+    let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
+    if (sellerAuctions == null) {
+        return DEFAULT_AD_DATAS 
+    }
+
+    return sellerAuctions[0].buyerCampaigns[0];
   })
   .catch((err) => {
     console.log(err);
@@ -66,17 +77,34 @@ const fetchNFT = async (adSpace, creator) => {
   })
 };
 
+/**
+ * Pulls data from IPFS for the ad content.
+ * @param {string} uri The IPFS URI containing the ad content.
+ * @returns An object with the requested ad content, or a default if it cannot be retrieved.
+ */
 const fetchActiveAd = async (uri) => {
   if (!uri) {
     return { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT }
   }
 
-  return axios.get(uri)
+  return axios.get(`https://ipfs.io/ipfs/${uri}`)
   .then((res) => {
-    return res.status === 200 ? { uri: uri, data: res.data } : null
+    return res.status == 200 ? { uri: uri, data: res.data } : null
   })
 }
 
+/**
+ * !!! CURRENTLY DISABLED !!!
+ * @param {string} creator The wallet address of the creator
+ * @param {string} adSpace The ad space ID
+ * @param {string} uri The IPFS URI for the ad space
+ * @param {string} image The ad space image
+ * @param {string} url URL for the ad space image
+ * @param {*} event 
+ * @param {Number} durationInMs Amount of time the ad was viewed
+ * @param {string} sdkType The SDK this metric was sent from
+ * @returns A Promise representing the POST request
+ */
 const sendMetric = (
   creator,
   adSpace,
@@ -85,11 +113,14 @@ const sendMetric = (
   url,
   event,
   durationInMs,
+  sdkType
   ) => {
+  /*
   const currentMs = Math.floor(Date.now());
   const config = {
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'Access-Control-Allow-Origin': '*',
     }
   }
   return axios.post(METRICS_ENDPOINT, {
@@ -104,8 +135,9 @@ const sendMetric = (
     sessionId: sessionId,
     timestampInMs: currentMs,
     sdkVersion: 1,
-    sdkType: 'r3f',
+    sdkType: sdkType,
   }, config)
+  */
 };
 
 export { fetchNFT, fetchActiveAd, sendMetric };

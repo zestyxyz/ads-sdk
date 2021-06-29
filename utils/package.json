@@ -1,0 +1,22 @@
+{
+  "name": "zesty-sdk-utils",
+  "version": "1.0.0",
+  "description": "Scripts with functionality shared between SDKs. Should not be published.",
+  "main": "networking.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "uuid": "^8.3.2"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "devDependencies": {
+    "@babel/runtime": "^7.14.6"
+  }
+}

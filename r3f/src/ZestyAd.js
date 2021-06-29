@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { useLoader, useThree } from "@react-three/fiber"
 import { useRef, useState, Suspense, useEffect } from "react"
-import { fetchNFT, fetchActiveAd, sendMetric } from "./networking"
+import { fetchNFT, fetchActiveAd, sendMetric } from "../../utils/networking"
 import { Interactive } from '@react-three/xr'
 
 export default function ZestyAd(props) {
@@ -26,6 +26,7 @@ export default function ZestyAd(props) {
           url,
           'load', // event
           0, // durationInMs
+          'r3f' //sdkType
         );
       }
       setAdData(data);
@@ -67,6 +68,7 @@ function AdPlane(props) {
         url,
         'click', // event
         0, // durationInMs
+        'r3f' //sdkType
       );
     }
   }

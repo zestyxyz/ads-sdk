@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd utils && yarn
+cd ..
 cd aframe && yarn && yarn run build
 cd ..
 cd threejs && yarn && yarn run build

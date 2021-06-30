@@ -6,7 +6,10 @@ import { v4 as uuidv4 } from 'uuid'
 const API_BASE = 'https://node-1.zesty.market'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
-const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic'
+const AD_ENDPOINTS = {
+    MATIC: 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
+    RINKEBY: 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
+}
 
 const sessionId = uuidv4();
 
@@ -25,11 +28,12 @@ const DEFAULT_AD_URI_CONTENT = {
  * Queries The Graph to retrieve NFT information for the ad space.
  * @param {string} adSpace The ad space ID
  * @param {string} creator The wallet address of the creator
+ * @param {string} network The network to post metrics to
  * @returns An object with the requested ad space information, or a default if it cannot be retrieved.
  */
-const fetchNFT = async (adSpace, creator) => {
+const fetchNFT = async (adSpace, creator, network = AD_ENDPOINTS.MATIC) => {
   const currentTime = Math.floor(Date.now() / 1000);
-  return axios.post(AD_ENDPOINT, {
+  return axios.post(network, {
     query: `
       query {
         tokenDatas (
@@ -103,6 +107,7 @@ const fetchActiveAd = async (uri) => {
  * @param {*} event 
  * @param {Number} durationInMs Amount of time the ad was viewed
  * @param {string} sdkType The SDK this metric was sent from
+ * @param {string} network The network to post metrics to
  * @returns A Promise representing the POST request
  */
 const sendMetric = (
@@ -113,7 +118,8 @@ const sendMetric = (
   url,
   event,
   durationInMs,
-  sdkType
+  sdkType,
+  network = AD_ENDPOINTS.MATIC
   ) => {
   /*
   const currentMs = Math.floor(Date.now());
@@ -123,7 +129,7 @@ const sendMetric = (
       'Access-Control-Allow-Origin': '*',
     }
   }
-  return axios.post(METRICS_ENDPOINT, {
+  return axios.post(network, {
     _id: uuidv4(),
     creator: creator,
     adSpace: adSpace,

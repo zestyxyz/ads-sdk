@@ -87,7 +87,7 @@ const fetchActiveAd = async (uri) => {
     return { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT }
   }
 
-  return axios.get(`https://ipfs.io/ipfs/${uri}`)
+  return axios.get(`https://ipfs.zesty.market/ipfs/${uri}`)
   .then((res) => {
     return res.status == 200 ? { uri: uri, data: res.data } : null
   })

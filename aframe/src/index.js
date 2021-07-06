@@ -51,7 +51,7 @@ async function loadAd(adSpace, creator) {
   url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
   let image = activeAd.data.image;
-  image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.io/ipfs/${image}`;
+  image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.zesty.market/ipfs/${image}`;
 
   const img = document.createElement('img');
   img.setAttribute('id', activeAd.uri)

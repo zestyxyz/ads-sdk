@@ -2,22 +2,28 @@ import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking';
 //import * as BABYLON from 'babylonjs';
 
 export default class ZestyAd {
-  constructor(width, height, adSpace, creator) {
+  constructor(width, height, adSpace, creator, scene) {
     const options = {
       height: height,
       width: width
-    }
-    let zestyad = BABYLON.MeshBuilder.CreatePlane('zestyad', options);
-    zestyad.position = new BABYLON.Vector3(0, 2, 2);
+    };
+
+    this.zestyAd = BABYLON.MeshBuilder.CreatePlane('zestyad', options);
+    this.zestyAd.position = new BABYLON.Vector3(0, 2, 2);
+
     loadAd(adSpace, creator).then(data => {
-      zestyad.material = data.mat;
-      console.log(data.mat);
-    })
-  }
-
-  onclick() {
-
-  }    
+      this.zestyAd.material = data.mat;
+      this.zestyAd.actionManager = new BABYLON.ActionManager(scene);
+      this.zestyAd.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(
+          BABYLON.ActionManager.OnPickTrigger,
+          () => {
+            window.open(data.url);
+          }
+        )
+      );
+    });
+  }  
 }
 
 async function loadAd(adSpace, creator) {

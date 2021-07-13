@@ -1,0 +1,24 @@
+{
+    "name": "@zestymarket/babylonjs-sdk",
+    "version": "1.0.0",
+    "description": "This is the babylon.js SDK for Zesty Ads integration.",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "webpack --mode=development",
+        "build": "webpack --mode=production",
+        "serve": "webpack-dev-server --open",
+        "prettier": "prettier --write src/**.js gruntfile.js"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "localtunnel": "^1.9.2",
+        "prettier": "1.18.2",
+        "webpack": "^5.41.0",
+        "webpack-cli": "^4.7.2",
+        "webpack-dev-server": "^3.11.2"
+    },
+    "peerDependencies": {
+        "babylonjs": "^4.2.0"
+    }
+}

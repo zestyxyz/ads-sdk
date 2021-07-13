@@ -1,0 +1,20 @@
+{
+  "name": "@zestymarket/wonderland-sdk",
+  "version": "1.0.0",
+  "description": "Wonderland Engine SDK for Zesty Ads integration.",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "esbuild src/index.js --minify --sourcemap --bundle --outfile=dist/zesty-wonderland-sdk.js",
+    "build-dev": "esbuild src/index.js --sourcemap --bundle --outfile=../../zesty-wonderland-sdk.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@wonderlandengine/api": "^0.8.6",
+    "@wonderlandengine/components": "^0.8.10",
+    "gl-matrix": "^3.3.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.11.14"
+  }
+}

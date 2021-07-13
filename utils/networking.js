@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid'
+//import { v4 as uuidv4 } from 'uuid'
 
 // Modify to test a local server
 // const API_BASE = 'http://localhost:2354';
@@ -11,7 +11,7 @@ const AD_ENDPOINTS = {
     "rinkeby": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
 }
 
-const sessionId = uuidv4();
+//const sessionId = uuidv4();
 
 const DEFAULT_AD_DATAS = {
   "uri": undefined,
@@ -69,11 +69,13 @@ const fetchNFT = async (adSpace, creator, network = 'matic') => {
     }
 
     let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-    if (sellerAuctions == null || sellerAuctions[0] == null) {
+    let latestAuction = sellerAuctions[0]?.buyerCampaigns?.pop();
+    
+    if (latestAuction == null) {
         return DEFAULT_AD_DATAS 
     }
 
-    return sellerAuctions[0].buyerCampaigns[0];
+    return latestAuction;
   })
   .catch((err) => {
     console.log(err);

@@ -65,11 +65,13 @@ const fetchNFT = async (adSpace, creator) => {
     }
 
     let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-    if (sellerAuctions == null) {
+    let latestAuction = sellerAuctions[0]?.buyerCampaigns?.pop();
+    
+    if (latestAuction == null) {
         return DEFAULT_AD_DATAS 
     }
 
-    return sellerAuctions[0].buyerCampaigns[0];
+    return latestAuction;
   })
   .catch((err) => {
     console.log(err);

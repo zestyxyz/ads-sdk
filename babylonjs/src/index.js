@@ -2,7 +2,7 @@ import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking';
 //import * as BABYLON from 'babylonjs';
 
 export default class ZestyAd {
-  constructor(width, height, adSpace, creator, scene) {
+  constructor(width, height, adSpace, creator, scene, webXRExperienceHelper = null) {
     const options = {
       height: height,
       width: width
@@ -18,7 +18,14 @@ export default class ZestyAd {
         new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger,
           () => {
-            window.open(data.url);
+            if (webXRExperienceHelper) {
+              webXRExperienceHelper.baseExperience.sessionManager.exitXRAsync().then(() => {
+                window.open(data.url);
+              });
+            }
+            else {
+              window.open(data.url);
+            }
           }
         )
       );
@@ -28,9 +35,7 @@ export default class ZestyAd {
 
 async function loadAd(adSpace, creator) {
   const activeNFT = await fetchNFT(adSpace, creator);
-  console.log(activeNFT);
   const activeAd = await fetchActiveAd(activeNFT.uri);
-  console.log(activeAd);
 
   // Need to add https:// if missing for page to open properly
   let url = activeAd.data.url;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid'
+//import { v4 as uuidv4 } from 'uuid'
 
 // Modify to test a local server
 // const API_BASE = 'http://localhost:2354';
@@ -8,7 +8,7 @@ const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
 const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
 
-const sessionId = uuidv4();
+//const sessionId = uuidv4();
 
 const DEFAULT_AD_DATAS = {
   "uri": undefined,

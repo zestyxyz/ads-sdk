@@ -5,8 +5,8 @@ class Zesty extends HTMLElement {
         super();
         this.adSpace = "";
         this.creator = "";
-        this.width = "300px";
-        this.height = "400px";
+        this.width = "100%";
+        this.height = "100%";
         this.shadow = this.attachShadow({mode: 'open'});
     }
 
@@ -17,7 +17,7 @@ class Zesty extends HTMLElement {
         this.width = this.hasAttribute("width") ? this.getAttribute("width") : this.width;
 
         async function loadAd(adSpace, creator, shadow, width, height) {
-            const activeNFT = fetchNFT(adSpace, creator);
+            const activeNFT = await fetchNFT(adSpace, creator);
             const activeAd = await fetchActiveAd(activeNFT.uri);
 
             // Need to add https:// if missing for page to open properly

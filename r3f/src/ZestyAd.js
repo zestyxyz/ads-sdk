@@ -15,20 +15,21 @@ export default function ZestyAd(props) {
 
   useEffect(() => {
     loadAd(props.adSpace, props.creator).then((data) => {
-      const ad = data.data;
-      const url = ad.url || ad.properties?.url;
-      if (url) {
-        sendMetric(
-          props.creator,
-          props.adSpace,
-          ad.uri,
-          ad.image,
-          url,
-          'load', // event
-          0, // durationInMs
-          'r3f' //sdkType
-        );
+      let ad = data.data;
+      let url = ad.url || ad.properties?.url;
+      if (url == 'https://www.zesty.market') {
+        url = `https://app.zesty.market/ad-space/${props.adSpace}`;
       }
+      sendMetric(
+        props.creator,
+        props.adSpace,
+        ad.uri,
+        ad.image,
+        url,
+        'load', // event
+        0, // durationInMs
+        'r3f' //sdkType
+      );
       setAdData(data);
     });
   }, [props.creator, props.adSpace]);
@@ -52,25 +53,26 @@ function AdPlane(props) {
   const texture = useLoader(THREE.TextureLoader, props.adData.data.image);
 
   const onClick = (event) => {
-    const ad = props.adData.data;
-    const url = ad.url || ad.properties?.url;
-    if (url) {
-      if (gl.xr.isPresenting) {
-        const session = gl.xr.getSession()
-        if (session) session.end();
-      }
-      window.open(url, '_blank');
-      sendMetric(
-        props.creator,
-        props.adSpace,
-        ad.uri,
-        ad.image,
-        url,
-        'click', // event
-        0, // durationInMs
-        'r3f' //sdkType
-      );
+    let ad = props.adData.data;
+    let url = ad.url || ad.properties?.url;
+    if (url == 'https://www.zesty.market') {
+        url = `https://app.zesty.market/ad-space/${props.adSpace}`;
     }
+    if (gl.xr.isPresenting) {
+      const session = gl.xr.getSession()
+      if (session) session.end();
+    }
+    window.open(url, '_blank');
+    sendMetric(
+      props.creator,
+      props.adSpace,
+      ad.uri,
+      ad.image,
+      url,
+      'click', // event
+      0, // durationInMs
+      'r3f' //sdkType
+    );
   }
 
   return (

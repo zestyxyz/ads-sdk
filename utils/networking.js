@@ -6,7 +6,10 @@ import axios from 'axios';
 const API_BASE = 'https://node-1.zesty.market'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
-const AD_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
+const AD_ENDPOINTS = {
+    "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
+    "rinkeby": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
+}
 
 //const sessionId = uuidv4();
 
@@ -17,19 +20,20 @@ const DEFAULT_AD_DATAS = {
 const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
-  "image": "https://assets.wonderleap.co/wonderleap-ad-2.png",
-  "url": "https://wonderleap.co/"
+  "image": "https://ipfs.fleek.co/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-aframe.png",
+  "url": "https://www.zesty.market"
 }
 
 /**
  * Queries The Graph to retrieve NFT information for the ad space.
  * @param {string} adSpace The ad space ID
  * @param {string} creator The wallet address of the creator
+ * @param {string} network The network to post metrics to
  * @returns An object with the requested ad space information, or a default if it cannot be retrieved.
  */
-const fetchNFT = async (adSpace, creator) => {
+const fetchNFT = async (adSpace, creator, network = 'matic') => {
   const currentTime = Math.floor(Date.now() / 1000);
-  return axios.post(AD_ENDPOINT, {
+  return axios.post(AD_ENDPOINTS[network], {
     query: `
       query {
         tokenDatas (
@@ -105,6 +109,7 @@ const fetchActiveAd = async (uri) => {
  * @param {*} event 
  * @param {Number} durationInMs Amount of time the ad was viewed
  * @param {string} sdkType The SDK this metric was sent from
+ * @param {string} network The network to post metrics to
  * @returns A Promise representing the POST request
  */
 const sendMetric = (
@@ -115,7 +120,8 @@ const sendMetric = (
   url,
   event,
   durationInMs,
-  sdkType
+  sdkType,
+  network = 'matic'
   ) => {
   /*
   const currentMs = Math.floor(Date.now());
@@ -125,7 +131,7 @@ const sendMetric = (
       'Access-Control-Allow-Origin': '*',
     }
   }
-  return axios.post(METRICS_ENDPOINT, {
+  return axios.post(AD_ENDPOINTS[network], {
     _id: uuidv4(),
     creator: creator,
     adSpace: adSpace,

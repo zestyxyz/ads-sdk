@@ -1,8 +1,8 @@
 {
     "name": "@zestymarket/babylonjs-sdk",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "description": "This is the babylon.js SDK for Zesty Ads integration.",
-    "main": "src/index.js",
+    "main": "dist/zesty-babylonjs-sdk.js",
     "scripts": {
         "test": "webpack --mode=development",
         "build": "webpack --mode=production",

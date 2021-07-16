@@ -14,4 +14,7 @@ module.exports = {
         publicPath: '/dist/',
         disableHostCheck: true // required for localtunnel to work (https://github.com/webpack/webpack-dev-server/issues/882)
     },
+    externals: {
+        "three": "three"
+    }
 };

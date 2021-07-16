@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking'
 
 export default class ZestyAd extends THREE.Mesh {

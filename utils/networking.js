@@ -20,7 +20,7 @@ const DEFAULT_AD_DATAS = {
 const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
-  "image": "https://ipfs.fleek.co/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-aframe.png",
+  "image": "https://ipfs.zesty.market/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-aframe.png",
   "url": "https://www.zesty.market"
 }
 
@@ -69,7 +69,7 @@ const fetchNFT = async (adSpace, creator, network = 'matic') => {
     }
 
     let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-    let latestAuction = sellerAuctions[0]?.buyerCampaigns?.pop();
+    let latestAuction = sellerAuctions ? sellerAuctions[0]?.buyerCampaigns?.pop() : null;
     
     if (latestAuction == null) {
         return DEFAULT_AD_DATAS 

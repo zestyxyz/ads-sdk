@@ -37,7 +37,10 @@ class Zesty extends HTMLElement {
             img.style.width = width;
             img.style.height = height;
             img.setAttribute('crossorigin', '');
-
+            img.addEventListener('click', e => {
+                e.preventDefault();
+                window.open(url, '_blank');
+            })
             if (activeAd.data.image) {
                 img.setAttribute('src', image);
                 return new Promise((resolve, reject) => {

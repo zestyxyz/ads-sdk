@@ -1,6 +1,6 @@
 {
   "name": "@zestymarket/wonderland-sdk",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "Wonderland Engine SDK for Zesty Ads integration.",
   "main": "dist/zesty-wonderland-sdk.js",
   "scripts": {

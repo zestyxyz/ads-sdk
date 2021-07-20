@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        'zesty-web': './src/index.js',
+        'zesty-web-sdk': './src/index.js',
     },
     output: {
         filename: '[name].js',

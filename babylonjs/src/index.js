@@ -2,16 +2,15 @@ import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking';
 //import * as BABYLON from 'babylonjs';
 
 export default class ZestyAd {
-  constructor(width, height, adSpace, creator, scene, webXRExperienceHelper = null) {
+  constructor(adSpace, creator, defaultAd, width, height, scene, webXRExperienceHelper = null) {
     const options = {
       height: height,
       width: width
     };
 
     this.zestyAd = BABYLON.MeshBuilder.CreatePlane('zestyad', options);
-    this.zestyAd.position = new BABYLON.Vector3(0, 2, 2);
 
-    loadAd(adSpace, creator).then(data => {
+    loadAd(adSpace, creator, defaultAd).then(data => {
       this.zestyAd.material = data.mat;
       this.zestyAd.actionManager = new BABYLON.ActionManager(scene);
       this.zestyAd.actionManager.registerAction(
@@ -30,12 +29,14 @@ export default class ZestyAd {
         )
       );
     });
+
+    return this.zestyAd;
   }  
 }
 
-async function loadAd(adSpace, creator) {
+async function loadAd(adSpace, creator, defaultAd) {
   const activeNFT = await fetchNFT(adSpace, creator);
-  const activeAd = await fetchActiveAd(activeNFT.uri);
+  const activeAd = await fetchActiveAd(activeNFT.uri, defaultAd);
 
   // Need to add https:// if missing for page to open properly
   let url = activeAd.data.url;

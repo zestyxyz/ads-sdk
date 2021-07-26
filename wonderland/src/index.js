@@ -1,5 +1,11 @@
 import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking'
 
+const AD_RATIOS = [
+    { type: 'tall', width: 0.75, height: 1 },
+    { type: 'wide', width: 4, height: 1 },
+    { type: 'square', width: 1, height: 1 },
+]
+
 /**
  * [Zesty Market](https://zesty.market) ad space
  *
@@ -13,6 +19,8 @@ WL.registerComponent('zesty-ad', {
     creator: {type: WL.Type.String},
     /* Your ad space index */
     adSpace: {type: WL.Type.Int},
+    /* The default ad format, determines aspect ratio */
+    defaultAd: {type: WL.Type.Enum, values: ['tall', 'wide', 'square'], default: 'square'},
     /* Scale the object to ad ratio (3:4) and set the collider */
     scaleToRatio: {type: WL.Type.Bool, default: true},
     /* Height of the ad, if `scaleToRatio` is enabled. Width will be determined
@@ -38,13 +46,13 @@ WL.registerComponent('zesty-ad', {
     },
 
     start: function() {
-        this.loadAd(this.adSpace, this.creator).then(ad => {
+        this.loadAd(this.adSpace, this.creator, AD_RATIOS[this.defaultAd].type).then(ad => {
             this.ad = ad;
 
             if(this.scaleToRatio) {
               /* Make ad always 1 meter height, adjust width according to ad aspect ratio */
-              this.collision.extents = [0.75*this.height, this.height, 0.1];
-              this.object.scale([0.75*this.height, this.height, 1.0]);
+              this.collision.extents = [AD_RATIOS[this.defaultAd].width * this.height, this.height, 0.1];
+              this.object.scale([AD_RATIOS[this.defaultAd].width * this.height, this.height, 1.0]);
             }
             /* WL.Material.shader will be renamed to pipeline at some point,
              * supporting as many API versions as possible. */
@@ -80,9 +88,9 @@ WL.registerComponent('zesty-ad', {
         }
     },
 
-    loadAd: async function(adSpace, creator) {
+    loadAd: async function(adSpace, creator, defaultAd) {
         const activeNFT = await fetchNFT(adSpace, creator);
-        const activeAd = await fetchActiveAd(activeNFT.uri);
+        const activeAd = await fetchActiveAd(activeNFT.uri, defaultAd);
 
         // Need to add https:// if missing for page to open properly
         let url = activeAd.data.url;

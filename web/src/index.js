@@ -5,6 +5,7 @@ class Zesty extends HTMLElement {
         super();
         this.adSpace = "";
         this.creator = "";
+        this.defaultAd = "square";
         this.width = "100%";
         this.height = "100%";
         this.shadow = this.attachShadow({mode: 'open'});
@@ -13,12 +14,13 @@ class Zesty extends HTMLElement {
     connectedCallback() {
         this.adSpace = this.getAttribute("adspace");
         this.creator = this.getAttribute("creator");
+        this.defaultAd = this.hasAttribute("defaultad") ? this.getAttribute("defaultad") : this.defaultAd;
         this.height = this.hasAttribute("height") ? this.getAttribute("height") : this.height;
         this.width = this.hasAttribute("width") ? this.getAttribute("width") : this.width;
 
-        async function loadAd(adSpace, creator, shadow, width, height) {
+        async function loadAd(adSpace, creator, defaultAd, shadow, width, height) {
             const activeNFT = await fetchNFT(adSpace, creator);
-            const activeAd = await fetchActiveAd(activeNFT.uri);
+            const activeAd = await fetchActiveAd(activeNFT.uri, defaultAd);
 
             // Need to add https:// if missing for page to open properly
             let url = activeAd.data.url;
@@ -52,7 +54,7 @@ class Zesty extends HTMLElement {
             }
         }
 
-        loadAd(this.adSpace, this.creator, this.shadow, this.width, this.height);
+        loadAd(this.adSpace, this.creator, this.defaultAd, this.shadow, this.width, this.height);
     }
 }
 

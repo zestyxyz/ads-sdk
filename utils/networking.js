@@ -1,4 +1,5 @@
 import axios from 'axios';
+import formats from '../utils/formats';
 //import { v4 as uuidv4 } from 'uuid'
 
 // Modify to test a local server
@@ -16,12 +17,6 @@ const AD_ENDPOINTS = {
 const DEFAULT_AD_DATAS = {
   "uri": undefined,
 }
-
-const DEFAULT_AD_IMAGES = {
-  "square": "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-ad-square.png",
-  "tall": "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-ad-tall.png",
-  "wide": "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-ad-wide.png"
-};
 
 const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
@@ -91,13 +86,13 @@ const fetchNFT = async (adSpace, creator, network = 'matic') => {
 /**
  * Pulls data from IPFS for the ad content.
  * @param {string} uri The IPFS URI containing the ad content.
- * @param {string} defaultAd The default ad image format to use if there is no active ad.
+ * @param {string} adFormat The default ad image format to use if there is no active ad.
  * @returns An object with the requested ad content, or a default if it cannot be retrieved.
  */
-const fetchActiveAd = async (uri, defaultAd = 'square') => {
+const fetchActiveAd = async (uri, adFormat = 'square') => {
   if (!uri) {
     let adObject = { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT };
-    adObject.data.image = DEFAULT_AD_IMAGES[defaultAd] ?? DEFAULT_AD_IMAGES['square'];
+    adObject.data.image = formats[adFormat].img ?? formats['square'].img;
     return adObject;
   }
 

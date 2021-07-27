@@ -1,10 +1,5 @@
 import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking'
-
-const AD_RATIOS = [
-    { type: 'tall', width: 0.75, height: 1 },
-    { type: 'wide', width: 4, height: 1 },
-    { type: 'square', width: 1, height: 1 },
-]
+import formats from '../../utils/formats';
 
 /**
  * [Zesty Market](https://zesty.market) ad space
@@ -20,7 +15,7 @@ WL.registerComponent('zesty-ad', {
     /* Your ad space index */
     adSpace: {type: WL.Type.Int},
     /* The default ad format, determines aspect ratio */
-    defaultAd: {type: WL.Type.Enum, values: ['tall', 'wide', 'square'], default: 'square'},
+    adFormat: {type: WL.Type.Enum, values: ['tall', 'wide', 'square'], default: 'square'},
     /* Scale the object to ad ratio (3:4) and set the collider */
     scaleToRatio: {type: WL.Type.Bool, default: true},
     /* Height of the ad, if `scaleToRatio` is enabled. Width will be determined
@@ -43,16 +38,20 @@ WL.registerComponent('zesty-ad', {
 
         this.cursorTarget = this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
         this.cursorTarget.addClickFunction(this.onClick.bind(this));
+
+        this.formats = Object.values(formats);
+        this.formatKeys = Object.keys(formats);
     },
 
     start: function() {
-        this.loadAd(this.adSpace, this.creator, AD_RATIOS[this.defaultAd].type).then(ad => {
+        this.loadAd(this.adSpace, this.creator, this.formatKeys[this.adFormat]).then(ad => {
             this.ad = ad;
 
             if(this.scaleToRatio) {
               /* Make ad always 1 meter height, adjust width according to ad aspect ratio */
-              this.collision.extents = [AD_RATIOS[this.defaultAd].width * this.height, this.height, 0.1];
-              this.object.scale([AD_RATIOS[this.defaultAd].width * this.height, this.height, 1.0]);
+              this.object.resetScaling();
+              this.collision.extents = [this.formats[this.adFormat].width * this.height, this.height, 0.1];
+              this.object.scale([this.formats[this.adFormat].width * this.height, this.height, 1.0]);
             }
             /* WL.Material.shader will be renamed to pipeline at some point,
              * supporting as many API versions as possible. */
@@ -88,9 +87,9 @@ WL.registerComponent('zesty-ad', {
         }
     },
 
-    loadAd: async function(adSpace, creator, defaultAd) {
+    loadAd: async function(adSpace, creator, adFormat) {
         const activeNFT = await fetchNFT(adSpace, creator);
-        const activeAd = await fetchActiveAd(activeNFT.uri, defaultAd);
+        const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
 
         // Need to add https:// if missing for page to open properly
         let url = activeAd.data.url;

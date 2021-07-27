@@ -2,19 +2,20 @@ import * as THREE from 'three'
 import { useLoader, useThree } from "@react-three/fiber"
 import { useRef, useState, Suspense, useEffect } from "react"
 import { fetchNFT, fetchActiveAd, sendMetric } from "../../utils/networking"
+import formats from '../../utils/formats';
 import { Interactive } from '@react-three/xr'
 
 export default function ZestyAd(props) {
   const [adData, setAdData] = useState(false)
 
-  const loadAd = async (adSpace, creator, defaultAd) => {
+  const loadAd = async (adSpace, creator, adFormat) => {
     const activeNFT = await fetchNFT(adSpace, creator);
-    const activeAd = await fetchActiveAd(activeNFT.uri, defaultAd);
+    const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
     return activeAd;
   }
 
   useEffect(() => {
-    loadAd(props.adSpace, props.creator, props.defaultAd).then((data) => {
+    loadAd(props.adSpace, props.creator, props.adFormat).then((data) => {
       let ad = data.data;
       let url = ad.url || ad.properties?.url;
       if (url == 'https://www.zesty.market') {
@@ -83,7 +84,7 @@ function AdPlane(props) {
         scale={0.5}
         onClick={onClick}
         >
-        <planeBufferGeometry args={[props.width, props.height]} />
+        <planeBufferGeometry args={[formats[props.adFormat].width * props.height, props.height]} />
         <meshBasicMaterial map={texture || undefined} />
       </mesh>
     </Interactive>

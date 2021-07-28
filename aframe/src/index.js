@@ -1,5 +1,5 @@
 import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking';
-import formats from '../../utils/formats';
+import { formats, defaultFormat } from '../../utils/formats';
 import { log } from './logger';
 import './visibility_check';
 
@@ -9,7 +9,7 @@ AFRAME.registerComponent('zesty-ad', {
   schema: {
     adSpace: { type: 'string' },
     creator: { type: 'string' },
-    adFormat: { type: 'string', default: 'square', oneOf: ['tall', 'wide', 'square'] },
+    adFormat: { type: 'string', default: defaultFormat, oneOf: ['tall', 'wide', 'square'] },
     height: { type: 'float', default: 1 },
   },
 

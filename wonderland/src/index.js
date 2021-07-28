@@ -1,5 +1,5 @@
 import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking'
-import formats from '../../utils/formats';
+import { formats, defaultFormat } from '../../utils/formats';
 
 /**
  * [Zesty Market](https://zesty.market) ad space
@@ -15,7 +15,7 @@ WL.registerComponent('zesty-ad', {
     /* Your ad space index */
     adSpace: {type: WL.Type.Int},
     /* The default ad format, determines aspect ratio */
-    adFormat: {type: WL.Type.Enum, values: ['tall', 'wide', 'square'], default: 'square'},
+    adFormat: {type: WL.Type.Enum, values: Object.keys(formats), default: defaultFormat},
     /* Scale the object to ad ratio (3:4) and set the collider */
     scaleToRatio: {type: WL.Type.Bool, default: true},
     /* Height of the ad, if `scaleToRatio` is enabled. Width will be determined
@@ -25,7 +25,7 @@ WL.registerComponent('zesty-ad', {
      * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
     textureProperty: {type: WL.Type.String, default: 'auto'},
 }, {
-    init: function() {
+    init: function() {        
         this.mesh = this.object.getComponent('mesh');
         if(!this.mesh) {
             throw new Error("'zesty-ad' missing mesh component");
@@ -36,14 +36,15 @@ WL.registerComponent('zesty-ad', {
             group: 0x2,
         });
 
-        this.cursorTarget = this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
-        this.cursorTarget.addClickFunction(this.onClick.bind(this));
-
         this.formats = Object.values(formats);
         this.formatKeys = Object.keys(formats);
     },
 
     start: function() {
+        // Moved from init to start due to strange issue where this.clickFunctions would be null
+        this.cursorTarget = this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
+        this.cursorTarget.addClickFunction(this.onClick.bind(this));
+        
         this.loadAd(this.adSpace, this.creator, this.formatKeys[this.adFormat]).then(ad => {
             this.ad = ad;
 
@@ -74,7 +75,6 @@ WL.registerComponent('zesty-ad', {
     },
 
     onClick: function() {
-      console.log("Click");
         if(this.ad.url) {
             if(WL.session) {
               /* Try again after session ended */

@@ -16,4 +16,6 @@ const formats = {
     }
 }
 
-export default formats;
+const defaultFormat = 'square'
+
+export { formats, defaultFormat };

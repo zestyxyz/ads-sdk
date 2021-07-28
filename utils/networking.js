@@ -1,5 +1,5 @@
 import axios from 'axios';
-import formats from '../utils/formats';
+import { formats, defaultFormat } from '../utils/formats';
 //import { v4 as uuidv4 } from 'uuid'
 
 // Modify to test a local server
@@ -89,10 +89,10 @@ const fetchNFT = async (adSpace, creator, network = 'matic') => {
  * @param {string} adFormat The default ad image format to use if there is no active ad.
  * @returns An object with the requested ad content, or a default if it cannot be retrieved.
  */
-const fetchActiveAd = async (uri, adFormat = 'square') => {
+const fetchActiveAd = async (uri, adFormat = defaultFormat) => {
   if (!uri) {
     let adObject = { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT };
-    adObject.data.image = formats[adFormat].img ?? formats['square'].img;
+    adObject.data.image = formats[adFormat].img ?? formats[defaultFormat].img;
     return adObject;
   }
 

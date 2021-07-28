@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking'
-import formats from '../../utils/formats';
+import { formats, defaultFormat } from '../../utils/formats';
 
 export default class ZestyAd extends THREE.Mesh {
   /**
@@ -11,7 +11,7 @@ export default class ZestyAd extends THREE.Mesh {
    * @param {Number} height Height of the ad, defaults to 3
    * @param {THREE.WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
    */
-  constructor(adSpace, creator, adFormat = 'square', height = 1, renderer = null) {
+  constructor(adSpace, creator, adFormat = defaultFormat, height = 1, renderer = null) {
     super();
     this.geometry = new THREE.PlaneGeometry(formats[adFormat].width, height, 1, 1);
 

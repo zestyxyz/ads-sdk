@@ -1,5 +1,5 @@
 import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking';
-import formats from '../../utils/formats';
+import { formats, defaultFormat } from '../../utils/formats';
 //import * as BABYLON from 'babylonjs';
 
 export default class ZestyAd {

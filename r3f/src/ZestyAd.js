@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { useLoader, useThree } from "@react-three/fiber"
 import { useRef, useState, Suspense, useEffect } from "react"
 import { fetchNFT, fetchActiveAd, sendMetric } from "../../utils/networking"
-import formats from '../../utils/formats';
+import { formats, defaultFormat } from '../../utils/formats';
 import { Interactive } from '@react-three/xr'
 
 export default function ZestyAd(props) {

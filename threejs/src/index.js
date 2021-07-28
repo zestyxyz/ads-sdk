@@ -8,7 +8,7 @@ export default class ZestyAd extends THREE.Mesh {
    * @param {string} adSpace The adSpace ID
    * @param {string} creator The wallet ID of the creator
    * @param {string} adFormat The format of the default ad, defaults to square
-   * @param {Number} height Height of the ad, defaults to 3
+   * @param {Number} height Height of the ad, defaults to 1
    * @param {THREE.WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
    */
   constructor(adSpace, creator, adFormat = defaultFormat, height = 1, renderer = null) {

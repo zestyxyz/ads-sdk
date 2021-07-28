@@ -18,7 +18,7 @@ export default class ZestyAd {
         new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger,
           () => {
-            if (webXRExperienceHelper) {
+            if (webXRExperienceHelper?.baseExperience) {
               webXRExperienceHelper.baseExperience.sessionManager.exitXRAsync().then(() => {
                 window.open(data.url);
               });

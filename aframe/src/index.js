@@ -1,4 +1,5 @@
 import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking';
+import { formats, defaultFormat } from '../../utils/formats';
 import { log } from './logger';
 import './visibility_check';
 
@@ -8,8 +9,8 @@ AFRAME.registerComponent('zesty-ad', {
   schema: {
     adSpace: { type: 'string' },
     creator: { type: 'string' },
-    adURI: { type: 'string' },
-    url: { type: 'string' },
+    adFormat: { type: 'string', default: defaultFormat, oneOf: ['tall', 'wide', 'square'] },
+    height: { type: 'float', default: 1 },
   },
 
   init: function() {
@@ -19,7 +20,7 @@ AFRAME.registerComponent('zesty-ad', {
   },
 
   registerEntity: function() {
-    this.system.registerEntity(this.el, this.data.adSpace, this.data.creator);
+    this.system.registerEntity(this.el, this.data.adSpace, this.data.creator, this.data.adFormat, this.data.height);
   },
 
   // Every 200ms check for `visible` component
@@ -42,9 +43,9 @@ AFRAME.registerComponent('zesty-ad', {
 });
 
 
-async function loadAd(adSpace, creator) {
+async function loadAd(adSpace, creator, adFormat) {
   const activeNFT = await fetchNFT(adSpace, creator);
-  const activeAd = await fetchActiveAd(activeNFT.uri);
+  const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
 
   // Need to add https:// if missing for page to open properly
   let url = activeAd.data.url;
@@ -76,7 +77,7 @@ AFRAME.registerSystem('zesty-ad', {
     this.entities = [];
   },
 
-  registerEntity: function(el, adSpace, creator) {
+  registerEntity: function(el, adSpace, creator, adFormat, height) {
     if((this.adPromise && this.adPromise.isPending && this.adPromise.isPending()) || this.entities.length) return; // Checks if it is a promise, stops more requests from being made
 
     const scene = document.querySelector('a-scene');
@@ -88,7 +89,7 @@ AFRAME.registerSystem('zesty-ad', {
 
     log(`Loading adSpace: ${adSpace}, creator: ${creator}`);
 
-    this.adPromise = loadAd(adSpace, creator).then((ad) => {
+    this.adPromise = loadAd(adSpace, creator, adFormat).then((ad) => {
       if (ad.img) {
         assets.appendChild(ad.img);
       }
@@ -115,8 +116,8 @@ AFRAME.registerSystem('zesty-ad', {
         const plane = document.createElement('a-plane');
         if (ad.img) {
           plane.setAttribute('src', `#${ad.uri}`);
-          plane.setAttribute('width', 0.75);
-          plane.setAttribute('height', 1);
+          plane.setAttribute('width', formats[adFormat].width * height);
+          plane.setAttribute('height', height);
           // for textures that are 1024x1024, not setting this causes white border
           plane.setAttribute('transparent', 'true');
           plane.setAttribute('shader', 'flat');

@@ -1,25 +1,26 @@
 import * as THREE from 'three';
 import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking'
+import { formats, defaultFormat } from '../../utils/formats';
 
 export default class ZestyAd extends THREE.Mesh {
   /**
    * @constructor
-   * @param {Number} width Width of the ad, defaults to 2
-   * @param {Number} height Height of the ad, defaults to 3
    * @param {string} adSpace The adSpace ID
    * @param {string} creator The wallet ID of the creator
+   * @param {string} adFormat The format of the default ad, defaults to square
+   * @param {Number} height Height of the ad, defaults to 1
    * @param {THREE.WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
    */
-  constructor(width = 2, height = 3, adSpace, creator, renderer = null) {
+  constructor(adSpace, creator, adFormat = defaultFormat, height = 1, renderer = null) {
     super();
-    this.geometry = new THREE.PlaneGeometry(width, height, 1, 1);
+    this.geometry = new THREE.PlaneGeometry(formats[adFormat].width, height, 1, 1);
 
     this.type = "ZestyAd";
     this.adSpace = adSpace;
     this.creator = creator;
     this.renderer = renderer;
 
-    this.adPromise = loadAd(adSpace, creator).then( ad => {
+    this.adPromise = loadAd(adSpace, creator, adFormat).then( ad => {
       this.material = new THREE.MeshBasicMaterial( {
         map: ad.texture
       });
@@ -61,9 +62,9 @@ export default class ZestyAd extends THREE.Mesh {
   }
 }
 
-async function loadAd(adSpace, creator) {
+async function loadAd(adSpace, creator, adFormat) {
   const activeNFT = await fetchNFT(adSpace, creator);
-  const activeAd = await fetchActiveAd(activeNFT.uri);
+  const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
 
   // Need to add https:// if missing for page to open properly
   let url = activeAd.data.url;

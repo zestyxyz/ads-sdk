@@ -1,6 +1,6 @@
 {
   "name": "@zestymarket/aframe-sdk",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "This is the A-Frame SDK for Zesty Ads integration.",
   "main": "dist/zesty-aframe-sdk.js",
   "scripts": {

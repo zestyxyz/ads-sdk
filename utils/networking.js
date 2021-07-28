@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { formats, defaultFormat } from '../utils/formats';
 //import { v4 as uuidv4 } from 'uuid'
 
 // Modify to test a local server
@@ -20,7 +21,7 @@ const DEFAULT_AD_DATAS = {
 const DEFAULT_AD_URI_CONTENT = {
   "name": "Default Ad",
   "description": "This is the default ad that would be displayed ipsum",
-  "image": "https://ipfs.zesty.market/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-aframe.png",
+  "image": "https://ipfs.zesty.market/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-square.png",
   "url": "https://www.zesty.market"
 }
 
@@ -67,7 +68,6 @@ const fetchNFT = async (adSpace, creator, network = 'matic') => {
     if (res.status != 200) {
       return DEFAULT_AD_DATAS 
     }
-
     let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
     let latestAuction = sellerAuctions ? sellerAuctions[0]?.buyerCampaigns?.pop() : null;
     
@@ -86,11 +86,14 @@ const fetchNFT = async (adSpace, creator, network = 'matic') => {
 /**
  * Pulls data from IPFS for the ad content.
  * @param {string} uri The IPFS URI containing the ad content.
+ * @param {string} adFormat The default ad image format to use if there is no active ad.
  * @returns An object with the requested ad content, or a default if it cannot be retrieved.
  */
-const fetchActiveAd = async (uri) => {
+const fetchActiveAd = async (uri, adFormat = defaultFormat) => {
   if (!uri) {
-    return { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT }
+    let adObject = { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT };
+    adObject.data.image = formats[adFormat].img ?? formats[defaultFormat].img;
+    return adObject;
   }
 
   return axios.get(`https://ipfs.zesty.market/ipfs/${uri}`)

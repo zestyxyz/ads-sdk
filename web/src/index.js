@@ -1,29 +1,24 @@
 import { fetchNFT, fetchActiveAd } from '../../utils/networking'
-import { formats, defaultFormat } from '../../utils/formats';
 
 class Zesty extends HTMLElement {
     constructor() {
         super();
         this.adSpace = "";
         this.creator = "";
-        this.adFormat = defaultFormat;
         this.width = "100%";
-        this.height = "100%";        
+        this.height = "100%";
         this.shadow = this.attachShadow({mode: 'open'});
     }
 
     connectedCallback() {
-        this.style.cursor = "pointer";
         this.adSpace = this.getAttribute("adspace");
         this.creator = this.getAttribute("creator");
-        this.adFormat = this.hasAttribute("adFormat") ? this.getAttribute("adFormat") : this.adFormat;
-        if (!formats[this.adFormat]) this.adFormat = defaultFormat;
         this.height = this.hasAttribute("height") ? this.getAttribute("height") : this.height;
-        this.width = formats[this.adFormat].width * this.height;
+        this.width = this.hasAttribute("width") ? this.getAttribute("width") : this.width;
 
-        async function loadAd(adSpace, creator, adFormat, shadow, width, height) {
+        async function loadAd(adSpace, creator, shadow, width, height) {
             const activeNFT = await fetchNFT(adSpace, creator);
-            const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
+            const activeAd = await fetchActiveAd(activeNFT.uri);
 
             // Need to add https:// if missing for page to open properly
             let url = activeAd.data.url;
@@ -57,7 +52,7 @@ class Zesty extends HTMLElement {
             }
         }
 
-        loadAd(this.adSpace, this.creator, this.adFormat, this.shadow, this.width, this.height);
+        loadAd(this.adSpace, this.creator, this.shadow, this.width, this.height);
     }
 }
 

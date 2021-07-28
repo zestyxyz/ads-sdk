@@ -19,8 +19,9 @@ export default class ZestyAd extends THREE.Mesh {
     this.adSpace = adSpace;
     this.creator = creator;
     this.renderer = renderer;
+    this.ad = {};
 
-    this.adPromise = loadAd(adSpace, creator, adFormat).then( ad => {
+    this.adPromise = loadAd(adSpace, creator, adFormat).then(ad => {
       this.material = new THREE.MeshBasicMaterial( {
         map: ad.texture
       });
@@ -37,8 +38,8 @@ export default class ZestyAd extends THREE.Mesh {
         0, // durationInMs,
         'threejs' //sdkType
       );
-
     });
+    this.onClick = this.onClick.bind(this);
   }
 
   onClick() {

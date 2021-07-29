@@ -13,7 +13,7 @@ export default class ZestyAd extends THREE.Mesh {
    */
   constructor(adSpace, creator, adFormat = defaultFormat, height = 1, renderer = null) {
     super();
-    this.geometry = new THREE.PlaneGeometry(formats[adFormat].width, height, 1, 1);
+    this.geometry = new THREE.PlaneGeometry(formats[adFormat].width * height, height, 1, 1);
 
     this.type = "ZestyAd";
     this.adSpace = adSpace;

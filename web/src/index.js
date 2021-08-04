@@ -10,6 +10,8 @@ class Zesty extends HTMLElement {
         this.width = "100%";
         this.height = "100%";
         this.shadow = this.attachShadow({mode: 'open'});
+
+        this.adjustHeightandWidth = this.adjustHeightandWidth.bind(this);
     }
 
     connectedCallback() {
@@ -21,16 +23,7 @@ class Zesty extends HTMLElement {
         this.height = this.hasAttribute("height") ? this.getAttribute("height") : this.height;
         this.width = this.hasAttribute("width") ? this.getAttribute("width") : this.width;
 
-        // Adjust height and width after getting initial values
-        let numMatch = /(\d+)/; // Will split to get an array of ["", num, suffix]
-        let height = this.height.split(numMatch);
-        let width = this.width.split(numMatch);
-        this.height = this.hasAttribute("height") ? this.height
-        : this.hasAttribute("width") ? `${width[1] / formats[this.adFormat].width}${width[2]}`
-        : this.height;
-        this.width = this.hasAttribute("height") ? `${height[1] * formats[this.adFormat].width}${height[2]}`
-        : this.hasAttribute("width") ? this.width
-        : this.width;
+        this.adjustHeightandWidth();
 
         async function loadAd(adSpace, creator, adFormat, shadow, width, height) {
             const activeNFT = await fetchNFT(adSpace, creator);
@@ -69,6 +62,27 @@ class Zesty extends HTMLElement {
         }
 
         loadAd(this.adSpace, this.creator, this.adFormat, this.shadow, this.width, this.height);
+    }
+
+    /**
+     * Adjusts height and width after setting initial values in order to scale the image correctly.
+     */
+    adjustHeightandWidth() {
+        // Use regex to split height/width and its suffix.
+        // Will get an array of ["", num, suffix].
+        let numMatch = /(\d+)/;
+        let height = this.height.split(numMatch);
+        let width = this.width.split(numMatch);
+        // If height was set explicitly, keep it. 
+        // Otherwise, scale it off the width according to format or keep the default if neither were set.
+        this.height = this.hasAttribute("height") ? this.height
+        : this.hasAttribute("width") ? `${width[1] / formats[this.adFormat].width}${width[2]}`
+        : this.height;
+        // If height was set explicitly, scale width off of it according to format. 
+        // Otherwise, use explicitly set width or use default value if neither were set.
+        this.width = this.hasAttribute("height") ? `${height[1] * formats[this.adFormat].width}${height[2]}`
+        : this.hasAttribute("width") ? this.width
+        : this.width;
     }
 }
 

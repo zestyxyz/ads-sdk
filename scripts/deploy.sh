@@ -15,7 +15,7 @@ cd ..
 cd wonderland && yarn && yarn run build
 cd ..
 
-cp -R aframe/dist dist
+cp -R aframe/dist/* dist
 cp -R babylonjs/dist/* dist
 cp -R r3f/dist/* dist
 cp -R threejs/dist/* dist

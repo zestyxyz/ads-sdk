@@ -46,7 +46,7 @@ const fetchNFT = async (adSpace, creator, network = 'matic') => {
         { 
           sellerNFTSetting {
             sellerAuctions (
-              first: 1
+              first: 5
               where: {
                 contractTimeStart_lte: ${currentTime}
                 contractTimeEnd_gte: ${currentTime}
@@ -69,7 +69,7 @@ const fetchNFT = async (adSpace, creator, network = 'matic') => {
       return DEFAULT_AD_DATAS 
     }
     let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-    let latestAuction = sellerAuctions ? sellerAuctions[0]?.buyerCampaigns?.pop() : null;
+    let latestAuction = sellerAuctions?.find(auction => auction.buyerCampaigns.length > 0).buyerCampaigns[0];
     
     if (latestAuction == null) {
         return DEFAULT_AD_DATAS 

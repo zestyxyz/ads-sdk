@@ -6,6 +6,7 @@ class Zesty extends HTMLElement {
         super();
         this.adSpace = "";
         this.creator = "";
+        this.network = "matic";
         this.adFormat = defaultFormat;
         this.width = "100%";
         this.height = "100%";
@@ -19,14 +20,15 @@ class Zesty extends HTMLElement {
         
         this.adSpace = this.getAttribute("adspace");
         this.creator = this.getAttribute("creator");
+        this.network = this.hasAttribute("network") ? this.getAttribute("network") : this.network;
         this.adFormat = this.hasAttribute("adformat") ? this.getAttribute("adformat") : this.adFormat;
         this.height = this.hasAttribute("height") ? this.getAttribute("height") : this.height;
         this.width = this.hasAttribute("width") ? this.getAttribute("width") : this.width;
 
         this.adjustHeightandWidth();
 
-        async function loadAd(adSpace, creator, adFormat, shadow, width, height) {
-            const activeNFT = await fetchNFT(adSpace, creator);
+        async function loadAd(adSpace, creator, network, adFormat, shadow, width, height) {
+            const activeNFT = await fetchNFT(adSpace, creator, network);
             const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
 
             // Need to add https:// if missing for page to open properly
@@ -61,7 +63,7 @@ class Zesty extends HTMLElement {
             }
         }
 
-        loadAd(this.adSpace, this.creator, this.adFormat, this.shadow, this.width, this.height);
+        loadAd(this.adSpace, this.creator, this.network, this.adFormat, this.shadow, this.width, this.height);
     }
 
     /**

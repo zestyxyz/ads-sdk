@@ -9,6 +9,7 @@ AFRAME.registerComponent('zesty-ad', {
   schema: {
     adSpace: { type: 'string' },
     creator: { type: 'string' },
+    network: { type: 'string', default: 'matic', oneOf: ['matic', 'rinkeby'] },
     adFormat: { type: 'string', default: defaultFormat, oneOf: ['tall', 'wide', 'square'] },
     height: { type: 'float', default: 1 },
   },
@@ -20,7 +21,7 @@ AFRAME.registerComponent('zesty-ad', {
   },
 
   registerEntity: function() {
-    this.system.registerEntity(this.el, this.data.adSpace, this.data.creator, this.data.adFormat, this.data.height);
+    this.system.registerEntity(this.el, this.data.adSpace, this.data.creator, this.data.network, this.data.adFormat, this.data.height);
   },
 
   // Every 200ms check for `visible` component
@@ -43,8 +44,8 @@ AFRAME.registerComponent('zesty-ad', {
 });
 
 
-async function loadAd(adSpace, creator, adFormat) {
-  const activeNFT = await fetchNFT(adSpace, creator);
+async function loadAd(adSpace, creator, network, adFormat) {
+  const activeNFT = await fetchNFT(adSpace, creator, network);
   const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
 
   // Need to add https:// if missing for page to open properly
@@ -77,7 +78,7 @@ AFRAME.registerSystem('zesty-ad', {
     this.entities = [];
   },
 
-  registerEntity: function(el, adSpace, creator, adFormat, height) {
+  registerEntity: function(el, adSpace, creator, network, adFormat, height) {
     if((this.adPromise && this.adPromise.isPending && this.adPromise.isPending()) || this.entities.length) return; // Checks if it is a promise, stops more requests from being made
 
     const scene = document.querySelector('a-scene');
@@ -89,7 +90,7 @@ AFRAME.registerSystem('zesty-ad', {
 
     log(`Loading adSpace: ${adSpace}, creator: ${creator}`);
 
-    this.adPromise = loadAd(adSpace, creator, adFormat).then((ad) => {
+    this.adPromise = loadAd(adSpace, creator, network, adFormat).then((ad) => {
       if (ad.img) {
         assets.appendChild(ad.img);
       }

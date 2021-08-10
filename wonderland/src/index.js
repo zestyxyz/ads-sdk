@@ -14,6 +14,8 @@ WL.registerComponent('zesty-ad', {
     creator: {type: WL.Type.String},
     /* Your ad space index */
     adSpace: {type: WL.Type.Int},
+    /* The network to connect to */
+    network: {type: WL.Type.Enum, values: ['rinkeby', 'polygon' ], default: 'polygon'},
     /* The default ad format, determines aspect ratio */
     adFormat: {type: WL.Type.Enum, values: Object.keys(formats), default: defaultFormat},
     /* Scale the object to ad ratio (3:4) and set the collider */
@@ -87,8 +89,9 @@ WL.registerComponent('zesty-ad', {
         }
     },
 
-    loadAd: async function(adSpace, creator, adFormat) {
-        const activeNFT = await fetchNFT(adSpace, creator);
+    loadAd: async function(adSpace, creator, network, adFormat) {
+        network = network ? 'polygon' : 'rinkeby'; // Use truthy/falsy values to get network
+        const activeNFT = await fetchNFT(adSpace, creator, network);
         const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
 
         // Need to add https:// if missing for page to open properly

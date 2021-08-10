@@ -8,19 +8,20 @@ import { Interactive } from '@react-three/xr'
 export default function ZestyAd(props) {
   const [adData, setAdData] = useState(false)
 
-  const loadAd = async (adSpace, creator, adFormat) => {
-    const activeNFT = await fetchNFT(adSpace, creator);
+  const loadAd = async (adSpace, creator, network, adFormat) => {
+    const activeNFT = await fetchNFT(adSpace, creator, network);
     const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
     return activeAd;
   }
 
   useEffect(() => {
-    loadAd(props.adSpace, props.creator, props.adFormat).then((data) => {
+    loadAd(props.adSpace, props.creator, props.network, props.adFormat).then((data) => {
       let ad = data.data;
       let url = ad.url || ad.properties?.url;
       if (url == 'https://www.zesty.market') {
         url = `https://app.zesty.market/ad-space/${props.adSpace}`;
       }
+      ad.image = ad.image.match(/^.+\.(png|jpe?g)/i) ? ad.image : `https://ipfs.zesty.market/ipfs/${ad.image}`;
       sendMetric(
         props.creator,
         props.adSpace,

@@ -2,8 +2,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        'zesty-aframe-sdk': './src/index.js',
-        'zesty-wle': './src/index-wle.js',
+        'zesty-aframe-sdk': './src/index.js'
     },
     output: {
         filename: '[name].js',

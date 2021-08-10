@@ -6,7 +6,7 @@ class Zesty extends HTMLElement {
         super();
         this.adSpace = "";
         this.creator = "";
-        this.network = "matic";
+        this.network = "polygon";
         this.adFormat = defaultFormat;
         this.width = "100%";
         this.height = "100%";

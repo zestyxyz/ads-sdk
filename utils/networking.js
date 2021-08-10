@@ -9,6 +9,7 @@ const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
 const AD_ENDPOINTS = {
     "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
+    "polygon": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
     "rinkeby": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
 }
 
@@ -32,7 +33,7 @@ const DEFAULT_AD_URI_CONTENT = {
  * @param {string} network The network to post metrics to
  * @returns An object with the requested ad space information, or a default if it cannot be retrieved.
  */
-const fetchNFT = async (adSpace, creator, network = 'matic') => {
+const fetchNFT = async (adSpace, creator, network = 'polygon') => {
   const currentTime = Math.floor(Date.now() / 1000);
   return axios.post(AD_ENDPOINTS[network], {
     query: `
@@ -124,7 +125,7 @@ const sendMetric = (
   event,
   durationInMs,
   sdkType,
-  network = 'matic'
+  network = 'polygon'
   ) => {
   /*
   const currentMs = Math.floor(Date.now());

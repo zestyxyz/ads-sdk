@@ -9,7 +9,7 @@ AFRAME.registerComponent('zesty-ad', {
   schema: {
     adSpace: { type: 'string' },
     creator: { type: 'string' },
-    network: { type: 'string', default: 'matic', oneOf: ['matic', 'rinkeby'] },
+    network: { type: 'string', default: 'polygon', oneOf: ['matic', 'polygon', 'rinkeby'] },
     adFormat: { type: 'string', default: defaultFormat, oneOf: ['tall', 'wide', 'square'] },
     height: { type: 'float', default: 1 },
   },

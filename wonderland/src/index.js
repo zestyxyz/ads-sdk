@@ -18,11 +18,8 @@ WL.registerComponent('zesty-ad', {
     network: {type: WL.Type.Enum, values: ['rinkeby', 'polygon'], default: 'polygon'},
     /* The default ad format, determines aspect ratio */
     adFormat: {type: WL.Type.Enum, values: Object.keys(formats), default: defaultFormat},
-    /* Scale the object to ad ratio (3:4) and set the collider */
+    /* Scale width of the object to ad ratio (see adFormat) and set the collider */
     scaleToRatio: {type: WL.Type.Bool, default: true},
-    /* Height of the ad, if `scaleToRatio` is enabled. Width will be determined
-     * from the 3:4 ad ratio, hence, default 0.75 for height of 1.0. */
-    height: {type: WL.Type.Float, default: 1.0},
     /* Texture property to set after ad is loaded. Leave "auto" to detect from
      * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
     textureProperty: {type: WL.Type.String, default: 'auto'},
@@ -33,6 +30,8 @@ WL.registerComponent('zesty-ad', {
     },
 
     start: function() {
+        this.adFormat = this.formats[this.adFormat];
+
         this.mesh = this.object.getComponent('mesh');
         if(!this.mesh) {
             throw new Error("'zesty-ad' missing mesh component");
@@ -51,9 +50,10 @@ WL.registerComponent('zesty-ad', {
 
             if(this.scaleToRatio) {
               /* Make ad always 1 meter height, adjust width according to ad aspect ratio */
+              this.height = this.scalingLocal[1];
               this.object.resetScaling();
-              this.collision.extents = [this.formats[this.adFormat].width * this.height, this.height, 0.1];
-              this.object.scale([this.formats[this.adFormat].width * this.height, this.height, 1.0]);
+              this.collision.extents = [this.adFormat.width * this.height, this.height, 0.1];
+              this.object.scale([this.adFormat.width * this.height, this.height, 1.0]);
             }
             /* WL.Material.shader will be renamed to pipeline at some point,
              * supporting as many API versions as possible. */

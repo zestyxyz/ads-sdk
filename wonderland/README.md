@@ -31,7 +31,7 @@ npm i --save @zestymarket/wonderland-sdk
 Then import it in your main bundle file:
 
 ```js
-require('@zestymarket/wonderland-sdk/zesty-wonderland-sdk');
+require('@zestymarket/wonderland-sdk');
 ```
 
 If your bundle built successfully, you will find the `zesty-ad` component in

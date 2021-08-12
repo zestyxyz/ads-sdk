@@ -15,19 +15,23 @@ WL.registerComponent('zesty-ad', {
     /* Your ad space index */
     adSpace: {type: WL.Type.Int},
     /* The network to connect to */
-    network: {type: WL.Type.Enum, values: ['rinkeby', 'polygon' ], default: 'polygon'},
+    network: {type: WL.Type.Enum, values: ['rinkeby', 'polygon'], default: 'polygon'},
     /* The default ad format, determines aspect ratio */
     adFormat: {type: WL.Type.Enum, values: Object.keys(formats), default: defaultFormat},
-    /* Scale the object to ad ratio (3:4) and set the collider */
+    /* Scale width of the object to ad ratio (see adFormat) and set the collider */
     scaleToRatio: {type: WL.Type.Bool, default: true},
-    /* Height of the ad, if `scaleToRatio` is enabled. Width will be determined
-     * from the 3:4 ad ratio, hence, default 0.75 for height of 1.0. */
-    height: {type: WL.Type.Float, default: 1.0},
     /* Texture property to set after ad is loaded. Leave "auto" to detect from
      * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
     textureProperty: {type: WL.Type.String, default: 'auto'},
 }, {
-    init: function() {        
+    init: function() {
+        this.formats = Object.values(formats);
+        this.formatKeys = Object.keys(formats);
+    },
+
+    start: function() {
+        this.adFormat = this.formats[this.adFormat];
+
         this.mesh = this.object.getComponent('mesh');
         if(!this.mesh) {
             throw new Error("'zesty-ad' missing mesh component");
@@ -38,23 +42,18 @@ WL.registerComponent('zesty-ad', {
             group: 0x2,
         });
 
-        this.formats = Object.values(formats);
-        this.formatKeys = Object.keys(formats);
-    },
-
-    start: function() {
-        // Moved from init to start due to strange issue where this.clickFunctions would be null
         this.cursorTarget = this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
         this.cursorTarget.addClickFunction(this.onClick.bind(this));
-        
+
         this.loadAd(this.adSpace, this.creator, this.formatKeys[this.adFormat]).then(ad => {
             this.ad = ad;
 
             if(this.scaleToRatio) {
               /* Make ad always 1 meter height, adjust width according to ad aspect ratio */
+              this.height = this.scalingLocal[1];
               this.object.resetScaling();
-              this.collision.extents = [this.formats[this.adFormat].width * this.height, this.height, 0.1];
-              this.object.scale([this.formats[this.adFormat].width * this.height, this.height, 1.0]);
+              this.collision.extents = [this.adFormat.width * this.height, this.height, 0.1];
+              this.object.scale([this.adFormat.width * this.height, this.height, 1.0]);
             }
             /* WL.Material.shader will be renamed to pipeline at some point,
              * supporting as many API versions as possible. */

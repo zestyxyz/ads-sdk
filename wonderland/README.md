@@ -25,7 +25,7 @@ Make sure that you set up a cursor to enable clicking.
 Install the SDK in your project using npm:
 
 ```sh
-npm i --save @zestymarket/wonderland-engine-sdk
+npm i --save @zestymarket/wonderland-sdk
 ```
 
 Then import it in your main bundle file:

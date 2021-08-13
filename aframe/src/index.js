@@ -95,7 +95,7 @@ AFRAME.registerSystem('zesty-ad', {
         assets.appendChild(ad.img);
       }
       if (ad.url == 'https://www.zesty.market') {
-        ad.url = `https://app.zesty.market/ad-space/${adSpace}`;
+        ad.url = `https://app.zesty.market/space/${adSpace}`;
       }
       return ad;
     });

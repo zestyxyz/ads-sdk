@@ -19,7 +19,7 @@ export default function ZestyAd(props) {
       let ad = data.data;
       let url = ad.url || ad.properties?.url;
       if (url == 'https://www.zesty.market') {
-        url = `https://app.zesty.market/ad-space/${props.adSpace}`;
+        url = `https://app.zesty.market/space/${props.adSpace}`;
       }
       ad.image = ad.image.match(/^.+\.(png|jpe?g)/i) ? ad.image : `https://ipfs.zesty.market/ipfs/${ad.image}`;
       sendMetric(
@@ -58,7 +58,7 @@ function AdPlane(props) {
     let ad = props.adData.data;
     let url = ad.url || ad.properties?.url;
     if (url == 'https://www.zesty.market') {
-        url = `https://app.zesty.market/ad-space/${props.adSpace}`;
+        url = `https://app.zesty.market/space/${props.adSpace}`;
     }
     if (gl.xr.isPresenting) {
       const session = gl.xr.getSession()

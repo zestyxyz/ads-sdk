@@ -98,7 +98,7 @@ WL.registerComponent('zesty-ad', {
         url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
         if (url == 'https://www.zesty.market') {
-            url = `https://app.zesty.market/ad-space/${adSpace}`;
+            url = `https://app.zesty.market/space/${adSpace}`;
         }
 
         let image = activeAd.data.image;

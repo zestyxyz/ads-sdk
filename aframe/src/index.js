@@ -1,16 +1,19 @@
-import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking';
-import { formats, defaultFormat } from '../../utils/formats';
+import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
+import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { log } from './logger';
 import './visibility_check';
 
 
-AFRAME.registerComponent('zesty-ad', {
+AFRAME.registerComponent('zesty-banner', {
   data: {},
   schema: {
     adSpace: { type: 'string' },
+    space: { type: 'string' },
     creator: { type: 'string' },
     network: { type: 'string', default: 'polygon', oneOf: ['matic', 'polygon', 'rinkeby'] },
-    adFormat: { type: 'string', default: defaultFormat, oneOf: ['tall', 'wide', 'square'] },
+    adFormat: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
+    format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
+    style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
     height: { type: 'float', default: 1 },
   },
 
@@ -21,7 +24,9 @@ AFRAME.registerComponent('zesty-ad', {
   },
 
   registerEntity: function() {
-    this.system.registerEntity(this.el, this.data.adSpace, this.data.creator, this.data.network, this.data.adFormat, this.data.height);
+    let space = this.data.space ? this.data.space : this.data.adSpace;
+    let format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
+    this.system.registerEntity(this.el, space, this.data.creator, this.data.network, format, this.data.style, this.data.height);
   },
 
   // Every 200ms check for `visible` component
@@ -44,24 +49,24 @@ AFRAME.registerComponent('zesty-ad', {
 });
 
 
-async function loadAd(adSpace, creator, network, adFormat) {
-  const activeNFT = await fetchNFT(adSpace, creator, network);
-  const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
+async function loadBanner(space, creator, network, format, style) {
+  const activeNFT = await fetchNFT(space, creator, network);
+  const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style);
 
   // Need to add https:// if missing for page to open properly
-  let url = activeAd.data.url;
+  let url = activeBanner.data.url;
   url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
-  let image = activeAd.data.image;
+  let image = activeBanner.data.image;
   image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.zesty.market/ipfs/${image}`;
 
   const img = document.createElement('img');
-  img.setAttribute('id', activeAd.uri)
+  img.setAttribute('id', activeBanner.uri)
   img.setAttribute('crossorigin', '');
-  if (activeAd.data.image) {
+  if (activeBanner.data.image) {
     img.setAttribute('src', image);
     return new Promise((resolve, reject) => {
-      img.onload = () => resolve({ img: img, uri: activeAd.uri, url: url });
+      img.onload = () => resolve({ img: img, uri: activeBanner.uri, url: url });
       img.onerror = () => reject('img load error');
     });
   } else {
@@ -69,7 +74,7 @@ async function loadAd(adSpace, creator, network, adFormat) {
   }
 }
 
-AFRAME.registerSystem('zesty-ad', {
+AFRAME.registerSystem('zesty-banner', {
   entities: [],
   data: {},
   schema: {},
@@ -78,8 +83,8 @@ AFRAME.registerSystem('zesty-ad', {
     this.entities = [];
   },
 
-  registerEntity: function(el, adSpace, creator, network, adFormat, height) {
-    if((this.adPromise && this.adPromise.isPending && this.adPromise.isPending()) || this.entities.length) return; // Checks if it is a promise, stops more requests from being made
+  registerEntity: function(el, space, creator, network, format, style, height) {
+    if((this.bannerPromise && this.bannerPromise.isPending && this.bannerPromise.isPending()) || this.entities.length) return; // Checks if it is a promise, stops more requests from being made
 
     const scene = document.querySelector('a-scene');
     let assets = scene.querySelector('a-assets');
@@ -88,42 +93,42 @@ AFRAME.registerSystem('zesty-ad', {
       scene.appendChild(assets);
     }
 
-    log(`Loading adSpace: ${adSpace}, creator: ${creator}`);
+    log(`Loading space: ${space}, creator: ${creator}`);
 
-    this.adPromise = loadAd(adSpace, creator, network, adFormat).then((ad) => {
-      if (ad.img) {
-        assets.appendChild(ad.img);
+    this.bannerPromise = loadBanner(space, creator, network, format, style).then((banner) => {
+      if (banner.img) {
+        assets.appendChild(banner.img);
       }
-      if (ad.url == 'https://www.zesty.market') {
-        ad.url = `https://app.zesty.market/ad-space/${adSpace}`;
+      if (banner.url == 'https://www.zesty.market') {
+        banner.url = `https://app.zesty.market/space/${space}`;
       }
-      return ad;
+      return banner;
     });
 
-    this.adPromise.then((ad) => {
+    this.bannerPromise.then((banner) => {
       // don't attach plane if element's visibility is false
       if (el.getAttribute('visible') !== false) {
         sendMetric(
           creator,
-          adSpace,
-          ad.uri,
-          ad.img.src,
-          ad.url,
+          space,
+          banner.uri,
+          banner.img.src,
+          banner.url,
           'load', // event
           0, // durationInMs
           'aframe' //sdkType
         );
 
         const plane = document.createElement('a-plane');
-        if (ad.img) {
-          plane.setAttribute('src', `#${ad.uri}`);
-          plane.setAttribute('width', formats[adFormat].width * height);
+        if (banner.img) {
+          plane.setAttribute('src', `#${banner.uri}`);
+          plane.setAttribute('width', formats[format].width * height);
           plane.setAttribute('height', height);
           // for textures that are 1024x1024, not setting this causes white border
           plane.setAttribute('transparent', 'true');
           plane.setAttribute('shader', 'flat');
         } else {
-          // No ad to display, hide the plane texture while still leaving it accessible to raycasters
+          // No banner to display, hide the plane texture while still leaving it accessible to raycasters
           plane.setAttribute('material', 'opacity: 0');
         }
         plane.setAttribute('side', 'double');
@@ -134,14 +139,14 @@ AFRAME.registerSystem('zesty-ad', {
           const scene = document.querySelector('a-scene');
           scene.exitVR();
           // Open link in new tab
-          if (ad.url) {
-            window.open(ad.url, '_blank');
+          if (banner.url) {
+            window.open(banner.url, '_blank');
             sendMetric(
               creator,
-              adSpace,
-              ad.uri,
-              ad.img.src,
-              ad.url,
+              space,
+              banner.uri,
+              banner.img.src,
+              banner.url,
               'click', // event
               0, // durationInMs
               'aframe' //sdkType
@@ -150,9 +155,9 @@ AFRAME.registerSystem('zesty-ad', {
         el.appendChild(plane);
 
         // Set ad properties
-        el.adURI = ad.uri;
-        el.imgSrc = ad.img.src;
-        el.url = ad.cta;
+        el.bannerURI = banner.uri;
+        el.imgSrc = banner.img.src;
+        el.url = banner.cta;
       }
     });
 
@@ -168,9 +173,9 @@ AFRAME.registerSystem('zesty-ad', {
   },
 });
 
-AFRAME.registerPrimitive('a-zesty-ad', {
+AFRAME.registerPrimitive('a-zesty', {
   defaultComponents: {
-    'zesty-ad': { adSpace: '', creator: '' },
+    'zesty-banner': { space: '', creator: '' },
     'visibility-check': {}
   },
 });

@@ -25,13 +25,13 @@ Make sure that you set up a cursor to enable clicking.
 Install the SDK in your project using npm:
 
 ```sh
-npm i --save @zestymarket/wonderland-engine-sdk
+npm i --save @zestymarket/wonderland-sdk
 ```
 
 Then import it in your main bundle file:
 
 ```js
-require('@zestymarket/wonderland-sdk/zesty-wonderland-sdk');
+require('@zestymarket/wonderland-sdk');
 ```
 
 If your bundle built successfully, you will find the `zesty-ad` component in

@@ -4,11 +4,11 @@ This is the react-three-fiber SDK for Zesty Ads integration.
 
 ## Usage
 
-Import the ZestyAd component and add it to the scene like so:
+Import the ZestyBanner component and add it to the scene like so:
 
 ```js
-<ZestyAd
-   adSpace={'YOUR_AD_SPACE_ID'}
+<ZestyBanner
+   space={'YOUR_AD_SPACE_ID'}
    creator={'YOUR_CREATOR_ID'}
    position={[X, Y, Z]} />
 ```

@@ -1,41 +1,41 @@
 import * as THREE from 'three';
-import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking'
+import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking'
 import { formats, defaultFormat } from '../../utils/formats';
 
-export default class ZestyAd extends THREE.Mesh {
+export default class ZestyBanner extends THREE.Mesh {
   /**
    * @constructor
-   * @param {string} adSpace The adSpace ID
+   * @param {string} space The space ID
    * @param {string} creator The wallet ID of the creator
    * @param {string} network The network to connect to ('rinkeby' or 'polygon')
-   * @param {string} adFormat The format of the default ad, defaults to square
-   * @param {Number} height Height of the ad, defaults to 1
+   * @param {string} format The format of the default banner
+   * @param {Number} height Height of the banner
    * @param {THREE.WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
    */
-  constructor(adSpace, creator, network, adFormat = defaultFormat, height = 1, renderer = null) {
+  constructor(space, creator, network, format, style, height, renderer = null) {
     super();
-    this.geometry = new THREE.PlaneGeometry(formats[adFormat].width * height, height, 1, 1);
+    this.geometry = new THREE.PlaneGeometry(formats[format].width * height, height, 1, 1);
 
-    this.type = "ZestyAd";
-    this.adSpace = adSpace;
+    this.type = "ZestyBanner";
+    this.space = space;
     this.creator = creator;
     this.network = network;
     this.renderer = renderer;
-    this.ad = {};
+    this.banner = {};
 
-    this.adPromise = loadAd(adSpace, creator, network, adFormat).then(ad => {
+    this.bannerPromise = loadBanner(space, creator, network, format, style).then(banner => {
       this.material = new THREE.MeshBasicMaterial( {
-        map: ad.texture
+        map: banner.texture
       });
-
-      this.ad = ad;
+      this.material.transparent = true;
+      this.banner = banner;
 
       sendMetric(
         creator,
-        adSpace,
-        ad.uri,
-        ad.src,
-        ad.cta,
+        space,
+        banner.uri,
+        banner.src,
+        banner.cta,
         'load', // event
         0, // durationInMs,
         'threejs' //sdkType
@@ -45,18 +45,18 @@ export default class ZestyAd extends THREE.Mesh {
   }
 
   onClick() {
-    if(this.ad.url) {
+    if(this.banner.url) {
       if (this.renderer != null && this.renderer.xr.getSession() != null) {
         this.renderer.xr.getSession().end();
       }
 
-      window.open(this.ad.url, '_blank');
+      window.open(this.banner.url, '_blank');
       sendMetric(
         this.creator,
-        this.adSpace,
-        this.ad.uri,
-        this.ad.texture.image.src,
-        this.ad.url,
+        this.space,
+        this.banner.uri,
+        this.banner.texture.image.src,
+        this.banner.url,
         'click', // event
         0, // durationInMs
         'threejs' //sdkType
@@ -65,18 +65,18 @@ export default class ZestyAd extends THREE.Mesh {
   }
 }
 
-async function loadAd(adSpace, creator, network, adFormat) {
-  const activeNFT = await fetchNFT(adSpace, creator, network);
-  const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
+async function loadBanner(space, creator, network, format, style) {
+  const activeNFT = await fetchNFT(space, creator, network);
+  const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style);
 
   // Need to add https:// if missing for page to open properly
-  let url = activeAd.data.url;
+  let url = activeBanner.data.url;
   url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
   if (url == 'https://www.zesty.market') {
-    url = `https://app.zesty.market/space/${adSpace}`;
+    url = `https://app.zesty.market/space/${space}`;
   }
 
-  let image = activeAd.data.image;
+  let image = activeBanner.data.image;
   image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.zesty.market/ipfs/${image}`;
 
   return new Promise((resolve, reject) => {
@@ -85,7 +85,7 @@ async function loadAd(adSpace, creator, network, adFormat) {
     loader.load(
       image,
       function ( texture ) {
-        resolve({ texture: texture, src: image, uri: activeAd.uri, url: url });
+        resolve({ texture: texture, src: image, uri: activeBanner.uri, url: url });
       },
       undefined,
       function ( err ) {
@@ -96,4 +96,4 @@ async function loadAd(adSpace, creator, network, adFormat) {
   });
 }
 
-window.ZestyAd = ZestyAd;
+window.ZestyBanner = ZestyBanner;

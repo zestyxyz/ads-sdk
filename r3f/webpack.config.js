@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        'zesty-r3f-sdk': './src/ZestyAd.js',
+        'zesty-r3f-sdk': './src/ZestyBanner.js',
     },
     output: {
         filename: '[name].js',

@@ -7,40 +7,34 @@ using UnityEngine;
 namespace Zesty
 {
 
-    public class Ad : MonoBehaviour {
-        public enum Formats
-        {
-            Tall,
-            Wide,
-            Square
-        };
-
+    public class Banner : MonoBehaviour {
         public enum Network
         {
             Polygon,
             Rinkeby
         }
         
-        public string adSpace;
+        public string space;
         public string creator;
         public Network network;
-        public Formats format;
+        public Formats.Types format;
+        public Formats.Styles style;
 
         // Object-related variables
         Renderer m_Renderer;
         Texture m_Texture;
         private MeshCollider m_Collider;
 
-        // Ad info
+        // Banner info
         string uri;
         string url;
         [DllImport("__Internal")] private static extern void _open(string url);
-        string adTextureURL;
+        string bannerTextureURL;
 
-        // Ad loading variables
-        bool adLoadedSuccessfuly = false;
-        float adCheckTimer = 0f;
-        float adCheckWaitPeriod = 10f;
+        // Banner loading variables
+        bool bannerLoadedSuccessfully = false;
+        float bannerCheckTimer = 0f;
+        float bannerCheckWaitPeriod = 10f;
 
 
         void Start () {
@@ -50,16 +44,16 @@ namespace Zesty
         }
 
         /// <summary>
-        /// Queries The Graph for an NFT matching the specified adSpace and creator id with any active auctions.
+        /// Queries The Graph for an NFT matching the specified space and creator id with any active auctions.
         /// </summary>
         void FetchNFT() {
             string selectedNetwork = network == Network.Polygon ? Networks.POLYGON : Networks.RINKEBY;
-            if (!string.IsNullOrEmpty(adSpace)) {
+            if (!string.IsNullOrEmpty(space)) {
                 string query = $@"
                     query {{
                       tokenDatas (
                         where: {{
-                          id: ""{adSpace}""
+                          id: ""{space}""
                           creator: ""{creator}""
                         }}
                       ) {{
@@ -87,7 +81,7 @@ namespace Zesty
                 json.Add("query", query);
 
                 string[] elmsKey = { "uri" };
-                StartCoroutine(API.PostRequest(selectedNetwork, json.ToString(), elmsKey, FetchActiveAd));
+                StartCoroutine(API.PostRequest(selectedNetwork, json.ToString(), elmsKey, FetchActiveBanner));
             }
         }
 
@@ -104,72 +98,72 @@ namespace Zesty
         }
 
         /// <summary>
-        /// Retrieves information from IPFS for the active auction on an adSpace.
+        /// Retrieves information from IPFS for the active auction on an space.
         /// Sends null if no active auctions are found.
         /// </summary>
-        /// <param name="adInfo">The Dictionary containing the NFT information.</param>
-        public void FetchActiveAd(Dictionary<string, string> adInfo) {
-            if (adInfo["uri"] != null) {                
-                uri = $"https://ipfs.zesty.market/ipfs/{adInfo["uri"]}";
+        /// <param name="bannerInfo">The Dictionary containing the NFT information.</param>
+        public void FetchActiveBanner(Dictionary<string, string> bannerInfo) {
+            if (bannerInfo["uri"] != null) {                
+                uri = $"https://ipfs.zesty.market/ipfs/{bannerInfo["uri"]}";
                 string[] elmsKey = { "url", "image" };
-                StartCoroutine(API.GetRequest(uri, elmsKey, SetAdInfo));
+                StartCoroutine(API.GetRequest(uri, elmsKey, SetBannerInfo));
             }
             else
             {
                 uri = null;
                 string[] elmsKey = { "image" };
-                StartCoroutine(API.GetRequest(uri, elmsKey, SetAdInfo));
+                StartCoroutine(API.GetRequest(uri, elmsKey, SetBannerInfo));
             }
         }
 
         /// <summary>
-        /// Sets the active ad's texture and URL on the banner.
-        /// Uses default values based on format if no ad info is present.
+        /// Sets the active banner's texture and URL on the banner.
+        /// Uses default values based on format if no banner info is present.
         /// </summary>
-        /// <param name="adInfo">The Dictionary containing the active ad information.</param>
-        public void SetAdInfo(Dictionary<string, string> adInfo)
+        /// <param name="bannerInfo">The Dictionary containing the active banner information.</param>
+        public void SetBannerInfo(Dictionary<string, string> bannerInfo)
         {
-            if (adInfo == null)
+            if (bannerInfo == null)
             {
                 switch (format)
                 {
-                    case Formats.Tall:
-                        StartCoroutine(API.GetTexture(Zesty.Formats.Tall.Image, SetTexture));
+                    case Formats.Types.Tall:
+                        StartCoroutine(API.GetTexture(Formats.Tall.Images[(int)style], SetTexture));
                         break;
-                    case Formats.Wide:
-                        StartCoroutine(API.GetTexture(Zesty.Formats.Wide.Image, SetTexture));
+                    case Formats.Types.Wide:
+                        StartCoroutine(API.GetTexture(Formats.Wide.Images[(int)style], SetTexture));
                         break;
-                    case Formats.Square:
+                    case Formats.Types.Square:
                     default:
-                        StartCoroutine(API.GetTexture(Zesty.Formats.Square.Image, SetTexture));
+                        StartCoroutine(API.GetTexture(Formats.Square.Images[(int)style], SetTexture));
                         break;
                 }
                 SetURL("https://www.zesty.market/");
             }
-            else if (adInfo.ContainsKey("image"))
+            else if (bannerInfo.ContainsKey("image"))
             {
-                adTextureURL = $"https://ipfs.zesty.market/ipfs/{adInfo["image"]}";
-                StartCoroutine(API.GetTexture(adTextureURL, SetTexture));
-                SetURL(adInfo["url"]);
+                bannerTextureURL = $"https://ipfs.zesty.market/ipfs/{bannerInfo["image"]}";
+                StartCoroutine(API.GetTexture(bannerTextureURL, SetTexture));
+                SetURL(bannerInfo["url"]);
             }
         }
 
         /// <summary>
-        /// Sets the texture on the ad.
+        /// Sets the texture on the banner.
         /// </summary>
-        /// <param name="texture">The texture to set the ad to.</param>
+        /// <param name="texture">The texture to set the banner to.</param>
         public void SetTexture(Texture texture) {
             if (texture != null) {
                 m_Renderer.material.mainTexture = texture;
-                adLoadedSuccessfuly = true;
+                bannerLoadedSuccessfully = true;
             }
         }
 
         /// <summary>
-        /// Sets the associated URL for the ad.
+        /// Sets the associated URL for the banner.
         /// Appends https:// if the given URL is bare.
         /// </summary>
-        /// <param name="url">The URL to set on the ad.</param>
+        /// <param name="url">The URL to set on the banner.</param>
         public void SetURL(string url)
         {
             Regex urlMatch = new Regex(@"^http[s]?:\/\/");            

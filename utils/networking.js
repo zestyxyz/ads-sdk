@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { formats, defaultFormat } from '../utils/formats';
+import { formats, defaultFormat, defaultStyle } from '../utils/formats';
 //import { v4 as uuidv4 } from 'uuid'
 
 // Modify to test a local server
@@ -7,7 +7,7 @@ import { formats, defaultFormat } from '../utils/formats';
 const API_BASE = 'https://node-1.zesty.market'
 const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
 
-const AD_ENDPOINTS = {
+const ENDPOINTS = {
     "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
     "polygon": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
     "rinkeby": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby'
@@ -15,32 +15,32 @@ const AD_ENDPOINTS = {
 
 //const sessionId = uuidv4();
 
-const DEFAULT_AD_DATAS = {
+const DEFAULT_DATAS = {
   "uri": undefined,
 }
 
-const DEFAULT_AD_URI_CONTENT = {
-  "name": "Default Ad",
-  "description": "This is the default ad that would be displayed ipsum",
+const DEFAULT_URI_CONTENT = {
+  "name": "Default banner",
+  "description": "This is the default banner that would be displayed ipsum",
   "image": "https://ipfs.zesty.market/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-square.png",
   "url": "https://www.zesty.market"
 }
 
 /**
- * Queries The Graph to retrieve NFT information for the ad space.
- * @param {string} adSpace The ad space ID
+ * Queries The Graph to retrieve NFT information for the space.
+ * @param {string} space The space ID
  * @param {string} creator The wallet address of the creator
  * @param {string} network The network to post metrics to
- * @returns An object with the requested ad space information, or a default if it cannot be retrieved.
+ * @returns An object with the requested space information, or a default if it cannot be retrieved.
  */
-const fetchNFT = async (adSpace, creator, network = 'polygon') => {
+const fetchNFT = async (space, creator, network = 'polygon') => {
   const currentTime = Math.floor(Date.now() / 1000);
-  return axios.post(AD_ENDPOINTS[network], {
+  return axios.post(ENDPOINTS[network], {
     query: `
       query {
         tokenDatas (
           where: {
-            id: "${adSpace}"
+            id: "${space}"
             creator: "${creator}"
           }
         )
@@ -67,34 +67,37 @@ const fetchNFT = async (adSpace, creator, network = 'polygon') => {
   })
   .then((res) => {
     if (res.status != 200) {
-      return DEFAULT_AD_DATAS 
+      return DEFAULT_DATAS 
     }
     let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-    let latestAuction = sellerAuctions?.find(auction => auction.buyerCampaigns.length > 0).buyerCampaigns[0];
+    let latestAuction = sellerAuctions?.find(auction => auction.buyerCampaigns.length > 0)?.buyerCampaigns[0];
     
     if (latestAuction == null) {
-        return DEFAULT_AD_DATAS 
+        return DEFAULT_DATAS 
     }
 
     return latestAuction;
   })
   .catch((err) => {
     console.log(err);
-    return DEFAULT_AD_DATAS;
+    return DEFAULT_DATAS;
   })
 };
 
 /**
- * Pulls data from IPFS for the ad content.
- * @param {string} uri The IPFS URI containing the ad content.
- * @param {string} adFormat The default ad image format to use if there is no active ad.
- * @returns An object with the requested ad content, or a default if it cannot be retrieved.
+ * Pulls data from IPFS for the banner content.
+ * @param {string} uri The IPFS URI containing the banner content.
+ * @param {string} format The default banner image format to use if there is no active banner.
+ * @returns An object with the requested banner content, or a default if it cannot be retrieved.
  */
-const fetchActiveAd = async (uri, adFormat = defaultFormat) => {
+const fetchActiveBanner = async (uri, format, style) => {
   if (!uri) {
-    let adObject = { uri: 'DEFAULT_URI', data: DEFAULT_AD_URI_CONTENT };
-    adObject.data.image = formats[adFormat].img ?? formats[defaultFormat].img;
-    return adObject;
+    let bannerObject = { uri: 'DEFAULT_URI', data: DEFAULT_URI_CONTENT };
+    let newFormat = format || defaultFormat;
+    console.log(newFormat);
+    let newStyle = style || defaultStyle;
+    bannerObject.data.image = formats[newFormat].style[newStyle];
+    return bannerObject;
   }
 
   return axios.get(`https://ipfs.zesty.market/ipfs/${uri}`)
@@ -106,19 +109,19 @@ const fetchActiveAd = async (uri, adFormat = defaultFormat) => {
 /**
  * !!! CURRENTLY DISABLED !!!
  * @param {string} creator The wallet address of the creator
- * @param {string} adSpace The ad space ID
- * @param {string} uri The IPFS URI for the ad space
- * @param {string} image The ad space image
- * @param {string} url URL for the ad space image
+ * @param {string} space The space ID
+ * @param {string} uri The IPFS URI for the space
+ * @param {string} image The space image
+ * @param {string} url URL for the space image
  * @param {*} event 
- * @param {Number} durationInMs Amount of time the ad was viewed
+ * @param {Number} durationInMs Amount of time the banner was viewed
  * @param {string} sdkType The SDK this metric was sent from
  * @param {string} network The network to post metrics to
  * @returns A Promise representing the POST request
  */
 const sendMetric = (
   creator,
-  adSpace,
+  space,
   uri,
   image,
   url,
@@ -138,7 +141,7 @@ const sendMetric = (
   return axios.post(AD_ENDPOINTS[network], {
     _id: uuidv4(),
     creator: creator,
-    adSpace: adSpace,
+    space: space,
     uri: uri,
     image: image,
     url: url,
@@ -152,4 +155,4 @@ const sendMetric = (
   */
 };
 
-export { fetchNFT, fetchActiveAd, sendMetric };
+export { fetchNFT, fetchActiveBanner, sendMetric };

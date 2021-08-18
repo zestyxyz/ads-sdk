@@ -80,7 +80,7 @@ public class ProjectSetup : EditorWindow, IHasCustomMenu {
     private void OnGUI() {
         var logo = Resources.Load<Texture2D>("Zesty Orange");
         var rect = GUILayoutUtility.GetRect(position.width - 8, 150, GUI.skin.box);
-        GUILayout.Label("This window not currently in use.");
+        GUILayout.Label("Zesty Unity SDK v1.4.0");
         if (logo) {
             GUI.DrawTexture(rect, logo, ScaleMode.ScaleToFit);
         }

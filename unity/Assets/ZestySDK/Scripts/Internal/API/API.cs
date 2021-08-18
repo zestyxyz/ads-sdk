@@ -57,14 +57,14 @@ namespace Zesty {
             {
                 var response = JSON.Parse(request.downloadHandler.text)["data"]["tokenDatas"][0];
                 var sellerAuctions = response["sellerNFTSetting"]["sellerAuctions"][0];
-                var activeAd = sellerAuctions[0][0];
-                Dictionary<string, string> adData = new Dictionary<string, string>();
+                var activeBanner = sellerAuctions[0][0];
+                Dictionary<string, string> bannerData = new Dictionary<string, string>();
 
                 foreach (string elm in elmsKey)
                 {
-                    adData.Add(elm, activeAd[elm]);
+                    bannerData.Add(elm, activeBanner[elm]);
                 }
-                callback(adData);
+                callback(bannerData);
             }
         }
 
@@ -90,13 +90,13 @@ namespace Zesty {
                 Debug.Log("GET request error: " + request.error);
             } else {
                 var response = JSON.Parse(request.downloadHandler.text);
-                Dictionary<string, string> adData = new Dictionary<string, string>();
+                Dictionary<string, string> bannerData = new Dictionary<string, string>();
 
                 foreach (string elm in elmsKey) {
-                    adData.Add(elm, response[elm]);
+                    bannerData.Add(elm, response[elm]);
                 }
 
-                callback(adData);
+                callback(bannerData);
             }
         }
 

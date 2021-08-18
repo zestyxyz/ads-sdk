@@ -1,20 +1,20 @@
-import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
 //import * as BABYLON from 'babylonjs';
 
-export default class ZestyAd {
-  constructor(adSpace, creator, network, adFormat, height, scene, webXRExperienceHelper = null) {
+export default class ZestyBanner {
+  constructor(space, creator, network, format, style, height, scene, webXRExperienceHelper = null) {
     const options = {
       height: height,
-      width: formats[adFormat].width * height
+      width: formats[format].width * height
     };
 
-    this.zestyAd = BABYLON.MeshBuilder.CreatePlane('zestyad', options);
+    this.zestyBanner = BABYLON.MeshBuilder.CreatePlane('zestybanner', options);
 
-    loadAd(adSpace, creator, network, adFormat).then(data => {
-      this.zestyAd.material = data.mat;
-      this.zestyAd.actionManager = new BABYLON.ActionManager(scene);
-      this.zestyAd.actionManager.registerAction(
+    loadBanner(space, creator, network, format, style).then(data => {
+      this.zestyBanner.material = data.mat;
+      this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
+      this.zestyBanner.actionManager.registerAction(
         new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger,
           () => {
@@ -31,29 +31,30 @@ export default class ZestyAd {
       );
     });
 
-    return this.zestyAd;
+    return this.zestyBanner;
   }  
 }
 
-async function loadAd(adSpace, creator, network, adFormat) {
-  const activeNFT = await fetchNFT(adSpace, creator, network);
-  const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
+async function loadBanner(space, creator, network, format, style) {
+  const activeNFT = await fetchNFT(space, creator, network);
+  const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style);
 
   // Need to add https:// if missing for page to open properly
-  let url = activeAd.data.url;
+  let url = activeBanner.data.url;
   url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
   if (url == 'https://www.zesty.market') {
-    url = `https://app.zesty.market/space/${adSpace}`;
+    url = `https://app.zesty.market/space/${space}`;
   }
 
-  let image = activeAd.data.image;
+  let image = activeBanner.data.image;
   image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.zesty.market/ipfs/${image}`;
 
   const mat = new BABYLON.StandardMaterial('');
   mat.diffuseTexture = new BABYLON.Texture(image);
+  mat.diffuseTexture.hasAlpha = true;
 
-  return { mat: mat, src: image, uri: activeAd.uri, url: url }
+  return { mat: mat, src: image, uri: activeBanner.uri, url: url }
 }
 
-window.ZestyAd = ZestyAd;
+window.ZestyBanner = ZestyBanner;

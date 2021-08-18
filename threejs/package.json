@@ -1,7 +1,7 @@
 {
   "name": "@zestymarket/threejs-sdk",
-  "version": "1.3.3",
-  "description": "This is the three.js SDK for Zesty Ads integration.",
+  "version": "1.4.0",
+  "description": "This is the three.js SDK for Zesty Banner integration.",
   "main": "dist/zesty-threejs-sdk.js",
   "scripts": {
     "test": "webpack --mode=development",

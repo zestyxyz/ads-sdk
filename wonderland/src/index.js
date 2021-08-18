@@ -1,40 +1,43 @@
-import { fetchNFT, fetchActiveAd, sendMetric } from '../../utils/networking'
+import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking'
 import { formats, defaultFormat } from '../../utils/formats';
 
 /**
- * [Zesty Market](https://zesty.market) ad space
+ * [Zesty Market](https://zesty.market) banner space
  *
- * Fetches an ad and applies it to a texture. If no `cursor-target` and `collision`
+ * Fetches a banner and applies it to a texture. If no `cursor-target` and `collision`
  * is found on the object, they will be created automatically (with box shape in group 1).
  *
  * Make sure that you set up a cursor to enable clicking.
  */
-WL.registerComponent('zesty-ad', {
+WL.registerComponent('zesty-banner', {
     /* Your creator id */
     creator: {type: WL.Type.String},
-    /* Your ad space index */
-    adSpace: {type: WL.Type.Int},
+    /* Your banner space index */
+    space: {type: WL.Type.Int},
     /* The network to connect to */
     network: {type: WL.Type.Enum, values: ['rinkeby', 'polygon'], default: 'polygon'},
-    /* The default ad format, determines aspect ratio */
-    adFormat: {type: WL.Type.Enum, values: Object.keys(formats), default: defaultFormat},
-    /* Scale width of the object to ad ratio (see adFormat) and set the collider */
+    /* The default banner format, determines aspect ratio */
+    format: {type: WL.Type.Enum, values: Object.keys(formats), default: defaultFormat},
+    /* The default banner visual style */
+    style: {type: WL.Type.Enum, values: ['standard', 'minimal', 'transparent'], default: 'transparent'},
+    /* Scale width of the object to banner ratio (see adFormat) and set the collider */
     scaleToRatio: {type: WL.Type.Bool, default: true},
-    /* Texture property to set after ad is loaded. Leave "auto" to detect from
+    /* Texture property to set after banner is loaded. Leave "auto" to detect from
      * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
     textureProperty: {type: WL.Type.String, default: 'auto'},
 }, {
-    init: function() {
+    init: function() {        
         this.formats = Object.values(formats);
         this.formatKeys = Object.keys(formats);
+        this.styleKeys = ['standard', 'minimal', 'transparent'];
     },
 
     start: function() {
-        this.adFormat = this.formats[this.adFormat];
+        this.format = this.formats[this.format];
 
         this.mesh = this.object.getComponent('mesh');
         if(!this.mesh) {
-            throw new Error("'zesty-ad' missing mesh component");
+            throw new Error("'zesty-banner ' missing mesh component");
         }
 
         this.collision = this.object.getComponent('collision') || this.object.addComponent('collision', {
@@ -44,16 +47,16 @@ WL.registerComponent('zesty-ad', {
 
         this.cursorTarget = this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
         this.cursorTarget.addClickFunction(this.onClick.bind(this));
-
-        this.loadAd(this.adSpace, this.creator, this.formatKeys[this.adFormat]).then(ad => {
-            this.ad = ad;
+        
+        this.loadBanner(this.space, this.creator, this.network, this.formatKeys[this.format], this.styleKeys[this.style]).then(banner => {
+            this.banner = banner;
 
             if(this.scaleToRatio) {
-              /* Make ad always 1 meter height, adjust width according to ad aspect ratio */
-              this.height = this.scalingLocal[1];
+              /* Make banner always 1 meter height, adjust width according to banner aspect ratio */
+              this.height = this.object.scalingLocal[1];
               this.object.resetScaling();
-              this.collision.extents = [this.adFormat.width * this.height, this.height, 0.1];
-              this.object.scale([this.adFormat.width * this.height, this.height, 1.0]);
+              this.collision.extents = [this.format.width * this.height, this.height, 0.1];
+              this.object.scale([this.format.width * this.height, this.height, 1.0]);
             }
             /* WL.Material.shader will be renamed to pipeline at some point,
              * supporting as many API versions as possible. */
@@ -61,54 +64,56 @@ WL.registerComponent('zesty-ad', {
             if(this.textureProperty === "auto") {
               const pipeline = m.pipeline || m.shader;
               if(pipeline == 'Phong Opaque Textured') {
-                  m.diffuseTexture = ad.texture;
+                  m.diffuseTexture = banner.texture;
+                  m.alphaMaskThreshold = 0.3;
               } else if(pipeline == 'Flat Opaque Textured') {
-                  m.flatTexture = ad.texture;
+                  m.flatTexture = banner.texture;
+                  m.alphaMaskThreshold = 0.8;
               } else {
-                throw Error("'zesty-ad' unable to apply ad texture: unsupported pipeline " + m.shader);
+                throw Error("'zesty-banner ' unable to apply banner texture: unsupported pipeline " + m.shader);
               }
             } else {
-                this.mesh.material[this.textureProperty] = ad.texture;
+                this.mesh.material[this.textureProperty] = banner.texture;
             }
 
-            sendMetric(this.creator, this.adSpace, this.ad.uri, this.ad.src, this.ad.cta, 'load', 0, 'wonderland');
+            sendMetric(this.creator, this.space, this.banner.uri, this.banner.src, this.banner.cta, 'load', 0, 'wonderland');
         });
     },
 
     onClick: function() {
-        if(this.ad.url) {
+        if(this.banner.url) {
             if(WL.session) {
               /* Try again after session ended */
               WL.session.end().then(_ => this.onClick.bind(this));
               return;
             }
-            window.open(this.ad.url, '_blank');
-            sendMetric(this.creator, this.adSpace, this.ad.uri, this.ad.imageSrc,
-                this.ad.url, 'click', 0, 'wonderland');
+            window.open(this.banner.url, '_blank');
+            sendMetric(this.creator, this.space, this.banner.uri, this.banner.imageSrc,
+                this.banner.url, 'click', 0, 'wonderland');
         }
     },
 
-    loadAd: async function(adSpace, creator, network, adFormat) {
+    loadBanner: async function(space, creator, network, format, style) {
         network = network ? 'polygon' : 'rinkeby'; // Use truthy/falsy values to get network
-        const activeNFT = await fetchNFT(adSpace, creator, network);
-        const activeAd = await fetchActiveAd(activeNFT.uri, adFormat);
+        const activeNFT = await fetchNFT(space, creator, network);
+        const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style);
 
         // Need to add https:// if missing for page to open properly
-        let url = activeAd.data.url;
+        let url = activeBanner.data.url;
         url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
         if (url == 'https://www.zesty.market') {
-            url = `https://app.zesty.market/space/${adSpace}`;
+            url = `https://app.zesty.market/space/${space}`;
         }
 
-        let image = activeAd.data.image;
+        let image = activeBanner.data.image;
         image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.zesty.market/ipfs/${image}`;
 
         return WL.textures.load(image, '').then(texture => {
-            activeAd.texture = texture;
-            activeAd.imageSrc = image;
-            activeAd.url = url;
-            return activeAd;
+            activeBanner.texture = texture;
+            activeBanner.imageSrc = image;
+            activeBanner.url = url;
+            return activeBanner;
         });
     }
 });

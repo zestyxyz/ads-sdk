@@ -1,5 +1,6 @@
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
+import { parseIPFS } from '../../utils/helpers';
 import { log } from './logger';
 import './visibility_check';
 
@@ -102,7 +103,7 @@ async function loadBanner(space, creator, network, format, style) {
   url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
   let image = activeBanner.data.image;
-  image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.zesty.market/ipfs/${image}`;
+  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseIPFS(image);
 
   const img = document.createElement('img');
   img.setAttribute('id', activeBanner.uri)

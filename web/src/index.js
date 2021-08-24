@@ -1,5 +1,6 @@
 import { fetchNFT, fetchActiveBanner } from '../../utils/networking'
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
+import { parseIPFS } from '../../utils/helpers';
 
 class Zesty extends HTMLElement {
     constructor() {
@@ -44,7 +45,7 @@ class Zesty extends HTMLElement {
             }
 
             let image = activeBanner.data.image;
-            image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.zesty.market/ipfs/${image}`;
+            image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseIPFS(image);
 
             const img = document.createElement('img');
             shadow.appendChild(img)

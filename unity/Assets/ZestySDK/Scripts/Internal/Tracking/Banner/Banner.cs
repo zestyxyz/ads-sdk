@@ -104,7 +104,7 @@ namespace Zesty
         /// <param name="bannerInfo">The Dictionary containing the NFT information.</param>
         public void FetchActiveBanner(Dictionary<string, string> bannerInfo) {
             if (bannerInfo["uri"] != null) {                
-                uri = $"https://ipfs.zesty.market/ipfs/{bannerInfo["uri"]}";
+                uri = Utils.ParseIPFS(bannerInfo["uri"]);
                 string[] elmsKey = { "url", "image" };
                 StartCoroutine(API.GetRequest(uri, elmsKey, SetBannerInfo));
             }

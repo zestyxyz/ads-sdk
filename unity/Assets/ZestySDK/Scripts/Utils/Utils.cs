@@ -21,4 +21,11 @@ public class Utils : MonoBehaviour {
         return (int)(DateTime.UtcNow - epochStart).TotalSeconds;
     }
 
+    public static string ParseIPFS(string uri)
+    {
+        return uri.Substring(0, 4) == "ipfs" ?
+        $"https://ipfs.zesty.market/ipfs/${uri.Substring(7)}" :
+        $"https://ipfs.zesty.market/ipfs/${uri}`";
+    }
+
 }

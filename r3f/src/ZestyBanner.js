@@ -4,6 +4,7 @@ import { useRef, useState, Suspense, useEffect } from "react"
 import { fetchNFT, fetchActiveBanner, sendMetric } from "../../utils/networking"
 import { formats, defaultFormat } from '../../utils/formats';
 import { Interactive } from '@react-three/xr'
+import { parseIPFS } from '../../utils/helpers';
 
 export default function ZestyBanner(props) {
   const [bannerData, setBannerData] = useState(false)
@@ -25,7 +26,7 @@ export default function ZestyBanner(props) {
       if (url == 'https://www.zesty.market') {
         url = `https://app.zesty.market/space/${props.space}`;
       }
-      banner.image = banner.image.match(/^.+\.(png|jpe?g)/i) ? banner.image : `https://ipfs.zesty.market/ipfs/${banner.image}`;
+      banner.image = banner.image.match(/^.+\.(png|jpe?g)/i) ? banner.image : parseIPFS(banner.image);
       sendMetric(
         props.creator,
         space,

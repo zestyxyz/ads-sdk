@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking'
 import { formats, defaultFormat } from '../../utils/formats';
+import { parseIPFS } from '../../utils/helpers';
 
 export default class ZestyBanner extends THREE.Mesh {
   /**
@@ -77,7 +78,7 @@ async function loadBanner(space, creator, network, format, style) {
   }
 
   let image = activeBanner.data.image;
-  image = image.match(/^.+\.(png|jpe?g)/i) ? image : `https://ipfs.zesty.market/ipfs/${image}`;
+  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseIPFS(image);
 
   return new Promise((resolve, reject) => {
     const loader = new THREE.TextureLoader();

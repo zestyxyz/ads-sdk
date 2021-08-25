@@ -58,6 +58,7 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
                 id
                 uri
               }
+              buyerCampaignsApproved
             }
           }
           id
@@ -70,7 +71,9 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
       return DEFAULT_DATAS 
     }
     let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-    let latestAuction = sellerAuctions?.find(auction => auction.buyerCampaigns.length > 0)?.buyerCampaigns[0];
+    let latestAuction = sellerAuctions?.find(auction => {
+      auction.buyerCampaigns.length > 0 && auction.buyerCampaignsApproved
+    })?.buyerCampaigns[0];
     
     if (latestAuction == null) {
         return DEFAULT_DATAS 

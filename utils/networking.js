@@ -70,6 +70,7 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
     if (res.status != 200) {
       return DEFAULT_DATAS 
     }
+<<<<<<< HEAD
 
     let sellerAuction = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions[0];
     let latestAuction = null;
@@ -78,6 +79,12 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
         latestAuction = sellerAuction.buyerCampaigns[i]; 
       }
     }
+=======
+    let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
+    let latestAuction = sellerAuctions?.find(auction => {
+      auction.buyerCampaigns.length > 0 && auction.buyerCampaignsApproved[0]
+    })?.buyerCampaigns[0];
+>>>>>>> 67c62d73c659aeef7f9eaabe73f8a4ad49016ce7
     
     if (latestAuction == null) {
         return DEFAULT_DATAS 

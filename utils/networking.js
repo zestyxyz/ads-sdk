@@ -72,7 +72,7 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
     }
     let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
     let latestAuction = sellerAuctions?.find(auction => {
-      auction.buyerCampaigns.length > 0 && auction.buyerCampaignsApproved
+      auction.buyerCampaigns.length > 0 && auction.buyerCampaignsApproved[0]
     })?.buyerCampaigns[0];
     
     if (latestAuction == null) {

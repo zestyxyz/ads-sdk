@@ -47,7 +47,7 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
         { 
           sellerNFTSetting {
             sellerAuctions (
-              first: 5
+              first: 1
               where: {
                 contractTimeStart_lte: ${currentTime}
                 contractTimeEnd_gte: ${currentTime}
@@ -70,10 +70,14 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
     if (res.status != 200) {
       return DEFAULT_DATAS 
     }
-    let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-    let latestAuction = sellerAuctions?.find(auction => {
-      auction.buyerCampaigns.length > 0 && auction.buyerCampaignsApproved
-    })?.buyerCampaigns[0];
+
+    let sellerAuction = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions[0];
+    let latestAuction = null;
+    for (let i=0; i < sellerAuction.buyerCampaignsApproved.length; i++) {
+      if (sellerAuction.buyerCampaignsApproved[i] === true) {
+        latestAuction = sellerAuction.buyerCampaigns[i]; 
+      }
+    }
     
     if (latestAuction == null) {
         return DEFAULT_DATAS 

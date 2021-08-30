@@ -47,7 +47,7 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
         { 
           sellerNFTSetting {
             sellerAuctions (
-              first: 5
+              first: 1
               where: {
                 contractTimeStart_lte: ${currentTime}
                 contractTimeEnd_gte: ${currentTime}

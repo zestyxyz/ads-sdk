@@ -67,25 +67,29 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
     `
   })
   .then((res) => {
-    if (res.status != 200) {
-      return DEFAULT_DATAS 
-    }
-    let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-    let latestAuction = sellerAuctions?.find(auction => {
-      auction.buyerCampaigns.length > 0 && auction.buyerCampaignsApproved
-    })?.buyerCampaigns[0];
-    
-    if (latestAuction == null) {
-        return DEFAULT_DATAS 
-    }
-
-    return latestAuction;
+    return parseGraphResponse(res);
   })
   .catch((err) => {
     console.log(err);
     return DEFAULT_DATAS;
   })
 };
+
+const parseGraphResponse = res => {
+  if (res.status != 200) {
+    return DEFAULT_DATAS 
+  }
+  let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
+  let latestAuction = sellerAuctions?.find((auction, i) => {
+    if (auction.buyerCampaigns.length > 0 && auction.buyerCampaignsApproved[i]) return auction;
+  })?.buyerCampaigns[0];
+  
+  if (latestAuction == null) {
+    return DEFAULT_DATAS 
+  }
+
+  return latestAuction;
+}
 
 /**
  * Pulls data from IPFS for the banner content.
@@ -97,7 +101,6 @@ const fetchActiveBanner = async (uri, format, style) => {
   if (!uri) {
     let bannerObject = { uri: 'DEFAULT_URI', data: DEFAULT_URI_CONTENT };
     let newFormat = format || defaultFormat;
-    console.log(newFormat);
     let newStyle = style || defaultStyle;
     bannerObject.data.image = formats[newFormat].style[newStyle];
     return bannerObject;
@@ -158,4 +161,4 @@ const sendMetric = (
   */
 };
 
-export { fetchNFT, fetchActiveBanner, sendMetric };
+export { fetchNFT, parseGraphResponse, fetchActiveBanner, sendMetric };

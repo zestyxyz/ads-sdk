@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <!--<script src="https://lib.zesty.market/zesty-babylonjs-sdk.js"></script>-->
+    <script src="dist/zesty-babylonjs-sdk.js"></script>
+    <title>Hello World (babylon.js)</title>
+</head>
+
+<body>
+    <canvas id="renderCanvas">
+        <script type="module">            
+            const canvas = document.getElementById("renderCanvas");
+            canvas.style.width = "100%";
+            canvas.style.height = "100%";
+            const engine = new BABYLON.Engine(canvas, true);
+            let scene;
+
+            const createScene = (async function () {
+                scene = new BABYLON.Scene(engine);
+                scene.clearColor = new BABYLON.Color3.Blue();
+                const xrHelper = await scene.createDefaultXRExperienceAsync();
+
+                var camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, 0), scene);
+
+                //var light = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(0, -1, 1), scene);
+                var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+
+                const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
+                groundMaterial.diffuseColor = new BABYLON.Color3.Green();
+
+                const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 });
+                ground.material = groundMaterial;
+
+                const zestyBanner = new ZestyBanner("3", "0x0030c9dd1da63af7d7df6b8332aef5fae99f536b", 'matic', 'tall', 'transparent', 2, scene, xrHelper);
+                zestyBanner.position = new BABYLON.Vector3(0, 0, 5);
+            })();
+
+            window.scene = scene;
+
+            engine.runRenderLoop(() => {
+                scene.render();
+            });
+        </script>
+        <!--<script src="build/bundle.js"></script>-->
+    </canvas>
+</body>
+
+</html>

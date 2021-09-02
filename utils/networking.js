@@ -75,6 +75,11 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
   })
 };
 
+/**
+ * Parses the response from The Graph to find the latest auction campaign.
+ * @param {Object} res The response object from The Graph.
+ * @returns An object containing either the latest auction campaign or default data.
+ */
 const parseGraphResponse = res => {
   if (res.status != 200) {
     return DEFAULT_DATAS 
@@ -95,6 +100,7 @@ const parseGraphResponse = res => {
  * Pulls data from IPFS for the banner content.
  * @param {string} uri The IPFS URI containing the banner content.
  * @param {string} format The default banner image format to use if there is no active banner.
+ * @param {string} style The default banner image style to use if there is no active banner.
  * @returns An object with the requested banner content, or a default if it cannot be retrieved.
  */
 const fetchActiveBanner = async (uri, format, style) => {

@@ -119,6 +119,7 @@ const DEFAULT_URI_CONTENT = {
     image: expect.any(String),
     url: 'https://www.zesty.market'
 }
+const VALID_URI = 'QmYK3pR7AZ8TpQonQJyctZRPCR7gaDag9z6ZwoAs1YxBAa'
 
 describe('fetchNFT', () => {
     test('fetchNFT should not return a falsy value', () => {
@@ -155,6 +156,12 @@ describe('fetchActiveBanner', () => {
         return expect(fetchActiveBanner()).resolves.toMatchObject({
             uri: 'DEFAULT_URI',
             data: DEFAULT_URI_CONTENT
+        });
+    });
+    test('fetchActiveBanner should return a valid banner if a URI is given', () => {
+        return expect(fetchActiveBanner(VALID_URI, 'tall', 'standard')).resolves.toMatchObject({
+            uri: expect.any(String),
+            data: expect.any(Object)
         });
     });
 });

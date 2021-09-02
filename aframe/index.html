@@ -1,35 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>WebVR</title>
-    <meta name="description" content="WebVR">
-    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
-    <script src="dist/zesty-aframe-sdk.js"></script>
-    <!-- <script src="https://ipfs.io/ipns/lib.zesty.market/zesty-aframe-sdk.js"></script> -->
-  </head>
-  <body>
-    <a-scene id="scene" environment="preset: tron" stats cursor="rayOrigin: mouse"
-             inspector="https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
-
-      <a-entity id="rig" rotation="0 0 0" movement-controls>
-        <!-- Player -->
-        <a-entity id="camera" camera look-controls wasd-controls="fly: true; acceleration: 100"
-            position="0 2 5"></a-entity>
-
-        <!-- Hand controls -->
-        <a-entity hand-controls="right" laser-controls raycaster="far: 100"></a-entity>
-      </a-entity>
-
-      <!-- Box to block the ad -->
-      <a-box color="tomato" depth="0.5" height="4" width="4" position="0 2 2"></a-box>
-      <a-box color="tomato" depth="4" height="4" width="0.5" position="2.5 2 2"></a-box>
-
-      <!-- Our ads -->
-      <a-entity visible="true" zesty-ad="creator: 0x6f4135f7ead982ae12e7f55401b37216bdaa72d7;
-      space: 0" position="0 2 0"></a-entity>
-    </a-scene>
-  </body>
+    <head>
+        <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+        <script src="dist/zesty-aframe-sdk.js"></script>
+        <!--<script src="build/bundle.js"></script>-->
+        <title>A-Frame Test</title>
+    </head>
+    <body>
+        <a-scene>
+            <a-entity 
+            visible
+            id="banner1"
+            zesty-banner="space: 6; creator: 0xC6A68e2D63A88186EcBe97bC221825f2e2852e6e; format: tall; style: standard; height: 2;" 
+            position="0 2 -2"></a-entity>
+            <a-entity 
+            visible
+            id="banner2"
+            zesty-banner="space: 6; creator: 0xC6A68e2D63A88186EcBe97bC221825f2e2852e6e; format: wide; style: standard; height: 2;" 
+            position="0 2 -3"></a-entity>
+            <a-entity
+            visible
+            id="banner3"
+            zesty-banner="space: 6; creator: 0xC6A68e2D63A88186EcBe97bC221825f2e2852e6e; format: square; style: standard; height: 2;" 
+            position="0 2 -4"></a-entity><a-entity 
+            visible
+            id="banner4"
+            zesty-banner="space: 6; creator: 0xC6A68e2D63A88186EcBe97bC221825f2e2852e6e; format: tall; style: minimal; height: 2;" 
+            position="0 2 -5"></a-entity>
+            <a-entity 
+            visible
+            id="banner5"
+            zesty-banner="space: 6; creator: 0xC6A68e2D63A88186EcBe97bC221825f2e2852e6e; format: wide; style: minimal; height: 2;" 
+            position="0 2 -6"></a-entity>
+            <a-entity
+            visible
+            id="banner6"
+            zesty-banner="space: 6; creator: 0xC6A68e2D63A88186EcBe97bC221825f2e2852e6e; format: square; style: minimal; height: 2;" 
+            position="0 2 -7"></a-entity>
+            <a-entity 
+            visible
+            id="banner7"
+            zesty-banner="space: 6; creator: 0xC6A68e2D63A88186EcBe97bC221825f2e2852e6e; format: tall; style: transparent; height: 2;" 
+            position="0 2 -8"></a-entity>
+            <a-entity 
+            visible
+            id="banner8"
+            zesty-banner="space: 6; creator: 0xC6A68e2D63A88186EcBe97bC221825f2e2852e6e; format: wide; style: transparent; height: 2;" 
+            position="0 2 -9"></a-entity>
+            <a-entity
+            visible
+            id="banner9"
+            zesty-banner="space: 6; creator: 0xC6A68e2D63A88186EcBe97bC221825f2e2852e6e; format: square; style: transparent; height: 2;" 
+            position="0 2 -10"></a-entity>
+            <a-camera cursor="rayOrigin: mouse"></a-camera>
+            <a-plane id="ground" position="0 0 2" rotation="-90 0 0" height="4" color="#7BC8A4"></a-plane>
+            <a-sky color="blue"></a-sky>
+        </a-scene>
+    </body>
 </html>

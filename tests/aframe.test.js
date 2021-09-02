@@ -95,7 +95,7 @@ describe('Transparent styles', () => {
         expect(img).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png');
     });
 });
-
+/*
 describe('Navigation', () => {
     test('Clicking the banner navigates to a new page', async () => {
         const banner = await page.waitForSelector('#banner9 > a-plane');
@@ -103,4 +103,4 @@ describe('Navigation', () => {
         await banner.click();
         await expect(page.title()).resolves.not.toBe('A-Frame Test');
     })
-})
+})*/

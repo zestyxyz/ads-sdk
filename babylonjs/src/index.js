@@ -1,6 +1,6 @@
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
-import { parseIPFS } from '../../utils/helpers';
+import { parseProtocol } from '../../utils/helpers';
 //import * as BABYLON from 'babylonjs';
 
 export default class ZestyBanner {
@@ -49,7 +49,7 @@ async function loadBanner(space, creator, network, format, style) {
   }
 
   let image = activeBanner.data.image;
-  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseIPFS(image);
+  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
 
   const mat = new BABYLON.StandardMaterial('');
   mat.diffuseTexture = new BABYLON.Texture(image);

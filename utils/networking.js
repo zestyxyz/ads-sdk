@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { formats, defaultFormat, defaultStyle } from '../utils/formats';
+import { parseProtocol } from '../utils/helpers';
 //import { v4 as uuidv4 } from 'uuid'
 
 // Modify to test a local server
@@ -107,7 +108,7 @@ const fetchActiveBanner = async (uri, format, style) => {
     return bannerObject;
   }
 
-  return axios.get(`https://ipfs.zesty.market/ipfs/${uri}`)
+  return axios.get(parseProtocol(uri))
   .then((res) => {
     return res.status == 200 ? { uri: uri, data: res.data } : null
   })

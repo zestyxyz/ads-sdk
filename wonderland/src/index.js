@@ -1,6 +1,6 @@
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking'
 import { formats, defaultFormat } from '../../utils/formats';
-import { parseIPFS } from '../../utils/helpers';
+import { parseProtocol } from '../../utils/helpers';
 
 /**
  * [Zesty Market](https://zesty.market) banner space
@@ -108,7 +108,7 @@ WL.registerComponent('zesty-banner', {
         }
 
         let image = activeBanner.data.image;
-        image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseIPFS(image);
+        image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
 
         return WL.textures.load(image, '').then(texture => {
             activeBanner.texture = texture;

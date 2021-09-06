@@ -1,6 +1,6 @@
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { parseIPFS } from '../../utils/helpers';
+import { parseProtocol } from '../../utils/helpers';
 import { log } from './logger';
 import './visibility_check';
 

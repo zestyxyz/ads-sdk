@@ -182,7 +182,7 @@ async function loadBanner(space, creator, network, format, style) {
   url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
   let image = activeBanner.data.image;
-  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseIPFS(image);
+  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
 
   const img = document.createElement('img');
   if (activeBanner.uri === 'DEFAULT_URI') activeBanner.uri += Math.random();

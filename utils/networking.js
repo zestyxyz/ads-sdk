@@ -52,6 +52,7 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
               where: {
                 contractTimeStart_lte: ${currentTime}
                 contractTimeEnd_gte: ${currentTime}
+                cancelled: false
               }
             ) {
               id

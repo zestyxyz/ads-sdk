@@ -59,7 +59,7 @@ namespace Zesty
                       ) {{
                         sellerNFTSetting {{
                           sellerAuctions (
-                            first : 1
+                            first : 5
                             where: {{
                               contractTimeStart_lte: {Utils.GetCurrentUnixTime()}
                               contractTimeEnd_gte: {Utils.GetCurrentUnixTime()}
@@ -182,7 +182,20 @@ namespace Zesty
         public void onClick()
         {
             Debug.Log(url);
-            _open(url);
+            switch (Application.platform)
+            {
+                case RuntimePlatform.WebGLPlayer:
+                    _open(url);
+                    break;
+                case RuntimePlatform.Android:
+                case RuntimePlatform.WindowsPlayer:
+                case RuntimePlatform.OSXPlayer:
+                    Application.OpenURL(url);
+                    break;
+                default:
+                    Debug.Log("Unsupported runtime platform detected!");
+                    break;
+            }
         }
     }
 }

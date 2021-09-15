@@ -83,9 +83,9 @@ WL.registerComponent('zesty-banner', {
 
     onClick: function() {
         if(this.banner.url) {
-            if(WL.session) {
+            if(WL.xrSession) {
               /* Try again after session ended */
-              WL.session.end().then(_ => this.onClick.bind(this));
+              WL.xrSession.end().then(_ => this.onClick.bind(this));
               return;
             }
             window.open(this.banner.url, '_blank');

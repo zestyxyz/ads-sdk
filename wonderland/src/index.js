@@ -80,20 +80,19 @@ WL.registerComponent('zesty-banner', {
             sendMetric(this.creator, this.space, this.banner.uri, this.banner.src, this.banner.cta, 'load', 0, 'wonderland');
         });
     },
-
     onClick: function() {
         if(this.banner.url) {
             if(WL.xrSession) {
-              /* Try again after session ended */
-              WL.xrSession.end().then(_ => this.onClick.bind(this));
-              return;
+                WL.xrSession.end().then(this.executeClick.bind(this));
+            } else {
+                this.executeClick();
             }
-            window.open(this.banner.url, '_blank');
-            sendMetric(this.creator, this.space, this.banner.uri, this.banner.imageSrc,
-                this.banner.url, 'click', 0, 'wonderland');
         }
     },
-
+    executeClick: function() {
+        window.open(this.banner.url, '_blank');
+        sendMetric(this.creator, this.space, this.banner.uri, this.banner.imageSrc, this.banner.url, 'click', 0, 'wonderland');
+    },
     loadBanner: async function(space, creator, network, format, style) {
         network = network ? 'polygon' : 'rinkeby'; // Use truthy/falsy values to get network
         const activeNFT = await fetchNFT(space, creator, network);

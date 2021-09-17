@@ -34,8 +34,6 @@ WL.registerComponent('zesty-banner', {
     },
 
     start: function() {
-        this.format = this.formats[this.format];
-
         this.mesh = this.object.getComponent('mesh');
         if(!this.mesh) {
             throw new Error("'zesty-banner ' missing mesh component");
@@ -48,7 +46,7 @@ WL.registerComponent('zesty-banner', {
 
         this.cursorTarget = this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
         this.cursorTarget.addClickFunction(this.onClick.bind(this));
-        
+
         this.loadBanner(this.space, this.creator, this.network, this.formatKeys[this.format], this.styleKeys[this.style]).then(banner => {
             this.banner = banner;
 
@@ -56,8 +54,8 @@ WL.registerComponent('zesty-banner', {
               /* Make banner always 1 meter height, adjust width according to banner aspect ratio */
               this.height = this.object.scalingLocal[1];
               this.object.resetScaling();
-              this.collision.extents = [this.format.width * this.height, this.height, 0.1];
-              this.object.scale([this.format.width * this.height, this.height, 1.0]);
+              this.collision.extents = [this.formats[this.format].width * this.height, this.height, 0.1];
+              this.object.scale([this.formats[this.format].width * this.height, this.height, 1.0]);
             }
             /* WL.Material.shader will be renamed to pipeline at some point,
              * supporting as many API versions as possible. */

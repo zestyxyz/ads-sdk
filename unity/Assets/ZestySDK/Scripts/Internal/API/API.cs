@@ -88,6 +88,7 @@ namespace Zesty {
 
             if (isConnectionOrProtocolError(request)) {
                 Debug.Log("GET request error: " + request.error);
+                Debug.Log("Tried to retrieve: " + url);
             } else {
                 var response = JSON.Parse(request.downloadHandler.text);
                 Dictionary<string, string> bannerData = new Dictionary<string, string>();

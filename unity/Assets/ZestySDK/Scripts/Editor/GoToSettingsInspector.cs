@@ -3,7 +3,9 @@ using UnityEngine;
 
 [CustomEditor (typeof (ZestySDK))]
 public class GoToSettingsInspector : Editor {
-    public override void OnInspectorGUI () {
+    // Zesty Config window not currently needed, may reuse in the future
+
+    /*public override void OnInspectorGUI () {
         DrawDefaultInspector ();
 
         GUILayout.Space (10);
@@ -15,5 +17,5 @@ public class GoToSettingsInspector : Editor {
             };
             window.Show ();
         }
-    }
+    }*/
 }

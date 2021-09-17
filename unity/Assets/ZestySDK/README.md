@@ -1,11 +1,8 @@
-# Wonderleap Unity SDK
+# Zesty Unity SDK
 
 ## How to use this Unity package
-1. Drag the WonderleapSDK.prefab into the first scene.
-![alt text](https://i.imgur.com/XbEriYp.png "WonderleapSDK")
+
+1. Drag the ZestySDK.prefab into the first scene.
 2. Be sure to have at least one main camera tagged.
-![alt text](https://i.imgur.com/vl4ucY3.png "Main Camera")
-3. Drag an Ad Unit into your scene.
-![alt text](https://i.imgur.com/7FmYwJi.png "Drag Ad Unit")
-4. Setup the Ad Unit Id in the Inspector
-![alt text](https://i.imgur.com/2EgdMxs.png "Setup Ad Unit Id")
+3. Drag a Banner prefab into your scene.
+4. Fill in your space ID and creator ID (aka your wallet address).

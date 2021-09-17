@@ -25,7 +25,7 @@ public class Utils : MonoBehaviour {
     {
         if (uri.Substring(0, 4) == "ipfs")
         {
-            return $"https://ipfs.zesty.market/ipfs/${uri.Substring(7)}";
+            return $"https://ipfs.zesty.market/ipfs/{uri.Substring(7)}";
         }
         else if (uri.Substring(0, 4) == "http" || uri.Substring(0, 5) == "https")
         {
@@ -33,11 +33,11 @@ public class Utils : MonoBehaviour {
         }
         else if (uri.Substring(0, 2) == "ar")
         {
-            return $"https://arweave.net/${uri.Substring(5)}";
+            return $"https://arweave.net/{uri.Substring(5)}";
         }
         else // Assume bare IPFS hash
         {
-            return $"https://ipfs.zesty.market/ipfs/${uri}`";
+            return $"https://ipfs.zesty.market/ipfs/{uri}`";
         }
     }
 

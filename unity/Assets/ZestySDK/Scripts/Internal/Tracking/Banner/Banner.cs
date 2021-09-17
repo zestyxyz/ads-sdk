@@ -63,6 +63,7 @@ namespace Zesty
                             where: {{
                               contractTimeStart_lte: {Utils.GetCurrentUnixTime()}
                               contractTimeEnd_gte: {Utils.GetCurrentUnixTime()}
+                              cancelled: false
                             }}
                           ) {{
                               id
@@ -142,7 +143,7 @@ namespace Zesty
             }
             else if (bannerInfo.ContainsKey("image"))
             {
-                bannerTextureURL = $"https://ipfs.zesty.market/ipfs/{bannerInfo["image"]}";
+                bannerTextureURL = Utils.ParseProtocol(bannerInfo["image"]);
                 StartCoroutine(API.GetTexture(bannerTextureURL, SetTexture));
                 SetURL(bannerInfo["url"]);
             }
@@ -182,20 +183,10 @@ namespace Zesty
         public void onClick()
         {
             Debug.Log(url);
-            switch (Application.platform)
-            {
-                case RuntimePlatform.WebGLPlayer:
-                    _open(url);
-                    break;
-                case RuntimePlatform.Android:
-                case RuntimePlatform.WindowsPlayer:
-                case RuntimePlatform.OSXPlayer:
-                    Application.OpenURL(url);
-                    break;
-                default:
-                    Debug.Log("Unsupported runtime platform detected!");
-                    break;
-            }
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
+                _open(url);            
+            else            
+                Application.OpenURL(url);            
         }
     }
 }

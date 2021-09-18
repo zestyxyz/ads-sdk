@@ -102,15 +102,15 @@ function BannerPlane(props) {
   };
 
   return (
-    <Interactive onSelect={onClick}>
-      <Suspense>
+    <Suspense>
+      <Interactive onSelect={onClick}>
         <mesh {...props} ref={mesh} scale={0.5} onClick={onClick}>
           <planeBufferGeometry
             args={[formats[props.newFormat].width * props.height, props.height]}
           />
           <meshBasicMaterial map={texture} transparent={true} />
         </mesh>
-      </Suspense>
-    </Interactive>
+      </Interactive>
+    </Suspense>
   );
 }

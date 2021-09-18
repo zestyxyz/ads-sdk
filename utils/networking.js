@@ -103,7 +103,6 @@ const fetchActiveBanner = async (uri, format, style) => {
   if (!uri) {
     let bannerObject = { uri: 'DEFAULT_URI', data: DEFAULT_URI_CONTENT };
     let newFormat = format || defaultFormat;
-    console.log(newFormat);
     let newStyle = style || defaultStyle;
     bannerObject.data.image = formats[newFormat].style[newStyle];
     return bannerObject;

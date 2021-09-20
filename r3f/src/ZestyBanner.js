@@ -41,7 +41,7 @@ export default function ZestyBanner(props) {
         banner.image = banner.image.match(/^.+\.(png|jpe?g)/i)
           ? banner.image
           : parseProtocol(banner.image);
-        sendMetric(
+        /*sendMetric(
           props.creator,
           space,
           banner.uri,
@@ -50,7 +50,7 @@ export default function ZestyBanner(props) {
           "load", // event
           0, // durationInMs
           "r3f" //sdkType
-        );
+        );*/
         setBannerData(data);
       }
     );
@@ -89,7 +89,7 @@ function BannerPlane(props) {
       if (session) session.end();
     }
     window.open(url, "_blank");
-    sendMetric(
+    /*sendMetric(
       props.creator,
       props.space,
       banner.uri,
@@ -98,7 +98,7 @@ function BannerPlane(props) {
       "click", // event
       0, // durationInMs
       "r3f" //sdkType
-    );
+    );*/
   };
 
   return (

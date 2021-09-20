@@ -33,9 +33,6 @@ namespace Zesty
 
         // Banner loading variables
         bool bannerLoadedSuccessfully = false;
-        float bannerCheckTimer = 0f;
-        float bannerCheckWaitPeriod = 10f;
-
 
         void Start () {
             m_Renderer = GetComponent<Renderer>();
@@ -182,7 +179,6 @@ namespace Zesty
 
         public void onClick()
         {
-            Debug.Log(url);
             if (Application.platform == RuntimePlatform.WebGLPlayer)
                 _open(url);            
             else            

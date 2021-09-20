@@ -36,7 +36,6 @@ namespace Zesty {
             if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.LinuxEditor)
             {
                 Debug.Log($@"[NEW_SESSION] SESSION_ID: {sessionID}");
-
             }
         }
     }

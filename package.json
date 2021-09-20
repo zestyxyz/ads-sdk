@@ -1,0 +1,16 @@
+{
+  "name": "zesty-sdk",
+  "description": "Monorepo for Zesty integration SDKS.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/zestymarket/zesty-sdk.git",
+  "author": "Zesty Market",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.25.3"
+  }
+}

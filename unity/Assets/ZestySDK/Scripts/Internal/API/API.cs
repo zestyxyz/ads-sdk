@@ -127,7 +127,11 @@ namespace Zesty {
         /// <returns>True if a connection or protocol error was experienced, else False.</returns>
         private static bool isConnectionOrProtocolError(UnityWebRequest request)
         {
+#if UNITY_2020
             return request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError;
+#else
+            return request.isNetworkError || request.isHttpError;
+#endif
         }
 
     }

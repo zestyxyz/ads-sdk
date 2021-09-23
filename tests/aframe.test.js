@@ -1,6 +1,6 @@
 import { expect, test, describe, jest, beforeAll } from '@jest/globals';
 
-jest.setTimeout(10000);
+jest.setTimeout(60000);
 
 const getImageSrc = async (banner) => {
     return await (await (await (await (await (await banner.getProperty('components'))
@@ -13,7 +13,7 @@ const getImageSrc = async (banner) => {
 
 describe('Initial load', () => {        
     test('The correct test page is currently loaded', async () => {
-        await page.goto('http://localhost:8080/aframe/');
+        await page.goto('http://localhost:8080/tests/aframe/');
         await expect(page.title()).resolves.toBe('A-Frame Test');
     });
     
@@ -95,12 +95,13 @@ describe('Transparent styles', () => {
         expect(img).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png');
     });
 });
-/*
+
 describe('Navigation', () => {
     test('Clicking the banner navigates to a new page', async () => {
-        const banner = await page.waitForSelector('#banner9 > a-plane');
-        console.log(banner);
-        await banner.click();
-        await expect(page.title()).resolves.not.toBe('A-Frame Test');
-    })
-})*/
+        const pageTarget = page.target();
+        await page.evaluate(() => document.querySelector('#banner9 > a-plane').click());
+        const newTarget = await browser.waitForTarget(target => target.opener() === pageTarget);
+        const newPage = await newTarget.page();
+        await expect(newPage.title()).resolves.not.toBe('A-Frame Test');
+    });
+});

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Zesty
 {
-
+    [ExecuteInEditMode]
     public class Banner : MonoBehaviour {
         public enum Network
         {
@@ -19,6 +19,8 @@ namespace Zesty
         public Network network;
         public Formats.Types format;
         public Formats.Styles style;
+
+        public Material[] placeholderMaterials = new Material[3];
 
         // Object-related variables
         Renderer m_Renderer;
@@ -92,6 +94,12 @@ namespace Zesty
                 {
                     onClick();
                 }
+            }
+
+            // Editor resizing
+            if (transform.hasChanged)
+            {
+                UpdateBanner();
             }
         }
 
@@ -183,6 +191,31 @@ namespace Zesty
                 _open(url);            
             else            
                 Application.OpenURL(url);            
+        }
+
+        private void OnValidate()
+        {
+            UpdateBanner();
+        }
+
+        private void UpdateBanner()
+        {
+            switch (format)
+            {
+                case Formats.Types.Tall:
+                    transform.localScale = new Vector3(transform.localScale.x, (float)(transform.localScale.x * (4f / 3f)), .001f);
+                    gameObject.GetComponent<Renderer>().material = placeholderMaterials[0];
+                    break;
+                case Formats.Types.Wide:
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x / 4, .001f);
+                    gameObject.GetComponent<Renderer>().material = placeholderMaterials[1];
+                    break;
+                case Formats.Types.Square:
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x, .001f);
+                    gameObject.GetComponent<Renderer>().material = placeholderMaterials[2];
+                    break;
+            }
+
         }
     }
 }

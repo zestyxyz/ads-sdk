@@ -6,8 +6,18 @@ describe('Initial load', () => {
         await expect(page.title()).resolves.toBe('Web Test');
     });
 
-    test.only('All 9 banners are currently loaded', async () => {
-        //const bannerCount = 9;
+    test('All 9 banners are currently loaded', async () => {
+        await Promise.all([
+            page.waitForSelector('#banner1'),
+            page.waitForSelector('#banner2'),
+            page.waitForSelector('#banner3'),
+            page.waitForSelector('#banner4'),
+            page.waitForSelector('#banner5'),
+            page.waitForSelector('#banner6'),
+            page.waitForSelector('#banner7'),
+            page.waitForSelector('#banner8'),
+            page.waitForSelector('#banner9'),
+        ])
         const bannerCount = await page.evaluate(() => document.getElementsByTagName('zesty-web').length);
         expect(bannerCount).toBe(9);
     });
@@ -15,64 +25,61 @@ describe('Initial load', () => {
 
 describe('Standard styles', () => {
     test('The tall standard banner is present', async () => {
-        const banner1 = await page.waitForSelector('#banner1');
+        await page.waitForTimeout(1000);
+        const banner1 = await page.evaluate(() => document.getElementById('banner1').shadowRoot.children[0].src)
         expect(banner1).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall.png');
-    })
-
+    });
+    
     test('The wide standard banner is present', async () => {
-        const banner2 = await page.waitForSelector('#banner2');
+        const banner2 = await page.evaluate(() => document.getElementById('banner2').shadowRoot.children[0].src)
         expect(banner2).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide.png');
     });
     
     test('The square standard banner is present', async () => {
-        const banner3 = await await page.waitForSelector('#banner3');
+        const banner3 = await page.evaluate(() => document.getElementById('banner3').shadowRoot.children[0].src)
         expect(banner3).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square.png');
     });
 });
 
 describe('Minimal styles', () => {
     test('The tall standard banner is present', async () => {
-        const banner4 = await page.waitForSelector('#banner4');
+        const banner4 = await page.evaluate(() => document.getElementById('banner4').shadowRoot.children[0].src)
         expect(banner4).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png');
     })
 
     test('The wide standard banner is present', async () => {
-        const banner5 = await page.waitForSelector('#banner5');
+        const banner5 = await page.evaluate(() => document.getElementById('banner5').shadowRoot.children[0].src)
         expect(banner5).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png');
     });
     
     test('The square standard banner is present', async () => {
-        const banner6 = await page.waitForSelector('#banner6');
+        const banner6 = await page.evaluate(() => document.getElementById('banner6').shadowRoot.children[0].src)
         expect(banner6).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png');
     });
 });
 
 describe('Transparent styles', () => {
     test('The tall transparent banner is present', async () => {
-        const banner7 = await page.waitForSelector('#banner7');
+        const banner7 = await page.evaluate(() => document.getElementById('banner7').shadowRoot.children[0].src)
         expect(banner7).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png');
     })
 
     test('The wide transparent banner is present', async () => {
-        const banner8 = await page.waitForSelector('#banner8');
+        const banner8 = await page.evaluate(() => document.getElementById('banner8').shadowRoot.children[0].src)
         expect(banner8).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png');
     });
     
     test('The square transparent banner is present', async () => {
-        const banner9 = await page.waitForSelector('#banner9');
+        const banner9 = await page.evaluate(() => document.getElementById('banner9').shadowRoot.children[0].src)
         expect(banner9).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png');
     });
 });
 
 describe('Navigation', () => {
     test('Clicking the banner navigates to a new page', async () => {
-        //const pageTarget = page.target();
-        const banner = await page.waitForSelector('#banner1');
-        banner.click();
-        //banner.shadowRoot.children[0].click();
-        //await page.evaluate(() => document.querySelector('#DEFAULT_URI').click());
-        await page.waitForNavigation();
-        //const newTarget = await browser.waitForTarget(target => target.opener() === pageTarget);
+        const pageTarget = page.target();
+        await page.evaluate(() => document.getElementById('banner1').shadowRoot.children[0].click());
+        const newTarget = await browser.waitForTarget(target => target.opener() === pageTarget);
         const newPage = await newTarget.page();
         await expect(newPage.title()).resolves.not.toBe('Web Test');
     });

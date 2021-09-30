@@ -1,7 +1,7 @@
 /**
  * This component exposes the banners in the scene for testing purposes.
  */
-WL.registerComponent('test', {
+WL.registerComponent('expose-banners', {
     banner1Object: {type: WL.Type.Object},
     banner2Object: {type: WL.Type.Object},
     banner3Object: {type: WL.Type.Object},

@@ -2244,7 +2244,8 @@
                         "banner9Object": "231"
                     }
                 }
-            ]
+            ],
+            "deleted": true
         },
         "224": {
             "name": "ZestyBanner2",
@@ -2693,6 +2694,25 @@
                 1.0
             ],
             "parent": null
+        },
+        "232": {
+            "name": "ExposeBanners",
+            "components": [
+                {
+                    "type": "expose-banners",
+                    "expose-banners": {
+                        "banner1Object": "217",
+                        "banner2Object": "224",
+                        "banner3Object": "225",
+                        "banner4Object": "226",
+                        "banner5Object": "227",
+                        "banner6Object": "228",
+                        "banner7Object": "229",
+                        "banner8Object": "230",
+                        "banner9Object": "231"
+                    }
+                }
+            ]
         }
     },
     "meshes": {

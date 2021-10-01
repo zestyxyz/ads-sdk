@@ -88,6 +88,7 @@ namespace Zesty {
 
             if (isConnectionOrProtocolError(request)) {
                 Debug.Log("GET request error: " + request.error);
+                Debug.Log("Tried to retrieve: " + url);
             } else {
                 var response = JSON.Parse(request.downloadHandler.text);
                 Dictionary<string, string> bannerData = new Dictionary<string, string>();
@@ -126,7 +127,11 @@ namespace Zesty {
         /// <returns>True if a connection or protocol error was experienced, else False.</returns>
         private static bool isConnectionOrProtocolError(UnityWebRequest request)
         {
+#if UNITY_2020
             return request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError;
+#else
+            return request.isNetworkError || request.isHttpError;
+#endif
         }
 
     }

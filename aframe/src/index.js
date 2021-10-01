@@ -1,9 +1,10 @@
+/* global AFRAME */
+
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { parseProtocol } from '../../utils/helpers';
 import { log } from './logger';
 import './visibility_check';
-
 
 AFRAME.registerComponent('zesty-banner', {
   data: {},
@@ -15,25 +16,33 @@ AFRAME.registerComponent('zesty-banner', {
     adFormat: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
-    height: { type: 'float', default: 1 },
+    height: { type: 'float', default: 1 }
   },
 
   init: function() {
     // This slows down the tick
     this.tick = AFRAME.utils.throttleTick(this.tick, 200, this);
-    this.registerEntity()
+    this.registerEntity();
   },
 
   registerEntity: function() {
-    let space = this.data.space ? this.data.space : this.data.adSpace;
-    let format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
-    this.system.registerEntity(this.el, space, this.data.creator, this.data.network, format, this.data.style, this.data.height);
+    const space = this.data.space ? this.data.space : this.data.adSpace;
+    const format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
+    this.system.registerEntity(
+      this.el,
+      space,
+      this.data.creator,
+      this.data.network,
+      format,
+      this.data.style,
+      this.data.height
+    );
   },
 
   // Every 200ms check for `visible` component
   tick: function() {
-    let component = this.el;
-    if (component.getAttribute('visible') == false) {
+    const component = this.el;
+    if (!component.getAttribute('visible')) {
       while (component.firstChild) {
         component.removeChild(component.lastChild);
       }
@@ -46,7 +55,7 @@ AFRAME.registerComponent('zesty-banner', {
 
   remove: function() {
     this.system.unregisterEntity(this.el);
-  },
+  }
 });
 
 AFRAME.registerComponent('zesty-ad', {
@@ -59,25 +68,33 @@ AFRAME.registerComponent('zesty-ad', {
     adFormat: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
-    height: { type: 'float', default: 1 },
+    height: { type: 'float', default: 1 }
   },
 
   init: function() {
     // This slows down the tick
     this.tick = AFRAME.utils.throttleTick(this.tick, 200, this);
-    this.registerEntity()
+    this.registerEntity();
   },
 
   registerEntity: function() {
-    let space = this.data.space ? this.data.space : this.data.adSpace;
-    let format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
-    this.system.registerEntity(this.el, space, this.data.creator, this.data.network, format, this.data.style, this.data.height);
+    const space = this.data.space ? this.data.space : this.data.adSpace;
+    const format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
+    this.system.registerEntity(
+      this.el,
+      space,
+      this.data.creator,
+      this.data.network,
+      format,
+      this.data.style,
+      this.data.height
+    );
   },
 
   // Every 200ms check for `visible` component
   tick: function() {
-    let component = this.el;
-    if (component.getAttribute('visible') == false) {
+    const component = this.el;
+    if (!component.getAttribute('visible')) {
       while (component.firstChild) {
         component.removeChild(component.lastChild);
       }
@@ -90,9 +107,8 @@ AFRAME.registerComponent('zesty-ad', {
 
   remove: function() {
     this.system.unregisterEntity(this.el);
-  },
+  }
 });
-
 
 async function loadBanner(space, creator, network, format, style) {
   const activeNFT = await fetchNFT(space, creator, network);
@@ -106,13 +122,13 @@ async function loadBanner(space, creator, network, format, style) {
   image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
 
   const img = document.createElement('img');
-  img.setAttribute('id', activeBanner.uri)
+  img.setAttribute('id', activeBanner.uri);
   img.setAttribute('crossorigin', '');
   if (activeBanner.data.image) {
     img.setAttribute('src', image);
     return new Promise((resolve, reject) => {
       img.onload = () => resolve({ img: img, uri: activeBanner.uri, url: url });
-      img.onerror = () => reject('img load error');
+      img.onerror = () => reject(new Error('img load error'));
     });
   } else {
     return { id: 'blank' };
@@ -129,7 +145,11 @@ AFRAME.registerSystem('zesty-banner', {
   },
 
   registerEntity: function(el, space, creator, network, format, style, height) {
-    if((this.bannerPromise && this.bannerPromise.isPending && this.bannerPromise.isPending()) || this.entities.length) return; // Checks if it is a promise, stops more requests from being made
+    if (
+      (this.bannerPromise && this.bannerPromise.isPending && this.bannerPromise.isPending()) ||
+      this.entities.length
+    )
+      return; // Checks if it is a promise, stops more requests from being made
 
     const scene = document.querySelector('a-scene');
     let assets = scene.querySelector('a-assets');
@@ -140,29 +160,29 @@ AFRAME.registerSystem('zesty-banner', {
 
     log(`Loading space: ${space}, creator: ${creator}`);
 
-    this.bannerPromise = loadBanner(space, creator, network, format, style).then((banner) => {
+    this.bannerPromise = loadBanner(space, creator, network, format, style).then(banner => {
       if (banner.img) {
         assets.appendChild(banner.img);
       }
-      if (banner.url == 'https://www.zesty.market') {
+      if (banner.url === 'https://www.zesty.market') {
         banner.url = `https://app.zesty.market/space/${space}`;
       }
       return banner;
     });
 
-    this.bannerPromise.then((banner) => {
+    this.bannerPromise.then(banner => {
       // don't attach plane if element's visibility is false
       if (el.getAttribute('visible') !== false) {
-        sendMetric(
-          creator,
-          space,
-          banner.uri,
-          banner.img.src,
-          banner.url,
-          'load', // event
-          0, // durationInMs
-          'aframe' //sdkType
-        );
+        // sendMetric(
+        //   creator,
+        //   space,
+        //   banner.uri,
+        //   banner.img.src,
+        //   banner.url,
+        //   'load', // event
+        //   0, // durationInMs
+        //   'aframe' // sdkType
+        // );
 
         const plane = document.createElement('a-plane');
         if (banner.img) {
@@ -186,17 +206,18 @@ AFRAME.registerSystem('zesty-banner', {
           // Open link in new tab
           if (banner.url) {
             window.open(banner.url, '_blank');
-            sendMetric(
-              creator,
-              space,
-              banner.uri,
-              banner.img.src,
-              banner.url,
-              'click', // event
-              0, // durationInMs
-              'aframe' //sdkType
-            );
-          }};
+            // sendMetric(
+            //   creator,
+            //   space,
+            //   banner.uri,
+            //   banner.img.src,
+            //   banner.url,
+            //   'click', // event
+            //   0, // durationInMs
+            //   'aframe' // sdkType
+            // );
+          }
+        };
         el.appendChild(plane);
 
         // Set ad properties
@@ -214,8 +235,8 @@ AFRAME.registerSystem('zesty-banner', {
   },
 
   unregisterEntity: function(el) {
-    this.entities = this.entities.filter((sEl) => sEl !== el);
-  },
+    this.entities = this.entities.filter(sEl => sEl !== el);
+  }
 });
 
 AFRAME.registerSystem('zesty-ad', {
@@ -228,7 +249,11 @@ AFRAME.registerSystem('zesty-ad', {
   },
 
   registerEntity: function(el, space, creator, network, format, style, height) {
-    if((this.bannerPromise && this.bannerPromise.isPending && this.bannerPromise.isPending()) || this.entities.length) return; // Checks if it is a promise, stops more requests from being made
+    if (
+      (this.bannerPromise && this.bannerPromise.isPending && this.bannerPromise.isPending()) ||
+      this.entities.length
+    )
+      return; // Checks if it is a promise, stops more requests from being made
 
     const scene = document.querySelector('a-scene');
     let assets = scene.querySelector('a-assets');
@@ -239,29 +264,29 @@ AFRAME.registerSystem('zesty-ad', {
 
     log(`Loading space: ${space}, creator: ${creator}`);
 
-    this.bannerPromise = loadBanner(space, creator, network, format, style).then((banner) => {
+    this.bannerPromise = loadBanner(space, creator, network, format, style).then(banner => {
       if (banner.img) {
         assets.appendChild(banner.img);
       }
-      if (banner.url == 'https://www.zesty.market') {
+      if (banner.url === 'https://www.zesty.market') {
         banner.url = `https://app.zesty.market/space/${space}`;
       }
       return banner;
     });
 
-    this.bannerPromise.then((banner) => {
+    this.bannerPromise.then(banner => {
       // don't attach plane if element's visibility is false
       if (el.getAttribute('visible') !== false) {
-        sendMetric(
-          creator,
-          space,
-          banner.uri,
-          banner.img.src,
-          banner.url,
-          'load', // event
-          0, // durationInMs
-          'aframe' //sdkType
-        );
+        // sendMetric(
+        //   creator,
+        //   space,
+        //   banner.uri,
+        //   banner.img.src,
+        //   banner.url,
+        //   'load', // event
+        //   0, // durationInMs
+        //   'aframe' // sdkType
+        // );
 
         const plane = document.createElement('a-plane');
         if (banner.img) {
@@ -293,9 +318,10 @@ AFRAME.registerSystem('zesty-ad', {
               banner.url,
               'click', // event
               0, // durationInMs
-              'aframe' //sdkType
+              'aframe' // sdkType
             );
-          }};
+          }
+        };
         el.appendChild(plane);
 
         // Set ad properties
@@ -313,13 +339,13 @@ AFRAME.registerSystem('zesty-ad', {
   },
 
   unregisterEntity: function(el) {
-    this.entities = this.entities.filter((sEl) => sEl !== el);
-  },
+    this.entities = this.entities.filter(sEl => sEl !== el);
+  }
 });
 
 AFRAME.registerPrimitive('a-zesty', {
   defaultComponents: {
     'zesty-banner': { space: '', creator: '' },
     'visibility-check': {}
-  },
+  }
 });

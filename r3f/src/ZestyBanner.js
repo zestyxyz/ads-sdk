@@ -1,23 +1,18 @@
-import * as THREE from "three";
-import { useLoader, useThree } from "@react-three/fiber";
-import { useRef, useState, Suspense, useEffect } from "react";
-import {
-  fetchNFT,
-  fetchActiveBanner,
-  sendMetric,
-} from "../../utils/networking";
-import { formats, defaultFormat, defaultStyle } from "../../utils/formats";
-import { Interactive } from "@react-three/xr";
-import { parseProtocol } from "../../utils/helpers";
+import * as THREE from 'three';
+import { useLoader, useThree } from '@react-three/fiber';
+import { useRef, useState, Suspense, useEffect } from 'react';
+import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
+import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
+import { Interactive } from '@react-three/xr';
+import { parseProtocol } from '../../utils/helpers';
 
-export * from "../../utils/formats";
+export * from '../../utils/formats';
 
 export default function ZestyBanner(props) {
   const [bannerData, setBannerData] = useState(false);
 
   const space = props.space ? props.space : props.adSpace;
-  const format =
-    (props.format ? props.format : props.adFormat) ?? defaultFormat;
+  const format = (props.format ? props.format : props.adFormat) ?? defaultFormat;
 
   const width = props.width ?? formats[format].width;
   const height = props.height ?? formats[format].height;
@@ -31,29 +26,27 @@ export default function ZestyBanner(props) {
   };
 
   useEffect(() => {
-    loadBanner(space, props.creator, props.network, format, newStyle).then(
-      (data) => {
-        let banner = data.data;
-        let url = banner.url || banner.properties?.url;
-        if (url == "https://www.zesty.market") {
-          url = `https://app.zesty.market/space/${props.space}`;
-        }
-        banner.image = banner.image.match(/^.+\.(png|jpe?g)/i)
-          ? banner.image
-          : parseProtocol(banner.image);
-        /*sendMetric(
-          props.creator,
-          space,
-          banner.uri,
-          banner.image,
-          url,
-          "load", // event
-          0, // durationInMs
-          "r3f" //sdkType
-        );*/
-        setBannerData(data);
+    loadBanner(space, props.creator, props.network, format, newStyle).then((data) => {
+      const banner = data.data;
+      let url = banner.url || banner.properties?.url;
+      if (url === 'https://www.zesty.market') {
+        url = `https://app.zesty.market/space/${props.space}`;
       }
-    );
+      banner.image = banner.image.match(/^.+\.(png|jpe?g)/i)
+        ? banner.image
+        : parseProtocol(banner.image);
+      // sendMetric(
+      //   props.creator,
+      //   space,
+      //   banner.uri,
+      //   banner.image,
+      //   url,
+      //   'load', // event
+      //   0, // durationInMs
+      //   'r3f' //sdkType
+      // );
+      setBannerData(data);
+    });
   }, [props.creator, space]);
 
   return (
@@ -79,26 +72,26 @@ function BannerPlane(props) {
   const texture = useLoader(THREE.TextureLoader, props.bannerData.data.image);
 
   const onClick = (event) => {
-    let banner = props.bannerData.data;
+    const banner = props.bannerData.data;
     let url = banner.url || banner.properties?.url;
-    if (url == "https://www.zesty.market") {
+    if (url === 'https://www.zesty.market') {
       url = `https://app.zesty.market/space/${props.newSpace}`;
     }
     if (gl.xr.isPresenting) {
       const session = gl.xr.getSession();
       if (session) session.end();
     }
-    window.open(url, "_blank");
-    /*sendMetric(
-      props.creator,
-      props.space,
-      banner.uri,
-      banner.image,
-      url,
-      "click", // event
-      0, // durationInMs
-      "r3f" //sdkType
-    );*/
+    window.open(url, '_blank');
+    // sendMetric(
+    //   props.creator,
+    //   props.space,
+    //   banner.uri,
+    //   banner.image,
+    //   url,
+    //   'click', // event
+    //   0, // durationInMs
+    //   'r3f' //sdkType
+    // );
   };
 
   return (

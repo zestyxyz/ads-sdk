@@ -1,7 +1,8 @@
-import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
-import { formats, defaultFormat } from '../../utils/formats';
+/* global BABYLON */
+
+import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
+import { formats } from '../../utils/formats';
 import { parseProtocol } from '../../utils/helpers';
-//import * as BABYLON from 'babylonjs';
 
 export default class ZestyBanner {
   constructor(space, creator, network, format, style, height, scene, webXRExperienceHelper = null) {
@@ -16,24 +17,20 @@ export default class ZestyBanner {
       this.zestyBanner.material = data.mat;
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
       this.zestyBanner.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(
-          BABYLON.ActionManager.OnPickTrigger,
-          () => {
-            if (webXRExperienceHelper?.baseExperience) {
-              webXRExperienceHelper.baseExperience.sessionManager.exitXRAsync().then(() => {
-                window.open(data.url);
-              });
-            }
-            else {
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, () => {
+          if (webXRExperienceHelper?.baseExperience) {
+            webXRExperienceHelper.baseExperience.sessionManager.exitXRAsync().then(() => {
               window.open(data.url);
-            }
+            });
+          } else {
+            window.open(data.url);
           }
-        )
+        })
       );
     });
 
     return this.zestyBanner;
-  }  
+  }
 }
 
 async function loadBanner(space, creator, network, format, style) {
@@ -44,7 +41,7 @@ async function loadBanner(space, creator, network, format, style) {
   let url = activeBanner.data.url;
   url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
-  if (url == 'https://www.zesty.market') {
+  if (url === 'https://www.zesty.market') {
     url = `https://app.zesty.market/space/${space}`;
   }
 
@@ -55,7 +52,7 @@ async function loadBanner(space, creator, network, format, style) {
   mat.diffuseTexture = new BABYLON.Texture(image);
   mat.diffuseTexture.hasAlpha = true;
 
-  return { mat: mat, src: image, uri: activeBanner.uri, url: url }
+  return { mat: mat, src: image, uri: activeBanner.uri, url: url };
 }
 
 window.ZestyBanner = ZestyBanner;

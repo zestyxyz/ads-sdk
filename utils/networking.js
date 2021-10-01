@@ -86,13 +86,10 @@ const parseGraphResponse = res => {
   if (res.status != 200) {
     return DEFAULT_DATAS 
   }
-  let sellerAuction = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions[0];
-  let latestAuction = null;
-  for (let i=0; i < sellerAuction?.buyerCampaignsApproved.length; i++) {
-    if (sellerAuction?.buyerCampaignsApproved[i] && sellerAuction?.buyerCampaigns.length > 0) {
-      latestAuction = sellerAuction.buyerCampaigns[i]; 
-    }
-  }
+  let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
+  let latestAuction = sellerAuctions?.find((auction, i) => {
+    if (auction.buyerCampaigns.length > 0 && auction.buyerCampaignsApproved[i]) return auction;
+  })?.buyerCampaigns[0];
   
   if (latestAuction == null) {
     return DEFAULT_DATAS 

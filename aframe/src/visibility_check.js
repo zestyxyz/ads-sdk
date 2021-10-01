@@ -1,6 +1,8 @@
-import { sendMetric } from '../../utils/networking';
+/* global AFRAME, THREE */
+
+// import { sendMetric } from '../../utils/networking';
 import { log } from './logger';
-import { invert } from './math-utils/matrix'
+import { invert } from './math-utils/matrix';
 
 function getCameraHelper(callback) {
   const camera = document.querySelector('[camera]');
@@ -16,8 +18,8 @@ function getCameraHelper(callback) {
 // Camera might not be initialized at scene initialization, so we poll
 // until we can register the camera.
 async function getCamera() {
-  return new Promise((resolve) => {
-    getCameraHelper((camera) => {
+  return new Promise(resolve => {
+    getCameraHelper(camera => {
       resolve(camera);
     });
   });
@@ -35,8 +37,8 @@ function isObjectInCameraFrustum(object, camera, sceneEl) {
     return false;
   }
 
-  if(sceneEl.is('vr-mode')) {
-    let currentCameraPose = sceneEl.renderer.xr.getCameraPose();
+  if (sceneEl.is('vr-mode')) {
+    const currentCameraPose = sceneEl.renderer.xr.getCameraPose();
     let inverse = currentCameraPose.transform.matrix;
 
     // Adding parent position to Camera in WebXR space
@@ -49,39 +51,47 @@ function isObjectInCameraFrustum(object, camera, sceneEl) {
 
     // Object with elements is needed for multiplyMatrices
     inverse = { elements: invert(inverse, inverse) };
-    let projectionMatrix = { elements: currentCameraPose.views[0].projectionMatrix };
+    const projectionMatrix = { elements: currentCameraPose.views[0].projectionMatrix };
     cameraViewProjectionMatrix.multiplyMatrices(projectionMatrix, inverse);
 
     // Check for different THREE versions
-    if(frustum.setFromProjectionMatrix)
+    if (frustum.setFromProjectionMatrix) {
       frustum.setFromProjectionMatrix(cameraViewProjectionMatrix);
-    else
+    } else {
       frustum.setFromMatrix(cameraViewProjectionMatrix);
+    }
 
     box.setFromObject(object);
-    if(!object.center)
+    if (!object.center) {
       object.center = new THREE.Vector3();
+    }
     box.getCenter(object.center);
 
     return frustum.containsPoint(object.center);
   } else {
-    let currentCamera = camera;
-    cameraViewProjectionMatrix.multiplyMatrices(currentCamera.projectionMatrix, currentCamera.matrixWorldInverse);
+    const currentCamera = camera;
+    cameraViewProjectionMatrix.multiplyMatrices(
+      currentCamera.projectionMatrix,
+      currentCamera.matrixWorldInverse
+    );
 
     // Check for different THREE versions
-    if(frustum.setFromProjectionMatrix)
+    if (frustum.setFromProjectionMatrix) {
       frustum.setFromProjectionMatrix(cameraViewProjectionMatrix);
-    else
+    } else {
       frustum.setFromMatrix(cameraViewProjectionMatrix);
+    }
 
     box.setFromObject(object);
-    if(!object.center)
+    if (!object.center) {
       object.center = new THREE.Vector3();
+    }
     box.getCenter(object.center);
     return frustum.containsPoint(object.center);
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 function rayIntersectsObject(object, camera, scene) {
   const cameraPosition = new THREE.Vector3();
   camera.updateMatrixWorld();
@@ -90,7 +100,7 @@ function rayIntersectsObject(object, camera, scene) {
     cameraPosition, // origin
     object.center.sub(cameraPosition).normalize(), // direction
     camera.near, // near
-    camera.far, // far
+    camera.far // far
   );
 
   // Optimizations:
@@ -109,9 +119,9 @@ function getDistanceToCamera(object, camera, sceneEl) {
     return false;
   }
 
-  if(sceneEl.is('vr-mode')) {
-    let currentCameraPose = sceneEl.renderer.xr.getCameraPose();
-    let position = currentCameraPose.transform.position;
+  if (sceneEl.is('vr-mode')) {
+    const currentCameraPose = sceneEl.renderer.xr.getCameraPose();
+    const position = currentCameraPose.transform.position;
 
     // Adding parent position to Camera in WebXR space
     sceneEl.camera.parent.getWorldPosition(parentPosition);
@@ -135,11 +145,11 @@ const maxDistance = 15.0;
 AFRAME.registerComponent('visibility-check', {
   init: function() {
     this.object = this.el.object3D;
-    cameraFuture.then((camera) => {
+    cameraFuture.then(camera => {
       this.camera = camera;
     });
 
-    this.sceneEl = document.querySelector('a-scene')
+    this.sceneEl = document.querySelector('a-scene');
     this.scene = this.sceneEl.object3D;
 
     this.ad = this.el.components['zesty-ad'];
@@ -155,7 +165,7 @@ AFRAME.registerComponent('visibility-check', {
   },
 
   check: function() {
-    let distanceToCamera = getDistanceToCamera(this.object, this.camera, this.sceneEl);
+    const distanceToCamera = getDistanceToCamera(this.object, this.camera, this.sceneEl);
     const isVisible =
       isObjectInCameraFrustum(this.object, this.camera, this.sceneEl) &&
       distanceToCamera < maxDistance;
@@ -183,5 +193,5 @@ AFRAME.registerComponent('visibility-check', {
         log(`${this.object.id} - Gaze for ${duration}ms`);
       }
     }
-  },
+  }
 });

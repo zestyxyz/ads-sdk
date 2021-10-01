@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Net;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Zesty {
     [DisallowMultipleComponent]
@@ -12,6 +15,8 @@ namespace Zesty {
         [HideInInspector]
         public string sessionID;
 
+        private byte[] signedMessage;
+
         void Awake () {
             if (Instance != null && Instance != this) {
                 Destroy (gameObject);
@@ -20,18 +25,18 @@ namespace Zesty {
             }
         }
 
-        void Start () {
-            CreateNewSession ();
+        void Start() {
+            CreateNewSession();
         }
 
-        public void CreateNewSession () {
-            sessionID = Guid.NewGuid ().ToString ();
+        public void CreateNewSession()
+        {
+            sessionID = Guid.NewGuid().ToString();
 
-            if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.LinuxEditor) {
-                Debug.Log ($@"[NEW_SESSION] SESSION_ID: {sessionID}");
-
+            if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.LinuxEditor)
+            {
+                Debug.Log($@"[NEW_SESSION] SESSION_ID: {sessionID}");
             }
         }
-
     }
 }

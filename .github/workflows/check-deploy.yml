@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-        scripts/test.sh
+          scripts/test.sh
   deploy:
     needs: test
     runs-on: ubuntu-latest

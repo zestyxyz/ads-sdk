@@ -11,10 +11,3 @@ jobs:
       - run: |
           chmod +x scripts/build.sh
           scripts/build.sh
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          chmod +x scripts/deploy.sh
-          scripts/deploy.sh

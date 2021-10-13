@@ -12,8 +12,12 @@ if (process.platform === 'win32') {
 }
 else {
     module.exports = {
+        launch: {
+            headless: true
+        },
         server: {
             command: 'yarn run serve',
+            port: 8080,
             launchTimeout: 180000
         }
     }

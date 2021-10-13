@@ -21,4 +21,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-        scripts/deploy.sh
+          scripts/deploy.sh

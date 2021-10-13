@@ -10,3 +10,11 @@ if (process.platform === 'win32') {
         }
     }
 }
+else {
+    module.exports = {
+        server: {
+            command: 'yarn run serve',
+            launchTimeout: 180000
+        }
+    }
+}

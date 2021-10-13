@@ -16,3 +16,6 @@ cd web && yarn && yarn run build
 cd ..
 cd wonderland && yarn && yarn run build
 cd ..
+
+# Test
+yarn run test

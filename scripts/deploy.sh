@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Install dependencies
+yarn
 cd utils && yarn
 cd ..
 cd aframe && yarn && yarn run build
@@ -14,6 +16,9 @@ cd web && yarn && yarn run build
 cd ..
 cd wonderland && yarn && yarn run build
 cd ..
+
+# Test
+yarn run test
 
 cp -R aframe/dist dist
 cp -R babylonjs/dist/* dist

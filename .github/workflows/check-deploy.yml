@@ -10,4 +10,27 @@ jobs:
         uses: actions/checkout@v2
       - run: |
           chmod +x scripts/build.sh
+          chmod +x scripts/deploy.sh
           scripts/build.sh
+      - name: Cache SDKs
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-sdks
+        with:
+          path: ~/runner/work/zesty-sdk/zesty-sdk
+          key: sdk-build
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+      - run: |
+          cd ~/runner/work/zesty-sdk/zesty-sdk
+          yarn run test
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+      - run: |
+          scripts/deploy.sh

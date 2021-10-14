@@ -1,6 +1,6 @@
 import { expect, test, describe, jest, beforeAll } from '@jest/globals';
 
-jest.setTimeout(6000);
+jest.setTimeout(10000);
 
 const getImageSrc = async (banner) => {
   return await (

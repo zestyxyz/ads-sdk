@@ -23,7 +23,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Test
       - run: |
           cd ~/runner/work/zesty-sdk/zesty-sdk
           yarn run test
@@ -31,6 +30,5 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
       - run: |
           scripts/deploy.sh

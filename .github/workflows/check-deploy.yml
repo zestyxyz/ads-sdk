@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          cd ~/runner/work/zesty-sdk/zesty-sdk
+          cd ~/work/zesty-sdk/zesty-sdk
           yarn run test
   deploy:
     needs: test

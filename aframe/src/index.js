@@ -205,11 +205,12 @@ AFRAME.registerSystem('zesty-banner', {
           await scene.exitVR();
           // Open link in new tab
           if (banner.url) {
-            if (banner.url.includes('oculus') && isOculusQuest() && window.confirm("This link leads to an app in the Oculus Store.\n Proceed?")) {
-              window.open(banner.url, '_blank');
+            if (banner.url.includes('oculus') && isOculusQuest()) {
+              if (window.confirm("This link leads to an app in the Oculus Store.\n Proceed?"))
+                window.open(banner.url, '_blank');
             }
             else {
-              const newTab = window.open(`https://www.3den.club/get?url=${banner.url}`, '_blank');
+              window.open(banner.url, '_blank');
             }
             // sendMetric(
             //   creator,

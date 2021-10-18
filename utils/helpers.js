@@ -27,4 +27,13 @@ const parseProtocol = uri => {
   }
 }
 
-export { parseProtocol };
+/**
+ * Performs feature detection on XRHand and XRMediaBinding to determine if user is on Oculus Quest.
+ * As of 10/15/21, only Oculus Browser has implemented the WebXR Hand Input Module and WebXR Layers API.
+ * @returns true if XRHand and XRMediaBinding are not null, else false
+ */
+const isOculusQuest = () => {
+  return (window.XRHand != null && window.XRMediaBinding != null)
+}
+
+export { parseProtocol, isOculusQuest };

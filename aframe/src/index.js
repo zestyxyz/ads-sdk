@@ -2,7 +2,7 @@
 
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { parseProtocol } from '../../utils/helpers';
+import { isOculusQuest, parseProtocol } from '../../utils/helpers';
 import { log } from './logger';
 import './visibility_check';
 
@@ -200,12 +200,17 @@ AFRAME.registerSystem('zesty-banner', {
         plane.setAttribute('class', 'clickable'); // required for BE
 
         // handle clicks
-        plane.onclick = () => {
+        plane.onclick = async () => {
           const scene = document.querySelector('a-scene');
-          scene.exitVR();
+          await scene.exitVR();
           // Open link in new tab
           if (banner.url) {
-            window.open(banner.url, '_blank');
+            if (banner.url.includes('oculus') && isOculusQuest() && window.confirm("This link leads to an app in the Oculus Store.\n Proceed?")) {
+              window.open(banner.url, '_blank');
+            }
+            else {
+              const newTab = window.open(`https://www.3den.club/get?url=${banner.url}`, '_blank');
+            }
             // sendMetric(
             //   creator,
             //   space,

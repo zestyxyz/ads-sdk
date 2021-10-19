@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
 import { formats } from '../../utils/formats';
-import { parseProtocol } from '../../utils/helpers';
+import { openURL, parseProtocol } from '../../utils/helpers';
 
 export default class ZestyBanner extends THREE.Mesh {
   /**
@@ -51,7 +51,7 @@ export default class ZestyBanner extends THREE.Mesh {
         this.renderer.xr.getSession().end();
       }
 
-      window.open(this.banner.url, '_blank');
+      openURL(this.banner.url);
       // sendMetric(
       //   this.creator,
       //   this.space,

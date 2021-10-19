@@ -2,7 +2,7 @@
 
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
-import { parseProtocol } from '../../utils/helpers';
+import { openURL, parseProtocol } from '../../utils/helpers';
 
 /**
  * [Zesty Market](https://zesty.market) banner space
@@ -121,7 +121,7 @@ WL.registerComponent(
       }
     },
     executeClick: function () {
-      window.open(this.banner.url, '_blank');
+      openURL(this.banner.url);
       // sendMetric(
       //   this.creator,
       //   this.space,

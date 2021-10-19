@@ -2,7 +2,7 @@
 
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { isOculusQuest, parseProtocol } from '../../utils/helpers';
+import { openURL, parseProtocol } from '../../utils/helpers';
 import { log } from './logger';
 import './visibility_check';
 
@@ -205,13 +205,7 @@ AFRAME.registerSystem('zesty-banner', {
           await scene.exitVR();
           // Open link in new tab
           if (banner.url) {
-            if (banner.url.includes('oculus') && isOculusQuest()) {
-              if (window.confirm("This link leads to an app in the Oculus Store.\n Proceed?"))
-                window.open(banner.url, '_blank');
-            }
-            else {
-              window.open(banner.url, '_blank');
-            }
+            openURL(banner.url);
             // sendMetric(
             //   creator,
             //   space,
@@ -315,17 +309,17 @@ AFRAME.registerSystem('zesty-ad', {
           scene.exitVR();
           // Open link in new tab
           if (banner.url) {
-            window.open(banner.url, '_blank');
-            sendMetric(
-              creator,
-              space,
-              banner.uri,
-              banner.img.src,
-              banner.url,
-              'click', // event
-              0, // durationInMs
-              'aframe' // sdkType
-            );
+            openURL(banner.url, '_blank');
+            // sendMetric(
+            //   creator,
+            //   space,
+            //   banner.uri,
+            //   banner.img.src,
+            //   banner.url,
+            //   'click', // event
+            //   0, // durationInMs
+            //   'aframe' // sdkType
+            // );
           }
         };
         el.appendChild(plane);

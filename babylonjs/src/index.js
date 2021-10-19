@@ -2,7 +2,7 @@
 
 import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
 import { formats } from '../../utils/formats';
-import { parseProtocol } from '../../utils/helpers';
+import { openURL, parseProtocol } from '../../utils/helpers';
 
 export default class ZestyBanner {
   constructor(space, creator, network, format, style, height, scene, webXRExperienceHelper = null) {
@@ -20,10 +20,10 @@ export default class ZestyBanner {
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, () => {
           if (webXRExperienceHelper?.baseExperience) {
             webXRExperienceHelper.baseExperience.sessionManager.exitXRAsync().then(() => {
-              window.open(data.url);
+              openURL(data.url);
             });
           } else {
-            window.open(data.url);
+            openURL(data.url);
           }
         })
       );

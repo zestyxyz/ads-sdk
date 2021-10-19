@@ -1,6 +1,6 @@
 import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { parseProtocol } from '../../utils/helpers';
+import { openURL, parseProtocol } from '../../utils/helpers';
 
 class Zesty extends HTMLElement {
   constructor() {
@@ -64,7 +64,7 @@ class Zesty extends HTMLElement {
       img.setAttribute('data-url', url);
       img.addEventListener('click', (e) => {
         e.preventDefault();
-        window.open(url, '_blank');
+        openURL(url);
       });
       if (activeBanner.data.image) {
         img.setAttribute('src', image);

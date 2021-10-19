@@ -43,7 +43,7 @@ const openURL = url => {
   // Are we on a device that will deeplink?
   // This may need to be expanded in the future.
   if (isOculusQuest()) {
-    if (url.includes('oculus')) {
+    if (url.includes('https://www.oculus.com/experiences/quest/')) {
       if (!window.confirm("This link leads to an app in the Oculus Store.\n Proceed?"))
         return
     }

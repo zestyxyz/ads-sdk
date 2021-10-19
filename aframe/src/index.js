@@ -2,7 +2,7 @@
 
 import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { parseProtocol } from '../../utils/helpers';
+import { openURL, parseProtocol } from '../../utils/helpers';
 import { log } from './logger';
 import './visibility_check';
 
@@ -200,12 +200,12 @@ AFRAME.registerSystem('zesty-banner', {
         plane.setAttribute('class', 'clickable'); // required for BE
 
         // handle clicks
-        plane.onclick = () => {
+        plane.onclick = async () => {
           const scene = document.querySelector('a-scene');
-          scene.exitVR();
+          await scene.exitVR();
           // Open link in new tab
           if (banner.url) {
-            window.open(banner.url, '_blank');
+            openURL(banner.url);
             // sendMetric(
             //   creator,
             //   space,
@@ -309,7 +309,7 @@ AFRAME.registerSystem('zesty-ad', {
           scene.exitVR();
           // Open link in new tab
           if (banner.url) {
-            window.open(banner.url, '_blank');
+            openURL(banner.url, '_blank');
             // sendMetric(
             //   creator,
             //   space,

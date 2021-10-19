@@ -4,7 +4,7 @@ import { useLoader, useThree } from '@react-three/fiber';
 import { Interactive } from '@react-three/xr';
 import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { parseProtocol } from '../../utils/helpers';
+import { openURL, parseProtocol } from '../../utils/helpers';
 
 export * from '../../utils/formats';
 
@@ -81,7 +81,7 @@ function BannerPlane(props) {
       const session = gl.xr.getSession();
       if (session) session.end();
     }
-    window.open(url, '_blank');
+    openURL(url);
     // sendMetric(
     //   props.creator,
     //   props.space,

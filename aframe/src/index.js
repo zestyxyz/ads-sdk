@@ -19,8 +19,6 @@ AFRAME.registerComponent('zesty-banner', {
   },
 
   init: function() {
-    // This slows down the tick
-    this.tick = AFRAME.utils.throttleTick(this.tick, 200, this);
     this.registerEntity();
   },
 
@@ -30,23 +28,7 @@ AFRAME.registerComponent('zesty-banner', {
     createBanner(this.el, space, this.data.creator, this.data.network, format, this.data.style, this.data.height);
   },
 
-  // Every 200ms check for `visible` component
-  tick: function() {
-    /*const component = this.el;
-    if (!component.getAttribute('visible')) {
-      while (component.firstChild) {
-        component.removeChild(component.lastChild);
-      }
-    }
-
-    if (!!component.getAttribute('visible') && !component.firstChild) {
-      //this.registerEntity();
-    }*/
-  },
-
-  remove: function() {
-    //this.system.unregisterEntity(this.el);
-  }
+  tick: function() {},
 });
 
 AFRAME.registerComponent('zesty-ad', {
@@ -63,8 +45,6 @@ AFRAME.registerComponent('zesty-ad', {
   },
 
   init: function() {
-    // This slows down the tick
-    this.tick = AFRAME.utils.throttleTick(this.tick, 200, this);
     this.registerEntity();
   },
 
@@ -75,22 +55,7 @@ AFRAME.registerComponent('zesty-ad', {
   },
 
   // Every 200ms check for `visible` component
-  tick: function() {
-    /*const component = this.el;
-    if (!component.getAttribute('visible')) {
-      while (component.firstChild) {
-        component.removeChild(component.lastChild);
-      }
-    }
-
-    if (!!component.getAttribute('visible') && !component.firstChild) {
-      //this.registerEntity();
-    }*/
-  },
-
-  remove: function() {
-    //this.system.unregisterEntity(this.el);
-  }
+  tick: function() {},
 });
 
 async function createBanner(el, space, creator, network, format, style, height) {
@@ -100,8 +65,6 @@ async function createBanner(el, space, creator, network, format, style, height) 
     assets = document.createElement('a-assets');
     scene.appendChild(assets);
   }
-
-  //log(`Loading space: ${space}, creator: ${creator}`);
 
   const bannerPromise = loadBanner(space, creator, network, format, style).then(banner => {
     if (banner.img) {

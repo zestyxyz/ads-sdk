@@ -22,6 +22,11 @@ describe('isOculusQuest', () => {
     window.XRHand = null;
     window.XRMediaBinding = null;
   });
+
+  afterAll(() => {
+    window.XRHand = null;
+    window.XRMediaBinding = null;
+  });
   
   test('isOculusQuest should return false if window.XRHand is null', () => {
     window.XRMediaBinding = 1;
@@ -50,28 +55,23 @@ describe('openURL', () => {
     }
     return 'Link';
   });
-
-  // Test 1
-  openURL();
-  // Test 2
-  openURL('https://www.oculus.com/experiences/quest/');
-  // Test 3
-  window.XRHand = 1;
-  window.XRMediaBinding = 1;
-  openURL('https://www.oculus.com/experiences/quest/');
-  // Test 4
-  openURL('https://app.zesty.market/');
   
   test('Not passing a URL should return immediately', () => {
+    openURL();
     expect(openURL.mock.results[0].value).toBe(null);
   });
   test('An Oculus Store URL should not deeplink if not on Quest', () => {
+    openURL('https://www.oculus.com/experiences/quest/');
     expect(openURL.mock.results[1].value).toBe('Link');
   });
   test('An Oculus Store URL should deeplink if on Quest', () => {
+    window.XRHand = 1;
+    window.XRMediaBinding = 1;
+    openURL('https://www.oculus.com/experiences/quest/');
     expect(openURL.mock.results[2].value).toBe('Deeplink');
   });
   test('Any other URL should link regularly', () => {
+    openURL('https://app.zesty.market/');
     expect(openURL.mock.results[3].value).toBe('Link');
   });
 });

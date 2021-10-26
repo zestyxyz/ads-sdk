@@ -160,7 +160,7 @@ namespace Zesty
         /// <param name="texture">The texture to set the banner to.</param>
         public void SetTexture(Texture texture) {
             if (texture != null) {
-                m_Renderer.material.mainTexture = texture;
+                m_Renderer.sharedMaterial.mainTexture = texture;
                 bannerLoadedSuccessfully = true;
             }
         }

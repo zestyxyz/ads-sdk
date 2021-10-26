@@ -23,21 +23,29 @@ public class Utils : MonoBehaviour {
 
     public static string ParseProtocol(string uri)
     {
-        if (uri.Substring(0, 4) == "ipfs")
+        try
         {
-            return $"https://ipfs.zesty.market/ipfs/{uri.Substring(7)}";
+            if (uri.Substring(0, 4) == "ipfs")
+            {            
+                return $"https://ipfs.zesty.market/ipfs/{uri.Substring(7)}";
+            }
+            else if (uri.Substring(0, 4) == "http" || uri.Substring(0, 5) == "https")
+            {
+                return uri;
+            }
+            else if (uri.Substring(0, 2) == "ar")
+            {
+                return $"https://arweave.net/{uri.Substring(5)}";
+            }
+            else // Assume bare IPFS hash
+            {
+                return $"https://ipfs.zesty.market/ipfs/{uri}";
+            }
         }
-        else if (uri.Substring(0, 4) == "http" || uri.Substring(0, 5) == "https")
+        catch
         {
-            return uri;
-        }
-        else if (uri.Substring(0, 2) == "ar")
-        {
-            return $"https://arweave.net/{uri.Substring(5)}";
-        }
-        else // Assume bare IPFS hash
-        {
-            return $"https://ipfs.zesty.market/ipfs/{uri}`";
+            Debug.LogError("The given URI '" + uri + "' is too short and does not conform to any supported protocol.");
+            return null;
         }
     }
 

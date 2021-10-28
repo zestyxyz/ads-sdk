@@ -6,7 +6,6 @@ using UnityEngine.TestTools;
 
 public class UtilsTest
 {
-    // A Test behaves as an ordinary method
     [Test]
     public void TestParseProtocol()
     {
@@ -21,15 +20,5 @@ public class UtilsTest
         // Test invalid protocol
         Utils.ParseProtocol("test");
         LogAssert.Expect(LogType.Error, "The given URI 'test' is too short and does not conform to any supported protocol.");
-    }
-
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator NewTestScriptWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
     }
 }

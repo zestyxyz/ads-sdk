@@ -71,6 +71,7 @@ namespace Zesty
                                 id
                                 uri
                               }}
+                              buyerCampaignsApproved
                             }}
                         }}
                         id

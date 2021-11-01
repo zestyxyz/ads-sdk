@@ -1,6 +1,6 @@
 {
   "name": "@zestymarket/r3f-sdk",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "This is the react-three-fiber SDK for Zesty Banner integration.",
   "main": "dist/zesty-r3f-sdk.js",
   "scripts": {

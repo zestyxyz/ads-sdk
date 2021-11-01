@@ -1,6 +1,6 @@
 {
   "name": "@zestymarket/wonderland-sdk",
-  "version": "1.4.0",
+  "version": "1.4.3",
   "description": "Wonderland Engine SDK for Zesty Banner integration.",
   "main": "dist/zesty-wonderland-sdk.js",
   "scripts": {

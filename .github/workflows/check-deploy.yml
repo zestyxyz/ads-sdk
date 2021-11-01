@@ -21,8 +21,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - run : |
-        scripts/build.sh
+      - run: |
+          scripts/build.sh
       - name: Deploy
         run: |
           scripts/deploy.sh

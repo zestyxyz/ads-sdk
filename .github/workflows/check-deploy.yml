@@ -16,6 +16,13 @@ jobs:
         run: |
           cd ~/work/zesty-sdk/zesty-sdk
           yarn run test
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run : |
+        scripts/build.sh
       - name: Deploy
         run: |
           scripts/deploy.sh

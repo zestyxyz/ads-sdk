@@ -21,6 +21,7 @@ describe('Initial load', () => {
   });
 
   test('The tall banner is present', async () => {
+    await page.waitForTimeout(3000);
     const banner = await page.evaluate(() =>
       document.querySelector('#banner1').getAttribute('zesty-banner')
     );

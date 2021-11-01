@@ -1,5 +1,7 @@
 import { expect, test, describe, jest, beforeAll } from '@jest/globals';
 
+jest.setTimeout(10000);
+
 describe('Initial load', () => {
   test('The correct test page is currently loaded', async () => {
     await page.goto('http://localhost:8080/tests/web/');
@@ -7,6 +9,7 @@ describe('Initial load', () => {
   });
 
   test('All 9 banners are currently loaded', async () => {
+    await page.waitForTimeout(3000);
     await Promise.all([
       page.waitForSelector('#banner1'),
       page.waitForSelector('#banner2'),

@@ -1,5 +1,7 @@
 import { expect, test, describe, jest, beforeAll } from '@jest/globals';
 
+jest.setTimeout(10000);
+
 describe('Initial load', () => {
   test('The correct test page is currently loaded', async () => {
     await page.goto('http://localhost:8080/tests/threejs/');

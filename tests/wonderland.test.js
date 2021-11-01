@@ -9,14 +9,14 @@ describe('Initial load', () => {
   });
 
   test('All 9 banners are currently loaded', async () => {
-    await page.waitForTimeout(6000);
+    await page.waitForTimeout(3000);
     const bannerCount = await page.evaluate(() => window.testBanners.length);
     expect(bannerCount).toBe(9);
   });
 });
 
 describe('Standard styles', () => {
-  test('The tall standard banner is present', async () => {
+  test('The tall standard banner is present', async () => {    
     const banner1 = await page.evaluate(() => window.testBanners[0].banner.imageSrc);
     expect(banner1).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall.png');
   });

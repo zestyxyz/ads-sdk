@@ -24,6 +24,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - run: |
+          chmod +x scripts/build.sh
+          chmod +x scripts/deploy.sh
           scripts/build.sh
       - name: Deploy
         run: |

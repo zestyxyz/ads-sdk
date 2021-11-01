@@ -118,31 +118,71 @@ public class APITest
 
     string[] elmsKey = { "uri" };
     Dictionary<string, string> result = new Dictionary<string, string>();
+    string mock = "";
 
     [Test]
-    public void TestParseGraphResponse()
+    public void TestParseGraphResponseNoTokenDatas()
     {
-        // Set "uri" to null for initial responses that are empty
         result.Add("uri", null);
-        
-        string mock = MOCK_GRAPH_RESPONSE_NO_TOKENDATAS;
+
+        mock = MOCK_GRAPH_RESPONSE_NO_TOKENDATAS;
         Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
+
+        result.Clear();
+    }
+
+    [Test]
+    public void TestParseGraphResponseNoSellerNFTSetting()
+    {
+        result.Add("uri", null);
 
         mock = MOCK_GRAPH_RESPONSE_NO_SELLERNFTSETTING;
         Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
 
+        result.Clear();
+    }
+
+    [Test]
+    public void TestParseGraphResponseNoSellerAuctions()
+    {
+        result.Add("uri", null);
+
         mock = MOCK_GRAPH_RESPONSE_NO_SELLERAUCTIONS;
         Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
+
+        result.Clear();
+    }
+
+    [Test]
+    public void TestParseGraphResponseNoBuyerCampaigns()
+    {
+        result.Add("uri", null);
 
         mock = MOCK_GRAPH_RESPONSE_NO_BUYERCAMPAIGNS;
         Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
 
+        result.Clear();
+    }
+
+    [Test]
+    public void TestParseGraphResponseBuyerCampaignNotApproved()
+    {
+        result.Add("uri", null);
+
         mock = MOCK_GRAPH_RESPONSE_BUYERCAMPAIGN_NOT_APPROVED;
         Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
 
-        result["uri"] = "test";
-        
+        result.Clear();
+    }
+
+    [Test]
+    public void TestParseGraphResponseResponseValid()
+    {
+        result.Add("uri", "test");
+
         mock = MOCK_GRAPH_RESPONSE_VALID;
         Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
+
+        result.Clear();
     }
 }

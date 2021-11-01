@@ -10,6 +10,7 @@ jobs:
         uses: actions/checkout@v2
       - run: |
           chmod +x scripts/build.sh
+          chmod +x scripts/test.sh
           chmod +x scripts/deploy.sh
           scripts/build.sh
       - name: Test

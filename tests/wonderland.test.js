@@ -16,7 +16,7 @@ describe('Initial load', () => {
 });
 
 describe('Standard styles', () => {
-  test('The tall standard banner is present', async () => {    
+  test('The tall standard banner is present', async () => {
     const banner1 = await page.evaluate(() => window.testBanners[0].banner.imageSrc);
     expect(banner1).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall.png');
   });

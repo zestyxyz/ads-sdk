@@ -1,9 +1,9 @@
 import * as THREE from 'three';
-import { useRef, useState, Suspense, useEffect } from 'react';
 import { useLoader, useThree } from '@react-three/fiber';
-import { Interactive } from '@react-three/xr';
+import { useRef, useState, Suspense, useEffect } from 'react';
 import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
+import { Interactive } from '@react-three/xr';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
 export * from '../../utils/formats';

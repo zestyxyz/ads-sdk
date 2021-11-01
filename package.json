@@ -3,35 +3,14 @@
   "description": "Monorepo for Zesty integration SDKS.",
   "version": "1.0.0",
   "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
-  "scripts": {
-    "test": "scripts/test.sh",
-    "serve": "npx http-server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zestymarket/zesty-sdk.git"
-  },
+  "repository": "https://github.com/zestymarket/zesty-sdk.git",
   "author": "Zesty Market",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zestymarket/zesty-sdk/issues"
-  },
-  "homepage": "https://github.com/zestymarket/zesty-sdk#readme",
   "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
-    "babel-jest": "^27.0.6",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-react": "^7.25.3",
-    "jest": "^27.0.6",
-    "jest-puppeteer": "^5.0.4",
-    "puppeteer": "^10.4.0"
+    "eslint-plugin-react": "^7.25.3"
   }
 }

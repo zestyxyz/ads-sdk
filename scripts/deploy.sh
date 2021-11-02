@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Deploy
 cp -R aframe/dist dist
 cp -R babylonjs/dist/* dist
 cp -R r3f/dist/* dist

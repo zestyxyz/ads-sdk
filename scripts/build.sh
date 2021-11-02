@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Install dependencies and build
+yarn
 cd utils && yarn
 cd ..
 cd aframe && yarn && yarn run build

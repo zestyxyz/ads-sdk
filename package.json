@@ -7,6 +7,7 @@
     "test": "tests"
   },
   "scripts": {
+    "prepare": "husky install",
     "test": "scripts/test.sh",
     "serve": "npx http-server"
   },
@@ -30,6 +31,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.25.3",
+    "husky": "^7.0.4",
     "jest": "^27.0.6",
     "jest-puppeteer": "^5.0.4",
     "puppeteer": "^10.4.0"

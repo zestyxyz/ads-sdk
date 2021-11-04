@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking'
-import { formats, defaultFormat } from '../../utils/formats';
-import { parseProtocol } from '../../utils/helpers';
+import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
+import { formats } from '../../utils/formats';
+import { openURL, parseProtocol } from '../../utils/helpers';
 
 export default class ZestyBanner extends THREE.Mesh {
   /**
@@ -17,7 +17,7 @@ export default class ZestyBanner extends THREE.Mesh {
     super();
     this.geometry = new THREE.PlaneGeometry(formats[format].width * height, height, 1, 1);
 
-    this.type = "ZestyBanner";
+    this.type = 'ZestyBanner';
     this.space = space;
     this.creator = creator;
     this.network = network;
@@ -25,43 +25,43 @@ export default class ZestyBanner extends THREE.Mesh {
     this.banner = {};
 
     this.bannerPromise = loadBanner(space, creator, network, format, style).then(banner => {
-      this.material = new THREE.MeshBasicMaterial( {
+      this.material = new THREE.MeshBasicMaterial({
         map: banner.texture
       });
       this.material.transparent = true;
       this.banner = banner;
 
-      sendMetric(
-        creator,
-        space,
-        banner.uri,
-        banner.src,
-        banner.cta,
-        'load', // event
-        0, // durationInMs,
-        'threejs' //sdkType
-      );
+      // sendMetric(
+      //   creator,
+      //   space,
+      //   banner.uri,
+      //   banner.src,
+      //   banner.cta,
+      //   'load', // event
+      //   0, // durationInMs,
+      //   'threejs' // sdkType
+      // );
     });
     this.onClick = this.onClick.bind(this);
   }
 
   onClick() {
-    if(this.banner.url) {
+    if (this.banner.url) {
       if (this.renderer != null && this.renderer.xr.getSession() != null) {
         this.renderer.xr.getSession().end();
       }
 
-      window.open(this.banner.url, '_blank');
-      sendMetric(
-        this.creator,
-        this.space,
-        this.banner.uri,
-        this.banner.texture.image.src,
-        this.banner.url,
-        'click', // event
-        0, // durationInMs
-        'threejs' //sdkType
-      );
+      openURL(this.banner.url);
+      // sendMetric(
+      //   this.creator,
+      //   this.space,
+      //   this.banner.uri,
+      //   this.banner.texture.image.src,
+      //   this.banner.url,
+      //   'click', // event
+      //   0, // durationInMs
+      //   'threejs' // sdkType
+      // );
     }
   }
 }
@@ -73,7 +73,7 @@ async function loadBanner(space, creator, network, format, style) {
   // Need to add https:// if missing for page to open properly
   let url = activeBanner.data.url;
   url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
-  if (url == 'https://www.zesty.market') {
+  if (url === 'https://www.zesty.market') {
     url = `https://app.zesty.market/space/${space}`;
   }
 
@@ -85,12 +85,12 @@ async function loadBanner(space, creator, network, format, style) {
 
     loader.load(
       image,
-      function ( texture ) {
+      function(texture) {
         resolve({ texture: texture, src: image, uri: activeBanner.uri, url: url });
       },
       undefined,
-      function ( err ) {
-        console.error( 'An error occurred while loading the ad.' );
+      function(err) {
+        console.error('An error occurred while loading the ad.');
         reject(err);
       }
     );

@@ -56,14 +56,8 @@ namespace Zesty {
             else
             {
                 var response = JSON.Parse(request.downloadHandler.text)["data"]["tokenDatas"][0];
-                var sellerAuctions = response["sellerNFTSetting"]["sellerAuctions"][0];
-                var activeBanner = sellerAuctions[0][0];
-                Dictionary<string, string> bannerData = new Dictionary<string, string>();
-
-                foreach (string elm in elmsKey)
-                {
-                    bannerData.Add(elm, activeBanner[elm]);
-                }
+                Dictionary<string, string> bannerData = ParseGraphResponse(response, elmsKey);
+                                
                 callback(bannerData);
             }
         }
@@ -88,6 +82,7 @@ namespace Zesty {
 
             if (isConnectionOrProtocolError(request)) {
                 Debug.Log("GET request error: " + request.error);
+                Debug.Log("Tried to retrieve: " + url);
             } else {
                 var response = JSON.Parse(request.downloadHandler.text);
                 Dictionary<string, string> bannerData = new Dictionary<string, string>();
@@ -119,6 +114,27 @@ namespace Zesty {
             }
         }
 
+        public static Dictionary<string, string> ParseGraphResponse(JSONNode response, string[] elmsKey)
+        {
+            var sellerAuction = response?["sellerNFTSetting"]?["sellerAuctions"]?[0];
+            var latestAuction = new JSONObject();
+            for (int i = 0; i < sellerAuction?["buyerCampaignsApproved"].Count; i++)
+            {
+                if (sellerAuction?["buyerCampaignsApproved"][i] && sellerAuction?["buyerCampaignsApproved"].Count > 0)
+                {
+                    latestAuction = (JSONObject)sellerAuction["buyerCampaigns"][i];
+                }
+            }
+
+            Dictionary<string, string> bannerData = new Dictionary<string, string>();
+
+            foreach (string elm in elmsKey)
+            {
+                bannerData.Add(elm, latestAuction[elm]);
+            }
+            return bannerData;
+        }
+
         /// <summary>
         /// Checks if the specified request experienced a connection or protocol error.
         /// </summary>
@@ -126,7 +142,11 @@ namespace Zesty {
         /// <returns>True if a connection or protocol error was experienced, else False.</returns>
         private static bool isConnectionOrProtocolError(UnityWebRequest request)
         {
+#if UNITY_2020
             return request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError;
+#else
+            return request.isNetworkError || request.isHttpError;
+#endif
         }
 
     }

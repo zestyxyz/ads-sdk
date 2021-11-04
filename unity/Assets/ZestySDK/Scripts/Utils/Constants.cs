@@ -2,7 +2,7 @@
     public static class Constants {
         // API
         public const string ZESTY_URL = "https://node-1.zesty.market/";
-        public const string DEV_API_METRICS_URL = "http://localhost:3000/test";
+        public const string DEV_API_METRICS_URL = "http://localhost:2354/api/v1/metrics";
     }
 
     public static class Networks

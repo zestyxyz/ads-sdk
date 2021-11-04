@@ -21,11 +21,32 @@ public class Utils : MonoBehaviour {
         return (int)(DateTime.UtcNow - epochStart).TotalSeconds;
     }
 
-    public static string ParseIPFS(string uri)
+    public static string ParseProtocol(string uri)
     {
-        return uri.Substring(0, 4) == "ipfs" ?
-        $"https://ipfs.zesty.market/ipfs/${uri.Substring(7)}" :
-        $"https://ipfs.zesty.market/ipfs/${uri}`";
+        try
+        {
+            if (uri.Substring(0, 4) == "ipfs")
+            {            
+                return $"https://ipfs.zesty.market/ipfs/{uri.Substring(7)}";
+            }
+            else if (uri.Substring(0, 4) == "http" || uri.Substring(0, 5) == "https")
+            {
+                return uri;
+            }
+            else if (uri.Substring(0, 2) == "ar")
+            {
+                return $"https://arweave.net/{uri.Substring(5)}";
+            }
+            else // Assume bare IPFS hash
+            {
+                return $"https://ipfs.zesty.market/ipfs/{uri}";
+            }
+        }
+        catch
+        {
+            Debug.LogError("The given URI '" + uri + "' is too short and does not conform to any supported protocol.");
+            return null;
+        }
     }
 
 }

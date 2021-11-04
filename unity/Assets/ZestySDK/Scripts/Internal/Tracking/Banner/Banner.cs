@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Zesty
 {
-
+    [ExecuteInEditMode]
     public class Banner : MonoBehaviour {
         public enum Network
         {
@@ -20,8 +20,11 @@ namespace Zesty
         public Formats.Types format;
         public Formats.Styles style;
 
+        public Material[] placeholderMaterials = new Material[3];
+        public Material runtimeBanner;
+
         // Object-related variables
-        Renderer m_Renderer;
+        MeshRenderer m_Renderer;
         Texture m_Texture;
         private MeshCollider m_Collider;
 
@@ -33,12 +36,9 @@ namespace Zesty
 
         // Banner loading variables
         bool bannerLoadedSuccessfully = false;
-        float bannerCheckTimer = 0f;
-        float bannerCheckWaitPeriod = 10f;
 
-
-        void Start () {
-            m_Renderer = GetComponent<Renderer>();
+        void Start() {
+            m_Renderer = GetComponent<MeshRenderer>();
             m_Collider = GetComponent<MeshCollider>();
             FetchNFT();
         }
@@ -59,10 +59,11 @@ namespace Zesty
                       ) {{
                         sellerNFTSetting {{
                           sellerAuctions (
-                            first : 1
+                            first : 5
                             where: {{
                               contractTimeStart_lte: {Utils.GetCurrentUnixTime()}
                               contractTimeEnd_gte: {Utils.GetCurrentUnixTime()}
+                              cancelled: false
                             }}
                           ) {{
                               id
@@ -70,6 +71,7 @@ namespace Zesty
                                 id
                                 uri
                               }}
+                              buyerCampaignsApproved
                             }}
                         }}
                         id
@@ -95,6 +97,12 @@ namespace Zesty
                     onClick();
                 }
             }
+
+            // Editor resizing
+            if (transform.hasChanged && !Application.isPlaying)
+            {
+                UpdateBanner();
+            }
         }
 
         /// <summary>
@@ -104,7 +112,7 @@ namespace Zesty
         /// <param name="bannerInfo">The Dictionary containing the NFT information.</param>
         public void FetchActiveBanner(Dictionary<string, string> bannerInfo) {
             if (bannerInfo["uri"] != null) {                
-                uri = Utils.ParseIPFS(bannerInfo["uri"]);
+                uri = Utils.ParseProtocol(bannerInfo["uri"]);
                 string[] elmsKey = { "url", "image" };
                 StartCoroutine(API.GetRequest(uri, elmsKey, SetBannerInfo));
             }
@@ -142,7 +150,7 @@ namespace Zesty
             }
             else if (bannerInfo.ContainsKey("image"))
             {
-                bannerTextureURL = $"https://ipfs.zesty.market/ipfs/{bannerInfo["image"]}";
+                bannerTextureURL = Utils.ParseProtocol(bannerInfo["image"]);
                 StartCoroutine(API.GetTexture(bannerTextureURL, SetTexture));
                 SetURL(bannerInfo["url"]);
             }
@@ -154,7 +162,8 @@ namespace Zesty
         /// <param name="texture">The texture to set the banner to.</param>
         public void SetTexture(Texture texture) {
             if (texture != null) {
-                m_Renderer.material.mainTexture = texture;
+                m_Renderer.sharedMaterial = runtimeBanner;
+                runtimeBanner.mainTexture = texture;
                 bannerLoadedSuccessfully = true;
             }
         }
@@ -181,8 +190,35 @@ namespace Zesty
 
         public void onClick()
         {
-            Debug.Log(url);
-            _open(url);
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
+                _open(url);            
+            else            
+                Application.OpenURL(url);            
+        }
+
+        private void OnValidate()
+        {
+            UpdateBanner();
+        }
+
+        private void UpdateBanner()
+        {
+            switch (format)
+            {
+                case Formats.Types.Tall:
+                    transform.localScale = new Vector3(transform.localScale.x, (float)(transform.localScale.x * (4f / 3f)), .001f);
+                    gameObject.GetComponent<Renderer>().material = placeholderMaterials[0];
+                    break;
+                case Formats.Types.Wide:
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x / 4, .001f);
+                    gameObject.GetComponent<Renderer>().material = placeholderMaterials[1];
+                    break;
+                case Formats.Types.Square:
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x, .001f);
+                    gameObject.GetComponent<Renderer>().material = placeholderMaterials[2];
+                    break;
+            }
+
         }
     }
 }

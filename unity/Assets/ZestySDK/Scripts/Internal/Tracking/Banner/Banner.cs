@@ -21,9 +21,10 @@ namespace Zesty
         public Formats.Styles style;
 
         public Material[] placeholderMaterials = new Material[3];
+        public Material runtimeBanner;
 
         // Object-related variables
-        Renderer m_Renderer;
+        MeshRenderer m_Renderer;
         Texture m_Texture;
         private MeshCollider m_Collider;
 
@@ -36,8 +37,8 @@ namespace Zesty
         // Banner loading variables
         bool bannerLoadedSuccessfully = false;
 
-        void Start () {
-            m_Renderer = GetComponent<Renderer>();
+        void Start() {
+            m_Renderer = GetComponent<MeshRenderer>();
             m_Collider = GetComponent<MeshCollider>();
             FetchNFT();
         }
@@ -70,6 +71,7 @@ namespace Zesty
                                 id
                                 uri
                               }}
+                              buyerCampaignsApproved
                             }}
                         }}
                         id
@@ -97,7 +99,7 @@ namespace Zesty
             }
 
             // Editor resizing
-            if (transform.hasChanged)
+            if (transform.hasChanged && !Application.isPlaying)
             {
                 UpdateBanner();
             }
@@ -160,7 +162,8 @@ namespace Zesty
         /// <param name="texture">The texture to set the banner to.</param>
         public void SetTexture(Texture texture) {
             if (texture != null) {
-                m_Renderer.material.mainTexture = texture;
+                m_Renderer.sharedMaterial = runtimeBanner;
+                runtimeBanner.mainTexture = texture;
                 bannerLoadedSuccessfully = true;
             }
         }

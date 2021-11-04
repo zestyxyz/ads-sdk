@@ -56,14 +56,8 @@ namespace Zesty {
             else
             {
                 var response = JSON.Parse(request.downloadHandler.text)["data"]["tokenDatas"][0];
-                var sellerAuctions = response["sellerNFTSetting"]["sellerAuctions"][0];
-                var activeBanner = sellerAuctions[0][0];
-                Dictionary<string, string> bannerData = new Dictionary<string, string>();
-
-                foreach (string elm in elmsKey)
-                {
-                    bannerData.Add(elm, activeBanner[elm]);
-                }
+                Dictionary<string, string> bannerData = ParseGraphResponse(response, elmsKey);
+                                
                 callback(bannerData);
             }
         }
@@ -118,6 +112,27 @@ namespace Zesty {
                 Texture t = ((DownloadHandlerTexture)request.downloadHandler).texture;
                 callback(t);
             }
+        }
+
+        public static Dictionary<string, string> ParseGraphResponse(JSONNode response, string[] elmsKey)
+        {
+            var sellerAuction = response?["sellerNFTSetting"]?["sellerAuctions"]?[0];
+            var latestAuction = new JSONObject();
+            for (int i = 0; i < sellerAuction?["buyerCampaignsApproved"].Count; i++)
+            {
+                if (sellerAuction?["buyerCampaignsApproved"][i] && sellerAuction?["buyerCampaignsApproved"].Count > 0)
+                {
+                    latestAuction = (JSONObject)sellerAuction["buyerCampaigns"][i];
+                }
+            }
+
+            Dictionary<string, string> bannerData = new Dictionary<string, string>();
+
+            foreach (string elm in elmsKey)
+            {
+                bannerData.Add(elm, latestAuction[elm]);
+            }
+            return bannerData;
         }
 
         /// <summary>

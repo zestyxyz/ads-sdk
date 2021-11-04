@@ -39,7 +39,7 @@ namespace Zesty
 
         void Start() {
             m_Renderer = GetComponent<MeshRenderer>();
-            m_Collider = GetComponent<MeshCollider>();            
+            m_Collider = GetComponent<MeshCollider>();
             FetchNFT();
         }
 

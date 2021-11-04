@@ -9,124 +9,70 @@ using Zesty;
 public class APITest
 {
     string MOCK_GRAPH_RESPONSE_NO_TOKENDATAS = $@"
-    {{
-      status: ""200"",
-      data: {{
-        data: {{
-          tokenDatas: [],
-        }},
-      }},
-    }}";
+    {{}}";
     string MOCK_GRAPH_RESPONSE_NO_SELLERNFTSETTING = $@"
     {{
-      status: ""200"",
-      data: {{
-        data: {{
-          tokenDatas: [
-            {{
-              sellerNFTSetting: {{}},
-            }},
-          ],
-        }},
-      }},
+      sellerNFTSetting: {{}}
     }}";
     string MOCK_GRAPH_RESPONSE_NO_SELLERAUCTIONS = $@"
     {{
-      status: ""200"",
-      data: {{
-        data: {{
-          tokenDatas: [
-            {{
-              sellerNFTSetting: {{
-                sellerAuctions:[],
-              }},
-            }},
-          ],
-        }},
-      }},
+      sellerNFTSetting: {{
+        sellerAuctions:[],
+      }}
     }}";
     string MOCK_GRAPH_RESPONSE_NO_BUYERCAMPAIGNS = $@"
     {{
-      status: ""200"",
-      data: {{
-        data: {{
-          tokenDatas: [
-            {{
-              sellerNFTSetting: {{
-                sellerAuctions: [
-                  {{
-                    buyerCampaigns:[],
-                    buyerCampaignsApproved:[false],
-                  }},
-                ],
-              }},
-            }},
-          ],
-        }},
-      }},
+      sellerNFTSetting: {{
+        sellerAuctions: [
+          {{
+            buyerCampaigns:[],
+            buyerCampaignsApproved:[false],
+          }},
+        ],
+      }}
     }}";
     string MOCK_GRAPH_RESPONSE_BUYERCAMPAIGN_NOT_APPROVED = $@"
     {{
-      status: ""200"",
-      data: {{
-        data: {{
-          tokenDatas: [
-            {{
-              sellerNFTSetting: {{
-                sellerAuctions: [
-                  {{
-                    buyerCampaigns: [
-                      {{
-                        id: ""0"",
-                        uri: """",
-                      }},
-                    ],
-                    buyerCampaignsApproved:[false],
-                  }},
-                ],
+      sellerNFTSetting: {{
+        sellerAuctions: [
+          {{
+            buyerCampaigns: [
+              {{
+                id: ""0"",
+                uri: """",
               }},
-            }},
-          ],
-        }},
+            ],
+            buyerCampaignsApproved:[false],
+          }},
+        ],
       }},
     }}";
     string MOCK_GRAPH_RESPONSE_VALID = $@"
     {{
-      status: ""200"",
-      data: {{
-        data: {{
-          tokenDatas: [
-            {{
-              sellerNFTSetting: {{
-                sellerAuctions: [
-                  {{
-                    buyerCampaigns: [
-                      {{
-                        id: ""0"",
-                        uri: ""test"",
-                      }},
-                    ],
-                    buyerCampaignsApproved:[true],
-                  }},
-                ],
+      sellerNFTSetting: {{
+        sellerAuctions: [
+          {{
+            buyerCampaigns: [
+              {{
+                id: ""0"",
+                uri: ""test"",
               }},
-            }},
-          ],
-        }},
-      }},
+            ],
+            buyerCampaignsApproved:[true],
+          }},
+        ],
+      }}
     }}";
 
     string[] elmsKey = { "uri" };
     Dictionary<string, string> result = new Dictionary<string, string>();
-    string mock = "";
 
     [Test]
     public void TestParseGraphResponseNoTokenDatas()
     {
         result.Add("uri", null);
 
-        mock = MOCK_GRAPH_RESPONSE_NO_TOKENDATAS;
-        Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
+        Assert.AreEqual(API.ParseGraphResponse(JSON.Parse(MOCK_GRAPH_RESPONSE_NO_TOKENDATAS), elmsKey), result);
 
         result.Clear();
     }
@@ -136,8 +82,7 @@ public class APITest
     {
         result.Add("uri", null);
 
-        mock = MOCK_GRAPH_RESPONSE_NO_SELLERNFTSETTING;
-        Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
+        Assert.AreEqual(API.ParseGraphResponse(JSON.Parse(MOCK_GRAPH_RESPONSE_NO_SELLERNFTSETTING), elmsKey), result);
 
         result.Clear();
     }
@@ -147,8 +92,7 @@ public class APITest
     {
         result.Add("uri", null);
 
-        mock = MOCK_GRAPH_RESPONSE_NO_SELLERAUCTIONS;
-        Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
+        Assert.AreEqual(API.ParseGraphResponse(JSON.Parse(MOCK_GRAPH_RESPONSE_NO_SELLERAUCTIONS), elmsKey), result);
 
         result.Clear();
     }
@@ -158,8 +102,7 @@ public class APITest
     {
         result.Add("uri", null);
 
-        mock = MOCK_GRAPH_RESPONSE_NO_BUYERCAMPAIGNS;
-        Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
+        Assert.AreEqual(API.ParseGraphResponse(JSON.Parse(MOCK_GRAPH_RESPONSE_NO_BUYERCAMPAIGNS), elmsKey), result);
 
         result.Clear();
     }
@@ -169,8 +112,7 @@ public class APITest
     {
         result.Add("uri", null);
 
-        mock = MOCK_GRAPH_RESPONSE_BUYERCAMPAIGN_NOT_APPROVED;
-        Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
+        Assert.AreEqual(API.ParseGraphResponse(JSON.Parse(MOCK_GRAPH_RESPONSE_BUYERCAMPAIGN_NOT_APPROVED), elmsKey), result);
 
         result.Clear();
     }
@@ -180,8 +122,7 @@ public class APITest
     {
         result.Add("uri", "test");
 
-        mock = MOCK_GRAPH_RESPONSE_VALID;
-        Assert.AreEqual(API.ParseGraphResponse(mock, elmsKey), result);
+        Assert.AreEqual(API.ParseGraphResponse(JSON.Parse(MOCK_GRAPH_RESPONSE_VALID), elmsKey), result);
 
         result.Clear();
     }

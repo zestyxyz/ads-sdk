@@ -114,6 +114,12 @@ namespace Zesty {
             }
         }
 
+        /// <summary>
+        /// Parses the JSON response from The Graph into a Dictionary.
+        /// </summary>
+        /// <param name="response">The JSON response from The Graph.</param>
+        /// <param name="elmsKey">The keys to add to the Dictionary.</param>
+        /// <returns>A Dictionary with the specified keys.</returns>
         public static Dictionary<string, string> ParseGraphResponse(JSONNode response, string[] elmsKey)
         {
             var sellerAuction = response?["sellerNFTSetting"]?["sellerAuctions"]?[0];

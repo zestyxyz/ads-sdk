@@ -21,6 +21,11 @@ public class Utils : MonoBehaviour {
         return (int)(DateTime.UtcNow - epochStart).TotalSeconds;
     }
 
+    /// <summary>
+    /// Takes in a URI and parses it for a protocol to return a properly formatted URI.
+    /// </summary>
+    /// <param name="uri">The URI to parse</param>
+    /// <returns>The properly formatted URI, or null if it is invalid.</returns>
     public static string ParseProtocol(string uri)
     {
         try

@@ -201,6 +201,9 @@ namespace Zesty
             UpdateBanner();
         }
 
+        /// <summary>
+        /// Scales the banner and sets its material based on the currently active format.
+        /// </summary>
         private void UpdateBanner()
         {
             switch (format)

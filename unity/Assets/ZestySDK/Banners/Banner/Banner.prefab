@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4962564884104095095}
   - component: {fileID: 4962564884104095094}
   - component: {fileID: 4962564884104095091}
-  - component: {fileID: 4962564884104095090}
   m_Layer: 0
   m_Name: Banner
   m_TagString: Untagged
@@ -120,15 +119,3 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 0b12f9d3422d61144b198099cc186076, type: 2}
   - {fileID: 2100000, guid: 40a0e2abe3bd53a42ae811f4d8a574d4, type: 2}
   runtimeBanner: {fileID: 2100000, guid: 1dc84019e27c7f249af7e533dba73315, type: 2}
---- !u!114 &4962564884104095090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4962564884104095081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c048acbb49d2414b816e3b1e5644938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

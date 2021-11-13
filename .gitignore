@@ -1,3 +1,5 @@
 /**/dist
 /**/node_modules
 /**/cache
+/utils/yarn-error.log
+/**/orbitdb

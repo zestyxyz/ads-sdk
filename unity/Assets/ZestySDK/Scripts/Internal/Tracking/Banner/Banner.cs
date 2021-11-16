@@ -162,8 +162,9 @@ namespace Zesty
         /// <param name="texture">The texture to set the banner to.</param>
         public void SetTexture(Texture texture) {
             if (texture != null) {
-                m_Renderer.sharedMaterial = runtimeBanner;
-                runtimeBanner.mainTexture = texture;
+                Material bannerMaterial = new Material(runtimeBanner);
+                m_Renderer.sharedMaterial = bannerMaterial;
+                bannerMaterial.mainTexture = texture;
                 bannerLoadedSuccessfully = true;
             }
         }

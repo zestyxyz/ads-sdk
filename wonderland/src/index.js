@@ -81,7 +81,7 @@ WL.registerComponent(
         }
         /* WL.Material.shader will be renamed to pipeline at some point,
          * supporting as many API versions as possible. */
-        const m = this.mesh.material;
+        const m = this.mesh.material.clone();
         if (this.textureProperty === 'auto') {
           const pipeline = m.pipeline || m.shader;
           if (pipeline === 'Phong Opaque Textured') {
@@ -95,6 +95,7 @@ WL.registerComponent(
               "'zesty-banner ' unable to apply banner texture: unsupported pipeline " + m.shader
             );
           }
+          this.mesh.material = m;
         } else {
           this.mesh.material[this.textureProperty] = banner.texture;
         }

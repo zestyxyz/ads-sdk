@@ -1,6 +1,6 @@
 /* global WL */
 
-import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -34,6 +34,7 @@ WL.registerComponent(
     /* Texture property to set after banner is loaded. Leave "auto" to detect from
      * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
     textureProperty: { type: WL.Type.String, default: 'auto' },
+    beacon: { type: WL.Type.Bool, default: false },
   },
   {
     init: function () {
@@ -100,16 +101,9 @@ WL.registerComponent(
           this.mesh.material[this.textureProperty] = banner.texture;
         }
 
-        // sendMetric(
-        //   this.creator,
-        //   this.space,
-        //   this.banner.uri,
-        //   this.banner.src,
-        //   this.banner.cta,
-        //   'load',
-        //   0,
-        //   'wonderland'
-        // );
+        if (this.beacon) {
+          sendOnLoadMetric(this.space);
+        }
       });
     },
     onClick: function () {

@@ -1,4 +1,4 @@
-import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -13,6 +13,7 @@ class Zesty extends HTMLElement {
     this.width = '100%';
     this.height = '100%';
     this.shadow = this.attachShadow({ mode: 'open' });
+    this.beacon = false;
 
     this.adjustHeightandWidth = this.adjustHeightandWidth.bind(this);
   }
@@ -37,6 +38,7 @@ class Zesty extends HTMLElement {
       : this.bannerstyle;
     this.height = this.hasAttribute('height') ? this.getAttribute('height') : this.height;
     this.width = this.hasAttribute('width') ? this.getAttribute('width') : this.width;
+    this.beacon = this.hasAttribute('beacon') ? this.getAttribute('beacon') : this.beacon;
 
     this.adjustHeightandWidth();
 
@@ -66,6 +68,11 @@ class Zesty extends HTMLElement {
         e.preventDefault();
         openURL(url);
       });
+
+      if (this.beacon) {
+        sendOnLoadMetric(space);
+      }
+
       if (activeBanner.data.image) {
         img.setAttribute('src', image);
         return new Promise((resolve, reject) => {

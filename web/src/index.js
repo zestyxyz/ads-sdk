@@ -1,4 +1,4 @@
-import {fetchNFT, fetchActiveBanner, sendOnLoadMetric} from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -86,9 +86,7 @@ class Zesty extends HTMLElement {
       this.shadow,
       this.width,
       this.height
-    ).then(() => {
-      sendOnLoadMetric(this.space)
-    });
+    );
   }
 
   /**

@@ -124,7 +124,7 @@ const fetchActiveBanner = async (uri, format, style) => {
  */
 const sendOnLoadMetric = async (spaceId) => {
   try {
-    const spaceCounterEndpoint = API_BASE + `/api/v1/metrics/space/${spaceId}`
+    const spaceCounterEndpoint = API_BASE + `/api/v1/space/${spaceId}`
     await axios.put(spaceCounterEndpoint)
   } catch (e) {
     console.log("Failed to emit onload event", e.message)

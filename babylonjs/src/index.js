@@ -1,6 +1,6 @@
 /* global BABYLON */
 
-import {fetchNFT, fetchActiveBanner, sendOnLoadMetric} from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
 import { formats } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -14,7 +14,6 @@ export default class ZestyBanner {
     this.zestyBanner = BABYLON.MeshBuilder.CreatePlane('zestybanner', options);
 
     loadBanner(space, creator, network, format, style).then(data => {
-      sendOnLoadMetric(space)
       this.zestyBanner.material = data.mat;
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
       this.zestyBanner.actionManager.registerAction(

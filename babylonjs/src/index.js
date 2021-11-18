@@ -16,9 +16,11 @@ export default class ZestyBanner {
     loadBanner(space, creator, network, format, style).then(data => {
       this.zestyBanner.material = data.mat;
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
+
       if (beacon) {
         sendOnLoadMetric(space);
       }
+
       this.zestyBanner.actionManager.registerAction(
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, () => {
           if (webXRExperienceHelper?.baseExperience) {

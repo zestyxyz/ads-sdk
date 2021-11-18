@@ -3,7 +3,7 @@ import { formats, defaultFormat, defaultStyle } from '../utils/formats';
 import { parseProtocol } from '../utils/helpers';
 //import { v4 as uuidv4 } from 'uuid'
 
-const API_BASE = 'https://metrics.zesty.market'
+const API_BASE = 'https://beacon.zesty.market'
 
 const ENDPOINTS = {
     "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',

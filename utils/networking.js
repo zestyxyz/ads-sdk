@@ -118,13 +118,17 @@ const fetchActiveBanner = async (uri, format, style) => {
 }
 
 /**
- * Increment the load
+ * Increment the on-load event count for the space
  * @param {string} spaceId The space ID
  * @returns A Promise representing the POST request
  */
-const sendOnLoadMetric = (spaceId) => {
-  const spaceCounterEndpoint = API_BASE + `/api/v1/metrics/space/${spaceId}`
-  return axios.put(spaceCounterEndpoint)
+const sendOnLoadMetric = async (spaceId) => {
+  try {
+    const spaceCounterEndpoint = API_BASE + `/api/v1/metrics/space/${spaceId}`
+    await axios.put(spaceCounterEndpoint)
+  } catch (e) {
+    console.log("Failed to emit onload event", e.message)
+  }
 };
 
 export { fetchNFT, parseGraphResponse, fetchActiveBanner, sendOnLoadMetric };

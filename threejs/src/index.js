@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
+import {fetchNFT, fetchActiveBanner, sendOnLoadMetric} from '../../utils/networking';
 import { formats } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -31,16 +31,7 @@ export default class ZestyBanner extends THREE.Mesh {
       this.material.transparent = true;
       this.banner = banner;
 
-      // sendMetric(
-      //   creator,
-      //   space,
-      //   banner.uri,
-      //   banner.src,
-      //   banner.cta,
-      //   'load', // event
-      //   0, // durationInMs,
-      //   'threejs' // sdkType
-      // );
+      sendOnLoadMetric(space)
     });
     this.onClick = this.onClick.bind(this);
   }

@@ -1,6 +1,6 @@
 /* global AFRAME */
 
-import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 import './visibility_check';
@@ -15,7 +15,8 @@ AFRAME.registerComponent('zesty-banner', {
     adFormat: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
-    height: { type: 'float', default: 1 }
+    height: { type: 'float', default: 1 },
+    beacon: { type: 'boolean', default: false },
   },
 
   init: function() {
@@ -25,7 +26,7 @@ AFRAME.registerComponent('zesty-banner', {
   registerEntity: function() {
     const space = this.data.space ? this.data.space : this.data.adSpace;
     const format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
-    createBanner(this.el, space, this.data.creator, this.data.network, format, this.data.style, this.data.height);
+    createBanner(this.el, space, this.data.creator, this.data.network, format, this.data.style, this.data.height, this.data.beacon);
   },
 
   tick: function() {},
@@ -41,7 +42,8 @@ AFRAME.registerComponent('zesty-ad', {
     adFormat: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
-    height: { type: 'float', default: 1 }
+    height: { type: 'float', default: 1 },
+    beacon: { type: 'boolean', default: false },
   },
 
   init: function() {
@@ -51,14 +53,14 @@ AFRAME.registerComponent('zesty-ad', {
   registerEntity: function() {
     const space = this.data.space ? this.data.space : this.data.adSpace;
     const format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
-    createBanner(this.el, space, this.data.creator, this.data.network, format, this.data.style, this.data.height);
+    createBanner(this.el, space, this.data.creator, this.data.network, format, this.data.style, this.data.height, this.data.beacon);
   },
 
   // Every 200ms check for `visible` component
   tick: function() {},
 });
 
-async function createBanner(el, space, creator, network, format, style, height) {
+async function createBanner(el, space, creator, network, format, style, height, beacon) {
   const scene = document.querySelector('a-scene');
   let assets = scene.querySelector('a-assets');
   if (!assets) {
@@ -66,7 +68,7 @@ async function createBanner(el, space, creator, network, format, style, height) 
     scene.appendChild(assets);
   }
 
-  const bannerPromise = loadBanner(space, creator, network, format, style).then(banner => {
+  const bannerPromise = loadBanner(space, creator, network, format, style, beacon).then(banner => {
     if (banner.img) {
       assets.appendChild(banner.img);
     }
@@ -79,16 +81,6 @@ async function createBanner(el, space, creator, network, format, style, height) 
   bannerPromise.then(banner => {
     // don't attach plane if element's visibility is false
     if (el.getAttribute('visible') !== false) {
-      // sendMetric(
-      //   creator,
-      //   space,
-      //   banner.uri,
-      //   banner.img.src,
-      //   banner.url,
-      //   'load', // event
-      //   0, // durationInMs
-      //   'aframe' // sdkType
-      // );
       const plane = document.createElement('a-plane');
       if (banner.img) {
         plane.setAttribute('src', `#${banner.img.id}`);
@@ -103,6 +95,10 @@ async function createBanner(el, space, creator, network, format, style, height) 
       }
       plane.setAttribute('side', 'double');
       plane.setAttribute('class', 'clickable'); // required for BE
+
+      if (beacon) {
+        sendOnLoadMetric(space)
+      }
 
       // handle clicks
       plane.onclick = async () => {

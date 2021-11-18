@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useRef, useState, Suspense, useEffect } from 'react';
 import { useLoader, useThree } from '@react-three/fiber';
 import { Interactive } from '@react-three/xr';
-import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -18,6 +18,7 @@ export default function ZestyBanner(props) {
   const height = props.height ?? formats[format].height;
 
   const newStyle = props.style ?? defaultStyle;
+  const beacon = props.beacon ?? false;
 
   const loadBanner = async (space, creator, network, format, style) => {
     const activeNFT = await fetchNFT(space, creator, network);
@@ -35,16 +36,11 @@ export default function ZestyBanner(props) {
       banner.image = banner.image.match(/^.+\.(png|jpe?g)/i)
         ? banner.image
         : parseProtocol(banner.image);
-      // sendMetric(
-      //   props.creator,
-      //   space,
-      //   banner.uri,
-      //   banner.image,
-      //   url,
-      //   'load', // event
-      //   0, // durationInMs
-      //   'r3f' //sdkType
-      // );
+
+      if (beacon) {
+        sendOnLoadMetric(space);
+      }
+
       setBannerData(data);
     });
   }, [props.creator, space]);

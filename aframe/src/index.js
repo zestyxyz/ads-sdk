@@ -97,7 +97,7 @@ async function createBanner(el, space, creator, network, format, style, height, 
       plane.setAttribute('class', 'clickable'); // required for BE
 
       if (beacon) {
-        sendOnLoadMetric(space)
+        sendOnLoadMetric(space);
       }
 
       // handle clicks

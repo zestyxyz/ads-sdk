@@ -63,9 +63,7 @@ const defaultFormat = 'square';
 const defaultStyle = 'standard';
 
 // Networking
-
-const API_BASE = 'https://node-1.zesty.market'
-const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
+const API_BASE = 'https://beacon.zesty.market'
 
 const ENDPOINTS = {
     "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
@@ -186,8 +184,16 @@ const fetchActiveBanner = async (uri, format, style) => {
   })
 }
 
+function sendOnLoadMetric(space) {
+    try {
+        const spaceCounterEndpoint = API_BASE + `/api/v1/space/${space}`
+        fetch(spaceCounterEndpoint, { method: 'PUT' });
+    } catch (e) {
+        console.log("Failed to emit onload event", e.message)
+    }
+}
 
-async function loadBanner(space, creator, network, format, style) {
+async function loadBanner(space, creator, network, format, style, beacon = false) {
     let uri = null;
     const activeNFT = await fetchNFT(space, creator, network);
     if (activeNFT) uri = activeNFT.uri;
@@ -203,6 +209,10 @@ async function loadBanner(space, creator, network, format, style) {
 
     let image = activeBanner.data.image;
     image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
+
+    if (beacon) {
+        sendOnLoadMetric(space);
+    }
 
     feature.set({'url': image, 'link': url});
 }

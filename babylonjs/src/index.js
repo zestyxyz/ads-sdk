@@ -1,11 +1,11 @@
 /* global BABYLON */
 
-import { fetchNFT, fetchActiveBanner } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
 import { formats } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
 export default class ZestyBanner {
-  constructor(space, creator, network, format, style, height, scene, webXRExperienceHelper = null) {
+  constructor(space, creator, network, format, style, height, scene, webXRExperienceHelper = null, beacon = false) {
     const options = {
       height: height,
       width: formats[format].width * height
@@ -16,6 +16,11 @@ export default class ZestyBanner {
     loadBanner(space, creator, network, format, style).then(data => {
       this.zestyBanner.material = data.mat;
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
+
+      if (beacon) {
+        sendOnLoadMetric(space);
+      }
+
       this.zestyBanner.actionManager.registerAction(
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, () => {
           if (webXRExperienceHelper?.baseExperience) {

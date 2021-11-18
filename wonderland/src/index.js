@@ -1,6 +1,6 @@
 /* global WL */
 
-import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
+import {fetchNFT, fetchActiveBanner, sendOnLoadMetric} from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -100,16 +100,7 @@ WL.registerComponent(
           this.mesh.material[this.textureProperty] = banner.texture;
         }
 
-        // sendMetric(
-        //   this.creator,
-        //   this.space,
-        //   this.banner.uri,
-        //   this.banner.src,
-        //   this.banner.cta,
-        //   'load',
-        //   0,
-        //   'wonderland'
-        // );
+        sendOnLoadMetric(this.space)
       });
     },
     onClick: function () {

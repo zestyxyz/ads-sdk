@@ -3,10 +3,7 @@ import { formats, defaultFormat, defaultStyle } from '../utils/formats';
 import { parseProtocol } from '../utils/helpers';
 //import { v4 as uuidv4 } from 'uuid'
 
-// Modify to test a local server
-// const API_BASE = 'http://localhost:2354';
-const API_BASE = 'https://node-1.zesty.market'
-const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
+const API_BASE = 'https://metrics.zesty.market'
 
 const ENDPOINTS = {
     "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
@@ -121,52 +118,17 @@ const fetchActiveBanner = async (uri, format, style) => {
 }
 
 /**
- * !!! CURRENTLY DISABLED !!!
- * @param {string} creator The wallet address of the creator
- * @param {string} space The space ID
- * @param {string} uri The IPFS URI for the space
- * @param {string} image The space image
- * @param {string} url URL for the space image
- * @param {*} event 
- * @param {Number} durationInMs Amount of time the banner was viewed
- * @param {string} sdkType The SDK this metric was sent from
- * @param {string} network The network to post metrics to
+ * Increment the on-load event count for the space
+ * @param {string} spaceId The space ID
  * @returns A Promise representing the POST request
  */
-const sendMetric = (
-  creator,
-  space,
-  uri,
-  image,
-  url,
-  event,
-  durationInMs,
-  sdkType,
-  network = 'polygon'
-  ) => {
-  /*
-  const currentMs = Math.floor(Date.now());
-  const config = {
-    headers: {
-      'Content-Type': 'text/plain',
-      'Access-Control-Allow-Origin': '*',
-    }
+const sendOnLoadMetric = async (spaceId) => {
+  try {
+    const spaceCounterEndpoint = API_BASE + `/api/v1/space/${spaceId}`
+    await axios.put(spaceCounterEndpoint)
+  } catch (e) {
+    console.log("Failed to emit onload event", e.message)
   }
-  return axios.post(AD_ENDPOINTS[network], {
-    _id: uuidv4(),
-    creator: creator,
-    space: space,
-    uri: uri,
-    image: image,
-    url: url,
-    event: event,
-    durationInMs: durationInMs,
-    sessionId: sessionId,
-    timestampInMs: currentMs,
-    sdkVersion: 1,
-    sdkType: sdkType,
-  }, config)
-  */
 };
 
-export { fetchNFT, parseGraphResponse, fetchActiveBanner, sendMetric };
+export { fetchNFT, parseGraphResponse, fetchActiveBanner, sendOnLoadMetric };

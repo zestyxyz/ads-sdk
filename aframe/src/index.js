@@ -1,6 +1,6 @@
 /* global AFRAME */
 
-import { fetchNFT, fetchActiveBanner, sendMetric } from '../../utils/networking';
+import {fetchNFT, fetchActiveBanner, sendOnLoadMetric} from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 import './visibility_check';
@@ -79,16 +79,6 @@ async function createBanner(el, space, creator, network, format, style, height) 
   bannerPromise.then(banner => {
     // don't attach plane if element's visibility is false
     if (el.getAttribute('visible') !== false) {
-      // sendMetric(
-      //   creator,
-      //   space,
-      //   banner.uri,
-      //   banner.img.src,
-      //   banner.url,
-      //   'load', // event
-      //   0, // durationInMs
-      //   'aframe' // sdkType
-      // );
       const plane = document.createElement('a-plane');
       if (banner.img) {
         plane.setAttribute('src', `#${banner.img.id}`);
@@ -103,6 +93,9 @@ async function createBanner(el, space, creator, network, format, style, height) 
       }
       plane.setAttribute('side', 'double');
       plane.setAttribute('class', 'clickable'); // required for BE
+
+
+      sendOnLoadMetric(space)
 
       // handle clicks
       plane.onclick = async () => {

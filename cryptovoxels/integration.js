@@ -217,6 +217,5 @@ async function loadBanner(space, creator, network, format, style, beacon = false
     feature.set({'url': image, 'link': url});
 }
 
-// Modify the arguments here to match your space. Parameters are:
-// Space ID, Creator ID, Network, Format, Style (for banner default image)
-loadBanner('0', '0x0000000000000000000000000000000000000000', 'polygon', 'tall', 'standard');
+// Call loadBanner here. Parameters are:
+// Space ID, Creator ID, Network, Format, Style, Enable Beacon (optional)

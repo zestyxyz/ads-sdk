@@ -42,7 +42,7 @@ class Zesty extends HTMLElement {
 
     this.adjustHeightandWidth();
 
-    async function loadBanner(space, creator, network, format, style, shadow, width, height) {
+    async function loadBanner(space, creator, network, format, style, shadow, width, height, beacon) {
       const activeNFT = await fetchNFT(space, creator, network);
       const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style);
 
@@ -69,7 +69,7 @@ class Zesty extends HTMLElement {
         openURL(url);
       });
 
-      if (this.beacon) {
+      if (beacon) {
         sendOnLoadMetric(space);
       }
 
@@ -92,7 +92,8 @@ class Zesty extends HTMLElement {
       this.bannerstyle,
       this.shadow,
       this.width,
-      this.height
+      this.height,
+      this.beacon
     );
   }
 

@@ -1,6 +1,6 @@
-# Zesty Three.js Integration
+# Zesty Babylon.js Integration
 
-This is the three.js SDK for Zesty Banner integration.
+This is the babylon.js SDK for Zesty Banner integration.
 
 ## Getting started
 

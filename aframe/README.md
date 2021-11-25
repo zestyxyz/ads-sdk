@@ -1,4 +1,6 @@
-# zesty-aframe-sdk 
+# Zesty A-Frame Integration
+
+This is the A-Frame SDK for Zesty Banner integration.
 
 ## Getting started
 
@@ -6,18 +8,18 @@
 yarn
 ```
 
+If you've run `yarn` at the top level, you don't need to run it here again.
+
 ## Local dev server
 
 ```sh
-yarn run serve
+yarn serve
 ```
-
-And also start the ad server.
 
 ## Build
 
 ```sh
-yarn run build
+yarn build
 ```
 
 ## Prototyping with tunneling
@@ -26,7 +28,7 @@ If you'd like to test the changes you've made on a browser on a headset, the bes
 
 We use [`localtunnel`](https://localtunnel.github.io/www/).
 
-Run the tunnel with: 
+Run the tunnel with:
 
 ```sh
 lt --port 8080

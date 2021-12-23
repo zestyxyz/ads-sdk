@@ -20,21 +20,21 @@ describe('Standard styles', () => {
     const banner1 = await page.evaluate(
       () => window.scene.meshes[4]._material._diffuseTexture.name
     );
-    expect(banner1).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall.png');
+    expect(banner1.split('/').pop()).toBe('zesty-banner-tall.png');
   });
 
   test('The wide standard banner is present', async () => {
     const banner2 = await page.evaluate(
       () => window.scene.meshes[5]._material._diffuseTexture.name
     );
-    expect(banner2).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide.png');
+    expect(banner2.split('/').pop()).toBe('zesty-banner-wide.png');
   });
 
   test('The square standard banner is present', async () => {
     const banner3 = await page.evaluate(
       () => window.scene.meshes[6]._material._diffuseTexture.name
     );
-    expect(banner3).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square.png');
+    expect(banner3.split('/').pop()).toBe('zesty-banner-square.png');
   });
 });
 
@@ -43,27 +43,21 @@ describe('Minimal styles', () => {
     const banner4 = await page.evaluate(
       () => window.scene.meshes[7]._material._diffuseTexture.name
     );
-    expect(banner4).toBe(
-      'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png'
-    );
+    expect(banner4.split('/').pop()).toBe('zesty-banner-tall-minimal.png');
   });
 
   test('The wide standard banner is present', async () => {
     const banner5 = await page.evaluate(
       () => window.scene.meshes[8]._material._diffuseTexture.name
     );
-    expect(banner5).toBe(
-      'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png'
-    );
+    expect(banner5.split('/').pop()).toBe('zesty-banner-wide-minimal.png');
   });
 
   test('The square standard banner is present', async () => {
     const banner6 = await page.evaluate(
       () => window.scene.meshes[9]._material._diffuseTexture.name
     );
-    expect(banner6).toBe(
-      'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png'
-    );
+    expect(banner6.split('/').pop()).toBe('zesty-banner-square-minimal.png');
   });
 });
 
@@ -72,27 +66,21 @@ describe('Transparent styles', () => {
     const banner7 = await page.evaluate(
       () => window.scene.meshes[10]._material._diffuseTexture.name
     );
-    expect(banner7).toBe(
-      'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png'
-    );
+    expect(banner7.split('/').pop()).toBe('zesty-banner-tall-transparent.png');
   });
 
   test('The wide transparent banner is present', async () => {
     const banner8 = await page.evaluate(
       () => window.scene.meshes[11]._material._diffuseTexture.name
     );
-    expect(banner8).toBe(
-      'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png'
-    );
+    expect(banner8.split('/').pop()).toBe('zesty-banner-wide-transparent.png');
   });
 
   test('The square transparent banner is present', async () => {
     const banner9 = await page.evaluate(
       () => window.scene.meshes[12]._material._diffuseTexture.name
     );
-    expect(banner9).toBe(
-      'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png'
-    );
+    expect(banner9.split('/').pop()).toBe('zesty-banner-square-transparent.png');
   });
 });
 

@@ -29,6 +29,21 @@ const parseProtocol = uri => {
 }
 
 /**
+ * Retrieves a random IPFS gateway to alleviate rate-throttling from using only a single gateway.
+ * @returns A random public IPFS gateway
+ */
+const getIPFSGateway = () => {
+  const gateways = [
+    'https://gateway.pinata.cloud',
+    'https://cloudflare-ipfs.com',
+    'https://ipfs.fleek.co',
+    'https://dweb.link'
+  ];
+  const rand = Math.floor(Math.random() * (gateways.length));
+  return gateways[rand];
+}
+
+/**
  * Performs feature detection on XRHand and XRMediaBinding to determine if user is on Oculus Quest.
  * As of 10/15/21, only Oculus Browser has implemented the WebXR Hand Input Module and WebXR Layers API.
  * @returns true if XRHand and XRMediaBinding are not null, else false
@@ -51,4 +66,4 @@ const openURL = url => {
   window.open(url, '_blank');
 }
 
-export { parseProtocol, isOculusQuest, openURL };
+export { parseProtocol, getIPFSGateway, isOculusQuest, openURL };

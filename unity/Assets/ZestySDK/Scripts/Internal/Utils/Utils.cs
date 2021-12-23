@@ -54,4 +54,19 @@ public class Utils : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Retrieves a random IPFS gateway to alleviate rate-throttling from using only a single gateway.
+    /// </summary>
+    /// <returns>A random public IPFS gateway</returns>
+    public static string getIPFSGateway() {
+        string[] gateways = {
+            "https://gateway.pinata.cloud",
+            "https://cloudflare-ipfs.com",
+            "https://ipfs.fleek.co",
+            "https://dweb.link"
+        };
+        int rand = UnityEngine.Random.Range(0, gateways.Count() - 1);
+        return gateways[rand];
+    }
+
 }

@@ -47,19 +47,19 @@ describe('Standard styles', () => {
   test('The tall standard banner is displaying the correct default image', async () => {
     const banner = await page.waitForSelector('#banner1 > a-plane');
     const img = await getImageSrc(banner);
-    expect(img).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall.png');
+    expect(img.split('/').pop()).toBe('zesty-banner-tall.png');
   });
 
   test('The wide standard banner is displaying the correct default image', async () => {
     const banner = await page.waitForSelector('#banner2 > a-plane');
     const img = await getImageSrc(banner);
-    expect(img).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide.png');
+    expect(img.split('/').pop()).toBe('zesty-banner-wide.png');
   });
 
   test('The square standard banner is displaying the correct default image', async () => {
     const banner = await page.waitForSelector('#banner3 > a-plane');
     const img = await getImageSrc(banner);
-    expect(img).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square.png');
+    expect(img.split('/').pop()).toBe('zesty-banner-square.png');
   });
 });
 
@@ -67,21 +67,19 @@ describe('Minimal styles', () => {
   test('The tall minimal banner is displaying the correct default image', async () => {
     const banner = await page.waitForSelector('#banner4 > a-plane');
     const img = await getImageSrc(banner);
-    expect(img).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png');
+    expect(img.split('/').pop()).toBe('zesty-banner-tall-minimal.png');
   });
 
   test('The wide minimal banner is displaying the correct default image', async () => {
     const banner = await page.waitForSelector('#banner5 > a-plane');
     const img = await getImageSrc(banner);
-    expect(img).toBe('https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png');
+    expect(img.split('/').pop()).toBe('zesty-banner-wide-minimal.png');
   });
 
   test('The square minimal banner is displaying the correct default image', async () => {
     const banner = await page.waitForSelector('#banner6 > a-plane');
     const img = await getImageSrc(banner);
-    expect(img).toBe(
-      'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png'
-    );
+    expect(img.split('/').pop()).toBe('zesty-banner-square-minimal.png');
   });
 });
 
@@ -89,25 +87,19 @@ describe('Transparent styles', () => {
   test('The tall transparent banner is displaying the correct default image', async () => {
     const banner = await page.waitForSelector('#banner7 > a-plane');
     const img = await getImageSrc(banner);
-    expect(img).toBe(
-      'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png'
-    );
+    expect(img.split('/').pop()).toBe('zesty-banner-tall-transparent.png');
   });
 
   test('The wide transparent banner is displaying the correct default image', async () => {
     const banner = await page.waitForSelector('#banner8 > a-plane');
     const img = await getImageSrc(banner);
-    expect(img).toBe(
-      'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png'
-    );
+    expect(img.split('/').pop()).toBe('zesty-banner-wide-transparent.png');
   });
 
   test('The square transparent banner is displaying the correct default image', async () => {
     const banner = await page.waitForSelector('#banner9 > a-plane');
     const img = await getImageSrc(banner);
-    expect(img).toBe(
-      'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png'
-    );
+    expect(img.split('/').pop()).toBe('zesty-banner-square-transparent.png');
   });
 });
 

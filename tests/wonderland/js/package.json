@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zestymarket/wonderland-sdk": "^1.0.0"
+    "@zestymarket/wonderland-sdk": "^1.4.4"
   }
 }

@@ -29,18 +29,28 @@ const parseProtocol = uri => {
 }
 
 /**
- * Retrieves a random IPFS gateway to alleviate rate-throttling from using only a single gateway.
- * @returns A random public IPFS gateway
+ * Retrieves an IPFS gateway to alleviate rate-throttling from using only a single gateway.
+ * Selection is weighted random based on average latency.
+ * @returns A weighted random public IPFS gateway
  */
 const getIPFSGateway = () => {
   const gateways = [
-    'https://gateway.pinata.cloud',
-    'https://cloudflare-ipfs.com',
-    'https://ipfs.fleek.co',
-    'https://dweb.link'
+    { gateway: 'https://cloudflare-ipfs.com', weight: 35 },
+    { gateway: 'https://ipfs.fleek.co', weight: 35 },
+    { gateway: 'https://gateway.pinata.cloud', weight: 20 },
+    { gateway: 'https://dweb.link', weight: 10 }
   ];
-  const rand = Math.floor(Math.random() * (gateways.length));
-  return gateways[rand];
+
+  const weights = [];
+  let i;
+  for (i = 0; i < gateways.length; i++) {
+    weights[i] = gateways[i].weight + (weights[i - 1] || 0);
+  }
+  const random = Math.random() * weights[weights.length - 1];
+  for (i = 0; i < weights.length; i++) {
+    if (weights[i] > random) break;
+  }
+  return gateways[i].gateway;
 }
 
 /**

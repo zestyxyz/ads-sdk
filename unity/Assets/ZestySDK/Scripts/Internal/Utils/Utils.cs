@@ -59,14 +59,28 @@ public class Utils : MonoBehaviour {
     /// </summary>
     /// <returns>A random public IPFS gateway</returns>
     public static string getIPFSGateway() {
-        string[] gateways = {
-            "https://gateway.pinata.cloud",
-            "https://cloudflare-ipfs.com",
-            "https://ipfs.fleek.co",
-            "https://dweb.link"
+        Tuple<string, int>[] gateways = {
+            new Tuple<string, int>("https://cloudflare-ipfs.com", 35),
+            new Tuple<string, int>("https://ipfs.fleek.co", 35),
+            new Tuple<string, int>("https://gateway.pinata.cloud", 20),
+            new Tuple<string, int>("https://dweb.link", 10)
         };
-        int rand = UnityEngine.Random.Range(0, gateways.Count() - 1);
-        return gateways[rand];
+
+        int[] weights = new int[4];
+        int i = 0;
+        for (i = 0; i < gateways.Length; i++) {
+            if (i == 0) {
+                weights[i] = gateways[i].Item2;
+            }
+            else {
+                weights[i] = gateways[i].Item2 + (weights[i - 1]);
+            }
+        }
+        float random = UnityEngine.Random.value * weights[weights.Length - 1];
+        for (i = 0; i < weights.Length; i++) {
+            if (weights[i] > random) break;
+        }
+        return gateways[i].Item1;
     }
 
 }

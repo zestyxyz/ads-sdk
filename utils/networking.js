@@ -100,14 +100,16 @@ const parseGraphResponse = res => {
  * @param {string} uri The IPFS URI containing the banner content.
  * @param {string} format The default banner image format to use if there is no active banner.
  * @param {string} style The default banner image style to use if there is no active banner.
+ * @param {string} formatsOverride Object to override the default format object.
  * @returns An object with the requested banner content, or a default if it cannot be retrieved.
  */
-const fetchActiveBanner = async (uri, format, style) => {
+const fetchActiveBanner = async (uri, format, style, formatsOverride) => {
   if (!uri) {
     let bannerObject = { uri: 'DEFAULT_URI', data: DEFAULT_URI_CONTENT };
     let newFormat = format || defaultFormat;
     let newStyle = style || defaultStyle;
-    bannerObject.data.image = formats[newFormat].style[newStyle];
+    let usedFormats = formatsOverride || formats;
+    bannerObject.data.image = usedFormats[newFormat].style[newStyle];
     return bannerObject;
   }
 

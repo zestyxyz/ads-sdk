@@ -4,6 +4,7 @@
   "description": "Scripts with functionality shared between SDKs. Should not be published.",
   "main": "networking.js",
   "scripts": {
+    "build": "esbuild formats.js --format=esm --bundle --minify --outfile=dist/zesty-formats.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +18,7 @@
     "defaults"
   ],
   "devDependencies": {
-    "@babel/runtime": "^7.14.6"
+    "@babel/runtime": "^7.14.6",
+    "esbuild": "^0.11.14"
   }
 }

@@ -14,6 +14,8 @@ cd web && yarn && yarn run build
 cd ..
 cd wonderland && yarn && yarn run build
 cd ..
+cd utils && yarn && yarn run build
+cd ..
 
 cp -R aframe/dist dist
 cp -R babylonjs/dist/* dist
@@ -22,4 +24,5 @@ cp -R threejs/dist/* dist
 cp unity/zesty-unity-sdk.unitypackage dist
 cp -R web/dist/* dist
 cp -R wonderland/dist/* dist
+cp -R utils/dist/* dist
 cp -R assets dist

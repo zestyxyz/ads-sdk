@@ -110,7 +110,7 @@ WL.registerComponent(
       })
     },
     onClick: function () {
-      if (this.banner.url) {
+      if (this.banner?.url) {
         if (WL.xrSession) {
           WL.xrSession.end().then(this.executeClick.bind(this));
         } else {

@@ -60,8 +60,10 @@ WL.registerComponent(
         this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
       this.cursorTarget.addClickFunction(this.onClick.bind(this));
 
-      import('https://ipfs.io/ipns/lib.zesty.market/zesty-formats.js').then(({formats}) => {
-        this.formatsOverride = formats;
+      let formatsScript = document.createElement('script');
+
+      formatsScript.onload = () => {
+        this.formatsOverride = zestyFormats.formats;
         this.loadBanner(
           this.space,
           this.creator,
@@ -107,7 +109,9 @@ WL.registerComponent(
             sendOnLoadMetric(this.space);
           }
         });
-      })
+      }
+      formatsScript.setAttribute('src', './zesty-formats.js');
+      document.body.appendChild(formatsScript);
     },
     onClick: function () {
       if (this.banner?.url) {

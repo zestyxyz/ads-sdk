@@ -35,6 +35,8 @@ WL.registerComponent(
      * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
     textureProperty: { type: WL.Type.String, default: 'auto' },
     beacon: { type: WL.Type.Bool, default: false },
+    /* Load IPFS gateways and default image uris at runtime, if false at build time */
+    dynamicFormats: { type: WL.Type.Bool, default: true },
   },
   {
     init: function () {
@@ -60,58 +62,65 @@ WL.registerComponent(
         this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
       this.cursorTarget.addClickFunction(this.onClick.bind(this));
 
-      let formatsScript = document.createElement('script');
-
-      formatsScript.onload = () => {
-        this.formatsOverride = zestyFormats.formats;
-        this.loadBanner(
-          this.space,
-          this.creator,
-          this.network,
-          this.formatKeys[this.format],
-          this.styleKeys[this.style]
-        ).then((banner) => {
-          this.banner = banner;
+      if(this.dynamicFormats) {
+        let formatsScript = document.createElement('script');
   
-          if (this.scaleToRatio) {
-            /* Make banner always 1 meter height, adjust width according to banner aspect ratio */
-            this.height = this.object.scalingLocal[1];
-            this.object.resetScaling();
-            this.collision.extents = [
-              this.formats[this.format].width * this.height,
-              this.height,
-              0.1,
-            ];
-            this.object.scale([this.formats[this.format].width * this.height, this.height, 1.0]);
-          }
-          /* WL.Material.shader will be renamed to pipeline at some point,
-           * supporting as many API versions as possible. */
-          const m = this.mesh.material.clone();
-          if (this.textureProperty === 'auto') {
-            const pipeline = m.pipeline || m.shader;
-            if (pipeline === 'Phong Opaque Textured') {
-              m.diffuseTexture = banner.texture;
-              m.alphaMaskThreshold = 0.3;
-            } else if (pipeline === 'Flat Opaque Textured') {
-              m.flatTexture = banner.texture;
-              m.alphaMaskThreshold = 0.8;
-            } else {
-              throw Error(
-                "'zesty-banner ' unable to apply banner texture: unsupported pipeline " + m.shader
-              );
-            }
-            this.mesh.material = m;
-          } else {
-            this.mesh.material[this.textureProperty] = banner.texture;
-          }
-  
-          if (this.beacon) {
-            sendOnLoadMetric(this.space);
-          }
-        });
+        formatsScript.onload = () => {
+          this.formatsOverride = zestyFormats.formats;
+          this.startLoading();
+        }
+        formatsScript.setAttribute('src', './zesty-formats.js');
+        document.body.appendChild(formatsScript);
+      } else {
+        this.startLoading();
       }
-      formatsScript.setAttribute('src', './zesty-formats.js');
-      document.body.appendChild(formatsScript);
+    },
+    startLoading: function() {
+      this.loadBanner(
+        this.space,
+        this.creator,
+        this.network,
+        this.formatKeys[this.format],
+        this.styleKeys[this.style]
+      ).then((banner) => {
+        this.banner = banner;
+
+        if (this.scaleToRatio) {
+          /* Make banner always 1 meter height, adjust width according to banner aspect ratio */
+          this.height = this.object.scalingLocal[1];
+          this.object.resetScaling();
+          this.collision.extents = [
+            this.formats[this.format].width * this.height,
+            this.height,
+            0.1,
+          ];
+          this.object.scale([this.formats[this.format].width * this.height, this.height, 1.0]);
+        }
+        /* WL.Material.shader will be renamed to pipeline at some point,
+         * supporting as many API versions as possible. */
+        const m = this.mesh.material.clone();
+        if (this.textureProperty === 'auto') {
+          const pipeline = m.pipeline || m.shader;
+          if (pipeline === 'Phong Opaque Textured') {
+            m.diffuseTexture = banner.texture;
+            m.alphaMaskThreshold = 0.3;
+          } else if (pipeline === 'Flat Opaque Textured') {
+            m.flatTexture = banner.texture;
+            m.alphaMaskThreshold = 0.8;
+          } else {
+            throw Error(
+              "'zesty-banner ' unable to apply banner texture: unsupported pipeline " + m.shader
+            );
+          }
+          this.mesh.material = m;
+        } else {
+          this.mesh.material[this.textureProperty] = banner.texture;
+        }
+
+        if (this.beacon) {
+          sendOnLoadMetric(this.space);
+        }
+      });
     },
     onClick: function () {
       if (this.banner?.url) {

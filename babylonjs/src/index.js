@@ -1,6 +1,6 @@
 /* global BABYLON */
 
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -29,6 +29,9 @@ export default class ZestyBanner {
             });
           } else {
             openURL(data.url);
+          }
+          if (beacon) {
+            sendOnClickMetric(space);
           }
         })
       );

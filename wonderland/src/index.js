@@ -1,6 +1,6 @@
 /* global WL */
 
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -133,16 +133,9 @@ WL.registerComponent(
     },
     executeClick: function () {
       openURL(this.banner.url);
-      // sendMetric(
-      //   this.creator,
-      //   this.space,
-      //   this.banner.uri,
-      //   this.banner.imageSrc,
-      //   this.banner.url,
-      //   'click',
-      //   0,
-      //   'wonderland'
-      // );
+      if (this.beacon) {
+        sendOnClickMetric(this.space);
+      }
     },
     loadBanner: async function (space, creator, network, format, style) {
       network = network ? 'polygon' : 'rinkeby'; // Use truthy/falsy values to get network

@@ -16,39 +16,39 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const banner = new ZestyBanner("999", "0x0000000000000000000000000000000000000000", 'polygon', 'tall', 'standard', 3, renderer, true);
+const banner = new ZestyBanner("999999", "0x0000000000000000000000000000000000000000", 'polygon', 'tall', 'standard', 3, renderer, true);
 banner.position.set(0, 0, -1);
 scene.add(banner);
 
-const banner2 = new ZestyBanner("999", "0x0000000000000000000000000000000000000000", 'polygon', 'wide', 'standard', 3, renderer);
+const banner2 = new ZestyBanner("999999", "0x0000000000000000000000000000000000000000", 'polygon', 'wide', 'standard', 3, renderer);
 banner2.position.set(0, 0, -2);
 scene.add(banner2);
 
-const banner3 = new ZestyBanner("999", "0x0000000000000000000000000000000000000000", 'polygon', 'square', 'standard', 3, renderer);
+const banner3 = new ZestyBanner("999999", "0x0000000000000000000000000000000000000000", 'polygon', 'square', 'standard', 3, renderer);
 banner3.position.set(0, 0, -3);
 scene.add(banner3);
 
-const banner4 = new ZestyBanner("999", "0x0000000000000000000000000000000000000000", 'polygon', 'tall', 'minimal', 3, renderer);
+const banner4 = new ZestyBanner("999999", "0x0000000000000000000000000000000000000000", 'polygon', 'tall', 'minimal', 3, renderer);
 banner4.position.set(0, 0, -4);
 scene.add(banner4);
 
-const banner5 = new ZestyBanner("999", "0x0000000000000000000000000000000000000000", 'polygon', 'wide', 'minimal', 3, renderer);
+const banner5 = new ZestyBanner("999999", "0x0000000000000000000000000000000000000000", 'polygon', 'wide', 'minimal', 3, renderer);
 banner5.position.set(0, 0, -5);
 scene.add(banner5);
 
-const banner6 = new ZestyBanner("999", "0x0000000000000000000000000000000000000000", 'polygon', 'square', 'minimal', 3, renderer);
+const banner6 = new ZestyBanner("999999", "0x0000000000000000000000000000000000000000", 'polygon', 'square', 'minimal', 3, renderer);
 banner6.position.set(0, 0, -6);
 scene.add(banner6);
 
-const banner7 = new ZestyBanner("999", "0x0000000000000000000000000000000000000000", 'polygon', 'tall', 'transparent', 3, renderer);
+const banner7 = new ZestyBanner("999999", "0x0000000000000000000000000000000000000000", 'polygon', 'tall', 'transparent', 3, renderer);
 banner7.position.set(0, 0, -7);
 scene.add(banner7);
 
-const banner8 = new ZestyBanner("999", "0x0000000000000000000000000000000000000000", 'polygon', 'wide', 'transparent', 3, renderer);
+const banner8 = new ZestyBanner("999999", "0x0000000000000000000000000000000000000000", 'polygon', 'wide', 'transparent', 3, renderer);
 banner8.position.set(0, 0, -8);
 scene.add(banner8);
 
-const banner9 = new ZestyBanner("999", "0x0000000000000000000000000000000000000000", 'polygon', 'square', 'transparent', 3, renderer);
+const banner9 = new ZestyBanner("999999", "0x0000000000000000000000000000000000000000", 'polygon', 'square', 'transparent', 3, renderer);
 banner9.position.set(0, 0, -9);
 scene.add(banner9);
 

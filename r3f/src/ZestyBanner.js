@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useRef, useState, Suspense, useEffect } from 'react';
 import { useLoader, useThree } from '@react-three/fiber';
 import { Interactive } from '@react-three/xr';
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -78,16 +78,7 @@ function BannerPlane(props) {
       if (session) session.end();
     }
     openURL(url);
-    // sendMetric(
-    //   props.creator,
-    //   props.space,
-    //   banner.uri,
-    //   banner.image,
-    //   url,
-    //   'click', // event
-    //   0, // durationInMs
-    //   'r3f' //sdkType
-    // );
+    if (props.beacon) sendOnClickMetric(props.newSpace);
   };
 
   return (

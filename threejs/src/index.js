@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -22,6 +22,7 @@ export default class ZestyBanner extends THREE.Mesh {
     this.creator = creator;
     this.network = network;
     this.renderer = renderer;
+    this.beacon = beacon;
     this.banner = {};
 
     this.bannerPromise = loadBanner(space, creator, network, format, style).then(banner => {
@@ -45,16 +46,9 @@ export default class ZestyBanner extends THREE.Mesh {
       }
 
       openURL(this.banner.url);
-      // sendMetric(
-      //   this.creator,
-      //   this.space,
-      //   this.banner.uri,
-      //   this.banner.texture.image.src,
-      //   this.banner.url,
-      //   'click', // event
-      //   0, // durationInMs
-      //   'threejs' // sdkType
-      // );
+      if (this.beacon) {
+        sendOnClickMetric(this.space);
+      }
     }
   }
 }

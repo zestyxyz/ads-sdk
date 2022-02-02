@@ -1,6 +1,6 @@
 /* global AFRAME */
 
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 import './visibility_check';
@@ -107,16 +107,9 @@ async function createBanner(el, space, creator, network, format, style, height, 
         // Open link in new tab
         if (banner.url) {
           openURL(banner.url);
-          // sendMetric(
-          //   creator,
-          //   space,
-          //   banner.uri,
-          //   banner.img.src,
-          //   banner.url,
-          //   'click', // event
-          //   0, // durationInMs
-          //   'aframe' // sdkType
-          // );
+          if (beacon) {
+            sendOnClickMetric(space);
+          }
         }
       };
       el.appendChild(plane);

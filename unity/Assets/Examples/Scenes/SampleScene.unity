@@ -399,7 +399,7 @@ PrefabInstance:
     - target: {fileID: 4962564884104095091, guid: e82d35c8f4175134cac7dbbb1433e5e5,
         type: 3}
       propertyPath: space
-      value: 0
+      value: 999999
       objectReference: {fileID: 0}
     - target: {fileID: 4962564884104095091, guid: e82d35c8f4175134cac7dbbb1433e5e5,
         type: 3}
@@ -409,6 +409,11 @@ PrefabInstance:
     - target: {fileID: 4962564884104095091, guid: e82d35c8f4175134cac7dbbb1433e5e5,
         type: 3}
       propertyPath: format
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962564884104095091, guid: e82d35c8f4175134cac7dbbb1433e5e5,
+        type: 3}
+      propertyPath: beaconEnabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4962564884104095091, guid: e82d35c8f4175134cac7dbbb1433e5e5,

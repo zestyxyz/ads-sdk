@@ -1,4 +1,4 @@
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
@@ -67,6 +67,9 @@ class Zesty extends HTMLElement {
       img.addEventListener('click', (e) => {
         e.preventDefault();
         openURL(url);
+        if (beacon) {
+          sendOnClickMetric(space);
+        }
       });
 
       if (beacon) {

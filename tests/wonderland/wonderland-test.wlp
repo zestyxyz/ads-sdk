@@ -2168,12 +2168,14 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": 0,
+                        "space": 999999,
                         "creator": "0x0000000000000000000000000000000000000000",
                         "style": "standard",
                         "scaleToRatio": true,
                         "textureProperty": "auto",
-                        "format": "tall"
+                        "format": "tall",
+                        "beacon": true,
+                        "dynamicFormats": false
                     }
                 }
             ],
@@ -2274,12 +2276,13 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": 0,
+                        "space": 999999,
                         "creator": "0x0000000000000000000000000000000000000000",
                         "style": "standard",
                         "scaleToRatio": true,
                         "textureProperty": "auto",
-                        "format": "wide"
+                        "format": "wide",
+                        "dynamicFormats": false
                     }
                 }
             ],
@@ -2330,12 +2333,13 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": 0,
+                        "space": 999999,
                         "creator": "0x0000000000000000000000000000000000000000",
                         "style": "standard",
                         "scaleToRatio": true,
                         "textureProperty": "auto",
-                        "format": "square"
+                        "format": "square",
+                        "dynamicFormats": false
                     }
                 }
             ],
@@ -2386,12 +2390,13 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": 0,
+                        "space": 999999,
                         "creator": "0x0000000000000000000000000000000000000000",
                         "style": "minimal",
                         "scaleToRatio": true,
                         "textureProperty": "auto",
-                        "format": "tall"
+                        "format": "tall",
+                        "dynamicFormats": false
                     }
                 }
             ],
@@ -2442,12 +2447,13 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": 0,
+                        "space": 999999,
                         "creator": "0x0000000000000000000000000000000000000000",
                         "style": "minimal",
                         "scaleToRatio": true,
                         "textureProperty": "auto",
-                        "format": "wide"
+                        "format": "wide",
+                        "dynamicFormats": false
                     }
                 }
             ],
@@ -2498,12 +2504,13 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": 0,
+                        "space": 999999,
                         "creator": "0x0000000000000000000000000000000000000000",
                         "style": "minimal",
                         "scaleToRatio": true,
                         "textureProperty": "auto",
-                        "format": "square"
+                        "format": "square",
+                        "dynamicFormats": false
                     }
                 }
             ],
@@ -2554,12 +2561,13 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": 0,
+                        "space": 999999,
                         "creator": "0x0000000000000000000000000000000000000000",
                         "style": "transparent",
                         "scaleToRatio": true,
                         "textureProperty": "auto",
-                        "format": "tall"
+                        "format": "tall",
+                        "dynamicFormats": false
                     }
                 }
             ],
@@ -2610,12 +2618,13 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": 0,
+                        "space": 999999,
                         "creator": "0x0000000000000000000000000000000000000000",
                         "style": "transparent",
                         "scaleToRatio": true,
                         "textureProperty": "auto",
-                        "format": "wide"
+                        "format": "wide",
+                        "dynamicFormats": false
                     }
                 }
             ],
@@ -2666,12 +2675,13 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": 0,
+                        "space": 999999,
                         "creator": "0x0000000000000000000000000000000000000000",
                         "style": "transparent",
                         "scaleToRatio": true,
                         "textureProperty": "auto",
-                        "format": "square"
+                        "format": "square",
+                        "dynamicFormats": false
                     }
                 }
             ],

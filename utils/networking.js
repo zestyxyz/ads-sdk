@@ -133,4 +133,13 @@ const sendOnLoadMetric = async (spaceId) => {
   }
 };
 
-export { fetchNFT, parseGraphResponse, fetchActiveBanner, sendOnLoadMetric };
+const sendOnClickMetric = async (spaceId) => {
+  try {
+    const spaceClickEndpoint = API_BASE + `/api/v1/space/click/${spaceId}`
+    await axios.put(spaceClickEndpoint)
+  } catch (e) {
+    console.log("Failed to emit onclick event", e.message)
+  }
+}
+
+export { fetchNFT, parseGraphResponse, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric };

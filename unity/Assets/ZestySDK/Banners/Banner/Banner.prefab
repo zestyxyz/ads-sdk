@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4962564884104095095}
   - component: {fileID: 4962564884104095094}
   - component: {fileID: 4962564884104095091}
-  - component: {fileID: 3318841237315985722}
   m_Layer: 0
   m_Name: Banner
   m_TagString: Untagged
@@ -115,21 +114,9 @@ MonoBehaviour:
   network: 0
   format: 2
   style: 0
+  beaconEnabled: 0
   placeholderMaterials:
   - {fileID: 2100000, guid: 5feaf6a65b3da9d4bbf4cd9da63b4ab1, type: 2}
   - {fileID: 2100000, guid: 0b12f9d3422d61144b198099cc186076, type: 2}
   - {fileID: 2100000, guid: 40a0e2abe3bd53a42ae811f4d8a574d4, type: 2}
   runtimeBanner: {fileID: 2100000, guid: 1dc84019e27c7f249af7e533dba73315, type: 2}
---- !u!114 &3318841237315985722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4962564884104095081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e47c15367f26b743b3d42b9f9b4562a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  beaconEnabled: 0

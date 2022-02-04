@@ -69,7 +69,7 @@ WL.registerComponent(
           this.formatsOverride = zestyFormats.formats;
           this.startLoading();
         }
-        formatsScript.setAttribute('src', './zesty-formats.js');
+        formatsScript.setAttribute('src', 'https://ipfs.io/ipns/lib.zesty.market/zesty-formats.js');
         document.body.appendChild(formatsScript);
       } else {
         this.startLoading();

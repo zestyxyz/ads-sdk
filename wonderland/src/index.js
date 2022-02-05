@@ -70,6 +70,7 @@ WL.registerComponent(
           this.startLoading();
         }
         formatsScript.setAttribute('src', 'https://ipfs.io/ipns/lib.zesty.market/zesty-formats.js');
+        formatsScript.setAttribute('crossorigin', 'anonymous');
         document.body.appendChild(formatsScript);
       } else {
         this.startLoading();

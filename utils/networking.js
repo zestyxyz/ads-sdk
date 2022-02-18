@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { formats, defaultFormat, defaultStyle } from '../utils/formats';
-import { parseProtocol } from '../utils/helpers';
+import { parseProtocol, urlContainsUTMParams, appendUTMParams } from '../utils/helpers';
 //import { v4 as uuidv4 } from 'uuid'
 
 const API_BASE = 'https://beacon.zesty.market'
@@ -116,6 +116,9 @@ const fetchActiveBanner = async (uri, format, style, formatsOverride) => {
 
   return axios.get(parseProtocol(uri))
   .then((res) => {
+    if(!urlContainsUTMParams(res.data.url)) {
+      res.data.url = appendUTMParams(res.data.url);
+    }
     return res.status == 200 ? { uri: uri, data: res.data } : null
   })
 }

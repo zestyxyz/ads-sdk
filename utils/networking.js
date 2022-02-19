@@ -4,6 +4,7 @@ import { parseProtocol } from '../utils/helpers';
 //import { v4 as uuidv4 } from 'uuid'
 
 const API_BASE = 'https://beacon.zesty.market'
+const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
 
 const ENDPOINTS = {
     "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
@@ -128,6 +129,12 @@ const sendOnLoadMetric = async (spaceId) => {
   try {
     const spaceCounterEndpoint = API_BASE + `/api/v1/space/${spaceId}`
     await axios.put(spaceCounterEndpoint)
+
+    await axios.post(
+      BEACON_GRAPHQL_URI,
+      { query: `mutation { increase(eventType: visits, spaceId: "${spaceId}") { message } }` },
+      { headers: { 'Content-Type': 'application/json' }}
+    )
   } catch (e) {
     console.log("Failed to emit onload event", e.message)
   }
@@ -137,6 +144,12 @@ const sendOnClickMetric = async (spaceId) => {
   try {
     const spaceClickEndpoint = API_BASE + `/api/v1/space/click/${spaceId}`
     await axios.put(spaceClickEndpoint)
+
+    await axios.post(
+      BEACON_GRAPHQL_URI,
+      { query: `mutation { increase(eventType: clicks, spaceId: "${spaceId}") { message } }` },
+      { headers: { 'Content-Type': 'application/json' }}
+    )
   } catch (e) {
     console.log("Failed to emit onclick event", e.message)
   }

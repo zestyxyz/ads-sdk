@@ -104,7 +104,7 @@ const parseGraphResponse = res => {
  * @param {string} formatsOverride Object to override the default format object.
  * @returns An object with the requested banner content, or a default if it cannot be retrieved.
  */
-const fetchActiveBanner = async (uri, format, style, formatsOverride) => {
+const fetchActiveBanner = async (uri, format, style, space, formatsOverride) => {
   if (!uri) {
     let bannerObject = { uri: 'DEFAULT_URI', data: DEFAULT_URI_CONTENT };
     let newFormat = format || defaultFormat;
@@ -117,7 +117,7 @@ const fetchActiveBanner = async (uri, format, style, formatsOverride) => {
   return axios.get(parseProtocol(uri))
   .then((res) => {
     if(!urlContainsUTMParams(res.data.url)) {
-      res.data.url = appendUTMParams(res.data.url);
+      res.data.url = appendUTMParams(res.data.url, space);
     }
     return res.status == 200 ? { uri: uri, data: res.data } : null
   })

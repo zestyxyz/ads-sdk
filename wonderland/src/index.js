@@ -141,7 +141,7 @@ WL.registerComponent(
     loadBanner: async function (space, creator, network, format, style) {
       network = network ? 'polygon' : 'rinkeby'; // Use truthy/falsy values to get network
       const activeNFT = await fetchNFT(space, creator, network);
-      const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, this.formatsOverride);
+      const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space, this.formatsOverride);
 
       // Need to add https:// if missing for page to open properly
       let url = activeBanner.data.url;

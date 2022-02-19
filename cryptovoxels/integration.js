@@ -197,7 +197,7 @@ async function loadBanner(space, creator, network, format, style, beacon = false
     let uri = null;
     const activeNFT = await fetchNFT(space, creator, network);
     if (activeNFT) uri = activeNFT.uri;
-    const activeBanner = await fetchActiveBanner(uri, format, style);
+    const activeBanner = await fetchActiveBanner(uri, format, style, space);
 
     // Need to add https:// if missing for page to open properly
     let url = activeBanner.data.url;

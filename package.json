@@ -9,6 +9,7 @@
   "scripts": {
     "prepare": "husky install",
     "build": "node scripts/build.js",
+    "publish": "node scripts/build_publish.js",
     "test": "jest",
     "test-all": "node scripts/test.js",
     "serve": "npx http-server"

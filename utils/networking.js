@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { formats, defaultFormat, defaultStyle } from '../utils/formats';
-import { parseProtocol } from '../utils/helpers';
+import { parseProtocol, urlContainsUTMParams, appendUTMParams } from '../utils/helpers';
 //import { v4 as uuidv4 } from 'uuid'
 
 const API_BASE = 'https://beacon.zesty.market'
@@ -104,7 +104,7 @@ const parseGraphResponse = res => {
  * @param {string} formatsOverride Object to override the default format object.
  * @returns An object with the requested banner content, or a default if it cannot be retrieved.
  */
-const fetchActiveBanner = async (uri, format, style, formatsOverride) => {
+const fetchActiveBanner = async (uri, format, style, space, formatsOverride) => {
   if (!uri) {
     let bannerObject = { uri: 'DEFAULT_URI', data: DEFAULT_URI_CONTENT };
     let newFormat = format || defaultFormat;
@@ -116,6 +116,9 @@ const fetchActiveBanner = async (uri, format, style, formatsOverride) => {
 
   return axios.get(parseProtocol(uri))
   .then((res) => {
+    if(!urlContainsUTMParams(res.data.url)) {
+      res.data.url = appendUTMParams(res.data.url, space);
+    }
     return res.status == 200 ? { uri: uri, data: res.data } : null
   })
 }
@@ -132,7 +135,7 @@ const sendOnLoadMetric = async (spaceId) => {
 
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increase(eventType: visits, spaceId: "${spaceId}") { message } }` },
+      { query: `mutation { increment(eventType: visits, spaceId: "${spaceId}") { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {
@@ -147,7 +150,7 @@ const sendOnClickMetric = async (spaceId) => {
 
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increase(eventType: clicks, spaceId: "${spaceId}") { message } }` },
+      { query: `mutation { increment(eventType: clicks, spaceId: "${spaceId}") { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {

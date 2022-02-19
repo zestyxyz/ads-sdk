@@ -22,7 +22,7 @@ export default function ZestyBanner(props) {
 
   const loadBanner = async (space, creator, network, format, style) => {
     const activeNFT = await fetchNFT(space, creator, network);
-    const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style);
+    const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
     return activeBanner;
   };
 

@@ -76,4 +76,16 @@ const openURL = url => {
   window.open(url, '_blank');
 }
 
-export { parseProtocol, getIPFSGateway, isOculusQuest, openURL };
+const urlContainsUTMParams = (url) => {
+  return url.indexOf('utm_source=') !== -1 || url.indexOf('utm_campaign=') !== -1 || url.indexOf('utm_channel=') !== -1;
+}
+
+const appendUTMParams = (url, campaignId) => {
+  let new_url = new URL(url)
+  new_url.searchParams.set('utm_source', 'ZestyMarket');
+  new_url.searchParams.set('utm_campaign', 'ZestyCampaign');
+  new_url.searchParams.set('utm_channel', `CampaignId_${campaignId}`);
+  return new_url.href;
+}
+
+export { parseProtocol, getIPFSGateway, isOculusQuest, openURL, urlContainsUTMParams, appendUTMParams };

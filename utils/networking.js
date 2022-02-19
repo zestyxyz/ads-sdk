@@ -135,7 +135,7 @@ const sendOnLoadMetric = async (spaceId) => {
 
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increase(eventType: visits, spaceId: "${spaceId}") { message } }` },
+      { query: `mutation { increment(eventType: visits, spaceId: "${spaceId}") { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {
@@ -150,7 +150,7 @@ const sendOnClickMetric = async (spaceId) => {
 
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increase(eventType: clicks, spaceId: "${spaceId}") { message } }` },
+      { query: `mutation { increment(eventType: clicks, spaceId: "${spaceId}") { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {

@@ -69,8 +69,10 @@ const openURL = url => {
   // This may need to be expanded in the future.
   if (isOculusQuest()) {
     if (url.includes('https://www.oculus.com/experiences/quest/')) {
-      if (!window.confirm("This link leads to an app in the Oculus Store.\n Proceed?"))
-        return
+        setTimeout(() => {
+          window.open(url, '_blank');
+        }, 1000);      
+        return;
     }
   }
   window.open(url, '_blank');

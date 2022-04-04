@@ -37,6 +37,8 @@ WL.registerComponent(
     beacon: { type: WL.Type.Bool, default: false },
     /* Load IPFS gateways and default image uris at runtime, if false at build time */
     dynamicFormats: { type: WL.Type.Bool, default: true },
+    /* Automatically creates a collision and cursor-target components, if there isn't one */
+    createAutomaticCollision: { type: WL.Type.Bool, default: true },
   },
   {
     init: function () {
@@ -51,16 +53,19 @@ WL.registerComponent(
         throw new Error("'zesty-banner ' missing mesh component");
       }
 
-      this.collision =
-        this.object.getComponent('collision') ||
-        this.object.addComponent('collision', {
-          collider: WL.Collider.Box,
-          group: 0x2,
-        });
+      if(this.createAutomaticCollision) {
+        this.collision =
+          this.object.getComponent('collision') ||
+          this.object.addComponent('collision', {
+            collider: WL.Collider.Box,
+            group: 0x2,
+          });
+  
+        this.cursorTarget =
+          this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
+        this.cursorTarget.addClickFunction(this.onClick.bind(this));
+      }
 
-      this.cursorTarget =
-        this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
-      this.cursorTarget.addClickFunction(this.onClick.bind(this));
 
       if(this.dynamicFormats) {
         let formatsScript = document.createElement('script');
@@ -90,11 +95,14 @@ WL.registerComponent(
           /* Make banner always 1 meter height, adjust width according to banner aspect ratio */
           this.height = this.object.scalingLocal[1];
           this.object.resetScaling();
-          this.collision.extents = [
-            this.formats[this.format].width * this.height,
-            this.height,
-            0.1,
-          ];
+
+          if(this.createAutomaticCollision) {
+            this.collision.extents = [
+              this.formats[this.format].width * this.height,
+              this.height,
+              0.1,
+            ];
+          }
           this.object.scale([this.formats[this.format].width * this.height, this.height, 1.0]);
         }
         /* WL.Material.shader will be renamed to pipeline at some point,

@@ -3,6 +3,9 @@
 import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
+import { version } from '../package.json';
+
+console.log('Zesty SDK Version: ', version);
 
 /**
  * [Zesty Market](https://zesty.market) banner space

@@ -1,6 +1,6 @@
 {
   "name": "@zestymarket/aframe-sdk",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "This is the A-Frame SDK for Zesty Banner integration.",
   "main": "dist/zesty-aframe-sdk.js",
   "scripts": {

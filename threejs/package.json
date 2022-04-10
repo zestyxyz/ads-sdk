@@ -1,6 +1,6 @@
 {
   "name": "@zestymarket/threejs-sdk",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "This is the three.js SDK for Zesty Banner integration.",
   "main": "dist/zesty-threejs-sdk.js",
   "scripts": {

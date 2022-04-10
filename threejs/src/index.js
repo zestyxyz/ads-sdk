@@ -2,6 +2,9 @@ import * as THREE from 'three';
 import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
+import { version } from '../package.json';
+
+console.log('Zesty SDK Version: ', version);
 
 export default class ZestyBanner extends THREE.Mesh {
   /**

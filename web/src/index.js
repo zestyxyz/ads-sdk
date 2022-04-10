@@ -1,6 +1,9 @@
 import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
+import { version } from '../package.json';
+
+console.log('Zesty SDK Version: ', version);
 
 class Zesty extends HTMLElement {
   constructor() {

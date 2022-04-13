@@ -13,13 +13,13 @@ namespace Zesty
             Polygon,
             Rinkeby
         }
-        
+
         public string space;
         public string creator;
         public Network network;
         public Formats.Types format;
         public Formats.Styles style;
-        public bool beaconEnabled = false;
+        public bool beaconEnabled = true;
 
         public Material[] placeholderMaterials = new Material[3];
         public Material runtimeBanner;

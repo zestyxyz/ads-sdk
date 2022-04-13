@@ -19,7 +19,7 @@ AFRAME.registerComponent('zesty-banner', {
     format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
     height: { type: 'float', default: 1 },
-    beacon: { type: 'boolean', default: false },
+    beacon: { type: 'boolean', default: true },
   },
 
   init: function() {
@@ -46,7 +46,7 @@ AFRAME.registerComponent('zesty-ad', {
     format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
     height: { type: 'float', default: 1 },
-    beacon: { type: 'boolean', default: false },
+    beacon: { type: 'boolean', default: true },
   },
 
   init: function() {

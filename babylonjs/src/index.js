@@ -8,7 +8,7 @@ import { version } from '../package.json';
 console.log('Zesty SDK Version: ', version);
 
 export default class ZestyBanner {
-  constructor(space, creator, network, format, style, height, scene, webXRExperienceHelper = null, beacon = false) {
+  constructor(space, creator, network, format, style, height, scene, webXRExperienceHelper = null, beacon = true) {
     const options = {
       height: height,
       width: formats[format].width * height

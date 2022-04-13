@@ -100,7 +100,7 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
             creator: "${creator}"
           }
         )
-        { 
+        {
           sellerNFTSetting {
             sellerAuctions (
               first: 5
@@ -150,12 +150,12 @@ const parseGraphResponse = async res => {
   let latestAuction = null;
   for (let i=0; i < sellerAuction.buyerCampaignsApproved.length; i++) {
     if (sellerAuction.buyerCampaignsApproved[i] && sellerAuction.buyerCampaigns.length > 0) {
-      latestAuction = sellerAuction.buyerCampaigns[i];           
+      latestAuction = sellerAuction.buyerCampaigns[i];
     }
   }
 
   if (latestAuction == null) {
-    return DEFAULT_DATAS 
+    return DEFAULT_DATAS
   }
 
   return latestAuction;
@@ -193,7 +193,7 @@ function sendOnLoadMetric(space) {
     }
 }
 
-async function loadBanner(space, creator, network, format, style, beacon = false) {
+async function loadBanner(space, creator, network, format, style, beacon = true) {
     let uri = null;
     const activeNFT = await fetchNFT(space, creator, network);
     if (activeNFT) uri = activeNFT.uri;

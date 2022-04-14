@@ -16,7 +16,7 @@ export default class ZestyBanner extends THREE.Mesh {
    * @param {Number} height Height of the banner
    * @param {THREE.WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
    */
-  constructor(space, creator, network, format, style, height, renderer = null, beacon = false) {
+  constructor(space, creator, network, format, style, height, renderer = null, beacon = true) {
     super();
     this.geometry = new THREE.PlaneGeometry(formats[format].width * height, height, 1, 1);
 

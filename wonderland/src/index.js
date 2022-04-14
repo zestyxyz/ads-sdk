@@ -37,7 +37,7 @@ WL.registerComponent(
     /* Texture property to set after banner is loaded. Leave "auto" to detect from
      * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
     textureProperty: { type: WL.Type.String, default: 'auto' },
-    beacon: { type: WL.Type.Bool, default: false },
+    beacon: { type: WL.Type.Bool, default: true },
     /* Load IPFS gateways and default image uris at runtime, if false at build time */
     dynamicFormats: { type: WL.Type.Bool, default: true },
     /* Automatically creates a collision and cursor-target components, if there isn't one */
@@ -63,7 +63,7 @@ WL.registerComponent(
             collider: WL.Collider.Box,
             group: 0x2,
           });
-  
+
         this.cursorTarget =
           this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
         this.cursorTarget.addClickFunction(this.onClick.bind(this));
@@ -72,7 +72,7 @@ WL.registerComponent(
 
       if(this.dynamicFormats) {
         let formatsScript = document.createElement('script');
-  
+
         formatsScript.onload = () => {
           this.formatsOverride = zestyFormats.formats;
           this.startLoading();

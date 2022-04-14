@@ -16,7 +16,7 @@ class Zesty extends HTMLElement {
     this.width = '100%';
     this.height = '100%';
     this.shadow = this.attachShadow({ mode: 'open' });
-    this.beacon = false;
+    this.beacon = true;
 
     this.adjustHeightandWidth = this.adjustHeightandWidth.bind(this);
   }

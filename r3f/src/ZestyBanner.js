@@ -21,7 +21,7 @@ export default function ZestyBanner(props) {
   const height = props.height ?? formats[format].height;
 
   const newStyle = props.style ?? defaultStyle;
-  const beacon = props.beacon ?? false;
+  const beacon = props.beacon ?? true;
 
   const loadBanner = async (space, creator, network, format, style) => {
     const activeNFT = await fetchNFT(space, creator, network);

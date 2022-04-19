@@ -36,9 +36,8 @@ const parseProtocol = uri => {
 const getIPFSGateway = () => {
   const gateways = [
     { gateway: 'https://cloudflare-ipfs.com', weight: 35 },
-    { gateway: 'https://ipfs.fleek.co', weight: 35 },
-    { gateway: 'https://gateway.pinata.cloud', weight: 20 },
-    { gateway: 'https://dweb.link', weight: 10 }
+    { gateway: 'https://gateway.pinata.cloud', weight: 35 },
+    { gateway: 'https://dweb.link', weight: 30 }
   ];
 
   const weights = [];

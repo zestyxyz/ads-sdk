@@ -85,8 +85,12 @@ const parseGraphResponse = res => {
     return DEFAULT_DATAS 
   }
   let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-  let latestAuction = sellerAuctions[0]?.buyerCampaigns?.find((campaign, i) => {
-    if (sellerAuctions[0].buyerCampaignsApproved[i]) return campaign;
+  let latestAuction = null;
+  sellerAuctions?.[0]?.buyerCampaignsApproved?.find((campaign, i) => {
+    if (campaign) {
+      const campaignId = sellerAuctions[0].buyerCampaignsIdList[i]; // Graph stores as string, coerce to int
+      latestAuction = sellerAuctions[0].buyerCampaigns.find(campaign => campaign.id === campaignId)
+    }
   });
   
   if (latestAuction == null) {

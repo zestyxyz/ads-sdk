@@ -17,7 +17,6 @@ export default class ZestyBanner {
     this.zestyBanner = BABYLON.MeshBuilder.CreatePlane('zestybanner', options);
 
     loadBanner(space, creator, network, format, style).then(data => {
-      sendOnLoadMetric(space)
       this.zestyBanner.material = data.mat;
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
 

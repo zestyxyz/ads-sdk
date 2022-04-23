@@ -59,6 +59,7 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
                 uri
               }
               buyerCampaignsApproved
+              buyerCampaignsIdList
             }
           }
           id

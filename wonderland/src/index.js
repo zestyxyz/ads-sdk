@@ -1,8 +1,11 @@
 /* global WL */
 
-import {fetchNFT, fetchActiveBanner, sendOnLoadMetric} from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
+import { version } from '../package.json';
+
+console.log('Zesty SDK Version: ', version);
 
 /**
  * [Zesty Market](https://zesty.market) banner space
@@ -34,6 +37,11 @@ WL.registerComponent(
     /* Texture property to set after banner is loaded. Leave "auto" to detect from
      * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
     textureProperty: { type: WL.Type.String, default: 'auto' },
+    beacon: { type: WL.Type.Bool, default: true },
+    /* Load IPFS gateways and default image uris at runtime, if false at build time */
+    dynamicFormats: { type: WL.Type.Bool, default: true },
+    /* Automatically creates a collision and cursor-target components, if there isn't one */
+    createAutomaticCollision: { type: WL.Type.Bool, default: true },
   },
   {
     init: function () {
@@ -48,17 +56,35 @@ WL.registerComponent(
         throw new Error("'zesty-banner ' missing mesh component");
       }
 
-      this.collision =
-        this.object.getComponent('collision') ||
-        this.object.addComponent('collision', {
-          collider: WL.Collider.Box,
-          group: 0x2,
-        });
+      if(this.createAutomaticCollision) {
+        this.collision =
+          this.object.getComponent('collision') ||
+          this.object.addComponent('collision', {
+            collider: WL.Collider.Box,
+            group: 0x2,
+          });
 
-      this.cursorTarget =
-        this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
-      this.cursorTarget.addClickFunction(this.onClick.bind(this));
+        this.cursorTarget =
+          this.object.getComponent('cursor-target') || this.object.addComponent('cursor-target');
+        this.cursorTarget.addClickFunction(this.onClick.bind(this));
+      }
 
+
+      if(this.dynamicFormats) {
+        let formatsScript = document.createElement('script');
+
+        formatsScript.onload = () => {
+          this.formatsOverride = zestyFormats.formats;
+          this.startLoading();
+        }
+        formatsScript.setAttribute('src', 'https://ipfs.io/ipns/lib.zesty.market/zesty-formats.js');
+        formatsScript.setAttribute('crossorigin', 'anonymous');
+        document.body.appendChild(formatsScript);
+      } else {
+        this.startLoading();
+      }
+    },
+    startLoading: function() {
       this.loadBanner(
         this.space,
         this.creator,
@@ -72,11 +98,14 @@ WL.registerComponent(
           /* Make banner always 1 meter height, adjust width according to banner aspect ratio */
           this.height = this.object.scalingLocal[1];
           this.object.resetScaling();
-          this.collision.extents = [
-            this.formats[this.format].width * this.height,
-            this.height,
-            0.1,
-          ];
+
+          if(this.createAutomaticCollision) {
+            this.collision.extents = [
+              this.formats[this.format].width * this.height,
+              this.height,
+              0.1,
+            ];
+          }
           this.object.scale([this.formats[this.format].width * this.height, this.height, 1.0]);
         }
         /* WL.Material.shader will be renamed to pipeline at some point,
@@ -100,11 +129,13 @@ WL.registerComponent(
           this.mesh.material[this.textureProperty] = banner.texture;
         }
 
-        sendOnLoadMetric(this.space)
+        if (this.beacon) {
+          sendOnLoadMetric(this.space);
+        }
       });
     },
     onClick: function () {
-      if (this.banner.url) {
+      if (this.banner?.url) {
         if (WL.xrSession) {
           WL.xrSession.end().then(this.executeClick.bind(this));
         } else {
@@ -114,21 +145,14 @@ WL.registerComponent(
     },
     executeClick: function () {
       openURL(this.banner.url);
-      // sendMetric(
-      //   this.creator,
-      //   this.space,
-      //   this.banner.uri,
-      //   this.banner.imageSrc,
-      //   this.banner.url,
-      //   'click',
-      //   0,
-      //   'wonderland'
-      // );
+      if (this.beacon) {
+        sendOnClickMetric(this.space);
+      }
     },
     loadBanner: async function (space, creator, network, format, style) {
       network = network ? 'polygon' : 'rinkeby'; // Use truthy/falsy values to get network
       const activeNFT = await fetchNFT(space, creator, network);
-      const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style);
+      const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space, this.formatsOverride);
 
       // Need to add https:// if missing for page to open properly
       let url = activeBanner.data.url;

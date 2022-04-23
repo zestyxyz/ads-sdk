@@ -34,27 +34,27 @@ const formats = {
         width: 0.75,
         height: 1,
         style: {
-            'standard': 'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall.png',
-            'minimal': 'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png',
-            'transparent': 'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png'
+            'standard': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-tall.png',
+            'minimal': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png',
+            'transparent': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png'
         }
     },
     'wide': {
         width: 4,
         height: 1,
         style: {
-            'standard': 'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide.png',
-            'minimal': 'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png',
-            'transparent': 'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png'
+            'standard': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-wide.png',
+            'minimal': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png',
+            'transparent': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png'
         }
     },
     'square': {
         width: 1,
         height: 1,
         style: {
-            'standard': 'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square.png',
-            'minimal': 'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png',
-            'transparent': 'https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png'
+            'standard': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-square.png',
+            'minimal': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png',
+            'transparent': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png'
         }
     }
 }
@@ -63,9 +63,7 @@ const defaultFormat = 'square';
 const defaultStyle = 'standard';
 
 // Networking
-
-const API_BASE = 'https://node-1.zesty.market'
-const METRICS_ENDPOINT = API_BASE + '/api/v1/metrics'
+const API_BASE = 'https://beacon.zesty.market'
 
 const ENDPOINTS = {
     "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
@@ -102,7 +100,7 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
             creator: "${creator}"
           }
         )
-        { 
+        {
           sellerNFTSetting {
             sellerAuctions (
               first: 5
@@ -152,12 +150,12 @@ const parseGraphResponse = async res => {
   let latestAuction = null;
   for (let i=0; i < sellerAuction.buyerCampaignsApproved.length; i++) {
     if (sellerAuction.buyerCampaignsApproved[i] && sellerAuction.buyerCampaigns.length > 0) {
-      latestAuction = sellerAuction.buyerCampaigns[i];           
+      latestAuction = sellerAuction.buyerCampaigns[i];
     }
   }
 
   if (latestAuction == null) {
-    return DEFAULT_DATAS 
+    return DEFAULT_DATAS
   }
 
   return latestAuction;
@@ -186,12 +184,20 @@ const fetchActiveBanner = async (uri, format, style) => {
   })
 }
 
+function sendOnLoadMetric(space) {
+    try {
+        const spaceCounterEndpoint = API_BASE + `/api/v1/space/${space}`
+        fetch(spaceCounterEndpoint, { method: 'PUT' });
+    } catch (e) {
+        console.log("Failed to emit onload event", e.message)
+    }
+}
 
-async function loadBanner(space, creator, network, format, style) {
+async function loadBanner(space, creator, network, format, style, beacon = true) {
     let uri = null;
     const activeNFT = await fetchNFT(space, creator, network);
     if (activeNFT) uri = activeNFT.uri;
-    const activeBanner = await fetchActiveBanner(uri, format, style);
+    const activeBanner = await fetchActiveBanner(uri, format, style, space);
 
     // Need to add https:// if missing for page to open properly
     let url = activeBanner.data.url;
@@ -204,9 +210,12 @@ async function loadBanner(space, creator, network, format, style) {
     let image = activeBanner.data.image;
     image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
 
+    if (beacon) {
+        sendOnLoadMetric(space);
+    }
+
     feature.set({'url': image, 'link': url});
 }
 
-// Modify the arguments here to match your space. Parameters are:
-// Space ID, Creator ID, Network, Format, Style (for banner default image)
-loadBanner('0', '0x0000000000000000000000000000000000000000', 'polygon', 'tall', 'standard');
+// Call loadBanner here. Parameters are:
+// Space ID, Creator ID, Network, Format, Style, Enable Beacon (optional)

@@ -8,7 +8,10 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "test": "node scripts/test.js",
+    "build": "node scripts/build.js",
+    "publish": "node scripts/build_publish.js",
+    "test": "jest",
+    "test-all": "node scripts/test.js",
     "serve": "npx http-server"
   },
   "repository": {
@@ -35,5 +38,15 @@
     "jest": "^27.0.6",
     "jest-puppeteer": "^5.0.4",
     "puppeteer": "^10.4.0"
-  }
+  },
+  "private": true,
+  "workspaces": [
+    "aframe",
+    "babylonjs",
+    "r3f",
+    "threejs",
+    "utils",
+    "web",
+    "wonderland"
+  ]
 }

@@ -15,6 +15,14 @@ Currently, we support the following platforms:
 
 Zesty is an open and permissionless monetization protocol for creators of content. It is open in the sense that anyone can integrate our SDK to monetize their apps, without the permission of a centralized authority.
 
+## Getting Started
+
+- Clone the repo and run `yarn` at the top level. This repo is set up with yarn workspaces, so doing this will install modules for all of the different SDKs.
+- Work on whichever SDKs are relevant to you.
+- Run `yarn build` at the top level to build all the SDKs at once.
+- Run `yarn test` to run unit tests.
+  - (Optional) Run `yarn prepare` to set up a pre-commit hook to run tests.
+
 ## Publishing to NPM
 
 If you've developed a new framework SDK and want to publish it to NPM, the steps are as follows:

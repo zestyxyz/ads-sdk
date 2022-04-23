@@ -1,6 +1,6 @@
-# zesty-wonderland-sdk
+# Zesty Wonderland SDK
 
-[Zesty Market](https://zesty.market) Ads integration for [Wonderland Engine](https://wonderlandengine.com).
+[Zesty Market](https://zesty.market) Banner integration for [Wonderland Engine](https://wonderlandengine.com).
 
 ## Getting started
 
@@ -10,12 +10,14 @@ Build the SDK with the following commands (or download a prebuilt version from
 [releases](https://github.com/zestymarket/zesty-sdk/releases)).
 
 ```sh
-npm ci
-npm run build
+yarn
+yarn build
 ```
 
+If you've run `yarn` at the top level, you don't need to run it here again.
+
 After building the SDK, copy `dist/zesty-wonderland-sdk.min.js` into your project
-and add a JavaScript path. You will find the `zesty-ad` component in
+and add a JavaScript path. You will find the `zesty-banner` component in
 "Property View > Add Component" after selecting any object.
 
 Make sure that you set up a cursor to enable clicking.
@@ -34,19 +36,19 @@ Then import it in your main bundle file:
 require('@zestymarket/wonderland-sdk');
 ```
 
-If your bundle built successfully, you will find the `zesty-ad` component in
+If your bundle built successfully, you will find the `zesty-banner` component in
 "Property View > Add Component" after selecting any object.
 
 Make sure that you set up a cursor to enable clicking.
 
 ## Configuring
 
-To set up the `zesty-ad` component, make sure to create an annount and ad space,
+To set up the `zesty-banner` component, make sure to create an account and space on the market,
 [find more info here](https://docs.zesty.market/guides/creators).
 
- 1. Right-click "root" > Add Object > Mesh
- 2. Set mesh to "PrimitivePlane"
- 3. Create a material in "Views > Resources > Materials"
- 4. Assign the material to your plane
- 5. Add a `zesty-ad` component and copy your creator id and ad into the respective
-    properties
+ 1. Right-click "root" > Add Object > Mesh.
+ 2. Set mesh to "PrimitivePlane".
+ 3. Create a material in "Views > Resources > Materials".
+ 4. Assign the material to your plane.
+ 5. Add a `zesty-banner` component and copy your creator ID and space ID into the respective
+    fields.

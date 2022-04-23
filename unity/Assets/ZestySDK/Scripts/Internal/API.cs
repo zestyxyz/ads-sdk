@@ -13,7 +13,7 @@ namespace Zesty {
         private static readonly int timeoutSeconds = 3;
 
         public static bool CheckAPIStatusSync() {
-            using (UnityWebRequest request = UnityWebRequest.Get(Constants.ZESTY_URL)) {
+            using (UnityWebRequest request = UnityWebRequest.Get(Constants.BEACON_URL)) {
                 DateTime dateTime = DateTime.UtcNow.AddSeconds(timeoutSeconds);
 
                 request.SendWebRequest();
@@ -29,6 +29,26 @@ namespace Zesty {
                 }
 
                 return flag;
+            }
+        }
+
+        /// <summary>
+        /// Sends a PUT request using UnityWebRequest.
+        /// </summary>
+        /// <param name="url">The URL to PUT to.</param>
+        /// <param name="body">The body of the message being sent.</param>
+        /// <returns></returns>
+        public static IEnumerator PutRequest(string url, string body)
+        {
+            var request = new UnityWebRequest(url, "PUT");
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(body);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+
+            yield return request.SendWebRequest();
+
+            if (isConnectionOrProtocolError(request))
+            {
+                Debug.Log($"PUT request error to {url}: {request.error}");
             }
         }
 
@@ -53,7 +73,7 @@ namespace Zesty {
             {
                 Debug.Log("POST request error: " + request.error);
             }
-            else
+            else if (callback != null)
             {
                 var response = JSON.Parse(request.downloadHandler.text)["data"]["tokenDatas"][0];
                 Dictionary<string, string> bannerData = ParseGraphResponse(response, elmsKey);
@@ -148,7 +168,7 @@ namespace Zesty {
         /// <returns>True if a connection or protocol error was experienced, else False.</returns>
         private static bool isConnectionOrProtocolError(UnityWebRequest request)
         {
-#if UNITY_2020
+#if UNITY_2020_1_OR_NEWER
             return request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError;
 #else
             return request.isNetworkError || request.isHttpError;

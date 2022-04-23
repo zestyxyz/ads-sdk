@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { formats, defaultFormat, defaultStyle } from '../utils/formats';
-import { parseProtocol } from '../utils/helpers';
+import { parseProtocol, urlContainsUTMParams, appendUTMParams } from '../utils/helpers';
 //import { v4 as uuidv4 } from 'uuid'
 
-const API_BASE = 'https://metrics.zesty.market'
+const API_BASE = 'https://beacon.zesty.market'
+const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
 
 const ENDPOINTS = {
     "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
@@ -84,9 +85,13 @@ const parseGraphResponse = res => {
     return DEFAULT_DATAS 
   }
   let sellerAuctions = res.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions;
-  let latestAuction = sellerAuctions?.find((auction, i) => {
-    if (auction.buyerCampaigns.length > 0 && auction.buyerCampaignsApproved[i]) return auction;
-  })?.buyerCampaigns[0];
+  let latestAuction = null;
+  sellerAuctions?.[0]?.buyerCampaignsApproved?.find((campaign, i) => {
+    if (campaign) {
+      const campaignId = sellerAuctions[0].buyerCampaignsIdList[i]; // Graph stores as string, coerce to int
+      latestAuction = sellerAuctions[0].buyerCampaigns.find(campaign => campaign.id === campaignId)
+    }
+  });
   
   if (latestAuction == null) {
     return DEFAULT_DATAS 
@@ -100,19 +105,24 @@ const parseGraphResponse = res => {
  * @param {string} uri The IPFS URI containing the banner content.
  * @param {string} format The default banner image format to use if there is no active banner.
  * @param {string} style The default banner image style to use if there is no active banner.
+ * @param {string} formatsOverride Object to override the default format object.
  * @returns An object with the requested banner content, or a default if it cannot be retrieved.
  */
-const fetchActiveBanner = async (uri, format, style) => {
+const fetchActiveBanner = async (uri, format, style, space, formatsOverride) => {
   if (!uri) {
     let bannerObject = { uri: 'DEFAULT_URI', data: DEFAULT_URI_CONTENT };
     let newFormat = format || defaultFormat;
     let newStyle = style || defaultStyle;
-    bannerObject.data.image = formats[newFormat].style[newStyle];
+    let usedFormats = formatsOverride || formats;
+    bannerObject.data.image = usedFormats[newFormat].style[newStyle];
     return bannerObject;
   }
 
   return axios.get(parseProtocol(uri))
   .then((res) => {
+    if(!urlContainsUTMParams(res.data.url)) {
+      res.data.url = appendUTMParams(res.data.url, space);
+    }
     return res.status == 200 ? { uri: uri, data: res.data } : null
   })
 }
@@ -126,9 +136,30 @@ const sendOnLoadMetric = async (spaceId) => {
   try {
     const spaceCounterEndpoint = API_BASE + `/api/v1/space/${spaceId}`
     await axios.put(spaceCounterEndpoint)
+
+    await axios.post(
+      BEACON_GRAPHQL_URI,
+      { query: `mutation { increment(eventType: visits, spaceId: "${spaceId}") { message } }` },
+      { headers: { 'Content-Type': 'application/json' }}
+    )
   } catch (e) {
     console.log("Failed to emit onload event", e.message)
   }
 };
 
-export { fetchNFT, parseGraphResponse, fetchActiveBanner, sendOnLoadMetric };
+const sendOnClickMetric = async (spaceId) => {
+  try {
+    const spaceClickEndpoint = API_BASE + `/api/v1/space/click/${spaceId}`
+    await axios.put(spaceClickEndpoint)
+
+    await axios.post(
+      BEACON_GRAPHQL_URI,
+      { query: `mutation { increment(eventType: clicks, spaceId: "${spaceId}") { message } }` },
+      { headers: { 'Content-Type': 'application/json' }}
+    )
+  } catch (e) {
+    console.log("Failed to emit onclick event", e.message)
+  }
+}
+
+export { fetchNFT, parseGraphResponse, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric };

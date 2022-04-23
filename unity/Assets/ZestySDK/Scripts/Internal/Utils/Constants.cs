@@ -1,8 +1,7 @@
-﻿namespace Zesty{
+﻿namespace Zesty {
     public static class Constants {
         // API
-        public const string ZESTY_URL = "https://node-1.zesty.market/";
-        public const string DEV_API_METRICS_URL = "http://localhost:2354/api/v1/metrics";
+        public const string BEACON_URL = "https://beacon.zesty.market/api/v1";
     }
 
     public static class Networks

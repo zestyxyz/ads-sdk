@@ -32,25 +32,25 @@ namespace Zesty
 
         // Tall
         static string[] tallImages = {
-            "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall.png",
-            "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png",
-            "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png",
+            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-tall.png",
+            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png",
+            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png",
         };
         public static Format Tall = new Format(0.75, 1, tallImages);
 
         // Wide
         static string[] wideImages = {
-            "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide.png",
-            "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png",
-            "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png",
+            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-wide.png",
+            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png",
+            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png",
         };
         public static Format Wide = new Format(4, 1, wideImages);
 
         // Square
         static string[] squareImages = {
-            "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square.png",
-            "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png",
-            "https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png",
+            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-square.png",
+            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png",
+            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png",
         };
         public static Format Square = new Format(1, 1, squareImages);
 

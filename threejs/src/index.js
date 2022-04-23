@@ -1,7 +1,10 @@
 import * as THREE from 'three';
-import {fetchNFT, fetchActiveBanner, sendOnLoadMetric} from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
+import { version } from '../package.json';
+
+console.log('Zesty SDK Version: ', version);
 
 export default class ZestyBanner extends THREE.Mesh {
   /**
@@ -13,7 +16,7 @@ export default class ZestyBanner extends THREE.Mesh {
    * @param {Number} height Height of the banner
    * @param {THREE.WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
    */
-  constructor(space, creator, network, format, style, height, renderer = null) {
+  constructor(space, creator, network, format, style, height, renderer = null, beacon = true) {
     super();
     this.geometry = new THREE.PlaneGeometry(formats[format].width * height, height, 1, 1);
 
@@ -22,6 +25,7 @@ export default class ZestyBanner extends THREE.Mesh {
     this.creator = creator;
     this.network = network;
     this.renderer = renderer;
+    this.beacon = beacon;
     this.banner = {};
 
     this.bannerPromise = loadBanner(space, creator, network, format, style).then(banner => {
@@ -31,7 +35,9 @@ export default class ZestyBanner extends THREE.Mesh {
       this.material.transparent = true;
       this.banner = banner;
 
-      sendOnLoadMetric(space)
+      if (beacon) {
+        sendOnLoadMetric(space);
+      }
     });
     this.onClick = this.onClick.bind(this);
   }
@@ -43,23 +49,16 @@ export default class ZestyBanner extends THREE.Mesh {
       }
 
       openURL(this.banner.url);
-      // sendMetric(
-      //   this.creator,
-      //   this.space,
-      //   this.banner.uri,
-      //   this.banner.texture.image.src,
-      //   this.banner.url,
-      //   'click', // event
-      //   0, // durationInMs
-      //   'threejs' // sdkType
-      // );
+      if (this.beacon) {
+        sendOnClickMetric(this.space);
+      }
     }
   }
 }
 
 async function loadBanner(space, creator, network, format, style) {
   const activeNFT = await fetchNFT(space, creator, network);
-  const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style);
+  const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
 
   // Need to add https:// if missing for page to open properly
   let url = activeBanner.data.url;

@@ -1,9 +1,12 @@
 /* global AFRAME */
 
-import {fetchNFT, fetchActiveBanner, sendOnLoadMetric} from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 import './visibility_check';
+import { version } from '../package.json';
+
+console.log('Zesty SDK Version: ', version);
 
 AFRAME.registerComponent('zesty-banner', {
   data: {},
@@ -16,7 +19,7 @@ AFRAME.registerComponent('zesty-banner', {
     format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
     height: { type: 'float', default: 1 },
-    beacon: { type: 'boolean', default: false },
+    beacon: { type: 'boolean', default: true },
   },
 
   init: function() {
@@ -43,7 +46,7 @@ AFRAME.registerComponent('zesty-ad', {
     format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
     height: { type: 'float', default: 1 },
-    beacon: { type: 'boolean', default: false },
+    beacon: { type: 'boolean', default: true },
   },
 
   init: function() {
@@ -97,7 +100,7 @@ async function createBanner(el, space, creator, network, format, style, height, 
       plane.setAttribute('class', 'clickable'); // required for BE
 
       if (beacon) {
-        sendOnLoadMetric(space)
+        sendOnLoadMetric(space);
       }
 
       // handle clicks
@@ -107,16 +110,9 @@ async function createBanner(el, space, creator, network, format, style, height, 
         // Open link in new tab
         if (banner.url) {
           openURL(banner.url);
-          // sendMetric(
-          //   creator,
-          //   space,
-          //   banner.uri,
-          //   banner.img.src,
-          //   banner.url,
-          //   'click', // event
-          //   0, // durationInMs
-          //   'aframe' // sdkType
-          // );
+          if (beacon) {
+            sendOnClickMetric(space);
+          }
         }
       };
       el.appendChild(plane);
@@ -131,7 +127,7 @@ async function createBanner(el, space, creator, network, format, style, height, 
 
 async function loadBanner(space, creator, network, format, style) {
   const activeNFT = await fetchNFT(space, creator, network);
-  const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style);
+  const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
 
   // Need to add https:// if missing for page to open properly
   let url = activeBanner.data.url;

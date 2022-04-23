@@ -13,12 +13,13 @@ namespace Zesty
             Polygon,
             Rinkeby
         }
-        
+
         public string space;
         public string creator;
         public Network network;
         public Formats.Types format;
         public Formats.Styles style;
+        public bool beaconEnabled = true;
 
         public Material[] placeholderMaterials = new Material[3];
         public Material runtimeBanner;
@@ -41,6 +42,11 @@ namespace Zesty
             m_Renderer = GetComponent<MeshRenderer>();
             m_Collider = GetComponent<MeshCollider>();
             FetchNFT();
+            if (beaconEnabled)
+            {
+                // Fire onLoad signal to beacon
+                StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/{space}", "onLoad"));
+            }
         }
 
         /// <summary>
@@ -146,7 +152,7 @@ namespace Zesty
                         StartCoroutine(API.GetTexture(Formats.Square.Images[(int)style], SetTexture));
                         break;
                 }
-                SetURL("https://www.zesty.market/");
+                SetURL($"https://app.zesty.market/space/{space}");
             }
             else if (bannerInfo.ContainsKey("image"))
             {
@@ -194,7 +200,13 @@ namespace Zesty
             if (Application.platform == RuntimePlatform.WebGLPlayer)
                 _open(url);            
             else            
-                Application.OpenURL(url);            
+                Application.OpenURL(url);
+
+            if (beaconEnabled)
+            {
+                // Fire onClick signal to beacon
+                StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/click/{space}", "onClick"));
+            }      
         }
 
         private void OnValidate()

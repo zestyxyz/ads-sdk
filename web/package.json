@@ -1,6 +1,6 @@
 {
   "name": "@zestymarket/web-sdk",
-  "version": "1.4.1",
+  "version": "1.5.2",
   "description": "Web SDK for Zesty Banner integration into an HTML page.",
   "main": "dist/zesty-web-sdk.js",
   "scripts": {

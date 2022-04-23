@@ -2,11 +2,14 @@ import * as THREE from 'three';
 import { useRef, useState, Suspense, useEffect } from 'react';
 import { useLoader, useThree } from '@react-three/fiber';
 import { Interactive } from '@react-three/xr';
-import {fetchNFT, fetchActiveBanner, sendOnLoadMetric} from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 
 export * from '../../utils/formats';
+import { version } from '../package.json';
+
+console.log('Zesty SDK Version: ', version);
 
 export default function ZestyBanner(props) {
   const [bannerData, setBannerData] = useState(false);
@@ -18,10 +21,11 @@ export default function ZestyBanner(props) {
   const height = props.height ?? formats[format].height;
 
   const newStyle = props.style ?? defaultStyle;
+  const beacon = props.beacon ?? true;
 
   const loadBanner = async (space, creator, network, format, style) => {
     const activeNFT = await fetchNFT(space, creator, network);
-    const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style);
+    const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
     return activeBanner;
   };
 
@@ -35,7 +39,11 @@ export default function ZestyBanner(props) {
       banner.image = banner.image.match(/^.+\.(png|jpe?g)/i)
         ? banner.image
         : parseProtocol(banner.image);
-      sendOnLoadMetric(space);
+
+      if (beacon) {
+        sendOnLoadMetric(space);
+      }
+
       setBannerData(data);
     });
   }, [props.creator, space]);
@@ -73,16 +81,7 @@ function BannerPlane(props) {
       if (session) session.end();
     }
     openURL(url);
-    // sendMetric(
-    //   props.creator,
-    //   props.space,
-    //   banner.uri,
-    //   banner.image,
-    //   url,
-    //   'click', // event
-    //   0, // durationInMs
-    //   'r3f' //sdkType
-    // );
+    if (props.beacon) sendOnClickMetric(props.newSpace);
   };
 
   return (

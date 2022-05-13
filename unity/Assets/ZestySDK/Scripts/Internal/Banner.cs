@@ -15,7 +15,6 @@ namespace Zesty
         }
 
         public string space;
-        public string creator;
         public Network network;
         public Formats.Types format;
         public Formats.Styles style;
@@ -50,7 +49,7 @@ namespace Zesty
         }
 
         /// <summary>
-        /// Queries The Graph for an NFT matching the specified space and creator id with any active auctions.
+        /// Queries The Graph for an NFT matching the specified space with any active auctions.
         /// </summary>
         void FetchNFT() {
             string selectedNetwork = network == Network.Polygon ? Networks.POLYGON : Networks.RINKEBY;
@@ -60,7 +59,6 @@ namespace Zesty
                       tokenDatas (
                         where: {{
                           id: ""{space}""
-                          creator: ""{creator}""
                         }}
                       ) {{
                         sellerNFTSetting {{

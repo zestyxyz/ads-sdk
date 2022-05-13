@@ -28,11 +28,10 @@ const DEFAULT_URI_CONTENT = {
 /**
  * Queries The Graph to retrieve NFT information for the space.
  * @param {string} space The space ID
- * @param {string} creator The wallet address of the creator
  * @param {string} network The network to post metrics to
  * @returns An object with the requested space information, or a default if it cannot be retrieved.
  */
-const fetchNFT = async (space, creator, network = 'polygon') => {
+const fetchNFT = async (space, network = 'polygon') => {
   const currentTime = Math.floor(Date.now() / 1000);
   return axios.post(ENDPOINTS[network], {
     query: `
@@ -40,7 +39,6 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
         tokenDatas (
           where: {
             id: "${space}"
-            creator: "${creator}"
           }
         )
         { 

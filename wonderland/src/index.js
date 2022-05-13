@@ -18,8 +18,6 @@ console.log('Zesty SDK Version: ', version);
 WL.registerComponent(
   'zesty-banner',
   {
-    /* Your creator id */
-    creator: { type: WL.Type.String },
     /* Your banner space index */
     space: { type: WL.Type.Int },
     /* The network to connect to */
@@ -87,7 +85,6 @@ WL.registerComponent(
     startLoading: function() {
       this.loadBanner(
         this.space,
-        this.creator,
         this.network,
         this.formatKeys[this.format],
         this.styleKeys[this.style]
@@ -149,9 +146,9 @@ WL.registerComponent(
         sendOnClickMetric(this.space);
       }
     },
-    loadBanner: async function (space, creator, network, format, style) {
+    loadBanner: async function (space, network, format, style) {
       network = network ? 'polygon' : 'rinkeby'; // Use truthy/falsy values to get network
-      const activeNFT = await fetchNFT(space, creator, network);
+      const activeNFT = await fetchNFT(space, network);
       const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space, this.formatsOverride);
 
       // Need to add https:// if missing for page to open properly

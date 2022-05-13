@@ -23,14 +23,18 @@ export default function ZestyBanner(props) {
   const newStyle = props.style ?? defaultStyle;
   const beacon = props.beacon ?? true;
 
-  const loadBanner = async (space, creator, network, format, style) => {
-    const activeNFT = await fetchNFT(space, creator, network);
+  if (props.creator) {
+    console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
+  }
+
+  const loadBanner = async (space, network, format, style) => {
+    const activeNFT = await fetchNFT(space, network);
     const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
     return activeBanner;
   };
 
   useEffect(() => {
-    loadBanner(space, props.creator, props.network, format, newStyle).then((data) => {
+    loadBanner(space, props.network, format, newStyle).then((data) => {
       const banner = data.data;
       let url = banner.url || banner.properties?.url;
       if (url === 'https://www.zesty.market') {
@@ -46,7 +50,7 @@ export default function ZestyBanner(props) {
 
       setBannerData(data);
     });
-  }, [props.creator, space]);
+  }, [space]);
 
   return (
     <Suspense fallback={null}>

@@ -23,13 +23,16 @@ AFRAME.registerComponent('zesty-banner', {
   },
 
   init: function() {
+    if (this.data.creator) {
+      console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
+    }
     this.registerEntity();
   },
 
   registerEntity: function() {
     const space = this.data.space ? this.data.space : this.data.adSpace;
     const format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
-    createBanner(this.el, space, this.data.creator, this.data.network, format, this.data.style, this.data.height, this.data.beacon);
+    createBanner(this.el, space, this.data.network, format, this.data.style, this.data.height, this.data.beacon);
   },
 
   tick: function() {},
@@ -50,20 +53,23 @@ AFRAME.registerComponent('zesty-ad', {
   },
 
   init: function() {
+    if (this.data.creator) {
+      console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
+    }
     this.registerEntity();
   },
 
   registerEntity: function() {
     const space = this.data.space ? this.data.space : this.data.adSpace;
     const format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
-    createBanner(this.el, space, this.data.creator, this.data.network, format, this.data.style, this.data.height, this.data.beacon);
+    createBanner(this.el, space, this.data.network, format, this.data.style, this.data.height, this.data.beacon);
   },
 
   // Every 200ms check for `visible` component
   tick: function() {},
 });
 
-async function createBanner(el, space, creator, network, format, style, height, beacon) {
+async function createBanner(el, space, network, format, style, height, beacon) {
   const scene = document.querySelector('a-scene');
   let assets = scene.querySelector('a-assets');
   if (!assets) {
@@ -71,7 +77,7 @@ async function createBanner(el, space, creator, network, format, style, height, 
     scene.appendChild(assets);
   }
 
-  const bannerPromise = loadBanner(space, creator, network, format, style, beacon).then(banner => {
+  const bannerPromise = loadBanner(space, network, format, style, beacon).then(banner => {
     if (banner.img) {
       assets.appendChild(banner.img);
     }
@@ -125,8 +131,8 @@ async function createBanner(el, space, creator, network, format, style, height, 
   })
 }
 
-async function loadBanner(space, creator, network, format, style) {
-  const activeNFT = await fetchNFT(space, creator, network);
+async function loadBanner(space, network, format, style) {
+  const activeNFT = await fetchNFT(space, network);
   const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
 
   // Need to add https:// if missing for page to open properly
@@ -152,7 +158,7 @@ async function loadBanner(space, creator, network, format, style) {
 
 AFRAME.registerPrimitive('a-zesty', {
   defaultComponents: {
-    'zesty-banner': { space: '', creator: '' },
+    'zesty-banner': { space: '' },
     'visibility-check': {}
   }
 });

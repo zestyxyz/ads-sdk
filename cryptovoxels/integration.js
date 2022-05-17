@@ -292,12 +292,17 @@ async function loadBanner(space, network, format, style, beacon = true) {
   feature.set({'link': url});
 }
 
-// Call loadBanner here. Parameters are:
-// Space ID, Network, Format, Style, Enable Beacon (optional)
-feature.on('click', e =>{
-  sendOnClickMetric(89);
-});
+if (SPACE >= 0 && NETWORK && FORMAT && STYLE && (BEACON !== undefined)) {
+  // Call loadBanner here. Parameters are:
+  // Space ID, Network, Format, Style, Enable Beacon (optional)
+  feature.on('click', e =>{
+    sendOnClickMetric(SPACE);
+  });
 
-parcel.on('playerenter', e =>{
-  loadBanner(89, 'polygon', "square", "transparent");
-});
+  parcel.on('playerenter', e =>{
+    loadBanner(SPACE, NETWORK, FORMAT, STYLE, BEACON);
+  });
+} else {
+  console.warn('You are missing parameters! SPACE, NETWORK, FORMAT, STYLE, and BEACON are required.');
+  console.log(`${SPACE}\n${NETWORK}\n${FORMAT}\n${STYLE}\n${BEACON}`);
+}

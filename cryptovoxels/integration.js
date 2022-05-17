@@ -192,7 +192,7 @@ const appendUTMParams = (url, spaceId) => {
   let new_url = new URL(url)
   new_url.searchParams.set('utm_source', 'ZestyMarket');
   new_url.searchParams.set('utm_campaign', 'ZestyCampaign');
-  new_url.searchParams.set('utm_channel', `spaceId_${spaceId}`);
+  new_url.searchParams.set('utm_channel', `SpaceId_${spaceId}`);
   return new_url.href;
 }
 

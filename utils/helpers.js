@@ -81,11 +81,11 @@ const urlContainsUTMParams = (url) => {
   return url.indexOf('utm_source=') !== -1 || url.indexOf('utm_campaign=') !== -1 || url.indexOf('utm_channel=') !== -1;
 }
 
-const appendUTMParams = (url, campaignId) => {
+const appendUTMParams = (url, spaceId) => {
   let new_url = new URL(url)
   new_url.searchParams.set('utm_source', 'ZestyMarket');
   new_url.searchParams.set('utm_campaign', 'ZestyCampaign');
-  new_url.searchParams.set('utm_channel', `CampaignId_${campaignId}`);
+  new_url.searchParams.set('utm_channel', `SpaceId_${spaceId}`);
   return new_url.href;
 }
 

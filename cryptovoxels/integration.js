@@ -188,11 +188,11 @@ const urlContainsUTMParams = (url) => {
   return url.indexOf('utm_source=') !== -1 || url.indexOf('utm_campaign=') !== -1 || url.indexOf('utm_channel=') !== -1;
 }
 
-const appendUTMParams = (url, campaignId) => {
+const appendUTMParams = (url, spaceId) => {
   let new_url = new URL(url)
   new_url.searchParams.set('utm_source', 'ZestyMarket');
   new_url.searchParams.set('utm_campaign', 'ZestyCampaign');
-  new_url.searchParams.set('utm_channel', `CampaignId_${campaignId}`);
+  new_url.searchParams.set('utm_channel', `spaceId_${spaceId}`);
   return new_url.href;
 }
 
@@ -233,6 +233,7 @@ function sendOnLoadMetric(space) {
       BEACON_GRAPHQL_URI,
       { 
         method: 'POST',
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -256,6 +257,7 @@ const sendOnClickMetric = async (space) => {
         headers: {
           'Content-Type': 'application/json'
         },
+        mode: 'no-cors',
         body: JSON.stringify(`mutation { increment(eventType: clicks, spaceId: "${space}") { message } }`)
       }
     );
@@ -270,7 +272,6 @@ async function loadBanner(space, network, format, style, beacon = true) {
   if (activeNFT) uri = activeNFT.uri;
 
   const activeBanner = await fetchActiveBanner(uri, format, style, space);
-  console.log(activeBanner);
 
   // Need to add https:// if missing for page to open properly
   let url = activeBanner.data.url;
@@ -294,9 +295,9 @@ async function loadBanner(space, network, format, style, beacon = true) {
 // Call loadBanner here. Parameters are:
 // Space ID, Network, Format, Style, Enable Beacon (optional)
 feature.on('click', e =>{
-  sendOnClickMetric(-1);
+  sendOnClickMetric(89);
 });
 
 parcel.on('playerenter', e =>{
-  loadBanner(-1, 'polygon', "square", "transparent");
+  loadBanner(89, 'polygon', "square", "transparent");
 });

@@ -28,35 +28,54 @@
   }
 }
 
+const getIPFSGateway = () => {
+  const gateways = [
+    { gateway: 'https://cloudflare-ipfs.com', weight: 35 },
+    { gateway: 'https://gateway.pinata.cloud', weight: 35 },
+    { gateway: 'https://dweb.link', weight: 30 }
+  ];
+
+  const weights = [];
+  let i;
+  for (i = 0; i < gateways.length; i++) {
+    weights[i] = gateways[i].weight + (weights[i - 1] || 0);
+  }
+  const random = Math.random() * weights[weights.length - 1];
+  for (i = 0; i < weights.length; i++) {
+    if (weights[i] > random) break;
+  }
+  return gateways[i].gateway;
+}
+
 // Formats
 const formats = {
-    'tall': {
-        width: 0.75,
-        height: 1,
-        style: {
-            'standard': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-tall.png',
-            'minimal': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png',
-            'transparent': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png'
-        }
-    },
-    'wide': {
-        width: 4,
-        height: 1,
-        style: {
-            'standard': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-wide.png',
-            'minimal': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png',
-            'transparent': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png'
-        }
-    },
-    'square': {
-        width: 1,
-        height: 1,
-        style: {
-            'standard': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-square.png',
-            'minimal': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png',
-            'transparent': 'https://ipfs.fleek.co/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png'
-        }
-    }
+  'tall': {
+      width: 0.75,
+      height: 1,
+      style: {
+          'standard': `${getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-tall.png`,
+          'minimal': `${getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png`,
+          'transparent': `${getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png`
+      }
+  },
+  'wide': {
+      width: 4,
+      height: 1,
+      style: {
+          'standard': `${getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-wide.png`,
+          'minimal': `${getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png`,
+          'transparent': `${getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png`
+      }
+  },
+  'square': {
+      width: 1,
+      height: 1,
+      style: {
+          'standard': `${getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-square.png`,
+          'minimal': `${getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png`,
+          'transparent': `${getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png`
+      }
+  }
 }
 
 const defaultFormat = 'square';
@@ -64,6 +83,8 @@ const defaultStyle = 'standard';
 
 // Networking
 const API_BASE = 'https://beacon.zesty.market'
+const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
+
 
 const ENDPOINTS = {
     "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
@@ -89,38 +110,39 @@ const DEFAULT_URI_CONTENT = {
  * @param {string} network The network to post metrics to
  * @returns An object with the requested space information, or a default if it cannot be retrieved.
  */
-const fetchNFT = async (space, creator, network = 'polygon') => {
+const fetchNFT = async (space, network = 'polygon') => {
     const currentTime = Math.floor(Date.now() / 1000);
     const query = {
-        query: `
-      query {
-        tokenDatas (
-          where: {
-            id: "${space}"
-            creator: "${creator}"
-          }
-        )
-        {
-          sellerNFTSetting {
-            sellerAuctions (
-              first: 5
-              where: {
-                contractTimeStart_lte: ${currentTime}
-                contractTimeEnd_gte: ${currentTime}
-              }
-            ) {
-              id
-              buyerCampaigns {
-                id
-                uri
-              }
-              buyerCampaignsApproved
+      query: `
+        query {
+          tokenDatas (
+            where: {
+              id: "${space}"
             }
+          )
+          { 
+            sellerNFTSetting {
+              sellerAuctions (
+                first: 5
+                where: {
+                  contractTimeStart_lte: ${currentTime}
+                  contractTimeEnd_gte: ${currentTime}
+                  cancelled: false
+                }
+              ) {
+                id
+                buyerCampaigns {
+                  id
+                  uri
+                }
+                buyerCampaignsApproved
+                buyerCampaignsIdList
+              }
+            }
+            id
           }
-          id
         }
-      }
-    `
+      `
     };
   return fetch(ENDPOINTS[network], {
     method: 'POST',
@@ -141,7 +163,7 @@ const fetchNFT = async (space, creator, network = 'polygon') => {
  * @param {Object} res The response object from The Graph.
  * @returns An object containing either the latest auction campaign or default data.
  */
-const parseGraphResponse = async res => {
+const parseGraphResponse = async (res) => {
   let body = await res.json();
   let tokenDatas = body.data.tokenDatas;
   if (tokenDatas.length == 0) return DEFAULT_DATAS;
@@ -161,61 +183,121 @@ const parseGraphResponse = async res => {
   return latestAuction;
 }
 
+// Helpers for UTM parameters
+const urlContainsUTMParams = (url) => {
+  return url.indexOf('utm_source=') !== -1 || url.indexOf('utm_campaign=') !== -1 || url.indexOf('utm_channel=') !== -1;
+}
+
+const appendUTMParams = (url, spaceId) => {
+  let new_url = new URL(url)
+  new_url.searchParams.set('utm_source', 'ZestyMarket');
+  new_url.searchParams.set('utm_campaign', 'ZestyCampaign');
+  new_url.searchParams.set('utm_channel', `SpaceId_${spaceId}`);
+  return new_url.href;
+}
+
 /**
  * Pulls data from IPFS for the banner content.
  * @param {string} uri The IPFS URI containing the banner content.
  * @param {string} format The default banner image format to use if there is no active banner.
  * @param {string} style The default banner image style to use if there is no active banner.
+ * @param {string} formatsOverride Object to override the default format object.
  * @returns An object with the requested banner content, or a default if it cannot be retrieved.
  */
-const fetchActiveBanner = async (uri, format, style) => {
+ const fetchActiveBanner = async (uri, format, style, space, formatsOverride) => {
   if (!uri) {
     let bannerObject = { uri: 'DEFAULT_URI', data: DEFAULT_URI_CONTENT };
     let newFormat = format || defaultFormat;
     let newStyle = style || defaultStyle;
-    bannerObject.data.image = formats[newFormat].style[newStyle];
+    let usedFormats = formatsOverride || formats;
+    bannerObject.data.image = usedFormats[newFormat].style[newStyle];
     return bannerObject;
   }
 
-  return fetch(parseProtocol(uri))
-  .then(async (res) => {
-     let data = await res.json();
-     return res.status == 200 ? { uri: uri, data: data } : null
-  })
+  let res = await fetch(parseProtocol(uri));
+  let data = await res.json();
+  let url = res.url;
+  if(!urlContainsUTMParams(res.url)) {
+    url = appendUTMParams(res.url, space);
+  }
+
+  return res.status == 200 ? { uri: url, data: data } : null
 }
 
 function sendOnLoadMetric(space) {
-    try {
-        const spaceCounterEndpoint = API_BASE + `/api/v1/space/${space}`
-        fetch(spaceCounterEndpoint, { method: 'PUT' });
-    } catch (e) {
-        console.log("Failed to emit onload event", e.message)
-    }
+  try {
+    const spaceCounterEndpoint = API_BASE + `/api/v1/space/${space}`
+    fetch(spaceCounterEndpoint, { method: 'PUT' });
+
+    fetch(
+      BEACON_GRAPHQL_URI,
+      { 
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(`mutation { increment(eventType: visits, spaceId: "${space}") { message } }`)
+      }
+    );
+  } catch (e) {
+    console.log("Failed to emit onload event", e.message)
+  }
 }
 
-async function loadBanner(space, creator, network, format, style, beacon = true) {
-    let uri = null;
-    const activeNFT = await fetchNFT(space, creator, network);
-    if (activeNFT) uri = activeNFT.uri;
-    const activeBanner = await fetchActiveBanner(uri, format, style, space);
+const sendOnClickMetric = async (space) => {
+  try {
+    const spaceClickEndpoint = API_BASE + `/api/v1/space/click/${space}`
+    fetch(spaceClickEndpoint, { method: 'PUT' });
 
-    // Need to add https:// if missing for page to open properly
-    let url = activeBanner.data.url;
-    url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
+    fetch(
+      BEACON_GRAPHQL_URI,
+      { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        mode: 'no-cors',
+        body: JSON.stringify(`mutation { increment(eventType: clicks, spaceId: "${space}") { message } }`)
+      }
+    );
+  } catch (e) {
+    console.log("Failed to emit onclick event", e.message)
+  }
+}
 
-    if (url == 'https://www.zesty.market') {
-        url = `https://app.zesty.market/space/${space}`;
-    }
+async function loadBanner(space, network, format, style, beacon = true) {
+  let uri = null;
+  const activeNFT = await fetchNFT(space, network);
+  if (activeNFT) uri = activeNFT.uri;
 
-    let image = activeBanner.data.image;
-    image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
+  const activeBanner = await fetchActiveBanner(uri, format, style, space);
 
-    if (beacon) {
-        sendOnLoadMetric(space);
-    }
+  // Need to add https:// if missing for page to open properly
+  let url = activeBanner.data.url;
+  url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
 
-    feature.set({'url': image, 'link': url});
+  if (url == 'https://www.zesty.market') {
+    url = `https://app.zesty.market/space/${space}`;
+  }
+
+  let image = activeBanner.data.image;
+  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
+
+  if (beacon) {
+    sendOnLoadMetric(space);
+  }
+
+  feature.set({'url': image}); 
+  feature.set({'link': url});
 }
 
 // Call loadBanner here. Parameters are:
-// Space ID, Creator ID, Network, Format, Style, Enable Beacon (optional)
+// Space ID, Network, Format, Style, Enable Beacon (optional)
+feature.on('click', e =>{
+  sendOnClickMetric(89);
+});
+
+parcel.on('playerenter', e =>{
+  loadBanner(89, 'polygon', "square", "transparent");
+});

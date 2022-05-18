@@ -84,6 +84,7 @@ const defaultStyle = 'standard';
 // Networking
 const API_BASE = 'https://beacon.zesty.market'
 const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
+const FORWARD_BEACON_URL = `https://forward.zesty.market/${NETWORK}/space/${SPACE}`;
 
 
 const ENDPOINTS = {
@@ -229,7 +230,7 @@ function sendOnLoadMetric(space) {
     const spaceCounterEndpoint = API_BASE + `/api/v1/space/${space}`
     fetch(spaceCounterEndpoint, { method: 'PUT' });
 
-    fetch(`https://forward.zesty.market/${NETWORK}/space/${SPACE}/visit`);
+    fetch(`${FORWARD_BEACON_URL}/visit`);
   } catch (e) {
     console.log("Failed to emit onload event", e.message)
   }
@@ -240,7 +241,7 @@ const sendOnClickMetric = async (space) => {
     const spaceClickEndpoint = API_BASE + `/api/v1/space/click/${space}`
     fetch(spaceClickEndpoint, { method: 'PUT' });
 
-    fetch(`https://forward.zesty.market/${NETWORK}/space/${SPACE}/click`);
+    fetch(`${FORWARD_BEACON_URL}/click`);
   } catch (e) {
     console.log("Failed to emit onclick event", e.message)
   }
@@ -283,6 +284,6 @@ if (SPACE >= 0 && NETWORK && FORMAT && STYLE && (BEACON !== undefined)) {
     loadBanner(SPACE, NETWORK, FORMAT, STYLE, BEACON);
   });
 } else {
-  console.warn('You are missing parameters! SPACE, NETWORK, FORMAT, STYLE, and BEACON are required.');
-  console.log(`${SPACE}\n${NETWORK}\n${FORMAT}\n${STYLE}\n${BEACON}`);
+  console.warn('You have missing or invalid parameters! SPACE must not be a negative number and all fields are required.');
+  console.log(`SPACE: ${SPACE}\nNETWORK: ${NETWORK}\nFORMAT: ${FORMAT}\nSTYLE: ${STYLE}\nBEACON: ${BEACON}`);
 }

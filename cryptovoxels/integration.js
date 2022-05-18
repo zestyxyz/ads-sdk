@@ -229,17 +229,7 @@ function sendOnLoadMetric(space) {
     const spaceCounterEndpoint = API_BASE + `/api/v1/space/${space}`
     fetch(spaceCounterEndpoint, { method: 'PUT' });
 
-    fetch(
-      BEACON_GRAPHQL_URI,
-      { 
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(`mutation { increment(eventType: visits, spaceId: "${space}") { message } }`)
-      }
-    );
+    fetch(`https://forward.zesty.market/${NETWORK}/space/${SPACE}/visit`);
   } catch (e) {
     console.log("Failed to emit onload event", e.message)
   }
@@ -250,17 +240,7 @@ const sendOnClickMetric = async (space) => {
     const spaceClickEndpoint = API_BASE + `/api/v1/space/click/${space}`
     fetch(spaceClickEndpoint, { method: 'PUT' });
 
-    fetch(
-      BEACON_GRAPHQL_URI,
-      { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        mode: 'no-cors',
-        body: JSON.stringify(`mutation { increment(eventType: clicks, spaceId: "${space}") { message } }`)
-      }
-    );
+    fetch(`https://forward.zesty.market/${NETWORK}/space/${SPACE}/click`);
   } catch (e) {
     console.log("Failed to emit onclick event", e.message)
   }

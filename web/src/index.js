@@ -9,7 +9,6 @@ class Zesty extends HTMLElement {
   constructor() {
     super();
     this.space = '';
-    this.creator = '';
     this.network = 'polygon';
     this.format = defaultFormat;
     this.bannerstyle = defaultStyle;
@@ -29,7 +28,9 @@ class Zesty extends HTMLElement {
       : this.hasAttribute('adspace')
       ? this.getAttribute('adspace')
       : this.space;
-    this.creator = this.getAttribute('creator');
+    if (this.getAttribute('creator') !== null) {
+      console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
+    }
     this.network = this.hasAttribute('network') ? this.getAttribute('network') : this.network;
     this.format = this.hasAttribute('format')
       ? this.getAttribute('format')

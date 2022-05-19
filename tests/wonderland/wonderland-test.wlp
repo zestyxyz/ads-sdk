@@ -3270,6 +3270,12 @@
                 "name": "Particle",
                 "file": "default"
             }
+        },
+        "233": {
+            "link": {
+                "name": "Depth",
+                "file": "default"
+            }
         }
     },
     "settings": {
@@ -3278,8 +3284,7 @@
             "version": [
                 0,
                 8,
-                8,
-                8
+                10
             ]
         },
         "vr": {
@@ -3366,6 +3371,12 @@
         "40": {
             "link": {
                 "name": "Particle",
+                "file": "default"
+            }
+        },
+        "234": {
+            "link": {
+                "name": "Depth",
                 "file": "default"
             }
         }

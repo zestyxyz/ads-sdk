@@ -8,7 +8,7 @@ import { version } from '../package.json';
 console.log('Zesty SDK Version: ', version);
 
 export default class ZestyBanner {
-  constructor(space, creator, network, format, style, height, scene, webXRExperienceHelper = null, beacon = true) {
+  constructor(space, network, format, style, height, scene, webXRExperienceHelper = null, beacon = true) {
     const options = {
       height: height,
       width: formats[format].width * height
@@ -16,7 +16,7 @@ export default class ZestyBanner {
 
     this.zestyBanner = BABYLON.MeshBuilder.CreatePlane('zestybanner', options);
 
-    loadBanner(space, creator, network, format, style).then(data => {
+    loadBanner(space, network, format, style).then(data => {
       this.zestyBanner.material = data.mat;
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
 
@@ -44,8 +44,8 @@ export default class ZestyBanner {
   }
 }
 
-async function loadBanner(space, creator, network, format, style) {
-  const activeNFT = await fetchNFT(space, creator, network);
+async function loadBanner(space, network, format, style) {
+  const activeNFT = await fetchNFT(space, network);
   const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
 
   // Need to add https:// if missing for page to open properly

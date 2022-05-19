@@ -84,6 +84,7 @@ const defaultStyle = 'standard';
 // Networking
 const API_BASE = 'https://beacon.zesty.market'
 const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
+const FORWARD_BEACON_URL = `https://forward.zesty.market/${NETWORK}/space/${SPACE}`;
 
 
 const ENDPOINTS = {
@@ -229,17 +230,7 @@ function sendOnLoadMetric(space) {
     const spaceCounterEndpoint = API_BASE + `/api/v1/space/${space}`
     fetch(spaceCounterEndpoint, { method: 'PUT' });
 
-    fetch(
-      BEACON_GRAPHQL_URI,
-      { 
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(`mutation { increment(eventType: visits, spaceId: "${space}") { message } }`)
-      }
-    );
+    fetch(`${FORWARD_BEACON_URL}/visit`);
   } catch (e) {
     console.log("Failed to emit onload event", e.message)
   }
@@ -250,17 +241,7 @@ const sendOnClickMetric = async (space) => {
     const spaceClickEndpoint = API_BASE + `/api/v1/space/click/${space}`
     fetch(spaceClickEndpoint, { method: 'PUT' });
 
-    fetch(
-      BEACON_GRAPHQL_URI,
-      { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        mode: 'no-cors',
-        body: JSON.stringify(`mutation { increment(eventType: clicks, spaceId: "${space}") { message } }`)
-      }
-    );
+    fetch(`${FORWARD_BEACON_URL}/click`);
   } catch (e) {
     console.log("Failed to emit onclick event", e.message)
   }
@@ -292,12 +273,17 @@ async function loadBanner(space, network, format, style, beacon = true) {
   feature.set({'link': url});
 }
 
-// Call loadBanner here. Parameters are:
-// Space ID, Network, Format, Style, Enable Beacon (optional)
-feature.on('click', e =>{
-  sendOnClickMetric(89);
-});
+if (SPACE >= 0 && NETWORK && FORMAT && STYLE && (BEACON !== undefined)) {
+  // Call loadBanner here. Parameters are:
+  // Space ID, Network, Format, Style, Enable Beacon (optional)
+  feature.on('click', e =>{
+    sendOnClickMetric(SPACE);
+  });
 
-parcel.on('playerenter', e =>{
-  loadBanner(89, 'polygon', "square", "transparent");
-});
+  parcel.on('playerenter', e =>{
+    loadBanner(SPACE, NETWORK, FORMAT, STYLE, BEACON);
+  });
+} else {
+  console.warn('You have missing or invalid parameters! SPACE must not be a negative number and all fields are required.');
+  console.log(`SPACE: ${SPACE}\nNETWORK: ${NETWORK}\nFORMAT: ${FORMAT}\nSTYLE: ${STYLE}\nBEACON: ${BEACON}`);
+}

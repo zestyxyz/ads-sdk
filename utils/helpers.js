@@ -124,4 +124,13 @@ const appendUTMParams = (url, spaceId) => {
   return new_url.href;
 }
 
-export { parseProtocol, getIPFSGateway, checkOculusBrowser as isOculusQuest, openURL, urlContainsUTMParams, appendUTMParams };
+export { 
+  parseProtocol,
+  getIPFSGateway,
+  checkOculusBrowser,
+  checkWolvicBrowser,
+  checkPicoBrowser,
+  openURL,
+  urlContainsUTMParams,
+  appendUTMParams
+};

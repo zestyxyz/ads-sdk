@@ -53,12 +53,47 @@ const getIPFSGateway = () => {
 }
 
 /**
- * Performs feature detection on XRHand and XRMediaBinding to determine if user is on Oculus Quest.
- * As of 10/15/21, only Oculus Browser has implemented the WebXR Hand Input Module and WebXR Layers API.
- * @returns true if XRHand and XRMediaBinding are not null, else false
+ * Performs feature detection and a UA check to determine if user is using Oculus Browser.
+ * @returns an object indicating whether there is a match and the associated confidence level.
  */
-const isOculusQuest = () => {
-  return (window.XRHand != null && window.XRMediaBinding != null)
+const checkOculusBrowser = () => {
+  // As of 5/26/22, only Oculus Browser has implemented the WebXR Hand Input Module and WebXR Layers API.
+  const featureDetect = (window.XRHand != null && window.XRMediaBinding != null);
+  const uaCheck = navigator.userAgent.includes('OculusBrowser');
+  const confidence = featureDetect && uaCheck ? 'full' : 
+                     featureDetect || uaCheck ? 'partial' : 
+                     'none';
+  return { match: confidence !== 'none', confidence: confidence }
+}
+
+/**
+ * Performs feature detection and a UA check to determine if user is using Wolvic.
+ * @returns an object indicating whether there is a match and the associated confidence level.
+ */
+const checkWolvicBrowser = () => {
+  // While Wolvic is still shipping with a Gecko backend, this feature detect should hold true.
+  // Once versions with different backends start showing up in the wild, this will need revisiting.
+  const featureDetect = (window.XRHand == null && window.XRMediaBinding == null);
+  const uaCheck = navigator.userAgent.includes('Mobile VR') && !navigator.userAgent.includes('OculusBrowser');
+  const confidence = featureDetect && uaCheck ? 'full' : 
+                     featureDetect || uaCheck ? 'partial' : 
+                     'none';
+  return { match: confidence !== 'none', confidence: confidence }
+}
+
+/**
+ * Performs feature detection and a UA check to determine if user is using Pico's browser.
+ * @returns an object indicating whether there is a match and the associated confidence level.
+ */
+ const checkPicoBrowser = () => {
+  // Pico's internal browser is a Chromium fork and seems to expose some WebXR AR modules,
+  // so perform an isSessionSupported() check for immersive-vr and immersive-ar.
+  const featureDetect = (navigator.xr.isSessionSupported('immersive-vr') && navigator.xr.isSessionSupported('immersive-ar'));
+  const uaCheck = navigator.userAgent.includes('Pico Neo 3 Link');
+  const confidence = featureDetect && uaCheck ? 'full' : 
+                     featureDetect || uaCheck ? 'partial' : 
+                     'none';
+  return { match: confidence !== 'none', confidence: confidence }
 }
 
 const openURL = url => {
@@ -66,7 +101,7 @@ const openURL = url => {
   
   // Are we on a device that will deeplink?
   // This may need to be expanded in the future.
-  if (isOculusQuest()) {
+  if (checkOculusBrowser().match) {
     if (url.includes('https://www.oculus.com/experiences/quest/')) {
         setTimeout(() => {
           window.open(url, '_blank');
@@ -89,4 +124,4 @@ const appendUTMParams = (url, spaceId) => {
   return new_url.href;
 }
 
-export { parseProtocol, getIPFSGateway, isOculusQuest, openURL, urlContainsUTMParams, appendUTMParams };
+export { parseProtocol, getIPFSGateway, checkOculusBrowser as isOculusQuest, openURL, urlContainsUTMParams, appendUTMParams };

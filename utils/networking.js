@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { formats, defaultFormat, defaultStyle } from '../utils/formats';
-import { parseProtocol, urlContainsUTMParams, appendUTMParams } from '../utils/helpers';
+import { formats, defaultFormat, defaultStyle } from '../utils/formats.js';
+import { parseProtocol, urlContainsUTMParams, appendUTMParams } from '../utils/helpers.js';
 //import { v4 as uuidv4 } from 'uuid'
 
 const API_BASE = 'https://beacon.zesty.market'

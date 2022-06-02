@@ -1,0 +1,221 @@
+import { test, expect } from '@playwright/test';
+import { checkOculusBrowser, checkWolvicBrowser, checkPicoBrowser, parseProtocol } from '../../utils/helpers.js';
+
+const IPFS_TEST_URI = 'test';
+const IPFS_TEST_URL = 'ipfs://test';
+
+test.describe('parseProtocol', async () => {
+  test('parseProtocol should return a valid HTTPS URL if given an IPFS URI', async () => {
+    expect(parseProtocol(IPFS_TEST_URI)).toBe('https://ipfs.zesty.market/ipfs/test');
+  });
+  test('parseProtocol should return a valid HTTPS URL if given an ipfs:// URL', async () => {
+    expect(parseProtocol(IPFS_TEST_URL)).toBe('https://ipfs.zesty.market/ipfs/test');
+  });
+});
+
+test.describe('checkOculusBrowser', async () => {
+  test.beforeEach(async ({ page }) => {
+    await page.evaluate(() => {
+      window.XRHand = null;
+      window.XRMediaBinding = null;
+    })
+  });
+
+  test.afterAll(async ({ page }) => {
+    await page.evaluate(() => {
+      window.XRHand = null;
+      window.XRMediaBinding = null;
+    });
+  });
+  
+  test(`checkOculusBrowser() should return a match with no confidence if window.XRHand and window.XRMediaBinding 
+        do not exist and no valid UA string is present`, async ({ page }) => {
+    const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
+    expect(oculusBrowserTest).toMatchObject({ match: false, confidence: 'none' });
+  });
+  test(`checkOculusBrowser() should return a match with partial confidence if window.XRHand is null
+        and a valid UA string is present`, async ({ browser }) => {
+    const context = await browser.newContext({ userAgent: 'OculusBrowser' });
+    const page = await context.newPage();
+    await page.evaluate(() => window.XRMediaBinding = 1);
+    const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
+    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+  });
+  test(`checkOculusBrowser() should return a match with partial confidence if window.XRMediaBinding is null
+        and a valid UA string is present`, async ({ browser }) => {
+    const context = await browser.newContext({ userAgent: 'OculusBrowser' });
+    const page = await context.newPage();
+    await page.evaluate(() => window.XRHand = 1);
+    const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
+    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+  });
+  test('checkOculusBrowser() should return a match with partial confidence if only a valid UA string is present', async ({ browser }) => {
+    const context = await browser.newContext({ userAgent: 'OculusBrowser' });
+    const page = await context.newPage();
+    const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
+    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+  });
+  test(`checkOculusBrowser() should return a match with full confidence if window.XRHand and window.XRMediaBinding
+        exist and a valid UA string is present`, async ({ browser }) => {
+    const context = await browser.newContext({ userAgent: 'OculusBrowser' });
+    const page = await context.newPage();
+    await page.evaluate(() => {
+      window.XRHand = 1;
+      window.XRMediaBinding = 1;
+    })
+    const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
+    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'full' });
+  });
+});
+
+test.describe('checkWolvicBrowser', async () => {
+  test.beforeEach(async ({ page }) => {
+    await page.evaluate(() => {
+      window.XRHand = null;
+      window.XRMediaBinding = null;
+    })
+  });
+
+  test.afterAll(async ({ page }) => {
+    await page.evaluate(() => {
+      window.XRHand = null;
+      window.XRMediaBinding = null;
+    });
+  });
+  
+  test(`checkWolvicBrowser() should return a match with no confidence if window.XRHand and window.XRMediaBinding 
+        do exist and no valid UA string is present`, async ({ page }) => {
+    await page.evaluate(() => {
+      window.XRHand = 1;
+      window.XRMediaBinding = 1;
+    });
+    const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
+    expect(wolvicBrowserTest).toMatchObject({ match: false, confidence: 'none' });
+  });
+  test(`checkwolvicBrowser() should return a match with partial confidence if window.XRHand is present
+        and a valid UA string is present`, async ({ browser }) => {
+    const context = await browser.newContext({ userAgent: 'Mobile VR' });
+    const page = await context.newPage();
+    await page.evaluate(() => window.XRHand = 1);
+    const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
+    expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+  });
+  test(`checkWolvicBrowser() should return a match with partial confidence if window.XRMediaBinding is present
+        and a valid UA string is present`, async ({ browser }) => {
+    const context = await browser.newContext({ userAgent: 'Mobile VR' });
+    const page = await context.newPage();
+    await page.evaluate(() => window.XRMediaBinding = 1);
+    const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
+    expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+  });
+  test(`checkWolvicBrowser() should return a match with full confidence if window.XRHand and window.XRMediaBinding
+        do not exist and a valid UA string is present`, async ({ browser }) => {
+    const context = await browser.newContext({ userAgent: 'Mobile VR' });
+    const page = await context.newPage();
+    const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
+    expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'full' });
+  });
+});
+
+test.describe('checkPicoBrowser', async () => {
+  test.beforeEach(async ({ page }) => {
+    await page.evaluate(() => {
+      window.XRHand = null;
+      window.XRMediaBinding = null;
+      navigator['xr'] = {
+        isSessionSupported: null
+      }
+    })
+  });
+
+  test.afterAll(async ({ page }) => {
+    await page.evaluate(() => {
+      window.XRHand = null;
+      window.XRMediaBinding = null;
+    });
+  });
+  
+  test(`checkPicoBrowser() should return a match with no confidence if only isSessionSupported('immersive-vr')
+        returns true and no valid UA string is present`, async ({ page }) => {
+    await page.evaluate(() => {
+      navigator.xr.isSessionSupported = session => session === 'immersive-vr' ? true : false
+    });
+    const picoBrowserTest = await page.evaluate(checkPicoBrowser);
+    expect(picoBrowserTest).toMatchObject({ match: false, confidence: 'none' });
+  });
+  test(`checkPicoBrowser() should return a match with no confidence if only isSessionSupported('immersive-ar')
+        returns true and no valid UA string is present`, async ({ page }) => {
+    await page.evaluate(() => {
+      navigator.xr.isSessionSupported = session => session === 'immersive-ar' ? true : false
+    });
+    const picoBrowserTest = await page.evaluate(checkPicoBrowser);
+    expect(picoBrowserTest).toMatchObject({ match: false, confidence: 'none' });
+  });
+  test(`checkPicoBrowser() should return a match with partial confidence if only isSessionSupported('immersive-vr')
+        returns true and a valid UA string is present`, async ({ browser }) => {
+    const context = await browser.newContext({ userAgent: 'Pico Neo 3 Link' });
+    const page = await context.newPage();
+    await page.evaluate(() => {
+      navigator['xr'] = { isSessionSupported: session => session === 'immersive-vr' ? true : false }
+    });
+    const picoBrowserTest = await page.evaluate(checkPicoBrowser);
+    expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+  });
+  test(`checkPicoBrowser() should return a match with partial confidence if only isSessionSupported('immersive-ar')
+        returns true and a valid UA string is present`, async ({ browser }) => {
+    const context = await browser.newContext({ userAgent: 'Pico Neo 3 Link' });
+    const page = await context.newPage();
+    await page.evaluate(() => {
+      navigator['xr'] = { isSessionSupported: session => session === 'immersive-ar' ? true : false }
+    });
+    const picoBrowserTest = await page.evaluate(checkPicoBrowser);
+    expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+  });
+  test(`checkPicoBrowser() should return a match with full confidence if both isSessionSupported('immersive-ar')
+        and isSessionSupported('immersive-vr') return true and a valid UA string is present`, async ({ browser }) => {
+    const context = await browser.newContext({ userAgent: 'Pico Neo 3 Link' });
+    const page = await context.newPage();
+    await page.evaluate(() => {
+      navigator['xr'] = { isSessionSupported: () => true }
+    });
+    const picoBrowserTest = await page.evaluate(checkPicoBrowser);
+    expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'full' });
+  });
+});
+
+test.describe('openURL', async () => {
+  // Create mock function for openURL
+  const openURL = (url, isOculus) => {
+    if (!url) return null;
+  
+    if (isOculus) {
+      if (url.includes('https://www.oculus.com/experiences/quest/')) {
+        return 'Deeplink';
+      }
+    }
+    return 'Link';
+  };
+  
+  test('Not passing a URL should return immediately', async () => {
+    const result = openURL();
+    expect(result).toBe(null);
+  });
+  test('An Oculus Store URL should not deeplink if not on Quest', async ({ page }) => {
+    const isOculus = (await page.evaluate(checkOculusBrowser)).match;
+    const result = openURL('https://www.oculus.com/experiences/quest/', isOculus);
+    expect(result).toBe('Link');
+  });
+  test('An Oculus Store URL should deeplink if on Quest', async ({ page }) => {
+    await page.evaluate(() => {
+      window.XRHand = 1;
+      window.XRMediaBinding = 1;
+    });
+    const isOculus = (await page.evaluate(checkOculusBrowser)).match;
+    const result = openURL('https://www.oculus.com/experiences/quest/', isOculus);
+    expect(result).toBe('Deeplink');
+  });
+  test('Any other URL should link regularly', async () => {
+    const result = openURL('https://app.zesty.market/');
+    expect(result).toBe('Link');
+  });
+});

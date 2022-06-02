@@ -1,4 +1,4 @@
-import { getIPFSGateway } from "./helpers";
+import { getIPFSGateway } from "./helpers.js";
 
 const formats = {
     'tall': {

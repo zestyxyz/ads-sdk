@@ -15,6 +15,7 @@ jobs:
       - name: Test
         run: |
           cd ~/work/sdk/sdk
+          npx playwright install
           yarn run test
   deploy:
     runs-on: ubuntu-latest

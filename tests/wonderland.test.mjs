@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:8080/tests/wonderland/deploy');
+  await page.waitForFunction(() => window.testBanners != undefined);
 });
 
 test.describe('Initial load', () => {
@@ -10,7 +11,6 @@ test.describe('Initial load', () => {
   });
 
   test('All 9 banners are currently loaded', async ({ page }) => {
-    await page.waitForFunction(() => window.testBanners.length > 0)
     const bannerCount = await page.evaluate(() => window.testBanners.length);
     expect(bannerCount).toBe(9);
   });

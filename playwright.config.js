@@ -8,7 +8,7 @@ const config = {
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
-  retries: 3,
+  retries: 5,
   timeout: 15000
 };
 

@@ -1,5 +1,5 @@
-import { expect, test, describe } from '@jest/globals';
-import { fetchNFT, parseGraphResponse, fetchActiveBanner } from '../../utils/networking';
+import { test, expect } from '@playwright/test';
+import { fetchNFT, parseGraphResponse, fetchActiveBanner } from '../../utils/networking.js';
 
 const MOCK_ADDRESS = '0x0000000000000000000000000000000000000000';
 const MOCK_SPACE = '0';
@@ -173,13 +173,13 @@ const DEFAULT_URI_CONTENT = {
 };
 const VALID_URI = 'QmYK3pR7AZ8TpQonQJyctZRPCR7gaDag9z6ZwoAs1YxBAa';
 
-describe('fetchNFT', () => {
+test.describe('fetchNFT', () => {
   test('fetchNFT should not return a falsy value', () => {
-    return expect(fetchNFT(MOCK_SPACE, MOCK_ADDRESS)).resolves.not.toBeFalsy();
+    return expect(fetchNFT(MOCK_SPACE)).resolves.not.toBeFalsy();
   });
 });
 
-describe('parseGraphResponse', () => {
+test.describe('parseGraphResponse', () => {
   test('parseGraphResponse should return {uri: undefined} if status is not 200', () => {
     expect(parseGraphResponse(MOCK_GRAPH_RESPONSE_NOT_200)).toStrictEqual(URI_UNDEFINED);
   });
@@ -214,7 +214,7 @@ describe('parseGraphResponse', () => {
   });
 });
 
-describe('fetchActiveBanner', () => {
+test.describe('fetchActiveBanner', () => {
   test('fetchActiveBanner should return a default banner if no URI is given', () => {
     return expect(fetchActiveBanner()).resolves.toMatchObject({
       uri: 'DEFAULT_URI',

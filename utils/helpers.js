@@ -130,8 +130,6 @@ const openURL = url => {
     modal.style.borderRadius = '5%';
     modal.style.transform = 'translate(-50%, -50%)';
 
-    content.style.just
-
     message.innerHTML = `<b>This banner leads to ${url}. Proceed?</b>`;
 
     yes.innerText = 'Move cursor back into window.';

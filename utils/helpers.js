@@ -108,6 +108,48 @@ const openURL = url => {
         }, 1000);      
         return;
     }
+  } else if (checkWolvicBrowser().confidence === 'full') {
+    // Wolvic's pop-up blocking is more aggressive than other
+    // Chromium-based XR browsers, probably due to its Firefox
+    // lineage. In order to prevent clicks being caught by it,
+    // construct our own modal window and directly link the
+    // yes button to the window.open call.
+    const modal = document.createElement('div');
+    const message = document.createElement('p');
+    const yes = document.createElement('button');
+    const no = document.createElement('button');
+
+    modal.style.backgroundColor = 'gray';
+    modal.style.position = 'fixed';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%)';
+
+    message.innerText = `This banner leads to ${url}. Proceed?`;
+
+    yes.innerText = 'Move cursor back into window.';
+    yes.style.width = '100vw';
+    yes.style.height = '100vh';
+    yes.onmouseenter = () => {
+      yes.style.width = 'auto';
+      yes.style.height = 'auto';
+      yes.innerText = 'Yes';
+    }
+    yes.onclick = () => {
+      window.open(url, '_blank');
+      modal.remove();
+    }
+    
+    no.innerText = 'No';
+    no.onclick = () => {
+      modal.remove();
+    }
+    
+    modal.append(message);
+    modal.append(yes);
+    modal.append(no);
+    document.body.append(modal);
+    return;
   }
   window.open(url, '_blank');
 }

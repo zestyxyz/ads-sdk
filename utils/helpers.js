@@ -115,17 +115,24 @@ const openURL = url => {
     // construct our own modal window and directly link the
     // yes button to the window.open call.
     const modal = document.createElement('div');
+    const content = document.createElement('div');
     const message = document.createElement('p');
     const yes = document.createElement('button');
     const no = document.createElement('button');
 
-    modal.style.backgroundColor = 'gray';
+    modal.style.backgroundColor = 'rgb(0, 0, 0, 0.75)'
+    modal.style.color = 'white';
+    modal.style.textAlign = 'center';
     modal.style.position = 'fixed';
     modal.style.top = '50%';
     modal.style.left = '50%';
+    modal.style.padding = '5%';
+    modal.style.borderRadius = '5%';
     modal.style.transform = 'translate(-50%, -50%)';
 
-    message.innerText = `This banner leads to ${url}. Proceed?`;
+    content.style.just
+
+    message.innerHTML = `<b>This banner leads to ${url}. Proceed?</b>`;
 
     yes.innerText = 'Move cursor back into window.';
     yes.style.width = '100vw';
@@ -145,9 +152,10 @@ const openURL = url => {
       modal.remove();
     }
     
-    modal.append(message);
-    modal.append(yes);
-    modal.append(no);
+    modal.append(content);
+    content.append(message);
+    content.append(yes);
+    content.append(no);
     document.body.append(modal);
     return;
   }

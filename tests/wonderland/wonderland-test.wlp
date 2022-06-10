@@ -2154,7 +2154,7 @@
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 4,
+                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2177,6 +2177,9 @@
                         "beacon": true,
                         "dynamicFormats": false
                     }
+                },
+                {
+                    "type": "cursor-target"
                 }
             ],
             "transformation": [
@@ -2262,7 +2265,7 @@
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 4,
+                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2284,6 +2287,9 @@
                         "format": "wide",
                         "dynamicFormats": false
                     }
+                },
+                {
+                    "type": "cursor-target"
                 }
             ],
             "transformation": [
@@ -2319,7 +2325,7 @@
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 4,
+                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2341,6 +2347,9 @@
                         "format": "square",
                         "dynamicFormats": false
                     }
+                },
+                {
+                    "type": "cursor-target"
                 }
             ],
             "transformation": [
@@ -2376,7 +2385,7 @@
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 4,
+                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2398,6 +2407,9 @@
                         "format": "tall",
                         "dynamicFormats": false
                     }
+                },
+                {
+                    "type": "cursor-target"
                 }
             ],
             "transformation": [
@@ -2433,7 +2445,7 @@
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 4,
+                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2455,6 +2467,9 @@
                         "format": "wide",
                         "dynamicFormats": false
                     }
+                },
+                {
+                    "type": "cursor-target"
                 }
             ],
             "transformation": [
@@ -2490,7 +2505,7 @@
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 4,
+                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2512,6 +2527,9 @@
                         "format": "square",
                         "dynamicFormats": false
                     }
+                },
+                {
+                    "type": "cursor-target"
                 }
             ],
             "transformation": [
@@ -2547,7 +2565,7 @@
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 4,
+                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2569,6 +2587,9 @@
                         "format": "tall",
                         "dynamicFormats": false
                     }
+                },
+                {
+                    "type": "cursor-target"
                 }
             ],
             "transformation": [
@@ -2604,7 +2625,7 @@
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 4,
+                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2626,6 +2647,9 @@
                         "format": "wide",
                         "dynamicFormats": false
                     }
+                },
+                {
+                    "type": "cursor-target"
                 }
             ],
             "transformation": [
@@ -2661,7 +2685,7 @@
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 4,
+                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2683,6 +2707,9 @@
                         "format": "square",
                         "dynamicFormats": false
                     }
+                },
+                {
+                    "type": "cursor-target"
                 }
             ],
             "transformation": [
@@ -2720,6 +2747,88 @@
                         "banner7Object": "229",
                         "banner8Object": "230",
                         "banner9Object": "231"
+                    }
+                }
+            ]
+        },
+        "235": {
+            "name": "CursorObject",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "9",
+                        "material": "20"
+                    }
+                }
+            ],
+            "transformation": [
+                0.1,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ]
+        },
+        "236": {
+            "name": "CursorRayObject",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "11",
+                        "material": "20"
+                    }
+                }
+            ],
+            "transformation": [
+                0.05,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -4.1723239974089668e-8,
+                0.3499998,
+                0.0,
+                0.0,
+                -0.0499998,
+                -0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "parent": "237"
+        },
+        "237": {
+            "name": "CursorRight",
+            "parent": "205",
+            "components": [
+                {
+                    "type": "cursor",
+                    "cursor": {
+                        "cursorRayScalingAxis": "y",
+                        "cursorObject": "235",
+                        "cursorRayObject": "236",
+                        "collisionGroup": 0
+                    }
+                },
+                {
+                    "type": "input",
+                    "input": {
+                        "type": "ray right"
                     }
                 }
             ]

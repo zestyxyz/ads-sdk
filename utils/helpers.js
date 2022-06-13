@@ -71,9 +71,9 @@ const checkOculusBrowser = () => {
  * @returns an object indicating whether there is a match and the associated confidence level.
  */
 const checkWolvicBrowser = () => {
-  // While Wolvic is still shipping with a Gecko backend, this feature detect should hold true.
+  // While Wolvic is still shipping with a GeckoView backend, this feature detect should hold true.
   // Once versions with different backends start showing up in the wild, this will need revisiting.
-  const featureDetect = (window.XRHand == null && window.XRMediaBinding == null);
+  const featureDetect = (window.mozInnerScreenX != null && window.speechSynthesis == null);
   const uaCheck = navigator.userAgent.includes('Mobile VR') && !navigator.userAgent.includes('OculusBrowser');
   const confidence = featureDetect && uaCheck ? 'full' : 
                      featureDetect || uaCheck ? 'partial' : 
@@ -108,7 +108,7 @@ const openURL = url => {
         }, 1000);      
         return;
     }
-  } else if (checkWolvicBrowser().confidence === 'full') {
+  } else if (checkWolvicBrowser().match) {
     // Wolvic's pop-up blocking is more aggressive than other
     // Chromium-based XR browsers, probably due to its Firefox
     // lineage. In order to prevent clicks being caught by it,

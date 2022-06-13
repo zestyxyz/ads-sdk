@@ -71,47 +71,51 @@ test.describe('checkOculusBrowser', async () => {
 test.describe('checkWolvicBrowser', async () => {
   test.beforeEach(async ({ page }) => {
     await page.evaluate(() => {
-      window.XRHand = null;
-      window.XRMediaBinding = null;
+      window.mozInnerScreenX = null;
+      Object.defineProperty(window, 'speechSynthesis', { value: null });
     })
   });
 
   test.afterAll(async ({ page }) => {
     await page.evaluate(() => {
-      window.XRHand = null;
-      window.XRMediaBinding = null;
+      window.mozInnerScreenX = null;
+      Object.defineProperty(window, 'speechSynthesis', { value: null });
     });
   });
   
-  test(`checkWolvicBrowser() should return a match with no confidence if window.XRHand and window.XRMediaBinding 
-        do exist and no valid UA string is present`, async ({ page }) => {
+  test(`checkWolvicBrowser() should return a match with no confidence if window.mozInnerScreenX does not exist,
+   window.speechSynthesis does exist, and no valid UA string is present`, async ({ page }) => {
     await page.evaluate(() => {
-      window.XRHand = 1;
-      window.XRMediaBinding = 1;
+      window.mozInnerScreenX = null;
+      Object.defineProperty(window, 'speechSynthesis', { value: 1 });
     });
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
     expect(wolvicBrowserTest).toMatchObject({ match: false, confidence: 'none' });
   });
-  test(`checkwolvicBrowser() should return a match with partial confidence if window.XRHand is present
+  test(`checkwolvicBrowser() should return a match with partial confidence if window.mozInnerScreenX is present
         and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Mobile VR' });
     const page = await context.newPage();
-    await page.evaluate(() => window.XRHand = 1);
+    await page.evaluate(() => window.mozInnerScreenX = 1);
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
     expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
   });
-  test(`checkWolvicBrowser() should return a match with partial confidence if window.XRMediaBinding is present
+  test(`checkWolvicBrowser() should return a match with partial confidence if window.speechSynthesis is present
         and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Mobile VR' });
     const page = await context.newPage();
-    await page.evaluate(() => window.XRMediaBinding = 1);
+    await page.evaluate(() => Object.defineProperty(window, 'speechSynthesis', { value: 1 }));
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
     expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
   });
-  test(`checkWolvicBrowser() should return a match with full confidence if window.XRHand and window.XRMediaBinding
-        do not exist and a valid UA string is present`, async ({ browser }) => {
+  test(`checkWolvicBrowser() should return a match with full confidence if window.mozInnerScreenX exists,
+   window.speechSynthesis does not exist, and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Mobile VR' });
     const page = await context.newPage();
+    await page.evaluate(() => {
+      window.mozInnerScreenX = 1;
+      Object.defineProperty(window, 'speechSynthesis', { value: null });
+    });
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
     expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'full' });
   });

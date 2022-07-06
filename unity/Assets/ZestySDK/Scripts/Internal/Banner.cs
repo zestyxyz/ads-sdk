@@ -31,6 +31,8 @@ namespace Zesty
         // Banner info
         string uri;
         string url;
+        [DllImport("__Internal")] private static extern void _sendOnLoadMetric(string spaceId);
+        [DllImport("__Internal")] private static extern void _sendOnClickMetric(string spaceId);
         [DllImport("__Internal")] private static extern void _open(string url);
         string bannerTextureURL;
 
@@ -43,8 +45,13 @@ namespace Zesty
             FetchNFT();
             if (beaconEnabled)
             {
-                // Fire onLoad signal to beacon
+#if UNITY_EDITOR
+#else
+                // Fire onLoad signal to v1 beacon
                 StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/{space}", "onLoad"));
+                // Fire increment mutation to v2 beacon
+                _sendOnLoadMetric(space);
+#endif
             }
         }
 
@@ -204,6 +211,8 @@ namespace Zesty
             {
                 // Fire onClick signal to beacon
                 StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/click/{space}", "onClick"));
+                // Fire increment mutation to v2 beacon
+                _sendOnClickMetric(space);
             }      
         }
 

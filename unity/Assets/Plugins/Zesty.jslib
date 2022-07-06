@@ -1,4 +1,42 @@
 mergeInto(LibraryManager.library, {
+    _sendOnLoadMetric: async function(spaceId) {
+        var spaceString = UTF8ToString(spaceId);
+        var userPlatform = await Module.Zesty.checkUserPlatform();
+        var platform = userPlatform.platform;
+        var confidence = userPlatform.confidence;
+        var body = { query: `mutation { increment(eventType: visits, spaceId: "${spaceString}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` };
+        
+        try {
+            await fetch('https://beacon2.zesty.market/zgraphql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+        } catch (e) {
+            console.log("Failed to emit onload event", e.message)
+        }
+    },
+    _sendOnClickMetric: async function(spaceId) {
+        var spaceString = UTF8ToString(spaceId);
+        var userPlatform = await Module.Zesty.checkUserPlatform();
+        var platform = userPlatform.platform;
+        var confidence = userPlatform.confidence;
+        var body = { query: `mutation { increment(eventType: clicks, spaceId: "${spaceString}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` };
+        
+        try {
+            await fetch('https://beacon2.zesty.market/zgraphql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+        } catch (e) {
+            console.log("Failed to emit onclick event", e.message)
+        }
+    },
     _open: function(url) {
         if (!url) return;
 

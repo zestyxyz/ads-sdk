@@ -60,10 +60,10 @@ const checkOculusBrowser = () => {
   // As of 5/26/22, only Oculus Browser has implemented the WebXR Hand Input Module and WebXR Layers API.
   const featureDetect = (window.XRHand != null && window.XRMediaBinding != null);
   const uaCheck = navigator.userAgent.includes('OculusBrowser');
-  const confidence = featureDetect && uaCheck ? 'full' : 
-                     featureDetect || uaCheck ? 'partial' : 
-                     'none';
-  return { match: confidence !== 'none', confidence: confidence }
+  const confidence = featureDetect && uaCheck ? 'Full' : 
+                     featureDetect || uaCheck ? 'Partial' : 
+                     'None';
+  return { match: confidence !== 'None', confidence: confidence }
 }
 
 /**
@@ -75,25 +75,61 @@ const checkWolvicBrowser = () => {
   // Once versions with different backends start showing up in the wild, this will need revisiting.
   const featureDetect = (window.mozInnerScreenX != null && window.speechSynthesis == null);
   const uaCheck = navigator.userAgent.includes('Mobile VR') && !navigator.userAgent.includes('OculusBrowser');
-  const confidence = featureDetect && uaCheck ? 'full' : 
-                     featureDetect || uaCheck ? 'partial' : 
-                     'none';
-  return { match: confidence !== 'none', confidence: confidence }
+  const confidence = featureDetect && uaCheck ? 'Full' : 
+                     featureDetect || uaCheck ? 'Partial' : 
+                     'None';
+  return { match: confidence !== 'None', confidence: confidence }
 }
 
 /**
  * Performs feature detection and a UA check to determine if user is using Pico's browser.
  * @returns an object indicating whether there is a match and the associated confidence level.
  */
- const checkPicoBrowser = () => {
+ const checkPicoBrowser = async () => {
   // Pico's internal browser is a Chromium fork and seems to expose some WebXR AR modules,
   // so perform an isSessionSupported() check for immersive-vr and immersive-ar.
-  const featureDetect = (navigator.xr.isSessionSupported('immersive-vr') && navigator.xr.isSessionSupported('immersive-ar'));
+  const featureDetect = (await navigator.xr.isSessionSupported('immersive-vr') && await navigator.xr.isSessionSupported('immersive-ar'));
   const uaCheck = navigator.userAgent.includes('Pico Neo 3 Link');
-  const confidence = featureDetect && uaCheck ? 'full' : 
-                     featureDetect || uaCheck ? 'partial' : 
-                     'none';
-  return { match: confidence !== 'none', confidence: confidence }
+  const confidence = featureDetect && uaCheck ? 'Full' : 
+                     featureDetect || uaCheck ? 'Partial' : 
+                     'None';
+  return { match: confidence !== 'None', confidence: confidence }
+}
+
+/**
+ * Performs feature detection and a UA check to determine if user is using a browser on their desktop.
+ * @returns an object indicating whether there is a match and the associated confidence level.
+ */
+ const checkDesktopBrowser = () => {
+  // We are doing a coarse check here for lack of touch-capability and no Android/Mobile string in the UA.
+  const featureDetect = (navigator.maxTouchPoints === 0 || navigator.msMaxTouchPoints === 0);
+  const uaCheck = !navigator.userAgent.includes('Android') && !navigator.userAgent.includes('Mobile');
+  const confidence = featureDetect && uaCheck ? 'Full' : 
+                     featureDetect || uaCheck ? 'Partial' : 
+                     'None';
+  return { match: confidence !== 'None', confidence: confidence }
+}
+
+const checkUserPlatform = async () => {
+  let currentMatch = {
+    platform: '',
+    confidence: ''
+  };
+  
+  if (checkOculusBrowser().match) {
+    currentMatch = { platform: 'Oculus', confidence: checkOculusBrowser().confidence };
+  } else if (checkWolvicBrowser().match) {
+    currentMatch = { platform: 'Wolvic', confidence: checkWolvicBrowser().confidence };
+  } else if (await checkPicoBrowser().match) {
+    currentMatch = { platform: 'Pico', confidence: await checkPicoBrowser().confidence };
+  } else if (checkDesktopBrowser().match) {
+    currentMatch = { platform: 'Desktop', confidence: checkDesktopBrowser().confidence };
+  } else {
+    // Cannot determine platform, return a default object
+    currentMatch = { platform: 'Unknown', confidence: 'None' };
+  }
+  
+  return currentMatch;
 }
 
 const openURL = url => {
@@ -178,6 +214,8 @@ export {
   checkOculusBrowser,
   checkWolvicBrowser,
   checkPicoBrowser,
+  checkDesktopBrowser,
+  checkUserPlatform,
   openURL,
   urlContainsUTMParams,
   appendUTMParams

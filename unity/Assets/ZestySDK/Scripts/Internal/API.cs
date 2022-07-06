@@ -50,6 +50,8 @@ namespace Zesty {
             {
                 Debug.Log($"PUT request error to {url}: {request.error}");
             }
+
+            request.Dispose();
         }
 
         /// <summary>
@@ -80,6 +82,8 @@ namespace Zesty {
                                 
                 callback(bannerData);
             }
+
+            request.Dispose();
         }
 
         /// <summary>
@@ -113,6 +117,8 @@ namespace Zesty {
 
                 callback(bannerData);
             }
+
+            request.Dispose();
         }
 
         /// <summary>

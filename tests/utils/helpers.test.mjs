@@ -31,7 +31,7 @@ test.describe('checkOculusBrowser', async () => {
   test(`checkOculusBrowser() should return a match with no confidence if window.XRHand and window.XRMediaBinding 
         do not exist and no valid UA string is present`, async ({ page }) => {
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
-    expect(oculusBrowserTest).toMatchObject({ match: false, confidence: 'none' });
+    expect(oculusBrowserTest).toMatchObject({ match: false, confidence: 'None' });
   });
   test(`checkOculusBrowser() should return a match with partial confidence if window.XRHand is null
         and a valid UA string is present`, async ({ browser }) => {
@@ -39,7 +39,7 @@ test.describe('checkOculusBrowser', async () => {
     const page = await context.newPage();
     await page.evaluate(() => window.XRMediaBinding = 1);
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
-    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
   test(`checkOculusBrowser() should return a match with partial confidence if window.XRMediaBinding is null
         and a valid UA string is present`, async ({ browser }) => {
@@ -47,13 +47,13 @@ test.describe('checkOculusBrowser', async () => {
     const page = await context.newPage();
     await page.evaluate(() => window.XRHand = 1);
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
-    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
   test('checkOculusBrowser() should return a match with partial confidence if only a valid UA string is present', async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'OculusBrowser' });
     const page = await context.newPage();
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
-    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
   test(`checkOculusBrowser() should return a match with full confidence if window.XRHand and window.XRMediaBinding
         exist and a valid UA string is present`, async ({ browser }) => {
@@ -64,7 +64,7 @@ test.describe('checkOculusBrowser', async () => {
       window.XRMediaBinding = 1;
     })
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
-    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'full' });
+    expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'Full' });
   });
 });
 
@@ -90,7 +90,7 @@ test.describe('checkWolvicBrowser', async () => {
       Object.defineProperty(window, 'speechSynthesis', { value: 1 });
     });
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
-    expect(wolvicBrowserTest).toMatchObject({ match: false, confidence: 'none' });
+    expect(wolvicBrowserTest).toMatchObject({ match: false, confidence: 'None' });
   });
   test(`checkwolvicBrowser() should return a match with partial confidence if window.mozInnerScreenX is present
         and a valid UA string is present`, async ({ browser }) => {
@@ -98,7 +98,7 @@ test.describe('checkWolvicBrowser', async () => {
     const page = await context.newPage();
     await page.evaluate(() => window.mozInnerScreenX = 1);
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
-    expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+    expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
   test(`checkWolvicBrowser() should return a match with partial confidence if window.speechSynthesis is present
         and a valid UA string is present`, async ({ browser }) => {
@@ -106,7 +106,7 @@ test.describe('checkWolvicBrowser', async () => {
     const page = await context.newPage();
     await page.evaluate(() => Object.defineProperty(window, 'speechSynthesis', { value: 1 }));
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
-    expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+    expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
   test(`checkWolvicBrowser() should return a match with full confidence if window.mozInnerScreenX exists,
    window.speechSynthesis does not exist, and a valid UA string is present`, async ({ browser }) => {
@@ -117,7 +117,7 @@ test.describe('checkWolvicBrowser', async () => {
       Object.defineProperty(window, 'speechSynthesis', { value: null });
     });
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
-    expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'full' });
+    expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'Full' });
   });
 });
 
@@ -145,7 +145,7 @@ test.describe('checkPicoBrowser', async () => {
       navigator.xr.isSessionSupported = session => session === 'immersive-vr' ? true : false
     });
     const picoBrowserTest = await page.evaluate(checkPicoBrowser);
-    expect(picoBrowserTest).toMatchObject({ match: false, confidence: 'none' });
+    expect(picoBrowserTest).toMatchObject({ match: false, confidence: 'None' });
   });
   test(`checkPicoBrowser() should return a match with no confidence if only isSessionSupported('immersive-ar')
         returns true and no valid UA string is present`, async ({ page }) => {
@@ -153,7 +153,7 @@ test.describe('checkPicoBrowser', async () => {
       navigator.xr.isSessionSupported = session => session === 'immersive-ar' ? true : false
     });
     const picoBrowserTest = await page.evaluate(checkPicoBrowser);
-    expect(picoBrowserTest).toMatchObject({ match: false, confidence: 'none' });
+    expect(picoBrowserTest).toMatchObject({ match: false, confidence: 'None' });
   });
   test(`checkPicoBrowser() should return a match with partial confidence if only isSessionSupported('immersive-vr')
         returns true and a valid UA string is present`, async ({ browser }) => {
@@ -163,7 +163,7 @@ test.describe('checkPicoBrowser', async () => {
       navigator['xr'] = { isSessionSupported: session => session === 'immersive-vr' ? true : false }
     });
     const picoBrowserTest = await page.evaluate(checkPicoBrowser);
-    expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+    expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
   test(`checkPicoBrowser() should return a match with partial confidence if only isSessionSupported('immersive-ar')
         returns true and a valid UA string is present`, async ({ browser }) => {
@@ -173,7 +173,7 @@ test.describe('checkPicoBrowser', async () => {
       navigator['xr'] = { isSessionSupported: session => session === 'immersive-ar' ? true : false }
     });
     const picoBrowserTest = await page.evaluate(checkPicoBrowser);
-    expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'partial' });
+    expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
   test(`checkPicoBrowser() should return a match with full confidence if both isSessionSupported('immersive-ar')
         and isSessionSupported('immersive-vr') return true and a valid UA string is present`, async ({ browser }) => {
@@ -183,7 +183,7 @@ test.describe('checkPicoBrowser', async () => {
       navigator['xr'] = { isSessionSupported: () => true }
     });
     const picoBrowserTest = await page.evaluate(checkPicoBrowser);
-    expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'full' });
+    expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'Full' });
   });
 });
 

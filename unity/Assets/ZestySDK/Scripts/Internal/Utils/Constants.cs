@@ -2,6 +2,7 @@
     public static class Constants {
         // API
         public const string BEACON_URL = "https://beacon.zesty.market/api/v1";
+        public const string BEACON2_URL = "https://beacon2.zesty.market/zgraphql";
     }
 
     public static class Networks

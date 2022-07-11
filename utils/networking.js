@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { formats, defaultFormat, defaultStyle } from '../utils/formats.js';
-import { parseProtocol, urlContainsUTMParams, appendUTMParams } from '../utils/helpers.js';
+import { parseProtocol, urlContainsUTMParams, appendUTMParams, checkUserPlatform } from '../utils/helpers.js';
 //import { v4 as uuidv4 } from 'uuid'
 
 const API_BASE = 'https://beacon.zesty.market'
@@ -132,13 +132,15 @@ const fetchActiveBanner = async (uri, format, style, space, formatsOverride) => 
  * @returns A Promise representing the POST request
  */
 const sendOnLoadMetric = async (spaceId) => {
+  const { platform, confidence } = await checkUserPlatform();
+  
   try {
     const spaceCounterEndpoint = API_BASE + `/api/v1/space/${spaceId}`
     await axios.put(spaceCounterEndpoint)
 
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: visits, spaceId: "${spaceId}") { message } }` },
+      { query: `mutation { increment(eventType: visits, spaceId: "${spaceId}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {
@@ -147,13 +149,15 @@ const sendOnLoadMetric = async (spaceId) => {
 };
 
 const sendOnClickMetric = async (spaceId) => {
+  const { platform, confidence } = await checkUserPlatform();
+  
   try {
     const spaceClickEndpoint = API_BASE + `/api/v1/space/click/${spaceId}`
     await axios.put(spaceClickEndpoint)
 
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: clicks, spaceId: "${spaceId}") { message } }` },
+      { query: `mutation { increment(eventType: clicks, spaceId: "${spaceId}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {

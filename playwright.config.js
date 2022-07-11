@@ -5,10 +5,10 @@ const config = {
   webServer: {
     command: 'yarn serve',
     url: 'http://localhost:8080/',
-    timeout: 120 * 1000,
+    timeout: 180 * 1000,
     reuseExistingServer: !process.env.CI,
   },
-  retries: 5,
+  retries: 10,
   timeout: 15000
 };
 

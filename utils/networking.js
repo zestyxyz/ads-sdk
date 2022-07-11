@@ -150,7 +150,6 @@ const sendOnLoadMetric = async (spaceId) => {
 
 const sendOnClickMetric = async (spaceId) => {
   const { platform, confidence } = await checkUserPlatform();
-  const platformObj = { name: platform, confidence: confidence };
   
   try {
     const spaceClickEndpoint = API_BASE + `/api/v1/space/click/${spaceId}`
@@ -158,7 +157,7 @@ const sendOnClickMetric = async (spaceId) => {
 
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: clicks, spaceId: "${spaceId}", platform: ${platformObj}) { message } }` },
+      { query: `mutation { increment(eventType: clicks, spaceId: "${spaceId}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {

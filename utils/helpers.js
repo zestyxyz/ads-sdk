@@ -53,6 +53,13 @@ const getIPFSGateway = () => {
 }
 
 /**
+ * For each of the following browser checking functions, we have a match with a
+ * confidence of "Full" if both the feature detection check and user agent check
+ * come back true. If only one of them comes back, we have a match with a confidence
+ * of "Partial". If neither of true, match is false and our confidence is "None".
+ */
+
+/**
  * Performs feature detection and a UA check to determine if user is using Oculus Browser.
  * @returns an object indicating whether there is a match and the associated confidence level.
  */

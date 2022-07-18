@@ -66,9 +66,10 @@ const getIPFSGateway = () => {
 const checkOculusBrowser = () => {
   // As of 5/26/22, only Oculus Browser has implemented the WebXR Hand Input Module and WebXR Layers API.
   const featureDetect = (window.XRHand != null && window.XRMediaBinding != null);
-  const uaCheck = navigator.userAgent.includes('OculusBrowser');
-  const confidence = featureDetect && uaCheck ? 'Full' :
-                     featureDetect || uaCheck ? 'Partial' :
+  const uaCheck = navigator.userAgent.includes('OculusBrowser') 
+                  && !navigator.userAgent.includes('Pico');
+  const confidence = featureDetect && uaCheck ? 'Full' : 
+                     featureDetect || uaCheck ? 'Partial' : 
                      'None';
   return { match: confidence !== 'None', confidence: confidence }
 }
@@ -81,9 +82,11 @@ const checkWolvicBrowser = () => {
   // While Wolvic is still shipping with a GeckoView backend, this feature detect should hold true.
   // Once versions with different backends start showing up in the wild, this will need revisiting.
   const featureDetect = (window.mozInnerScreenX != null && window.speechSynthesis == null);
-  const uaCheck = navigator.userAgent.includes('Mobile VR') && !navigator.userAgent.includes('OculusBrowser');
-  const confidence = featureDetect && uaCheck ? 'Full' :
-                     featureDetect || uaCheck ? 'Partial' :
+  const uaCheck = navigator.userAgent.includes('Mobile VR') 
+                  && !navigator.userAgent.includes('OculusBrowser')
+                  && !navigator.userAgent.includes('Pico');
+  const confidence = featureDetect && uaCheck ? 'Full' : 
+                     featureDetect || uaCheck ? 'Partial' : 
                      'None';
   return { match: confidence !== 'None', confidence: confidence }
 }
@@ -96,9 +99,9 @@ const checkWolvicBrowser = () => {
   // Pico's internal browser is a Chromium fork and seems to expose some WebXR AR modules,
   // so perform an isSessionSupported() check for immersive-vr and immersive-ar.
   const featureDetect = (await navigator.xr.isSessionSupported('immersive-vr') && await navigator.xr.isSessionSupported('immersive-ar'));
-  const uaCheck = navigator.userAgent.includes('Pico Neo 3 Link');
-  const confidence = featureDetect && uaCheck ? 'Full' :
-                     featureDetect || uaCheck ? 'Partial' :
+  const uaCheck = navigator.userAgent.includes('Pico Neo 3');
+  const confidence = featureDetect && uaCheck ? 'Full' : 
+                     featureDetect || uaCheck ? 'Partial' : 
                      'None';
   return { match: confidence !== 'None', confidence: confidence }
 }

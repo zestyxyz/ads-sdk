@@ -167,15 +167,10 @@ const sendOnClickMetric = async (spaceId) => {
 
 const analyticsSession = async (spaceId) => {
   const { platform, confidence } = await checkUserPlatform();
-  await sendEvent(spaceId, 'session', platform, confidence);
-}
-
-const sendEvent = async (spaceId, eventType, platform, confidence) => {
   try {
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: $eventType, spaceId: $spaceId, platform: { name: $platform, confidence: $confidence }) { message } }` },
-      { variables: { eventType: eventType, spaceId: spaceId, platform: platform, confidence: confidence } },
+      { query: `mutation { increment(eventType: session, spaceId: ${spaceId}, platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {

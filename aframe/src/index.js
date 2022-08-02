@@ -38,7 +38,7 @@ AFRAME.registerComponent('zesty-banner', {
 
   tick: function() {
     if (this.data.space) {
-      analyticsSession(this.data.space).then(() => {})
+      analyticsSession(this.data.space);
     }
   },
 });

@@ -14,7 +14,7 @@ jobs:
           scripts/build.sh
       - name: Test
         run: |
-          cd ~/work/sdk/sdk
+          cd ~/work/billboard/billboard
           npx playwright install
           yarn run test
   deploy:

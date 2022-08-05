@@ -41,7 +41,7 @@ const fetchNFT = async (space, network = 'polygon') => {
             id: "${space}"
           }
         )
-        { 
+        {
           sellerNFTSetting {
             sellerAuctions (
               first: 5
@@ -165,4 +165,17 @@ const sendOnClickMetric = async (spaceId) => {
   }
 }
 
-export { fetchNFT, parseGraphResponse, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric };
+const analyticsSession = async (spaceId) => {
+  const { platform, confidence } = await checkUserPlatform();
+  try {
+    await axios.post(
+      BEACON_GRAPHQL_URI,
+      { query: `mutation { increment(eventType: session, spaceId: ${spaceId}, platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
+      { headers: { 'Content-Type': 'application/json' }}
+    )
+  } catch (e) {
+    console.log(`Failed to emit ${eventType} analytics`, e.message)
+  }
+}
+
+export { fetchNFT, parseGraphResponse, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric, analyticsSession };

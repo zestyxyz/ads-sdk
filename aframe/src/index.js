@@ -1,6 +1,6 @@
 /* global AFRAME */
 
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
+import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric, analyticsSession } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
 import './visibility_check';
@@ -26,6 +26,7 @@ AFRAME.registerComponent('zesty-banner', {
     if (this.data.creator) {
       console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
     }
+    this.tick = AFRAME.utils.throttleTick(this.tick, 30000, this);
     this.registerEntity();
   },
 
@@ -35,7 +36,12 @@ AFRAME.registerComponent('zesty-banner', {
     createBanner(this.el, space, this.data.network, format, this.data.style, this.data.height, this.data.beacon);
   },
 
-  tick: function() {},
+  // Every 30sec check for `visible` component
+  tick: function() {
+    if (this.data.space) {
+      analyticsSession(this.data.space);
+    }
+  },
 });
 
 AFRAME.registerComponent('zesty-ad', {
@@ -56,6 +62,7 @@ AFRAME.registerComponent('zesty-ad', {
     if (this.data.creator) {
       console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
     }
+    this.tick = AFRAME.utils.throttleTick(this.tick, 30000, this);
     this.registerEntity();
   },
 
@@ -65,8 +72,12 @@ AFRAME.registerComponent('zesty-ad', {
     createBanner(this.el, space, this.data.network, format, this.data.style, this.data.height, this.data.beacon);
   },
 
-  // Every 200ms check for `visible` component
-  tick: function() {},
+  // Every 30sec check for `visible` component
+  tick: function() {
+    if (this.data.space) {
+      analyticsSession(this.data.space);
+    }
+  },
 });
 
 async function createBanner(el, space, network, format, style, height, beacon) {

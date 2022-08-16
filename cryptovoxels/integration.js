@@ -46,6 +46,104 @@ const getIPFSGateway = () => {
   }
   return gateways[i].gateway;
 }
+/**
+ * For each of the following browser checking functions, we have a match with a
+ * confidence of "Full" if both the feature detection check and user agent check
+ * come back true. If only one of them comes back true, we have a match with a confidence
+ * of "Partial". If neither are true, match is false and our confidence is "None".
+ */
+
+/**
+ * Performs feature detection and a UA check to determine if user is using Oculus Browser.
+ * @returns an object indicating whether there is a match and the associated confidence level.
+ */
+ const checkOculusBrowser = () => {
+  // As of 5/26/22, only Oculus Browser has implemented the WebXR Hand Input Module and WebXR Layers API.
+  if (typeof window !== "undefined") {
+    const featureDetect = (window.XRHand != null && window.XRMediaBinding != null);
+    const uaCheck = navigator.userAgent.includes('OculusBrowser');
+    const confidence = featureDetect && uaCheck ? 'Full' :
+                      featureDetect || uaCheck ? 'Partial' :
+                      'None';
+    return { match: confidence !== 'None', confidence: confidence }
+  } else {
+    return { match: false, confidence: 'None'}
+  }
+}
+
+/**
+ * Performs feature detection and a UA check to determine if user is using Wolvic.
+ * @returns an object indicating whether there is a match and the associated confidence level.
+ */
+const checkWolvicBrowser = () => {
+  // While Wolvic is still shipping with a GeckoView backend, this feature detect should hold true.
+  // Once versions with different backends start showing up in the wild, this will need revisiting.
+  if (typeof window !== "undefined") {
+    const featureDetect = (window.mozInnerScreenX != null && window.speechSynthesis == null);
+    const uaCheck = navigator.userAgent.includes('Mobile VR') && !navigator.userAgent.includes('OculusBrowser');
+    const confidence = featureDetect && uaCheck ? 'Full' :
+                      featureDetect || uaCheck ? 'Partial' :
+                      'None';
+    return { match: confidence !== 'None', confidence: confidence }
+  } else {
+    return { match: false, confidence: 'None'}
+  }
+}
+
+/**
+ * Performs feature detection and a UA check to determine if user is using Pico's browser.
+ * @returns an object indicating whether there is a match and the associated confidence level.
+ */
+ const checkPicoBrowser = async () => {
+  // Pico's internal browser is a Chromium fork and seems to expose some WebXR AR modules,
+  // so perform an isSessionSupported() check for immersive-vr and immersive-ar.
+  if (typeof navigator.xr !== 'undefined') {
+    const featureDetect = (await navigator.xr.isSessionSupported('immersive-vr') && await navigator.xr.isSessionSupported('immersive-ar'));
+    const uaCheck = navigator.userAgent.includes('Pico Neo 3 Link');
+    const confidence = featureDetect && uaCheck ? 'Full' :
+                      featureDetect || uaCheck ? 'Partial' :
+                      'None';
+    return { match: confidence !== 'None', confidence: confidence }
+  } else {
+    return { match: false, confidence: 'None'}
+  }
+}
+
+/**
+ * Performs feature detection and a UA check to determine if user is using a browser on their desktop.
+ * @returns an object indicating whether there is a match and the associated confidence level.
+ */
+ const checkDesktopBrowser = () => {
+  // We are doing a coarse check here for lack of touch-capability and no Android/Mobile string in the UA.
+  const featureDetect = (navigator.maxTouchPoints === 0 || navigator.msMaxTouchPoints === 0);
+  const uaCheck = !navigator.userAgent.includes('Android') && !navigator.userAgent.includes('Mobile');
+  const confidence = featureDetect && uaCheck ? 'Full' :
+                     featureDetect || uaCheck ? 'Partial' :
+                     'None';
+  return { match: confidence !== 'None', confidence: confidence }
+}
+
+const checkUserPlatform = async () => {
+  let currentMatch = {
+    platform: '',
+    confidence: ''
+  };
+
+  if (checkOculusBrowser().match) {
+    currentMatch = { platform: 'Oculus', confidence: checkOculusBrowser().confidence };
+  } else if (checkWolvicBrowser().match) {
+    currentMatch = { platform: 'Wolvic', confidence: checkWolvicBrowser().confidence };
+  } else if (await checkPicoBrowser().match) {
+    currentMatch = { platform: 'Pico', confidence: await checkPicoBrowser().confidence };
+  } else if (checkDesktopBrowser().match) {
+    currentMatch = { platform: 'Desktop', confidence: checkDesktopBrowser().confidence };
+  } else {
+    // Cannot determine platform, return a default object
+    currentMatch = { platform: 'Unknown', confidence: 'None' };
+  }
+
+  return currentMatch;
+}
 
 // Formats
 const formats = {
@@ -82,10 +180,8 @@ const defaultFormat = 'square';
 const defaultStyle = 'standard';
 
 // Networking
-const API_BASE = 'https://beacon.zesty.market'
-const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
-const FORWARD_BEACON_URL = `https://forward.zesty.market/${NETWORK}/space/${SPACE}`;
-
+const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql';
+const API_BASE = 'https://beacon.zesty.market';
 
 const ENDPOINTS = {
     "matic": 'https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic',
@@ -121,7 +217,7 @@ const fetchNFT = async (space, network = 'polygon') => {
               id: "${space}"
             }
           )
-          { 
+          {
             sellerNFTSetting {
               sellerAuctions (
                 first: 5
@@ -225,23 +321,43 @@ const appendUTMParams = (url, spaceId) => {
   return res.status == 200 ? { uri: url, data: data } : null
 }
 
-function sendOnLoadMetric(space) {
-  try {
-    const spaceCounterEndpoint = API_BASE + `/api/v1/space/${space}`
-    fetch(spaceCounterEndpoint, { method: 'PUT' });
+const sendOnLoadMetric = async (space) => {
+  const { platform, confidence } = await checkUserPlatform();
 
-    fetch(`${FORWARD_BEACON_URL}/visit`);
+  try {
+    // v1 beacon
+    const spaceCounterEndpoint = API_BASE + `/api/v1/space/${space}`
+    await fetch(spaceCounterEndpoint, { method: 'PUT' });
+
+    // v2 beacon
+    let response = await fetch(BEACON_GRAPHQL_URI, {
+      method: "POST",
+      cors: "cors",
+      headers:  { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: `mutation { increment(eventType: visits, spaceId: ${space}, platform: { name: ${platform}, confidence: ${confidence} }) { message } }`})
+    });
+    console.log(await response.json());
   } catch (e) {
     console.log("Failed to emit onload event", e.message)
   }
 }
 
 const sendOnClickMetric = async (space) => {
+  const { platform, confidence } = await checkUserPlatform();
+
   try {
+    // v1 beacon
     const spaceClickEndpoint = API_BASE + `/api/v1/space/click/${space}`
     fetch(spaceClickEndpoint, { method: 'PUT' });
 
-    fetch(`${FORWARD_BEACON_URL}/click`);
+    // v2 beacon
+    let response = await fetch(BEACON_GRAPHQL_URI, {
+      method: "POST",
+      cors: "cors",
+      headers:  { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: `mutation { increment(eventType: clicks, spaceId: "${space}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` }),
+    })
+    console.log(await response.json());
   } catch (e) {
     console.log("Failed to emit onclick event", e.message)
   }
@@ -269,7 +385,7 @@ async function loadBanner(space, network, format, style, beacon = true) {
     sendOnLoadMetric(space);
   }
 
-  feature.set({'url': image}); 
+  feature.set({'url': image});
   feature.set({'link': url});
 }
 

@@ -1,15 +1,15 @@
-# zesty-sdk
+# zesty-billboard
 
-The Zesty SDK allows developers to integrate their app into the Zesty Network. More docs: https://docs.zesty.market
+The Zesty Billboard SDK allows developers to integrate their app into the Zesty Network. More docs: https://docs.zesty.market
 
 Currently, we support the following platforms:
 
-- [aframe](https://github.com/zestymarket/zesty-sdk/tree/main/aframe)
-- [babylon.js](https://github.com/zestymarket/zesty-sdk/tree/main/babylonjs)
-- [react-three-fiber](https://github.com/zestymarket/zesty-sdk/tree/main/r3f)
-- [three.js](https://github.com/zestymarket/zesty-sdk/tree/main/threejs)
-- [web](https://github.com/zestymarket/zesty-sdk/tree/main/web)
-- [wonderland](https://github.com/zestymarket/zesty-sdk/tree/main/wonderland)
+- [aframe](https://github.com/zestymarket/billboard/tree/main/aframe)
+- [babylon.js](https://github.com/zestymarket/billboard/tree/main/babylonjs)
+- [react-three-fiber](https://github.com/zestymarket/billboard/tree/main/r3f)
+- [three.js](https://github.com/zestymarket/billboard/tree/main/threejs)
+- [web](https://github.com/zestymarket/billboard/tree/main/web)
+- [wonderland](https://github.com/zestymarket/billboard/tree/main/wonderland)
 
 ## What's Zesty?
 

@@ -19,39 +19,39 @@ test.describe('Standard styles', () => {
   test('The tall standard banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.children[0].banner.src != null);
     const banner1 = await page.evaluate(() => window.scene.children[0].banner.src);
-    expect(banner1.split('/').pop()).toBe('zesty-banner-tall.png');
+    expect(banner1.split('/').pop()).toBe('QmSasURHs9AHTmJA7W98QsZ884zb6VVgFfF85Wf3HpNcBb');
   });
 
   test('The wide standard banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.children[1].banner.src != null);
     const banner2 = await page.evaluate(() => window.scene.children[1].banner.src);
-    expect(banner2.split('/').pop()).toBe('zesty-banner-wide.png');
+    expect(banner2.split('/').pop()).toBe('QmeBbzTnaMqedDaBRuxtjJCJMBwtbWuuXVsNNAAV6LQopF');
   });
 
   test('The square standard banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.children[2].banner.src != null);
     const banner3 = await page.evaluate(() => window.scene.children[2].banner.src);
-    expect(banner3.split('/').pop()).toBe('zesty-banner-square.png');
+    expect(banner3.split('/').pop()).toBe('Qmbu9MAHHxB7JCTyyt291upMMMqZCjtoqbrvDMG56Lug3z');
   });
 });
 
 test.describe('Minimal styles', () => {
-  test('The tall standard banner is present', async ({ page }) => {
+  test('The tall minimal banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.children[3].banner.src != null);
     const banner4 = await page.evaluate(() => window.scene.children[3].banner.src);
-    expect(banner4.split('/').pop()).toBe('zesty-banner-tall-minimal.png');
+    expect(banner4.split('/').pop()).toBe('QmPCtWL6HhRJaeEPj3y26GSEofchLfWyX79kan2QZ66bbu');
   });
 
-  test('The wide standard banner is present', async ({ page }) => {
+  test('The wide minimal banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.children[4].banner.src != null);
     const banner5 = await page.evaluate(() => window.scene.children[4].banner.src);
-    expect(banner5.split('/').pop()).toBe('zesty-banner-wide-minimal.png');
+    expect(banner5.split('/').pop()).toBe('QmYwZ7BxeG1drdPcPo61vH4yLaMiBo5UypymfKC6T3kehV');
   });
 
-  test('The square standard banner is present', async ({ page }) => {
+  test('The square minimal banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.children[5].banner.src != null);
     const banner6 = await page.evaluate(() => window.scene.children[5].banner.src);
-    expect(banner6.split('/').pop()).toBe('zesty-banner-square-minimal.png');
+    expect(banner6.split('/').pop()).toBe('QmYWsEm5m2MbVRHk4G4gUfH3qyNSiraVm5BS4FUxjfp6KU');
   });
 });
 
@@ -59,19 +59,19 @@ test.describe('Transparent styles', () => {
   test('The tall transparent banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.children[6].banner.src != null);
     const banner7 = await page.evaluate(() => window.scene.children[6].banner.src);
-    expect(banner7.split('/').pop()).toBe('zesty-banner-tall-transparent.png');
+    expect(banner7.split('/').pop()).toBe('QmRiTKTFNDbe8tq7xXdWcyXqRAWsKKgbGdiz6wofrCceua');
   });
 
   test('The wide transparent banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.children[7].banner.src != null);
     const banner8 = await page.evaluate(() => window.scene.children[7].banner.src);
-    expect(banner8.split('/').pop()).toBe('zesty-banner-wide-transparent.png');
+    expect(banner8.split('/').pop()).toBe('QmPHHXwUXHog4KtwYmPKU1bqCJ7MJ9mwPV799HaHE6MQS3');
   });
 
   test('The square transparent banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.children[8].banner.src != null);
     const banner9 = await page.evaluate(() => window.scene.children[8].banner.src);
-    expect(banner9.split('/').pop()).toBe('zesty-banner-square-transparent.png');
+    expect(banner9.split('/').pop()).toBe('QmQ3nGPFJKeTdhW3zSzgYDttARQDCbrqqh7aCSAs4Lc6pH');
   });
 });
 

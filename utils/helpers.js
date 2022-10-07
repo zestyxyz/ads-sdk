@@ -35,9 +35,9 @@ const parseProtocol = uri => {
  */
 const getIPFSGateway = () => {
   const gateways = [
-    { gateway: 'https://cloudflare-ipfs.com', weight: 35 },
-    { gateway: 'https://gateway.pinata.cloud', weight: 35 },
-    { gateway: 'https://dweb.link', weight: 30 }
+    { gateway: 'https://ipfs.filebase.io', weight: 90 },
+    { gateway: 'https://cloudflare-ipfs.com', weight: 5 },
+    { gateway: 'https://gateway.pinata.cloud', weight: 5 },
   ];
 
   const weights = [];
@@ -67,8 +67,8 @@ const checkOculusBrowser = () => {
   // As of 5/26/22, only Oculus Browser has implemented the WebXR Hand Input Module and WebXR Layers API.
   const featureDetect = (window.XRHand != null && window.XRMediaBinding != null);
   const uaCheck = navigator.userAgent.includes('OculusBrowser');
-  const confidence = featureDetect && uaCheck ? 'Full' : 
-                     featureDetect || uaCheck ? 'Partial' : 
+  const confidence = featureDetect && uaCheck ? 'Full' :
+                     featureDetect || uaCheck ? 'Partial' :
                      'None';
   return { match: confidence !== 'None', confidence: confidence }
 }
@@ -82,8 +82,8 @@ const checkWolvicBrowser = () => {
   // Once versions with different backends start showing up in the wild, this will need revisiting.
   const featureDetect = (window.mozInnerScreenX != null && window.speechSynthesis == null);
   const uaCheck = navigator.userAgent.includes('Mobile VR') && !navigator.userAgent.includes('OculusBrowser');
-  const confidence = featureDetect && uaCheck ? 'Full' : 
-                     featureDetect || uaCheck ? 'Partial' : 
+  const confidence = featureDetect && uaCheck ? 'Full' :
+                     featureDetect || uaCheck ? 'Partial' :
                      'None';
   return { match: confidence !== 'None', confidence: confidence }
 }
@@ -97,8 +97,8 @@ const checkWolvicBrowser = () => {
   // so perform an isSessionSupported() check for immersive-vr and immersive-ar.
   const featureDetect = (await navigator.xr.isSessionSupported('immersive-vr') && await navigator.xr.isSessionSupported('immersive-ar'));
   const uaCheck = navigator.userAgent.includes('Pico Neo 3 Link');
-  const confidence = featureDetect && uaCheck ? 'Full' : 
-                     featureDetect || uaCheck ? 'Partial' : 
+  const confidence = featureDetect && uaCheck ? 'Full' :
+                     featureDetect || uaCheck ? 'Partial' :
                      'None';
   return { match: confidence !== 'None', confidence: confidence }
 }
@@ -111,8 +111,8 @@ const checkWolvicBrowser = () => {
   // We are doing a coarse check here for lack of touch-capability and no Android/Mobile string in the UA.
   const featureDetect = (navigator.maxTouchPoints === 0 || navigator.msMaxTouchPoints === 0);
   const uaCheck = !navigator.userAgent.includes('Android') && !navigator.userAgent.includes('Mobile');
-  const confidence = featureDetect && uaCheck ? 'Full' : 
-                     featureDetect || uaCheck ? 'Partial' : 
+  const confidence = featureDetect && uaCheck ? 'Full' :
+                     featureDetect || uaCheck ? 'Partial' :
                      'None';
   return { match: confidence !== 'None', confidence: confidence }
 }
@@ -122,7 +122,7 @@ const checkUserPlatform = async () => {
     platform: '',
     confidence: ''
   };
-  
+
   if (checkOculusBrowser().match) {
     currentMatch = { platform: 'Oculus', confidence: checkOculusBrowser().confidence };
   } else if (checkWolvicBrowser().match) {
@@ -135,20 +135,20 @@ const checkUserPlatform = async () => {
     // Cannot determine platform, return a default object
     currentMatch = { platform: 'Unknown', confidence: 'None' };
   }
-  
+
   return currentMatch;
 }
 
 const openURL = url => {
   if (!url) return;
-  
+
   // Are we on a device that will deeplink?
   // This may need to be expanded in the future.
   if (checkOculusBrowser().match) {
     if (url.includes('https://www.oculus.com/experiences/quest/')) {
         setTimeout(() => {
           window.open(url, '_blank');
-        }, 1000);      
+        }, 1000);
         return;
     }
   } else if (checkWolvicBrowser().match) {
@@ -187,12 +187,12 @@ const openURL = url => {
       window.open(url, '_blank');
       modal.remove();
     }
-    
+
     no.innerText = 'No';
     no.onclick = () => {
       modal.remove();
     }
-    
+
     modal.append(content);
     content.append(message);
     content.append(yes);
@@ -215,7 +215,7 @@ const appendUTMParams = (url, spaceId) => {
   return new_url.href;
 }
 
-export { 
+export {
   parseProtocol,
   getIPFSGateway,
   checkOculusBrowser,

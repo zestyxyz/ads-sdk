@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <link rel="preload" href="Wonderland Test-bundle.js?t=2022-06-07T21:58:17.282" as="script">
+    <link rel="preload" href="Wonderland Test-bundle.js?t=2022-10-11T11:47:12.858" as="script">
     <title>Wonderland Test</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,62 +53,39 @@
     </style>
     <script>
         var Module = {
-          scene: "Wonderland Test.bin",
           webxr_framebuffer_scale_factor: 1.000
         };
     </script>
     
-    <script src="wonderland.min.js?t=2022-06-07T21:58:17.282"></script>
+    <script src="wonderland.min.js?t=2022-10-11T11:47:12.858"></script>
     <script type="module">
-        import { simd, threads } from "./wasm-featuredetect.js";
-
-        function loadRuntime(simd, threads) {
-
-            let runtime = 'WonderlandRuntime' + (simd ? '-simd' : '') + (threads ? '-threads' : '')
-
-            const s = document.createElement('script');
-            document.body.appendChild(s);
-            const bundle = document.createElement('script');
-            bundle.id = 'bundle';
-            document.body.appendChild(bundle);
-
-            /* We need to ensure the bundle is loaded after the runtime js always */
-            Module.preRun = function() {
-              addRunDependency('bundle');
-              bundle.onload = () => {
-                removeRunDependency('bundle');
-              };
-              bundle.src = "Wonderland Test-bundle.js?t=2022-06-07T21:58:17.282";
-            }
-            s.src = runtime + '.js';
+        function loadScript(scriptURL) {
+            return new Promise((res, rej) => {
+                const s = document.createElement('script');
+                s.onload = () => res(s);
+                s.onerror = rej;
+                s.src = scriptURL;
+                document.body.appendChild(s);
+            });
         }
 
-        WL.onXRSupported.push((type, supported) => {
-            const button = document.getElementById(type + '-button');
-            if(button) button.dataset.supported = supported;
-        })
+        async function init() {
+            try {
+                await WL.loadRuntime('WonderlandRuntime');
+                WL.onXRSupported.push((type, supported) => {
+                    const button = document.getElementById(type + '-button');
+                    if(button) button.dataset.supported = supported;
+                });
 
-        Promise.all([simd(), threads()]).then((support) => {
-            const simdSupported = support[0];
-            const threadsSupported = support[1];
-            if (simdSupported) {
-                console.log("WASM SIMD is supported");
-            } else {
-                console.warn("WASM SIMD is not supported");
+                const bundle = await loadScript("Wonderland Test-bundle.js?t=2022-10-11T11:47:12.858");
+                bundle.id = 'bundle';
+
+                WL.scene.load('Wonderland Test.bin');
+            } catch(e) {
+              console.error(e);
             }
-
-            if (threadsSupported) {
-              if (self.crossOriginIsolated) {
-                console.log("WASM Threads is supported");
-              } else {
-                console.warn("WASM Threads is supported, but the page is not crossOriginIsolated, therefore thread support is disabled.");
-              }
-            } else {
-              console.warn("WASM Threads is not supported");
-            }
-
-            loadRuntime(simdSupported, threadsSupported && self.crossOriginIsolated);
-        });
+        }
+        init();
     </script>
     
     </script>

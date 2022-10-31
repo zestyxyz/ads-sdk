@@ -7,7 +7,7 @@ module.exports = {
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
-        libraryTarget: 'umd'
+        libraryTarget: 'module'
     },
     devServer: {
         contentBase: __dirname,
@@ -16,5 +16,8 @@ module.exports = {
     },
     externals: {
         "three": "three"
+    },
+    experiments: {
+        outputModule: true
     }
 };

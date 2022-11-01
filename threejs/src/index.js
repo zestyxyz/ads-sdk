@@ -1,4 +1,10 @@
-import * as THREE from 'three';
+import { 
+  Mesh, 
+  MeshBasicMaterial,
+  WebGLRenderer,
+  PlaneGeometry,
+  TextureLoader
+} from 'three';
 import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats } from '../../utils/formats';
 import { openURL, parseProtocol } from '../../utils/helpers';
@@ -6,18 +12,18 @@ import { version } from '../package.json';
 
 console.log('Zesty SDK Version: ', version);
 
-export default class ZestyBanner extends THREE.Mesh {
+export default class ZestyBanner extends Mesh {
   /**
    * @constructor
    * @param {string} space The space ID
    * @param {string} network The network to connect to ('rinkeby' or 'polygon')
    * @param {string} format The format of the default banner
    * @param {Number} height Height of the banner
-   * @param {THREE.WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
+   * @param {WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
    */
   constructor(space, network, format, style, height, renderer = null, beacon = true) {
     super();
-    this.geometry = new THREE.PlaneGeometry(formats[format].width * height, height, 1, 1);
+    this.geometry = new PlaneGeometry(formats[format].width * height, height, 1, 1);
 
     this.type = 'ZestyBanner';
     this.space = space;
@@ -27,7 +33,7 @@ export default class ZestyBanner extends THREE.Mesh {
     this.banner = {};
 
     this.bannerPromise = loadBanner(space, network, format, style).then(banner => {
-      this.material = new THREE.MeshBasicMaterial({
+      this.material = new MeshBasicMaterial({
         map: banner.texture
       });
       this.material.transparent = true;
@@ -69,7 +75,7 @@ async function loadBanner(space, network, format, style) {
   image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
 
   return new Promise((resolve, reject) => {
-    const loader = new THREE.TextureLoader();
+    const loader = new TextureLoader();
 
     loader.load(
       image,

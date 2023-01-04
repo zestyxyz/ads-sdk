@@ -24,7 +24,6 @@
     "@react-three/fiber": "^8.9.2",
     "@react-three/xr": "^5.1.2",
     "babel-loader": "^8.2.5",
-    "localtunnel": "^2.0.2",
     "react": "^17.0.2",
     "three": "^0.148.0",
     "webpack": "^5.73.0",

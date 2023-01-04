@@ -4,7 +4,7 @@
 const config = {
   webServer: {
     command: 'yarn serve',
-    url: 'http://localhost:8080/',
+    url: 'http://127.0.0.1:8080/',
     timeout: 180 * 1000,
     reuseExistingServer: !process.env.CI,
   },

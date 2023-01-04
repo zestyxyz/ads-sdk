@@ -34,10 +34,11 @@ const parseProtocol = uri => {
  * @returns A weighted random public IPFS gateway
  */
 const getIPFSGateway = () => {
+  // Temporarily re-weighting for ease of testing during V2 migration
   const gateways = [
-    { gateway: 'https://ipfs.filebase.io', weight: 90 },
-    { gateway: 'https://cloudflare-ipfs.com', weight: 5 },
-    { gateway: 'https://gateway.pinata.cloud', weight: 5 },
+    { gateway: 'https://ipfs.filebase.io', weight: 34 },
+    { gateway: 'https://cloudflare-ipfs.com', weight: 33 },
+    { gateway: 'https://gateway.pinata.cloud', weight: 33 },
   ];
 
   const weights = [];
@@ -95,7 +96,8 @@ const checkWolvicBrowser = () => {
  const checkPicoBrowser = async () => {
   // Pico's internal browser is a Chromium fork and seems to expose some WebXR AR modules,
   // so perform an isSessionSupported() check for immersive-vr and immersive-ar.
-  const featureDetect = (await navigator.xr.isSessionSupported('immersive-vr') && await navigator.xr.isSessionSupported('immersive-ar'));
+  const featureDetect = navigator.xr && 
+    (await navigator.xr.isSessionSupported('immersive-vr') && await navigator.xr.isSessionSupported('immersive-ar'));
   const uaCheck = navigator.userAgent.includes('Pico Neo 3 Link');
   const confidence = featureDetect && uaCheck ? 'Full' :
                      featureDetect || uaCheck ? 'Partial' :

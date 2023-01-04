@@ -218,8 +218,13 @@ const appendUTMParams = (url, spaceId) => {
   let res = await fetch(parseProtocol(uri));
   let data = await res.json();
   let url = res.url;
+  let image = res.image;
   if(!urlContainsUTMParams(res.url)) {
     url = appendUTMParams(res.url, space);
+       
+    // Need to add https:// if missing for page to open properly
+    url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
+    image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
   }
 
   return res.status == 200 ? { uri: url, data: data } : null
@@ -254,16 +259,7 @@ async function loadBanner(space, network, format, style, beacon = true) {
 
   const activeBanner = await fetchActiveBanner(uri, format, style, space);
 
-  // Need to add https:// if missing for page to open properly
-  let url = activeBanner.data.url;
-  url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
-
-  if (url == 'https://www.zesty.market') {
-    url = `https://app.zesty.market/space/${space}`;
-  }
-
-  let image = activeBanner.data.image;
-  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
+  const { image, url } = activeBanner.data;
 
   if (beacon) {
     sendOnLoadMetric(space);

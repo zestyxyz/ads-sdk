@@ -30,7 +30,7 @@ WL.registerComponent(
       values: ['standard', 'minimal', 'transparent'],
       default: 'transparent',
     },
-    /* Scale width of the object to banner ratio (see adFormat) and set the collider */
+    /* Scale width of the object to banner ratio (see format) and set the collider */
     scaleToRatio: { type: WL.Type.Bool, default: true },
     /* Texture property to set after banner is loaded. Leave "auto" to detect from
      * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
@@ -151,16 +151,7 @@ WL.registerComponent(
       const activeNFT = await fetchNFT(space, network);
       const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space, this.formatsOverride);
 
-      // Need to add https:// if missing for page to open properly
-      let url = activeBanner.data.url;
-      url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
-
-      if (url === 'https://www.zesty.market') {
-        url = `https://app.zesty.market/space/${space}`;
-      }
-
-      let image = activeBanner.data.image;
-      image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
+      const { image, url } = activeBanner.data;
 
       return WL.textures.load(image, '').then((texture) => {
         activeBanner.texture = texture;

@@ -121,6 +121,10 @@ const fetchActiveBanner = async (uri, format, style, space, formatsOverride) => 
   .then((res) => {
     if(!urlContainsUTMParams(res.data.url)) {
       res.data.url = appendUTMParams(res.data.url, space);
+      
+      // Need to add https:// if missing for page to open properly
+      res.data.url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
+      res.data.image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
     }
     return res.status == 200 ? { uri: uri, data: res.data } : null
   })

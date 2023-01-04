@@ -10,8 +10,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@wonderlandengine/api": "^0.8.6",
-    "@wonderlandengine/components": "^0.8.10",
+    "@wonderlandengine/api": "^0.9.4",
+    "@wonderlandengine/components": "^0.9.1",
     "gl-matrix": "^3.3.0"
   },
   "devDependencies": {

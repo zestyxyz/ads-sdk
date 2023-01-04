@@ -19,6 +19,6 @@
         "webpack-dev-server": "^4.9.2"
     },
     "peerDependencies": {
-        "babylonjs": "^4.2.0"
+        "babylonjs": "^5.40.0"
     }
 }

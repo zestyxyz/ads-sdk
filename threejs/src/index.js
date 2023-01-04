@@ -64,15 +64,7 @@ async function loadBanner(space, network, format, style) {
   const activeNFT = await fetchNFT(space, network);
   const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
 
-  // Need to add https:// if missing for page to open properly
-  let url = activeBanner.data.url;
-  url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
-  if (url === 'https://www.zesty.market') {
-    url = `https://app.zesty.market/space/${space}`;
-  }
-
-  let image = activeBanner.data.image;
-  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
+  const { image, url } = activeBanner.data;
 
   return new Promise((resolve, reject) => {
     const loader = new TextureLoader();

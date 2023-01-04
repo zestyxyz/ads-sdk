@@ -14,18 +14,14 @@ console.log('Zesty SDK Version: ', version);
 export default function ZestyBanner(props) {
   const [bannerData, setBannerData] = useState(false);
 
-  const space = props.space ? props.space : props.adSpace;
-  const format = (props.format ? props.format : props.adFormat) ?? defaultFormat;
+  const space = props.space;
+  const format = props.format ?? defaultFormat;
 
   const width = props.width ?? formats[format].width;
   const height = props.height ?? formats[format].height;
 
   const newStyle = props.style ?? defaultStyle;
   const beacon = props.beacon ?? true;
-
-  if (props.creator) {
-    console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
-  }
 
   const loadBanner = async (space, network, format, style) => {
     const activeNFT = await fetchNFT(space, network);
@@ -35,15 +31,6 @@ export default function ZestyBanner(props) {
 
   useEffect(() => {
     loadBanner(space, props.network, format, newStyle).then((data) => {
-      const banner = data.data;
-      let url = banner.url || banner.properties?.url;
-      if (url === 'https://www.zesty.market') {
-        url = `https://app.zesty.market/space/${props.space}`;
-      }
-      banner.image = banner.image.match(/^.+\.(png|jpe?g)/i)
-        ? banner.image
-        : parseProtocol(banner.image);
-
       if (beacon) {
         sendOnLoadMetric(space);
       }

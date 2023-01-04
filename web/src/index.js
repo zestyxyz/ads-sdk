@@ -23,20 +23,9 @@ class Zesty extends HTMLElement {
   connectedCallback() {
     this.style.cursor = 'pointer';
 
-    this.space = this.hasAttribute('space')
-      ? this.getAttribute('space')
-      : this.hasAttribute('adspace')
-      ? this.getAttribute('adspace')
-      : this.space;
-    if (this.getAttribute('creator') !== null) {
-      console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
-    }
+    this.space = this.hasAttribute('space') ? this.getAttribute('space') : this.space;
     this.network = this.hasAttribute('network') ? this.getAttribute('network') : this.network;
-    this.format = this.hasAttribute('format')
-      ? this.getAttribute('format')
-      : this.hasAttribute('adformat')
-      ? this.getAttribute('adformat')
-      : this.format;
+    this.format = this.hasAttribute('format') ? this.getAttribute('format') : this.format;
     this.bannerstyle = this.hasAttribute('bannerstyle')
       ? this.getAttribute('bannerstyle')
       : this.bannerstyle;
@@ -50,16 +39,7 @@ class Zesty extends HTMLElement {
       const activeNFT = await fetchNFT(space, creator, network);
       const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
 
-      // Need to add https:// if missing for page to open properly
-      let url = activeBanner.data.url;
-      url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
-
-      if (url === 'https://www.zesty.market') {
-        url = `https://app.zesty.market/space/${space}`;
-      }
-
-      let image = activeBanner.data.image;
-      image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
+      const { image, url } = activeBanner.data;
 
       const img = document.createElement('img');
       shadow.appendChild(img);

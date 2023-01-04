@@ -6,12 +6,11 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'dist'),
-        libraryTarget: 'umd'
+        path: path.resolve(__dirname, 'dist')
     },
     devServer: {
         contentBase: __dirname,
         publicPath: '/dist/',
         disableHostCheck: true // required for localtunnel to work (https://github.com/webpack/webpack-dev-server/issues/882)
-    },
+    }
 };

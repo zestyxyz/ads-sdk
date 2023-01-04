@@ -7,7 +7,7 @@ module.exports = {
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
-        libraryTarget: 'umd'
+        libraryTarget: 'module'
     },
     devServer: {
         contentBase: __dirname,
@@ -39,5 +39,8 @@ module.exports = {
         "@react-three/fiber": "@react-three/fiber",
         "@react-three/xr": "@react-three/xr",
         "three": "three"
+    },
+    experiments: {
+        outputModule: true
     }
 };

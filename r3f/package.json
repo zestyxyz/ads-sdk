@@ -3,6 +3,10 @@
   "version": "1.6.0",
   "description": "This is the react-three-fiber SDK for Zesty Banner integration.",
   "main": "dist/zesty-r3f-sdk.js",
+  "exports": {
+    ".": "./dist/zesty-r3f-sdk.js",
+    "./xr": "./dist/zesty-reactxr-sdk.js"
+  },
   "scripts": {
     "test": "webpack --mode=development",
     "build": "webpack --mode=production",

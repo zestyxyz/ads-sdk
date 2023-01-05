@@ -52,11 +52,16 @@ export default function ZestyBanner(props) {
 }
 
 function BannerPlane(props) {
+  let texture;
   const mesh = useRef();
 
   if (!props.bannerData.image) return null;
 
-  const texture = useLoader(THREE.TextureLoader, props.bannerData.image);
+  try {
+    texture = useLoader(THREE.TextureLoader, props.bannerData.image);
+  } catch {
+    return null;
+  }
 
   const onClick = (event) => {
     const banner = props.bannerData.data;

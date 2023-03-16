@@ -5,9 +5,9 @@ import {
   PlaneGeometry,
   TextureLoader
 } from 'three';
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
+import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd } from '../../utils/networking';
 import { formats } from '../../utils/formats';
-import { openURL, parseProtocol } from '../../utils/helpers';
+import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
 
 console.log('Zesty SDK Version: ', version);
@@ -21,18 +21,17 @@ export default class ZestyBanner extends Mesh {
    * @param {Number} height Height of the banner
    * @param {WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
    */
-  constructor(space, network, format, style, height, renderer = null, beacon = true) {
+  constructor(space, format, style, height, renderer = null, beacon = true) {
     super();
     this.geometry = new PlaneGeometry(formats[format].width * height, height, 1, 1);
 
     this.type = 'ZestyBanner';
     this.space = space;
-    this.network = network;
     this.renderer = renderer;
     this.beacon = beacon;
     this.banner = {};
 
-    this.bannerPromise = loadBanner(space, network, format, style).then(banner => {
+    this.bannerPromise = loadBanner(space, format, style).then(banner => {
       this.material = new MeshBasicMaterial({
         map: banner.texture
       });
@@ -60,11 +59,10 @@ export default class ZestyBanner extends Mesh {
   }
 }
 
-async function loadBanner(space, network, format, style) {
-  const activeNFT = await fetchNFT(space, network);
-  const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
+async function loadBanner(space, format, style) {
+  const activeBanner = await fetchCampaignAd(space, format, style);
 
-  const { image, url } = activeBanner.data;
+  const { asset_url: image, cta_url: url } = activeBanner[0];
 
   return new Promise((resolve, reject) => {
     const loader = new TextureLoader();

@@ -1,8 +1,8 @@
 /* global WL */
 
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
+import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
-import { openURL, parseProtocol } from '../../utils/helpers';
+import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
 
 console.log('Zesty SDK Version: ', version);
@@ -19,9 +19,7 @@ WL.registerComponent(
   'zesty-banner',
   {
     /* Your banner space index */
-    space: { type: WL.Type.Int },
-    /* The network to connect to */
-    network: { type: WL.Type.Enum, values: ['rinkeby', 'polygon'], default: 'polygon' },
+    space: { type: WL.Type.String },
     /* The default banner format, determines aspect ratio */
     format: { type: WL.Type.Enum, values: Object.keys(formats), default: defaultFormat },
     /* The default banner visual style */
@@ -85,7 +83,6 @@ WL.registerComponent(
     startLoading: function() {
       this.loadBanner(
         this.space,
-        this.network,
         this.formatKeys[this.format],
         this.styleKeys[this.style]
       ).then((banner) => {
@@ -146,18 +143,13 @@ WL.registerComponent(
         sendOnClickMetric(this.space);
       }
     },
-    loadBanner: async function (space, network, format, style) {
-      network = network ? 'polygon' : 'rinkeby'; // Use truthy/falsy values to get network
-      const activeNFT = await fetchNFT(space, network);
-      const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space, this.formatsOverride);
+    loadBanner: async function (space, format, style) {
+      const activeCampaign = await fetchCampaignAd(space, format, style)
 
-      const { image, url } = activeBanner.data;
+      const { asset_url: image, cta_url: url } = activeCampaign[0];
 
       return WL.textures.load(image, '').then((texture) => {
-        activeBanner.texture = texture;
-        activeBanner.imageSrc = image;
-        activeBanner.url = url;
-        return activeBanner;
+        return { texture, imageSrc: image, url };
       });
     },
   }

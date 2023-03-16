@@ -1,31 +1,31 @@
-import { getIPFSGateway } from "./helpers.js";
+const assetsURL = 'https://zesty-storage-09e38383232656-staging.s3.amazonaws.com/images/zesty';
 
 const formats = {
     'tall': {
         width: 0.75,
         height: 1,
         style: {
-            'standard': `${getIPFSGateway()}/ipfs/QmSasURHs9AHTmJA7W98QsZ884zb6VVgFfF85Wf3HpNcBb`,
-            'minimal': `${getIPFSGateway()}/ipfs/QmPCtWL6HhRJaeEPj3y26GSEofchLfWyX79kan2QZ66bbu`,
-            'transparent': `${getIPFSGateway()}/ipfs/QmRiTKTFNDbe8tq7xXdWcyXqRAWsKKgbGdiz6wofrCceua`
+            'standard': `${assetsURL}/zesty-banner-tall.png`,
+            'minimal': `${assetsURL}/zesty-banner-tall-minimal.png`,
+            'transparent': `${assetsURL}/zesty-banner-tall-transparent.png`
         }
     },
     'wide': {
         width: 4,
         height: 1,
         style: {
-            'standard': `${getIPFSGateway()}/ipfs/QmeBbzTnaMqedDaBRuxtjJCJMBwtbWuuXVsNNAAV6LQopF`,
-            'minimal': `${getIPFSGateway()}/ipfs/QmYwZ7BxeG1drdPcPo61vH4yLaMiBo5UypymfKC6T3kehV`,
-            'transparent': `${getIPFSGateway()}/ipfs/QmPHHXwUXHog4KtwYmPKU1bqCJ7MJ9mwPV799HaHE6MQS3`
+            'standard': `${assetsURL}/zesty-banner-wide.png`,
+            'minimal': `${assetsURL}/zesty-banner-wide-minimal.png`,
+            'transparent': `${assetsURL}/zesty-banner-wide-transparent.png`
         }
     },
     'square': {
         width: 1,
         height: 1,
         style: {
-            'standard': `${getIPFSGateway()}/ipfs/Qmbu9MAHHxB7JCTyyt291upMMMqZCjtoqbrvDMG56Lug3z`,
-            'minimal': `${getIPFSGateway()}/ipfs/QmYWsEm5m2MbVRHk4G4gUfH3qyNSiraVm5BS4FUxjfp6KU`,
-            'transparent': `${getIPFSGateway()}/ipfs/QmQ3nGPFJKeTdhW3zSzgYDttARQDCbrqqh7aCSAs4Lc6pH`
+            'standard': `${assetsURL}/zesty-banner-square.png`,
+            'minimal': `${assetsURL}/zesty-banner-square-minimal.png`,
+            'transparent': `${assetsURL}/zesty-banner-square-transparent.png`
         }
     }
 }

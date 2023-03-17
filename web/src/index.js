@@ -1,6 +1,6 @@
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
+import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { openURL, parseProtocol } from '../../utils/helpers';
+import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
 
 console.log('Zesty SDK Version: ', version);
@@ -9,7 +9,6 @@ class Zesty extends HTMLElement {
   constructor() {
     super();
     this.space = '';
-    this.network = 'polygon';
     this.format = defaultFormat;
     this.bannerstyle = defaultStyle;
     this.width = '100%';
@@ -24,7 +23,6 @@ class Zesty extends HTMLElement {
     this.style.cursor = 'pointer';
 
     this.space = this.hasAttribute('space') ? this.getAttribute('space') : this.space;
-    this.network = this.hasAttribute('network') ? this.getAttribute('network') : this.network;
     this.format = this.hasAttribute('format') ? this.getAttribute('format') : this.format;
     this.bannerstyle = this.hasAttribute('bannerstyle')
       ? this.getAttribute('bannerstyle')
@@ -35,15 +33,14 @@ class Zesty extends HTMLElement {
 
     this.adjustHeightandWidth();
 
-    async function loadBanner(space, creator, network, format, style, shadow, width, height, beacon) {
-      const activeNFT = await fetchNFT(space, creator, network);
-      const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
+    async function loadBanner(space, format, style, shadow, width, height, beacon) {
+      const activeCampaign = await fetchCampaignAd(space, format, style);
 
-      const { image, url } = activeBanner.data;
+      const { id, asset_url: image, cta_url: url } = activeCampaign[0];
 
       const img = document.createElement('img');
       shadow.appendChild(img);
-      img.setAttribute('id', activeBanner.uri);
+      img.setAttribute('id', id);
       img.style.width = width;
       img.style.height = height;
       img.setAttribute('crossorigin', '');
@@ -60,10 +57,10 @@ class Zesty extends HTMLElement {
         sendOnLoadMetric(space);
       }
 
-      if (activeBanner.data.image) {
+      if (image) {
         img.setAttribute('src', image);
         return new Promise((resolve, reject) => {
-          img.onload = () => resolve({ img: img, uri: activeBanner.uri, url: url });
+          img.onload = () => resolve({ img, url });
           img.onerror = () => reject(new Error('img load error'));
         });
       } else {
@@ -73,8 +70,6 @@ class Zesty extends HTMLElement {
 
     loadBanner(
       this.space,
-      this.creator,
-      this.network,
       this.format,
       this.bannerstyle,
       this.shadow,

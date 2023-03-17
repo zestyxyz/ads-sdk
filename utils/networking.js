@@ -11,9 +11,9 @@ const STAGING_DB_ENDPOINT = 'https://api-staging.zesty.market/api';
 
 //const sessionId = uuidv4();
 
-const fetchCampaignAd = async (adUnitId, format, style) => {
+const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {
   try {
-    const res = await axios.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}`);
+    const res = await axios.get(`${STAGING_DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}`);
     return res.data;
   } catch {
     console.warn('No active campaign banner could be located. Displaying default banner.')

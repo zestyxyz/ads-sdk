@@ -407,7 +407,7 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": "e26728b0-0928-43e3-9a40-6b440f496b5e",
+                        "space": "999999",
                         "format": "tall",
                         "style": "standard",
                         "beacon": true,
@@ -465,9 +465,10 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "style": "standard",
-                        "space": "e26728b0-0928-43e3-9a40-6b440f496b5e",
+                        "space": "999999",
                         "beacon": true,
-                        "dynamicFormats": false
+                        "dynamicFormats": false,
+                        "format": "wide"
                     }
                 }
             ],
@@ -522,7 +523,7 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "style": "standard",
-                        "space": "e26728b0-0928-43e3-9a40-6b440f496b5e",
+                        "space": "999999",
                         "beacon": false,
                         "dynamicFormats": false
                     }
@@ -580,7 +581,7 @@
                     "zesty-banner": {
                         "format": "tall",
                         "style": "minimal",
-                        "space": "e26728b0-0928-43e3-9a40-6b440f496b5e",
+                        "space": "999999",
                         "beacon": false,
                         "dynamicFormats": false
                     }
@@ -639,7 +640,7 @@
                         "format": "wide",
                         "style": "minimal",
                         "beacon": false,
-                        "space": "e26728b0-0928-43e3-9a40-6b440f496b5e",
+                        "space": "999999",
                         "dynamicFormats": false
                     }
                 }
@@ -694,7 +695,7 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": "e26728b0-0928-43e3-9a40-6b440f496b5e",
+                        "space": "999999",
                         "style": "minimal",
                         "beacon": false,
                         "dynamicFormats": false
@@ -752,7 +753,7 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "format": "tall",
-                        "space": "e26728b0-0928-43e3-9a40-6b440f496b5e",
+                        "space": "999999",
                         "beacon": false,
                         "dynamicFormats": false
                     }
@@ -809,7 +810,7 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "format": "wide",
-                        "space": "e26728b0-0928-43e3-9a40-6b440f496b5e",
+                        "space": "999999",
                         "beacon": false,
                         "dynamicFormats": false
                     }
@@ -865,7 +866,7 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": "e26728b0-0928-43e3-9a40-6b440f496b5e",
+                        "space": "999999",
                         "beacon": false,
                         "dynamicFormats": false
                     }

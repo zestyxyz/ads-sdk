@@ -1,8 +1,8 @@
 /* global BABYLON */
 
-import { fetchCampaignAd, fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
+import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats } from '../../utils/formats';
-import { openURL, parseProtocol } from '../../utils/helpers';
+import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
 
 console.log('Zesty SDK Version: ', version);
@@ -21,7 +21,7 @@ export default class ZestyBanner {
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
 
       if (beacon) {
-        sendOnLoadMetric(space);
+        sendOnLoadMetric(space, data.campaignId);
       }
 
       this.zestyBanner.actionManager.registerAction(
@@ -34,7 +34,7 @@ export default class ZestyBanner {
             openURL(data.url);
           }
           if (beacon) {
-            sendOnClickMetric(space);
+            sendOnClickMetric(space, data.campaignId);
           }
         })
       );
@@ -47,13 +47,13 @@ export default class ZestyBanner {
 async function loadBanner(space, format, style) {
   const activeBanner = await fetchCampaignAd(space, format, style);
 
-  const { asset_url: image, cta_url: url } = activeBanner[0];
+  const { asset_url: image, cta_url: url } = activeBanner.Ads[0];
 
   const mat = new BABYLON.StandardMaterial('');
   mat.diffuseTexture = new BABYLON.Texture(image);
   mat.diffuseTexture.hasAlpha = true;
 
-  return { mat: mat, src: image, uri: activeBanner.uri, url: url };
+  return { mat: mat, src: image, uri: activeBanner.uri, url: url, campaignId: activeBanner.CampaignId };
 }
 
 window.ZestyBanner = ZestyBanner;

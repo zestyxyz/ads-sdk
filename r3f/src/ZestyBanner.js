@@ -24,13 +24,14 @@ export default function ZestyBanner(props) {
 
   const loadBanner = async (space, format, style) => {
     const activeCampaign = await fetchCampaignAd(space, format, style);
-    return activeCampaign[0];
+    const { asset_url, cta_url } = activeCampaign.Ads[0];
+    return { asset_url, cta_url, campaignId: activeCampaign.CampaignId }
   };
 
   useEffect(() => {
     loadBanner(space, format, newStyle).then((data) => {
-      if (beacon) sendOnLoadMetric(space);
-      setBannerData({ image: data.asset_url, url: data.cta_url });
+      if (beacon) sendOnLoadMetric(space, data.campaignId);
+      setBannerData({ image: data.asset_url, url: data.cta_url, campaignId: data.campaignId });
     });
   }, [space]);
 
@@ -69,7 +70,7 @@ function BannerPlane(props) {
       url = `https://app.zesty.market/space/${props.newSpace}`;
     }
     openURL(url);
-    if (props.beacon) sendOnClickMetric(props.newSpace);
+    if (props.beacon) sendOnClickMetric(props.newSpace, props.bannerData.campaignId);
   };
 
   return (

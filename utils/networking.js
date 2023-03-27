@@ -26,7 +26,7 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
  * @param {string} spaceId The space ID
  * @returns A Promise representing the POST request
  */
-const sendOnLoadMetric = async (spaceId) => {
+const sendOnLoadMetric = async (spaceId, campaignId = null) => {
   const { platform, confidence } = await checkUserPlatform();
   
   try {
@@ -35,7 +35,7 @@ const sendOnLoadMetric = async (spaceId) => {
 
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: visits, spaceId: \"${spaceId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
+      { query: `mutation { increment(eventType: visits, spaceId: \"${spaceId}\", campaignId: \"${campaignId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {
@@ -43,7 +43,7 @@ const sendOnLoadMetric = async (spaceId) => {
   }
 };
 
-const sendOnClickMetric = async (spaceId) => {
+const sendOnClickMetric = async (spaceId, campaignId = null) => {
   const { platform, confidence } = await checkUserPlatform();
   
   try {
@@ -52,7 +52,7 @@ const sendOnClickMetric = async (spaceId) => {
 
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: clicks, spaceId: \"${spaceId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
+      { query: `mutation { increment(eventType: clicks, spaceId: \"${spaceId}\", campaignId: \"${campaignId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {
@@ -65,7 +65,7 @@ const analyticsSession = async (spaceId) => {
   try {
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: session, spaceId: \"${spaceId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
+      { query: `mutation { increment(eventType: session, spaceId: \"${spaceId}\", campaignId: \"${campaignId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {

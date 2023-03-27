@@ -36,7 +36,7 @@ class Zesty extends HTMLElement {
     async function loadBanner(space, format, style, shadow, width, height, beacon) {
       const activeCampaign = await fetchCampaignAd(space, format, style);
 
-      const { id, asset_url: image, cta_url: url } = activeCampaign[0];
+      const { id, asset_url: image, cta_url: url } = activeCampaign.Ads[0];
 
       const img = document.createElement('img');
       shadow.appendChild(img);
@@ -49,12 +49,12 @@ class Zesty extends HTMLElement {
         e.preventDefault();
         openURL(url);
         if (beacon) {
-          sendOnClickMetric(space);
+          sendOnClickMetric(space, activeCampaign.CampaignId);
         }
       });
 
       if (beacon) {
-        sendOnLoadMetric(space);
+        sendOnLoadMetric(space, activeCampaign.CampaignId);
       }
 
       if (image) {

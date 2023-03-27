@@ -39,7 +39,7 @@ export default class ZestyBanner extends Mesh {
       this.banner = banner;
 
       if (beacon) {
-        sendOnLoadMetric(space);
+        sendOnLoadMetric(space, banner.campaignId);
       }
     });
     this.onClick = this.onClick.bind(this);
@@ -53,7 +53,7 @@ export default class ZestyBanner extends Mesh {
 
       openURL(this.banner.url);
       if (this.beacon) {
-        sendOnClickMetric(this.space);
+        sendOnClickMetric(this.space, this.banner.campaignId);
       }
     }
   }
@@ -62,7 +62,7 @@ export default class ZestyBanner extends Mesh {
 async function loadBanner(space, format, style) {
   const activeBanner = await fetchCampaignAd(space, format, style);
 
-  const { asset_url: image, cta_url: url } = activeBanner[0];
+  const { asset_url: image, cta_url: url } = activeBanner.Ads[0];
 
   return new Promise((resolve, reject) => {
     const loader = new TextureLoader();
@@ -70,7 +70,7 @@ async function loadBanner(space, format, style) {
     loader.load(
       image,
       function(texture) {
-        resolve({ texture: texture, src: image, uri: activeBanner.uri, url: url });
+        resolve({ texture: texture, src: image, uri: activeBanner.uri, url: url, campaignId: activeBanner.CampaignId });
       },
       undefined,
       function(err) {

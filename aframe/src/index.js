@@ -74,7 +74,7 @@ async function createBanner(el, space, format, style, height, beacon) {
       plane.setAttribute('class', 'clickable'); // required for BE
 
       if (beacon) {
-        sendOnLoadMetric(space);
+        sendOnLoadMetric(space, banner.campaignId);
       }
 
       // handle clicks
@@ -85,7 +85,7 @@ async function createBanner(el, space, format, style, height, beacon) {
         if (banner.url) {
           openURL(banner.url);
           if (beacon) {
-            sendOnClickMetric(space);
+            sendOnClickMetric(space, banner.campaignId);
           }
         }
       };
@@ -102,7 +102,7 @@ async function createBanner(el, space, format, style, height, beacon) {
 async function loadBanner(space, format, style) {
   const activeCampaign = await fetchCampaignAd(space, format, style);
 
-  const { asset_url: image, cta_url: url } = activeCampaign[0];
+  const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
 
   const img = document.createElement('img');
   img.setAttribute('id', space + Math.random());
@@ -110,7 +110,7 @@ async function loadBanner(space, format, style) {
   if (image) {
     img.setAttribute('src', image);
     return new Promise((resolve, reject) => {
-      img.onload = () => resolve({ img: img, uri: space, url: url });
+      img.onload = () => resolve({ img: img, uri: space, url: url, campaignId: activeCampaign.CampaignId });
       img.onerror = () => reject(new Error('img load error'));
     });
   } else {

@@ -7,13 +7,14 @@ const BEACON_API_BASE = 'https://beacon.zesty.market'
 const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
 
 const DB_ENDPOINT = 'https://api.zesty.market/api';
+// TODO: Determine best way to enable switching to staging
 const STAGING_DB_ENDPOINT = 'https://api-staging.zesty.market/api';
 
 //const sessionId = uuidv4();
 
 const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {
   try {
-    const res = await axios.get(`${STAGING_DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}`);
+    const res = await axios.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}`);
     return res.data;
   } catch {
     console.warn('No active campaign banner could be located. Displaying default banner.')

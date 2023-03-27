@@ -17,7 +17,7 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
     return res.data;
   } catch {
     console.warn('No active campaign banner could be located. Displaying default banner.')
-    return [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.market' }];
+    return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.market' }], CampaignId: 'TestCampaign'};
   }
 }
 

@@ -5,7 +5,7 @@ const DEFAULT_BANNER = 'https://zesty-storage-09e38383232656-staging.s3.amazonaw
 test.describe('fetchCampaignAd', () => {
   test('fetchCampaignAd should return a default banner if no URI is given', () => {
     return expect(fetchCampaignAd()).resolves.toMatchObject(
-      [{ asset_url: DEFAULT_BANNER, cta_url: 'https://www.zesty.market' }]
+      { Ads: [{ asset_url: DEFAULT_BANNER, cta_url: 'https://www.zesty.market' }], CampaignId: 'TestCampaign'}
     )
   });
 });

@@ -124,7 +124,7 @@ WL.registerComponent(
         }
 
         if (this.beacon) {
-          sendOnLoadMetric(this.space);
+          sendOnLoadMetric(this.space, this.banner.campaignId);
         }
       });
     },
@@ -140,16 +140,16 @@ WL.registerComponent(
     executeClick: function () {
       openURL(this.banner.url);
       if (this.beacon) {
-        sendOnClickMetric(this.space);
+        sendOnClickMetric(this.space, this.banner.campaignId);
       }
     },
     loadBanner: async function (space, format, style) {
       const activeCampaign = await fetchCampaignAd(space, format, style)
 
-      const { asset_url: image, cta_url: url } = activeCampaign[0];
+      const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
 
       return WL.textures.load(image, '').then((texture) => {
-        return { texture, imageSrc: image, url };
+        return { texture, imageSrc: image, url, campaignId: activeCampaign.CampaignId };
       });
     },
   }

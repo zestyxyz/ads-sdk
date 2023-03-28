@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { useRef, useState, Suspense, useEffect } from 'react';
 import { useLoader } from '@react-three/fiber';
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
+import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
 
@@ -22,16 +22,16 @@ export default function ZestyBanner(props) {
   const newStyle = props.style ?? defaultStyle;
   const beacon = props.beacon ?? true;
 
-  const loadBanner = async (space, network, format, style) => {
-    const activeNFT = await fetchNFT(space, network);
-    const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
-    return activeBanner;
+  const loadBanner = async (space, format, style) => {
+    const activeCampaign = await fetchCampaignAd(space, format, style);
+    const { asset_url, cta_url } = activeCampaign.Ads[0];
+    return { asset_url, cta_url, campaignId: activeCampaign.CampaignId }
   };
 
   useEffect(() => {
-    loadBanner(space, props.network, format, newStyle).then((data) => {
-      if (beacon) sendOnLoadMetric(space);
-      setBannerData({ image: data.data.image, url: data.data.url });
+    loadBanner(space, format, newStyle).then((data) => {
+      if (beacon) sendOnLoadMetric(space, data.campaignId);
+      setBannerData({ image: data.asset_url, url: data.cta_url, campaignId: data.campaignId });
     });
   }, [space]);
 
@@ -70,7 +70,7 @@ function BannerPlane(props) {
       url = `https://app.zesty.market/space/${props.newSpace}`;
     }
     openURL(url);
-    if (props.beacon) sendOnClickMetric(props.newSpace);
+    if (props.beacon) sendOnClickMetric(props.newSpace, props.bannerData.campaignId);
   };
 
   return (

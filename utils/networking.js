@@ -46,7 +46,7 @@ const sendOnLoadMetric = async (spaceId, campaignId = null) => {
 
 const sendOnClickMetric = async (spaceId, campaignId = null) => {
   const { platform, confidence } = await checkUserPlatform();
-  
+
   try {
     const spaceClickEndpoint = BEACON_API_BASE + `/api/v1/space/click/${spaceId}`
     await axios.put(spaceClickEndpoint)
@@ -61,7 +61,7 @@ const sendOnClickMetric = async (spaceId, campaignId = null) => {
   }
 }
 
-const analyticsSession = async (spaceId) => {
+const analyticsSession = async (spaceId, campaignId) => {
   const { platform, confidence } = await checkUserPlatform();
   try {
     await axios.post(
@@ -70,7 +70,7 @@ const analyticsSession = async (spaceId) => {
       { headers: { 'Content-Type': 'application/json' }}
     )
   } catch (e) {
-    console.log(`Failed to emit ${eventType} analytics`, e.message)
+    console.log(`Failed to emit session analytics`, e.message)
   }
 }
 

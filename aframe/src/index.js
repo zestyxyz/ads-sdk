@@ -32,7 +32,7 @@ AFRAME.registerComponent('zesty-banner', {
   // Every 30sec check for `visible` component
   tick: function() {
     if (this.data.space) {
-      analyticsSession(this.data.space);
+      analyticsSession(this.data.space, null);
     }
   },
 });

@@ -2,23 +2,21 @@
     "objects": {
         "14": {
             "name": "Player",
-            "transformation": [
-                0.9999998,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.9999998,
-                0.0,
+            "translation": [
                 -2.5,
                 0.0,
-                1.1575536,
+                1.1575535
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
+            ],
+            "scaling": [
+                0.9999998,
+                1.0,
+                0.9999998
             ]
         },
         "15": {
@@ -47,23 +45,21 @@
                     }
                 }
             ],
-            "transformation": [
+            "translation": [
+                0.0,
+                0.0,
+                1.1920928955078125e-7
+            ],
+            "rotation": [
+                -0.7072496,
+                0.0,
+                0.0,
+                0.7069638
+            ],
+            "scaling": [
                 4.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                -0.0016164,
-                -3.9999997,
-                0.0,
-                0.0,
-                3.9999997,
-                -0.0016164,
-                0.0,
-                0.0,
-                0.0,
-                1.192092895507813e-7,
-                1.0
+                4.0,
+                4.0
             ]
         },
         "17": {
@@ -79,27 +75,24 @@
                 {
                     "type": "cursor",
                     "cursor": {
-                        "collisionGroup": 2,
-                        "handedness": "none"
+                        "collisionGroup": 2
                     }
                 }
             ],
-            "transformation": [
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0
             ]
         },
@@ -120,22 +113,20 @@
                     "type": "howler-audio-listener"
                 }
             ],
-            "transformation": [
+            "translation": [
+                0.0,
+                0.0,
+                -2.384185791015625e-7
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
                 1.0
             ]
         },
@@ -153,22 +144,20 @@
                     }
                 }
             ],
-            "transformation": [
+            "translation": [
+                0.0,
+                0.0,
+                -2.384185791015625e-7
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
                 1.0
             ]
         },
@@ -182,22 +171,20 @@
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "translation": [
                 0.0,
                 3.0,
-                2.0,
+                2.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
                 1.0
             ]
         },
@@ -211,46 +198,26 @@
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "translation": [
                 -1.0,
                 3.0,
-                -1.0,
+                -1.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
                 1.0
             ]
         },
         "129": {
             "name": "ControllerRight",
             "parent": "205",
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
-                1.0
-            ],
             "components": [
                 null,
                 null,
@@ -288,6 +255,22 @@
                     "type": "vr-mode-active-switch",
                     "active": true
                 }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                -2.384185791015625e-7
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         },
         "130": {
@@ -331,50 +314,46 @@
                     "active": true
                 }
             ],
-            "transformation": [
+            "translation": [
+                0.0,
+                0.0,
+                -2.384185791015625e-7
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
                 1.0
             ]
         },
         "205": {
             "name": "TrackedSpace",
             "parent": "14",
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                1.75,
-                0.0,
-                1.0
-            ],
             "components": [
                 {
                     "type": "player-height"
                 }
+            ],
+            "translation": [
+                0.0,
+                1.75,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         },
         "217": {
@@ -407,30 +386,29 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": "999999",
+                        "space": 999999,
                         "format": "tall",
                         "style": "standard",
                         "beacon": true,
-                        "dynamicFormats": false
+                        "dynamicFormats": false,
+                        "assignAlphaMaskTexture": true
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "translation": [
                 -4.0,
                 6.0,
-                -1.7091592,
+                -1.7091592
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
                 1.0
             ]
         },
@@ -465,32 +443,30 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "style": "standard",
-                        "space": "999999",
+                        "space": 999999,
                         "beacon": true,
                         "dynamicFormats": false,
                         "format": "wide"
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 -4.0,
                 4.0,
-                -1.7091592,
+                -1.7091592
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
             ],
-            "parent": null
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "225": {
             "name": "ZestyBanner3",
@@ -523,31 +499,29 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "style": "standard",
-                        "space": "999999",
+                        "space": 999999,
                         "beacon": false,
                         "dynamicFormats": false
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 -4.0,
                 2.0,
-                -1.7091592,
+                -1.7091592
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
             ],
-            "parent": null
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "226": {
             "name": "ZestyBanner4",
@@ -581,31 +555,29 @@
                     "zesty-banner": {
                         "format": "tall",
                         "style": "minimal",
-                        "space": "999999",
+                        "space": 999999,
                         "beacon": false,
                         "dynamicFormats": false
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 -2.0,
                 6.0,
-                -1.7091592,
+                -1.7091592
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
             ],
-            "parent": null
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "227": {
             "name": "ZestyBanner5",
@@ -640,30 +612,28 @@
                         "format": "wide",
                         "style": "minimal",
                         "beacon": false,
-                        "space": "999999",
+                        "space": 999999,
                         "dynamicFormats": false
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 -2.0,
                 4.0,
-                -1.7091592,
+                -1.7091592
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
             ],
-            "parent": null
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "228": {
             "name": "ZestyBanner6",
@@ -695,32 +665,30 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": "999999",
+                        "space": 999999,
                         "style": "minimal",
                         "beacon": false,
                         "dynamicFormats": false
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 -2.0,
                 2.0,
-                -1.7091592,
+                -1.7091592
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
             ],
-            "parent": null
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "229": {
             "name": "ZestyBanner7",
@@ -753,31 +721,29 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "format": "tall",
-                        "space": "999999",
+                        "space": 999999,
                         "beacon": false,
                         "dynamicFormats": false
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 0.0,
                 6.0,
-                -1.7091592,
+                -1.7091592
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
             ],
-            "parent": null
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "230": {
             "name": "ZestyBanner8",
@@ -810,31 +776,29 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "format": "wide",
-                        "space": "999999",
+                        "space": 999999,
                         "beacon": false,
                         "dynamicFormats": false
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 0.0,
                 4.0,
-                -1.7091592,
+                -1.7091592
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
             ],
-            "parent": null
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "231": {
             "name": "ZestyBanner9",
@@ -866,31 +830,29 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "space": "999999",
+                        "space": 999999,
                         "beacon": false,
                         "dynamicFormats": false
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 0.0,
                 2.0,
-                -1.7091592,
+                -1.7091592
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
             ],
-            "parent": null
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "232": {
             "name": "ExposeBanners",
@@ -922,23 +884,21 @@
                     }
                 }
             ],
-            "transformation": [
-                0.1,
+            "translation": [
                 0.0,
                 0.0,
-                0.0,
-                0.0,
-                0.1,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.1,
-                0.0,
+                0.0
+            ],
+            "rotation": [
                 0.0,
                 0.0,
                 0.0,
                 1.0
+            ],
+            "scaling": [
+                0.1,
+                0.1,
+                0.1
             ]
         },
         "236": {
@@ -952,43 +912,41 @@
                     }
                 }
             ],
-            "transformation": [
-                0.05,
+            "parent": "237",
+            "translation": [
                 0.0,
                 0.0,
-                0.0,
-                0.0,
-                -4.1723239974089665e-8,
-                0.3499998,
-                0.0,
-                0.0,
-                -0.0499998,
-                -0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
+                0.0
             ],
-            "parent": "237"
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.0,
+                0.7071067
+            ],
+            "scaling": [
+                0.05,
+                0.3499997,
+                0.0499997
+            ]
         },
         "237": {
             "name": "CursorRight",
             "parent": "205",
             "components": [
                 {
-                    "type": "cursor",
-                    "cursor": {
-                        "cursorRayScalingAxis": "y",
-                        "cursorObject": "235",
-                        "cursorRayObject": "236",
-                        "collisionGroup": 0
-                    }
-                },
-                {
                     "type": "input",
                     "input": {
                         "type": "ray right"
+                    }
+                },
+                {
+                    "type": "cursor",
+                    "cursor": {
+                        "collisionGroup": 0,
+                        "cursorRayObject": "236",
+                        "cursorRayScalingAxis": "y",
+                        "cursorObject": "235"
                     }
                 }
             ]
@@ -1236,7 +1194,8 @@
                     1.0,
                     1.0,
                     1.0
-                ]
+                ],
+                "font": "251"
             }
         },
         "20": {
@@ -1376,7 +1335,8 @@
                     0.0,
                     0.5411764,
                     1.0
-                ]
+                ],
+                "font": "251"
             }
         },
         "202": {
@@ -1584,9 +1544,10 @@
         "project": {
             "name": "Wonderland Test",
             "version": [
+                1,
                 0,
-                9,
-                3
+                0,
+                1
             ]
         },
         "vr": {
@@ -1595,11 +1556,13 @@
         },
         "scripting": {
             "sourcePaths": [
-                "/js/editor-components-bundle.js",
                 "js/",
-                "../../wonderland/dist/zesty-wonderland-sdk.js"
+                "../../wonderland/src/index.js"
             ],
-            "useInternalBundler": true
+            "libraryPaths": [
+                "/js/lib/"
+            ],
+            "bundlingType": "esbuild"
         },
         "runtime": {
             "visualizeColliders": false,
@@ -1644,6 +1607,9 @@
             "link": {
                 "name": "Flat Opaque Textured",
                 "file": "default"
+            },
+            "features": {
+                "ALPHA_MASKED": true
             }
         },
         "36": {
@@ -1662,6 +1628,9 @@
             "link": {
                 "name": "Phong Opaque Textured",
                 "file": "default"
+            },
+            "features": {
+                "ALPHA_MASKED": true
             }
         },
         "39": {
@@ -1692,6 +1661,9 @@
             "link": {
                 "name": "Physical Opaque Textured",
                 "file": "default"
+            },
+            "features": {
+                "ALPHA_MASKED": true
             }
         },
         "245": {
@@ -1705,6 +1677,18 @@
                 "name": "Sky",
                 "file": "default"
             }
+        },
+        "249": {
+            "link": {
+                "name": "Phong Normalmapped",
+                "file": "default"
+            }
+        },
+        "250": {
+            "link": {
+                "name": "Phong Lightmapped",
+                "file": "default"
+            }
         }
     },
     "files": [
@@ -1715,5 +1699,14 @@
         "models/button.glb",
         "models/teleport-indicator.glb",
         "zesty-banner-square-transparent.png"
-    ]
+    ],
+    "fonts": {
+        "251": {
+            "link": {
+                "name": "DejaVuSans.ttf",
+                "file": "default"
+            }
+        }
+    },
+    "languages": {}
 }

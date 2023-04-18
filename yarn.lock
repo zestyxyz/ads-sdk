@@ -2123,21 +2123,21 @@
   resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-1.7.0.tgz#e1993689ac42d2b16e9194376cfb6753f6254db1"
   integrity sha512-oxnCNGj88fL+xzV+dacXs44HcDwf1ovs3AuEzvP7mqXw7fQntqIhQ1BRmynh4qEKQSSSRSWVyXRjmTbZIX9V2Q==
 
-"@wonderlandengine/api@^1.0.0-rc.2", "@wonderlandengine/api@^1.0.0-rc.4":
-  version "1.0.0-rc.4"
-  resolved "https://registry.yarnpkg.com/@wonderlandengine/api/-/api-1.0.0-rc.4.tgz#272f40f8ebba90384b2cbdb891ace313d3b17097"
-  integrity sha512-gVHX8CRoxog5DdVlF6jCXwCS14erX9dMKrG7FeaTLXb9BPdPtF67El5RZCNCZBiANAkcKPvE/Fo9CNiqPZxiZw==
+"@wonderlandengine/api@^1.0.0 || ^1.0.0-rc.5", "@wonderlandengine/api@^1.0.0-rc.5":
+  version "1.0.0-rc.5"
+  resolved "https://registry.yarnpkg.com/@wonderlandengine/api/-/api-1.0.0-rc.5.tgz#7fbb07e13520826e18b2636b49914f4510e65876"
+  integrity sha512-E5R4xgsPWnvoLydaS31HYejlX7UZFzqUeXVAYAdm0upTDYjFSmVOKfztGjgW6GgtBHeRmf6zMuMPK8yHJE63SQ==
   dependencies:
     "@types/webxr" "^0.5.0"
     wasm-feature-detect "^1.3.0"
 
-"@wonderlandengine/components@^1.0.0-rc.2":
-  version "1.0.0-rc.5"
-  resolved "https://registry.yarnpkg.com/@wonderlandengine/components/-/components-1.0.0-rc.5.tgz#f28bfb6e0f632bbe3af0b06348102b36ecc80241"
-  integrity sha512-gim4NC7vmmdecjGrecMkwxgQIa3sjvaQh9ANX0ZFVLWUhmdyd/iArtw8wPvie0kC54mI5GnDRF16MQKelo4XqA==
+"@wonderlandengine/components@^1.0.0 || ^1.0.0-rc.6":
+  version "1.0.0-rc.6"
+  resolved "https://registry.yarnpkg.com/@wonderlandengine/components/-/components-1.0.0-rc.6.tgz#d6a15bba26d1a6597e6bbdd1d258de1912a0b4d9"
+  integrity sha512-tBvEA0ThONJZ4ybnRPJ8GeAmRepfgCB6qZS3wiN0MM6h/shocvqWcu6ono7Vp/q//uIloOsGNFmXDzuWJvbu8w==
   dependencies:
     "@types/webxr" "^0.5.0"
-    "@wonderlandengine/api" "^1.0.0-rc.4"
+    "@wonderlandengine/api" "^1.0.0-rc.5"
     gl-matrix "^3.3.0"
     howler "^2.2.1"
 

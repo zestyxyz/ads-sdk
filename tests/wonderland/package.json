@@ -12,8 +12,8 @@
     "wonderland-engine"
   ],
   "dependencies": {
-    "@wonderlandengine/api": "^1.0.0-rc.2",
-    "@wonderlandengine/components": "^1.0.0-rc.2",
+    "@wonderlandengine/api": "^1.0.0 || ^1.0.0-rc.5",
+    "@wonderlandengine/components": "^1.0.0 || ^1.0.0-rc.6",
     "gl-matrix": "^3.4.3"
   }
 }

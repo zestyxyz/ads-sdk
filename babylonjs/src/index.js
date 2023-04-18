@@ -8,7 +8,7 @@ import { version } from '../package.json';
 console.log('Zesty SDK Version: ', version);
 
 export default class ZestyBanner {
-  constructor(space, format, style, height, scene, webXRExperienceHelper = null, beacon = true) {
+  constructor(adUnit, format, style, height, scene, webXRExperienceHelper = null, beacon = true) {
     const options = {
       height: height,
       width: formats[format].width * height
@@ -16,12 +16,12 @@ export default class ZestyBanner {
 
     this.zestyBanner = BABYLON.MeshBuilder.CreatePlane('zestybanner', options);
 
-    loadBanner(space, format, style).then(data => {
+    loadBanner(adUnit, format, style).then(data => {
       this.zestyBanner.material = data.mat;
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
 
       if (beacon) {
-        sendOnLoadMetric(space, data.campaignId);
+        sendOnLoadMetric(adUnit, data.campaignId);
       }
 
       this.zestyBanner.actionManager.registerAction(
@@ -34,7 +34,7 @@ export default class ZestyBanner {
             openURL(data.url);
           }
           if (beacon) {
-            sendOnClickMetric(space, data.campaignId);
+            sendOnClickMetric(adUnit, data.campaignId);
           }
         })
       );
@@ -44,8 +44,8 @@ export default class ZestyBanner {
   }
 }
 
-async function loadBanner(space, format, style) {
-  const activeBanner = await fetchCampaignAd(space, format, style);
+async function loadBanner(adUnit, format, style) {
+  const activeBanner = await fetchCampaignAd(adUnit, format, style);
 
   const { asset_url: image, cta_url: url } = activeBanner.Ads[0];
 

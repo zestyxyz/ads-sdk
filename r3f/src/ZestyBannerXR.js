@@ -14,7 +14,7 @@ console.log('Zesty SDK Version: ', version);
 export default function ZestyBanner(props) {
   const [bannerData, setBannerData] = useState(false);
 
-  const space = props.space;
+  const adUnit = props.adUnit;
   const format = props.format ?? defaultFormat;
 
   const width = props.width ?? formats[format].width;
@@ -23,18 +23,18 @@ export default function ZestyBanner(props) {
   const newStyle = props.style ?? defaultStyle;
   const beacon = props.beacon ?? true;
 
-  const loadBanner = async (space, format, style) => {
-    const activeCampaign = await fetchCampaignAd(space, format, style);
+  const loadBanner = async (adUnit, format, style) => {
+    const activeCampaign = await fetchCampaignAd(adUnit, format, style);
     const { asset_url, cta_url } = activeCampaign.Ads[0];
     return { asset_url, cta_url, campaignId: activeCampaign.CampaignId }
   };
 
   useEffect(() => {
-    loadBanner(space, format, newStyle).then((data) => {
-      if (beacon) sendOnLoadMetric(space, data.campaignId);
+    loadBanner(adUnit, format, newStyle).then((data) => {
+      if (beacon) sendOnLoadMetric(adUnit, data.campaignId);
       setBannerData({ image: data.asset_url, url: data.cta_url, campaignId: data.campaignId });
     });
-  }, [space]);
+  }, [adUnit]);
 
   return (
     <Suspense fallback={null}>
@@ -42,7 +42,7 @@ export default function ZestyBanner(props) {
         <BannerPlane
           {...props}
           bannerData={bannerData}
-          newSpace={space}
+          newAdUnit={adUnit}
           newFormat={format}
           width={width}
           height={height}
@@ -73,7 +73,7 @@ function BannerPlane(props) {
       if (session) session.end();
     }
     openURL(url);
-    if (props.beacon) sendOnClickMetric(props.newSpace, props.bannerData.campaignId);
+    if (props.beacon) sendOnClickMetric(props.newAdUnit, props.bannerData.campaignId);
   };
 
   return (

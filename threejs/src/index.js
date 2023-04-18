@@ -16,8 +16,8 @@ export default class ZestyBanner extends Mesh {
   /**
    * @constructor
    * @param {string} adUnit The ad unit ID
-   * @param {string} network The network to connect to ('rinkeby' or 'polygon')
    * @param {string} format The format of the default banner
+   * @param {string} style The visual style of the default banner
    * @param {Number} height Height of the banner
    * @param {WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
    */

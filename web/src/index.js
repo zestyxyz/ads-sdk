@@ -8,7 +8,7 @@ console.log('Zesty SDK Version: ', version);
 class Zesty extends HTMLElement {
   constructor() {
     super();
-    this.space = '';
+    this.adUnit = '';
     this.format = defaultFormat;
     this.bannerstyle = defaultStyle;
     this.width = '100%';
@@ -22,7 +22,7 @@ class Zesty extends HTMLElement {
   connectedCallback() {
     this.style.cursor = 'pointer';
 
-    this.space = this.hasAttribute('space') ? this.getAttribute('space') : this.space;
+    this.adUnit = this.hasAttribute('ad-unit') ? this.getAttribute('ad-unit') : this.adUnit;
     this.format = this.hasAttribute('format') ? this.getAttribute('format') : this.format;
     this.bannerstyle = this.hasAttribute('bannerstyle')
       ? this.getAttribute('bannerstyle')
@@ -33,8 +33,8 @@ class Zesty extends HTMLElement {
 
     this.adjustHeightandWidth();
 
-    async function loadBanner(space, format, style, shadow, width, height, beacon) {
-      const activeCampaign = await fetchCampaignAd(space, format, style);
+    async function loadBanner(adUnit, format, style, shadow, width, height, beacon) {
+      const activeCampaign = await fetchCampaignAd(adUnit, format, style);
 
       const { id, asset_url: image, cta_url: url } = activeCampaign.Ads[0];
 
@@ -49,12 +49,12 @@ class Zesty extends HTMLElement {
         e.preventDefault();
         openURL(url);
         if (beacon) {
-          sendOnClickMetric(space, activeCampaign.CampaignId);
+          sendOnClickMetric(adUnit, activeCampaign.CampaignId);
         }
       });
 
       if (beacon) {
-        sendOnLoadMetric(space, activeCampaign.CampaignId);
+        sendOnLoadMetric(adUnit, activeCampaign.CampaignId);
       }
 
       if (image) {
@@ -69,7 +69,7 @@ class Zesty extends HTMLElement {
     }
 
     loadBanner(
-      this.space,
+      this.adUnit,
       this.format,
       this.bannerstyle,
       this.shadow,

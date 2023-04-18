@@ -66,9 +66,6 @@ function BannerPlane(props) {
   const onClick = (event) => {
     const banner = props.bannerData.data;
     let url = banner.url || banner.properties?.url;
-    if (url === 'https://www.zesty.market') {
-      url = `https://app.zesty.market/space/${props.newSpace}`;
-    }
     openURL(url);
     if (props.beacon) sendOnClickMetric(props.newSpace, props.bannerData.campaignId);
   };

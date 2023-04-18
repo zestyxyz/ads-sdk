@@ -49,9 +49,6 @@ async function createBanner(el, space, format, style, height, beacon) {
     if (banner.img) {
       assets.appendChild(banner.img);
     }
-    if (banner.url === 'https://www.zesty.market') {
-      banner.url = `https://app.zesty.market/space/${space}`;
-    }
     return banner;
   });
 

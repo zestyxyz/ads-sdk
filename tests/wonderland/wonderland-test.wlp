@@ -391,7 +391,8 @@
                         "style": "standard",
                         "beacon": true,
                         "dynamicFormats": false,
-                        "assignAlphaMaskTexture": true
+                        "assignAlphaMaskTexture": true,
+                        "adUnit": "999999"
                     }
                 }
             ],
@@ -444,9 +445,10 @@
                     "zesty-banner": {
                         "style": "standard",
                         "space": 999999,
-                        "beacon": true,
+                        "beacon": false,
                         "dynamicFormats": false,
-                        "format": "wide"
+                        "format": "wide",
+                        "adUnit": "999999"
                     }
                 }
             ],
@@ -501,7 +503,8 @@
                         "style": "standard",
                         "space": 999999,
                         "beacon": false,
-                        "dynamicFormats": false
+                        "dynamicFormats": false,
+                        "adUnit": "999999"
                     }
                 }
             ],
@@ -557,7 +560,8 @@
                         "style": "minimal",
                         "space": 999999,
                         "beacon": false,
-                        "dynamicFormats": false
+                        "dynamicFormats": false,
+                        "adUnit": "999999"
                     }
                 }
             ],
@@ -613,7 +617,8 @@
                         "style": "minimal",
                         "beacon": false,
                         "space": 999999,
-                        "dynamicFormats": false
+                        "dynamicFormats": false,
+                        "adUnit": "999999"
                     }
                 }
             ],
@@ -668,7 +673,8 @@
                         "space": 999999,
                         "style": "minimal",
                         "beacon": false,
-                        "dynamicFormats": false
+                        "dynamicFormats": false,
+                        "adUnit": "999999"
                     }
                 }
             ],
@@ -723,7 +729,8 @@
                         "format": "tall",
                         "space": 999999,
                         "beacon": false,
-                        "dynamicFormats": false
+                        "dynamicFormats": false,
+                        "adUnit": "999999"
                     }
                 }
             ],
@@ -778,7 +785,8 @@
                         "format": "wide",
                         "space": 999999,
                         "beacon": false,
-                        "dynamicFormats": false
+                        "dynamicFormats": false,
+                        "adUnit": "999999"
                     }
                 }
             ],
@@ -832,7 +840,8 @@
                     "zesty-banner": {
                         "space": 999999,
                         "beacon": false,
-                        "dynamicFormats": false
+                        "dynamicFormats": false,
+                        "adUnit": "999999"
                     }
                 }
             ],

@@ -16,7 +16,7 @@ import { CursorTarget } from '@wonderlandengine/components';
 console.log('Zesty SDK Version: ', version);
 
 /**
- * [Zesty Market](https://zesty.market) banner space
+ * [Zesty Market](https://zesty.market) banner ad unit
  *
  * Fetches a banner and applies it to a texture. If no `cursor-target` and `collision`
  * is found on the object, they will be created automatically (with box shape in group 1).
@@ -26,8 +26,8 @@ console.log('Zesty SDK Version: ', version);
 export class ZestyBanner extends Component {
   static TypeName = 'zesty-banner';
   static Properties = {
-    /* Your banner space index */
-    space: Property.int(),
+    /* Your banner ad unit ID */
+    adUnit: Property.string(''),
     /* The default banner format, determines aspect ratio */
     format: Property.enum(['tall', 'wide', 'square'], 'square'),
     /* The default banner visual style */
@@ -88,7 +88,7 @@ export class ZestyBanner extends Component {
 
   startLoading() {
     this.loadBanner(
-      this.space,
+      this.adUnit,
       this.formatKeys[this.format],
       this.styleKeys[this.style]
     ).then(banner => {
@@ -127,7 +127,7 @@ export class ZestyBanner extends Component {
         this.mesh.material.alphaMaskTexture = banner.texture;
       }
       if (this.beacon) {
-        sendOnLoadMetric(this.space);
+        sendOnLoadMetric(this.adUnit);
       }
     });
   }
@@ -145,12 +145,12 @@ export class ZestyBanner extends Component {
   executeClick() {
     openURL(this.banner.url);
     if (this.beacon) {
-      sendOnClickMetric(this.space);
+      sendOnClickMetric(this.adUnit);
     }
   }
 
-  async loadBanner(space, format, style) {
-    const activeCampaign = await fetchCampaignAd(space, format, style)
+  async loadBanner(adUnit, format, style) {
+    const activeCampaign = await fetchCampaignAd(adUnit, format, style)
 
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
 

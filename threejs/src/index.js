@@ -15,23 +15,23 @@ console.log('Zesty SDK Version: ', version);
 export default class ZestyBanner extends Mesh {
   /**
    * @constructor
-   * @param {string} space The space ID
-   * @param {string} network The network to connect to ('rinkeby' or 'polygon')
+   * @param {string} adUnit The ad unit ID
    * @param {string} format The format of the default banner
+   * @param {string} style The visual style of the default banner
    * @param {Number} height Height of the banner
    * @param {WebGLRenderer} renderer Optional field to pass in the WebGLRenderer in a WebXR project
    */
-  constructor(space, format, style, height, renderer = null, beacon = true) {
+  constructor(adUnit, format, style, height, renderer = null, beacon = true) {
     super();
     this.geometry = new PlaneGeometry(formats[format].width * height, height, 1, 1);
 
     this.type = 'ZestyBanner';
-    this.space = space;
+    this.adUnit = adUnit;
     this.renderer = renderer;
     this.beacon = beacon;
     this.banner = {};
 
-    this.bannerPromise = loadBanner(space, format, style).then(banner => {
+    this.bannerPromise = loadBanner(adUnit, format, style).then(banner => {
       this.material = new MeshBasicMaterial({
         map: banner.texture
       });
@@ -39,7 +39,7 @@ export default class ZestyBanner extends Mesh {
       this.banner = banner;
 
       if (beacon) {
-        sendOnLoadMetric(space, banner.campaignId);
+        sendOnLoadMetric(adUnit, banner.campaignId);
       }
     });
     this.onClick = this.onClick.bind(this);
@@ -53,14 +53,14 @@ export default class ZestyBanner extends Mesh {
 
       openURL(this.banner.url);
       if (this.beacon) {
-        sendOnClickMetric(this.space, this.banner.campaignId);
+        sendOnClickMetric(this.adUnit, this.banner.campaignId);
       }
     }
   }
 }
 
-async function loadBanner(space, format, style) {
-  const activeBanner = await fetchCampaignAd(space, format, style);
+async function loadBanner(adUnit, format, style) {
+  const activeBanner = await fetchCampaignAd(adUnit, format, style);
 
   const { asset_url: image, cta_url: url } = activeBanner.Ads[0];
 

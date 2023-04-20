@@ -15,6 +15,8 @@ import { CursorTarget } from '@wonderlandengine/components';
 
 console.log('Zesty SDK Version: ', version);
 
+const formatsLink = 'https://ipfs.io/ipns/lib.zesty.market/zesty-formats.js';
+
 /**
  * [Zesty Market](https://zesty.market) banner ad unit
  *
@@ -78,7 +80,7 @@ export class ZestyBanner extends Component {
         this.formatsOverride = zestyFormats.formats;
         this.startLoading();
       };
-      formatsScript.setAttribute('src', 'https://ipfs.io/ipns/lib.zesty.market/zesty-formats.js');
+      formatsScript.setAttribute('src', formatsLink);
       formatsScript.setAttribute('crossorigin', 'anonymous');
       document.body.appendChild(formatsScript);
     } else {

@@ -1,16 +1,21 @@
 {
   "name": "@zestymarket/wonderland-sdk",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Wonderland Engine SDK for Zesty Banner integration.",
-  "main": "src/index.js",
+  "main": "dist/zesty-wonderland-sdk.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "build": "esbuild src/index.js --minify --sourcemap --format=esm --bundle --outfile=dist/zesty-wonderland-sdk.js --external:@wonderlandengine/*",
+    "build-dev": "esbuild src/index.js --sourcemap --format=esm --bundle --outfile=dist/zesty-wonderland-sdk.js --external:@wonderlandengine/*"
+  },
   "wonderlandengine": {},
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "@wonderlandengine/api": "^1.0.0 || 1.0.0-rc.6",
+    "@wonderlandengine/api": "^1.0.0 || 1.0.0-rc.5",
     "@wonderlandengine/components": "^1.0.0 || 1.0.0-rc.7 || 1.0.0-rc.8"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "esbuild": "^0.17.18"
+  }
 }

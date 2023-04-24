@@ -14,6 +14,8 @@ cd threejs && yarn && yarn run build
 cd ..
 cd web && yarn && yarn run build
 cd ..
+cd wonderland && yarn && yarn run build
+cd ..
 cd utils && yarn && yarn run build
 cd ..
 
@@ -24,6 +26,6 @@ cp -R r3f/dist/* dist
 cp -R threejs/dist/* dist
 cp unity/zesty-unity-sdk.unitypackage dist
 cp -R web/dist/* dist
-cp -R wonderland/src/index.js dist/zesty-wonderland-sdk.js
+cp -R wonderland/dist/* dist
 cp -R utils/dist/* dist
 cp -R assets dist

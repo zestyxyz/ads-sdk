@@ -47,6 +47,9 @@ export class ZestyBanner extends Component {
     /* Automatically creates a collision and cursor-target components, if there isn't one */
     createAutomaticCollision: Property.bool(true)
   };
+  static onRegister(engine) {
+    engine.registerComponent(CursorTarget);
+  }
 
   init() {
     this.formats = Object.values(formats);
@@ -70,7 +73,7 @@ export class ZestyBanner extends Component {
 
       this.cursorTarget =
         this.object.getComponent(CursorTarget) || this.object.addComponent(CursorTarget);
-      this.cursorTarget.addClickFunction(this.onClick.bind(this));
+        this.cursorTarget.onClick.add(this.onClick.bind(this));
     }
 
     if (this.dynamicFormats) {
@@ -136,8 +139,8 @@ export class ZestyBanner extends Component {
 
   onClick() {
     if (this.banner?.url) {
-      if (this.engine.xrSession) {
-        this.engine.xrSession.end().then(this.executeClick.bind(this));
+      if (this.engine.xr) {
+        this.engine.xr.session.end().then(this.executeClick.bind(this));
       } else {
         this.executeClick();
       }

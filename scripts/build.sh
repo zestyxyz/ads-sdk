@@ -14,7 +14,5 @@ cd threejs && yarn && yarn run build
 cd ..
 cd web && yarn && yarn run build
 cd ..
-cd wonderland && yarn && yarn run build
-cd ..
 cd utils && yarn && yarn run build
 cd ..

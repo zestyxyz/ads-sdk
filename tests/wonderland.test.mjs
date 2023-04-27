@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('Initial load', () => {
   test('The correct test page is currently loaded', async ({ page }) => {
-    await expect(page).toHaveTitle('Wonderland Test');
+    await expect(page).toHaveTitle('wonderland-test');
   });
 
   test('All 9 banners are currently loaded', async ({ page }) => {

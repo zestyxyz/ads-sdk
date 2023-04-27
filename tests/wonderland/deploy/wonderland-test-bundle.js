@@ -1,97 +1,14912 @@
-(()=>{var wr=Object.create,Re=Object.defineProperty;var Ar=Object.getOwnPropertyDescriptor;var Tr=Object.getOwnPropertyNames;var Sr=Object.getPrototypeOf,Or=Object.prototype.hasOwnProperty;var Rr=e=>Re(e,"__esModule",{value:!0});var $=(e,t)=>()=>(e&&(t=e(e=0)),t),H=(e,t)=>()=>(t||e((t={exports:{}}).exports,t),t.exports);var Lr=(e,t,r)=>{if(t&&typeof t=="object"||typeof t=="function")for(let n of Tr(t))!Or.call(e,n)&&n!=="default"&&Re(e,n,{get:()=>t[n],enumerable:!(r=Ar(t,n))||r.enumerable});return e},J=e=>Lr(Rr(Re(e!=null?wr(Sr(e)):{},"default",e&&e.__esModule&&"default"in e?{get:()=>e.default,enumerable:!0}:{value:e,enumerable:!0})),e);var Z=H(G=>{"use strict";Object.defineProperty(G,"__esModule",{value:!0});G.setMatrixArrayType=Pr;G.toRadian=Ir;G.equals=Wr;G.RANDOM=G.ARRAY_TYPE=G.EPSILON=void 0;var Ye=1e-6;G.EPSILON=Ye;var He=typeof Float32Array!="undefined"?Float32Array:Array;G.ARRAY_TYPE=He;var qr=Math.random;G.RANDOM=qr;function Pr(e){G.ARRAY_TYPE=He=e}var Er=Math.PI/180;function Ir(e){return e*Er}function Wr(e,t){return Math.abs(e-t)<=Ye*Math.max(1,Math.abs(e),Math.abs(t))}Math.hypot||(Math.hypot=function(){for(var e=0,t=arguments.length;t--;)e+=arguments[t]*arguments[t];return Math.sqrt(e)})});var Be=H(j=>{"use strict";function ue(e){return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?ue=function(r){return typeof r}:ue=function(r){return r&&typeof Symbol=="function"&&r.constructor===Symbol&&r!==Symbol.prototype?"symbol":typeof r},ue(e)}Object.defineProperty(j,"__esModule",{value:!0});j.create=Cr;j.clone=Dr;j.copy=Fr;j.identity=jr;j.fromValues=kr;j.set=zr;j.transpose=Yr;j.invert=Hr;j.adjoint=Vr;j.determinant=Nr;j.multiply=Ve;j.rotate=Xr;j.scale=Br;j.fromRotation=Gr;j.fromScaling=Qr;j.str=Ur;j.frob=Zr;j.LDU=$r;j.add=Jr;j.subtract=Ne;j.exactEquals=Kr;j.equals=en;j.multiplyScalar=tn;j.multiplyScalarAndAdd=rn;j.sub=j.mul=void 0;var se=nn(Z());function Xe(){if(typeof WeakMap!="function")return null;var e=new WeakMap;return Xe=function(){return e},e}function nn(e){if(e&&e.__esModule)return e;if(e===null||ue(e)!=="object"&&typeof e!="function")return{default:e};var t=Xe();if(t&&t.has(e))return t.get(e);var r={},n=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if(Object.prototype.hasOwnProperty.call(e,a)){var s=n?Object.getOwnPropertyDescriptor(e,a):null;s&&(s.get||s.set)?Object.defineProperty(r,a,s):r[a]=e[a]}return r.default=e,t&&t.set(e,r),r}function Cr(){var e=new se.ARRAY_TYPE(4);return se.ARRAY_TYPE!=Float32Array&&(e[1]=0,e[2]=0),e[0]=1,e[3]=1,e}function Dr(e){var t=new se.ARRAY_TYPE(4);return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t}function Fr(e,t){return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e}function jr(e){return e[0]=1,e[1]=0,e[2]=0,e[3]=1,e}function kr(e,t,r,n){var a=new se.ARRAY_TYPE(4);return a[0]=e,a[1]=t,a[2]=r,a[3]=n,a}function zr(e,t,r,n,a){return e[0]=t,e[1]=r,e[2]=n,e[3]=a,e}function Yr(e,t){if(e===t){var r=t[1];e[1]=t[2],e[2]=r}else e[0]=t[0],e[1]=t[2],e[2]=t[1],e[3]=t[3];return e}function Hr(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=r*s-a*n;return c?(c=1/c,e[0]=s*c,e[1]=-n*c,e[2]=-a*c,e[3]=r*c,e):null}function Vr(e,t){var r=t[0];return e[0]=t[3],e[1]=-t[1],e[2]=-t[2],e[3]=r,e}function Nr(e){return e[0]*e[3]-e[2]*e[1]}function Ve(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=r[0],h=r[1],u=r[2],i=r[3];return e[0]=n*l+s*h,e[1]=a*l+c*h,e[2]=n*u+s*i,e[3]=a*u+c*i,e}function Xr(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=Math.sin(r),h=Math.cos(r);return e[0]=n*h+s*l,e[1]=a*h+c*l,e[2]=n*-l+s*h,e[3]=a*-l+c*h,e}function Br(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=r[0],h=r[1];return e[0]=n*l,e[1]=a*l,e[2]=s*h,e[3]=c*h,e}function Gr(e,t){var r=Math.sin(t),n=Math.cos(t);return e[0]=n,e[1]=r,e[2]=-r,e[3]=n,e}function Qr(e,t){return e[0]=t[0],e[1]=0,e[2]=0,e[3]=t[1],e}function Ur(e){return"mat2("+e[0]+", "+e[1]+", "+e[2]+", "+e[3]+")"}function Zr(e){return Math.hypot(e[0],e[1],e[2],e[3])}function $r(e,t,r,n){return e[2]=n[2]/n[0],r[0]=n[0],r[1]=n[1],r[3]=n[3]-e[2]*r[1],[e,t,r]}function Jr(e,t,r){return e[0]=t[0]+r[0],e[1]=t[1]+r[1],e[2]=t[2]+r[2],e[3]=t[3]+r[3],e}function Ne(e,t,r){return e[0]=t[0]-r[0],e[1]=t[1]-r[1],e[2]=t[2]-r[2],e[3]=t[3]-r[3],e}function Kr(e,t){return e[0]===t[0]&&e[1]===t[1]&&e[2]===t[2]&&e[3]===t[3]}function en(e,t){var r=e[0],n=e[1],a=e[2],s=e[3],c=t[0],l=t[1],h=t[2],u=t[3];return Math.abs(r-c)<=se.EPSILON*Math.max(1,Math.abs(r),Math.abs(c))&&Math.abs(n-l)<=se.EPSILON*Math.max(1,Math.abs(n),Math.abs(l))&&Math.abs(a-h)<=se.EPSILON*Math.max(1,Math.abs(a),Math.abs(h))&&Math.abs(s-u)<=se.EPSILON*Math.max(1,Math.abs(s),Math.abs(u))}function tn(e,t,r){return e[0]=t[0]*r,e[1]=t[1]*r,e[2]=t[2]*r,e[3]=t[3]*r,e}function rn(e,t,r,n){return e[0]=t[0]+r[0]*n,e[1]=t[1]+r[1]*n,e[2]=t[2]+r[2]*n,e[3]=t[3]+r[3]*n,e}var an=Ve;j.mul=an;var sn=Ne;j.sub=sn});var Ze=H(k=>{"use strict";function pe(e){return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?pe=function(r){return typeof r}:pe=function(r){return r&&typeof Symbol=="function"&&r.constructor===Symbol&&r!==Symbol.prototype?"symbol":typeof r},pe(e)}Object.defineProperty(k,"__esModule",{value:!0});k.create=on;k.clone=cn;k.copy=ln;k.identity=fn;k.fromValues=hn;k.set=dn;k.invert=un;k.determinant=pn;k.multiply=Ge;k.rotate=vn;k.scale=_n;k.translate=mn;k.fromRotation=yn;k.fromScaling=gn;k.fromTranslation=Mn;k.str=bn;k.frob=xn;k.add=wn;k.subtract=Qe;k.multiplyScalar=An;k.multiplyScalarAndAdd=Tn;k.exactEquals=Sn;k.equals=On;k.sub=k.mul=void 0;var K=Rn(Z());function Ue(){if(typeof WeakMap!="function")return null;var e=new WeakMap;return Ue=function(){return e},e}function Rn(e){if(e&&e.__esModule)return e;if(e===null||pe(e)!=="object"&&typeof e!="function")return{default:e};var t=Ue();if(t&&t.has(e))return t.get(e);var r={},n=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if(Object.prototype.hasOwnProperty.call(e,a)){var s=n?Object.getOwnPropertyDescriptor(e,a):null;s&&(s.get||s.set)?Object.defineProperty(r,a,s):r[a]=e[a]}return r.default=e,t&&t.set(e,r),r}function on(){var e=new K.ARRAY_TYPE(6);return K.ARRAY_TYPE!=Float32Array&&(e[1]=0,e[2]=0,e[4]=0,e[5]=0),e[0]=1,e[3]=1,e}function cn(e){var t=new K.ARRAY_TYPE(6);return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4],t[5]=e[5],t}function ln(e,t){return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e[4]=t[4],e[5]=t[5],e}function fn(e){return e[0]=1,e[1]=0,e[2]=0,e[3]=1,e[4]=0,e[5]=0,e}function hn(e,t,r,n,a,s){var c=new K.ARRAY_TYPE(6);return c[0]=e,c[1]=t,c[2]=r,c[3]=n,c[4]=a,c[5]=s,c}function dn(e,t,r,n,a,s,c){return e[0]=t,e[1]=r,e[2]=n,e[3]=a,e[4]=s,e[5]=c,e}function un(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=t[4],l=t[5],h=r*s-n*a;return h?(h=1/h,e[0]=s*h,e[1]=-n*h,e[2]=-a*h,e[3]=r*h,e[4]=(a*l-s*c)*h,e[5]=(n*c-r*l)*h,e):null}function pn(e){return e[0]*e[3]-e[1]*e[2]}function Ge(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=t[4],h=t[5],u=r[0],i=r[1],o=r[2],f=r[3],d=r[4],v=r[5];return e[0]=n*u+s*i,e[1]=a*u+c*i,e[2]=n*o+s*f,e[3]=a*o+c*f,e[4]=n*d+s*v+l,e[5]=a*d+c*v+h,e}function vn(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=t[4],h=t[5],u=Math.sin(r),i=Math.cos(r);return e[0]=n*i+s*u,e[1]=a*i+c*u,e[2]=n*-u+s*i,e[3]=a*-u+c*i,e[4]=l,e[5]=h,e}function _n(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=t[4],h=t[5],u=r[0],i=r[1];return e[0]=n*u,e[1]=a*u,e[2]=s*i,e[3]=c*i,e[4]=l,e[5]=h,e}function mn(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=t[4],h=t[5],u=r[0],i=r[1];return e[0]=n,e[1]=a,e[2]=s,e[3]=c,e[4]=n*u+s*i+l,e[5]=a*u+c*i+h,e}function yn(e,t){var r=Math.sin(t),n=Math.cos(t);return e[0]=n,e[1]=r,e[2]=-r,e[3]=n,e[4]=0,e[5]=0,e}function gn(e,t){return e[0]=t[0],e[1]=0,e[2]=0,e[3]=t[1],e[4]=0,e[5]=0,e}function Mn(e,t){return e[0]=1,e[1]=0,e[2]=0,e[3]=1,e[4]=t[0],e[5]=t[1],e}function bn(e){return"mat2d("+e[0]+", "+e[1]+", "+e[2]+", "+e[3]+", "+e[4]+", "+e[5]+")"}function xn(e){return Math.hypot(e[0],e[1],e[2],e[3],e[4],e[5],1)}function wn(e,t,r){return e[0]=t[0]+r[0],e[1]=t[1]+r[1],e[2]=t[2]+r[2],e[3]=t[3]+r[3],e[4]=t[4]+r[4],e[5]=t[5]+r[5],e}function Qe(e,t,r){return e[0]=t[0]-r[0],e[1]=t[1]-r[1],e[2]=t[2]-r[2],e[3]=t[3]-r[3],e[4]=t[4]-r[4],e[5]=t[5]-r[5],e}function An(e,t,r){return e[0]=t[0]*r,e[1]=t[1]*r,e[2]=t[2]*r,e[3]=t[3]*r,e[4]=t[4]*r,e[5]=t[5]*r,e}function Tn(e,t,r,n){return e[0]=t[0]+r[0]*n,e[1]=t[1]+r[1]*n,e[2]=t[2]+r[2]*n,e[3]=t[3]+r[3]*n,e[4]=t[4]+r[4]*n,e[5]=t[5]+r[5]*n,e}function Sn(e,t){return e[0]===t[0]&&e[1]===t[1]&&e[2]===t[2]&&e[3]===t[3]&&e[4]===t[4]&&e[5]===t[5]}function On(e,t){var r=e[0],n=e[1],a=e[2],s=e[3],c=e[4],l=e[5],h=t[0],u=t[1],i=t[2],o=t[3],f=t[4],d=t[5];return Math.abs(r-h)<=K.EPSILON*Math.max(1,Math.abs(r),Math.abs(h))&&Math.abs(n-u)<=K.EPSILON*Math.max(1,Math.abs(n),Math.abs(u))&&Math.abs(a-i)<=K.EPSILON*Math.max(1,Math.abs(a),Math.abs(i))&&Math.abs(s-o)<=K.EPSILON*Math.max(1,Math.abs(s),Math.abs(o))&&Math.abs(c-f)<=K.EPSILON*Math.max(1,Math.abs(c),Math.abs(f))&&Math.abs(l-d)<=K.EPSILON*Math.max(1,Math.abs(l),Math.abs(d))}var Ln=Ge;k.mul=Ln;var Pn=Qe;k.sub=Pn});var Le=H(W=>{"use strict";function ve(e){return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?ve=function(r){return typeof r}:ve=function(r){return r&&typeof Symbol=="function"&&r.constructor===Symbol&&r!==Symbol.prototype?"symbol":typeof r},ve(e)}Object.defineProperty(W,"__esModule",{value:!0});W.create=In;W.fromMat4=Wn;W.clone=qn;W.copy=En;W.fromValues=Cn;W.set=Dn;W.identity=Fn;W.transpose=jn;W.invert=kn;W.adjoint=zn;W.determinant=Yn;W.multiply=$e;W.translate=Hn;W.rotate=Vn;W.scale=Nn;W.fromTranslation=Xn;W.fromRotation=Bn;W.fromScaling=Gn;W.fromMat2d=Qn;W.fromQuat=Un;W.normalFromMat4=Zn;W.projection=$n;W.str=Jn;W.frob=Kn;W.add=ei;W.subtract=Je;W.multiplyScalar=ti;W.multiplyScalarAndAdd=ri;W.exactEquals=ni;W.equals=ii;W.sub=W.mul=void 0;var X=ai(Z());function Ke(){if(typeof WeakMap!="function")return null;var e=new WeakMap;return Ke=function(){return e},e}function ai(e){if(e&&e.__esModule)return e;if(e===null||ve(e)!=="object"&&typeof e!="function")return{default:e};var t=Ke();if(t&&t.has(e))return t.get(e);var r={},n=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if(Object.prototype.hasOwnProperty.call(e,a)){var s=n?Object.getOwnPropertyDescriptor(e,a):null;s&&(s.get||s.set)?Object.defineProperty(r,a,s):r[a]=e[a]}return r.default=e,t&&t.set(e,r),r}function In(){var e=new X.ARRAY_TYPE(9);return X.ARRAY_TYPE!=Float32Array&&(e[1]=0,e[2]=0,e[3]=0,e[5]=0,e[6]=0,e[7]=0),e[0]=1,e[4]=1,e[8]=1,e}function Wn(e,t){return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[4],e[4]=t[5],e[5]=t[6],e[6]=t[8],e[7]=t[9],e[8]=t[10],e}function qn(e){var t=new X.ARRAY_TYPE(9);return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4],t[5]=e[5],t[6]=e[6],t[7]=e[7],t[8]=e[8],t}function En(e,t){return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e[4]=t[4],e[5]=t[5],e[6]=t[6],e[7]=t[7],e[8]=t[8],e}function Cn(e,t,r,n,a,s,c,l,h){var u=new X.ARRAY_TYPE(9);return u[0]=e,u[1]=t,u[2]=r,u[3]=n,u[4]=a,u[5]=s,u[6]=c,u[7]=l,u[8]=h,u}function Dn(e,t,r,n,a,s,c,l,h,u){return e[0]=t,e[1]=r,e[2]=n,e[3]=a,e[4]=s,e[5]=c,e[6]=l,e[7]=h,e[8]=u,e}function Fn(e){return e[0]=1,e[1]=0,e[2]=0,e[3]=0,e[4]=1,e[5]=0,e[6]=0,e[7]=0,e[8]=1,e}function jn(e,t){if(e===t){var r=t[1],n=t[2],a=t[5];e[1]=t[3],e[2]=t[6],e[3]=r,e[5]=t[7],e[6]=n,e[7]=a}else e[0]=t[0],e[1]=t[3],e[2]=t[6],e[3]=t[1],e[4]=t[4],e[5]=t[7],e[6]=t[2],e[7]=t[5],e[8]=t[8];return e}function kn(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=t[4],l=t[5],h=t[6],u=t[7],i=t[8],o=i*c-l*u,f=-i*s+l*h,d=u*s-c*h,v=r*o+n*f+a*d;return v?(v=1/v,e[0]=o*v,e[1]=(-i*n+a*u)*v,e[2]=(l*n-a*c)*v,e[3]=f*v,e[4]=(i*r-a*h)*v,e[5]=(-l*r+a*s)*v,e[6]=d*v,e[7]=(-u*r+n*h)*v,e[8]=(c*r-n*s)*v,e):null}function zn(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=t[4],l=t[5],h=t[6],u=t[7],i=t[8];return e[0]=c*i-l*u,e[1]=a*u-n*i,e[2]=n*l-a*c,e[3]=l*h-s*i,e[4]=r*i-a*h,e[5]=a*s-r*l,e[6]=s*u-c*h,e[7]=n*h-r*u,e[8]=r*c-n*s,e}function Yn(e){var t=e[0],r=e[1],n=e[2],a=e[3],s=e[4],c=e[5],l=e[6],h=e[7],u=e[8];return t*(u*s-c*h)+r*(-u*a+c*l)+n*(h*a-s*l)}function $e(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=t[4],h=t[5],u=t[6],i=t[7],o=t[8],f=r[0],d=r[1],v=r[2],_=r[3],p=r[4],m=r[5],y=r[6],g=r[7],M=r[8];return e[0]=f*n+d*c+v*u,e[1]=f*a+d*l+v*i,e[2]=f*s+d*h+v*o,e[3]=_*n+p*c+m*u,e[4]=_*a+p*l+m*i,e[5]=_*s+p*h+m*o,e[6]=y*n+g*c+M*u,e[7]=y*a+g*l+M*i,e[8]=y*s+g*h+M*o,e}function Hn(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=t[4],h=t[5],u=t[6],i=t[7],o=t[8],f=r[0],d=r[1];return e[0]=n,e[1]=a,e[2]=s,e[3]=c,e[4]=l,e[5]=h,e[6]=f*n+d*c+u,e[7]=f*a+d*l+i,e[8]=f*s+d*h+o,e}function Vn(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=t[4],h=t[5],u=t[6],i=t[7],o=t[8],f=Math.sin(r),d=Math.cos(r);return e[0]=d*n+f*c,e[1]=d*a+f*l,e[2]=d*s+f*h,e[3]=d*c-f*n,e[4]=d*l-f*a,e[5]=d*h-f*s,e[6]=u,e[7]=i,e[8]=o,e}function Nn(e,t,r){var n=r[0],a=r[1];return e[0]=n*t[0],e[1]=n*t[1],e[2]=n*t[2],e[3]=a*t[3],e[4]=a*t[4],e[5]=a*t[5],e[6]=t[6],e[7]=t[7],e[8]=t[8],e}function Xn(e,t){return e[0]=1,e[1]=0,e[2]=0,e[3]=0,e[4]=1,e[5]=0,e[6]=t[0],e[7]=t[1],e[8]=1,e}function Bn(e,t){var r=Math.sin(t),n=Math.cos(t);return e[0]=n,e[1]=r,e[2]=0,e[3]=-r,e[4]=n,e[5]=0,e[6]=0,e[7]=0,e[8]=1,e}function Gn(e,t){return e[0]=t[0],e[1]=0,e[2]=0,e[3]=0,e[4]=t[1],e[5]=0,e[6]=0,e[7]=0,e[8]=1,e}function Qn(e,t){return e[0]=t[0],e[1]=t[1],e[2]=0,e[3]=t[2],e[4]=t[3],e[5]=0,e[6]=t[4],e[7]=t[5],e[8]=1,e}function Un(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=r+r,l=n+n,h=a+a,u=r*c,i=n*c,o=n*l,f=a*c,d=a*l,v=a*h,_=s*c,p=s*l,m=s*h;return e[0]=1-o-v,e[3]=i-m,e[6]=f+p,e[1]=i+m,e[4]=1-u-v,e[7]=d-_,e[2]=f-p,e[5]=d+_,e[8]=1-u-o,e}function Zn(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=t[4],l=t[5],h=t[6],u=t[7],i=t[8],o=t[9],f=t[10],d=t[11],v=t[12],_=t[13],p=t[14],m=t[15],y=r*l-n*c,g=r*h-a*c,M=r*u-s*c,b=n*h-a*l,x=n*u-s*l,q=a*u-s*h,S=i*_-o*v,D=i*p-f*v,C=i*m-d*v,z=o*p-f*_,F=o*m-d*_,E=f*m-d*p,P=y*E-g*F+M*z+b*C-x*D+q*S;return P?(P=1/P,e[0]=(l*E-h*F+u*z)*P,e[1]=(h*C-c*E-u*D)*P,e[2]=(c*F-l*C+u*S)*P,e[3]=(a*F-n*E-s*z)*P,e[4]=(r*E-a*C+s*D)*P,e[5]=(n*C-r*F-s*S)*P,e[6]=(_*q-p*x+m*b)*P,e[7]=(p*M-v*q-m*g)*P,e[8]=(v*x-_*M+m*y)*P,e):null}function $n(e,t,r){return e[0]=2/t,e[1]=0,e[2]=0,e[3]=0,e[4]=-2/r,e[5]=0,e[6]=-1,e[7]=1,e[8]=1,e}function Jn(e){return"mat3("+e[0]+", "+e[1]+", "+e[2]+", "+e[3]+", "+e[4]+", "+e[5]+", "+e[6]+", "+e[7]+", "+e[8]+")"}function Kn(e){return Math.hypot(e[0],e[1],e[2],e[3],e[4],e[5],e[6],e[7],e[8])}function ei(e,t,r){return e[0]=t[0]+r[0],e[1]=t[1]+r[1],e[2]=t[2]+r[2],e[3]=t[3]+r[3],e[4]=t[4]+r[4],e[5]=t[5]+r[5],e[6]=t[6]+r[6],e[7]=t[7]+r[7],e[8]=t[8]+r[8],e}function Je(e,t,r){return e[0]=t[0]-r[0],e[1]=t[1]-r[1],e[2]=t[2]-r[2],e[3]=t[3]-r[3],e[4]=t[4]-r[4],e[5]=t[5]-r[5],e[6]=t[6]-r[6],e[7]=t[7]-r[7],e[8]=t[8]-r[8],e}function ti(e,t,r){return e[0]=t[0]*r,e[1]=t[1]*r,e[2]=t[2]*r,e[3]=t[3]*r,e[4]=t[4]*r,e[5]=t[5]*r,e[6]=t[6]*r,e[7]=t[7]*r,e[8]=t[8]*r,e}function ri(e,t,r,n){return e[0]=t[0]+r[0]*n,e[1]=t[1]+r[1]*n,e[2]=t[2]+r[2]*n,e[3]=t[3]+r[3]*n,e[4]=t[4]+r[4]*n,e[5]=t[5]+r[5]*n,e[6]=t[6]+r[6]*n,e[7]=t[7]+r[7]*n,e[8]=t[8]+r[8]*n,e}function ni(e,t){return e[0]===t[0]&&e[1]===t[1]&&e[2]===t[2]&&e[3]===t[3]&&e[4]===t[4]&&e[5]===t[5]&&e[6]===t[6]&&e[7]===t[7]&&e[8]===t[8]}function ii(e,t){var r=e[0],n=e[1],a=e[2],s=e[3],c=e[4],l=e[5],h=e[6],u=e[7],i=e[8],o=t[0],f=t[1],d=t[2],v=t[3],_=t[4],p=t[5],m=t[6],y=t[7],g=t[8];return Math.abs(r-o)<=X.EPSILON*Math.max(1,Math.abs(r),Math.abs(o))&&Math.abs(n-f)<=X.EPSILON*Math.max(1,Math.abs(n),Math.abs(f))&&Math.abs(a-d)<=X.EPSILON*Math.max(1,Math.abs(a),Math.abs(d))&&Math.abs(s-v)<=X.EPSILON*Math.max(1,Math.abs(s),Math.abs(v))&&Math.abs(c-_)<=X.EPSILON*Math.max(1,Math.abs(c),Math.abs(_))&&Math.abs(l-p)<=X.EPSILON*Math.max(1,Math.abs(l),Math.abs(p))&&Math.abs(h-m)<=X.EPSILON*Math.max(1,Math.abs(h),Math.abs(m))&&Math.abs(u-y)<=X.EPSILON*Math.max(1,Math.abs(u),Math.abs(y))&&Math.abs(i-g)<=X.EPSILON*Math.max(1,Math.abs(i),Math.abs(g))}var si=$e;W.mul=si;var oi=Je;W.sub=oi});var Pe=H(O=>{"use strict";function _e(e){return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?_e=function(r){return typeof r}:_e=function(r){return r&&typeof Symbol=="function"&&r.constructor===Symbol&&r!==Symbol.prototype?"symbol":typeof r},_e(e)}Object.defineProperty(O,"__esModule",{value:!0});O.create=ci;O.clone=li;O.copy=fi;O.fromValues=hi;O.set=di;O.identity=et;O.transpose=ui;O.invert=pi;O.adjoint=vi;O.determinant=_i;O.multiply=tt;O.translate=mi;O.scale=yi;O.rotate=gi;O.rotateX=Mi;O.rotateY=bi;O.rotateZ=xi;O.fromTranslation=wi;O.fromScaling=Ai;O.fromRotation=Ti;O.fromXRotation=Si;O.fromYRotation=Oi;O.fromZRotation=Ri;O.fromRotationTranslation=rt;O.fromQuat2=Li;O.getTranslation=Pi;O.getScaling=nt;O.getRotation=Ii;O.fromRotationTranslationScale=Wi;O.fromRotationTranslationScaleOrigin=qi;O.fromQuat=Ei;O.frustum=Ci;O.perspective=Di;O.perspectiveFromFieldOfView=Fi;O.ortho=ji;O.lookAt=ki;O.targetTo=zi;O.str=Yi;O.frob=Hi;O.add=Vi;O.subtract=it;O.multiplyScalar=Ni;O.multiplyScalarAndAdd=Xi;O.exactEquals=Bi;O.equals=Gi;O.sub=O.mul=void 0;var Y=Qi(Z());function at(){if(typeof WeakMap!="function")return null;var e=new WeakMap;return at=function(){return e},e}function Qi(e){if(e&&e.__esModule)return e;if(e===null||_e(e)!=="object"&&typeof e!="function")return{default:e};var t=at();if(t&&t.has(e))return t.get(e);var r={},n=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if(Object.prototype.hasOwnProperty.call(e,a)){var s=n?Object.getOwnPropertyDescriptor(e,a):null;s&&(s.get||s.set)?Object.defineProperty(r,a,s):r[a]=e[a]}return r.default=e,t&&t.set(e,r),r}function ci(){var e=new Y.ARRAY_TYPE(16);return Y.ARRAY_TYPE!=Float32Array&&(e[1]=0,e[2]=0,e[3]=0,e[4]=0,e[6]=0,e[7]=0,e[8]=0,e[9]=0,e[11]=0,e[12]=0,e[13]=0,e[14]=0),e[0]=1,e[5]=1,e[10]=1,e[15]=1,e}function li(e){var t=new Y.ARRAY_TYPE(16);return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4],t[5]=e[5],t[6]=e[6],t[7]=e[7],t[8]=e[8],t[9]=e[9],t[10]=e[10],t[11]=e[11],t[12]=e[12],t[13]=e[13],t[14]=e[14],t[15]=e[15],t}function fi(e,t){return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e[4]=t[4],e[5]=t[5],e[6]=t[6],e[7]=t[7],e[8]=t[8],e[9]=t[9],e[10]=t[10],e[11]=t[11],e[12]=t[12],e[13]=t[13],e[14]=t[14],e[15]=t[15],e}function hi(e,t,r,n,a,s,c,l,h,u,i,o,f,d,v,_){var p=new Y.ARRAY_TYPE(16);return p[0]=e,p[1]=t,p[2]=r,p[3]=n,p[4]=a,p[5]=s,p[6]=c,p[7]=l,p[8]=h,p[9]=u,p[10]=i,p[11]=o,p[12]=f,p[13]=d,p[14]=v,p[15]=_,p}function di(e,t,r,n,a,s,c,l,h,u,i,o,f,d,v,_,p){return e[0]=t,e[1]=r,e[2]=n,e[3]=a,e[4]=s,e[5]=c,e[6]=l,e[7]=h,e[8]=u,e[9]=i,e[10]=o,e[11]=f,e[12]=d,e[13]=v,e[14]=_,e[15]=p,e}function et(e){return e[0]=1,e[1]=0,e[2]=0,e[3]=0,e[4]=0,e[5]=1,e[6]=0,e[7]=0,e[8]=0,e[9]=0,e[10]=1,e[11]=0,e[12]=0,e[13]=0,e[14]=0,e[15]=1,e}function ui(e,t){if(e===t){var r=t[1],n=t[2],a=t[3],s=t[6],c=t[7],l=t[11];e[1]=t[4],e[2]=t[8],e[3]=t[12],e[4]=r,e[6]=t[9],e[7]=t[13],e[8]=n,e[9]=s,e[11]=t[14],e[12]=a,e[13]=c,e[14]=l}else e[0]=t[0],e[1]=t[4],e[2]=t[8],e[3]=t[12],e[4]=t[1],e[5]=t[5],e[6]=t[9],e[7]=t[13],e[8]=t[2],e[9]=t[6],e[10]=t[10],e[11]=t[14],e[12]=t[3],e[13]=t[7],e[14]=t[11],e[15]=t[15];return e}function pi(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=t[4],l=t[5],h=t[6],u=t[7],i=t[8],o=t[9],f=t[10],d=t[11],v=t[12],_=t[13],p=t[14],m=t[15],y=r*l-n*c,g=r*h-a*c,M=r*u-s*c,b=n*h-a*l,x=n*u-s*l,q=a*u-s*h,S=i*_-o*v,D=i*p-f*v,C=i*m-d*v,z=o*p-f*_,F=o*m-d*_,E=f*m-d*p,P=y*E-g*F+M*z+b*C-x*D+q*S;return P?(P=1/P,e[0]=(l*E-h*F+u*z)*P,e[1]=(a*F-n*E-s*z)*P,e[2]=(_*q-p*x+m*b)*P,e[3]=(f*x-o*q-d*b)*P,e[4]=(h*C-c*E-u*D)*P,e[5]=(r*E-a*C+s*D)*P,e[6]=(p*M-v*q-m*g)*P,e[7]=(i*q-f*M+d*g)*P,e[8]=(c*F-l*C+u*S)*P,e[9]=(n*C-r*F-s*S)*P,e[10]=(v*x-_*M+m*y)*P,e[11]=(o*M-i*x-d*y)*P,e[12]=(l*D-c*z-h*S)*P,e[13]=(r*z-n*D+a*S)*P,e[14]=(_*g-v*b-p*y)*P,e[15]=(i*b-o*g+f*y)*P,e):null}function vi(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=t[4],l=t[5],h=t[6],u=t[7],i=t[8],o=t[9],f=t[10],d=t[11],v=t[12],_=t[13],p=t[14],m=t[15];return e[0]=l*(f*m-d*p)-o*(h*m-u*p)+_*(h*d-u*f),e[1]=-(n*(f*m-d*p)-o*(a*m-s*p)+_*(a*d-s*f)),e[2]=n*(h*m-u*p)-l*(a*m-s*p)+_*(a*u-s*h),e[3]=-(n*(h*d-u*f)-l*(a*d-s*f)+o*(a*u-s*h)),e[4]=-(c*(f*m-d*p)-i*(h*m-u*p)+v*(h*d-u*f)),e[5]=r*(f*m-d*p)-i*(a*m-s*p)+v*(a*d-s*f),e[6]=-(r*(h*m-u*p)-c*(a*m-s*p)+v*(a*u-s*h)),e[7]=r*(h*d-u*f)-c*(a*d-s*f)+i*(a*u-s*h),e[8]=c*(o*m-d*_)-i*(l*m-u*_)+v*(l*d-u*o),e[9]=-(r*(o*m-d*_)-i*(n*m-s*_)+v*(n*d-s*o)),e[10]=r*(l*m-u*_)-c*(n*m-s*_)+v*(n*u-s*l),e[11]=-(r*(l*d-u*o)-c*(n*d-s*o)+i*(n*u-s*l)),e[12]=-(c*(o*p-f*_)-i*(l*p-h*_)+v*(l*f-h*o)),e[13]=r*(o*p-f*_)-i*(n*p-a*_)+v*(n*f-a*o),e[14]=-(r*(l*p-h*_)-c*(n*p-a*_)+v*(n*h-a*l)),e[15]=r*(l*f-h*o)-c*(n*f-a*o)+i*(n*h-a*l),e}function _i(e){var t=e[0],r=e[1],n=e[2],a=e[3],s=e[4],c=e[5],l=e[6],h=e[7],u=e[8],i=e[9],o=e[10],f=e[11],d=e[12],v=e[13],_=e[14],p=e[15],m=t*c-r*s,y=t*l-n*s,g=t*h-a*s,M=r*l-n*c,b=r*h-a*c,x=n*h-a*l,q=u*v-i*d,S=u*_-o*d,D=u*p-f*d,C=i*_-o*v,z=i*p-f*v,F=o*p-f*_;return m*F-y*z+g*C+M*D-b*S+x*q}function tt(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=t[4],h=t[5],u=t[6],i=t[7],o=t[8],f=t[9],d=t[10],v=t[11],_=t[12],p=t[13],m=t[14],y=t[15],g=r[0],M=r[1],b=r[2],x=r[3];return e[0]=g*n+M*l+b*o+x*_,e[1]=g*a+M*h+b*f+x*p,e[2]=g*s+M*u+b*d+x*m,e[3]=g*c+M*i+b*v+x*y,g=r[4],M=r[5],b=r[6],x=r[7],e[4]=g*n+M*l+b*o+x*_,e[5]=g*a+M*h+b*f+x*p,e[6]=g*s+M*u+b*d+x*m,e[7]=g*c+M*i+b*v+x*y,g=r[8],M=r[9],b=r[10],x=r[11],e[8]=g*n+M*l+b*o+x*_,e[9]=g*a+M*h+b*f+x*p,e[10]=g*s+M*u+b*d+x*m,e[11]=g*c+M*i+b*v+x*y,g=r[12],M=r[13],b=r[14],x=r[15],e[12]=g*n+M*l+b*o+x*_,e[13]=g*a+M*h+b*f+x*p,e[14]=g*s+M*u+b*d+x*m,e[15]=g*c+M*i+b*v+x*y,e}function mi(e,t,r){var n=r[0],a=r[1],s=r[2],c,l,h,u,i,o,f,d,v,_,p,m;return t===e?(e[12]=t[0]*n+t[4]*a+t[8]*s+t[12],e[13]=t[1]*n+t[5]*a+t[9]*s+t[13],e[14]=t[2]*n+t[6]*a+t[10]*s+t[14],e[15]=t[3]*n+t[7]*a+t[11]*s+t[15]):(c=t[0],l=t[1],h=t[2],u=t[3],i=t[4],o=t[5],f=t[6],d=t[7],v=t[8],_=t[9],p=t[10],m=t[11],e[0]=c,e[1]=l,e[2]=h,e[3]=u,e[4]=i,e[5]=o,e[6]=f,e[7]=d,e[8]=v,e[9]=_,e[10]=p,e[11]=m,e[12]=c*n+i*a+v*s+t[12],e[13]=l*n+o*a+_*s+t[13],e[14]=h*n+f*a+p*s+t[14],e[15]=u*n+d*a+m*s+t[15]),e}function yi(e,t,r){var n=r[0],a=r[1],s=r[2];return e[0]=t[0]*n,e[1]=t[1]*n,e[2]=t[2]*n,e[3]=t[3]*n,e[4]=t[4]*a,e[5]=t[5]*a,e[6]=t[6]*a,e[7]=t[7]*a,e[8]=t[8]*s,e[9]=t[9]*s,e[10]=t[10]*s,e[11]=t[11]*s,e[12]=t[12],e[13]=t[13],e[14]=t[14],e[15]=t[15],e}function gi(e,t,r,n){var a=n[0],s=n[1],c=n[2],l=Math.hypot(a,s,c),h,u,i,o,f,d,v,_,p,m,y,g,M,b,x,q,S,D,C,z,F,E,P,U;return l<Y.EPSILON?null:(l=1/l,a*=l,s*=l,c*=l,h=Math.sin(r),u=Math.cos(r),i=1-u,o=t[0],f=t[1],d=t[2],v=t[3],_=t[4],p=t[5],m=t[6],y=t[7],g=t[8],M=t[9],b=t[10],x=t[11],q=a*a*i+u,S=s*a*i+c*h,D=c*a*i-s*h,C=a*s*i-c*h,z=s*s*i+u,F=c*s*i+a*h,E=a*c*i+s*h,P=s*c*i-a*h,U=c*c*i+u,e[0]=o*q+_*S+g*D,e[1]=f*q+p*S+M*D,e[2]=d*q+m*S+b*D,e[3]=v*q+y*S+x*D,e[4]=o*C+_*z+g*F,e[5]=f*C+p*z+M*F,e[6]=d*C+m*z+b*F,e[7]=v*C+y*z+x*F,e[8]=o*E+_*P+g*U,e[9]=f*E+p*P+M*U,e[10]=d*E+m*P+b*U,e[11]=v*E+y*P+x*U,t!==e&&(e[12]=t[12],e[13]=t[13],e[14]=t[14],e[15]=t[15]),e)}function Mi(e,t,r){var n=Math.sin(r),a=Math.cos(r),s=t[4],c=t[5],l=t[6],h=t[7],u=t[8],i=t[9],o=t[10],f=t[11];return t!==e&&(e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e[12]=t[12],e[13]=t[13],e[14]=t[14],e[15]=t[15]),e[4]=s*a+u*n,e[5]=c*a+i*n,e[6]=l*a+o*n,e[7]=h*a+f*n,e[8]=u*a-s*n,e[9]=i*a-c*n,e[10]=o*a-l*n,e[11]=f*a-h*n,e}function bi(e,t,r){var n=Math.sin(r),a=Math.cos(r),s=t[0],c=t[1],l=t[2],h=t[3],u=t[8],i=t[9],o=t[10],f=t[11];return t!==e&&(e[4]=t[4],e[5]=t[5],e[6]=t[6],e[7]=t[7],e[12]=t[12],e[13]=t[13],e[14]=t[14],e[15]=t[15]),e[0]=s*a-u*n,e[1]=c*a-i*n,e[2]=l*a-o*n,e[3]=h*a-f*n,e[8]=s*n+u*a,e[9]=c*n+i*a,e[10]=l*n+o*a,e[11]=h*n+f*a,e}function xi(e,t,r){var n=Math.sin(r),a=Math.cos(r),s=t[0],c=t[1],l=t[2],h=t[3],u=t[4],i=t[5],o=t[6],f=t[7];return t!==e&&(e[8]=t[8],e[9]=t[9],e[10]=t[10],e[11]=t[11],e[12]=t[12],e[13]=t[13],e[14]=t[14],e[15]=t[15]),e[0]=s*a+u*n,e[1]=c*a+i*n,e[2]=l*a+o*n,e[3]=h*a+f*n,e[4]=u*a-s*n,e[5]=i*a-c*n,e[6]=o*a-l*n,e[7]=f*a-h*n,e}function wi(e,t){return e[0]=1,e[1]=0,e[2]=0,e[3]=0,e[4]=0,e[5]=1,e[6]=0,e[7]=0,e[8]=0,e[9]=0,e[10]=1,e[11]=0,e[12]=t[0],e[13]=t[1],e[14]=t[2],e[15]=1,e}function Ai(e,t){return e[0]=t[0],e[1]=0,e[2]=0,e[3]=0,e[4]=0,e[5]=t[1],e[6]=0,e[7]=0,e[8]=0,e[9]=0,e[10]=t[2],e[11]=0,e[12]=0,e[13]=0,e[14]=0,e[15]=1,e}function Ti(e,t,r){var n=r[0],a=r[1],s=r[2],c=Math.hypot(n,a,s),l,h,u;return c<Y.EPSILON?null:(c=1/c,n*=c,a*=c,s*=c,l=Math.sin(t),h=Math.cos(t),u=1-h,e[0]=n*n*u+h,e[1]=a*n*u+s*l,e[2]=s*n*u-a*l,e[3]=0,e[4]=n*a*u-s*l,e[5]=a*a*u+h,e[6]=s*a*u+n*l,e[7]=0,e[8]=n*s*u+a*l,e[9]=a*s*u-n*l,e[10]=s*s*u+h,e[11]=0,e[12]=0,e[13]=0,e[14]=0,e[15]=1,e)}function Si(e,t){var r=Math.sin(t),n=Math.cos(t);return e[0]=1,e[1]=0,e[2]=0,e[3]=0,e[4]=0,e[5]=n,e[6]=r,e[7]=0,e[8]=0,e[9]=-r,e[10]=n,e[11]=0,e[12]=0,e[13]=0,e[14]=0,e[15]=1,e}function Oi(e,t){var r=Math.sin(t),n=Math.cos(t);return e[0]=n,e[1]=0,e[2]=-r,e[3]=0,e[4]=0,e[5]=1,e[6]=0,e[7]=0,e[8]=r,e[9]=0,e[10]=n,e[11]=0,e[12]=0,e[13]=0,e[14]=0,e[15]=1,e}function Ri(e,t){var r=Math.sin(t),n=Math.cos(t);return e[0]=n,e[1]=r,e[2]=0,e[3]=0,e[4]=-r,e[5]=n,e[6]=0,e[7]=0,e[8]=0,e[9]=0,e[10]=1,e[11]=0,e[12]=0,e[13]=0,e[14]=0,e[15]=1,e}function rt(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=n+n,h=a+a,u=s+s,i=n*l,o=n*h,f=n*u,d=a*h,v=a*u,_=s*u,p=c*l,m=c*h,y=c*u;return e[0]=1-(d+_),e[1]=o+y,e[2]=f-m,e[3]=0,e[4]=o-y,e[5]=1-(i+_),e[6]=v+p,e[7]=0,e[8]=f+m,e[9]=v-p,e[10]=1-(i+d),e[11]=0,e[12]=r[0],e[13]=r[1],e[14]=r[2],e[15]=1,e}function Li(e,t){var r=new Y.ARRAY_TYPE(3),n=-t[0],a=-t[1],s=-t[2],c=t[3],l=t[4],h=t[5],u=t[6],i=t[7],o=n*n+a*a+s*s+c*c;return o>0?(r[0]=(l*c+i*n+h*s-u*a)*2/o,r[1]=(h*c+i*a+u*n-l*s)*2/o,r[2]=(u*c+i*s+l*a-h*n)*2/o):(r[0]=(l*c+i*n+h*s-u*a)*2,r[1]=(h*c+i*a+u*n-l*s)*2,r[2]=(u*c+i*s+l*a-h*n)*2),rt(e,t,r),e}function Pi(e,t){return e[0]=t[12],e[1]=t[13],e[2]=t[14],e}function nt(e,t){var r=t[0],n=t[1],a=t[2],s=t[4],c=t[5],l=t[6],h=t[8],u=t[9],i=t[10];return e[0]=Math.hypot(r,n,a),e[1]=Math.hypot(s,c,l),e[2]=Math.hypot(h,u,i),e}function Ii(e,t){var r=new Y.ARRAY_TYPE(3);nt(r,t);var n=1/r[0],a=1/r[1],s=1/r[2],c=t[0]*n,l=t[1]*a,h=t[2]*s,u=t[4]*n,i=t[5]*a,o=t[6]*s,f=t[8]*n,d=t[9]*a,v=t[10]*s,_=c+i+v,p=0;return _>0?(p=Math.sqrt(_+1)*2,e[3]=.25*p,e[0]=(o-d)/p,e[1]=(f-h)/p,e[2]=(l-u)/p):c>i&&c>v?(p=Math.sqrt(1+c-i-v)*2,e[3]=(o-d)/p,e[0]=.25*p,e[1]=(l+u)/p,e[2]=(f+h)/p):i>v?(p=Math.sqrt(1+i-c-v)*2,e[3]=(f-h)/p,e[0]=(l+u)/p,e[1]=.25*p,e[2]=(o+d)/p):(p=Math.sqrt(1+v-c-i)*2,e[3]=(l-u)/p,e[0]=(f+h)/p,e[1]=(o+d)/p,e[2]=.25*p),e}function Wi(e,t,r,n){var a=t[0],s=t[1],c=t[2],l=t[3],h=a+a,u=s+s,i=c+c,o=a*h,f=a*u,d=a*i,v=s*u,_=s*i,p=c*i,m=l*h,y=l*u,g=l*i,M=n[0],b=n[1],x=n[2];return e[0]=(1-(v+p))*M,e[1]=(f+g)*M,e[2]=(d-y)*M,e[3]=0,e[4]=(f-g)*b,e[5]=(1-(o+p))*b,e[6]=(_+m)*b,e[7]=0,e[8]=(d+y)*x,e[9]=(_-m)*x,e[10]=(1-(o+v))*x,e[11]=0,e[12]=r[0],e[13]=r[1],e[14]=r[2],e[15]=1,e}function qi(e,t,r,n,a){var s=t[0],c=t[1],l=t[2],h=t[3],u=s+s,i=c+c,o=l+l,f=s*u,d=s*i,v=s*o,_=c*i,p=c*o,m=l*o,y=h*u,g=h*i,M=h*o,b=n[0],x=n[1],q=n[2],S=a[0],D=a[1],C=a[2],z=(1-(_+m))*b,F=(d+M)*b,E=(v-g)*b,P=(d-M)*x,U=(1-(f+m))*x,he=(p+y)*x,de=(v+g)*q,ke=(p-y)*q,ze=(1-(f+_))*q;return e[0]=z,e[1]=F,e[2]=E,e[3]=0,e[4]=P,e[5]=U,e[6]=he,e[7]=0,e[8]=de,e[9]=ke,e[10]=ze,e[11]=0,e[12]=r[0]+S-(z*S+P*D+de*C),e[13]=r[1]+D-(F*S+U*D+ke*C),e[14]=r[2]+C-(E*S+he*D+ze*C),e[15]=1,e}function Ei(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=r+r,l=n+n,h=a+a,u=r*c,i=n*c,o=n*l,f=a*c,d=a*l,v=a*h,_=s*c,p=s*l,m=s*h;return e[0]=1-o-v,e[1]=i+m,e[2]=f-p,e[3]=0,e[4]=i-m,e[5]=1-u-v,e[6]=d+_,e[7]=0,e[8]=f+p,e[9]=d-_,e[10]=1-u-o,e[11]=0,e[12]=0,e[13]=0,e[14]=0,e[15]=1,e}function Ci(e,t,r,n,a,s,c){var l=1/(r-t),h=1/(a-n),u=1/(s-c);return e[0]=s*2*l,e[1]=0,e[2]=0,e[3]=0,e[4]=0,e[5]=s*2*h,e[6]=0,e[7]=0,e[8]=(r+t)*l,e[9]=(a+n)*h,e[10]=(c+s)*u,e[11]=-1,e[12]=0,e[13]=0,e[14]=c*s*2*u,e[15]=0,e}function Di(e,t,r,n,a){var s=1/Math.tan(t/2),c;return e[0]=s/r,e[1]=0,e[2]=0,e[3]=0,e[4]=0,e[5]=s,e[6]=0,e[7]=0,e[8]=0,e[9]=0,e[11]=-1,e[12]=0,e[13]=0,e[15]=0,a!=null&&a!==Infinity?(c=1/(n-a),e[10]=(a+n)*c,e[14]=2*a*n*c):(e[10]=-1,e[14]=-2*n),e}function Fi(e,t,r,n){var a=Math.tan(t.upDegrees*Math.PI/180),s=Math.tan(t.downDegrees*Math.PI/180),c=Math.tan(t.leftDegrees*Math.PI/180),l=Math.tan(t.rightDegrees*Math.PI/180),h=2/(c+l),u=2/(a+s);return e[0]=h,e[1]=0,e[2]=0,e[3]=0,e[4]=0,e[5]=u,e[6]=0,e[7]=0,e[8]=-((c-l)*h*.5),e[9]=(a-s)*u*.5,e[10]=n/(r-n),e[11]=-1,e[12]=0,e[13]=0,e[14]=n*r/(r-n),e[15]=0,e}function ji(e,t,r,n,a,s,c){var l=1/(t-r),h=1/(n-a),u=1/(s-c);return e[0]=-2*l,e[1]=0,e[2]=0,e[3]=0,e[4]=0,e[5]=-2*h,e[6]=0,e[7]=0,e[8]=0,e[9]=0,e[10]=2*u,e[11]=0,e[12]=(t+r)*l,e[13]=(a+n)*h,e[14]=(c+s)*u,e[15]=1,e}function ki(e,t,r,n){var a,s,c,l,h,u,i,o,f,d,v=t[0],_=t[1],p=t[2],m=n[0],y=n[1],g=n[2],M=r[0],b=r[1],x=r[2];return Math.abs(v-M)<Y.EPSILON&&Math.abs(_-b)<Y.EPSILON&&Math.abs(p-x)<Y.EPSILON?et(e):(i=v-M,o=_-b,f=p-x,d=1/Math.hypot(i,o,f),i*=d,o*=d,f*=d,a=y*f-g*o,s=g*i-m*f,c=m*o-y*i,d=Math.hypot(a,s,c),d?(d=1/d,a*=d,s*=d,c*=d):(a=0,s=0,c=0),l=o*c-f*s,h=f*a-i*c,u=i*s-o*a,d=Math.hypot(l,h,u),d?(d=1/d,l*=d,h*=d,u*=d):(l=0,h=0,u=0),e[0]=a,e[1]=l,e[2]=i,e[3]=0,e[4]=s,e[5]=h,e[6]=o,e[7]=0,e[8]=c,e[9]=u,e[10]=f,e[11]=0,e[12]=-(a*v+s*_+c*p),e[13]=-(l*v+h*_+u*p),e[14]=-(i*v+o*_+f*p),e[15]=1,e)}function zi(e,t,r,n){var a=t[0],s=t[1],c=t[2],l=n[0],h=n[1],u=n[2],i=a-r[0],o=s-r[1],f=c-r[2],d=i*i+o*o+f*f;d>0&&(d=1/Math.sqrt(d),i*=d,o*=d,f*=d);var v=h*f-u*o,_=u*i-l*f,p=l*o-h*i;return d=v*v+_*_+p*p,d>0&&(d=1/Math.sqrt(d),v*=d,_*=d,p*=d),e[0]=v,e[1]=_,e[2]=p,e[3]=0,e[4]=o*p-f*_,e[5]=f*v-i*p,e[6]=i*_-o*v,e[7]=0,e[8]=i,e[9]=o,e[10]=f,e[11]=0,e[12]=a,e[13]=s,e[14]=c,e[15]=1,e}function Yi(e){return"mat4("+e[0]+", "+e[1]+", "+e[2]+", "+e[3]+", "+e[4]+", "+e[5]+", "+e[6]+", "+e[7]+", "+e[8]+", "+e[9]+", "+e[10]+", "+e[11]+", "+e[12]+", "+e[13]+", "+e[14]+", "+e[15]+")"}function Hi(e){return Math.hypot(e[0],e[1],e[2],e[3],e[4],e[5],e[6],e[7],e[8],e[9],e[10],e[11],e[12],e[13],e[14],e[15])}function Vi(e,t,r){return e[0]=t[0]+r[0],e[1]=t[1]+r[1],e[2]=t[2]+r[2],e[3]=t[3]+r[3],e[4]=t[4]+r[4],e[5]=t[5]+r[5],e[6]=t[6]+r[6],e[7]=t[7]+r[7],e[8]=t[8]+r[8],e[9]=t[9]+r[9],e[10]=t[10]+r[10],e[11]=t[11]+r[11],e[12]=t[12]+r[12],e[13]=t[13]+r[13],e[14]=t[14]+r[14],e[15]=t[15]+r[15],e}function it(e,t,r){return e[0]=t[0]-r[0],e[1]=t[1]-r[1],e[2]=t[2]-r[2],e[3]=t[3]-r[3],e[4]=t[4]-r[4],e[5]=t[5]-r[5],e[6]=t[6]-r[6],e[7]=t[7]-r[7],e[8]=t[8]-r[8],e[9]=t[9]-r[9],e[10]=t[10]-r[10],e[11]=t[11]-r[11],e[12]=t[12]-r[12],e[13]=t[13]-r[13],e[14]=t[14]-r[14],e[15]=t[15]-r[15],e}function Ni(e,t,r){return e[0]=t[0]*r,e[1]=t[1]*r,e[2]=t[2]*r,e[3]=t[3]*r,e[4]=t[4]*r,e[5]=t[5]*r,e[6]=t[6]*r,e[7]=t[7]*r,e[8]=t[8]*r,e[9]=t[9]*r,e[10]=t[10]*r,e[11]=t[11]*r,e[12]=t[12]*r,e[13]=t[13]*r,e[14]=t[14]*r,e[15]=t[15]*r,e}function Xi(e,t,r,n){return e[0]=t[0]+r[0]*n,e[1]=t[1]+r[1]*n,e[2]=t[2]+r[2]*n,e[3]=t[3]+r[3]*n,e[4]=t[4]+r[4]*n,e[5]=t[5]+r[5]*n,e[6]=t[6]+r[6]*n,e[7]=t[7]+r[7]*n,e[8]=t[8]+r[8]*n,e[9]=t[9]+r[9]*n,e[10]=t[10]+r[10]*n,e[11]=t[11]+r[11]*n,e[12]=t[12]+r[12]*n,e[13]=t[13]+r[13]*n,e[14]=t[14]+r[14]*n,e[15]=t[15]+r[15]*n,e}function Bi(e,t){return e[0]===t[0]&&e[1]===t[1]&&e[2]===t[2]&&e[3]===t[3]&&e[4]===t[4]&&e[5]===t[5]&&e[6]===t[6]&&e[7]===t[7]&&e[8]===t[8]&&e[9]===t[9]&&e[10]===t[10]&&e[11]===t[11]&&e[12]===t[12]&&e[13]===t[13]&&e[14]===t[14]&&e[15]===t[15]}function Gi(e,t){var r=e[0],n=e[1],a=e[2],s=e[3],c=e[4],l=e[5],h=e[6],u=e[7],i=e[8],o=e[9],f=e[10],d=e[11],v=e[12],_=e[13],p=e[14],m=e[15],y=t[0],g=t[1],M=t[2],b=t[3],x=t[4],q=t[5],S=t[6],D=t[7],C=t[8],z=t[9],F=t[10],E=t[11],P=t[12],U=t[13],he=t[14],de=t[15];return Math.abs(r-y)<=Y.EPSILON*Math.max(1,Math.abs(r),Math.abs(y))&&Math.abs(n-g)<=Y.EPSILON*Math.max(1,Math.abs(n),Math.abs(g))&&Math.abs(a-M)<=Y.EPSILON*Math.max(1,Math.abs(a),Math.abs(M))&&Math.abs(s-b)<=Y.EPSILON*Math.max(1,Math.abs(s),Math.abs(b))&&Math.abs(c-x)<=Y.EPSILON*Math.max(1,Math.abs(c),Math.abs(x))&&Math.abs(l-q)<=Y.EPSILON*Math.max(1,Math.abs(l),Math.abs(q))&&Math.abs(h-S)<=Y.EPSILON*Math.max(1,Math.abs(h),Math.abs(S))&&Math.abs(u-D)<=Y.EPSILON*Math.max(1,Math.abs(u),Math.abs(D))&&Math.abs(i-C)<=Y.EPSILON*Math.max(1,Math.abs(i),Math.abs(C))&&Math.abs(o-z)<=Y.EPSILON*Math.max(1,Math.abs(o),Math.abs(z))&&Math.abs(f-F)<=Y.EPSILON*Math.max(1,Math.abs(f),Math.abs(F))&&Math.abs(d-E)<=Y.EPSILON*Math.max(1,Math.abs(d),Math.abs(E))&&Math.abs(v-P)<=Y.EPSILON*Math.max(1,Math.abs(v),Math.abs(P))&&Math.abs(_-U)<=Y.EPSILON*Math.max(1,Math.abs(_),Math.abs(U))&&Math.abs(p-he)<=Y.EPSILON*Math.max(1,Math.abs(p),Math.abs(he))&&Math.abs(m-de)<=Y.EPSILON*Math.max(1,Math.abs(m),Math.abs(de))}var Ui=tt;O.mul=Ui;var Zi=it;O.sub=Zi});var Ie=H(A=>{"use strict";function me(e){return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?me=function(r){return typeof r}:me=function(r){return r&&typeof Symbol=="function"&&r.constructor===Symbol&&r!==Symbol.prototype?"symbol":typeof r},me(e)}Object.defineProperty(A,"__esModule",{value:!0});A.create=st;A.clone=$i;A.length=ot;A.fromValues=Ji;A.copy=Ki;A.set=ea;A.add=ta;A.subtract=ct;A.multiply=lt;A.divide=ft;A.ceil=ra;A.floor=na;A.min=ia;A.max=aa;A.round=sa;A.scale=oa;A.scaleAndAdd=ca;A.distance=ht;A.squaredDistance=dt;A.squaredLength=ut;A.negate=la;A.inverse=fa;A.normalize=ha;A.dot=pt;A.cross=da;A.lerp=ua;A.hermite=pa;A.bezier=va;A.random=_a;A.transformMat4=ma;A.transformMat3=ya;A.transformQuat=ga;A.rotateX=Ma;A.rotateY=ba;A.rotateZ=xa;A.angle=wa;A.zero=Aa;A.str=Ta;A.exactEquals=Sa;A.equals=Oa;A.forEach=A.sqrLen=A.len=A.sqrDist=A.dist=A.div=A.mul=A.sub=void 0;var re=Ra(Z());function vt(){if(typeof WeakMap!="function")return null;var e=new WeakMap;return vt=function(){return e},e}function Ra(e){if(e&&e.__esModule)return e;if(e===null||me(e)!=="object"&&typeof e!="function")return{default:e};var t=vt();if(t&&t.has(e))return t.get(e);var r={},n=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if(Object.prototype.hasOwnProperty.call(e,a)){var s=n?Object.getOwnPropertyDescriptor(e,a):null;s&&(s.get||s.set)?Object.defineProperty(r,a,s):r[a]=e[a]}return r.default=e,t&&t.set(e,r),r}function st(){var e=new re.ARRAY_TYPE(3);return re.ARRAY_TYPE!=Float32Array&&(e[0]=0,e[1]=0,e[2]=0),e}function $i(e){var t=new re.ARRAY_TYPE(3);return t[0]=e[0],t[1]=e[1],t[2]=e[2],t}function ot(e){var t=e[0],r=e[1],n=e[2];return Math.hypot(t,r,n)}function Ji(e,t,r){var n=new re.ARRAY_TYPE(3);return n[0]=e,n[1]=t,n[2]=r,n}function Ki(e,t){return e[0]=t[0],e[1]=t[1],e[2]=t[2],e}function ea(e,t,r,n){return e[0]=t,e[1]=r,e[2]=n,e}function ta(e,t,r){return e[0]=t[0]+r[0],e[1]=t[1]+r[1],e[2]=t[2]+r[2],e}function ct(e,t,r){return e[0]=t[0]-r[0],e[1]=t[1]-r[1],e[2]=t[2]-r[2],e}function lt(e,t,r){return e[0]=t[0]*r[0],e[1]=t[1]*r[1],e[2]=t[2]*r[2],e}function ft(e,t,r){return e[0]=t[0]/r[0],e[1]=t[1]/r[1],e[2]=t[2]/r[2],e}function ra(e,t){return e[0]=Math.ceil(t[0]),e[1]=Math.ceil(t[1]),e[2]=Math.ceil(t[2]),e}function na(e,t){return e[0]=Math.floor(t[0]),e[1]=Math.floor(t[1]),e[2]=Math.floor(t[2]),e}function ia(e,t,r){return e[0]=Math.min(t[0],r[0]),e[1]=Math.min(t[1],r[1]),e[2]=Math.min(t[2],r[2]),e}function aa(e,t,r){return e[0]=Math.max(t[0],r[0]),e[1]=Math.max(t[1],r[1]),e[2]=Math.max(t[2],r[2]),e}function sa(e,t){return e[0]=Math.round(t[0]),e[1]=Math.round(t[1]),e[2]=Math.round(t[2]),e}function oa(e,t,r){return e[0]=t[0]*r,e[1]=t[1]*r,e[2]=t[2]*r,e}function ca(e,t,r,n){return e[0]=t[0]+r[0]*n,e[1]=t[1]+r[1]*n,e[2]=t[2]+r[2]*n,e}function ht(e,t){var r=t[0]-e[0],n=t[1]-e[1],a=t[2]-e[2];return Math.hypot(r,n,a)}function dt(e,t){var r=t[0]-e[0],n=t[1]-e[1],a=t[2]-e[2];return r*r+n*n+a*a}function ut(e){var t=e[0],r=e[1],n=e[2];return t*t+r*r+n*n}function la(e,t){return e[0]=-t[0],e[1]=-t[1],e[2]=-t[2],e}function fa(e,t){return e[0]=1/t[0],e[1]=1/t[1],e[2]=1/t[2],e}function ha(e,t){var r=t[0],n=t[1],a=t[2],s=r*r+n*n+a*a;return s>0&&(s=1/Math.sqrt(s)),e[0]=t[0]*s,e[1]=t[1]*s,e[2]=t[2]*s,e}function pt(e,t){return e[0]*t[0]+e[1]*t[1]+e[2]*t[2]}function da(e,t,r){var n=t[0],a=t[1],s=t[2],c=r[0],l=r[1],h=r[2];return e[0]=a*h-s*l,e[1]=s*c-n*h,e[2]=n*l-a*c,e}function ua(e,t,r,n){var a=t[0],s=t[1],c=t[2];return e[0]=a+n*(r[0]-a),e[1]=s+n*(r[1]-s),e[2]=c+n*(r[2]-c),e}function pa(e,t,r,n,a,s){var c=s*s,l=c*(2*s-3)+1,h=c*(s-2)+s,u=c*(s-1),i=c*(3-2*s);return e[0]=t[0]*l+r[0]*h+n[0]*u+a[0]*i,e[1]=t[1]*l+r[1]*h+n[1]*u+a[1]*i,e[2]=t[2]*l+r[2]*h+n[2]*u+a[2]*i,e}function va(e,t,r,n,a,s){var c=1-s,l=c*c,h=s*s,u=l*c,i=3*s*l,o=3*h*c,f=h*s;return e[0]=t[0]*u+r[0]*i+n[0]*o+a[0]*f,e[1]=t[1]*u+r[1]*i+n[1]*o+a[1]*f,e[2]=t[2]*u+r[2]*i+n[2]*o+a[2]*f,e}function _a(e,t){t=t||1;var r=re.RANDOM()*2*Math.PI,n=re.RANDOM()*2-1,a=Math.sqrt(1-n*n)*t;return e[0]=Math.cos(r)*a,e[1]=Math.sin(r)*a,e[2]=n*t,e}function ma(e,t,r){var n=t[0],a=t[1],s=t[2],c=r[3]*n+r[7]*a+r[11]*s+r[15];return c=c||1,e[0]=(r[0]*n+r[4]*a+r[8]*s+r[12])/c,e[1]=(r[1]*n+r[5]*a+r[9]*s+r[13])/c,e[2]=(r[2]*n+r[6]*a+r[10]*s+r[14])/c,e}function ya(e,t,r){var n=t[0],a=t[1],s=t[2];return e[0]=n*r[0]+a*r[3]+s*r[6],e[1]=n*r[1]+a*r[4]+s*r[7],e[2]=n*r[2]+a*r[5]+s*r[8],e}function ga(e,t,r){var n=r[0],a=r[1],s=r[2],c=r[3],l=t[0],h=t[1],u=t[2],i=a*u-s*h,o=s*l-n*u,f=n*h-a*l,d=a*f-s*o,v=s*i-n*f,_=n*o-a*i,p=c*2;return i*=p,o*=p,f*=p,d*=2,v*=2,_*=2,e[0]=l+i+d,e[1]=h+o+v,e[2]=u+f+_,e}function Ma(e,t,r,n){var a=[],s=[];return a[0]=t[0]-r[0],a[1]=t[1]-r[1],a[2]=t[2]-r[2],s[0]=a[0],s[1]=a[1]*Math.cos(n)-a[2]*Math.sin(n),s[2]=a[1]*Math.sin(n)+a[2]*Math.cos(n),e[0]=s[0]+r[0],e[1]=s[1]+r[1],e[2]=s[2]+r[2],e}function ba(e,t,r,n){var a=[],s=[];return a[0]=t[0]-r[0],a[1]=t[1]-r[1],a[2]=t[2]-r[2],s[0]=a[2]*Math.sin(n)+a[0]*Math.cos(n),s[1]=a[1],s[2]=a[2]*Math.cos(n)-a[0]*Math.sin(n),e[0]=s[0]+r[0],e[1]=s[1]+r[1],e[2]=s[2]+r[2],e}function xa(e,t,r,n){var a=[],s=[];return a[0]=t[0]-r[0],a[1]=t[1]-r[1],a[2]=t[2]-r[2],s[0]=a[0]*Math.cos(n)-a[1]*Math.sin(n),s[1]=a[0]*Math.sin(n)+a[1]*Math.cos(n),s[2]=a[2],e[0]=s[0]+r[0],e[1]=s[1]+r[1],e[2]=s[2]+r[2],e}function wa(e,t){var r=e[0],n=e[1],a=e[2],s=t[0],c=t[1],l=t[2],h=Math.sqrt(r*r+n*n+a*a),u=Math.sqrt(s*s+c*c+l*l),i=h*u,o=i&&pt(e,t)/i;return Math.acos(Math.min(Math.max(o,-1),1))}function Aa(e){return e[0]=0,e[1]=0,e[2]=0,e}function Ta(e){return"vec3("+e[0]+", "+e[1]+", "+e[2]+")"}function Sa(e,t){return e[0]===t[0]&&e[1]===t[1]&&e[2]===t[2]}function Oa(e,t){var r=e[0],n=e[1],a=e[2],s=t[0],c=t[1],l=t[2];return Math.abs(r-s)<=re.EPSILON*Math.max(1,Math.abs(r),Math.abs(s))&&Math.abs(n-c)<=re.EPSILON*Math.max(1,Math.abs(n),Math.abs(c))&&Math.abs(a-l)<=re.EPSILON*Math.max(1,Math.abs(a),Math.abs(l))}var La=ct;A.sub=La;var Pa=lt;A.mul=Pa;var Ia=ft;A.div=Ia;var Wa=ht;A.dist=Wa;var qa=dt;A.sqrDist=qa;var Ea=ot;A.len=Ea;var Ca=ut;A.sqrLen=Ca;var Da=function(){var e=st();return function(t,r,n,a,s,c){var l,h;for(r||(r=3),n||(n=0),a?h=Math.min(a*r+n,t.length):h=t.length,l=n;l<h;l+=r)e[0]=t[l],e[1]=t[l+1],e[2]=t[l+2],s(e,e,c),t[l]=e[0],t[l+1]=e[1],t[l+2]=e[2];return t}}();A.forEach=Da});var We=H(R=>{"use strict";function ye(e){return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?ye=function(r){return typeof r}:ye=function(r){return r&&typeof Symbol=="function"&&r.constructor===Symbol&&r!==Symbol.prototype?"symbol":typeof r},ye(e)}Object.defineProperty(R,"__esModule",{value:!0});R.create=_t;R.clone=Fa;R.fromValues=ja;R.copy=ka;R.set=za;R.add=Ya;R.subtract=mt;R.multiply=yt;R.divide=gt;R.ceil=Ha;R.floor=Va;R.min=Na;R.max=Xa;R.round=Ba;R.scale=Ga;R.scaleAndAdd=Qa;R.distance=Mt;R.squaredDistance=bt;R.length=xt;R.squaredLength=wt;R.negate=Ua;R.inverse=Za;R.normalize=$a;R.dot=Ja;R.cross=Ka;R.lerp=es;R.random=ts;R.transformMat4=rs;R.transformQuat=ns;R.zero=is;R.str=as;R.exactEquals=ss;R.equals=os;R.forEach=R.sqrLen=R.len=R.sqrDist=R.dist=R.div=R.mul=R.sub=void 0;var Q=cs(Z());function At(){if(typeof WeakMap!="function")return null;var e=new WeakMap;return At=function(){return e},e}function cs(e){if(e&&e.__esModule)return e;if(e===null||ye(e)!=="object"&&typeof e!="function")return{default:e};var t=At();if(t&&t.has(e))return t.get(e);var r={},n=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if(Object.prototype.hasOwnProperty.call(e,a)){var s=n?Object.getOwnPropertyDescriptor(e,a):null;s&&(s.get||s.set)?Object.defineProperty(r,a,s):r[a]=e[a]}return r.default=e,t&&t.set(e,r),r}function _t(){var e=new Q.ARRAY_TYPE(4);return Q.ARRAY_TYPE!=Float32Array&&(e[0]=0,e[1]=0,e[2]=0,e[3]=0),e}function Fa(e){var t=new Q.ARRAY_TYPE(4);return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t}function ja(e,t,r,n){var a=new Q.ARRAY_TYPE(4);return a[0]=e,a[1]=t,a[2]=r,a[3]=n,a}function ka(e,t){return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e}function za(e,t,r,n,a){return e[0]=t,e[1]=r,e[2]=n,e[3]=a,e}function Ya(e,t,r){return e[0]=t[0]+r[0],e[1]=t[1]+r[1],e[2]=t[2]+r[2],e[3]=t[3]+r[3],e}function mt(e,t,r){return e[0]=t[0]-r[0],e[1]=t[1]-r[1],e[2]=t[2]-r[2],e[3]=t[3]-r[3],e}function yt(e,t,r){return e[0]=t[0]*r[0],e[1]=t[1]*r[1],e[2]=t[2]*r[2],e[3]=t[3]*r[3],e}function gt(e,t,r){return e[0]=t[0]/r[0],e[1]=t[1]/r[1],e[2]=t[2]/r[2],e[3]=t[3]/r[3],e}function Ha(e,t){return e[0]=Math.ceil(t[0]),e[1]=Math.ceil(t[1]),e[2]=Math.ceil(t[2]),e[3]=Math.ceil(t[3]),e}function Va(e,t){return e[0]=Math.floor(t[0]),e[1]=Math.floor(t[1]),e[2]=Math.floor(t[2]),e[3]=Math.floor(t[3]),e}function Na(e,t,r){return e[0]=Math.min(t[0],r[0]),e[1]=Math.min(t[1],r[1]),e[2]=Math.min(t[2],r[2]),e[3]=Math.min(t[3],r[3]),e}function Xa(e,t,r){return e[0]=Math.max(t[0],r[0]),e[1]=Math.max(t[1],r[1]),e[2]=Math.max(t[2],r[2]),e[3]=Math.max(t[3],r[3]),e}function Ba(e,t){return e[0]=Math.round(t[0]),e[1]=Math.round(t[1]),e[2]=Math.round(t[2]),e[3]=Math.round(t[3]),e}function Ga(e,t,r){return e[0]=t[0]*r,e[1]=t[1]*r,e[2]=t[2]*r,e[3]=t[3]*r,e}function Qa(e,t,r,n){return e[0]=t[0]+r[0]*n,e[1]=t[1]+r[1]*n,e[2]=t[2]+r[2]*n,e[3]=t[3]+r[3]*n,e}function Mt(e,t){var r=t[0]-e[0],n=t[1]-e[1],a=t[2]-e[2],s=t[3]-e[3];return Math.hypot(r,n,a,s)}function bt(e,t){var r=t[0]-e[0],n=t[1]-e[1],a=t[2]-e[2],s=t[3]-e[3];return r*r+n*n+a*a+s*s}function xt(e){var t=e[0],r=e[1],n=e[2],a=e[3];return Math.hypot(t,r,n,a)}function wt(e){var t=e[0],r=e[1],n=e[2],a=e[3];return t*t+r*r+n*n+a*a}function Ua(e,t){return e[0]=-t[0],e[1]=-t[1],e[2]=-t[2],e[3]=-t[3],e}function Za(e,t){return e[0]=1/t[0],e[1]=1/t[1],e[2]=1/t[2],e[3]=1/t[3],e}function $a(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=r*r+n*n+a*a+s*s;return c>0&&(c=1/Math.sqrt(c)),e[0]=r*c,e[1]=n*c,e[2]=a*c,e[3]=s*c,e}function Ja(e,t){return e[0]*t[0]+e[1]*t[1]+e[2]*t[2]+e[3]*t[3]}function Ka(e,t,r,n){var a=r[0]*n[1]-r[1]*n[0],s=r[0]*n[2]-r[2]*n[0],c=r[0]*n[3]-r[3]*n[0],l=r[1]*n[2]-r[2]*n[1],h=r[1]*n[3]-r[3]*n[1],u=r[2]*n[3]-r[3]*n[2],i=t[0],o=t[1],f=t[2],d=t[3];return e[0]=o*u-f*h+d*l,e[1]=-(i*u)+f*c-d*s,e[2]=i*h-o*c+d*a,e[3]=-(i*l)+o*s-f*a,e}function es(e,t,r,n){var a=t[0],s=t[1],c=t[2],l=t[3];return e[0]=a+n*(r[0]-a),e[1]=s+n*(r[1]-s),e[2]=c+n*(r[2]-c),e[3]=l+n*(r[3]-l),e}function ts(e,t){t=t||1;var r,n,a,s,c,l;do r=Q.RANDOM()*2-1,n=Q.RANDOM()*2-1,c=r*r+n*n;while(c>=1);do a=Q.RANDOM()*2-1,s=Q.RANDOM()*2-1,l=a*a+s*s;while(l>=1);var h=Math.sqrt((1-c)/l);return e[0]=t*r,e[1]=t*n,e[2]=t*a*h,e[3]=t*s*h,e}function rs(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3];return e[0]=r[0]*n+r[4]*a+r[8]*s+r[12]*c,e[1]=r[1]*n+r[5]*a+r[9]*s+r[13]*c,e[2]=r[2]*n+r[6]*a+r[10]*s+r[14]*c,e[3]=r[3]*n+r[7]*a+r[11]*s+r[15]*c,e}function ns(e,t,r){var n=t[0],a=t[1],s=t[2],c=r[0],l=r[1],h=r[2],u=r[3],i=u*n+l*s-h*a,o=u*a+h*n-c*s,f=u*s+c*a-l*n,d=-c*n-l*a-h*s;return e[0]=i*u+d*-c+o*-h-f*-l,e[1]=o*u+d*-l+f*-c-i*-h,e[2]=f*u+d*-h+i*-l-o*-c,e[3]=t[3],e}function is(e){return e[0]=0,e[1]=0,e[2]=0,e[3]=0,e}function as(e){return"vec4("+e[0]+", "+e[1]+", "+e[2]+", "+e[3]+")"}function ss(e,t){return e[0]===t[0]&&e[1]===t[1]&&e[2]===t[2]&&e[3]===t[3]}function os(e,t){var r=e[0],n=e[1],a=e[2],s=e[3],c=t[0],l=t[1],h=t[2],u=t[3];return Math.abs(r-c)<=Q.EPSILON*Math.max(1,Math.abs(r),Math.abs(c))&&Math.abs(n-l)<=Q.EPSILON*Math.max(1,Math.abs(n),Math.abs(l))&&Math.abs(a-h)<=Q.EPSILON*Math.max(1,Math.abs(a),Math.abs(h))&&Math.abs(s-u)<=Q.EPSILON*Math.max(1,Math.abs(s),Math.abs(u))}var ls=mt;R.sub=ls;var fs=yt;R.mul=fs;var hs=gt;R.div=hs;var ds=Mt;R.dist=ds;var us=bt;R.sqrDist=us;var ps=xt;R.len=ps;var vs=wt;R.sqrLen=vs;var _s=function(){var e=_t();return function(t,r,n,a,s,c){var l,h;for(r||(r=4),n||(n=0),a?h=Math.min(a*r+n,t.length):h=t.length,l=n;l<h;l+=r)e[0]=t[l],e[1]=t[l+1],e[2]=t[l+2],e[3]=t[l+3],s(e,e,c),t[l]=e[0],t[l+1]=e[1],t[l+2]=e[2],t[l+3]=e[3];return t}}();R.forEach=_s});var Ce=H(w=>{"use strict";function ge(e){return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?ge=function(r){return typeof r}:ge=function(r){return r&&typeof Symbol=="function"&&r.constructor===Symbol&&r!==Symbol.prototype?"symbol":typeof r},ge(e)}Object.defineProperty(w,"__esModule",{value:!0});w.create=qe;w.identity=ms;w.setAxisAngle=Tt;w.getAxisAngle=ys;w.getAngle=gs;w.multiply=St;w.rotateX=Ms;w.rotateY=bs;w.rotateZ=xs;w.calculateW=ws;w.exp=Ot;w.ln=Rt;w.pow=As;w.slerp=Me;w.random=Ts;w.invert=Ss;w.conjugate=Os;w.fromMat3=Lt;w.fromEuler=Rs;w.str=Ls;w.setAxes=w.sqlerp=w.rotationTo=w.equals=w.exactEquals=w.normalize=w.sqrLen=w.squaredLength=w.len=w.length=w.lerp=w.dot=w.scale=w.mul=w.add=w.set=w.copy=w.fromValues=w.clone=void 0;var ce=be(Z()),Ps=be(Le()),ne=be(Ie()),B=be(We());function Pt(){if(typeof WeakMap!="function")return null;var e=new WeakMap;return Pt=function(){return e},e}function be(e){if(e&&e.__esModule)return e;if(e===null||ge(e)!=="object"&&typeof e!="function")return{default:e};var t=Pt();if(t&&t.has(e))return t.get(e);var r={},n=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if(Object.prototype.hasOwnProperty.call(e,a)){var s=n?Object.getOwnPropertyDescriptor(e,a):null;s&&(s.get||s.set)?Object.defineProperty(r,a,s):r[a]=e[a]}return r.default=e,t&&t.set(e,r),r}function qe(){var e=new ce.ARRAY_TYPE(4);return ce.ARRAY_TYPE!=Float32Array&&(e[0]=0,e[1]=0,e[2]=0),e[3]=1,e}function ms(e){return e[0]=0,e[1]=0,e[2]=0,e[3]=1,e}function Tt(e,t,r){r=r*.5;var n=Math.sin(r);return e[0]=n*t[0],e[1]=n*t[1],e[2]=n*t[2],e[3]=Math.cos(r),e}function ys(e,t){var r=Math.acos(t[3])*2,n=Math.sin(r/2);return n>ce.EPSILON?(e[0]=t[0]/n,e[1]=t[1]/n,e[2]=t[2]/n):(e[0]=1,e[1]=0,e[2]=0),r}function gs(e,t){var r=It(e,t);return Math.acos(2*r*r-1)}function St(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=r[0],h=r[1],u=r[2],i=r[3];return e[0]=n*i+c*l+a*u-s*h,e[1]=a*i+c*h+s*l-n*u,e[2]=s*i+c*u+n*h-a*l,e[3]=c*i-n*l-a*h-s*u,e}function Ms(e,t,r){r*=.5;var n=t[0],a=t[1],s=t[2],c=t[3],l=Math.sin(r),h=Math.cos(r);return e[0]=n*h+c*l,e[1]=a*h+s*l,e[2]=s*h-a*l,e[3]=c*h-n*l,e}function bs(e,t,r){r*=.5;var n=t[0],a=t[1],s=t[2],c=t[3],l=Math.sin(r),h=Math.cos(r);return e[0]=n*h-s*l,e[1]=a*h+c*l,e[2]=s*h+n*l,e[3]=c*h-a*l,e}function xs(e,t,r){r*=.5;var n=t[0],a=t[1],s=t[2],c=t[3],l=Math.sin(r),h=Math.cos(r);return e[0]=n*h+a*l,e[1]=a*h-n*l,e[2]=s*h+c*l,e[3]=c*h-s*l,e}function ws(e,t){var r=t[0],n=t[1],a=t[2];return e[0]=r,e[1]=n,e[2]=a,e[3]=Math.sqrt(Math.abs(1-r*r-n*n-a*a)),e}function Ot(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=Math.sqrt(r*r+n*n+a*a),l=Math.exp(s),h=c>0?l*Math.sin(c)/c:0;return e[0]=r*h,e[1]=n*h,e[2]=a*h,e[3]=l*Math.cos(c),e}function Rt(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=Math.sqrt(r*r+n*n+a*a),l=c>0?Math.atan2(c,s)/c:0;return e[0]=r*l,e[1]=n*l,e[2]=a*l,e[3]=.5*Math.log(r*r+n*n+a*a+s*s),e}function As(e,t,r){return Rt(e,t),Wt(e,e,r),Ot(e,e),e}function Me(e,t,r,n){var a=t[0],s=t[1],c=t[2],l=t[3],h=r[0],u=r[1],i=r[2],o=r[3],f,d,v,_,p;return d=a*h+s*u+c*i+l*o,d<0&&(d=-d,h=-h,u=-u,i=-i,o=-o),1-d>ce.EPSILON?(f=Math.acos(d),v=Math.sin(f),_=Math.sin((1-n)*f)/v,p=Math.sin(n*f)/v):(_=1-n,p=n),e[0]=_*a+p*h,e[1]=_*s+p*u,e[2]=_*c+p*i,e[3]=_*l+p*o,e}function Ts(e){var t=ce.RANDOM(),r=ce.RANDOM(),n=ce.RANDOM(),a=Math.sqrt(1-t),s=Math.sqrt(t);return e[0]=a*Math.sin(2*Math.PI*r),e[1]=a*Math.cos(2*Math.PI*r),e[2]=s*Math.sin(2*Math.PI*n),e[3]=s*Math.cos(2*Math.PI*n),e}function Ss(e,t){var r=t[0],n=t[1],a=t[2],s=t[3],c=r*r+n*n+a*a+s*s,l=c?1/c:0;return e[0]=-r*l,e[1]=-n*l,e[2]=-a*l,e[3]=s*l,e}function Os(e,t){return e[0]=-t[0],e[1]=-t[1],e[2]=-t[2],e[3]=t[3],e}function Lt(e,t){var r=t[0]+t[4]+t[8],n;if(r>0)n=Math.sqrt(r+1),e[3]=.5*n,n=.5/n,e[0]=(t[5]-t[7])*n,e[1]=(t[6]-t[2])*n,e[2]=(t[1]-t[3])*n;else{var a=0;t[4]>t[0]&&(a=1),t[8]>t[a*3+a]&&(a=2);var s=(a+1)%3,c=(a+2)%3;n=Math.sqrt(t[a*3+a]-t[s*3+s]-t[c*3+c]+1),e[a]=.5*n,n=.5/n,e[3]=(t[s*3+c]-t[c*3+s])*n,e[s]=(t[s*3+a]+t[a*3+s])*n,e[c]=(t[c*3+a]+t[a*3+c])*n}return e}function Rs(e,t,r,n){var a=.5*Math.PI/180;t*=a,r*=a,n*=a;var s=Math.sin(t),c=Math.cos(t),l=Math.sin(r),h=Math.cos(r),u=Math.sin(n),i=Math.cos(n);return e[0]=s*h*i-c*l*u,e[1]=c*l*i+s*h*u,e[2]=c*h*u-s*l*i,e[3]=c*h*i+s*l*u,e}function Ls(e){return"quat("+e[0]+", "+e[1]+", "+e[2]+", "+e[3]+")"}var Is=B.clone;w.clone=Is;var Ws=B.fromValues;w.fromValues=Ws;var qs=B.copy;w.copy=qs;var Es=B.set;w.set=Es;var Cs=B.add;w.add=Cs;var Ds=St;w.mul=Ds;var Wt=B.scale;w.scale=Wt;var It=B.dot;w.dot=It;var Fs=B.lerp;w.lerp=Fs;var qt=B.length;w.length=qt;var js=qt;w.len=js;var Et=B.squaredLength;w.squaredLength=Et;var ks=Et;w.sqrLen=ks;var Ee=B.normalize;w.normalize=Ee;var zs=B.exactEquals;w.exactEquals=zs;var Ys=B.equals;w.equals=Ys;var Hs=function(){var e=ne.create(),t=ne.fromValues(1,0,0),r=ne.fromValues(0,1,0);return function(n,a,s){var c=ne.dot(a,s);return c<-.999999?(ne.cross(e,t,a),ne.len(e)<1e-6&&ne.cross(e,r,a),ne.normalize(e,e),Tt(n,e,Math.PI),n):c>.999999?(n[0]=0,n[1]=0,n[2]=0,n[3]=1,n):(ne.cross(e,a,s),n[0]=e[0],n[1]=e[1],n[2]=e[2],n[3]=1+c,Ee(n,n))}}();w.rotationTo=Hs;var Vs=function(){var e=qe(),t=qe();return function(r,n,a,s,c,l){return Me(e,n,c,l),Me(t,a,s,l),Me(r,e,t,2*l*(1-l)),r}}();w.sqlerp=Vs;var Ns=function(){var e=Ps.create();return function(t,r,n,a){return e[0]=n[0],e[3]=n[1],e[6]=n[2],e[1]=a[0],e[4]=a[1],e[7]=a[2],e[2]=-r[0],e[5]=-r[1],e[8]=-r[2],Ee(t,Lt(t,e))}}();w.setAxes=Ns});var Ht=H(L=>{"use strict";function xe(e){return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?xe=function(r){return typeof r}:xe=function(r){return r&&typeof Symbol=="function"&&r.constructor===Symbol&&r!==Symbol.prototype?"symbol":typeof r},xe(e)}Object.defineProperty(L,"__esModule",{value:!0});L.create=Xs;L.clone=Bs;L.fromValues=Gs;L.fromRotationTranslationValues=Qs;L.fromRotationTranslation=Ct;L.fromTranslation=Us;L.fromRotation=Zs;L.fromMat4=$s;L.copy=Dt;L.identity=Js;L.set=Ks;L.getDual=eo;L.setDual=to;L.getTranslation=ro;L.translate=no;L.rotateX=io;L.rotateY=ao;L.rotateZ=so;L.rotateByQuatAppend=oo;L.rotateByQuatPrepend=co;L.rotateAroundAxis=lo;L.add=fo;L.multiply=Ft;L.scale=ho;L.lerp=uo;L.invert=po;L.conjugate=vo;L.normalize=_o;L.str=mo;L.exactEquals=yo;L.equals=go;L.sqrLen=L.squaredLength=L.len=L.length=L.dot=L.mul=L.setReal=L.getReal=void 0;var N=De(Z()),ie=De(Ce()),jt=De(Pe());function kt(){if(typeof WeakMap!="function")return null;var e=new WeakMap;return kt=function(){return e},e}function De(e){if(e&&e.__esModule)return e;if(e===null||xe(e)!=="object"&&typeof e!="function")return{default:e};var t=kt();if(t&&t.has(e))return t.get(e);var r={},n=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if(Object.prototype.hasOwnProperty.call(e,a)){var s=n?Object.getOwnPropertyDescriptor(e,a):null;s&&(s.get||s.set)?Object.defineProperty(r,a,s):r[a]=e[a]}return r.default=e,t&&t.set(e,r),r}function Xs(){var e=new N.ARRAY_TYPE(8);return N.ARRAY_TYPE!=Float32Array&&(e[0]=0,e[1]=0,e[2]=0,e[4]=0,e[5]=0,e[6]=0,e[7]=0),e[3]=1,e}function Bs(e){var t=new N.ARRAY_TYPE(8);return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4],t[5]=e[5],t[6]=e[6],t[7]=e[7],t}function Gs(e,t,r,n,a,s,c,l){var h=new N.ARRAY_TYPE(8);return h[0]=e,h[1]=t,h[2]=r,h[3]=n,h[4]=a,h[5]=s,h[6]=c,h[7]=l,h}function Qs(e,t,r,n,a,s,c){var l=new N.ARRAY_TYPE(8);l[0]=e,l[1]=t,l[2]=r,l[3]=n;var h=a*.5,u=s*.5,i=c*.5;return l[4]=h*n+u*r-i*t,l[5]=u*n+i*e-h*r,l[6]=i*n+h*t-u*e,l[7]=-h*e-u*t-i*r,l}function Ct(e,t,r){var n=r[0]*.5,a=r[1]*.5,s=r[2]*.5,c=t[0],l=t[1],h=t[2],u=t[3];return e[0]=c,e[1]=l,e[2]=h,e[3]=u,e[4]=n*u+a*h-s*l,e[5]=a*u+s*c-n*h,e[6]=s*u+n*l-a*c,e[7]=-n*c-a*l-s*h,e}function Us(e,t){return e[0]=0,e[1]=0,e[2]=0,e[3]=1,e[4]=t[0]*.5,e[5]=t[1]*.5,e[6]=t[2]*.5,e[7]=0,e}function Zs(e,t){return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e[4]=0,e[5]=0,e[6]=0,e[7]=0,e}function $s(e,t){var r=ie.create();jt.getRotation(r,t);var n=new N.ARRAY_TYPE(3);return jt.getTranslation(n,t),Ct(e,r,n),e}function Dt(e,t){return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e[4]=t[4],e[5]=t[5],e[6]=t[6],e[7]=t[7],e}function Js(e){return e[0]=0,e[1]=0,e[2]=0,e[3]=1,e[4]=0,e[5]=0,e[6]=0,e[7]=0,e}function Ks(e,t,r,n,a,s,c,l,h){return e[0]=t,e[1]=r,e[2]=n,e[3]=a,e[4]=s,e[5]=c,e[6]=l,e[7]=h,e}var Mo=ie.copy;L.getReal=Mo;function eo(e,t){return e[0]=t[4],e[1]=t[5],e[2]=t[6],e[3]=t[7],e}var bo=ie.copy;L.setReal=bo;function to(e,t){return e[4]=t[0],e[5]=t[1],e[6]=t[2],e[7]=t[3],e}function ro(e,t){var r=t[4],n=t[5],a=t[6],s=t[7],c=-t[0],l=-t[1],h=-t[2],u=t[3];return e[0]=(r*u+s*c+n*h-a*l)*2,e[1]=(n*u+s*l+a*c-r*h)*2,e[2]=(a*u+s*h+r*l-n*c)*2,e}function no(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=r[0]*.5,h=r[1]*.5,u=r[2]*.5,i=t[4],o=t[5],f=t[6],d=t[7];return e[0]=n,e[1]=a,e[2]=s,e[3]=c,e[4]=c*l+a*u-s*h+i,e[5]=c*h+s*l-n*u+o,e[6]=c*u+n*h-a*l+f,e[7]=-n*l-a*h-s*u+d,e}function io(e,t,r){var n=-t[0],a=-t[1],s=-t[2],c=t[3],l=t[4],h=t[5],u=t[6],i=t[7],o=l*c+i*n+h*s-u*a,f=h*c+i*a+u*n-l*s,d=u*c+i*s+l*a-h*n,v=i*c-l*n-h*a-u*s;return ie.rotateX(e,t,r),n=e[0],a=e[1],s=e[2],c=e[3],e[4]=o*c+v*n+f*s-d*a,e[5]=f*c+v*a+d*n-o*s,e[6]=d*c+v*s+o*a-f*n,e[7]=v*c-o*n-f*a-d*s,e}function ao(e,t,r){var n=-t[0],a=-t[1],s=-t[2],c=t[3],l=t[4],h=t[5],u=t[6],i=t[7],o=l*c+i*n+h*s-u*a,f=h*c+i*a+u*n-l*s,d=u*c+i*s+l*a-h*n,v=i*c-l*n-h*a-u*s;return ie.rotateY(e,t,r),n=e[0],a=e[1],s=e[2],c=e[3],e[4]=o*c+v*n+f*s-d*a,e[5]=f*c+v*a+d*n-o*s,e[6]=d*c+v*s+o*a-f*n,e[7]=v*c-o*n-f*a-d*s,e}function so(e,t,r){var n=-t[0],a=-t[1],s=-t[2],c=t[3],l=t[4],h=t[5],u=t[6],i=t[7],o=l*c+i*n+h*s-u*a,f=h*c+i*a+u*n-l*s,d=u*c+i*s+l*a-h*n,v=i*c-l*n-h*a-u*s;return ie.rotateZ(e,t,r),n=e[0],a=e[1],s=e[2],c=e[3],e[4]=o*c+v*n+f*s-d*a,e[5]=f*c+v*a+d*n-o*s,e[6]=d*c+v*s+o*a-f*n,e[7]=v*c-o*n-f*a-d*s,e}function oo(e,t,r){var n=r[0],a=r[1],s=r[2],c=r[3],l=t[0],h=t[1],u=t[2],i=t[3];return e[0]=l*c+i*n+h*s-u*a,e[1]=h*c+i*a+u*n-l*s,e[2]=u*c+i*s+l*a-h*n,e[3]=i*c-l*n-h*a-u*s,l=t[4],h=t[5],u=t[6],i=t[7],e[4]=l*c+i*n+h*s-u*a,e[5]=h*c+i*a+u*n-l*s,e[6]=u*c+i*s+l*a-h*n,e[7]=i*c-l*n-h*a-u*s,e}function co(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=r[0],h=r[1],u=r[2],i=r[3];return e[0]=n*i+c*l+a*u-s*h,e[1]=a*i+c*h+s*l-n*u,e[2]=s*i+c*u+n*h-a*l,e[3]=c*i-n*l-a*h-s*u,l=r[4],h=r[5],u=r[6],i=r[7],e[4]=n*i+c*l+a*u-s*h,e[5]=a*i+c*h+s*l-n*u,e[6]=s*i+c*u+n*h-a*l,e[7]=c*i-n*l-a*h-s*u,e}function lo(e,t,r,n){if(Math.abs(n)<N.EPSILON)return Dt(e,t);var a=Math.hypot(r[0],r[1],r[2]);n=n*.5;var s=Math.sin(n),c=s*r[0]/a,l=s*r[1]/a,h=s*r[2]/a,u=Math.cos(n),i=t[0],o=t[1],f=t[2],d=t[3];e[0]=i*u+d*c+o*h-f*l,e[1]=o*u+d*l+f*c-i*h,e[2]=f*u+d*h+i*l-o*c,e[3]=d*u-i*c-o*l-f*h;var v=t[4],_=t[5],p=t[6],m=t[7];return e[4]=v*u+m*c+_*h-p*l,e[5]=_*u+m*l+p*c-v*h,e[6]=p*u+m*h+v*l-_*c,e[7]=m*u-v*c-_*l-p*h,e}function fo(e,t,r){return e[0]=t[0]+r[0],e[1]=t[1]+r[1],e[2]=t[2]+r[2],e[3]=t[3]+r[3],e[4]=t[4]+r[4],e[5]=t[5]+r[5],e[6]=t[6]+r[6],e[7]=t[7]+r[7],e}function Ft(e,t,r){var n=t[0],a=t[1],s=t[2],c=t[3],l=r[4],h=r[5],u=r[6],i=r[7],o=t[4],f=t[5],d=t[6],v=t[7],_=r[0],p=r[1],m=r[2],y=r[3];return e[0]=n*y+c*_+a*m-s*p,e[1]=a*y+c*p+s*_-n*m,e[2]=s*y+c*m+n*p-a*_,e[3]=c*y-n*_-a*p-s*m,e[4]=n*i+c*l+a*u-s*h+o*y+v*_+f*m-d*p,e[5]=a*i+c*h+s*l-n*u+f*y+v*p+d*_-o*m,e[6]=s*i+c*u+n*h-a*l+d*y+v*m+o*p-f*_,e[7]=c*i-n*l-a*h-s*u+v*y-o*_-f*p-d*m,e}var xo=Ft;L.mul=xo;function ho(e,t,r){return e[0]=t[0]*r,e[1]=t[1]*r,e[2]=t[2]*r,e[3]=t[3]*r,e[4]=t[4]*r,e[5]=t[5]*r,e[6]=t[6]*r,e[7]=t[7]*r,e}var zt=ie.dot;L.dot=zt;function uo(e,t,r,n){var a=1-n;return zt(t,r)<0&&(n=-n),e[0]=t[0]*a+r[0]*n,e[1]=t[1]*a+r[1]*n,e[2]=t[2]*a+r[2]*n,e[3]=t[3]*a+r[3]*n,e[4]=t[4]*a+r[4]*n,e[5]=t[5]*a+r[5]*n,e[6]=t[6]*a+r[6]*n,e[7]=t[7]*a+r[7]*n,e}function po(e,t){var r=we(t);return e[0]=-t[0]/r,e[1]=-t[1]/r,e[2]=-t[2]/r,e[3]=t[3]/r,e[4]=-t[4]/r,e[5]=-t[5]/r,e[6]=-t[6]/r,e[7]=t[7]/r,e}function vo(e,t){return e[0]=-t[0],e[1]=-t[1],e[2]=-t[2],e[3]=t[3],e[4]=-t[4],e[5]=-t[5],e[6]=-t[6],e[7]=t[7],e}var Yt=ie.length;L.length=Yt;var wo=Yt;L.len=wo;var we=ie.squaredLength;L.squaredLength=we;var Ao=we;L.sqrLen=Ao;function _o(e,t){var r=we(t);if(r>0){r=Math.sqrt(r);var n=t[0]/r,a=t[1]/r,s=t[2]/r,c=t[3]/r,l=t[4],h=t[5],u=t[6],i=t[7],o=n*l+a*h+s*u+c*i;e[0]=n,e[1]=a,e[2]=s,e[3]=c,e[4]=(l-n*o)/r,e[5]=(h-a*o)/r,e[6]=(u-s*o)/r,e[7]=(i-c*o)/r}return e}function mo(e){return"quat2("+e[0]+", "+e[1]+", "+e[2]+", "+e[3]+", "+e[4]+", "+e[5]+", "+e[6]+", "+e[7]+")"}function yo(e,t){return e[0]===t[0]&&e[1]===t[1]&&e[2]===t[2]&&e[3]===t[3]&&e[4]===t[4]&&e[5]===t[5]&&e[6]===t[6]&&e[7]===t[7]}function go(e,t){var r=e[0],n=e[1],a=e[2],s=e[3],c=e[4],l=e[5],h=e[6],u=e[7],i=t[0],o=t[1],f=t[2],d=t[3],v=t[4],_=t[5],p=t[6],m=t[7];return Math.abs(r-i)<=N.EPSILON*Math.max(1,Math.abs(r),Math.abs(i))&&Math.abs(n-o)<=N.EPSILON*Math.max(1,Math.abs(n),Math.abs(o))&&Math.abs(a-f)<=N.EPSILON*Math.max(1,Math.abs(a),Math.abs(f))&&Math.abs(s-d)<=N.EPSILON*Math.max(1,Math.abs(s),Math.abs(d))&&Math.abs(c-v)<=N.EPSILON*Math.max(1,Math.abs(c),Math.abs(v))&&Math.abs(l-_)<=N.EPSILON*Math.max(1,Math.abs(l),Math.abs(_))&&Math.abs(h-p)<=N.EPSILON*Math.max(1,Math.abs(h),Math.abs(p))&&Math.abs(u-m)<=N.EPSILON*Math.max(1,Math.abs(u),Math.abs(m))}});var Jt=H(T=>{"use strict";function Ae(e){return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?Ae=function(r){return typeof r}:Ae=function(r){return r&&typeof Symbol=="function"&&r.constructor===Symbol&&r!==Symbol.prototype?"symbol":typeof r},Ae(e)}Object.defineProperty(T,"__esModule",{value:!0});T.create=Vt;T.clone=To;T.fromValues=So;T.copy=Oo;T.set=Ro;T.add=Lo;T.subtract=Nt;T.multiply=Xt;T.divide=Bt;T.ceil=Po;T.floor=Io;T.min=Wo;T.max=qo;T.round=Eo;T.scale=Co;T.scaleAndAdd=Do;T.distance=Gt;T.squaredDistance=Qt;T.length=Ut;T.squaredLength=Zt;T.negate=Fo;T.inverse=jo;T.normalize=ko;T.dot=zo;T.cross=Yo;T.lerp=Ho;T.random=Vo;T.transformMat2=No;T.transformMat2d=Xo;T.transformMat3=Bo;T.transformMat4=Go;T.rotate=Qo;T.angle=Uo;T.zero=Zo;T.str=$o;T.exactEquals=Jo;T.equals=Ko;T.forEach=T.sqrLen=T.sqrDist=T.dist=T.div=T.mul=T.sub=T.len=void 0;var le=ec(Z());function $t(){if(typeof WeakMap!="function")return null;var e=new WeakMap;return $t=function(){return e},e}function ec(e){if(e&&e.__esModule)return e;if(e===null||Ae(e)!=="object"&&typeof e!="function")return{default:e};var t=$t();if(t&&t.has(e))return t.get(e);var r={},n=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if(Object.prototype.hasOwnProperty.call(e,a)){var s=n?Object.getOwnPropertyDescriptor(e,a):null;s&&(s.get||s.set)?Object.defineProperty(r,a,s):r[a]=e[a]}return r.default=e,t&&t.set(e,r),r}function Vt(){var e=new le.ARRAY_TYPE(2);return le.ARRAY_TYPE!=Float32Array&&(e[0]=0,e[1]=0),e}function To(e){var t=new le.ARRAY_TYPE(2);return t[0]=e[0],t[1]=e[1],t}function So(e,t){var r=new le.ARRAY_TYPE(2);return r[0]=e,r[1]=t,r}function Oo(e,t){return e[0]=t[0],e[1]=t[1],e}function Ro(e,t,r){return e[0]=t,e[1]=r,e}function Lo(e,t,r){return e[0]=t[0]+r[0],e[1]=t[1]+r[1],e}function Nt(e,t,r){return e[0]=t[0]-r[0],e[1]=t[1]-r[1],e}function Xt(e,t,r){return e[0]=t[0]*r[0],e[1]=t[1]*r[1],e}function Bt(e,t,r){return e[0]=t[0]/r[0],e[1]=t[1]/r[1],e}function Po(e,t){return e[0]=Math.ceil(t[0]),e[1]=Math.ceil(t[1]),e}function Io(e,t){return e[0]=Math.floor(t[0]),e[1]=Math.floor(t[1]),e}function Wo(e,t,r){return e[0]=Math.min(t[0],r[0]),e[1]=Math.min(t[1],r[1]),e}function qo(e,t,r){return e[0]=Math.max(t[0],r[0]),e[1]=Math.max(t[1],r[1]),e}function Eo(e,t){return e[0]=Math.round(t[0]),e[1]=Math.round(t[1]),e}function Co(e,t,r){return e[0]=t[0]*r,e[1]=t[1]*r,e}function Do(e,t,r,n){return e[0]=t[0]+r[0]*n,e[1]=t[1]+r[1]*n,e}function Gt(e,t){var r=t[0]-e[0],n=t[1]-e[1];return Math.hypot(r,n)}function Qt(e,t){var r=t[0]-e[0],n=t[1]-e[1];return r*r+n*n}function Ut(e){var t=e[0],r=e[1];return Math.hypot(t,r)}function Zt(e){var t=e[0],r=e[1];return t*t+r*r}function Fo(e,t){return e[0]=-t[0],e[1]=-t[1],e}function jo(e,t){return e[0]=1/t[0],e[1]=1/t[1],e}function ko(e,t){var r=t[0],n=t[1],a=r*r+n*n;return a>0&&(a=1/Math.sqrt(a)),e[0]=t[0]*a,e[1]=t[1]*a,e}function zo(e,t){return e[0]*t[0]+e[1]*t[1]}function Yo(e,t,r){var n=t[0]*r[1]-t[1]*r[0];return e[0]=e[1]=0,e[2]=n,e}function Ho(e,t,r,n){var a=t[0],s=t[1];return e[0]=a+n*(r[0]-a),e[1]=s+n*(r[1]-s),e}function Vo(e,t){t=t||1;var r=le.RANDOM()*2*Math.PI;return e[0]=Math.cos(r)*t,e[1]=Math.sin(r)*t,e}function No(e,t,r){var n=t[0],a=t[1];return e[0]=r[0]*n+r[2]*a,e[1]=r[1]*n+r[3]*a,e}function Xo(e,t,r){var n=t[0],a=t[1];return e[0]=r[0]*n+r[2]*a+r[4],e[1]=r[1]*n+r[3]*a+r[5],e}function Bo(e,t,r){var n=t[0],a=t[1];return e[0]=r[0]*n+r[3]*a+r[6],e[1]=r[1]*n+r[4]*a+r[7],e}function Go(e,t,r){var n=t[0],a=t[1];return e[0]=r[0]*n+r[4]*a+r[12],e[1]=r[1]*n+r[5]*a+r[13],e}function Qo(e,t,r,n){var a=t[0]-r[0],s=t[1]-r[1],c=Math.sin(n),l=Math.cos(n);return e[0]=a*l-s*c+r[0],e[1]=a*c+s*l+r[1],e}function Uo(e,t){var r=e[0],n=e[1],a=t[0],s=t[1],c=Math.sqrt(r*r+n*n)*Math.sqrt(a*a+s*s),l=c&&(r*a+n*s)/c;return Math.acos(Math.min(Math.max(l,-1),1))}function Zo(e){return e[0]=0,e[1]=0,e}function $o(e){return"vec2("+e[0]+", "+e[1]+")"}function Jo(e,t){return e[0]===t[0]&&e[1]===t[1]}function Ko(e,t){var r=e[0],n=e[1],a=t[0],s=t[1];return Math.abs(r-a)<=le.EPSILON*Math.max(1,Math.abs(r),Math.abs(a))&&Math.abs(n-s)<=le.EPSILON*Math.max(1,Math.abs(n),Math.abs(s))}var tc=Ut;T.len=tc;var rc=Nt;T.sub=rc;var nc=Xt;T.mul=nc;var ic=Bt;T.div=ic;var ac=Gt;T.dist=ac;var sc=Qt;T.sqrDist=sc;var oc=Zt;T.sqrLen=oc;var cc=function(){var e=Vt();return function(t,r,n,a,s,c){var l,h;for(r||(r=2),n||(n=0),a?h=Math.min(a*r+n,t.length):h=t.length,l=n;l<h;l+=r)e[0]=t[l],e[1]=t[l+1],s(e,e,c),t[l]=e[0],t[l+1]=e[1];return t}}();T.forEach=cc});var te=H(V=>{"use strict";function Te(e){return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?Te=function(r){return typeof r}:Te=function(r){return r&&typeof Symbol=="function"&&r.constructor===Symbol&&r!==Symbol.prototype?"symbol":typeof r},Te(e)}Object.defineProperty(V,"__esModule",{value:!0});V.vec4=V.vec3=V.vec2=V.quat2=V.quat=V.mat4=V.mat3=V.mat2d=V.mat2=V.glMatrix=void 0;var lc=ee(Z());V.glMatrix=lc;var fc=ee(Be());V.mat2=fc;var hc=ee(Ze());V.mat2d=hc;var dc=ee(Le());V.mat3=dc;var uc=ee(Pe());V.mat4=uc;var pc=ee(Ce());V.quat=pc;var vc=ee(Ht());V.quat2=vc;var _c=ee(Jt());V.vec2=_c;var mc=ee(Ie());V.vec3=mc;var yc=ee(We());V.vec4=yc;function Kt(){if(typeof WeakMap!="function")return null;var e=new WeakMap;return Kt=function(){return e},e}function ee(e){if(e&&e.__esModule)return e;if(e===null||Te(e)!=="object"&&typeof e!="function")return{default:e};var t=Kt();if(t&&t.has(e))return t.get(e);var r={},n=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if(Object.prototype.hasOwnProperty.call(e,a)){var s=n?Object.getOwnPropertyDescriptor(e,a):null;s&&(s.get||s.set)?Object.defineProperty(r,a,s):r[a]=e[a]}return r.default=e,t&&t.set(e,r),r}});var er=H(()=>{WL.registerComponent("8thwall-camera",{camera:{type:WL.Type.Enum,values:["auto","back","front"],default:"auto"}},{name:"wonderland-engine",init:function(){this.position=[0,0,0,0],this.rotation=[0,0,0,0],this.started=!1;let e=["auto","back","front"];this.camera=e[this.camera],this.camera=="auto"&&(this.camera="back"),this.onStart=this.onStart.bind(this),this.onUpdate=this.onUpdate.bind(this),XR8.addCameraPipelineModules([XR8.GlTextureRenderer.pipelineModule(),XR8.XrController.pipelineModule(),this]),this.camera=="back"?XR8.run({canvas:Module.canvas,ownRunLoop:!1}):this.camera=="back"?(XR8.XrController.configure({disableWorldTracking:!0}),XR8.run({canvas:Module.canvas,ownRunLoop:!1,cameraConfig:{direction:XR8.XrConfig.camera().FRONT}})):console.error("[8thwall-camera] Invalid camera setting:",this.camera)},update:function(){if(this.started){if(WL.scene.onPostRender.length==0&&(WL.scene.onPreRender.push(function(){XR8.runPreRender(Date.now()),_wl_reset_context()}),WL.scene.onPostRender.push(function(){XR8.runPostRender(Date.now())})),this.rotation[0]==0&&this.rotation[1]==0&&this.rotation[2]==0&&this.rotation[3]==0)return;this.object.resetTransform(),this.object.rotate(this.rotation),this.object.translate(this.position)}},onUpdate:function(e){if(!e.processCpuResult.reality)return;let t=e.processCpuResult.reality.rotation;this.rotation[0]=t.x,this.rotation[1]=t.y,this.rotation[2]=t.z,this.rotation[3]=t.w;let r=e.processCpuResult.reality.position;this.position[0]=r.x,this.position[1]=r.y,this.position[2]=r.z},onStart:function(){this.started=!0}})});var tr=H(()=>{WL.registerComponent("cursor-target",{},{init:function(){this.hoverFunctions=[],this.unHoverFunctions=[],this.clickFunctions=[],this.moveFunctions=[],this.downFunctions=[],this.upFunctions=[]},onHover:function(e,t){for(let r of this.hoverFunctions)r(e,t)},onUnhover:function(e,t){for(let r of this.unHoverFunctions)r(e,t)},onClick:function(e,t){for(let r of this.clickFunctions)r(e,t)},onMove:function(e,t){for(let r of this.moveFunctions)r(e,t)},onDown:function(e,t){for(let r of this.downFunctions)r(e,t)},onUp:function(e,t){for(let r of this.upFunctions)r(e,t)},addHoverFunction:function(e){this._validateCallback(e),this.hoverFunctions.push(e)},removeHoverFunction:function(e){this._validateCallback(e),this._removeItemOnce(this.hoverFunctions,e)},addUnHoverFunction:function(e){this._validateCallback(e),this.unHoverFunctions.push(e)},removeUnHoverFunction:function(e){this._validateCallback(e),this._removeItemOnce(this.unHoverFunctions,e)},addClickFunction:function(e){this._validateCallback(e),this.clickFunctions.push(e)},removeClickFunction:function(e){this._validateCallback(e),this._removeItemOnce(this.clickFunctions,e)},addMoveFunction:function(e){this._validateCallback(e),this.moveFunctions.push(e)},removeMoveFunction:function(e){this._validateCallback(e),this._removeItemOnce(this.moveFunctions,e)},addDownFunction:function(e){this._validateCallback(e),this.downFunctions.push(e)},removeDownFunction:function(e){this._validateCallback(e),this._removeItemOnce(this.downFunctions,e)},addUpFunction:function(e){this._validateCallback(e),this.upFunctions.push(e)},removeUpFunction:function(e){this._validateCallback(e),this._removeItemOnce(this.upFunctions,e)},_removeItemOnce:function(e,t){var r=e.indexOf(t);return r>-1&&e.splice(r,1),e},_validateCallback:function(e){if(typeof e!="function")throw new TypeError(this.object.name+".cursor-target: Argument needs to be a function")}})});var gc={};var oe,rr=$(()=>{oe=J(te());WL.registerComponent("cursor",{collisionGroup:{type:WL.Type.Int,default:1},cursorRayObject:{type:WL.Type.Object},cursorRayScalingAxis:{type:WL.Type.Enum,values:["x","y","z","none"],default:"z"},cursorObject:{type:WL.Type.Object},handedness:{type:WL.Type.Enum,values:["input component","left","right","none"],default:"input component"},rayCastMode:{type:WL.Type.Enum,values:["collision","physx"],default:"collision"},styleCursor:{type:WL.Type.Bool,default:!0}},{init:function(){this.session=null,this.collisionMask=1<<this.collisionGroup,this.maxDistance=100},start:function(){if(this.handedness==0){let e=this.object.getComponent("input");e?(this.handedness=e.handedness,this.input=e):console.warn("cursor component on object",this.object.name,'was configured with handedness "input component", but object has no input component.')}else this.handedness=["left","right"][this.handedness-1];this.globalTarget=this.object.addComponent("cursor-target"),this.origin=new Float32Array(3),this.cursorObjScale=new Float32Array(3),this.direction=[0,0,0],this.tempQuat=new Float32Array(4),this.viewComponent=this.object.getComponent("view"),this.viewComponent!=null&&(WL.canvas.addEventListener("click",this.onClick.bind(this)),WL.canvas.addEventListener("pointermove",this.onPointerMove.bind(this)),WL.canvas.addEventListener("pointerdown",this.onPointerDown.bind(this)),WL.canvas.addEventListener("pointerup",this.onPointerUp.bind(this)),this.projectionMatrix=new Float32Array(16),oe.mat4.invert(this.projectionMatrix,this.viewComponent.projectionMatrix),window.addEventListener("resize",this.onViewportResize.bind(this))),this.isHovering=!1,this.visible=!0,this.isDown=!1,this.lastIsDown=!1,this.cursorPos=new Float32Array(3),this.hoveringObject=null,WL.onXRSessionStart.push(this.setupVREvents.bind(this)),this.cursorRayObject&&(this.cursorRayScale=new Float32Array(3),this.cursorRayScale.set(this.cursorRayObject.scalingLocal),this.object.getTranslationWorld(this.origin),this.object.getForward(this.direction),this._setCursorRayTransform([this.origin[0]+this.direction[0],this.origin[1]+this.direction[1],this.origin[2]+this.direction[2]]))},onViewportResize:function(){!this.viewComponent||oe.mat4.invert(this.projectionMatrix,this.viewComponent.projectionMatrix)},_setCursorRayTransform:function(e){if(!this.cursorRayObject)return;let t=oe.vec3.dist(this.origin,e);this.cursorRayObject.setTranslationLocal([0,0,-t/2]),this.cursorRayScalingAxis!=4&&(this.cursorRayObject.resetScaling(),this.cursorRayScale[this.cursorRayScalingAxis]=t/2,this.cursorRayObject.scale(this.cursorRayScale))},_setCursorVisibility:function(e){this.visible!=e&&(this.visible=e,!!this.cursorObject&&(e?(this.cursorObject.resetScaling(),this.cursorObject.scale(this.cursorObjScale)):(this.cursorObjScale.set(this.cursorObject.scalingLocal),this.cursorObject.scale([0,0,0]))))},update:function(){this.doUpdate(!1)},doUpdate:function(e){if(this.session){if(this.arTouchDown&&this.input&&WL.xrSession.inputSources[0].handedness==="none"&&WL.xrSession.inputSources[0].gamepad){let r=WL.xrSession.inputSources[0].gamepad.axes;this.direction=[r[0],-r[1],-1],this.updateDirection()}else this.object.getTranslationWorld(this.origin),this.object.getForward(this.direction);let t=this.rayHit=this.rayCastMode==0?WL.scene.rayCast(this.origin,this.direction,this.collisionMask):WL.physics.rayCast(this.origin,this.direction,this.collisionMask,this.maxDistance);t.hitCount>0?this.cursorPos.set(t.locations[0]):this.cursorPos.fill(0),this.hoverBehaviour(t,e)}this.cursorObject&&(this.hoveringObject&&(this.cursorPos[0]!=0||this.cursorPos[1]!=0||this.cursorPos[2]!=0)?(this._setCursorVisibility(!0),this.cursorObject.setTranslationWorld(this.cursorPos),this._setCursorRayTransform(this.cursorPos)):this._setCursorVisibility(!1))},hoverBehaviour:function(e,t){if(e.hitCount>0){if(!this.hoveringObject||!this.hoveringObject.equals(e.objects[0])){if(this.hoveringObject){let a=this.hoveringObject.getComponent("cursor-target");a&&a.onUnhover(this.hoveringObject,this),this.globalTarget.onUnhover(this.hoveringObject,this)}this.hoveringObject=e.objects[0],this.styleCursor&&(WL.canvas.style.cursor="pointer");let n=this.hoveringObject.getComponent("cursor-target");n&&(this.hoveringObjectTarget=n,n.onHover(this.hoveringObject,this)),this.globalTarget.onHover(this.hoveringObject,this)}this.hoveringObjectTarget&&this.hoveringObjectTarget.onMove(this.hoveringObject,this);let r=this.hoveringObject.getComponent("cursor-target");this.isDown!==this.lastIsDown&&(this.isDown?(r&&r.onDown(this.hoveringObject,this),this.globalTarget.onDown(this.hoveringObject,this)):(r&&r.onUp(this.hoveringObject,this),this.globalTarget.onUp(this.hoveringObject,this))),t&&(r&&r.onClick(this.hoveringObject,this),this.globalTarget.onClick(this.hoveringObject,this))}else if(this.hoveringObject&&e.hitCount==0){let r=this.hoveringObject.getComponent("cursor-target");r&&r.onUnhover(this.hoveringObject,this),this.globalTarget.onUnhover(this.hoveringObject,this),this.hoveringObject=null,this.hoveringObjectTarget=null,this.styleCursor&&(WL.canvas.style.cursor="default")}this.lastIsDown=this.isDown},setupVREvents:function(e){this.session=e,e.addEventListener("end",function(t){this.session=null}.bind(this)),e.addEventListener("select",this.onSelect.bind(this)),e.addEventListener("selectstart",this.onSelectStart.bind(this)),e.addEventListener("selectend",this.onSelectEnd.bind(this)),this.onViewportResize()},onSelect:function(e){e.inputSource.handedness==this.handedness&&this.doUpdate(!0)},onSelectStart:function(e){this.arTouchDown=!0,e.inputSource.handedness==this.handedness&&(this.isDown=!0)},onSelectEnd:function(e){this.arTouchDown=!1,e.inputSource.handedness==this.handedness&&(this.isDown=!1)},onPointerMove:function(e){if(!e.isPrimary)return;let t=e.target.getBoundingClientRect(),r=this.updateMousePos(e.clientX,e.clientY,t.width,t.height);this.hoverBehaviour(r,!1)},onClick:function(e){let t=e.target.getBoundingClientRect(),r=this.updateMousePos(e.clientX,e.clientY,t.width,t.height);this.hoverBehaviour(r,!0)},onPointerDown:function(e){if(!e.isPrimary||e.button!==0)return;let t=e.target.getBoundingClientRect(),r=this.updateMousePos(e.clientX,e.clientY,t.width,t.height);this.isDown=!0,this.hoverBehaviour(r,!1)},onPointerUp:function(e){if(!e.isPrimary||e.button!==0)return;let t=e.target.getBoundingClientRect(),r=this.updateMousePos(e.clientX,e.clientY,t.width,t.height);this.isDown=!1,this.hoverBehaviour(r,!1)},updateMousePos:function(e,t,r,n){let a=e/r,s=t/n;return this.direction=[a*2-1,-s*2+1,-1],this.updateDirection()},updateDirection:function(){this.object.getTranslationWorld(this.origin),oe.vec3.transformMat4(this.direction,this.direction,this.projectionMatrix),oe.vec3.normalize(this.direction,this.direction),oe.vec3.transformQuat(this.direction,this.direction,this.object.transformWorld);let e=this.rayHit=this.rayCastMode==0?WL.scene.rayCast(this.origin,this.direction,this.collisionMask):WL.physics.rayCast(this.origin,this.direction,this.collisionMask,this.maxDistance);return e.hitCount>0?this.cursorPos.set(e.locations[0]):this.cursorPos.fill(0),e},onDeactivate:function(){if(this._setCursorVisibility(!1),this.hoveringObject){let e=this.hoveringObject.getComponent("cursor-target");e&&e.onUnhover(this.hoveringObject,this),this.globalTarget.onUnhover(this.hoveringObject,this)}this.cursorRayObject&&this.cursorRayObject.scale([0,0,0])},onActivate:function(){this._setCursorVisibility(!0)}})});var nr=H(()=>{WL.registerComponent("debug-object",{obj:{type:WL.Type.Object}},{start:function(){},init:function(){let e=[0,0,0];glMatrix.quat2.getTranslation(e,this.object.transformWorld),console.log("Debug Object:",this.object.name),console.log("Other object:",this.obj.name),console.log("	translation",e),console.log("	transformWorld",this.object.transformWorld),console.log("	transformLocal",this.object.transformLocal)},update:function(){}})});var ir=H(()=>{function Mc(e,t,r,n){let a=Math.cos(t/2),s=Math.cos(r/2),c=Math.cos(n/2),l=Math.sin(t/2),h=Math.sin(r/2),u=Math.sin(n/2);e[0]=l*s*c+a*h*u,e[1]=a*h*c-l*s*u,e[2]=a*s*u-l*h*c,e[3]=a*s*c+l*h*u}WL.registerComponent("device-orientation-look",{},{start:function(){this.rotationX=0,this.rotationY=0,this.lastClientX=-1,this.lastClientY=-1},init:function(){this.deviceOrientation=[0,0,0,1],this.screenOrientation=0,this._origin=[0,0,0],window.addEventListener("deviceorientation",function(e){let t=e.alpha||0,r=e.beta||0,n=e.gamma||0,a=Math.PI/180;Mc(this.deviceOrientation,r*a,t*a,-n*a)}.bind(this)),window.addEventListener("orientationchange",function(e){this.screenOrientation=window.orientation||0}.bind(this),!1)},update:function(){Module.webxr_session==null&&(glMatrix.quat2.getTranslation(this._origin,this.object.transformLocal),this.object.resetTransform(),this.screenOrientation!=0&&this.object.rotateAxisAngleDeg([0,0,1],this.screenOrientation),this.object.rotate([-Math.sqrt(.5),0,0,Math.sqrt(.5)]),this.object.rotate(this.deviceOrientation),this.object.translate(this._origin))}})});var ar=H(()=>{WL.registerComponent("finger-cursor",{},{init:function(){this.lastTarget=null},start:function(){this.tip=this.object.getComponent("collision")},update:function(){let e=this.tip.queryOverlaps(),t=null;for(let r=0;r<e.length;++r){let n=e[r].object,a=n.getComponent("cursor-target");if(a){a.equals(this.lastTarget)||(a.onHover(n,this),a.onClick(n,this)),t=a;break}}if(t)this.lastTarget=t;else{this.lastTarget&&this.lastTarget.onUnhover(this.lastTarget.object,this),this.lastTarget=null;return}}})});var sr=H(()=>{WL.registerComponent("fixed-foveation",{fixedFoveation:{type:WL.Type.Float,default:.5}},{start:function(){WL.xrSession?this.setFixedFoveation():WL.onXRSessionStart.push(this.setFixedFoveation.bind(this))},setFixedFoveation:function(){"webxr_baseLayer"in Module&&(Module.webxr_baseLayer.fixedFoveation=this.fixedFoveation)}})});var bc={};var fe,or=$(()=>{fe=J(te());WL.registerComponent("hand-tracking",{handedness:{type:WL.Type.Enum,default:"left",values:["left","right"]},jointMesh:{type:WL.Type.Mesh,default:null},jointMaterial:{type:WL.Type.Material,default:null},handSkin:{type:WL.Type.Skin,default:null},deactivateChildrenWithoutPose:{type:WL.Type.Bool,default:!0},controllerToDeactivate:{type:WL.Type.Object}},{ORDERED_JOINTS:["wrist","thumb-metacarpal","thumb-phalanx-proximal","thumb-phalanx-distal","thumb-tip","index-finger-metacarpal","index-finger-phalanx-proximal","index-finger-phalanx-intermediate","index-finger-phalanx-distal","index-finger-tip","middle-finger-metacarpal","middle-finger-phalanx-proximal","middle-finger-phalanx-intermediate","middle-finger-phalanx-distal","middle-finger-tip","ring-finger-metacarpal","ring-finger-phalanx-proximal","ring-finger-phalanx-intermediate","ring-finger-phalanx-distal","ring-finger-tip","pinky-finger-metacarpal","pinky-finger-phalanx-proximal","pinky-finger-phalanx-intermediate","pinky-finger-phalanx-distal","pinky-finger-tip"],init:function(){this.handedness=["left","right"][this.handedness]},start:function(){if(this.joints=[],this.session=null,this.hasPose=!1,this._childrenActive=!0,!("XRHand"in window)){console.warn("WebXR Hand Tracking not supported by this browser."),this.active=!1;return}if(this.handSkin){let t=this.handSkin.jointIds;this.joints[this.ORDERED_JOINTS[0]]=new WL.Object(t[0]);for(let r=0;r<t.length;++r){let n=new WL.Object(t[r]);this.joints[n.name]=n}return}for(let e=0;e<=this.ORDERED_JOINTS.length;++e){let t=WL.scene.addObject(this.object.parent),r=t.addComponent("mesh");r.mesh=this.jointMesh,r.material=this.jointMaterial,this.joints[this.ORDERED_JOINTS[e]]=t}},update:function(e){if(this.session||WL.xrSession&&this.setupVREvents(WL.xrSession),!!this.session){if(this.hasPose=!1,this.session&&this.session.inputSources)for(let t=0;t<=this.session.inputSources.length;++t){let r=this.session.inputSources[t];if(!r||!r.hand||r.handedness!=this.handedness)continue;if(this.hasPose=!0,r.hand.get("wrist")!==null){let s=Module.webxr_frame.getJointPose(r.hand.get("wrist"),WebXR.refSpaces[WebXR.refSpace]);s&&(this.object.resetTranslationRotation(),this.object.transformLocal.set([s.transform.orientation.x,s.transform.orientation.y,s.transform.orientation.z,s.transform.orientation.w]),this.object.translate([s.transform.position.x,s.transform.position.y,s.transform.position.z]))}let n=new Float32Array(3),a=new Float32Array(4);fe.quat.invert(a,this.object.transformLocal),this.object.getTranslationLocal(n);for(let s=0;s<this.ORDERED_JOINTS.length;++s){let c=this.ORDERED_JOINTS[s],l=this.joints[c];if(l==null)continue;let h=null;if(r.hand.get(c)!==null&&(h=Module.webxr_frame.getJointPose(r.hand.get(c),WebXR.refSpaces[WebXR.refSpace])),h!==null)if(this.handSkin)l.resetTranslationRotation(),l.translate([h.transform.position.x-n[0],h.transform.position.y-n[1],h.transform.position.z-n[2]]),l.rotate(a),l.rotateObject([h.transform.orientation.x,h.transform.orientation.y,h.transform.orientation.z,h.transform.orientation.w]);else{l.resetTransform(),l.transformLocal.set([h.transform.orientation.x,h.transform.orientation.y,h.transform.orientation.z,h.transform.orientation.w]),l.translate([h.transform.position.x,h.transform.position.y,h.transform.position.z]);let u=h.radius||.007;l.scale([u,u,u])}else this.handSkin||l.scale([0,0,0])}}!this.hasPose&&this._childrenActive?(this._childrenActive=!1,this.deactivateChildrenWithoutPose&&this.setChildrenActive(!1),this.controllerToDeactivate&&(this.controllerToDeactivate.active=!0,this.setChildrenActive(!0,this.controllerToDeactivate))):this.hasPose&&!this._childrenActive&&(this._childrenActive=!0,this.deactivateChildrenWithoutPose&&this.setChildrenActive(!0),this.controllerToDeactivate&&(this.controllerToDeactivate.active=!1,this.setChildrenActive(!1,this.controllerToDeactivate)))}},setChildrenActive:function(e,t){t=t||this.object;let r=t.children;for(let n of r)n.active=e,this.setChildrenActive(e,n)},isGrabbing:function(){let e=[0,0,0];fe.quat2.getTranslation(e,this.joints["index-finger-tip"].transformLocal);let t=[0,0,0];return fe.quat2.getTranslation(t,this.joints["thumb-tip"].transformLocal),fe.vec3.sqrDist(t,e)<.001},setupVREvents:function(e){this.session=e}})});var xc={};var cr,lr=$(()=>{cr=J(te());WL.registerComponent("hit-test-location",{},{init:function(){WL.onXRSessionStart.push(this.xrSessionStart.bind(this)),WL.onXRSessionStart.push(this.xrSessionEnd.bind(this)),this.tempScaling=new Float32Array(3),this.tempScaling.set(this.object.scalingLocal),this.visible=!1,this.object.scale([0,0,0])},update:function(e){let t=this.visible;if(this.xrHitTestSource){let r=Module.webxr_frame;if(!r)return;let n=r.getHitTestResults(this.xrHitTestSource);if(n.length>0){let a=n[0].getPose(this.xrViewerSpace);this.visible=!0,cr.quat2.fromMat4(this.object.transformLocal,a.transform.matrix),this.object.setDirty()}else this.visible=!1}this.visible!=t&&(this.visible?(this.object.scalingLocal.set(this.tempScaling),this.object.setDirty()):(this.tempScaling.set(this.object.scalingLocal),this.object.scale([0,0,0])))},xrSessionStart:function(e){e.requestReferenceSpace("viewer").then(function(t){this.xrViewerSpace=t,e.requestHitTestSource({space:this.xrViewerSpace}).then(function(r){this.xrHitTestSource=r}.bind(this)).catch(console.error)}.bind(this)).catch(console.error)},xrSessionEnd:function(){!this.xrHitTestSource||(this.xrHitTestSource.cancel(),this.xrHitTestSource=null)}})});var Fe=H(Se=>{(function(){"use strict";var e=function(){this.init()};e.prototype={init:function(){var i=this||t;return i._counter=1e3,i._html5AudioPool=[],i.html5PoolSize=10,i._codecs={},i._howls=[],i._muted=!1,i._volume=1,i._canPlayEvent="canplaythrough",i._navigator=typeof window!="undefined"&&window.navigator?window.navigator:null,i.masterGain=null,i.noAudio=!1,i.usingWebAudio=!0,i.autoSuspend=!0,i.ctx=null,i.autoUnlock=!0,i._setup(),i},volume:function(i){var o=this||t;if(i=parseFloat(i),o.ctx||u(),typeof i!="undefined"&&i>=0&&i<=1){if(o._volume=i,o._muted)return o;o.usingWebAudio&&o.masterGain.gain.setValueAtTime(i,t.ctx.currentTime);for(var f=0;f<o._howls.length;f++)if(!o._howls[f]._webAudio)for(var d=o._howls[f]._getSoundIds(),v=0;v<d.length;v++){var _=o._howls[f]._soundById(d[v]);_&&_._node&&(_._node.volume=_._volume*i)}return o}return o._volume},mute:function(i){var o=this||t;o.ctx||u(),o._muted=i,o.usingWebAudio&&o.masterGain.gain.setValueAtTime(i?0:o._volume,t.ctx.currentTime);for(var f=0;f<o._howls.length;f++)if(!o._howls[f]._webAudio)for(var d=o._howls[f]._getSoundIds(),v=0;v<d.length;v++){var _=o._howls[f]._soundById(d[v]);_&&_._node&&(_._node.muted=i?!0:_._muted)}return o},stop:function(){for(var i=this||t,o=0;o<i._howls.length;o++)i._howls[o].stop();return i},unload:function(){for(var i=this||t,o=i._howls.length-1;o>=0;o--)i._howls[o].unload();return i.usingWebAudio&&i.ctx&&typeof i.ctx.close!="undefined"&&(i.ctx.close(),i.ctx=null,u()),i},codecs:function(i){return(this||t)._codecs[i.replace(/^x-/,"")]},_setup:function(){var i=this||t;if(i.state=i.ctx&&i.ctx.state||"suspended",i._autoSuspend(),!i.usingWebAudio)if(typeof Audio!="undefined")try{var o=new Audio;typeof o.oncanplaythrough=="undefined"&&(i._canPlayEvent="canplay")}catch(f){i.noAudio=!0}else i.noAudio=!0;try{var o=new Audio;o.muted&&(i.noAudio=!0)}catch(f){}return i.noAudio||i._setupCodecs(),i},_setupCodecs:function(){var i=this||t,o=null;try{o=typeof Audio!="undefined"?new Audio:null}catch(_){return i}if(!o||typeof o.canPlayType!="function")return i;var f=o.canPlayType("audio/mpeg;").replace(/^no$/,""),d=i._navigator&&i._navigator.userAgent.match(/OPR\/([0-6].)/g),v=d&&parseInt(d[0].split("/")[1],10)<33;return i._codecs={mp3:!!(!v&&(f||o.canPlayType("audio/mp3;").replace(/^no$/,""))),mpeg:!!f,opus:!!o.canPlayType('audio/ogg; codecs="opus"').replace(/^no$/,""),ogg:!!o.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/,""),oga:!!o.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/,""),wav:!!(o.canPlayType('audio/wav; codecs="1"')||o.canPlayType("audio/wav")).replace(/^no$/,""),aac:!!o.canPlayType("audio/aac;").replace(/^no$/,""),caf:!!o.canPlayType("audio/x-caf;").replace(/^no$/,""),m4a:!!(o.canPlayType("audio/x-m4a;")||o.canPlayType("audio/m4a;")||o.canPlayType("audio/aac;")).replace(/^no$/,""),m4b:!!(o.canPlayType("audio/x-m4b;")||o.canPlayType("audio/m4b;")||o.canPlayType("audio/aac;")).replace(/^no$/,""),mp4:!!(o.canPlayType("audio/x-mp4;")||o.canPlayType("audio/mp4;")||o.canPlayType("audio/aac;")).replace(/^no$/,""),weba:!!o.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/,""),webm:!!o.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/,""),dolby:!!o.canPlayType('audio/mp4; codecs="ec-3"').replace(/^no$/,""),flac:!!(o.canPlayType("audio/x-flac;")||o.canPlayType("audio/flac;")).replace(/^no$/,"")},i},_unlockAudio:function(){var i=this||t;if(!(i._audioUnlocked||!i.ctx)){i._audioUnlocked=!1,i.autoUnlock=!1,!i._mobileUnloaded&&i.ctx.sampleRate!==44100&&(i._mobileUnloaded=!0,i.unload()),i._scratchBuffer=i.ctx.createBuffer(1,1,22050);var o=function(f){for(;i._html5AudioPool.length<i.html5PoolSize;)try{var d=new Audio;d._unlocked=!0,i._releaseHtml5Audio(d)}catch(g){i.noAudio=!0;break}for(var v=0;v<i._howls.length;v++)if(!i._howls[v]._webAudio)for(var _=i._howls[v]._getSoundIds(),p=0;p<_.length;p++){var m=i._howls[v]._soundById(_[p]);m&&m._node&&!m._node._unlocked&&(m._node._unlocked=!0,m._node.load())}i._autoResume();var y=i.ctx.createBufferSource();y.buffer=i._scratchBuffer,y.connect(i.ctx.destination),typeof y.start=="undefined"?y.noteOn(0):y.start(0),typeof i.ctx.resume=="function"&&i.ctx.resume(),y.onended=function(){y.disconnect(0),i._audioUnlocked=!0,document.removeEventListener("touchstart",o,!0),document.removeEventListener("touchend",o,!0),document.removeEventListener("click",o,!0);for(var g=0;g<i._howls.length;g++)i._howls[g]._emit("unlock")}};return document.addEventListener("touchstart",o,!0),document.addEventListener("touchend",o,!0),document.addEventListener("click",o,!0),i}},_obtainHtml5Audio:function(){var i=this||t;if(i._html5AudioPool.length)return i._html5AudioPool.pop();var o=new Audio().play();return o&&typeof Promise!="undefined"&&(o instanceof Promise||typeof o.then=="function")&&o.catch(function(){console.warn("HTML5 Audio pool exhausted, returning potentially locked audio object.")}),new Audio},_releaseHtml5Audio:function(i){var o=this||t;return i._unlocked&&o._html5AudioPool.push(i),o},_autoSuspend:function(){var i=this;if(!(!i.autoSuspend||!i.ctx||typeof i.ctx.suspend=="undefined"||!t.usingWebAudio)){for(var o=0;o<i._howls.length;o++)if(i._howls[o]._webAudio){for(var f=0;f<i._howls[o]._sounds.length;f++)if(!i._howls[o]._sounds[f]._paused)return i}return i._suspendTimer&&clearTimeout(i._suspendTimer),i._suspendTimer=setTimeout(function(){if(!!i.autoSuspend){i._suspendTimer=null,i.state="suspending";var d=function(){i.state="suspended",i._resumeAfterSuspend&&(delete i._resumeAfterSuspend,i._autoResume())};i.ctx.suspend().then(d,d)}},3e4),i}},_autoResume:function(){var i=this;if(!(!i.ctx||typeof i.ctx.resume=="undefined"||!t.usingWebAudio))return i.state==="running"&&i.ctx.state!=="interrupted"&&i._suspendTimer?(clearTimeout(i._suspendTimer),i._suspendTimer=null):i.state==="suspended"||i.state==="running"&&i.ctx.state==="interrupted"?(i.ctx.resume().then(function(){i.state="running";for(var o=0;o<i._howls.length;o++)i._howls[o]._emit("resume")}),i._suspendTimer&&(clearTimeout(i._suspendTimer),i._suspendTimer=null)):i.state==="suspending"&&(i._resumeAfterSuspend=!0),i}};var t=new e,r=function(i){var o=this;if(!i.src||i.src.length===0){console.error("An array of source files must be passed with any new Howl.");return}o.init(i)};r.prototype={init:function(i){var o=this;return t.ctx||u(),o._autoplay=i.autoplay||!1,o._format=typeof i.format!="string"?i.format:[i.format],o._html5=i.html5||!1,o._muted=i.mute||!1,o._loop=i.loop||!1,o._pool=i.pool||5,o._preload=typeof i.preload=="boolean"||i.preload==="metadata"?i.preload:!0,o._rate=i.rate||1,o._sprite=i.sprite||{},o._src=typeof i.src!="string"?i.src:[i.src],o._volume=i.volume!==void 0?i.volume:1,o._xhr={method:i.xhr&&i.xhr.method?i.xhr.method:"GET",headers:i.xhr&&i.xhr.headers?i.xhr.headers:null,withCredentials:i.xhr&&i.xhr.withCredentials?i.xhr.withCredentials:!1},o._duration=0,o._state="unloaded",o._sounds=[],o._endTimers={},o._queue=[],o._playLock=!1,o._onend=i.onend?[{fn:i.onend}]:[],o._onfade=i.onfade?[{fn:i.onfade}]:[],o._onload=i.onload?[{fn:i.onload}]:[],o._onloaderror=i.onloaderror?[{fn:i.onloaderror}]:[],o._onplayerror=i.onplayerror?[{fn:i.onplayerror}]:[],o._onpause=i.onpause?[{fn:i.onpause}]:[],o._onplay=i.onplay?[{fn:i.onplay}]:[],o._onstop=i.onstop?[{fn:i.onstop}]:[],o._onmute=i.onmute?[{fn:i.onmute}]:[],o._onvolume=i.onvolume?[{fn:i.onvolume}]:[],o._onrate=i.onrate?[{fn:i.onrate}]:[],o._onseek=i.onseek?[{fn:i.onseek}]:[],o._onunlock=i.onunlock?[{fn:i.onunlock}]:[],o._onresume=[],o._webAudio=t.usingWebAudio&&!o._html5,typeof t.ctx!="undefined"&&t.ctx&&t.autoUnlock&&t._unlockAudio(),t._howls.push(o),o._autoplay&&o._queue.push({event:"play",action:function(){o.play()}}),o._preload&&o._preload!=="none"&&o.load(),o},load:function(){var i=this,o=null;if(t.noAudio){i._emit("loaderror",null,"No audio support.");return}typeof i._src=="string"&&(i._src=[i._src]);for(var f=0;f<i._src.length;f++){var d,v;if(i._format&&i._format[f])d=i._format[f];else{if(v=i._src[f],typeof v!="string"){i._emit("loaderror",null,"Non-string found in selected audio sources - ignoring.");continue}d=/^data:audio\/([^;,]+);/i.exec(v),d||(d=/\.([^.]+)$/.exec(v.split("?",1)[0])),d&&(d=d[1].toLowerCase())}if(d||console.warn('No file extension was found. Consider using the "format" property or specify an extension.'),d&&t.codecs(d)){o=i._src[f];break}}if(!o){i._emit("loaderror",null,"No codec support for selected audio sources.");return}return i._src=o,i._state="loading",window.location.protocol==="https:"&&o.slice(0,5)==="http:"&&(i._html5=!0,i._webAudio=!1),new n(i),i._webAudio&&s(i),i},play:function(i,o){var f=this,d=null;if(typeof i=="number")d=i,i=null;else{if(typeof i=="string"&&f._state==="loaded"&&!f._sprite[i])return null;if(typeof i=="undefined"&&(i="__default",!f._playLock)){for(var v=0,_=0;_<f._sounds.length;_++)f._sounds[_]._paused&&!f._sounds[_]._ended&&(v++,d=f._sounds[_]._id);v===1?i=null:d=null}}var p=d?f._soundById(d):f._inactiveSound();if(!p)return null;if(d&&!i&&(i=p._sprite||"__default"),f._state!=="loaded"){p._sprite=i,p._ended=!1;var m=p._id;return f._queue.push({event:"play",action:function(){f.play(m)}}),m}if(d&&!p._paused)return o||f._loadQueue("play"),p._id;f._webAudio&&t._autoResume();var y=Math.max(0,p._seek>0?p._seek:f._sprite[i][0]/1e3),g=Math.max(0,(f._sprite[i][0]+f._sprite[i][1])/1e3-y),M=g*1e3/Math.abs(p._rate),b=f._sprite[i][0]/1e3,x=(f._sprite[i][0]+f._sprite[i][1])/1e3;p._sprite=i,p._ended=!1;var q=function(){p._paused=!1,p._seek=y,p._start=b,p._stop=x,p._loop=!!(p._loop||f._sprite[i][2])};if(y>=x){f._ended(p);return}var S=p._node;if(f._webAudio){var D=function(){f._playLock=!1,q(),f._refreshBuffer(p);var E=p._muted||f._muted?0:p._volume;S.gain.setValueAtTime(E,t.ctx.currentTime),p._playStart=t.ctx.currentTime,typeof S.bufferSource.start=="undefined"?p._loop?S.bufferSource.noteGrainOn(0,y,86400):S.bufferSource.noteGrainOn(0,y,g):p._loop?S.bufferSource.start(0,y,86400):S.bufferSource.start(0,y,g),M!==Infinity&&(f._endTimers[p._id]=setTimeout(f._ended.bind(f,p),M)),o||setTimeout(function(){f._emit("play",p._id),f._loadQueue()},0)};t.state==="running"&&t.ctx.state!=="interrupted"?D():(f._playLock=!0,f.once("resume",D),f._clearTimer(p._id))}else{var C=function(){S.currentTime=y,S.muted=p._muted||f._muted||t._muted||S.muted,S.volume=p._volume*t.volume(),S.playbackRate=p._rate;try{var E=S.play();if(E&&typeof Promise!="undefined"&&(E instanceof Promise||typeof E.then=="function")?(f._playLock=!0,q(),E.then(function(){f._playLock=!1,S._unlocked=!0,o||(f._emit("play",p._id),f._loadQueue())}).catch(function(){f._playLock=!1,f._emit("playerror",p._id,"Playback was unable to start. This is most commonly an issue on mobile devices and Chrome where playback was not within a user interaction."),p._ended=!0,p._paused=!0})):o||(f._playLock=!1,q(),f._emit("play",p._id),f._loadQueue()),S.playbackRate=p._rate,S.paused){f._emit("playerror",p._id,"Playback was unable to start. This is most commonly an issue on mobile devices and Chrome where playback was not within a user interaction.");return}i!=="__default"||p._loop?f._endTimers[p._id]=setTimeout(f._ended.bind(f,p),M):(f._endTimers[p._id]=function(){f._ended(p),S.removeEventListener("ended",f._endTimers[p._id],!1)},S.addEventListener("ended",f._endTimers[p._id],!1))}catch(P){f._emit("playerror",p._id,P)}};S.src==="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA"&&(S.src=f._src,S.load());var z=window&&window.ejecta||!S.readyState&&t._navigator.isCocoonJS;if(S.readyState>=3||z)C();else{f._playLock=!0;var F=function(){C(),S.removeEventListener(t._canPlayEvent,F,!1)};S.addEventListener(t._canPlayEvent,F,!1),f._clearTimer(p._id)}}return p._id},pause:function(i){var o=this;if(o._state!=="loaded"||o._playLock)return o._queue.push({event:"pause",action:function(){o.pause(i)}}),o;for(var f=o._getSoundIds(i),d=0;d<f.length;d++){o._clearTimer(f[d]);var v=o._soundById(f[d]);if(v&&!v._paused&&(v._seek=o.seek(f[d]),v._rateSeek=0,v._paused=!0,o._stopFade(f[d]),v._node))if(o._webAudio){if(!v._node.bufferSource)continue;typeof v._node.bufferSource.stop=="undefined"?v._node.bufferSource.noteOff(0):v._node.bufferSource.stop(0),o._cleanBuffer(v._node)}else(!isNaN(v._node.duration)||v._node.duration===Infinity)&&v._node.pause();arguments[1]||o._emit("pause",v?v._id:null)}return o},stop:function(i,o){var f=this;if(f._state!=="loaded"||f._playLock)return f._queue.push({event:"stop",action:function(){f.stop(i)}}),f;for(var d=f._getSoundIds(i),v=0;v<d.length;v++){f._clearTimer(d[v]);var _=f._soundById(d[v]);_&&(_._seek=_._start||0,_._rateSeek=0,_._paused=!0,_._ended=!0,f._stopFade(d[v]),_._node&&(f._webAudio?_._node.bufferSource&&(typeof _._node.bufferSource.stop=="undefined"?_._node.bufferSource.noteOff(0):_._node.bufferSource.stop(0),f._cleanBuffer(_._node)):(!isNaN(_._node.duration)||_._node.duration===Infinity)&&(_._node.currentTime=_._start||0,_._node.pause(),_._node.duration===Infinity&&f._clearSound(_._node))),o||f._emit("stop",_._id))}return f},mute:function(i,o){var f=this;if(f._state!=="loaded"||f._playLock)return f._queue.push({event:"mute",action:function(){f.mute(i,o)}}),f;if(typeof o=="undefined")if(typeof i=="boolean")f._muted=i;else return f._muted;for(var d=f._getSoundIds(o),v=0;v<d.length;v++){var _=f._soundById(d[v]);_&&(_._muted=i,_._interval&&f._stopFade(_._id),f._webAudio&&_._node?_._node.gain.setValueAtTime(i?0:_._volume,t.ctx.currentTime):_._node&&(_._node.muted=t._muted?!0:i),f._emit("mute",_._id))}return f},volume:function(){var i=this,o=arguments,f,d;if(o.length===0)return i._volume;if(o.length===1||o.length===2&&typeof o[1]=="undefined"){var v=i._getSoundIds(),_=v.indexOf(o[0]);_>=0?d=parseInt(o[0],10):f=parseFloat(o[0])}else o.length>=2&&(f=parseFloat(o[0]),d=parseInt(o[1],10));var p;if(typeof f!="undefined"&&f>=0&&f<=1){if(i._state!=="loaded"||i._playLock)return i._queue.push({event:"volume",action:function(){i.volume.apply(i,o)}}),i;typeof d=="undefined"&&(i._volume=f),d=i._getSoundIds(d);for(var m=0;m<d.length;m++)p=i._soundById(d[m]),p&&(p._volume=f,o[2]||i._stopFade(d[m]),i._webAudio&&p._node&&!p._muted?p._node.gain.setValueAtTime(f,t.ctx.currentTime):p._node&&!p._muted&&(p._node.volume=f*t.volume()),i._emit("volume",p._id))}else return p=d?i._soundById(d):i._sounds[0],p?p._volume:0;return i},fade:function(i,o,f,d){var v=this;if(v._state!=="loaded"||v._playLock)return v._queue.push({event:"fade",action:function(){v.fade(i,o,f,d)}}),v;i=Math.min(Math.max(0,parseFloat(i)),1),o=Math.min(Math.max(0,parseFloat(o)),1),f=parseFloat(f),v.volume(i,d);for(var _=v._getSoundIds(d),p=0;p<_.length;p++){var m=v._soundById(_[p]);if(m){if(d||v._stopFade(_[p]),v._webAudio&&!m._muted){var y=t.ctx.currentTime,g=y+f/1e3;m._volume=i,m._node.gain.setValueAtTime(i,y),m._node.gain.linearRampToValueAtTime(o,g)}v._startFadeInterval(m,i,o,f,_[p],typeof d=="undefined")}}return v},_startFadeInterval:function(i,o,f,d,v,_){var p=this,m=o,y=f-o,g=Math.abs(y/.01),M=Math.max(4,g>0?d/g:d),b=Date.now();i._fadeTo=f,i._interval=setInterval(function(){var x=(Date.now()-b)/d;b=Date.now(),m+=y*x,m=Math.round(m*100)/100,y<0?m=Math.max(f,m):m=Math.min(f,m),p._webAudio?i._volume=m:p.volume(m,i._id,!0),_&&(p._volume=m),(f<o&&m<=f||f>o&&m>=f)&&(clearInterval(i._interval),i._interval=null,i._fadeTo=null,p.volume(f,i._id),p._emit("fade",i._id))},M)},_stopFade:function(i){var o=this,f=o._soundById(i);return f&&f._interval&&(o._webAudio&&f._node.gain.cancelScheduledValues(t.ctx.currentTime),clearInterval(f._interval),f._interval=null,o.volume(f._fadeTo,i),f._fadeTo=null,o._emit("fade",i)),o},loop:function(){var i=this,o=arguments,f,d,v;if(o.length===0)return i._loop;if(o.length===1)if(typeof o[0]=="boolean")f=o[0],i._loop=f;else return v=i._soundById(parseInt(o[0],10)),v?v._loop:!1;else o.length===2&&(f=o[0],d=parseInt(o[1],10));for(var _=i._getSoundIds(d),p=0;p<_.length;p++)v=i._soundById(_[p]),v&&(v._loop=f,i._webAudio&&v._node&&v._node.bufferSource&&(v._node.bufferSource.loop=f,f&&(v._node.bufferSource.loopStart=v._start||0,v._node.bufferSource.loopEnd=v._stop)));return i},rate:function(){var i=this,o=arguments,f,d;if(o.length===0)d=i._sounds[0]._id;else if(o.length===1){var v=i._getSoundIds(),_=v.indexOf(o[0]);_>=0?d=parseInt(o[0],10):f=parseFloat(o[0])}else o.length===2&&(f=parseFloat(o[0]),d=parseInt(o[1],10));var p;if(typeof f=="number"){if(i._state!=="loaded"||i._playLock)return i._queue.push({event:"rate",action:function(){i.rate.apply(i,o)}}),i;typeof d=="undefined"&&(i._rate=f),d=i._getSoundIds(d);for(var m=0;m<d.length;m++)if(p=i._soundById(d[m]),p){i.playing(d[m])&&(p._rateSeek=i.seek(d[m]),p._playStart=i._webAudio?t.ctx.currentTime:p._playStart),p._rate=f,i._webAudio&&p._node&&p._node.bufferSource?p._node.bufferSource.playbackRate.setValueAtTime(f,t.ctx.currentTime):p._node&&(p._node.playbackRate=f);var y=i.seek(d[m]),g=(i._sprite[p._sprite][0]+i._sprite[p._sprite][1])/1e3-y,M=g*1e3/Math.abs(p._rate);(i._endTimers[d[m]]||!p._paused)&&(i._clearTimer(d[m]),i._endTimers[d[m]]=setTimeout(i._ended.bind(i,p),M)),i._emit("rate",p._id)}}else return p=i._soundById(d),p?p._rate:i._rate;return i},seek:function(){var i=this,o=arguments,f,d;if(o.length===0)d=i._sounds[0]._id;else if(o.length===1){var v=i._getSoundIds(),_=v.indexOf(o[0]);_>=0?d=parseInt(o[0],10):i._sounds.length&&(d=i._sounds[0]._id,f=parseFloat(o[0]))}else o.length===2&&(f=parseFloat(o[0]),d=parseInt(o[1],10));if(typeof d=="undefined")return i;if(typeof f=="number"&&(i._state!=="loaded"||i._playLock))return i._queue.push({event:"seek",action:function(){i.seek.apply(i,o)}}),i;var p=i._soundById(d);if(p)if(typeof f=="number"&&f>=0){var m=i.playing(d);m&&i.pause(d,!0),p._seek=f,p._ended=!1,i._clearTimer(d),!i._webAudio&&p._node&&!isNaN(p._node.duration)&&(p._node.currentTime=f);var y=function(){i._emit("seek",d),m&&i.play(d,!0)};if(m&&!i._webAudio){var g=function(){i._playLock?setTimeout(g,0):y()};setTimeout(g,0)}else y()}else if(i._webAudio){var M=i.playing(d)?t.ctx.currentTime-p._playStart:0,b=p._rateSeek?p._rateSeek-p._seek:0;return p._seek+(b+M*Math.abs(p._rate))}else return p._node.currentTime;return i},playing:function(i){var o=this;if(typeof i=="number"){var f=o._soundById(i);return f?!f._paused:!1}for(var d=0;d<o._sounds.length;d++)if(!o._sounds[d]._paused)return!0;return!1},duration:function(i){var o=this,f=o._duration,d=o._soundById(i);return d&&(f=o._sprite[d._sprite][1]/1e3),f},state:function(){return this._state},unload:function(){for(var i=this,o=i._sounds,f=0;f<o.length;f++)o[f]._paused||i.stop(o[f]._id),i._webAudio||(i._clearSound(o[f]._node),o[f]._node.removeEventListener("error",o[f]._errorFn,!1),o[f]._node.removeEventListener(t._canPlayEvent,o[f]._loadFn,!1),o[f]._node.removeEventListener("ended",o[f]._endFn,!1),t._releaseHtml5Audio(o[f]._node)),delete o[f]._node,i._clearTimer(o[f]._id);var d=t._howls.indexOf(i);d>=0&&t._howls.splice(d,1);var v=!0;for(f=0;f<t._howls.length;f++)if(t._howls[f]._src===i._src||i._src.indexOf(t._howls[f]._src)>=0){v=!1;break}return a&&v&&delete a[i._src],t.noAudio=!1,i._state="unloaded",i._sounds=[],i=null,null},on:function(i,o,f,d){var v=this,_=v["_on"+i];return typeof o=="function"&&_.push(d?{id:f,fn:o,once:d}:{id:f,fn:o}),v},off:function(i,o,f){var d=this,v=d["_on"+i],_=0;if(typeof o=="number"&&(f=o,o=null),o||f)for(_=0;_<v.length;_++){var p=f===v[_].id;if(o===v[_].fn&&p||!o&&p){v.splice(_,1);break}}else if(i)d["_on"+i]=[];else{var m=Object.keys(d);for(_=0;_<m.length;_++)m[_].indexOf("_on")===0&&Array.isArray(d[m[_]])&&(d[m[_]]=[])}return d},once:function(i,o,f){var d=this;return d.on(i,o,f,1),d},_emit:function(i,o,f){for(var d=this,v=d["_on"+i],_=v.length-1;_>=0;_--)(!v[_].id||v[_].id===o||i==="load")&&(setTimeout(function(p){p.call(this,o,f)}.bind(d,v[_].fn),0),v[_].once&&d.off(i,v[_].fn,v[_].id));return d._loadQueue(i),d},_loadQueue:function(i){var o=this;if(o._queue.length>0){var f=o._queue[0];f.event===i&&(o._queue.shift(),o._loadQueue()),i||f.action()}return o},_ended:function(i){var o=this,f=i._sprite;if(!o._webAudio&&i._node&&!i._node.paused&&!i._node.ended&&i._node.currentTime<i._stop)return setTimeout(o._ended.bind(o,i),100),o;var d=!!(i._loop||o._sprite[f][2]);if(o._emit("end",i._id),!o._webAudio&&d&&o.stop(i._id,!0).play(i._id),o._webAudio&&d){o._emit("play",i._id),i._seek=i._start||0,i._rateSeek=0,i._playStart=t.ctx.currentTime;var v=(i._stop-i._start)*1e3/Math.abs(i._rate);o._endTimers[i._id]=setTimeout(o._ended.bind(o,i),v)}return o._webAudio&&!d&&(i._paused=!0,i._ended=!0,i._seek=i._start||0,i._rateSeek=0,o._clearTimer(i._id),o._cleanBuffer(i._node),t._autoSuspend()),!o._webAudio&&!d&&o.stop(i._id,!0),o},_clearTimer:function(i){var o=this;if(o._endTimers[i]){if(typeof o._endTimers[i]!="function")clearTimeout(o._endTimers[i]);else{var f=o._soundById(i);f&&f._node&&f._node.removeEventListener("ended",o._endTimers[i],!1)}delete o._endTimers[i]}return o},_soundById:function(i){for(var o=this,f=0;f<o._sounds.length;f++)if(i===o._sounds[f]._id)return o._sounds[f];return null},_inactiveSound:function(){var i=this;i._drain();for(var o=0;o<i._sounds.length;o++)if(i._sounds[o]._ended)return i._sounds[o].reset();return new n(i)},_drain:function(){var i=this,o=i._pool,f=0,d=0;if(!(i._sounds.length<o)){for(d=0;d<i._sounds.length;d++)i._sounds[d]._ended&&f++;for(d=i._sounds.length-1;d>=0;d--){if(f<=o)return;i._sounds[d]._ended&&(i._webAudio&&i._sounds[d]._node&&i._sounds[d]._node.disconnect(0),i._sounds.splice(d,1),f--)}}},_getSoundIds:function(i){var o=this;if(typeof i=="undefined"){for(var f=[],d=0;d<o._sounds.length;d++)f.push(o._sounds[d]._id);return f}else return[i]},_refreshBuffer:function(i){var o=this;return i._node.bufferSource=t.ctx.createBufferSource(),i._node.bufferSource.buffer=a[o._src],i._panner?i._node.bufferSource.connect(i._panner):i._node.bufferSource.connect(i._node),i._node.bufferSource.loop=i._loop,i._loop&&(i._node.bufferSource.loopStart=i._start||0,i._node.bufferSource.loopEnd=i._stop||0),i._node.bufferSource.playbackRate.setValueAtTime(i._rate,t.ctx.currentTime),o},_cleanBuffer:function(i){var o=this,f=t._navigator&&t._navigator.vendor.indexOf("Apple")>=0;if(t._scratchBuffer&&i.bufferSource&&(i.bufferSource.onended=null,i.bufferSource.disconnect(0),f))try{i.bufferSource.buffer=t._scratchBuffer}catch(d){}return i.bufferSource=null,o},_clearSound:function(i){var o=/MSIE |Trident\//.test(t._navigator&&t._navigator.userAgent);o||(i.src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA")}};var n=function(i){this._parent=i,this.init()};n.prototype={init:function(){var i=this,o=i._parent;return i._muted=o._muted,i._loop=o._loop,i._volume=o._volume,i._rate=o._rate,i._seek=0,i._paused=!0,i._ended=!0,i._sprite="__default",i._id=++t._counter,o._sounds.push(i),i.create(),i},create:function(){var i=this,o=i._parent,f=t._muted||i._muted||i._parent._muted?0:i._volume;return o._webAudio?(i._node=typeof t.ctx.createGain=="undefined"?t.ctx.createGainNode():t.ctx.createGain(),i._node.gain.setValueAtTime(f,t.ctx.currentTime),i._node.paused=!0,i._node.connect(t.masterGain)):t.noAudio||(i._node=t._obtainHtml5Audio(),i._errorFn=i._errorListener.bind(i),i._node.addEventListener("error",i._errorFn,!1),i._loadFn=i._loadListener.bind(i),i._node.addEventListener(t._canPlayEvent,i._loadFn,!1),i._endFn=i._endListener.bind(i),i._node.addEventListener("ended",i._endFn,!1),i._node.src=o._src,i._node.preload=o._preload===!0?"auto":o._preload,i._node.volume=f*t.volume(),i._node.load()),i},reset:function(){var i=this,o=i._parent;return i._muted=o._muted,i._loop=o._loop,i._volume=o._volume,i._rate=o._rate,i._seek=0,i._rateSeek=0,i._paused=!0,i._ended=!0,i._sprite="__default",i._id=++t._counter,i},_errorListener:function(){var i=this;i._parent._emit("loaderror",i._id,i._node.error?i._node.error.code:0),i._node.removeEventListener("error",i._errorFn,!1)},_loadListener:function(){var i=this,o=i._parent;o._duration=Math.ceil(i._node.duration*10)/10,Object.keys(o._sprite).length===0&&(o._sprite={__default:[0,o._duration*1e3]}),o._state!=="loaded"&&(o._state="loaded",o._emit("load"),o._loadQueue()),i._node.removeEventListener(t._canPlayEvent,i._loadFn,!1)},_endListener:function(){var i=this,o=i._parent;o._duration===Infinity&&(o._duration=Math.ceil(i._node.duration*10)/10,o._sprite.__default[1]===Infinity&&(o._sprite.__default[1]=o._duration*1e3),o._ended(i)),i._node.removeEventListener("ended",i._endFn,!1)}};var a={},s=function(i){var o=i._src;if(a[o]){i._duration=a[o].duration,h(i);return}if(/^data:[^;]+;base64,/.test(o)){for(var f=atob(o.split(",")[1]),d=new Uint8Array(f.length),v=0;v<f.length;++v)d[v]=f.charCodeAt(v);l(d.buffer,i)}else{var _=new XMLHttpRequest;_.open(i._xhr.method,o,!0),_.withCredentials=i._xhr.withCredentials,_.responseType="arraybuffer",i._xhr.headers&&Object.keys(i._xhr.headers).forEach(function(p){_.setRequestHeader(p,i._xhr.headers[p])}),_.onload=function(){var p=(_.status+"")[0];if(p!=="0"&&p!=="2"&&p!=="3"){i._emit("loaderror",null,"Failed loading audio file with status: "+_.status+".");return}l(_.response,i)},_.onerror=function(){i._webAudio&&(i._html5=!0,i._webAudio=!1,i._sounds=[],delete a[o],i.load())},c(_)}},c=function(i){try{i.send()}catch(o){i.onerror()}},l=function(i,o){var f=function(){o._emit("loaderror",null,"Decoding audio data failed.")},d=function(v){v&&o._sounds.length>0?(a[o._src]=v,h(o,v)):f()};typeof Promise!="undefined"&&t.ctx.decodeAudioData.length===1?t.ctx.decodeAudioData(i).then(d).catch(f):t.ctx.decodeAudioData(i,d,f)},h=function(i,o){o&&!i._duration&&(i._duration=o.duration),Object.keys(i._sprite).length===0&&(i._sprite={__default:[0,i._duration*1e3]}),i._state!=="loaded"&&(i._state="loaded",i._emit("load"),i._loadQueue())},u=function(){if(!!t.usingWebAudio){try{typeof AudioContext!="undefined"?t.ctx=new AudioContext:typeof webkitAudioContext!="undefined"?t.ctx=new webkitAudioContext:t.usingWebAudio=!1}catch(v){t.usingWebAudio=!1}t.ctx||(t.usingWebAudio=!1);var i=/iP(hone|od|ad)/.test(t._navigator&&t._navigator.platform),o=t._navigator&&t._navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/),f=o?parseInt(o[1],10):null;if(i&&f&&f<9){var d=/safari/.test(t._navigator&&t._navigator.userAgent.toLowerCase());t._navigator&&!d&&(t.usingWebAudio=!1)}t.usingWebAudio&&(t.masterGain=typeof t.ctx.createGain=="undefined"?t.ctx.createGainNode():t.ctx.createGain(),t.masterGain.gain.setValueAtTime(t._muted?0:t._volume,t.ctx.currentTime),t.masterGain.connect(t.ctx.destination)),t._setup()}};typeof define=="function"&&define.amd&&define([],function(){return{Howler:t,Howl:r}}),typeof Se!="undefined"&&(Se.Howler=t,Se.Howl=r),typeof global!="undefined"?(global.HowlerGlobal=e,global.Howler=t,global.Howl=r,global.Sound=n):typeof window!="undefined"&&(window.HowlerGlobal=e,window.Howler=t,window.Howl=r,window.Sound=n)})();(function(){"use strict";HowlerGlobal.prototype._pos=[0,0,0],HowlerGlobal.prototype._orientation=[0,0,-1,0,1,0],HowlerGlobal.prototype.stereo=function(t){var r=this;if(!r.ctx||!r.ctx.listener)return r;for(var n=r._howls.length-1;n>=0;n--)r._howls[n].stereo(t);return r},HowlerGlobal.prototype.pos=function(t,r,n){var a=this;if(!a.ctx||!a.ctx.listener)return a;if(r=typeof r!="number"?a._pos[1]:r,n=typeof n!="number"?a._pos[2]:n,typeof t=="number")a._pos=[t,r,n],typeof a.ctx.listener.positionX!="undefined"?(a.ctx.listener.positionX.setTargetAtTime(a._pos[0],Howler.ctx.currentTime,.1),a.ctx.listener.positionY.setTargetAtTime(a._pos[1],Howler.ctx.currentTime,.1),a.ctx.listener.positionZ.setTargetAtTime(a._pos[2],Howler.ctx.currentTime,.1)):a.ctx.listener.setPosition(a._pos[0],a._pos[1],a._pos[2]);else return a._pos;return a},HowlerGlobal.prototype.orientation=function(t,r,n,a,s,c){var l=this;if(!l.ctx||!l.ctx.listener)return l;var h=l._orientation;if(r=typeof r!="number"?h[1]:r,n=typeof n!="number"?h[2]:n,a=typeof a!="number"?h[3]:a,s=typeof s!="number"?h[4]:s,c=typeof c!="number"?h[5]:c,typeof t=="number")l._orientation=[t,r,n,a,s,c],typeof l.ctx.listener.forwardX!="undefined"?(l.ctx.listener.forwardX.setTargetAtTime(t,Howler.ctx.currentTime,.1),l.ctx.listener.forwardY.setTargetAtTime(r,Howler.ctx.currentTime,.1),l.ctx.listener.forwardZ.setTargetAtTime(n,Howler.ctx.currentTime,.1),l.ctx.listener.upX.setTargetAtTime(a,Howler.ctx.currentTime,.1),l.ctx.listener.upY.setTargetAtTime(s,Howler.ctx.currentTime,.1),l.ctx.listener.upZ.setTargetAtTime(c,Howler.ctx.currentTime,.1)):l.ctx.listener.setOrientation(t,r,n,a,s,c);else return h;return l},Howl.prototype.init=function(t){return function(r){var n=this;return n._orientation=r.orientation||[1,0,0],n._stereo=r.stereo||null,n._pos=r.pos||null,n._pannerAttr={coneInnerAngle:typeof r.coneInnerAngle!="undefined"?r.coneInnerAngle:360,coneOuterAngle:typeof r.coneOuterAngle!="undefined"?r.coneOuterAngle:360,coneOuterGain:typeof r.coneOuterGain!="undefined"?r.coneOuterGain:0,distanceModel:typeof r.distanceModel!="undefined"?r.distanceModel:"inverse",maxDistance:typeof r.maxDistance!="undefined"?r.maxDistance:1e4,panningModel:typeof r.panningModel!="undefined"?r.panningModel:"HRTF",refDistance:typeof r.refDistance!="undefined"?r.refDistance:1,rolloffFactor:typeof r.rolloffFactor!="undefined"?r.rolloffFactor:1},n._onstereo=r.onstereo?[{fn:r.onstereo}]:[],n._onpos=r.onpos?[{fn:r.onpos}]:[],n._onorientation=r.onorientation?[{fn:r.onorientation}]:[],t.call(this,r)}}(Howl.prototype.init),Howl.prototype.stereo=function(t,r){var n=this;if(!n._webAudio)return n;if(n._state!=="loaded")return n._queue.push({event:"stereo",action:function(){n.stereo(t,r)}}),n;var a=typeof Howler.ctx.createStereoPanner=="undefined"?"spatial":"stereo";if(typeof r=="undefined")if(typeof t=="number")n._stereo=t,n._pos=[t,0,0];else return n._stereo;for(var s=n._getSoundIds(r),c=0;c<s.length;c++){var l=n._soundById(s[c]);if(l)if(typeof t=="number")l._stereo=t,l._pos=[t,0,0],l._node&&(l._pannerAttr.panningModel="equalpower",(!l._panner||!l._panner.pan)&&e(l,a),a==="spatial"?typeof l._panner.positionX!="undefined"?(l._panner.positionX.setValueAtTime(t,Howler.ctx.currentTime),l._panner.positionY.setValueAtTime(0,Howler.ctx.currentTime),l._panner.positionZ.setValueAtTime(0,Howler.ctx.currentTime)):l._panner.setPosition(t,0,0):l._panner.pan.setValueAtTime(t,Howler.ctx.currentTime)),n._emit("stereo",l._id);else return l._stereo}return n},Howl.prototype.pos=function(t,r,n,a){var s=this;if(!s._webAudio)return s;if(s._state!=="loaded")return s._queue.push({event:"pos",action:function(){s.pos(t,r,n,a)}}),s;if(r=typeof r!="number"?0:r,n=typeof n!="number"?-.5:n,typeof a=="undefined")if(typeof t=="number")s._pos=[t,r,n];else return s._pos;for(var c=s._getSoundIds(a),l=0;l<c.length;l++){var h=s._soundById(c[l]);if(h)if(typeof t=="number")h._pos=[t,r,n],h._node&&((!h._panner||h._panner.pan)&&e(h,"spatial"),typeof h._panner.positionX!="undefined"?(h._panner.positionX.setValueAtTime(t,Howler.ctx.currentTime),h._panner.positionY.setValueAtTime(r,Howler.ctx.currentTime),h._panner.positionZ.setValueAtTime(n,Howler.ctx.currentTime)):h._panner.setPosition(t,r,n)),s._emit("pos",h._id);else return h._pos}return s},Howl.prototype.orientation=function(t,r,n,a){var s=this;if(!s._webAudio)return s;if(s._state!=="loaded")return s._queue.push({event:"orientation",action:function(){s.orientation(t,r,n,a)}}),s;if(r=typeof r!="number"?s._orientation[1]:r,n=typeof n!="number"?s._orientation[2]:n,typeof a=="undefined")if(typeof t=="number")s._orientation=[t,r,n];else return s._orientation;for(var c=s._getSoundIds(a),l=0;l<c.length;l++){var h=s._soundById(c[l]);if(h)if(typeof t=="number")h._orientation=[t,r,n],h._node&&(h._panner||(h._pos||(h._pos=s._pos||[0,0,-.5]),e(h,"spatial")),typeof h._panner.orientationX!="undefined"?(h._panner.orientationX.setValueAtTime(t,Howler.ctx.currentTime),h._panner.orientationY.setValueAtTime(r,Howler.ctx.currentTime),h._panner.orientationZ.setValueAtTime(n,Howler.ctx.currentTime)):h._panner.setOrientation(t,r,n)),s._emit("orientation",h._id);else return h._orientation}return s},Howl.prototype.pannerAttr=function(){var t=this,r=arguments,n,a,s;if(!t._webAudio)return t;if(r.length===0)return t._pannerAttr;if(r.length===1)if(typeof r[0]=="object")n=r[0],typeof a=="undefined"&&(n.pannerAttr||(n.pannerAttr={coneInnerAngle:n.coneInnerAngle,coneOuterAngle:n.coneOuterAngle,coneOuterGain:n.coneOuterGain,distanceModel:n.distanceModel,maxDistance:n.maxDistance,refDistance:n.refDistance,rolloffFactor:n.rolloffFactor,panningModel:n.panningModel}),t._pannerAttr={coneInnerAngle:typeof n.pannerAttr.coneInnerAngle!="undefined"?n.pannerAttr.coneInnerAngle:t._coneInnerAngle,coneOuterAngle:typeof n.pannerAttr.coneOuterAngle!="undefined"?n.pannerAttr.coneOuterAngle:t._coneOuterAngle,coneOuterGain:typeof n.pannerAttr.coneOuterGain!="undefined"?n.pannerAttr.coneOuterGain:t._coneOuterGain,distanceModel:typeof n.pannerAttr.distanceModel!="undefined"?n.pannerAttr.distanceModel:t._distanceModel,maxDistance:typeof n.pannerAttr.maxDistance!="undefined"?n.pannerAttr.maxDistance:t._maxDistance,refDistance:typeof n.pannerAttr.refDistance!="undefined"?n.pannerAttr.refDistance:t._refDistance,rolloffFactor:typeof n.pannerAttr.rolloffFactor!="undefined"?n.pannerAttr.rolloffFactor:t._rolloffFactor,panningModel:typeof n.pannerAttr.panningModel!="undefined"?n.pannerAttr.panningModel:t._panningModel});else return s=t._soundById(parseInt(r[0],10)),s?s._pannerAttr:t._pannerAttr;else r.length===2&&(n=r[0],a=parseInt(r[1],10));for(var c=t._getSoundIds(a),l=0;l<c.length;l++)if(s=t._soundById(c[l]),s){var h=s._pannerAttr;h={coneInnerAngle:typeof n.coneInnerAngle!="undefined"?n.coneInnerAngle:h.coneInnerAngle,coneOuterAngle:typeof n.coneOuterAngle!="undefined"?n.coneOuterAngle:h.coneOuterAngle,coneOuterGain:typeof n.coneOuterGain!="undefined"?n.coneOuterGain:h.coneOuterGain,distanceModel:typeof n.distanceModel!="undefined"?n.distanceModel:h.distanceModel,maxDistance:typeof n.maxDistance!="undefined"?n.maxDistance:h.maxDistance,refDistance:typeof n.refDistance!="undefined"?n.refDistance:h.refDistance,rolloffFactor:typeof n.rolloffFactor!="undefined"?n.rolloffFactor:h.rolloffFactor,panningModel:typeof n.panningModel!="undefined"?n.panningModel:h.panningModel};var u=s._panner;u?(u.coneInnerAngle=h.coneInnerAngle,u.coneOuterAngle=h.coneOuterAngle,u.coneOuterGain=h.coneOuterGain,u.distanceModel=h.distanceModel,u.maxDistance=h.maxDistance,u.refDistance=h.refDistance,u.rolloffFactor=h.rolloffFactor,u.panningModel=h.panningModel):(s._pos||(s._pos=t._pos||[0,0,-.5]),e(s,"spatial"))}return t},Sound.prototype.init=function(t){return function(){var r=this,n=r._parent;r._orientation=n._orientation,r._stereo=n._stereo,r._pos=n._pos,r._pannerAttr=n._pannerAttr,t.call(this),r._stereo?n.stereo(r._stereo):r._pos&&n.pos(r._pos[0],r._pos[1],r._pos[2],r._id)}}(Sound.prototype.init),Sound.prototype.reset=function(t){return function(){var r=this,n=r._parent;return r._orientation=n._orientation,r._stereo=n._stereo,r._pos=n._pos,r._pannerAttr=n._pannerAttr,r._stereo?n.stereo(r._stereo):r._pos?n.pos(r._pos[0],r._pos[1],r._pos[2],r._id):r._panner&&(r._panner.disconnect(0),r._panner=void 0,n._refreshBuffer(r)),t.call(this)}}(Sound.prototype.reset);var e=function(t,r){r=r||"spatial",r==="spatial"?(t._panner=Howler.ctx.createPanner(),t._panner.coneInnerAngle=t._pannerAttr.coneInnerAngle,t._panner.coneOuterAngle=t._pannerAttr.coneOuterAngle,t._panner.coneOuterGain=t._pannerAttr.coneOuterGain,t._panner.distanceModel=t._pannerAttr.distanceModel,t._panner.maxDistance=t._pannerAttr.maxDistance,t._panner.refDistance=t._pannerAttr.refDistance,t._panner.rolloffFactor=t._pannerAttr.rolloffFactor,t._panner.panningModel=t._pannerAttr.panningModel,typeof t._panner.positionX!="undefined"?(t._panner.positionX.setValueAtTime(t._pos[0],Howler.ctx.currentTime),t._panner.positionY.setValueAtTime(t._pos[1],Howler.ctx.currentTime),t._panner.positionZ.setValueAtTime(t._pos[2],Howler.ctx.currentTime)):t._panner.setPosition(t._pos[0],t._pos[1],t._pos[2]),typeof t._panner.orientationX!="undefined"?(t._panner.orientationX.setValueAtTime(t._orientation[0],Howler.ctx.currentTime),t._panner.orientationY.setValueAtTime(t._orientation[1],Howler.ctx.currentTime),t._panner.orientationZ.setValueAtTime(t._orientation[2],Howler.ctx.currentTime)):t._panner.setOrientation(t._orientation[0],t._orientation[1],t._orientation[2])):(t._panner=Howler.ctx.createStereoPanner(),t._panner.pan.setValueAtTime(t._stereo,Howler.ctx.currentTime)),t._panner.connect(t._node),t._paused||t._parent.pause(t._id,!0).play(t._id,!0)}})()});var wc={};var rl,fr=$(()=>{rl=J(Fe());WL.registerComponent("howler-audio-listener",{spatial:{type:WL.Type.Bool,default:!0}},{init:function(){this.origin=new Float32Array(3),this.fwd=new Float32Array(3),this.up=new Float32Array(3)},update:function(){!this.spatial||(this.object.getTranslationWorld(this.origin),this.object.getForward(this.fwd),this.object.getUp(this.up),Howler.pos(this.origin[0],this.origin[1],this.origin[2]),Howler.orientation(this.fwd[0],this.fwd[1],this.fwd[2],this.up[0],this.up[1],this.up[2]))}})});var Ac={};var hr,dr=$(()=>{hr=J(Fe());WL.registerComponent("howler-audio-source",{volume:{type:WL.Type.Float,default:1},spatial:{type:WL.Type.Bool,default:!0},loop:{type:WL.Type.Bool,default:!1},autoplay:{type:WL.Type.Bool,default:!1},src:{type:WL.Type.String,default:""}},{start:function(){this.audio=new hr.Howl({src:[this.src],loop:this.loop,volume:this.volume,autoplay:this.autoplay}),this.lastPlayedAudioId=null,this.origin=new Float32Array(3),this.lastOrigin=new Float32Array(3),this.spatial&&this.autoplay&&(this.updatePosition(),this.play());let e=()=>{this.stop();let t=WL.onSceneLoaded.indexOf(e);t>=0&&WL.onSceneLoaded.splice(t,1)};WL.onSceneLoaded.push(e)},update:function(){!this.spatial||!this.lastPlayedAudioId||(this.object.getTranslationWorld(this.origin),(Math.abs(this.lastOrigin[0]-this.origin[0])>.005||Math.abs(this.lastOrigin[1]-this.origin[1])>.005||Math.abs(this.lastOrigin[2]-this.origin[2])>.005)&&this.updatePosition())},updatePosition:function(){this.audio.pos(this.origin[0],this.origin[1],this.origin[2],this.lastPlayedAudioId),this.lastOrigin.set(this.origin)},play:function(){this.lastPlayedAudioId&&this.audio.stop(this.lastPlayedAudioId),this.lastPlayedAudioId=this.audio.play(),this.spatial&&this.updatePosition()},stop:function(){!this.lastPlayedAudioId||(this.audio.stop(this.lastPlayedAudioId),this.lastPlayedAudioId=null)}})});var ur=H(()=>{WL.registerComponent("image-texture",{url:{type:WL.Type.String,default:""},meshIndex:{type:WL.Type.Int,default:0}},{init:function(){let e=this.object;WL.textures.load(this.url,"anonymous").then(function(t){let r=e.getComponent("mesh",this.meshIndex).material;r.shader=="Flat Opaque Textured"?r.flatTexture=t:r.shader=="Phong Opaque Textured"?r.diffuseTexture=t:console.error("Shader",r.shader,"not supported by image-texture")}).catch(console.err)}})});var Tc={};var pr,vr=$(()=>{pr=J(te());WL.registerComponent("mouse-look",{sensitity:{type:WL.Type.Float,default:.25},requireMouseDown:{type:WL.Type.Bool,default:!0},mouseButtonIndex:{type:WL.Type.Int,default:0}},{init:function(){this.currentRotationY=0,this.currentRotationX=0,this.origin=new Float32Array(3),this.parentOrigin=new Float32Array(3),document.addEventListener("mousemove",function(e){this.active&&(this.mouseDown||!this.requireMouseDown)&&(this.rotationY=-this.sensitity*e.movementX/100,this.rotationX=-this.sensitity*e.movementY/100,this.currentRotationX+=this.rotationX,this.currentRotationY+=this.rotationY,this.currentRotationX=Math.min(1.507,this.currentRotationX),this.currentRotationX=Math.max(-1.507,this.currentRotationX),this.object.getTranslationWorld(this.origin),this.object.parent.getTranslationWorld(this.parentOrigin),pr.vec3.sub(this.origin,this.origin,this.parentOrigin),this.object.resetTranslationRotation(),this.object.rotateAxisAngleRad([1,0,0],this.currentRotationX),this.object.rotateAxisAngleRad([0,1,0],this.currentRotationY),this.object.translate(this.origin))}.bind(this)),this.requireMouseDown&&(this.mouseButtonIndex==2&&WL.canvas.addEventListener("contextmenu",function(e){e.preventDefault()},!1),WL.canvas.addEventListener("mousedown",function(e){if(e.button==this.mouseButtonIndex&&(this.mouseDown=!0,document.body.style.cursor="grabbing",e.button==1))return e.preventDefault(),!1}.bind(this)),WL.canvas.addEventListener("mouseup",function(e){e.button==this.mouseButtonIndex&&(this.mouseDown=!1,document.body.style.cursor="initial")}.bind(this)))},start:function(){this.rotationX=0,this.rotationY=0}})});var _r=H(()=>{WL.registerComponent("target-framerate",{framerate:{type:WL.Type.Float,default:90}},{start:function(){WL.xrSession?this.setTargetFramerate(WL.xrSession):WL.onXRSessionStart.push(this.setTargetFramerate.bind(this))},setTargetFramerate:function(e){if(e.supportedFrameRates&&e.updateTargetFrameRate){let t=WL.xrSession.supportedFrameRates;t.sort((r,n)=>Math.abs(r-this.framerate)-Math.abs(n-this.framerate)),WL.xrSession.updateTargetFrameRate(t[0])}}})});var Sc={};var ae,mr=$(()=>{ae=J(te());WL.registerComponent("teleport",{teleportIndicatorMeshObject:{type:WL.Type.Object},camRoot:{type:WL.Type.Object},cam:{type:WL.Type.Object},eyeLeft:{type:WL.Type.Object},eyeRight:{type:WL.Type.Object},handedness:{type:WL.Type.Enum,values:["input component","left","right","none"],default:"input component"},floorGroup:{type:WL.Type.Int,default:1},thumbstickActivationThreshhold:{type:WL.Type.Float,default:-.7},thumbstickDeactivationThreshhold:{type:WL.Type.Float,default:.3},indicatorYOffset:{type:WL.Type.Float,default:.01},rayCastMode:{type:WL.Type.Enum,values:["collision","physx"],default:"collision"},maxDistance:{type:WL.Type.Float,default:100}},{init:function(){if(this._prevThumbstickAxis=new Float32Array(2),this._tempVec=new Float32Array(3),this._tempVec0=new Float32Array(3),this._currentIndicatorRotation=0,this.input=this.object.getComponent("input"),!this.input){console.error(this.object.name,"generic-teleport-component.js: input component is required on the object");return}if(!this.teleportIndicatorMeshObject){console.error(this.object.name,"generic-teleport-component.js: Teleport indicator mesh is missing");return}if(!this.camRoot){console.error(this.object.name,"generic-teleport-component.js: camRoot not set");return}this.isIndicating=!1,this.cam&&(this.isMouseIndicating=!1,WL.canvas.addEventListener("mousedown",this.onMouseDown.bind(this)),WL.canvas.addEventListener("mouseup",this.onMouseUp.bind(this))),this.indicatorHidden=!0,this.hitSpot=new Float32Array(3),this._hasHit=!1,this._extraRotation=0,this._currentStickAxes=new Float32Array(2)},start:function(){if(this.handedness==0){let e=this.object.getComponent("input");e?(this.handedness=e.handedness,this.input=e):console.warn("teleport component on object",this.object.name,'was configured with handedness "input component", but object has no input component.')}else this.handedness=["left","right"][this.handedness-1];WL.onXRSessionStart.push(this.setupVREvents.bind(this)),this.teleportIndicatorMeshObject.active=!1},_getCamRotation:function(){return this.eyeLeft.getForward(this._tempVec),this._tempVec[1]=0,ae.vec3.normalize(this._tempVec,this._tempVec),Math.atan2(this._tempVec[0],this._tempVec[2])},update:function(){let e=0;if(this.gamepad&&this.gamepad.axes&&(this._currentStickAxes[0]=this.gamepad.axes[2],this._currentStickAxes[1]=this.gamepad.axes[3],e=Math.abs(this._currentStickAxes[0])+Math.abs(this._currentStickAxes[1])),!this.isIndicating&&this._prevThumbstickAxis[1]>=this.thumbstickActivationThreshhold&&this._currentStickAxes[1]<this.thumbstickActivationThreshhold?this.isIndicating=!0:this.isIndicating&&e<this.thumbstickDeactivationThreshhold&&(this.isIndicating=!1,this.teleportIndicatorMeshObject.active=!1,this._hasHit&&this._teleportPlayer(this.hitSpot,this._extraRotation)),this.isIndicating&&this.teleportIndicatorMeshObject&&this.input){let t=this._tempVec0;ae.quat2.getTranslation(t,this.object.transformWorld);let r=this.object.getForward(this._tempVec),n=this.rayHit=this.rayCastMode==0?WL.scene.rayCast(t,r,1<<this.floorGroup):WL.physics.rayCast(t,r,1<<this.floorGroup,this.maxDistance);n.hitCount>0?(this.indicatorHidden=!1,this._extraRotation=Math.PI+Math.atan2(this._currentStickAxes[0],this._currentStickAxes[1]),this._currentIndicatorRotation=this._getCamRotation()+(this._extraRotation-Math.PI),this.teleportIndicatorMeshObject.resetTranslationRotation(),this.teleportIndicatorMeshObject.rotateAxisAngleRad([0,1,0],this._currentIndicatorRotation),this.teleportIndicatorMeshObject.translate(n.locations[0]),this.teleportIndicatorMeshObject.translate([0,this.indicatorYOffset,0]),this.teleportIndicatorMeshObject.active=!0,this.hitSpot.set(n.locations[0]),this._hasHit=!0):(this.indicatorHidden||(this.teleportIndicatorMeshObject.active=!1,this.indicatorHidden=!0),this._hasHit=!1)}else this.teleportIndicatorMeshObject&&this.isMouseIndicating&&this.onMousePressed();this._prevThumbstickAxis.set(this._currentStickAxes)},setupVREvents:function(e){if(this.session=e,e.addEventListener("end",function(){this.gamepad=null,this.session=null}.bind(this)),e.inputSources&&e.inputSources.length)for(let t=0;t<e.inputSources.length;t++){let r=e.inputSources[t];r.handedness==this.handedness&&(this.gamepad=r.gamepad)}e.addEventListener("inputsourceschange",function(t){if(t.added&&t.added.length)for(let r=0;r<t.added.length;r++){let n=t.added[r];n.handedness==this.handedness&&(this.gamepad=n.gamepad)}}.bind(this))},onMouseDown:function(){this.isMouseIndicating=!0},onMouseUp:function(){this.isMouseIndicating=!1,this.teleportIndicatorMeshObject.active=!1,this._hasHit&&this._teleportPlayer(this.hitSpot,0)},onMousePressed:function(){let e=[0,0,0];ae.quat2.getTranslation(e,this.cam.transformWorld);let t=this.cam.getForward(this._tempVec),r=this.rayHit=this.rayCastMode==0?WL.scene.rayCast(e,t,1<<this.floorGroup):WL.physics.rayCast(e,t,1<<this.floorGroup,this.maxDistance);r.hitCount>0?(this.indicatorHidden=!1,t[1]=0,ae.vec3.normalize(t,t),this._currentIndicatorRotation=-Math.sign(t[2])*Math.acos(t[0])-Math.PI*.5,this.teleportIndicatorMeshObject.resetTranslationRotation(),this.teleportIndicatorMeshObject.rotateAxisAngleRad([0,1,0],this._currentIndicatorRotation),this.teleportIndicatorMeshObject.translate(r.locations[0]),this.teleportIndicatorMeshObject.active=!0,this.hitSpot=r.locations[0],this._hasHit=!0):(this.indicatorHidden||(this.teleportIndicatorMeshObject.active=!1,this.indicatorHidden=!0),this._hasHit=!1)},_teleportPlayer:function(e,t){this.camRoot.rotateAxisAngleRad([0,1,0],t);let r=this._tempVec,n=this._tempVec0;this.session?(this.eyeLeft.getTranslationWorld(r),this.eyeRight.getTranslationWorld(n),ae.vec3.add(r,r,n),ae.vec3.scale(r,r,.5)):this.cam.getTranslationWorld(r),this.camRoot.getTranslationWorld(n),ae.vec3.sub(r,n,r),r[0]+=e[0],r[1]=e[1],r[2]+=e[2],this.camRoot.setTranslationWorld(r)}});WL.registerComponent("player-height",{height:{type:WL.Type.Float,default:1.75}},{init:function(){WL.onXRSessionStart.push(this.onXRSessionStart.bind(this)),WL.onXRSessionEnd.push(this.onXRSessionEnd.bind(this))},start:function(){this.object.resetTranslationRotation(),this.object.translate([0,this.height,0])},onXRSessionStart:function(){["local","viewer"].includes(WebXR.refSpace)||this.object.resetTranslationRotation()},onXRSessionEnd:function(){["local","viewer"].includes(WebXR.refSpace)||(this.object.resetTranslationRotation(),this.object.translate([0,this.height,0]))}})});var Rc={};var I,Oc,yr=$(()=>{I=J(te());Math.clamp=function(e,t,r){return Math.max(t,Math.min(e,r))};Oc=function(){let e=new Float32Array(3),t=new Float32Array(3),r=new Float32Array(3),n=new Float32Array(3),a=new Float32Array(3),s=new Float32Array(3),c=new Float32Array(3),l=new Float32Array(4),h=new Float32Array(4),u=new Float32Array(4),i=new Float32Array(4);return function(o,f,d,v,_,p,m,y,g,M){I.vec3.sub(r,v,d);let b=I.vec3.length(r);I.vec3.sub(e,v,_);let x=I.vec3.length(e);I.vec3.sub(e,p,d);let q=Math.clamp(I.vec3.length(e),m,b+x-m);I.vec3.sub(t,_,d),I.vec3.sub(n,d,v),I.vec3.sub(a,_,v),I.vec3.normalize(t,t),I.vec3.normalize(r,r),I.vec3.normalize(n,n),I.vec3.normalize(a,a),I.vec3.normalize(e,e);let S=Math.acos(Math.clamp(I.vec3.dot(t,r),-1,1)),D=Math.acos(Math.clamp(I.vec3.dot(n,a),-1,1)),C=Math.acos(Math.clamp(I.vec3.dot(t,e),-1,1)),z=Math.acos(Math.clamp((x*x-b*b-q*q)/(-2*b*q),-1,1)),F=Math.acos(Math.clamp((q*q-b*b-x*x)/(-2*b*x),-1,1));I.vec3.sub(t,_,d),I.vec3.sub(r,v,d),I.vec3.sub(e,p,d),I.vec3.cross(s,t,r),I.vec3.cross(c,t,e),M?(I.vec3.sub(r,M,v),I.vec3.transformQuat(r,[0,0,-1],g)):I.vec3.sub(r,v,d);let E=I.vec3.length(s);E==0?s.set([1,0,0]):I.vec3.scale(s,s,1/E),I.vec3.normalize(c,c),I.quat.conjugate(y,y),I.quat.setAxisAngle(h,I.vec3.transformQuat(l,s,y),z-S),I.quat.setAxisAngle(i,I.vec3.transformQuat(l,c,y),C),I.quat.mul(o,o,I.quat.mul(l,h,i)),I.quat.normalize(o,o),I.quat.conjugate(g,g),I.quat.setAxisAngle(u,I.vec3.transformQuat(l,s,g),F-D),I.quat.mul(f,f,u),I.quat.normalize(f,f)}}();WL.registerComponent("two-joint-ik-solver",{root:{type:WL.Type.Object},middle:{type:WL.Type.Object},end:{type:WL.Type.Object},target:{type:WL.Type.Object},helper:{type:WL.Type.Object}},{init:function(){this.pos=new Float32Array(3*7),this.p=[this.pos.subarray(0,3),this.pos.subarray(3,6),this.pos.subarray(6,9),this.pos.subarray(9,12),this.pos.subarray(12,15),this.pos.subarray(15,18),this.pos.subarray(18,21)]},update:function(){let e=this.p;this.root.getTranslationWorld(e[0]),this.middle.getTranslationWorld(e[1]),this.end.getTranslationWorld(e[2]),this.target.getTranslationWorld(e[3]);let t=e[4],r=e[5];this.root.getTranslationLocal(t),this.middle.getTranslationLocal(r),this.helper&&this.helper.getTranslationWorld(e[6]),Oc(this.root.transformLocal,this.middle.transformLocal,e[0],e[1],e[2],e[3],.01,this.root.transformWorld.subarray(0,4),this.middle.transformWorld.subarray(0,4),this.helper?e[6]:null),this.root.setTranslationLocal(t),this.middle.setTranslationLocal(r),this.root.setDirty(),this.middle.setDirty()}})});var gr=H(()=>{WL.registerComponent("video-texture",{url:{type:WL.Type.String,default:""},material:{type:WL.Type.Material},loop:{type:WL.Type.Bool,default:!0},autoplay:{type:WL.Type.Bool,default:!0},muted:{type:WL.Type.Bool,default:!0}},{init:function(){if(!this.material){console.error("video-texture: material property not set");return}this.loaded=!1,this.frameUpdateRequested=!0,this.video=document.createElement("video"),this.video.src=this.url,this.video.crossorigin="anonymous",this.video.autoplay=this.autoplay,this.video.loop=this.loop,this.video.muted=this.muted,this.video.addEventListener("playing",function(){this.loaded=!0}.bind(this)),this.video.play()},applyTexture:function(){let e=this.material;this.texture=new WL.Texture(this.video),e.shader=="Flat Opaque Textured"?e.flatTexture=this.texture:e.shader=="Phong Opaque Textured"?e.diffuseTexture=this.texture:console.error("Shader",e.shader,"not supported by video-texture"),"requestVideoFrameCallback"in this.video?this.video.requestVideoFrameCallback(this.updateVideo.bind(this)):this.video.addEventListener("timeupdate",function(){this.frameUpdateRequested=!0}.bind(this))},update:function(e){this.loaded&&this.frameUpdateRequested&&(this.texture?this.texture.update():this.applyTexture(),this.frameUpdateRequested=!1)},updateVideo:function(){this.frameUpdateRequested=!0,this.video.requestVideoFrameCallback(this.updateVideo.bind(this))}})});var Mr=H(()=>{WL.registerComponent("vr-mode-active-switch",{activateComponents:{type:WL.Type.Enum,values:["in VR","in non-VR"],default:"in VR"},affectChildren:{type:WL.Type.Bool,default:!0}},{start:function(){this.components=[],this.getComponents(this.object),this.onXRSessionEnd(),WL.onXRSessionStart.push(this.onXRSessionStart.bind(this)),WL.onXRSessionEnd.push(this.onXRSessionEnd.bind(this))},getComponents:function(e){let t=e.getComponents().filter(r=>r.type!="vr-mode-active-switch");if(this.components=this.components.concat(t),this.affectChildren){let r=e.children;for(let n=0;n<r.length;++n)this.getComponents(r[n])}},setComponentsActive:function(e){let t=this.components;for(let r=0;r<t.length;++r)t[r].active=e},onXRSessionStart:function(){!this.active||this.setComponentsActive(this.activateComponents==0)},onXRSessionEnd:function(){!this.active||this.setComponentsActive(this.activateComponents!=0)}})});var Lc={};var je,br=$(()=>{je=J(te());WL.registerComponent("wasd-controls",{speed:{type:WL.Type.Float,default:.1},headObject:{type:WL.Type.Object}},{init:function(){this.up=!1,this.right=!1,this.down=!1,this.left=!1,window.addEventListener("keydown",this.press.bind(this)),window.addEventListener("keyup",this.release.bind(this))},start:function(){this.headObject=this.headObject||this.object},update:function(){let e=[0,0,0];this.up&&(e[2]-=1),this.down&&(e[2]+=1),this.left&&(e[0]-=1),this.right&&(e[0]+=1),je.vec3.normalize(e,e),e[0]*=this.speed,e[2]*=this.speed,je.vec3.transformQuat(e,e,this.headObject.transformWorld),this.object.translate(e)},press:function(e){e.keyCode===38||e.keyCode===87||e.keyCode===90?this.up=!0:e.keyCode===39||e.keyCode===68?this.right=!0:e.keyCode===40||e.keyCode===83?this.down=!0:(e.keyCode===37||e.keyCode===65||e.keyCode===81)&&(this.left=!0)},release:function(e){e.keyCode===38||e.keyCode===87||e.keyCode===90?this.up=!1:e.keyCode===39||e.keyCode===68?this.right=!1:e.keyCode===40||e.keyCode===83?this.down=!1:(e.keyCode===37||e.keyCode===65||e.keyCode===81)&&(this.left=!1)}})});var Pc={};var Oe,xr=$(()=>{Oe=J(te());WL.registerComponent("wonderleap-ad",{auId:{type:WL.Type.String,default:"ce6f68fc-4809-4409-8f57-c631283ce5a3"},adId:{type:WL.Type.String}},{init:function(){this.mesh=this.object.getComponent("mesh",0),this.collision=this.object.addComponent("collision"),this.collision.collider=WL.Collider.Box,this.collision.group=2,this.cursorTarget=this.object.addComponent("cursor-target"),this.timeSinceLastVizCheck=0,this.visibleDuration=0,this.durationThreshold=10},start:function(){Wonderleap.fetchAd(this.auId).then(function(e){this.ad=e,WL.textures.load(e.asset,"").then(function(t){let r=WL._images[t._imageIndex];this.collision.extents=[r.width/r.height,1,.1],this.object.scale([r.width/r.height,1,1]),this.mesh.material.shader=="Phong Textured"?this.mesh.material.diffuseTexture=t:this.mesh.material.flatTexture=t}.bind(this)).catch(console.err)}.bind(this)),this.cursorTarget.addClickFunction(this.click.bind(this))},update:function(e){if(this.timeSinceLastVizCheck+=e,this.timeSinceLastVizCheck>.5){let t=this.isVisible();t&&(this.visibleDuration+=this.timeSinceLastVizCheck),this.timeSinceLastVizCheck=0,(!t&&this.visibleDuration>0||this.visibleDuration>this.durationThreshold)&&(Wonderleap.sendMetric("gaze",this.visibleDuration,this.ad.adId,this.ad.auId),this.visibleDuration=0)}},isVisible:function(){let e=WL.scene.activeViews[0];if(!e||!e.active)return console.warn("wonderleap-ad: camera object does not have an active view"),!1;let t=e.object.transformWorld,r=[0,0,0];Oe.quat2.getTranslation(r,t);let n=[0,0,-1];Oe.vec3.transformQuat(n,n,t);let a=WL.scene.rayCast(r,n,2);for(let s=0;s<a.hitCount;++s)if(a.objects[s].objectId==this.object.objectId)return!0;return!1},click:function(){let e=Module.webxr_session;if(e){e.end().then(this.click.bind(this));return}Wonderleap.sendMetric("click",0,this.ad.adId,this.ad.auId),this.ad.url&&window.open(this.ad.url,"_blank")}})});window.glMatrix=te();er();tr();rr();nr();ir();ar();sr();or();lr();fr();dr();ur();vr();_r();mr();yr();gr();Mr();br();xr();})();
-/*!
- *  Spatial Plugin - Adds support for stereo and 3D audio where Web Audio is supported.
- *  
- *  howler.js v2.2.1
- *  howlerjs.com
- *
- *  (c) 2013-2020, James Simpson of GoldFire Studios
- *  goldfirestudios.com
- *
- *  MIT License
- */
-/*!
- *  howler.js v2.2.1
- *  howlerjs.com
- *
- *  (c) 2013-2020, James Simpson of GoldFire Studios
- *  goldfirestudios.com
- *
- *  MIT License
- */
-//# sourceMappingURL=editor-components-bundle.js.map
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var __accessCheck = (obj, member, msg) => {
+  if (!member.has(obj))
+    throw TypeError("Cannot " + msg);
+};
+var __privateGet = (obj, member, getter) => {
+  __accessCheck(obj, member, "read from private field");
+  return getter ? getter.call(obj) : member.get(obj);
+};
+var __privateAdd = (obj, member, value) => {
+  if (member.has(obj))
+    throw TypeError("Cannot add the same private member more than once");
+  member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+};
+var __privateMethod = (obj, member, method) => {
+  __accessCheck(obj, member, "access private method");
+  return method;
+};
 
-WL.registerComponent('button', {
-    buttonMeshObject: {type: WL.Type.Object},
-    hoverMaterial: {type: WL.Type.Material},
-}, {
-    start: function() {
-        this.mesh = this.buttonMeshObject.getComponent('mesh');
-        this.defaultMaterial = this.mesh.material;
-
-        this.target = this.object.getComponent('cursor-target');
-        this.target.addHoverFunction(this.onHover.bind(this));
-        this.target.addUnHoverFunction(this.onUnHover.bind(this));
-        this.target.addClickFunction(this.onClick.bind(this));
-
-        this.soundClick = this.object.addComponent('howler-audio-source', {src: 'sfx/click.wav', spatial: true});
-        this.soundUnClick = this.object.addComponent('howler-audio-source', {src: 'sfx/unclick.wav', spatial: true});
-    },
-
-    onHover: function(_, cursor) {
-        this.mesh.material = this.hoverMaterial;
-        if(cursor.type == 'finger-cursor') {
-            this.buttonMeshObject.translate([0.0, -0.1, 0.0]);
-        }
-    },
-
-    onClick: function(_, cursor) {
-        this.soundClick.play();
-        if(cursor.type != 'finger-cursor') {
-            this.buttonMeshObject.translate([0.0, -0.1, 0.0]);
-            setTimeout(() => this.buttonMeshObject.translate([0.0, 0.1, 0.0]), 100);
-        }
-    },
-
-    onUnHover: function(_, cursor) {
-        this.mesh.material = this.defaultMaterial;
-        if(cursor.type == 'finger-cursor') {
-            this.buttonMeshObject.translate([0.0, 0.1, 0.0]);
-        }
-    },
-});
-
-(()=>{var lt=Object.create,B=Object.defineProperty;var ct=Object.getOwnPropertyDescriptor;var ft=Object.getOwnPropertyNames;var pt=Object.getPrototypeOf,ht=Object.prototype.hasOwnProperty;var dt=t=>B(t,"__esModule",{value:!0});var c=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports);var mt=(t,e,r)=>{if(e&&typeof e=="object"||typeof e=="function")for(let s of ft(e))!ht.call(t,s)&&s!=="default"&&B(t,s,{get:()=>e[s],enumerable:!(r=ct(e,s))||r.enumerable});return t},se=t=>mt(dt(B(t!=null?lt(pt(t)):{},"default",t&&t.__esModule&&"default"in t?{get:()=>t.default,enumerable:!0}:{value:t,enumerable:!0})),t);var z=c((ar,ne)=>{"use strict";ne.exports=function(e,r){return function(){for(var n=new Array(arguments.length),a=0;a<n.length;a++)n[a]=arguments[a];return e.apply(r,n)}}});var h=c((or,oe)=>{"use strict";var yt=z(),g=Object.prototype.toString;function P(t){return g.call(t)==="[object Array]"}function D(t){return typeof t=="undefined"}function bt(t){return t!==null&&!D(t)&&t.constructor!==null&&!D(t.constructor)&&typeof t.constructor.isBuffer=="function"&&t.constructor.isBuffer(t)}function gt(t){return g.call(t)==="[object ArrayBuffer]"}function vt(t){return typeof FormData!="undefined"&&t instanceof FormData}function xt(t){var e;return typeof ArrayBuffer!="undefined"&&ArrayBuffer.isView?e=ArrayBuffer.isView(t):e=t&&t.buffer&&t.buffer instanceof ArrayBuffer,e}function wt(t){return typeof t=="string"}function Et(t){return typeof t=="number"}function ie(t){return t!==null&&typeof t=="object"}function C(t){if(g.call(t)!=="[object Object]")return!1;var e=Object.getPrototypeOf(t);return e===null||e===Object.prototype}function qt(t){return g.call(t)==="[object Date]"}function Ct(t){return g.call(t)==="[object File]"}function Tt(t){return g.call(t)==="[object Blob]"}function ae(t){return g.call(t)==="[object Function]"}function St(t){return ie(t)&&ae(t.pipe)}function At(t){return typeof URLSearchParams!="undefined"&&t instanceof URLSearchParams}function Rt(t){return t.replace(/^\s*/,"").replace(/\s*$/,"")}function kt(){return typeof navigator!="undefined"&&(navigator.product==="ReactNative"||navigator.product==="NativeScript"||navigator.product==="NS")?!1:typeof window!="undefined"&&typeof document!="undefined"}function F(t,e){if(!(t===null||typeof t=="undefined"))if(typeof t!="object"&&(t=[t]),P(t))for(var r=0,s=t.length;r<s;r++)e.call(null,t[r],r,t);else for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&e.call(null,t[n],n,t)}function j(){var t={};function e(n,a){C(t[a])&&C(n)?t[a]=j(t[a],n):C(n)?t[a]=j({},n):P(n)?t[a]=n.slice():t[a]=n}for(var r=0,s=arguments.length;r<s;r++)F(arguments[r],e);return t}function Ot(t,e,r){return F(e,function(n,a){r&&typeof n=="function"?t[a]=yt(n,r):t[a]=n}),t}function Lt(t){return t.charCodeAt(0)===65279&&(t=t.slice(1)),t}oe.exports={isArray:P,isArrayBuffer:gt,isBuffer:bt,isFormData:vt,isArrayBufferView:xt,isString:wt,isNumber:Et,isObject:ie,isPlainObject:C,isUndefined:D,isDate:qt,isFile:Ct,isBlob:Tt,isFunction:ae,isStream:St,isURLSearchParams:At,isStandardBrowserEnv:kt,forEach:F,merge:j,extend:Ot,trim:Rt,stripBOM:Lt}});var M=c((ur,le)=>{"use strict";var v=h();function ue(t){return encodeURIComponent(t).replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"+").replace(/%5B/gi,"[").replace(/%5D/gi,"]")}le.exports=function(e,r,s){if(!r)return e;var n;if(s)n=s(r);else if(v.isURLSearchParams(r))n=r.toString();else{var a=[];v.forEach(r,function(l,b){l===null||typeof l=="undefined"||(v.isArray(l)?b=b+"[]":l=[l],v.forEach(l,function(m){v.isDate(m)?m=m.toISOString():v.isObject(m)&&(m=JSON.stringify(m)),a.push(ue(b)+"="+ue(m))}))}),n=a.join("&")}if(n){var o=e.indexOf("#");o!==-1&&(e=e.slice(0,o)),e+=(e.indexOf("?")===-1?"?":"&")+n}return e}});var fe=c((lr,ce)=>{"use strict";var Nt=h();function T(){this.handlers=[]}T.prototype.use=function(e,r){return this.handlers.push({fulfilled:e,rejected:r}),this.handlers.length-1};T.prototype.eject=function(e){this.handlers[e]&&(this.handlers[e]=null)};T.prototype.forEach=function(e){Nt.forEach(this.handlers,function(s){s!==null&&e(s)})};ce.exports=T});var he=c((cr,pe)=>{"use strict";var Ut=h();pe.exports=function(e,r,s){return Ut.forEach(s,function(a){e=a(e,r)}),e}});var I=c((fr,de)=>{"use strict";de.exports=function(e){return!!(e&&e.__CANCEL__)}});var ye=c((pr,me)=>{"use strict";var Bt=h();me.exports=function(e,r){Bt.forEach(e,function(n,a){a!==r&&a.toUpperCase()===r.toUpperCase()&&(e[r]=n,delete e[a])})}});var ge=c((hr,be)=>{"use strict";be.exports=function(e,r,s,n,a){return e.config=r,s&&(e.code=s),e.request=n,e.response=a,e.isAxiosError=!0,e.toJSON=function(){return{message:this.message,name:this.name,description:this.description,number:this.number,fileName:this.fileName,lineNumber:this.lineNumber,columnNumber:this.columnNumber,stack:this.stack,config:this.config,code:this.code}},e}});var H=c((dr,ve)=>{"use strict";var zt=ge();ve.exports=function(e,r,s,n,a){var o=new Error(e);return zt(o,r,s,n,a)}});var we=c((mr,xe)=>{"use strict";var Pt=H();xe.exports=function(e,r,s){var n=s.config.validateStatus;!s.status||!n||n(s.status)?e(s):r(Pt("Request failed with status code "+s.status,s.config,null,s.request,s))}});var qe=c((yr,Ee)=>{"use strict";var S=h();Ee.exports=S.isStandardBrowserEnv()?function(){return{write:function(r,s,n,a,o,i){var l=[];l.push(r+"="+encodeURIComponent(s)),S.isNumber(n)&&l.push("expires="+new Date(n).toGMTString()),S.isString(a)&&l.push("path="+a),S.isString(o)&&l.push("domain="+o),i===!0&&l.push("secure"),document.cookie=l.join("; ")},read:function(r){var s=document.cookie.match(new RegExp("(^|;\\s*)("+r+")=([^;]*)"));return s?decodeURIComponent(s[3]):null},remove:function(r){this.write(r,"",Date.now()-864e5)}}}():function(){return{write:function(){},read:function(){return null},remove:function(){}}}()});var Te=c((br,Ce)=>{"use strict";Ce.exports=function(e){return/^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(e)}});var Ae=c((gr,Se)=>{"use strict";Se.exports=function(e,r){return r?e.replace(/\/+$/,"")+"/"+r.replace(/^\/+/,""):e}});var ke=c((vr,Re)=>{"use strict";var Dt=Te(),Ft=Ae();Re.exports=function(e,r){return e&&!Dt(r)?Ft(e,r):r}});var Le=c((xr,Oe)=>{"use strict";var _=h(),jt=["age","authorization","content-length","content-type","etag","expires","from","host","if-modified-since","if-unmodified-since","last-modified","location","max-forwards","proxy-authorization","referer","retry-after","user-agent"];Oe.exports=function(e){var r={},s,n,a;return e&&_.forEach(e.split(`
-`),function(i){if(a=i.indexOf(":"),s=_.trim(i.substr(0,a)).toLowerCase(),n=_.trim(i.substr(a+1)),s){if(r[s]&&jt.indexOf(s)>=0)return;s==="set-cookie"?r[s]=(r[s]?r[s]:[]).concat([n]):r[s]=r[s]?r[s]+", "+n:n}}),r}});var Be=c((wr,Ue)=>{"use strict";var Ne=h();Ue.exports=Ne.isStandardBrowserEnv()?function(){var e=/(msie|trident)/i.test(navigator.userAgent),r=document.createElement("a"),s;function n(a){var o=a;return e&&(r.setAttribute("href",o),o=r.href),r.setAttribute("href",o),{href:r.href,protocol:r.protocol?r.protocol.replace(/:$/,""):"",host:r.host,search:r.search?r.search.replace(/^\?/,""):"",hash:r.hash?r.hash.replace(/^#/,""):"",hostname:r.hostname,port:r.port,pathname:r.pathname.charAt(0)==="/"?r.pathname:"/"+r.pathname}}return s=n(window.location.href),function(o){var i=Ne.isString(o)?n(o):o;return i.protocol===s.protocol&&i.host===s.host}}():function(){return function(){return!0}}()});var K=c((Er,ze)=>{"use strict";var A=h(),Mt=we(),It=qe(),Ht=M(),_t=ke(),Wt=Le(),Kt=Be(),W=H();ze.exports=function(e){return new Promise(function(s,n){var a=e.data,o=e.headers;A.isFormData(a)&&delete o["Content-Type"];var i=new XMLHttpRequest;if(e.auth){var l=e.auth.username||"",b=e.auth.password?unescape(encodeURIComponent(e.auth.password)):"";o.Authorization="Basic "+btoa(l+":"+b)}var w=_t(e.baseURL,e.url);if(i.open(e.method.toUpperCase(),Ht(w,e.params,e.paramsSerializer),!0),i.timeout=e.timeout,i.onreadystatechange=function(){if(!(!i||i.readyState!==4)&&!(i.status===0&&!(i.responseURL&&i.responseURL.indexOf("file:")===0))){var u="getAllResponseHeaders"in i?Wt(i.getAllResponseHeaders()):null,E=!e.responseType||e.responseType==="text"?i.responseText:i.response,ut={data:E,status:i.status,statusText:i.statusText,headers:u,config:e,request:i};Mt(s,n,ut),i=null}},i.onabort=function(){!i||(n(W("Request aborted",e,"ECONNABORTED",i)),i=null)},i.onerror=function(){n(W("Network Error",e,null,i)),i=null},i.ontimeout=function(){var u="timeout of "+e.timeout+"ms exceeded";e.timeoutErrorMessage&&(u=e.timeoutErrorMessage),n(W(u,e,"ECONNABORTED",i)),i=null},A.isStandardBrowserEnv()){var m=(e.withCredentials||Kt(w))&&e.xsrfCookieName?It.read(e.xsrfCookieName):void 0;m&&(o[e.xsrfHeaderName]=m)}if("setRequestHeader"in i&&A.forEach(o,function(u,E){typeof a=="undefined"&&E.toLowerCase()==="content-type"?delete o[E]:i.setRequestHeader(E,u)}),A.isUndefined(e.withCredentials)||(i.withCredentials=!!e.withCredentials),e.responseType)try{i.responseType=e.responseType}catch(f){if(e.responseType!=="json")throw f}typeof e.onDownloadProgress=="function"&&i.addEventListener("progress",e.onDownloadProgress),typeof e.onUploadProgress=="function"&&i.upload&&i.upload.addEventListener("progress",e.onUploadProgress),e.cancelToken&&e.cancelToken.promise.then(function(u){!i||(i.abort(),n(u),i=null)}),a||(a=null),i.send(a)})}});var $=c((qr,Fe)=>{"use strict";var d=h(),Pe=ye(),$t={"Content-Type":"application/x-www-form-urlencoded"};function De(t,e){!d.isUndefined(t)&&d.isUndefined(t["Content-Type"])&&(t["Content-Type"]=e)}function Vt(){var t;return typeof XMLHttpRequest!="undefined"?t=K():typeof process!="undefined"&&Object.prototype.toString.call(process)==="[object process]"&&(t=K()),t}var R={adapter:Vt(),transformRequest:[function(e,r){return Pe(r,"Accept"),Pe(r,"Content-Type"),d.isFormData(e)||d.isArrayBuffer(e)||d.isBuffer(e)||d.isStream(e)||d.isFile(e)||d.isBlob(e)?e:d.isArrayBufferView(e)?e.buffer:d.isURLSearchParams(e)?(De(r,"application/x-www-form-urlencoded;charset=utf-8"),e.toString()):d.isObject(e)?(De(r,"application/json;charset=utf-8"),JSON.stringify(e)):e}],transformResponse:[function(e){if(typeof e=="string")try{e=JSON.parse(e)}catch(r){}return e}],timeout:0,xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN",maxContentLength:-1,maxBodyLength:-1,validateStatus:function(e){return e>=200&&e<300}};R.headers={common:{Accept:"application/json, text/plain, */*"}};d.forEach(["delete","get","head"],function(e){R.headers[e]={}});d.forEach(["post","put","patch"],function(e){R.headers[e]=d.merge($t)});Fe.exports=R});var Ie=c((Cr,Me)=>{"use strict";var je=h(),V=he(),Xt=I(),Jt=$();function X(t){t.cancelToken&&t.cancelToken.throwIfRequested()}Me.exports=function(e){X(e),e.headers=e.headers||{},e.data=V(e.data,e.headers,e.transformRequest),e.headers=je.merge(e.headers.common||{},e.headers[e.method]||{},e.headers),je.forEach(["delete","get","head","post","put","patch","common"],function(n){delete e.headers[n]});var r=e.adapter||Jt.adapter;return r(e).then(function(n){return X(e),n.data=V(n.data,n.headers,e.transformResponse),n},function(n){return Xt(n)||(X(e),n&&n.response&&(n.response.data=V(n.response.data,n.response.headers,e.transformResponse))),Promise.reject(n)})}});var J=c((Tr,He)=>{"use strict";var p=h();He.exports=function(e,r){r=r||{};var s={},n=["url","method","data"],a=["headers","auth","proxy","params"],o=["baseURL","transformRequest","transformResponse","paramsSerializer","timeout","timeoutMessage","withCredentials","adapter","responseType","xsrfCookieName","xsrfHeaderName","onUploadProgress","onDownloadProgress","decompress","maxContentLength","maxBodyLength","maxRedirects","transport","httpAgent","httpsAgent","cancelToken","socketPath","responseEncoding"],i=["validateStatus"];function l(f,u){return p.isPlainObject(f)&&p.isPlainObject(u)?p.merge(f,u):p.isPlainObject(u)?p.merge({},u):p.isArray(u)?u.slice():u}function b(f){p.isUndefined(r[f])?p.isUndefined(e[f])||(s[f]=l(void 0,e[f])):s[f]=l(e[f],r[f])}p.forEach(n,function(u){p.isUndefined(r[u])||(s[u]=l(void 0,r[u]))}),p.forEach(a,b),p.forEach(o,function(u){p.isUndefined(r[u])?p.isUndefined(e[u])||(s[u]=l(void 0,e[u])):s[u]=l(void 0,r[u])}),p.forEach(i,function(u){u in r?s[u]=l(e[u],r[u]):u in e&&(s[u]=l(void 0,e[u]))});var w=n.concat(a).concat(o).concat(i),m=Object.keys(e).concat(Object.keys(r)).filter(function(u){return w.indexOf(u)===-1});return p.forEach(m,b),s}});var $e=c((Sr,Ke)=>{"use strict";var _e=h(),Qt=M(),We=fe(),Gt=Ie(),k=J();function q(t){this.defaults=t,this.interceptors={request:new We,response:new We}}q.prototype.request=function(e){typeof e=="string"?(e=arguments[1]||{},e.url=arguments[0]):e=e||{},e=k(this.defaults,e),e.method?e.method=e.method.toLowerCase():this.defaults.method?e.method=this.defaults.method.toLowerCase():e.method="get";var r=[Gt,void 0],s=Promise.resolve(e);for(this.interceptors.request.forEach(function(a){r.unshift(a.fulfilled,a.rejected)}),this.interceptors.response.forEach(function(a){r.push(a.fulfilled,a.rejected)});r.length;)s=s.then(r.shift(),r.shift());return s};q.prototype.getUri=function(e){return e=k(this.defaults,e),Qt(e.url,e.params,e.paramsSerializer).replace(/^\?/,"")};_e.forEach(["delete","get","head","options"],function(e){q.prototype[e]=function(r,s){return this.request(k(s||{},{method:e,url:r,data:(s||{}).data}))}});_e.forEach(["post","put","patch"],function(e){q.prototype[e]=function(r,s,n){return this.request(k(n||{},{method:e,url:r,data:s}))}});Ke.exports=q});var G=c((Ar,Ve)=>{"use strict";function Q(t){this.message=t}Q.prototype.toString=function(){return"Cancel"+(this.message?": "+this.message:"")};Q.prototype.__CANCEL__=!0;Ve.exports=Q});var Je=c((Rr,Xe)=>{"use strict";var Yt=G();function O(t){if(typeof t!="function")throw new TypeError("executor must be a function.");var e;this.promise=new Promise(function(n){e=n});var r=this;t(function(n){r.reason||(r.reason=new Yt(n),e(r.reason))})}O.prototype.throwIfRequested=function(){if(this.reason)throw this.reason};O.source=function(){var e,r=new O(function(n){e=n});return{token:r,cancel:e}};Xe.exports=O});var Ge=c((kr,Qe)=>{"use strict";Qe.exports=function(e){return function(s){return e.apply(null,s)}}});var Ze=c((Or,Ye)=>{"use strict";Ye.exports=function(e){return typeof e=="object"&&e.isAxiosError===!0}});var rt=c((Lr,Y)=>{"use strict";var et=h(),Zt=z(),L=$e(),er=J(),tr=$();function tt(t){var e=new L(t),r=Zt(L.prototype.request,e);return et.extend(r,L.prototype,e),et.extend(r,e),r}var y=tt(tr);y.Axios=L;y.create=function(e){return tt(er(y.defaults,e))};y.Cancel=G();y.CancelToken=Je();y.isCancel=I();y.all=function(e){return Promise.all(e)};y.spread=Ge();y.isAxiosError=Ze();Y.exports=y;Y.exports.default=y});var Z=c((Nr,st)=>{st.exports=rt()});var ee=se(Z());var x={tall:{width:.75,height:1,style:{standard:"https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall.png",minimal:"https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png",transparent:"https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png"}},wide:{width:4,height:1,style:{standard:"https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide.png",minimal:"https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png",transparent:"https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png"}},square:{width:1,height:1,style:{standard:"https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square.png",minimal:"https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png",transparent:"https://ipfs.io/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png"}}},N="square",nt="standard";var it=se(Z()),U=t=>{if(t.substring(0,4)==="ipfs")return`https://ipfs.zesty.market/ipfs/${t.substring(7)}`;if(t.substring(0,4)==="http")return t;if(t.substring(0,5)==="https")return t;if(t.substring(0,2)==="ar")it.default.get(`https://arweave.net/${t.substring(5)}`).then(e=>e.url).catch(e=>{console.error(e)});else return`https://ipfs.zesty.market/ipfs/${t}`};var rr="https://node-1.zesty.market",Dr=rr+"/api/v1/metrics",sr={matic:"https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic",polygon:"https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-matic",rinkeby:"https://api.thegraph.com/subgraphs/name/zestymarket/zesty-market-graph-rinkeby"},te={uri:void 0},nr={name:"Default banner",description:"This is the default banner that would be displayed ipsum",image:"https://ipfs.zesty.market/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-square.png",url:"https://www.zesty.market"},at=async(t,e,r="polygon")=>{let s=Math.floor(Date.now()/1e3);return ee.default.post(sr[r],{query:`
-      query {
-        tokenDatas (
-          where: {
-            id: "${t}"
-            creator: "${e}"
+// node_modules/howler/dist/howler.js
+var require_howler = __commonJS({
+  "node_modules/howler/dist/howler.js"(exports) {
+    (function() {
+      "use strict";
+      var HowlerGlobal2 = function() {
+        this.init();
+      };
+      HowlerGlobal2.prototype = {
+        /**
+         * Initialize the global Howler object.
+         * @return {Howler}
+         */
+        init: function() {
+          var self2 = this || Howler2;
+          self2._counter = 1e3;
+          self2._html5AudioPool = [];
+          self2.html5PoolSize = 10;
+          self2._codecs = {};
+          self2._howls = [];
+          self2._muted = false;
+          self2._volume = 1;
+          self2._canPlayEvent = "canplaythrough";
+          self2._navigator = typeof window !== "undefined" && window.navigator ? window.navigator : null;
+          self2.masterGain = null;
+          self2.noAudio = false;
+          self2.usingWebAudio = true;
+          self2.autoSuspend = true;
+          self2.ctx = null;
+          self2.autoUnlock = true;
+          self2._setup();
+          return self2;
+        },
+        /**
+         * Get/set the global volume for all sounds.
+         * @param  {Float} vol Volume from 0.0 to 1.0.
+         * @return {Howler/Float}     Returns self or current volume.
+         */
+        volume: function(vol) {
+          var self2 = this || Howler2;
+          vol = parseFloat(vol);
+          if (!self2.ctx) {
+            setupAudioContext();
           }
-        )
-        { 
-          sellerNFTSetting {
-            sellerAuctions (
-              first: 5
-              where: {
-                contractTimeStart_lte: ${s}
-                contractTimeEnd_gte: ${s}
-                cancelled: false
+          if (typeof vol !== "undefined" && vol >= 0 && vol <= 1) {
+            self2._volume = vol;
+            if (self2._muted) {
+              return self2;
+            }
+            if (self2.usingWebAudio) {
+              self2.masterGain.gain.setValueAtTime(vol, Howler2.ctx.currentTime);
+            }
+            for (var i = 0; i < self2._howls.length; i++) {
+              if (!self2._howls[i]._webAudio) {
+                var ids = self2._howls[i]._getSoundIds();
+                for (var j = 0; j < ids.length; j++) {
+                  var sound = self2._howls[i]._soundById(ids[j]);
+                  if (sound && sound._node) {
+                    sound._node.volume = sound._volume * vol;
+                  }
+                }
               }
-            ) {
-              id
-              buyerCampaigns {
-                id
-                uri
+            }
+            return self2;
+          }
+          return self2._volume;
+        },
+        /**
+         * Handle muting and unmuting globally.
+         * @param  {Boolean} muted Is muted or not.
+         */
+        mute: function(muted) {
+          var self2 = this || Howler2;
+          if (!self2.ctx) {
+            setupAudioContext();
+          }
+          self2._muted = muted;
+          if (self2.usingWebAudio) {
+            self2.masterGain.gain.setValueAtTime(muted ? 0 : self2._volume, Howler2.ctx.currentTime);
+          }
+          for (var i = 0; i < self2._howls.length; i++) {
+            if (!self2._howls[i]._webAudio) {
+              var ids = self2._howls[i]._getSoundIds();
+              for (var j = 0; j < ids.length; j++) {
+                var sound = self2._howls[i]._soundById(ids[j]);
+                if (sound && sound._node) {
+                  sound._node.muted = muted ? true : sound._muted;
+                }
               }
-              buyerCampaignsApproved
             }
           }
-          id
+          return self2;
+        },
+        /**
+         * Handle stopping all sounds globally.
+         */
+        stop: function() {
+          var self2 = this || Howler2;
+          for (var i = 0; i < self2._howls.length; i++) {
+            self2._howls[i].stop();
+          }
+          return self2;
+        },
+        /**
+         * Unload and destroy all currently loaded Howl objects.
+         * @return {Howler}
+         */
+        unload: function() {
+          var self2 = this || Howler2;
+          for (var i = self2._howls.length - 1; i >= 0; i--) {
+            self2._howls[i].unload();
+          }
+          if (self2.usingWebAudio && self2.ctx && typeof self2.ctx.close !== "undefined") {
+            self2.ctx.close();
+            self2.ctx = null;
+            setupAudioContext();
+          }
+          return self2;
+        },
+        /**
+         * Check for codec support of specific extension.
+         * @param  {String} ext Audio file extention.
+         * @return {Boolean}
+         */
+        codecs: function(ext) {
+          return (this || Howler2)._codecs[ext.replace(/^x-/, "")];
+        },
+        /**
+         * Setup various state values for global tracking.
+         * @return {Howler}
+         */
+        _setup: function() {
+          var self2 = this || Howler2;
+          self2.state = self2.ctx ? self2.ctx.state || "suspended" : "suspended";
+          self2._autoSuspend();
+          if (!self2.usingWebAudio) {
+            if (typeof Audio !== "undefined") {
+              try {
+                var test = new Audio();
+                if (typeof test.oncanplaythrough === "undefined") {
+                  self2._canPlayEvent = "canplay";
+                }
+              } catch (e) {
+                self2.noAudio = true;
+              }
+            } else {
+              self2.noAudio = true;
+            }
+          }
+          try {
+            var test = new Audio();
+            if (test.muted) {
+              self2.noAudio = true;
+            }
+          } catch (e) {
+          }
+          if (!self2.noAudio) {
+            self2._setupCodecs();
+          }
+          return self2;
+        },
+        /**
+         * Check for browser support for various codecs and cache the results.
+         * @return {Howler}
+         */
+        _setupCodecs: function() {
+          var self2 = this || Howler2;
+          var audioTest = null;
+          try {
+            audioTest = typeof Audio !== "undefined" ? new Audio() : null;
+          } catch (err) {
+            return self2;
+          }
+          if (!audioTest || typeof audioTest.canPlayType !== "function") {
+            return self2;
+          }
+          var mpegTest = audioTest.canPlayType("audio/mpeg;").replace(/^no$/, "");
+          var ua = self2._navigator ? self2._navigator.userAgent : "";
+          var checkOpera = ua.match(/OPR\/([0-6].)/g);
+          var isOldOpera = checkOpera && parseInt(checkOpera[0].split("/")[1], 10) < 33;
+          var checkSafari = ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1;
+          var safariVersion = ua.match(/Version\/(.*?) /);
+          var isOldSafari = checkSafari && safariVersion && parseInt(safariVersion[1], 10) < 15;
+          self2._codecs = {
+            mp3: !!(!isOldOpera && (mpegTest || audioTest.canPlayType("audio/mp3;").replace(/^no$/, ""))),
+            mpeg: !!mpegTest,
+            opus: !!audioTest.canPlayType('audio/ogg; codecs="opus"').replace(/^no$/, ""),
+            ogg: !!audioTest.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, ""),
+            oga: !!audioTest.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, ""),
+            wav: !!(audioTest.canPlayType('audio/wav; codecs="1"') || audioTest.canPlayType("audio/wav")).replace(/^no$/, ""),
+            aac: !!audioTest.canPlayType("audio/aac;").replace(/^no$/, ""),
+            caf: !!audioTest.canPlayType("audio/x-caf;").replace(/^no$/, ""),
+            m4a: !!(audioTest.canPlayType("audio/x-m4a;") || audioTest.canPlayType("audio/m4a;") || audioTest.canPlayType("audio/aac;")).replace(/^no$/, ""),
+            m4b: !!(audioTest.canPlayType("audio/x-m4b;") || audioTest.canPlayType("audio/m4b;") || audioTest.canPlayType("audio/aac;")).replace(/^no$/, ""),
+            mp4: !!(audioTest.canPlayType("audio/x-mp4;") || audioTest.canPlayType("audio/mp4;") || audioTest.canPlayType("audio/aac;")).replace(/^no$/, ""),
+            weba: !!(!isOldSafari && audioTest.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, "")),
+            webm: !!(!isOldSafari && audioTest.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, "")),
+            dolby: !!audioTest.canPlayType('audio/mp4; codecs="ec-3"').replace(/^no$/, ""),
+            flac: !!(audioTest.canPlayType("audio/x-flac;") || audioTest.canPlayType("audio/flac;")).replace(/^no$/, "")
+          };
+          return self2;
+        },
+        /**
+         * Some browsers/devices will only allow audio to be played after a user interaction.
+         * Attempt to automatically unlock audio on the first user interaction.
+         * Concept from: http://paulbakaus.com/tutorials/html5/web-audio-on-ios/
+         * @return {Howler}
+         */
+        _unlockAudio: function() {
+          var self2 = this || Howler2;
+          if (self2._audioUnlocked || !self2.ctx) {
+            return;
+          }
+          self2._audioUnlocked = false;
+          self2.autoUnlock = false;
+          if (!self2._mobileUnloaded && self2.ctx.sampleRate !== 44100) {
+            self2._mobileUnloaded = true;
+            self2.unload();
+          }
+          self2._scratchBuffer = self2.ctx.createBuffer(1, 1, 22050);
+          var unlock = function(e) {
+            while (self2._html5AudioPool.length < self2.html5PoolSize) {
+              try {
+                var audioNode = new Audio();
+                audioNode._unlocked = true;
+                self2._releaseHtml5Audio(audioNode);
+              } catch (e2) {
+                self2.noAudio = true;
+                break;
+              }
+            }
+            for (var i = 0; i < self2._howls.length; i++) {
+              if (!self2._howls[i]._webAudio) {
+                var ids = self2._howls[i]._getSoundIds();
+                for (var j = 0; j < ids.length; j++) {
+                  var sound = self2._howls[i]._soundById(ids[j]);
+                  if (sound && sound._node && !sound._node._unlocked) {
+                    sound._node._unlocked = true;
+                    sound._node.load();
+                  }
+                }
+              }
+            }
+            self2._autoResume();
+            var source = self2.ctx.createBufferSource();
+            source.buffer = self2._scratchBuffer;
+            source.connect(self2.ctx.destination);
+            if (typeof source.start === "undefined") {
+              source.noteOn(0);
+            } else {
+              source.start(0);
+            }
+            if (typeof self2.ctx.resume === "function") {
+              self2.ctx.resume();
+            }
+            source.onended = function() {
+              source.disconnect(0);
+              self2._audioUnlocked = true;
+              document.removeEventListener("touchstart", unlock, true);
+              document.removeEventListener("touchend", unlock, true);
+              document.removeEventListener("click", unlock, true);
+              document.removeEventListener("keydown", unlock, true);
+              for (var i2 = 0; i2 < self2._howls.length; i2++) {
+                self2._howls[i2]._emit("unlock");
+              }
+            };
+          };
+          document.addEventListener("touchstart", unlock, true);
+          document.addEventListener("touchend", unlock, true);
+          document.addEventListener("click", unlock, true);
+          document.addEventListener("keydown", unlock, true);
+          return self2;
+        },
+        /**
+         * Get an unlocked HTML5 Audio object from the pool. If none are left,
+         * return a new Audio object and throw a warning.
+         * @return {Audio} HTML5 Audio object.
+         */
+        _obtainHtml5Audio: function() {
+          var self2 = this || Howler2;
+          if (self2._html5AudioPool.length) {
+            return self2._html5AudioPool.pop();
+          }
+          var testPlay = new Audio().play();
+          if (testPlay && typeof Promise !== "undefined" && (testPlay instanceof Promise || typeof testPlay.then === "function")) {
+            testPlay.catch(function() {
+              console.warn("HTML5 Audio pool exhausted, returning potentially locked audio object.");
+            });
+          }
+          return new Audio();
+        },
+        /**
+         * Return an activated HTML5 Audio object to the pool.
+         * @return {Howler}
+         */
+        _releaseHtml5Audio: function(audio) {
+          var self2 = this || Howler2;
+          if (audio._unlocked) {
+            self2._html5AudioPool.push(audio);
+          }
+          return self2;
+        },
+        /**
+         * Automatically suspend the Web Audio AudioContext after no sound has played for 30 seconds.
+         * This saves processing/energy and fixes various browser-specific bugs with audio getting stuck.
+         * @return {Howler}
+         */
+        _autoSuspend: function() {
+          var self2 = this;
+          if (!self2.autoSuspend || !self2.ctx || typeof self2.ctx.suspend === "undefined" || !Howler2.usingWebAudio) {
+            return;
+          }
+          for (var i = 0; i < self2._howls.length; i++) {
+            if (self2._howls[i]._webAudio) {
+              for (var j = 0; j < self2._howls[i]._sounds.length; j++) {
+                if (!self2._howls[i]._sounds[j]._paused) {
+                  return self2;
+                }
+              }
+            }
+          }
+          if (self2._suspendTimer) {
+            clearTimeout(self2._suspendTimer);
+          }
+          self2._suspendTimer = setTimeout(function() {
+            if (!self2.autoSuspend) {
+              return;
+            }
+            self2._suspendTimer = null;
+            self2.state = "suspending";
+            var handleSuspension = function() {
+              self2.state = "suspended";
+              if (self2._resumeAfterSuspend) {
+                delete self2._resumeAfterSuspend;
+                self2._autoResume();
+              }
+            };
+            self2.ctx.suspend().then(handleSuspension, handleSuspension);
+          }, 3e4);
+          return self2;
+        },
+        /**
+         * Automatically resume the Web Audio AudioContext when a new sound is played.
+         * @return {Howler}
+         */
+        _autoResume: function() {
+          var self2 = this;
+          if (!self2.ctx || typeof self2.ctx.resume === "undefined" || !Howler2.usingWebAudio) {
+            return;
+          }
+          if (self2.state === "running" && self2.ctx.state !== "interrupted" && self2._suspendTimer) {
+            clearTimeout(self2._suspendTimer);
+            self2._suspendTimer = null;
+          } else if (self2.state === "suspended" || self2.state === "running" && self2.ctx.state === "interrupted") {
+            self2.ctx.resume().then(function() {
+              self2.state = "running";
+              for (var i = 0; i < self2._howls.length; i++) {
+                self2._howls[i]._emit("resume");
+              }
+            });
+            if (self2._suspendTimer) {
+              clearTimeout(self2._suspendTimer);
+              self2._suspendTimer = null;
+            }
+          } else if (self2.state === "suspending") {
+            self2._resumeAfterSuspend = true;
+          }
+          return self2;
+        }
+      };
+      var Howler2 = new HowlerGlobal2();
+      var Howl2 = function(o) {
+        var self2 = this;
+        if (!o.src || o.src.length === 0) {
+          console.error("An array of source files must be passed with any new Howl.");
+          return;
+        }
+        self2.init(o);
+      };
+      Howl2.prototype = {
+        /**
+         * Initialize a new Howl group object.
+         * @param  {Object} o Passed in properties for this group.
+         * @return {Howl}
+         */
+        init: function(o) {
+          var self2 = this;
+          if (!Howler2.ctx) {
+            setupAudioContext();
+          }
+          self2._autoplay = o.autoplay || false;
+          self2._format = typeof o.format !== "string" ? o.format : [o.format];
+          self2._html5 = o.html5 || false;
+          self2._muted = o.mute || false;
+          self2._loop = o.loop || false;
+          self2._pool = o.pool || 5;
+          self2._preload = typeof o.preload === "boolean" || o.preload === "metadata" ? o.preload : true;
+          self2._rate = o.rate || 1;
+          self2._sprite = o.sprite || {};
+          self2._src = typeof o.src !== "string" ? o.src : [o.src];
+          self2._volume = o.volume !== void 0 ? o.volume : 1;
+          self2._xhr = {
+            method: o.xhr && o.xhr.method ? o.xhr.method : "GET",
+            headers: o.xhr && o.xhr.headers ? o.xhr.headers : null,
+            withCredentials: o.xhr && o.xhr.withCredentials ? o.xhr.withCredentials : false
+          };
+          self2._duration = 0;
+          self2._state = "unloaded";
+          self2._sounds = [];
+          self2._endTimers = {};
+          self2._queue = [];
+          self2._playLock = false;
+          self2._onend = o.onend ? [{ fn: o.onend }] : [];
+          self2._onfade = o.onfade ? [{ fn: o.onfade }] : [];
+          self2._onload = o.onload ? [{ fn: o.onload }] : [];
+          self2._onloaderror = o.onloaderror ? [{ fn: o.onloaderror }] : [];
+          self2._onplayerror = o.onplayerror ? [{ fn: o.onplayerror }] : [];
+          self2._onpause = o.onpause ? [{ fn: o.onpause }] : [];
+          self2._onplay = o.onplay ? [{ fn: o.onplay }] : [];
+          self2._onstop = o.onstop ? [{ fn: o.onstop }] : [];
+          self2._onmute = o.onmute ? [{ fn: o.onmute }] : [];
+          self2._onvolume = o.onvolume ? [{ fn: o.onvolume }] : [];
+          self2._onrate = o.onrate ? [{ fn: o.onrate }] : [];
+          self2._onseek = o.onseek ? [{ fn: o.onseek }] : [];
+          self2._onunlock = o.onunlock ? [{ fn: o.onunlock }] : [];
+          self2._onresume = [];
+          self2._webAudio = Howler2.usingWebAudio && !self2._html5;
+          if (typeof Howler2.ctx !== "undefined" && Howler2.ctx && Howler2.autoUnlock) {
+            Howler2._unlockAudio();
+          }
+          Howler2._howls.push(self2);
+          if (self2._autoplay) {
+            self2._queue.push({
+              event: "play",
+              action: function() {
+                self2.play();
+              }
+            });
+          }
+          if (self2._preload && self2._preload !== "none") {
+            self2.load();
+          }
+          return self2;
+        },
+        /**
+         * Load the audio file.
+         * @return {Howler}
+         */
+        load: function() {
+          var self2 = this;
+          var url = null;
+          if (Howler2.noAudio) {
+            self2._emit("loaderror", null, "No audio support.");
+            return;
+          }
+          if (typeof self2._src === "string") {
+            self2._src = [self2._src];
+          }
+          for (var i = 0; i < self2._src.length; i++) {
+            var ext, str5;
+            if (self2._format && self2._format[i]) {
+              ext = self2._format[i];
+            } else {
+              str5 = self2._src[i];
+              if (typeof str5 !== "string") {
+                self2._emit("loaderror", null, "Non-string found in selected audio sources - ignoring.");
+                continue;
+              }
+              ext = /^data:audio\/([^;,]+);/i.exec(str5);
+              if (!ext) {
+                ext = /\.([^.]+)$/.exec(str5.split("?", 1)[0]);
+              }
+              if (ext) {
+                ext = ext[1].toLowerCase();
+              }
+            }
+            if (!ext) {
+              console.warn('No file extension was found. Consider using the "format" property or specify an extension.');
+            }
+            if (ext && Howler2.codecs(ext)) {
+              url = self2._src[i];
+              break;
+            }
+          }
+          if (!url) {
+            self2._emit("loaderror", null, "No codec support for selected audio sources.");
+            return;
+          }
+          self2._src = url;
+          self2._state = "loading";
+          if (window.location.protocol === "https:" && url.slice(0, 5) === "http:") {
+            self2._html5 = true;
+            self2._webAudio = false;
+          }
+          new Sound2(self2);
+          if (self2._webAudio) {
+            loadBuffer(self2);
+          }
+          return self2;
+        },
+        /**
+         * Play a sound or resume previous playback.
+         * @param  {String/Number} sprite   Sprite name for sprite playback or sound id to continue previous.
+         * @param  {Boolean} internal Internal Use: true prevents event firing.
+         * @return {Number}          Sound ID.
+         */
+        play: function(sprite, internal) {
+          var self2 = this;
+          var id = null;
+          if (typeof sprite === "number") {
+            id = sprite;
+            sprite = null;
+          } else if (typeof sprite === "string" && self2._state === "loaded" && !self2._sprite[sprite]) {
+            return null;
+          } else if (typeof sprite === "undefined") {
+            sprite = "__default";
+            if (!self2._playLock) {
+              var num = 0;
+              for (var i = 0; i < self2._sounds.length; i++) {
+                if (self2._sounds[i]._paused && !self2._sounds[i]._ended) {
+                  num++;
+                  id = self2._sounds[i]._id;
+                }
+              }
+              if (num === 1) {
+                sprite = null;
+              } else {
+                id = null;
+              }
+            }
+          }
+          var sound = id ? self2._soundById(id) : self2._inactiveSound();
+          if (!sound) {
+            return null;
+          }
+          if (id && !sprite) {
+            sprite = sound._sprite || "__default";
+          }
+          if (self2._state !== "loaded") {
+            sound._sprite = sprite;
+            sound._ended = false;
+            var soundId = sound._id;
+            self2._queue.push({
+              event: "play",
+              action: function() {
+                self2.play(soundId);
+              }
+            });
+            return soundId;
+          }
+          if (id && !sound._paused) {
+            if (!internal) {
+              self2._loadQueue("play");
+            }
+            return sound._id;
+          }
+          if (self2._webAudio) {
+            Howler2._autoResume();
+          }
+          var seek = Math.max(0, sound._seek > 0 ? sound._seek : self2._sprite[sprite][0] / 1e3);
+          var duration = Math.max(0, (self2._sprite[sprite][0] + self2._sprite[sprite][1]) / 1e3 - seek);
+          var timeout = duration * 1e3 / Math.abs(sound._rate);
+          var start = self2._sprite[sprite][0] / 1e3;
+          var stop = (self2._sprite[sprite][0] + self2._sprite[sprite][1]) / 1e3;
+          sound._sprite = sprite;
+          sound._ended = false;
+          var setParams = function() {
+            sound._paused = false;
+            sound._seek = seek;
+            sound._start = start;
+            sound._stop = stop;
+            sound._loop = !!(sound._loop || self2._sprite[sprite][2]);
+          };
+          if (seek >= stop) {
+            self2._ended(sound);
+            return;
+          }
+          var node = sound._node;
+          if (self2._webAudio) {
+            var playWebAudio = function() {
+              self2._playLock = false;
+              setParams();
+              self2._refreshBuffer(sound);
+              var vol = sound._muted || self2._muted ? 0 : sound._volume;
+              node.gain.setValueAtTime(vol, Howler2.ctx.currentTime);
+              sound._playStart = Howler2.ctx.currentTime;
+              if (typeof node.bufferSource.start === "undefined") {
+                sound._loop ? node.bufferSource.noteGrainOn(0, seek, 86400) : node.bufferSource.noteGrainOn(0, seek, duration);
+              } else {
+                sound._loop ? node.bufferSource.start(0, seek, 86400) : node.bufferSource.start(0, seek, duration);
+              }
+              if (timeout !== Infinity) {
+                self2._endTimers[sound._id] = setTimeout(self2._ended.bind(self2, sound), timeout);
+              }
+              if (!internal) {
+                setTimeout(function() {
+                  self2._emit("play", sound._id);
+                  self2._loadQueue();
+                }, 0);
+              }
+            };
+            if (Howler2.state === "running" && Howler2.ctx.state !== "interrupted") {
+              playWebAudio();
+            } else {
+              self2._playLock = true;
+              self2.once("resume", playWebAudio);
+              self2._clearTimer(sound._id);
+            }
+          } else {
+            var playHtml5 = function() {
+              node.currentTime = seek;
+              node.muted = sound._muted || self2._muted || Howler2._muted || node.muted;
+              node.volume = sound._volume * Howler2.volume();
+              node.playbackRate = sound._rate;
+              try {
+                var play = node.play();
+                if (play && typeof Promise !== "undefined" && (play instanceof Promise || typeof play.then === "function")) {
+                  self2._playLock = true;
+                  setParams();
+                  play.then(function() {
+                    self2._playLock = false;
+                    node._unlocked = true;
+                    if (!internal) {
+                      self2._emit("play", sound._id);
+                    } else {
+                      self2._loadQueue();
+                    }
+                  }).catch(function() {
+                    self2._playLock = false;
+                    self2._emit("playerror", sound._id, "Playback was unable to start. This is most commonly an issue on mobile devices and Chrome where playback was not within a user interaction.");
+                    sound._ended = true;
+                    sound._paused = true;
+                  });
+                } else if (!internal) {
+                  self2._playLock = false;
+                  setParams();
+                  self2._emit("play", sound._id);
+                }
+                node.playbackRate = sound._rate;
+                if (node.paused) {
+                  self2._emit("playerror", sound._id, "Playback was unable to start. This is most commonly an issue on mobile devices and Chrome where playback was not within a user interaction.");
+                  return;
+                }
+                if (sprite !== "__default" || sound._loop) {
+                  self2._endTimers[sound._id] = setTimeout(self2._ended.bind(self2, sound), timeout);
+                } else {
+                  self2._endTimers[sound._id] = function() {
+                    self2._ended(sound);
+                    node.removeEventListener("ended", self2._endTimers[sound._id], false);
+                  };
+                  node.addEventListener("ended", self2._endTimers[sound._id], false);
+                }
+              } catch (err) {
+                self2._emit("playerror", sound._id, err);
+              }
+            };
+            if (node.src === "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA") {
+              node.src = self2._src;
+              node.load();
+            }
+            var loadedNoReadyState = window && window.ejecta || !node.readyState && Howler2._navigator.isCocoonJS;
+            if (node.readyState >= 3 || loadedNoReadyState) {
+              playHtml5();
+            } else {
+              self2._playLock = true;
+              self2._state = "loading";
+              var listener = function() {
+                self2._state = "loaded";
+                playHtml5();
+                node.removeEventListener(Howler2._canPlayEvent, listener, false);
+              };
+              node.addEventListener(Howler2._canPlayEvent, listener, false);
+              self2._clearTimer(sound._id);
+            }
+          }
+          return sound._id;
+        },
+        /**
+         * Pause playback and save current position.
+         * @param  {Number} id The sound ID (empty to pause all in group).
+         * @return {Howl}
+         */
+        pause: function(id) {
+          var self2 = this;
+          if (self2._state !== "loaded" || self2._playLock) {
+            self2._queue.push({
+              event: "pause",
+              action: function() {
+                self2.pause(id);
+              }
+            });
+            return self2;
+          }
+          var ids = self2._getSoundIds(id);
+          for (var i = 0; i < ids.length; i++) {
+            self2._clearTimer(ids[i]);
+            var sound = self2._soundById(ids[i]);
+            if (sound && !sound._paused) {
+              sound._seek = self2.seek(ids[i]);
+              sound._rateSeek = 0;
+              sound._paused = true;
+              self2._stopFade(ids[i]);
+              if (sound._node) {
+                if (self2._webAudio) {
+                  if (!sound._node.bufferSource) {
+                    continue;
+                  }
+                  if (typeof sound._node.bufferSource.stop === "undefined") {
+                    sound._node.bufferSource.noteOff(0);
+                  } else {
+                    sound._node.bufferSource.stop(0);
+                  }
+                  self2._cleanBuffer(sound._node);
+                } else if (!isNaN(sound._node.duration) || sound._node.duration === Infinity) {
+                  sound._node.pause();
+                }
+              }
+            }
+            if (!arguments[1]) {
+              self2._emit("pause", sound ? sound._id : null);
+            }
+          }
+          return self2;
+        },
+        /**
+         * Stop playback and reset to start.
+         * @param  {Number} id The sound ID (empty to stop all in group).
+         * @param  {Boolean} internal Internal Use: true prevents event firing.
+         * @return {Howl}
+         */
+        stop: function(id, internal) {
+          var self2 = this;
+          if (self2._state !== "loaded" || self2._playLock) {
+            self2._queue.push({
+              event: "stop",
+              action: function() {
+                self2.stop(id);
+              }
+            });
+            return self2;
+          }
+          var ids = self2._getSoundIds(id);
+          for (var i = 0; i < ids.length; i++) {
+            self2._clearTimer(ids[i]);
+            var sound = self2._soundById(ids[i]);
+            if (sound) {
+              sound._seek = sound._start || 0;
+              sound._rateSeek = 0;
+              sound._paused = true;
+              sound._ended = true;
+              self2._stopFade(ids[i]);
+              if (sound._node) {
+                if (self2._webAudio) {
+                  if (sound._node.bufferSource) {
+                    if (typeof sound._node.bufferSource.stop === "undefined") {
+                      sound._node.bufferSource.noteOff(0);
+                    } else {
+                      sound._node.bufferSource.stop(0);
+                    }
+                    self2._cleanBuffer(sound._node);
+                  }
+                } else if (!isNaN(sound._node.duration) || sound._node.duration === Infinity) {
+                  sound._node.currentTime = sound._start || 0;
+                  sound._node.pause();
+                  if (sound._node.duration === Infinity) {
+                    self2._clearSound(sound._node);
+                  }
+                }
+              }
+              if (!internal) {
+                self2._emit("stop", sound._id);
+              }
+            }
+          }
+          return self2;
+        },
+        /**
+         * Mute/unmute a single sound or all sounds in this Howl group.
+         * @param  {Boolean} muted Set to true to mute and false to unmute.
+         * @param  {Number} id    The sound ID to update (omit to mute/unmute all).
+         * @return {Howl}
+         */
+        mute: function(muted, id) {
+          var self2 = this;
+          if (self2._state !== "loaded" || self2._playLock) {
+            self2._queue.push({
+              event: "mute",
+              action: function() {
+                self2.mute(muted, id);
+              }
+            });
+            return self2;
+          }
+          if (typeof id === "undefined") {
+            if (typeof muted === "boolean") {
+              self2._muted = muted;
+            } else {
+              return self2._muted;
+            }
+          }
+          var ids = self2._getSoundIds(id);
+          for (var i = 0; i < ids.length; i++) {
+            var sound = self2._soundById(ids[i]);
+            if (sound) {
+              sound._muted = muted;
+              if (sound._interval) {
+                self2._stopFade(sound._id);
+              }
+              if (self2._webAudio && sound._node) {
+                sound._node.gain.setValueAtTime(muted ? 0 : sound._volume, Howler2.ctx.currentTime);
+              } else if (sound._node) {
+                sound._node.muted = Howler2._muted ? true : muted;
+              }
+              self2._emit("mute", sound._id);
+            }
+          }
+          return self2;
+        },
+        /**
+         * Get/set the volume of this sound or of the Howl group. This method can optionally take 0, 1 or 2 arguments.
+         *   volume() -> Returns the group's volume value.
+         *   volume(id) -> Returns the sound id's current volume.
+         *   volume(vol) -> Sets the volume of all sounds in this Howl group.
+         *   volume(vol, id) -> Sets the volume of passed sound id.
+         * @return {Howl/Number} Returns self or current volume.
+         */
+        volume: function() {
+          var self2 = this;
+          var args = arguments;
+          var vol, id;
+          if (args.length === 0) {
+            return self2._volume;
+          } else if (args.length === 1 || args.length === 2 && typeof args[1] === "undefined") {
+            var ids = self2._getSoundIds();
+            var index = ids.indexOf(args[0]);
+            if (index >= 0) {
+              id = parseInt(args[0], 10);
+            } else {
+              vol = parseFloat(args[0]);
+            }
+          } else if (args.length >= 2) {
+            vol = parseFloat(args[0]);
+            id = parseInt(args[1], 10);
+          }
+          var sound;
+          if (typeof vol !== "undefined" && vol >= 0 && vol <= 1) {
+            if (self2._state !== "loaded" || self2._playLock) {
+              self2._queue.push({
+                event: "volume",
+                action: function() {
+                  self2.volume.apply(self2, args);
+                }
+              });
+              return self2;
+            }
+            if (typeof id === "undefined") {
+              self2._volume = vol;
+            }
+            id = self2._getSoundIds(id);
+            for (var i = 0; i < id.length; i++) {
+              sound = self2._soundById(id[i]);
+              if (sound) {
+                sound._volume = vol;
+                if (!args[2]) {
+                  self2._stopFade(id[i]);
+                }
+                if (self2._webAudio && sound._node && !sound._muted) {
+                  sound._node.gain.setValueAtTime(vol, Howler2.ctx.currentTime);
+                } else if (sound._node && !sound._muted) {
+                  sound._node.volume = vol * Howler2.volume();
+                }
+                self2._emit("volume", sound._id);
+              }
+            }
+          } else {
+            sound = id ? self2._soundById(id) : self2._sounds[0];
+            return sound ? sound._volume : 0;
+          }
+          return self2;
+        },
+        /**
+         * Fade a currently playing sound between two volumes (if no id is passed, all sounds will fade).
+         * @param  {Number} from The value to fade from (0.0 to 1.0).
+         * @param  {Number} to   The volume to fade to (0.0 to 1.0).
+         * @param  {Number} len  Time in milliseconds to fade.
+         * @param  {Number} id   The sound id (omit to fade all sounds).
+         * @return {Howl}
+         */
+        fade: function(from, to, len4, id) {
+          var self2 = this;
+          if (self2._state !== "loaded" || self2._playLock) {
+            self2._queue.push({
+              event: "fade",
+              action: function() {
+                self2.fade(from, to, len4, id);
+              }
+            });
+            return self2;
+          }
+          from = Math.min(Math.max(0, parseFloat(from)), 1);
+          to = Math.min(Math.max(0, parseFloat(to)), 1);
+          len4 = parseFloat(len4);
+          self2.volume(from, id);
+          var ids = self2._getSoundIds(id);
+          for (var i = 0; i < ids.length; i++) {
+            var sound = self2._soundById(ids[i]);
+            if (sound) {
+              if (!id) {
+                self2._stopFade(ids[i]);
+              }
+              if (self2._webAudio && !sound._muted) {
+                var currentTime = Howler2.ctx.currentTime;
+                var end = currentTime + len4 / 1e3;
+                sound._volume = from;
+                sound._node.gain.setValueAtTime(from, currentTime);
+                sound._node.gain.linearRampToValueAtTime(to, end);
+              }
+              self2._startFadeInterval(sound, from, to, len4, ids[i], typeof id === "undefined");
+            }
+          }
+          return self2;
+        },
+        /**
+         * Starts the internal interval to fade a sound.
+         * @param  {Object} sound Reference to sound to fade.
+         * @param  {Number} from The value to fade from (0.0 to 1.0).
+         * @param  {Number} to   The volume to fade to (0.0 to 1.0).
+         * @param  {Number} len  Time in milliseconds to fade.
+         * @param  {Number} id   The sound id to fade.
+         * @param  {Boolean} isGroup   If true, set the volume on the group.
+         */
+        _startFadeInterval: function(sound, from, to, len4, id, isGroup) {
+          var self2 = this;
+          var vol = from;
+          var diff = to - from;
+          var steps = Math.abs(diff / 0.01);
+          var stepLen = Math.max(4, steps > 0 ? len4 / steps : len4);
+          var lastTick = Date.now();
+          sound._fadeTo = to;
+          sound._interval = setInterval(function() {
+            var tick = (Date.now() - lastTick) / len4;
+            lastTick = Date.now();
+            vol += diff * tick;
+            vol = Math.round(vol * 100) / 100;
+            if (diff < 0) {
+              vol = Math.max(to, vol);
+            } else {
+              vol = Math.min(to, vol);
+            }
+            if (self2._webAudio) {
+              sound._volume = vol;
+            } else {
+              self2.volume(vol, sound._id, true);
+            }
+            if (isGroup) {
+              self2._volume = vol;
+            }
+            if (to < from && vol <= to || to > from && vol >= to) {
+              clearInterval(sound._interval);
+              sound._interval = null;
+              sound._fadeTo = null;
+              self2.volume(to, sound._id);
+              self2._emit("fade", sound._id);
+            }
+          }, stepLen);
+        },
+        /**
+         * Internal method that stops the currently playing fade when
+         * a new fade starts, volume is changed or the sound is stopped.
+         * @param  {Number} id The sound id.
+         * @return {Howl}
+         */
+        _stopFade: function(id) {
+          var self2 = this;
+          var sound = self2._soundById(id);
+          if (sound && sound._interval) {
+            if (self2._webAudio) {
+              sound._node.gain.cancelScheduledValues(Howler2.ctx.currentTime);
+            }
+            clearInterval(sound._interval);
+            sound._interval = null;
+            self2.volume(sound._fadeTo, id);
+            sound._fadeTo = null;
+            self2._emit("fade", id);
+          }
+          return self2;
+        },
+        /**
+         * Get/set the loop parameter on a sound. This method can optionally take 0, 1 or 2 arguments.
+         *   loop() -> Returns the group's loop value.
+         *   loop(id) -> Returns the sound id's loop value.
+         *   loop(loop) -> Sets the loop value for all sounds in this Howl group.
+         *   loop(loop, id) -> Sets the loop value of passed sound id.
+         * @return {Howl/Boolean} Returns self or current loop value.
+         */
+        loop: function() {
+          var self2 = this;
+          var args = arguments;
+          var loop, id, sound;
+          if (args.length === 0) {
+            return self2._loop;
+          } else if (args.length === 1) {
+            if (typeof args[0] === "boolean") {
+              loop = args[0];
+              self2._loop = loop;
+            } else {
+              sound = self2._soundById(parseInt(args[0], 10));
+              return sound ? sound._loop : false;
+            }
+          } else if (args.length === 2) {
+            loop = args[0];
+            id = parseInt(args[1], 10);
+          }
+          var ids = self2._getSoundIds(id);
+          for (var i = 0; i < ids.length; i++) {
+            sound = self2._soundById(ids[i]);
+            if (sound) {
+              sound._loop = loop;
+              if (self2._webAudio && sound._node && sound._node.bufferSource) {
+                sound._node.bufferSource.loop = loop;
+                if (loop) {
+                  sound._node.bufferSource.loopStart = sound._start || 0;
+                  sound._node.bufferSource.loopEnd = sound._stop;
+                  if (self2.playing(ids[i])) {
+                    self2.pause(ids[i], true);
+                    self2.play(ids[i], true);
+                  }
+                }
+              }
+            }
+          }
+          return self2;
+        },
+        /**
+         * Get/set the playback rate of a sound. This method can optionally take 0, 1 or 2 arguments.
+         *   rate() -> Returns the first sound node's current playback rate.
+         *   rate(id) -> Returns the sound id's current playback rate.
+         *   rate(rate) -> Sets the playback rate of all sounds in this Howl group.
+         *   rate(rate, id) -> Sets the playback rate of passed sound id.
+         * @return {Howl/Number} Returns self or the current playback rate.
+         */
+        rate: function() {
+          var self2 = this;
+          var args = arguments;
+          var rate, id;
+          if (args.length === 0) {
+            id = self2._sounds[0]._id;
+          } else if (args.length === 1) {
+            var ids = self2._getSoundIds();
+            var index = ids.indexOf(args[0]);
+            if (index >= 0) {
+              id = parseInt(args[0], 10);
+            } else {
+              rate = parseFloat(args[0]);
+            }
+          } else if (args.length === 2) {
+            rate = parseFloat(args[0]);
+            id = parseInt(args[1], 10);
+          }
+          var sound;
+          if (typeof rate === "number") {
+            if (self2._state !== "loaded" || self2._playLock) {
+              self2._queue.push({
+                event: "rate",
+                action: function() {
+                  self2.rate.apply(self2, args);
+                }
+              });
+              return self2;
+            }
+            if (typeof id === "undefined") {
+              self2._rate = rate;
+            }
+            id = self2._getSoundIds(id);
+            for (var i = 0; i < id.length; i++) {
+              sound = self2._soundById(id[i]);
+              if (sound) {
+                if (self2.playing(id[i])) {
+                  sound._rateSeek = self2.seek(id[i]);
+                  sound._playStart = self2._webAudio ? Howler2.ctx.currentTime : sound._playStart;
+                }
+                sound._rate = rate;
+                if (self2._webAudio && sound._node && sound._node.bufferSource) {
+                  sound._node.bufferSource.playbackRate.setValueAtTime(rate, Howler2.ctx.currentTime);
+                } else if (sound._node) {
+                  sound._node.playbackRate = rate;
+                }
+                var seek = self2.seek(id[i]);
+                var duration = (self2._sprite[sound._sprite][0] + self2._sprite[sound._sprite][1]) / 1e3 - seek;
+                var timeout = duration * 1e3 / Math.abs(sound._rate);
+                if (self2._endTimers[id[i]] || !sound._paused) {
+                  self2._clearTimer(id[i]);
+                  self2._endTimers[id[i]] = setTimeout(self2._ended.bind(self2, sound), timeout);
+                }
+                self2._emit("rate", sound._id);
+              }
+            }
+          } else {
+            sound = self2._soundById(id);
+            return sound ? sound._rate : self2._rate;
+          }
+          return self2;
+        },
+        /**
+         * Get/set the seek position of a sound. This method can optionally take 0, 1 or 2 arguments.
+         *   seek() -> Returns the first sound node's current seek position.
+         *   seek(id) -> Returns the sound id's current seek position.
+         *   seek(seek) -> Sets the seek position of the first sound node.
+         *   seek(seek, id) -> Sets the seek position of passed sound id.
+         * @return {Howl/Number} Returns self or the current seek position.
+         */
+        seek: function() {
+          var self2 = this;
+          var args = arguments;
+          var seek, id;
+          if (args.length === 0) {
+            if (self2._sounds.length) {
+              id = self2._sounds[0]._id;
+            }
+          } else if (args.length === 1) {
+            var ids = self2._getSoundIds();
+            var index = ids.indexOf(args[0]);
+            if (index >= 0) {
+              id = parseInt(args[0], 10);
+            } else if (self2._sounds.length) {
+              id = self2._sounds[0]._id;
+              seek = parseFloat(args[0]);
+            }
+          } else if (args.length === 2) {
+            seek = parseFloat(args[0]);
+            id = parseInt(args[1], 10);
+          }
+          if (typeof id === "undefined") {
+            return 0;
+          }
+          if (typeof seek === "number" && (self2._state !== "loaded" || self2._playLock)) {
+            self2._queue.push({
+              event: "seek",
+              action: function() {
+                self2.seek.apply(self2, args);
+              }
+            });
+            return self2;
+          }
+          var sound = self2._soundById(id);
+          if (sound) {
+            if (typeof seek === "number" && seek >= 0) {
+              var playing = self2.playing(id);
+              if (playing) {
+                self2.pause(id, true);
+              }
+              sound._seek = seek;
+              sound._ended = false;
+              self2._clearTimer(id);
+              if (!self2._webAudio && sound._node && !isNaN(sound._node.duration)) {
+                sound._node.currentTime = seek;
+              }
+              var seekAndEmit = function() {
+                if (playing) {
+                  self2.play(id, true);
+                }
+                self2._emit("seek", id);
+              };
+              if (playing && !self2._webAudio) {
+                var emitSeek = function() {
+                  if (!self2._playLock) {
+                    seekAndEmit();
+                  } else {
+                    setTimeout(emitSeek, 0);
+                  }
+                };
+                setTimeout(emitSeek, 0);
+              } else {
+                seekAndEmit();
+              }
+            } else {
+              if (self2._webAudio) {
+                var realTime = self2.playing(id) ? Howler2.ctx.currentTime - sound._playStart : 0;
+                var rateSeek = sound._rateSeek ? sound._rateSeek - sound._seek : 0;
+                return sound._seek + (rateSeek + realTime * Math.abs(sound._rate));
+              } else {
+                return sound._node.currentTime;
+              }
+            }
+          }
+          return self2;
+        },
+        /**
+         * Check if a specific sound is currently playing or not (if id is provided), or check if at least one of the sounds in the group is playing or not.
+         * @param  {Number}  id The sound id to check. If none is passed, the whole sound group is checked.
+         * @return {Boolean} True if playing and false if not.
+         */
+        playing: function(id) {
+          var self2 = this;
+          if (typeof id === "number") {
+            var sound = self2._soundById(id);
+            return sound ? !sound._paused : false;
+          }
+          for (var i = 0; i < self2._sounds.length; i++) {
+            if (!self2._sounds[i]._paused) {
+              return true;
+            }
+          }
+          return false;
+        },
+        /**
+         * Get the duration of this sound. Passing a sound id will return the sprite duration.
+         * @param  {Number} id The sound id to check. If none is passed, return full source duration.
+         * @return {Number} Audio duration in seconds.
+         */
+        duration: function(id) {
+          var self2 = this;
+          var duration = self2._duration;
+          var sound = self2._soundById(id);
+          if (sound) {
+            duration = self2._sprite[sound._sprite][1] / 1e3;
+          }
+          return duration;
+        },
+        /**
+         * Returns the current loaded state of this Howl.
+         * @return {String} 'unloaded', 'loading', 'loaded'
+         */
+        state: function() {
+          return this._state;
+        },
+        /**
+         * Unload and destroy the current Howl object.
+         * This will immediately stop all sound instances attached to this group.
+         */
+        unload: function() {
+          var self2 = this;
+          var sounds = self2._sounds;
+          for (var i = 0; i < sounds.length; i++) {
+            if (!sounds[i]._paused) {
+              self2.stop(sounds[i]._id);
+            }
+            if (!self2._webAudio) {
+              self2._clearSound(sounds[i]._node);
+              sounds[i]._node.removeEventListener("error", sounds[i]._errorFn, false);
+              sounds[i]._node.removeEventListener(Howler2._canPlayEvent, sounds[i]._loadFn, false);
+              sounds[i]._node.removeEventListener("ended", sounds[i]._endFn, false);
+              Howler2._releaseHtml5Audio(sounds[i]._node);
+            }
+            delete sounds[i]._node;
+            self2._clearTimer(sounds[i]._id);
+          }
+          var index = Howler2._howls.indexOf(self2);
+          if (index >= 0) {
+            Howler2._howls.splice(index, 1);
+          }
+          var remCache = true;
+          for (i = 0; i < Howler2._howls.length; i++) {
+            if (Howler2._howls[i]._src === self2._src || self2._src.indexOf(Howler2._howls[i]._src) >= 0) {
+              remCache = false;
+              break;
+            }
+          }
+          if (cache && remCache) {
+            delete cache[self2._src];
+          }
+          Howler2.noAudio = false;
+          self2._state = "unloaded";
+          self2._sounds = [];
+          self2 = null;
+          return null;
+        },
+        /**
+         * Listen to a custom event.
+         * @param  {String}   event Event name.
+         * @param  {Function} fn    Listener to call.
+         * @param  {Number}   id    (optional) Only listen to events for this sound.
+         * @param  {Number}   once  (INTERNAL) Marks event to fire only once.
+         * @return {Howl}
+         */
+        on: function(event, fn, id, once) {
+          var self2 = this;
+          var events = self2["_on" + event];
+          if (typeof fn === "function") {
+            events.push(once ? { id, fn, once } : { id, fn });
+          }
+          return self2;
+        },
+        /**
+         * Remove a custom event. Call without parameters to remove all events.
+         * @param  {String}   event Event name.
+         * @param  {Function} fn    Listener to remove. Leave empty to remove all.
+         * @param  {Number}   id    (optional) Only remove events for this sound.
+         * @return {Howl}
+         */
+        off: function(event, fn, id) {
+          var self2 = this;
+          var events = self2["_on" + event];
+          var i = 0;
+          if (typeof fn === "number") {
+            id = fn;
+            fn = null;
+          }
+          if (fn || id) {
+            for (i = 0; i < events.length; i++) {
+              var isId = id === events[i].id;
+              if (fn === events[i].fn && isId || !fn && isId) {
+                events.splice(i, 1);
+                break;
+              }
+            }
+          } else if (event) {
+            self2["_on" + event] = [];
+          } else {
+            var keys = Object.keys(self2);
+            for (i = 0; i < keys.length; i++) {
+              if (keys[i].indexOf("_on") === 0 && Array.isArray(self2[keys[i]])) {
+                self2[keys[i]] = [];
+              }
+            }
+          }
+          return self2;
+        },
+        /**
+         * Listen to a custom event and remove it once fired.
+         * @param  {String}   event Event name.
+         * @param  {Function} fn    Listener to call.
+         * @param  {Number}   id    (optional) Only listen to events for this sound.
+         * @return {Howl}
+         */
+        once: function(event, fn, id) {
+          var self2 = this;
+          self2.on(event, fn, id, 1);
+          return self2;
+        },
+        /**
+         * Emit all events of a specific type and pass the sound id.
+         * @param  {String} event Event name.
+         * @param  {Number} id    Sound ID.
+         * @param  {Number} msg   Message to go with event.
+         * @return {Howl}
+         */
+        _emit: function(event, id, msg) {
+          var self2 = this;
+          var events = self2["_on" + event];
+          for (var i = events.length - 1; i >= 0; i--) {
+            if (!events[i].id || events[i].id === id || event === "load") {
+              setTimeout(function(fn) {
+                fn.call(this, id, msg);
+              }.bind(self2, events[i].fn), 0);
+              if (events[i].once) {
+                self2.off(event, events[i].fn, events[i].id);
+              }
+            }
+          }
+          self2._loadQueue(event);
+          return self2;
+        },
+        /**
+         * Queue of actions initiated before the sound has loaded.
+         * These will be called in sequence, with the next only firing
+         * after the previous has finished executing (even if async like play).
+         * @return {Howl}
+         */
+        _loadQueue: function(event) {
+          var self2 = this;
+          if (self2._queue.length > 0) {
+            var task = self2._queue[0];
+            if (task.event === event) {
+              self2._queue.shift();
+              self2._loadQueue();
+            }
+            if (!event) {
+              task.action();
+            }
+          }
+          return self2;
+        },
+        /**
+         * Fired when playback ends at the end of the duration.
+         * @param  {Sound} sound The sound object to work with.
+         * @return {Howl}
+         */
+        _ended: function(sound) {
+          var self2 = this;
+          var sprite = sound._sprite;
+          if (!self2._webAudio && sound._node && !sound._node.paused && !sound._node.ended && sound._node.currentTime < sound._stop) {
+            setTimeout(self2._ended.bind(self2, sound), 100);
+            return self2;
+          }
+          var loop = !!(sound._loop || self2._sprite[sprite][2]);
+          self2._emit("end", sound._id);
+          if (!self2._webAudio && loop) {
+            self2.stop(sound._id, true).play(sound._id);
+          }
+          if (self2._webAudio && loop) {
+            self2._emit("play", sound._id);
+            sound._seek = sound._start || 0;
+            sound._rateSeek = 0;
+            sound._playStart = Howler2.ctx.currentTime;
+            var timeout = (sound._stop - sound._start) * 1e3 / Math.abs(sound._rate);
+            self2._endTimers[sound._id] = setTimeout(self2._ended.bind(self2, sound), timeout);
+          }
+          if (self2._webAudio && !loop) {
+            sound._paused = true;
+            sound._ended = true;
+            sound._seek = sound._start || 0;
+            sound._rateSeek = 0;
+            self2._clearTimer(sound._id);
+            self2._cleanBuffer(sound._node);
+            Howler2._autoSuspend();
+          }
+          if (!self2._webAudio && !loop) {
+            self2.stop(sound._id, true);
+          }
+          return self2;
+        },
+        /**
+         * Clear the end timer for a sound playback.
+         * @param  {Number} id The sound ID.
+         * @return {Howl}
+         */
+        _clearTimer: function(id) {
+          var self2 = this;
+          if (self2._endTimers[id]) {
+            if (typeof self2._endTimers[id] !== "function") {
+              clearTimeout(self2._endTimers[id]);
+            } else {
+              var sound = self2._soundById(id);
+              if (sound && sound._node) {
+                sound._node.removeEventListener("ended", self2._endTimers[id], false);
+              }
+            }
+            delete self2._endTimers[id];
+          }
+          return self2;
+        },
+        /**
+         * Return the sound identified by this ID, or return null.
+         * @param  {Number} id Sound ID
+         * @return {Object}    Sound object or null.
+         */
+        _soundById: function(id) {
+          var self2 = this;
+          for (var i = 0; i < self2._sounds.length; i++) {
+            if (id === self2._sounds[i]._id) {
+              return self2._sounds[i];
+            }
+          }
+          return null;
+        },
+        /**
+         * Return an inactive sound from the pool or create a new one.
+         * @return {Sound} Sound playback object.
+         */
+        _inactiveSound: function() {
+          var self2 = this;
+          self2._drain();
+          for (var i = 0; i < self2._sounds.length; i++) {
+            if (self2._sounds[i]._ended) {
+              return self2._sounds[i].reset();
+            }
+          }
+          return new Sound2(self2);
+        },
+        /**
+         * Drain excess inactive sounds from the pool.
+         */
+        _drain: function() {
+          var self2 = this;
+          var limit = self2._pool;
+          var cnt = 0;
+          var i = 0;
+          if (self2._sounds.length < limit) {
+            return;
+          }
+          for (i = 0; i < self2._sounds.length; i++) {
+            if (self2._sounds[i]._ended) {
+              cnt++;
+            }
+          }
+          for (i = self2._sounds.length - 1; i >= 0; i--) {
+            if (cnt <= limit) {
+              return;
+            }
+            if (self2._sounds[i]._ended) {
+              if (self2._webAudio && self2._sounds[i]._node) {
+                self2._sounds[i]._node.disconnect(0);
+              }
+              self2._sounds.splice(i, 1);
+              cnt--;
+            }
+          }
+        },
+        /**
+         * Get all ID's from the sounds pool.
+         * @param  {Number} id Only return one ID if one is passed.
+         * @return {Array}    Array of IDs.
+         */
+        _getSoundIds: function(id) {
+          var self2 = this;
+          if (typeof id === "undefined") {
+            var ids = [];
+            for (var i = 0; i < self2._sounds.length; i++) {
+              ids.push(self2._sounds[i]._id);
+            }
+            return ids;
+          } else {
+            return [id];
+          }
+        },
+        /**
+         * Load the sound back into the buffer source.
+         * @param  {Sound} sound The sound object to work with.
+         * @return {Howl}
+         */
+        _refreshBuffer: function(sound) {
+          var self2 = this;
+          sound._node.bufferSource = Howler2.ctx.createBufferSource();
+          sound._node.bufferSource.buffer = cache[self2._src];
+          if (sound._panner) {
+            sound._node.bufferSource.connect(sound._panner);
+          } else {
+            sound._node.bufferSource.connect(sound._node);
+          }
+          sound._node.bufferSource.loop = sound._loop;
+          if (sound._loop) {
+            sound._node.bufferSource.loopStart = sound._start || 0;
+            sound._node.bufferSource.loopEnd = sound._stop || 0;
+          }
+          sound._node.bufferSource.playbackRate.setValueAtTime(sound._rate, Howler2.ctx.currentTime);
+          return self2;
+        },
+        /**
+         * Prevent memory leaks by cleaning up the buffer source after playback.
+         * @param  {Object} node Sound's audio node containing the buffer source.
+         * @return {Howl}
+         */
+        _cleanBuffer: function(node) {
+          var self2 = this;
+          var isIOS = Howler2._navigator && Howler2._navigator.vendor.indexOf("Apple") >= 0;
+          if (Howler2._scratchBuffer && node.bufferSource) {
+            node.bufferSource.onended = null;
+            node.bufferSource.disconnect(0);
+            if (isIOS) {
+              try {
+                node.bufferSource.buffer = Howler2._scratchBuffer;
+              } catch (e) {
+              }
+            }
+          }
+          node.bufferSource = null;
+          return self2;
+        },
+        /**
+         * Set the source to a 0-second silence to stop any downloading (except in IE).
+         * @param  {Object} node Audio node to clear.
+         */
+        _clearSound: function(node) {
+          var checkIE = /MSIE |Trident\//.test(Howler2._navigator && Howler2._navigator.userAgent);
+          if (!checkIE) {
+            node.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
+          }
+        }
+      };
+      var Sound2 = function(howl) {
+        this._parent = howl;
+        this.init();
+      };
+      Sound2.prototype = {
+        /**
+         * Initialize a new Sound object.
+         * @return {Sound}
+         */
+        init: function() {
+          var self2 = this;
+          var parent = self2._parent;
+          self2._muted = parent._muted;
+          self2._loop = parent._loop;
+          self2._volume = parent._volume;
+          self2._rate = parent._rate;
+          self2._seek = 0;
+          self2._paused = true;
+          self2._ended = true;
+          self2._sprite = "__default";
+          self2._id = ++Howler2._counter;
+          parent._sounds.push(self2);
+          self2.create();
+          return self2;
+        },
+        /**
+         * Create and setup a new sound object, whether HTML5 Audio or Web Audio.
+         * @return {Sound}
+         */
+        create: function() {
+          var self2 = this;
+          var parent = self2._parent;
+          var volume = Howler2._muted || self2._muted || self2._parent._muted ? 0 : self2._volume;
+          if (parent._webAudio) {
+            self2._node = typeof Howler2.ctx.createGain === "undefined" ? Howler2.ctx.createGainNode() : Howler2.ctx.createGain();
+            self2._node.gain.setValueAtTime(volume, Howler2.ctx.currentTime);
+            self2._node.paused = true;
+            self2._node.connect(Howler2.masterGain);
+          } else if (!Howler2.noAudio) {
+            self2._node = Howler2._obtainHtml5Audio();
+            self2._errorFn = self2._errorListener.bind(self2);
+            self2._node.addEventListener("error", self2._errorFn, false);
+            self2._loadFn = self2._loadListener.bind(self2);
+            self2._node.addEventListener(Howler2._canPlayEvent, self2._loadFn, false);
+            self2._endFn = self2._endListener.bind(self2);
+            self2._node.addEventListener("ended", self2._endFn, false);
+            self2._node.src = parent._src;
+            self2._node.preload = parent._preload === true ? "auto" : parent._preload;
+            self2._node.volume = volume * Howler2.volume();
+            self2._node.load();
+          }
+          return self2;
+        },
+        /**
+         * Reset the parameters of this sound to the original state (for recycle).
+         * @return {Sound}
+         */
+        reset: function() {
+          var self2 = this;
+          var parent = self2._parent;
+          self2._muted = parent._muted;
+          self2._loop = parent._loop;
+          self2._volume = parent._volume;
+          self2._rate = parent._rate;
+          self2._seek = 0;
+          self2._rateSeek = 0;
+          self2._paused = true;
+          self2._ended = true;
+          self2._sprite = "__default";
+          self2._id = ++Howler2._counter;
+          return self2;
+        },
+        /**
+         * HTML5 Audio error listener callback.
+         */
+        _errorListener: function() {
+          var self2 = this;
+          self2._parent._emit("loaderror", self2._id, self2._node.error ? self2._node.error.code : 0);
+          self2._node.removeEventListener("error", self2._errorFn, false);
+        },
+        /**
+         * HTML5 Audio canplaythrough listener callback.
+         */
+        _loadListener: function() {
+          var self2 = this;
+          var parent = self2._parent;
+          parent._duration = Math.ceil(self2._node.duration * 10) / 10;
+          if (Object.keys(parent._sprite).length === 0) {
+            parent._sprite = { __default: [0, parent._duration * 1e3] };
+          }
+          if (parent._state !== "loaded") {
+            parent._state = "loaded";
+            parent._emit("load");
+            parent._loadQueue();
+          }
+          self2._node.removeEventListener(Howler2._canPlayEvent, self2._loadFn, false);
+        },
+        /**
+         * HTML5 Audio ended listener callback.
+         */
+        _endListener: function() {
+          var self2 = this;
+          var parent = self2._parent;
+          if (parent._duration === Infinity) {
+            parent._duration = Math.ceil(self2._node.duration * 10) / 10;
+            if (parent._sprite.__default[1] === Infinity) {
+              parent._sprite.__default[1] = parent._duration * 1e3;
+            }
+            parent._ended(self2);
+          }
+          self2._node.removeEventListener("ended", self2._endFn, false);
+        }
+      };
+      var cache = {};
+      var loadBuffer = function(self2) {
+        var url = self2._src;
+        if (cache[url]) {
+          self2._duration = cache[url].duration;
+          loadSound(self2);
+          return;
+        }
+        if (/^data:[^;]+;base64,/.test(url)) {
+          var data = atob(url.split(",")[1]);
+          var dataView = new Uint8Array(data.length);
+          for (var i = 0; i < data.length; ++i) {
+            dataView[i] = data.charCodeAt(i);
+          }
+          decodeAudioData(dataView.buffer, self2);
+        } else {
+          var xhr = new XMLHttpRequest();
+          xhr.open(self2._xhr.method, url, true);
+          xhr.withCredentials = self2._xhr.withCredentials;
+          xhr.responseType = "arraybuffer";
+          if (self2._xhr.headers) {
+            Object.keys(self2._xhr.headers).forEach(function(key) {
+              xhr.setRequestHeader(key, self2._xhr.headers[key]);
+            });
+          }
+          xhr.onload = function() {
+            var code = (xhr.status + "")[0];
+            if (code !== "0" && code !== "2" && code !== "3") {
+              self2._emit("loaderror", null, "Failed loading audio file with status: " + xhr.status + ".");
+              return;
+            }
+            decodeAudioData(xhr.response, self2);
+          };
+          xhr.onerror = function() {
+            if (self2._webAudio) {
+              self2._html5 = true;
+              self2._webAudio = false;
+              self2._sounds = [];
+              delete cache[url];
+              self2.load();
+            }
+          };
+          safeXhrSend(xhr);
+        }
+      };
+      var safeXhrSend = function(xhr) {
+        try {
+          xhr.send();
+        } catch (e) {
+          xhr.onerror();
+        }
+      };
+      var decodeAudioData = function(arraybuffer, self2) {
+        var error = function() {
+          self2._emit("loaderror", null, "Decoding audio data failed.");
+        };
+        var success = function(buffer) {
+          if (buffer && self2._sounds.length > 0) {
+            cache[self2._src] = buffer;
+            loadSound(self2, buffer);
+          } else {
+            error();
+          }
+        };
+        if (typeof Promise !== "undefined" && Howler2.ctx.decodeAudioData.length === 1) {
+          Howler2.ctx.decodeAudioData(arraybuffer).then(success).catch(error);
+        } else {
+          Howler2.ctx.decodeAudioData(arraybuffer, success, error);
+        }
+      };
+      var loadSound = function(self2, buffer) {
+        if (buffer && !self2._duration) {
+          self2._duration = buffer.duration;
+        }
+        if (Object.keys(self2._sprite).length === 0) {
+          self2._sprite = { __default: [0, self2._duration * 1e3] };
+        }
+        if (self2._state !== "loaded") {
+          self2._state = "loaded";
+          self2._emit("load");
+          self2._loadQueue();
+        }
+      };
+      var setupAudioContext = function() {
+        if (!Howler2.usingWebAudio) {
+          return;
+        }
+        try {
+          if (typeof AudioContext !== "undefined") {
+            Howler2.ctx = new AudioContext();
+          } else if (typeof webkitAudioContext !== "undefined") {
+            Howler2.ctx = new webkitAudioContext();
+          } else {
+            Howler2.usingWebAudio = false;
+          }
+        } catch (e) {
+          Howler2.usingWebAudio = false;
+        }
+        if (!Howler2.ctx) {
+          Howler2.usingWebAudio = false;
+        }
+        var iOS = /iP(hone|od|ad)/.test(Howler2._navigator && Howler2._navigator.platform);
+        var appVersion = Howler2._navigator && Howler2._navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+        var version = appVersion ? parseInt(appVersion[1], 10) : null;
+        if (iOS && version && version < 9) {
+          var safari = /safari/.test(Howler2._navigator && Howler2._navigator.userAgent.toLowerCase());
+          if (Howler2._navigator && !safari) {
+            Howler2.usingWebAudio = false;
+          }
+        }
+        if (Howler2.usingWebAudio) {
+          Howler2.masterGain = typeof Howler2.ctx.createGain === "undefined" ? Howler2.ctx.createGainNode() : Howler2.ctx.createGain();
+          Howler2.masterGain.gain.setValueAtTime(Howler2._muted ? 0 : Howler2._volume, Howler2.ctx.currentTime);
+          Howler2.masterGain.connect(Howler2.ctx.destination);
+        }
+        Howler2._setup();
+      };
+      if (typeof define === "function" && define.amd) {
+        define([], function() {
+          return {
+            Howler: Howler2,
+            Howl: Howl2
+          };
+        });
+      }
+      if (typeof exports !== "undefined") {
+        exports.Howler = Howler2;
+        exports.Howl = Howl2;
+      }
+      if (typeof global !== "undefined") {
+        global.HowlerGlobal = HowlerGlobal2;
+        global.Howler = Howler2;
+        global.Howl = Howl2;
+        global.Sound = Sound2;
+      } else if (typeof window !== "undefined") {
+        window.HowlerGlobal = HowlerGlobal2;
+        window.Howler = Howler2;
+        window.Howl = Howl2;
+        window.Sound = Sound2;
+      }
+    })();
+    (function() {
+      "use strict";
+      HowlerGlobal.prototype._pos = [0, 0, 0];
+      HowlerGlobal.prototype._orientation = [0, 0, -1, 0, 1, 0];
+      HowlerGlobal.prototype.stereo = function(pan) {
+        var self2 = this;
+        if (!self2.ctx || !self2.ctx.listener) {
+          return self2;
+        }
+        for (var i = self2._howls.length - 1; i >= 0; i--) {
+          self2._howls[i].stereo(pan);
+        }
+        return self2;
+      };
+      HowlerGlobal.prototype.pos = function(x2, y, z) {
+        var self2 = this;
+        if (!self2.ctx || !self2.ctx.listener) {
+          return self2;
+        }
+        y = typeof y !== "number" ? self2._pos[1] : y;
+        z = typeof z !== "number" ? self2._pos[2] : z;
+        if (typeof x2 === "number") {
+          self2._pos = [x2, y, z];
+          if (typeof self2.ctx.listener.positionX !== "undefined") {
+            self2.ctx.listener.positionX.setTargetAtTime(self2._pos[0], Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.positionY.setTargetAtTime(self2._pos[1], Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.positionZ.setTargetAtTime(self2._pos[2], Howler.ctx.currentTime, 0.1);
+          } else {
+            self2.ctx.listener.setPosition(self2._pos[0], self2._pos[1], self2._pos[2]);
+          }
+        } else {
+          return self2._pos;
+        }
+        return self2;
+      };
+      HowlerGlobal.prototype.orientation = function(x2, y, z, xUp, yUp, zUp) {
+        var self2 = this;
+        if (!self2.ctx || !self2.ctx.listener) {
+          return self2;
+        }
+        var or = self2._orientation;
+        y = typeof y !== "number" ? or[1] : y;
+        z = typeof z !== "number" ? or[2] : z;
+        xUp = typeof xUp !== "number" ? or[3] : xUp;
+        yUp = typeof yUp !== "number" ? or[4] : yUp;
+        zUp = typeof zUp !== "number" ? or[5] : zUp;
+        if (typeof x2 === "number") {
+          self2._orientation = [x2, y, z, xUp, yUp, zUp];
+          if (typeof self2.ctx.listener.forwardX !== "undefined") {
+            self2.ctx.listener.forwardX.setTargetAtTime(x2, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.forwardY.setTargetAtTime(y, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.forwardZ.setTargetAtTime(z, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.upX.setTargetAtTime(xUp, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.upY.setTargetAtTime(yUp, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.upZ.setTargetAtTime(zUp, Howler.ctx.currentTime, 0.1);
+          } else {
+            self2.ctx.listener.setOrientation(x2, y, z, xUp, yUp, zUp);
+          }
+        } else {
+          return or;
+        }
+        return self2;
+      };
+      Howl.prototype.init = function(_super) {
+        return function(o) {
+          var self2 = this;
+          self2._orientation = o.orientation || [1, 0, 0];
+          self2._stereo = o.stereo || null;
+          self2._pos = o.pos || null;
+          self2._pannerAttr = {
+            coneInnerAngle: typeof o.coneInnerAngle !== "undefined" ? o.coneInnerAngle : 360,
+            coneOuterAngle: typeof o.coneOuterAngle !== "undefined" ? o.coneOuterAngle : 360,
+            coneOuterGain: typeof o.coneOuterGain !== "undefined" ? o.coneOuterGain : 0,
+            distanceModel: typeof o.distanceModel !== "undefined" ? o.distanceModel : "inverse",
+            maxDistance: typeof o.maxDistance !== "undefined" ? o.maxDistance : 1e4,
+            panningModel: typeof o.panningModel !== "undefined" ? o.panningModel : "HRTF",
+            refDistance: typeof o.refDistance !== "undefined" ? o.refDistance : 1,
+            rolloffFactor: typeof o.rolloffFactor !== "undefined" ? o.rolloffFactor : 1
+          };
+          self2._onstereo = o.onstereo ? [{ fn: o.onstereo }] : [];
+          self2._onpos = o.onpos ? [{ fn: o.onpos }] : [];
+          self2._onorientation = o.onorientation ? [{ fn: o.onorientation }] : [];
+          return _super.call(this, o);
+        };
+      }(Howl.prototype.init);
+      Howl.prototype.stereo = function(pan, id) {
+        var self2 = this;
+        if (!self2._webAudio) {
+          return self2;
+        }
+        if (self2._state !== "loaded") {
+          self2._queue.push({
+            event: "stereo",
+            action: function() {
+              self2.stereo(pan, id);
+            }
+          });
+          return self2;
+        }
+        var pannerType = typeof Howler.ctx.createStereoPanner === "undefined" ? "spatial" : "stereo";
+        if (typeof id === "undefined") {
+          if (typeof pan === "number") {
+            self2._stereo = pan;
+            self2._pos = [pan, 0, 0];
+          } else {
+            return self2._stereo;
+          }
+        }
+        var ids = self2._getSoundIds(id);
+        for (var i = 0; i < ids.length; i++) {
+          var sound = self2._soundById(ids[i]);
+          if (sound) {
+            if (typeof pan === "number") {
+              sound._stereo = pan;
+              sound._pos = [pan, 0, 0];
+              if (sound._node) {
+                sound._pannerAttr.panningModel = "equalpower";
+                if (!sound._panner || !sound._panner.pan) {
+                  setupPanner(sound, pannerType);
+                }
+                if (pannerType === "spatial") {
+                  if (typeof sound._panner.positionX !== "undefined") {
+                    sound._panner.positionX.setValueAtTime(pan, Howler.ctx.currentTime);
+                    sound._panner.positionY.setValueAtTime(0, Howler.ctx.currentTime);
+                    sound._panner.positionZ.setValueAtTime(0, Howler.ctx.currentTime);
+                  } else {
+                    sound._panner.setPosition(pan, 0, 0);
+                  }
+                } else {
+                  sound._panner.pan.setValueAtTime(pan, Howler.ctx.currentTime);
+                }
+              }
+              self2._emit("stereo", sound._id);
+            } else {
+              return sound._stereo;
+            }
+          }
+        }
+        return self2;
+      };
+      Howl.prototype.pos = function(x2, y, z, id) {
+        var self2 = this;
+        if (!self2._webAudio) {
+          return self2;
+        }
+        if (self2._state !== "loaded") {
+          self2._queue.push({
+            event: "pos",
+            action: function() {
+              self2.pos(x2, y, z, id);
+            }
+          });
+          return self2;
+        }
+        y = typeof y !== "number" ? 0 : y;
+        z = typeof z !== "number" ? -0.5 : z;
+        if (typeof id === "undefined") {
+          if (typeof x2 === "number") {
+            self2._pos = [x2, y, z];
+          } else {
+            return self2._pos;
+          }
+        }
+        var ids = self2._getSoundIds(id);
+        for (var i = 0; i < ids.length; i++) {
+          var sound = self2._soundById(ids[i]);
+          if (sound) {
+            if (typeof x2 === "number") {
+              sound._pos = [x2, y, z];
+              if (sound._node) {
+                if (!sound._panner || sound._panner.pan) {
+                  setupPanner(sound, "spatial");
+                }
+                if (typeof sound._panner.positionX !== "undefined") {
+                  sound._panner.positionX.setValueAtTime(x2, Howler.ctx.currentTime);
+                  sound._panner.positionY.setValueAtTime(y, Howler.ctx.currentTime);
+                  sound._panner.positionZ.setValueAtTime(z, Howler.ctx.currentTime);
+                } else {
+                  sound._panner.setPosition(x2, y, z);
+                }
+              }
+              self2._emit("pos", sound._id);
+            } else {
+              return sound._pos;
+            }
+          }
+        }
+        return self2;
+      };
+      Howl.prototype.orientation = function(x2, y, z, id) {
+        var self2 = this;
+        if (!self2._webAudio) {
+          return self2;
+        }
+        if (self2._state !== "loaded") {
+          self2._queue.push({
+            event: "orientation",
+            action: function() {
+              self2.orientation(x2, y, z, id);
+            }
+          });
+          return self2;
+        }
+        y = typeof y !== "number" ? self2._orientation[1] : y;
+        z = typeof z !== "number" ? self2._orientation[2] : z;
+        if (typeof id === "undefined") {
+          if (typeof x2 === "number") {
+            self2._orientation = [x2, y, z];
+          } else {
+            return self2._orientation;
+          }
+        }
+        var ids = self2._getSoundIds(id);
+        for (var i = 0; i < ids.length; i++) {
+          var sound = self2._soundById(ids[i]);
+          if (sound) {
+            if (typeof x2 === "number") {
+              sound._orientation = [x2, y, z];
+              if (sound._node) {
+                if (!sound._panner) {
+                  if (!sound._pos) {
+                    sound._pos = self2._pos || [0, 0, -0.5];
+                  }
+                  setupPanner(sound, "spatial");
+                }
+                if (typeof sound._panner.orientationX !== "undefined") {
+                  sound._panner.orientationX.setValueAtTime(x2, Howler.ctx.currentTime);
+                  sound._panner.orientationY.setValueAtTime(y, Howler.ctx.currentTime);
+                  sound._panner.orientationZ.setValueAtTime(z, Howler.ctx.currentTime);
+                } else {
+                  sound._panner.setOrientation(x2, y, z);
+                }
+              }
+              self2._emit("orientation", sound._id);
+            } else {
+              return sound._orientation;
+            }
+          }
+        }
+        return self2;
+      };
+      Howl.prototype.pannerAttr = function() {
+        var self2 = this;
+        var args = arguments;
+        var o, id, sound;
+        if (!self2._webAudio) {
+          return self2;
+        }
+        if (args.length === 0) {
+          return self2._pannerAttr;
+        } else if (args.length === 1) {
+          if (typeof args[0] === "object") {
+            o = args[0];
+            if (typeof id === "undefined") {
+              if (!o.pannerAttr) {
+                o.pannerAttr = {
+                  coneInnerAngle: o.coneInnerAngle,
+                  coneOuterAngle: o.coneOuterAngle,
+                  coneOuterGain: o.coneOuterGain,
+                  distanceModel: o.distanceModel,
+                  maxDistance: o.maxDistance,
+                  refDistance: o.refDistance,
+                  rolloffFactor: o.rolloffFactor,
+                  panningModel: o.panningModel
+                };
+              }
+              self2._pannerAttr = {
+                coneInnerAngle: typeof o.pannerAttr.coneInnerAngle !== "undefined" ? o.pannerAttr.coneInnerAngle : self2._coneInnerAngle,
+                coneOuterAngle: typeof o.pannerAttr.coneOuterAngle !== "undefined" ? o.pannerAttr.coneOuterAngle : self2._coneOuterAngle,
+                coneOuterGain: typeof o.pannerAttr.coneOuterGain !== "undefined" ? o.pannerAttr.coneOuterGain : self2._coneOuterGain,
+                distanceModel: typeof o.pannerAttr.distanceModel !== "undefined" ? o.pannerAttr.distanceModel : self2._distanceModel,
+                maxDistance: typeof o.pannerAttr.maxDistance !== "undefined" ? o.pannerAttr.maxDistance : self2._maxDistance,
+                refDistance: typeof o.pannerAttr.refDistance !== "undefined" ? o.pannerAttr.refDistance : self2._refDistance,
+                rolloffFactor: typeof o.pannerAttr.rolloffFactor !== "undefined" ? o.pannerAttr.rolloffFactor : self2._rolloffFactor,
+                panningModel: typeof o.pannerAttr.panningModel !== "undefined" ? o.pannerAttr.panningModel : self2._panningModel
+              };
+            }
+          } else {
+            sound = self2._soundById(parseInt(args[0], 10));
+            return sound ? sound._pannerAttr : self2._pannerAttr;
+          }
+        } else if (args.length === 2) {
+          o = args[0];
+          id = parseInt(args[1], 10);
+        }
+        var ids = self2._getSoundIds(id);
+        for (var i = 0; i < ids.length; i++) {
+          sound = self2._soundById(ids[i]);
+          if (sound) {
+            var pa = sound._pannerAttr;
+            pa = {
+              coneInnerAngle: typeof o.coneInnerAngle !== "undefined" ? o.coneInnerAngle : pa.coneInnerAngle,
+              coneOuterAngle: typeof o.coneOuterAngle !== "undefined" ? o.coneOuterAngle : pa.coneOuterAngle,
+              coneOuterGain: typeof o.coneOuterGain !== "undefined" ? o.coneOuterGain : pa.coneOuterGain,
+              distanceModel: typeof o.distanceModel !== "undefined" ? o.distanceModel : pa.distanceModel,
+              maxDistance: typeof o.maxDistance !== "undefined" ? o.maxDistance : pa.maxDistance,
+              refDistance: typeof o.refDistance !== "undefined" ? o.refDistance : pa.refDistance,
+              rolloffFactor: typeof o.rolloffFactor !== "undefined" ? o.rolloffFactor : pa.rolloffFactor,
+              panningModel: typeof o.panningModel !== "undefined" ? o.panningModel : pa.panningModel
+            };
+            var panner = sound._panner;
+            if (panner) {
+              panner.coneInnerAngle = pa.coneInnerAngle;
+              panner.coneOuterAngle = pa.coneOuterAngle;
+              panner.coneOuterGain = pa.coneOuterGain;
+              panner.distanceModel = pa.distanceModel;
+              panner.maxDistance = pa.maxDistance;
+              panner.refDistance = pa.refDistance;
+              panner.rolloffFactor = pa.rolloffFactor;
+              panner.panningModel = pa.panningModel;
+            } else {
+              if (!sound._pos) {
+                sound._pos = self2._pos || [0, 0, -0.5];
+              }
+              setupPanner(sound, "spatial");
+            }
+          }
+        }
+        return self2;
+      };
+      Sound.prototype.init = function(_super) {
+        return function() {
+          var self2 = this;
+          var parent = self2._parent;
+          self2._orientation = parent._orientation;
+          self2._stereo = parent._stereo;
+          self2._pos = parent._pos;
+          self2._pannerAttr = parent._pannerAttr;
+          _super.call(this);
+          if (self2._stereo) {
+            parent.stereo(self2._stereo);
+          } else if (self2._pos) {
+            parent.pos(self2._pos[0], self2._pos[1], self2._pos[2], self2._id);
+          }
+        };
+      }(Sound.prototype.init);
+      Sound.prototype.reset = function(_super) {
+        return function() {
+          var self2 = this;
+          var parent = self2._parent;
+          self2._orientation = parent._orientation;
+          self2._stereo = parent._stereo;
+          self2._pos = parent._pos;
+          self2._pannerAttr = parent._pannerAttr;
+          if (self2._stereo) {
+            parent.stereo(self2._stereo);
+          } else if (self2._pos) {
+            parent.pos(self2._pos[0], self2._pos[1], self2._pos[2], self2._id);
+          } else if (self2._panner) {
+            self2._panner.disconnect(0);
+            self2._panner = void 0;
+            parent._refreshBuffer(self2);
+          }
+          return _super.call(this);
+        };
+      }(Sound.prototype.reset);
+      var setupPanner = function(sound, type) {
+        type = type || "spatial";
+        if (type === "spatial") {
+          sound._panner = Howler.ctx.createPanner();
+          sound._panner.coneInnerAngle = sound._pannerAttr.coneInnerAngle;
+          sound._panner.coneOuterAngle = sound._pannerAttr.coneOuterAngle;
+          sound._panner.coneOuterGain = sound._pannerAttr.coneOuterGain;
+          sound._panner.distanceModel = sound._pannerAttr.distanceModel;
+          sound._panner.maxDistance = sound._pannerAttr.maxDistance;
+          sound._panner.refDistance = sound._pannerAttr.refDistance;
+          sound._panner.rolloffFactor = sound._pannerAttr.rolloffFactor;
+          sound._panner.panningModel = sound._pannerAttr.panningModel;
+          if (typeof sound._panner.positionX !== "undefined") {
+            sound._panner.positionX.setValueAtTime(sound._pos[0], Howler.ctx.currentTime);
+            sound._panner.positionY.setValueAtTime(sound._pos[1], Howler.ctx.currentTime);
+            sound._panner.positionZ.setValueAtTime(sound._pos[2], Howler.ctx.currentTime);
+          } else {
+            sound._panner.setPosition(sound._pos[0], sound._pos[1], sound._pos[2]);
+          }
+          if (typeof sound._panner.orientationX !== "undefined") {
+            sound._panner.orientationX.setValueAtTime(sound._orientation[0], Howler.ctx.currentTime);
+            sound._panner.orientationY.setValueAtTime(sound._orientation[1], Howler.ctx.currentTime);
+            sound._panner.orientationZ.setValueAtTime(sound._orientation[2], Howler.ctx.currentTime);
+          } else {
+            sound._panner.setOrientation(sound._orientation[0], sound._orientation[1], sound._orientation[2]);
+          }
+        } else {
+          sound._panner = Howler.ctx.createStereoPanner();
+          sound._panner.pan.setValueAtTime(sound._stereo, Howler.ctx.currentTime);
+        }
+        sound._panner.connect(sound._node);
+        if (!sound._paused) {
+          sound._parent.pause(sound._id, true).play(sound._id, true);
+        }
+      };
+    })();
+  }
+});
+
+// node_modules/earcut/src/earcut.js
+var require_earcut = __commonJS({
+  "node_modules/earcut/src/earcut.js"(exports, module) {
+    "use strict";
+    module.exports = earcut2;
+    module.exports.default = earcut2;
+    function earcut2(data, holeIndices, dim) {
+      dim = dim || 2;
+      var hasHoles = holeIndices && holeIndices.length, outerLen = hasHoles ? holeIndices[0] * dim : data.length, outerNode = linkedList(data, 0, outerLen, dim, true), triangles = [];
+      if (!outerNode || outerNode.next === outerNode.prev)
+        return triangles;
+      var minX, minY, maxX, maxY, x2, y, invSize;
+      if (hasHoles)
+        outerNode = eliminateHoles(data, holeIndices, outerNode, dim);
+      if (data.length > 80 * dim) {
+        minX = maxX = data[0];
+        minY = maxY = data[1];
+        for (var i = dim; i < outerLen; i += dim) {
+          x2 = data[i];
+          y = data[i + 1];
+          if (x2 < minX)
+            minX = x2;
+          if (y < minY)
+            minY = y;
+          if (x2 > maxX)
+            maxX = x2;
+          if (y > maxY)
+            maxY = y;
+        }
+        invSize = Math.max(maxX - minX, maxY - minY);
+        invSize = invSize !== 0 ? 32767 / invSize : 0;
+      }
+      earcutLinked(outerNode, triangles, dim, minX, minY, invSize, 0);
+      return triangles;
+    }
+    function linkedList(data, start, end, dim, clockwise) {
+      var i, last;
+      if (clockwise === signedArea(data, start, end, dim) > 0) {
+        for (i = start; i < end; i += dim)
+          last = insertNode(i, data[i], data[i + 1], last);
+      } else {
+        for (i = end - dim; i >= start; i -= dim)
+          last = insertNode(i, data[i], data[i + 1], last);
+      }
+      if (last && equals6(last, last.next)) {
+        removeNode(last);
+        last = last.next;
+      }
+      return last;
+    }
+    function filterPoints(start, end) {
+      if (!start)
+        return start;
+      if (!end)
+        end = start;
+      var p = start, again;
+      do {
+        again = false;
+        if (!p.steiner && (equals6(p, p.next) || area(p.prev, p, p.next) === 0)) {
+          removeNode(p);
+          p = end = p.prev;
+          if (p === p.next)
+            break;
+          again = true;
+        } else {
+          p = p.next;
+        }
+      } while (again || p !== end);
+      return end;
+    }
+    function earcutLinked(ear, triangles, dim, minX, minY, invSize, pass) {
+      if (!ear)
+        return;
+      if (!pass && invSize)
+        indexCurve(ear, minX, minY, invSize);
+      var stop = ear, prev, next;
+      while (ear.prev !== ear.next) {
+        prev = ear.prev;
+        next = ear.next;
+        if (invSize ? isEarHashed(ear, minX, minY, invSize) : isEar(ear)) {
+          triangles.push(prev.i / dim | 0);
+          triangles.push(ear.i / dim | 0);
+          triangles.push(next.i / dim | 0);
+          removeNode(ear);
+          ear = next.next;
+          stop = next.next;
+          continue;
+        }
+        ear = next;
+        if (ear === stop) {
+          if (!pass) {
+            earcutLinked(filterPoints(ear), triangles, dim, minX, minY, invSize, 1);
+          } else if (pass === 1) {
+            ear = cureLocalIntersections(filterPoints(ear), triangles, dim);
+            earcutLinked(ear, triangles, dim, minX, minY, invSize, 2);
+          } else if (pass === 2) {
+            splitEarcut(ear, triangles, dim, minX, minY, invSize);
+          }
+          break;
         }
       }
-    `}).then(n=>{if(n.status!=200)return te;let a=n.data.data.tokenDatas[0]?.sellerNFTSetting?.sellerAuctions[0],o=null;for(let i=0;i<a?.buyerCampaignsApproved.length;i++)a?.buyerCampaignsApproved[i]&&a?.buyerCampaigns.length>0&&(o=a.buyerCampaigns[i]);return o??te}).catch(n=>(console.log(n),te))},ot=async(t,e,r)=>{if(!t){let s={uri:"DEFAULT_URI",data:nr},n=e||N;console.log(n);let a=r||nt;return s.data.image=x[n].style[a],s}return ee.default.get(U(t)).then(s=>s.status==200?{uri:t,data:s.data}:null)},re=(t,e,r,s,n,a,o,i,l="polygon")=>{};WL.registerComponent("zesty-banner",{creator:{type:WL.Type.String},space:{type:WL.Type.Int},network:{type:WL.Type.Enum,values:["rinkeby","polygon"],default:"polygon"},format:{type:WL.Type.Enum,values:Object.keys(x),default:N},style:{type:WL.Type.Enum,values:["standard","minimal","transparent"],default:"transparent"},scaleToRatio:{type:WL.Type.Bool,default:!0},textureProperty:{type:WL.Type.String,default:"auto"}},{init:function(){this.formats=Object.values(x),this.formatKeys=Object.keys(x),this.styleKeys=["standard","minimal","transparent"]},start:function(){if(this.mesh=this.object.getComponent("mesh"),!this.mesh)throw new Error("'zesty-banner ' missing mesh component");this.collision=this.object.getComponent("collision")||this.object.addComponent("collision",{collider:WL.Collider.Box,group:2}),this.cursorTarget=this.object.getComponent("cursor-target")||this.object.addComponent("cursor-target"),this.cursorTarget.addClickFunction(this.onClick.bind(this)),this.loadBanner(this.space,this.creator,this.network,this.formatKeys[this.format],this.styleKeys[this.style]).then(t=>{this.banner=t,this.scaleToRatio&&(this.height=this.object.scalingLocal[1],this.object.resetScaling(),this.collision.extents=[this.formats[this.format].width*this.height,this.height,.1],this.object.scale([this.formats[this.format].width*this.height,this.height,1]));let e=this.mesh.material;if(this.textureProperty==="auto"){let r=e.pipeline||e.shader;if(r=="Phong Opaque Textured")e.diffuseTexture=t.texture,e.alphaMaskThreshold=.3;else if(r=="Flat Opaque Textured")e.flatTexture=t.texture,e.alphaMaskThreshold=.8;else throw Error("'zesty-banner ' unable to apply banner texture: unsupported pipeline "+e.shader)}else this.mesh.material[this.textureProperty]=t.texture;re(this.creator,this.space,this.banner.uri,this.banner.src,this.banner.cta,"load",0,"wonderland")})},onClick:function(){this.banner.url&&(WL.xrSession?WL.xrSession.end().then(this.executeClick.bind(this)):this.executeClick())},executeClick:function(){window.open(this.banner.url,"_blank"),re(this.creator,this.space,this.banner.uri,this.banner.imageSrc,this.banner.url,"click",0,"wonderland")},loadBanner:async function(t,e,r,s,n){r=r?"polygon":"rinkeby";let a=await at(t,e,r),o=await ot(a.uri,s,n),i=o.data.url;i=i.match(/^http[s]?:\/\//)?i:"https://"+i,i=="https://www.zesty.market"&&(i=`https://app.zesty.market/space/${t}`);let l=o.data.image;return l=l.match(/^.+\.(png|jpe?g)/i)?l:U(l),WL.textures.load(l,"").then(b=>(o.texture=b,o.imageSrc=l,o.url=i,o))}});})();
-//# sourceMappingURL=zesty-wonderland-sdk.js.map
+    }
+    function isEar(ear) {
+      var a = ear.prev, b = ear, c = ear.next;
+      if (area(a, b, c) >= 0)
+        return false;
+      var ax = a.x, bx = b.x, cx = c.x, ay = a.y, by = b.y, cy = c.y;
+      var x0 = ax < bx ? ax < cx ? ax : cx : bx < cx ? bx : cx, y0 = ay < by ? ay < cy ? ay : cy : by < cy ? by : cy, x1 = ax > bx ? ax > cx ? ax : cx : bx > cx ? bx : cx, y1 = ay > by ? ay > cy ? ay : cy : by > cy ? by : cy;
+      var p = c.next;
+      while (p !== a) {
+        if (p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1 && pointInTriangle(ax, ay, bx, by, cx, cy, p.x, p.y) && area(p.prev, p, p.next) >= 0)
+          return false;
+        p = p.next;
+      }
+      return true;
+    }
+    function isEarHashed(ear, minX, minY, invSize) {
+      var a = ear.prev, b = ear, c = ear.next;
+      if (area(a, b, c) >= 0)
+        return false;
+      var ax = a.x, bx = b.x, cx = c.x, ay = a.y, by = b.y, cy = c.y;
+      var x0 = ax < bx ? ax < cx ? ax : cx : bx < cx ? bx : cx, y0 = ay < by ? ay < cy ? ay : cy : by < cy ? by : cy, x1 = ax > bx ? ax > cx ? ax : cx : bx > cx ? bx : cx, y1 = ay > by ? ay > cy ? ay : cy : by > cy ? by : cy;
+      var minZ = zOrder(x0, y0, minX, minY, invSize), maxZ = zOrder(x1, y1, minX, minY, invSize);
+      var p = ear.prevZ, n = ear.nextZ;
+      while (p && p.z >= minZ && n && n.z <= maxZ) {
+        if (p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1 && p !== a && p !== c && pointInTriangle(ax, ay, bx, by, cx, cy, p.x, p.y) && area(p.prev, p, p.next) >= 0)
+          return false;
+        p = p.prevZ;
+        if (n.x >= x0 && n.x <= x1 && n.y >= y0 && n.y <= y1 && n !== a && n !== c && pointInTriangle(ax, ay, bx, by, cx, cy, n.x, n.y) && area(n.prev, n, n.next) >= 0)
+          return false;
+        n = n.nextZ;
+      }
+      while (p && p.z >= minZ) {
+        if (p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1 && p !== a && p !== c && pointInTriangle(ax, ay, bx, by, cx, cy, p.x, p.y) && area(p.prev, p, p.next) >= 0)
+          return false;
+        p = p.prevZ;
+      }
+      while (n && n.z <= maxZ) {
+        if (n.x >= x0 && n.x <= x1 && n.y >= y0 && n.y <= y1 && n !== a && n !== c && pointInTriangle(ax, ay, bx, by, cx, cy, n.x, n.y) && area(n.prev, n, n.next) >= 0)
+          return false;
+        n = n.nextZ;
+      }
+      return true;
+    }
+    function cureLocalIntersections(start, triangles, dim) {
+      var p = start;
+      do {
+        var a = p.prev, b = p.next.next;
+        if (!equals6(a, b) && intersects(a, p, p.next, b) && locallyInside(a, b) && locallyInside(b, a)) {
+          triangles.push(a.i / dim | 0);
+          triangles.push(p.i / dim | 0);
+          triangles.push(b.i / dim | 0);
+          removeNode(p);
+          removeNode(p.next);
+          p = start = b;
+        }
+        p = p.next;
+      } while (p !== start);
+      return filterPoints(p);
+    }
+    function splitEarcut(start, triangles, dim, minX, minY, invSize) {
+      var a = start;
+      do {
+        var b = a.next.next;
+        while (b !== a.prev) {
+          if (a.i !== b.i && isValidDiagonal(a, b)) {
+            var c = splitPolygon(a, b);
+            a = filterPoints(a, a.next);
+            c = filterPoints(c, c.next);
+            earcutLinked(a, triangles, dim, minX, minY, invSize, 0);
+            earcutLinked(c, triangles, dim, minX, minY, invSize, 0);
+            return;
+          }
+          b = b.next;
+        }
+        a = a.next;
+      } while (a !== start);
+    }
+    function eliminateHoles(data, holeIndices, outerNode, dim) {
+      var queue = [], i, len4, start, end, list;
+      for (i = 0, len4 = holeIndices.length; i < len4; i++) {
+        start = holeIndices[i] * dim;
+        end = i < len4 - 1 ? holeIndices[i + 1] * dim : data.length;
+        list = linkedList(data, start, end, dim, false);
+        if (list === list.next)
+          list.steiner = true;
+        queue.push(getLeftmost(list));
+      }
+      queue.sort(compareX);
+      for (i = 0; i < queue.length; i++) {
+        outerNode = eliminateHole(queue[i], outerNode);
+      }
+      return outerNode;
+    }
+    function compareX(a, b) {
+      return a.x - b.x;
+    }
+    function eliminateHole(hole, outerNode) {
+      var bridge = findHoleBridge(hole, outerNode);
+      if (!bridge) {
+        return outerNode;
+      }
+      var bridgeReverse = splitPolygon(bridge, hole);
+      filterPoints(bridgeReverse, bridgeReverse.next);
+      return filterPoints(bridge, bridge.next);
+    }
+    function findHoleBridge(hole, outerNode) {
+      var p = outerNode, hx = hole.x, hy = hole.y, qx = -Infinity, m;
+      do {
+        if (hy <= p.y && hy >= p.next.y && p.next.y !== p.y) {
+          var x2 = p.x + (hy - p.y) * (p.next.x - p.x) / (p.next.y - p.y);
+          if (x2 <= hx && x2 > qx) {
+            qx = x2;
+            m = p.x < p.next.x ? p : p.next;
+            if (x2 === hx)
+              return m;
+          }
+        }
+        p = p.next;
+      } while (p !== outerNode);
+      if (!m)
+        return null;
+      var stop = m, mx = m.x, my = m.y, tanMin = Infinity, tan;
+      p = m;
+      do {
+        if (hx >= p.x && p.x >= mx && hx !== p.x && pointInTriangle(hy < my ? hx : qx, hy, mx, my, hy < my ? qx : hx, hy, p.x, p.y)) {
+          tan = Math.abs(hy - p.y) / (hx - p.x);
+          if (locallyInside(p, hole) && (tan < tanMin || tan === tanMin && (p.x > m.x || p.x === m.x && sectorContainsSector(m, p)))) {
+            m = p;
+            tanMin = tan;
+          }
+        }
+        p = p.next;
+      } while (p !== stop);
+      return m;
+    }
+    function sectorContainsSector(m, p) {
+      return area(m.prev, m, p.prev) < 0 && area(p.next, m, m.next) < 0;
+    }
+    function indexCurve(start, minX, minY, invSize) {
+      var p = start;
+      do {
+        if (p.z === 0)
+          p.z = zOrder(p.x, p.y, minX, minY, invSize);
+        p.prevZ = p.prev;
+        p.nextZ = p.next;
+        p = p.next;
+      } while (p !== start);
+      p.prevZ.nextZ = null;
+      p.prevZ = null;
+      sortLinked(p);
+    }
+    function sortLinked(list) {
+      var i, p, q2, e, tail, numMerges, pSize, qSize, inSize = 1;
+      do {
+        p = list;
+        list = null;
+        tail = null;
+        numMerges = 0;
+        while (p) {
+          numMerges++;
+          q2 = p;
+          pSize = 0;
+          for (i = 0; i < inSize; i++) {
+            pSize++;
+            q2 = q2.nextZ;
+            if (!q2)
+              break;
+          }
+          qSize = inSize;
+          while (pSize > 0 || qSize > 0 && q2) {
+            if (pSize !== 0 && (qSize === 0 || !q2 || p.z <= q2.z)) {
+              e = p;
+              p = p.nextZ;
+              pSize--;
+            } else {
+              e = q2;
+              q2 = q2.nextZ;
+              qSize--;
+            }
+            if (tail)
+              tail.nextZ = e;
+            else
+              list = e;
+            e.prevZ = tail;
+            tail = e;
+          }
+          p = q2;
+        }
+        tail.nextZ = null;
+        inSize *= 2;
+      } while (numMerges > 1);
+      return list;
+    }
+    function zOrder(x2, y, minX, minY, invSize) {
+      x2 = (x2 - minX) * invSize | 0;
+      y = (y - minY) * invSize | 0;
+      x2 = (x2 | x2 << 8) & 16711935;
+      x2 = (x2 | x2 << 4) & 252645135;
+      x2 = (x2 | x2 << 2) & 858993459;
+      x2 = (x2 | x2 << 1) & 1431655765;
+      y = (y | y << 8) & 16711935;
+      y = (y | y << 4) & 252645135;
+      y = (y | y << 2) & 858993459;
+      y = (y | y << 1) & 1431655765;
+      return x2 | y << 1;
+    }
+    function getLeftmost(start) {
+      var p = start, leftmost = start;
+      do {
+        if (p.x < leftmost.x || p.x === leftmost.x && p.y < leftmost.y)
+          leftmost = p;
+        p = p.next;
+      } while (p !== start);
+      return leftmost;
+    }
+    function pointInTriangle(ax, ay, bx, by, cx, cy, px, py) {
+      return (cx - px) * (ay - py) >= (ax - px) * (cy - py) && (ax - px) * (by - py) >= (bx - px) * (ay - py) && (bx - px) * (cy - py) >= (cx - px) * (by - py);
+    }
+    function isValidDiagonal(a, b) {
+      return a.next.i !== b.i && a.prev.i !== b.i && !intersectsPolygon(a, b) && // dones't intersect other edges
+      (locallyInside(a, b) && locallyInside(b, a) && middleInside(a, b) && // locally visible
+      (area(a.prev, a, b.prev) || area(a, b.prev, b)) || // does not create opposite-facing sectors
+      equals6(a, b) && area(a.prev, a, a.next) > 0 && area(b.prev, b, b.next) > 0);
+    }
+    function area(p, q2, r) {
+      return (q2.y - p.y) * (r.x - q2.x) - (q2.x - p.x) * (r.y - q2.y);
+    }
+    function equals6(p1, p2) {
+      return p1.x === p2.x && p1.y === p2.y;
+    }
+    function intersects(p1, q1, p2, q2) {
+      var o1 = sign(area(p1, q1, p2));
+      var o2 = sign(area(p1, q1, q2));
+      var o3 = sign(area(p2, q2, p1));
+      var o4 = sign(area(p2, q2, q1));
+      if (o1 !== o2 && o3 !== o4)
+        return true;
+      if (o1 === 0 && onSegment(p1, p2, q1))
+        return true;
+      if (o2 === 0 && onSegment(p1, q2, q1))
+        return true;
+      if (o3 === 0 && onSegment(p2, p1, q2))
+        return true;
+      if (o4 === 0 && onSegment(p2, q1, q2))
+        return true;
+      return false;
+    }
+    function onSegment(p, q2, r) {
+      return q2.x <= Math.max(p.x, r.x) && q2.x >= Math.min(p.x, r.x) && q2.y <= Math.max(p.y, r.y) && q2.y >= Math.min(p.y, r.y);
+    }
+    function sign(num) {
+      return num > 0 ? 1 : num < 0 ? -1 : 0;
+    }
+    function intersectsPolygon(a, b) {
+      var p = a;
+      do {
+        if (p.i !== a.i && p.next.i !== a.i && p.i !== b.i && p.next.i !== b.i && intersects(p, p.next, a, b))
+          return true;
+        p = p.next;
+      } while (p !== a);
+      return false;
+    }
+    function locallyInside(a, b) {
+      return area(a.prev, a, a.next) < 0 ? area(a, b, a.next) >= 0 && area(a, a.prev, b) >= 0 : area(a, b, a.prev) < 0 || area(a, a.next, b) < 0;
+    }
+    function middleInside(a, b) {
+      var p = a, inside = false, px = (a.x + b.x) / 2, py = (a.y + b.y) / 2;
+      do {
+        if (p.y > py !== p.next.y > py && p.next.y !== p.y && px < (p.next.x - p.x) * (py - p.y) / (p.next.y - p.y) + p.x)
+          inside = !inside;
+        p = p.next;
+      } while (p !== a);
+      return inside;
+    }
+    function splitPolygon(a, b) {
+      var a2 = new Node(a.i, a.x, a.y), b2 = new Node(b.i, b.x, b.y), an = a.next, bp = b.prev;
+      a.next = b;
+      b.prev = a;
+      a2.next = an;
+      an.prev = a2;
+      b2.next = a2;
+      a2.prev = b2;
+      bp.next = b2;
+      b2.prev = bp;
+      return b2;
+    }
+    function insertNode(i, x2, y, last) {
+      var p = new Node(i, x2, y);
+      if (!last) {
+        p.prev = p;
+        p.next = p;
+      } else {
+        p.next = last.next;
+        p.prev = last;
+        last.next.prev = p;
+        last.next = p;
+      }
+      return p;
+    }
+    function removeNode(p) {
+      p.next.prev = p.prev;
+      p.prev.next = p.next;
+      if (p.prevZ)
+        p.prevZ.nextZ = p.nextZ;
+      if (p.nextZ)
+        p.nextZ.prevZ = p.prevZ;
+    }
+    function Node(i, x2, y) {
+      this.i = i;
+      this.x = x2;
+      this.y = y;
+      this.prev = null;
+      this.next = null;
+      this.z = 0;
+      this.prevZ = null;
+      this.nextZ = null;
+      this.steiner = false;
+    }
+    earcut2.deviation = function(data, holeIndices, dim, triangles) {
+      var hasHoles = holeIndices && holeIndices.length;
+      var outerLen = hasHoles ? holeIndices[0] * dim : data.length;
+      var polygonArea = Math.abs(signedArea(data, 0, outerLen, dim));
+      if (hasHoles) {
+        for (var i = 0, len4 = holeIndices.length; i < len4; i++) {
+          var start = holeIndices[i] * dim;
+          var end = i < len4 - 1 ? holeIndices[i + 1] * dim : data.length;
+          polygonArea -= Math.abs(signedArea(data, start, end, dim));
+        }
+      }
+      var trianglesArea = 0;
+      for (i = 0; i < triangles.length; i += 3) {
+        var a = triangles[i] * dim;
+        var b = triangles[i + 1] * dim;
+        var c = triangles[i + 2] * dim;
+        trianglesArea += Math.abs(
+          (data[a] - data[c]) * (data[b + 1] - data[a + 1]) - (data[a] - data[b]) * (data[c + 1] - data[a + 1])
+        );
+      }
+      return polygonArea === 0 && trianglesArea === 0 ? 0 : Math.abs((trianglesArea - polygonArea) / polygonArea);
+    };
+    function signedArea(data, start, end, dim) {
+      var sum = 0;
+      for (var i = start, j = end - dim; i < end; i += dim) {
+        sum += (data[j] - data[i]) * (data[i + 1] + data[j + 1]);
+        j = i;
+      }
+      return sum;
+    }
+    earcut2.flatten = function(data) {
+      var dim = data[0][0].length, result = { vertices: [], holes: [], dimensions: dim }, holeIndex = 0;
+      for (var i = 0; i < data.length; i++) {
+        for (var j = 0; j < data[i].length; j++) {
+          for (var d2 = 0; d2 < dim; d2++)
+            result.vertices.push(data[i][j][d2]);
+        }
+        if (i > 0) {
+          holeIndex += data[i - 1].length;
+          result.holes.push(holeIndex);
+        }
+      }
+      return result;
+    };
+  }
+});
 
+// node_modules/@wonderlandengine/api/dist/index.js
+var dist_exports = {};
+__export(dist_exports, {
+  APIVersion: () => APIVersion,
+  Alignment: () => Alignment,
+  Animation: () => Animation,
+  AnimationComponent: () => AnimationComponent,
+  AnimationState: () => AnimationState,
+  Collider: () => Collider,
+  CollisionComponent: () => CollisionComponent,
+  CollisionEventType: () => CollisionEventType,
+  Component: () => Component,
+  Emitter: () => Emitter,
+  ForceMode: () => ForceMode,
+  I18N: () => I18N,
+  InputComponent: () => InputComponent,
+  InputType: () => InputType,
+  Justification: () => Justification,
+  LightComponent: () => LightComponent,
+  LightType: () => LightType,
+  LockAxis: () => LockAxis,
+  Material: () => Material,
+  MaterialParamType: () => MaterialParamType,
+  Mesh: () => Mesh,
+  MeshAttribute: () => MeshAttribute,
+  MeshAttributeAccessor: () => MeshAttributeAccessor,
+  MeshComponent: () => MeshComponent,
+  MeshIndexType: () => MeshIndexType,
+  Object: () => Object3D,
+  Object3D: () => Object3D,
+  PhysXComponent: () => PhysXComponent,
+  Physics: () => Physics,
+  Property: () => Property,
+  RayHit: () => RayHit,
+  RetainEmitter: () => RetainEmitter,
+  Scene: () => Scene,
+  Shape: () => Shape,
+  Skin: () => Skin,
+  TextComponent: () => TextComponent,
+  TextEffect: () => TextEffect,
+  Texture: () => Texture,
+  TextureManager: () => TextureManager,
+  Type: () => Type,
+  ViewComponent: () => ViewComponent,
+  WASM: () => WASM,
+  WonderlandEngine: () => WonderlandEngine,
+  XR: () => XR,
+  checkRuntimeCompatibility: () => checkRuntimeCompatibility,
+  loadRuntime: () => loadRuntime,
+  math: () => math
+});
+
+// node_modules/wasm-feature-detect/dist/esm/index.js
+var simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 10, 10, 1, 8, 0, 65, 0, 253, 15, 253, 98, 11]));
+var threads = () => (async (e) => {
+  try {
+    return "undefined" != typeof MessageChannel && new MessageChannel().port1.postMessage(new SharedArrayBuffer(1)), WebAssembly.validate(e);
+  } catch (e2) {
+    return false;
+  }
+})(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 5, 4, 1, 3, 1, 1, 10, 11, 1, 9, 0, 65, 0, 254, 16, 2, 0, 26, 11]));
+
+// node_modules/@wonderlandengine/api/dist/property.js
+var Type;
+(function(Type2) {
+  Type2[Type2["Native"] = 1] = "Native";
+  Type2[Type2["Bool"] = 2] = "Bool";
+  Type2[Type2["Int"] = 4] = "Int";
+  Type2[Type2["Float"] = 8] = "Float";
+  Type2[Type2["String"] = 16] = "String";
+  Type2[Type2["Enum"] = 32] = "Enum";
+  Type2[Type2["Object"] = 64] = "Object";
+  Type2[Type2["Mesh"] = 128] = "Mesh";
+  Type2[Type2["Texture"] = 256] = "Texture";
+  Type2[Type2["Material"] = 512] = "Material";
+  Type2[Type2["Animation"] = 1024] = "Animation";
+  Type2[Type2["Skin"] = 2048] = "Skin";
+  Type2[Type2["Color"] = 4096] = "Color";
+})(Type || (Type = {}));
+var Property = {
+  /**
+   * Create an boolean property.
+   *
+   * @param defaultValue The default value. If not provided, defaults to `false`.
+   */
+  bool(defaultValue = false) {
+    return { type: Type.Bool, default: defaultValue };
+  },
+  /**
+   * Create an integer property.
+   *
+   * @param defaultValue The default value. If not provided, defaults to `0`.
+   */
+  int(defaultValue = 0) {
+    return { type: Type.Int, default: defaultValue };
+  },
+  /**
+   * Create an float property.
+   *
+   * @param defaultValue The default value. If not provided, defaults to `0.0`.
+   */
+  float(defaultValue = 0) {
+    return { type: Type.Float, default: defaultValue };
+  },
+  /**
+   * Create an string property.
+   *
+   * @param defaultValue The default value. If not provided, defaults to `''`.
+   */
+  string(defaultValue = "") {
+    return { type: Type.String, default: defaultValue };
+  },
+  /**
+   * Create an enumeration property.
+   *
+   * @param values The list of values.
+   * @param defaultValue The default value. Can be a string or an index into
+   *     `values`. If not provided, defaults to the first element.
+   */
+  enum(values, defaultValue) {
+    return { type: Type.Enum, values, default: defaultValue };
+  },
+  /** Create an {@link Object3D} reference property. */
+  object() {
+    return { type: Type.Object, default: null };
+  },
+  /** Create a {@link Mesh} reference property. */
+  mesh() {
+    return { type: Type.Mesh, default: null };
+  },
+  /** Create a {@link Texture} reference property. */
+  texture() {
+    return { type: Type.Texture, default: null };
+  },
+  /** Create a {@link Material} reference property. */
+  material() {
+    return { type: Type.Material, default: null };
+  },
+  /** Create an {@link Animation} reference property. */
+  animation() {
+    return { type: Type.Animation, default: null };
+  },
+  /** Create a {@link Skin} reference property. */
+  skin() {
+    return { type: Type.Skin, default: null };
+  },
+  /**
+   * Create a color property.
+   *
+   * @param r The red component, in the range [0; 1].
+   * @param g The green component, in the range [0; 1].
+   * @param b The blue component, in the range [0; 1].
+   * @param a The alpha component, in the range [0; 1].
+   */
+  color(r = 0, g = 0, b = 0, a = 1) {
+    return { type: Type.Color, default: [r, g, b, a] };
+  }
+};
+
+// node_modules/@wonderlandengine/api/dist/decorators.js
+function propertyDecorator(data) {
+  return function(target, propertyKey) {
+    const ctor = target.constructor;
+    ctor.Properties = ctor.Properties ?? {};
+    ctor.Properties[propertyKey] = data;
+  };
+}
+function enumerable() {
+  return function(_, __, descriptor) {
+    descriptor.enumerable = true;
+  };
+}
+function nativeProperty() {
+  return function(target, propertyKey, descriptor) {
+    enumerable()(target, propertyKey, descriptor);
+    propertyDecorator({ type: Type.Native })(target, propertyKey);
+  };
+}
+var property = {};
+for (const name in Property) {
+  property[name] = (...args) => {
+    const functor = Property[name];
+    return propertyDecorator(functor(...args));
+  };
+}
+
+// node_modules/@wonderlandengine/api/dist/utils/object.js
+function isString(value) {
+  if (value === "")
+    return true;
+  return value && (typeof value === "string" || value.constructor === String);
+}
+function isNumber(value) {
+  if (value === null || value === void 0)
+    return false;
+  return typeof value === "number" || value.constructor === Number;
+}
+
+// node_modules/@wonderlandengine/api/dist/utils/event.js
+var Emitter = class {
+  /**
+   * List of listeners to trigger when `notify` is called.
+   *
+   * @hidden
+   */
+  _listeners = [];
+  /**
+   * Register a new listener to be triggered on {@link Emitter.notify}.
+   *
+   * Basic usage:
+   *
+   * ```js
+   * emitter.add((data) => {
+   *     console.log('event received!');
+   *     console.log(data);
+   * });
+   * ```
+   *
+   * Automatically remove the listener when an event is received:
+   *
+   * ```js
+   * emitter.add((data) => {
+   *     console.log('event received!');
+   *     console.log(data);
+   * }, {once: true});
+   * ```
+   *
+   * @param listener The callback to register.
+   * @param opts The listener options. For more information, please have a look
+   *     at the {@link ListenerOptions} interface.
+   *
+   * @returns Reference to self (for method chaining)
+   */
+  add(listener, opts = {}) {
+    const { once = false, id = void 0 } = opts;
+    this._listeners.push({ id, once, callback: listener });
+    return this;
+  }
+  /**
+   * Equivalent to {@link Emitter.add}.
+   *
+   * @param listeners The callback(s) to register.
+   * @returns Reference to self (for method chaining).
+   *
+   * @deprecated Please use {@link Emitter.add} instead.
+   */
+  push(...listeners) {
+    for (const cb of listeners)
+      this.add(cb);
+    return this;
+  }
+  /**
+   * Register a new listener to be triggered on {@link Emitter.notify}.
+   *
+   * Once notified, the listener will be automatically removed.
+   *
+   * The method is equivalent to calling {@link Emitter.add} with:
+   *
+   * ```js
+   * emitter.add(listener, {once: true});
+   * ```
+   *
+   * @param listener The callback to register.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  once(listener) {
+    return this.add(listener, { once: true });
+  }
+  /**
+   * Remove a registered listener.
+   *
+   * Usage with a callback:
+   *
+   * ```js
+   * const listener = (data) => console.log(data);
+   * emitter.add(listener);
+   *
+   * // Remove using the callback reference:
+   * emitter.remove(listener);
+   * ```
+   *
+   * Usage with an id:
+   *
+   * ```js
+   * emitter.add((data) => console.log(data), {id: 'my-callback'});
+   *
+   * // Remove using the id:
+   * emitter.remove('my-callback');
+   * ```
+   *
+   * @param listener The registered callback or a string representing the `id`.
+   *
+   * @returns Reference to self (for method chaining)
+   */
+  remove(listener) {
+    const index = this._find(listener);
+    if (index !== null)
+      this._listeners.splice(index, 1);
+    return this;
+  }
+  /**
+   * Check whether the listener is registered.
+   *
+   * @note This method performs a linear search.
+   *
+   * @param listener The registered callback or a string representing the `id`.
+   * @returns `true` if the handle is found, `false` otherwise.
+   */
+  has(listener) {
+    return this._find(listener) !== null;
+  }
+  /**
+   * Notify listeners with the given data object.
+   *
+   * @note This method ensures all listeners are called even if
+   * an exception is thrown. For (possibly) faster notification,
+   * please use {@link Emitter.notifyUnsafe}.
+   *
+   * @param data The data to pass to listener when invoked.
+   */
+  notify(...data) {
+    const listeners = this._listeners;
+    for (let i = 0; i < listeners.length; ++i) {
+      const listener = listeners[i];
+      if (listener.once)
+        listeners.splice(i--, 1);
+      try {
+        listener.callback(...data);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
+  /**
+   * Notify listeners with the given data object.
+   *
+   * @note Because this method doesn't catch exceptions, some listeners
+   * will be skipped on a throw. Please use {@link Emitter.notify} for safe
+   * notification.
+   *
+   * @param data The data to pass to listener when invoked.
+   */
+  notifyUnsafe(...data) {
+    const listeners = this._listeners;
+    for (let i = 0; i < listeners.length; ++i) {
+      const listener = listeners[i];
+      if (listener.once)
+        listeners.splice(i--, 1);
+      listener.callback(...data);
+    }
+  }
+  /**
+   * Return a promise that will resolve on the next event.
+   *
+   * @note The promise might never resolve if no event is sent.
+   *
+   * @returns A promise that resolves with the data passed to
+   *     {@link Emitter.notify}.
+   */
+  promise() {
+    return new Promise((res, _) => {
+      this.once((...args) => {
+        if (args.length > 1) {
+          res(args);
+        } else {
+          res(args[0]);
+        }
+      });
+    });
+  }
+  /**
+   * Find the listener index.
+   *
+   * @param listener The registered callback or a string representing the `id`.
+   * @returns The index if found, `null` otherwise.
+   *
+   * @hidden
+   */
+  _find(listener) {
+    const listeners = this._listeners;
+    if (isString(listener)) {
+      for (let i = 0; i < listeners.length; ++i) {
+        if (listeners[i].id === listener)
+          return i;
+      }
+      return null;
+    }
+    for (let i = 0; i < listeners.length; ++i) {
+      if (listeners[i].callback === listener)
+        return i;
+    }
+    return null;
+  }
+};
+var RetainEmitterUndefined = {};
+var RetainEmitter = class extends Emitter {
+  /** Pre-resolved data. @hidden */
+  _event = RetainEmitterUndefined;
+  /**
+   * Emitter target used to reset the state of this emitter.
+   *
+   * @hidden
+   */
+  _reset;
+  /** @override */
+  add(listener, opts) {
+    const immediate = opts?.immediate ?? true;
+    if (this._event !== RetainEmitterUndefined && immediate) {
+      listener(...this._event);
+    }
+    super.add(listener, opts);
+    return this;
+  }
+  /**
+   * @overload
+   *
+   * @param listener The callback to register.
+   * @param immediate If `true`, directly resolves if the emitter retains a value.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  once(listener, immediate) {
+    return this.add(listener, { once: true, immediate });
+  }
+  /** @override */
+  notify(...data) {
+    this._event = data;
+    super.notify(...data);
+  }
+  /** @override */
+  notifyUnsafe(...data) {
+    this._event = data;
+    super.notifyUnsafe(...data);
+  }
+  /**
+   * Reset the state of the emitter.
+   *
+   * Further call to {@link Emitter.add} will not automatically resolve,
+   * until a new call to {@link Emitter.notify} is performed.
+   *
+   * @returns Reference to self (for method chaining)
+   */
+  reset() {
+    this._event = RetainEmitterUndefined;
+    return this;
+  }
+};
+
+// node_modules/@wonderlandengine/api/dist/wonderland.js
+var __decorate = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var Collider;
+(function(Collider2) {
+  Collider2[Collider2["Sphere"] = 0] = "Sphere";
+  Collider2[Collider2["AxisAlignedBox"] = 1] = "AxisAlignedBox";
+  Collider2[Collider2["Box"] = 2] = "Box";
+})(Collider || (Collider = {}));
+var Alignment;
+(function(Alignment2) {
+  Alignment2[Alignment2["Left"] = 0] = "Left";
+  Alignment2[Alignment2["Center"] = 1] = "Center";
+  Alignment2[Alignment2["Right"] = 2] = "Right";
+})(Alignment || (Alignment = {}));
+var Justification;
+(function(Justification2) {
+  Justification2[Justification2["Line"] = 0] = "Line";
+  Justification2[Justification2["Middle"] = 1] = "Middle";
+  Justification2[Justification2["Top"] = 2] = "Top";
+  Justification2[Justification2["Bottom"] = 3] = "Bottom";
+})(Justification || (Justification = {}));
+var TextEffect;
+(function(TextEffect2) {
+  TextEffect2[TextEffect2["None"] = 0] = "None";
+  TextEffect2[TextEffect2["Outline"] = 1] = "Outline";
+})(TextEffect || (TextEffect = {}));
+var InputType;
+(function(InputType2) {
+  InputType2[InputType2["Head"] = 0] = "Head";
+  InputType2[InputType2["EyeLeft"] = 1] = "EyeLeft";
+  InputType2[InputType2["EyeRight"] = 2] = "EyeRight";
+  InputType2[InputType2["ControllerLeft"] = 3] = "ControllerLeft";
+  InputType2[InputType2["ControllerRight"] = 4] = "ControllerRight";
+  InputType2[InputType2["RayLeft"] = 5] = "RayLeft";
+  InputType2[InputType2["RayRight"] = 6] = "RayRight";
+})(InputType || (InputType = {}));
+var LightType;
+(function(LightType2) {
+  LightType2[LightType2["Point"] = 0] = "Point";
+  LightType2[LightType2["Spot"] = 1] = "Spot";
+  LightType2[LightType2["Sun"] = 2] = "Sun";
+})(LightType || (LightType = {}));
+var AnimationState;
+(function(AnimationState2) {
+  AnimationState2[AnimationState2["Playing"] = 0] = "Playing";
+  AnimationState2[AnimationState2["Paused"] = 1] = "Paused";
+  AnimationState2[AnimationState2["Stopped"] = 2] = "Stopped";
+})(AnimationState || (AnimationState = {}));
+var ForceMode;
+(function(ForceMode2) {
+  ForceMode2[ForceMode2["Force"] = 0] = "Force";
+  ForceMode2[ForceMode2["Impulse"] = 1] = "Impulse";
+  ForceMode2[ForceMode2["VelocityChange"] = 2] = "VelocityChange";
+  ForceMode2[ForceMode2["Acceleration"] = 3] = "Acceleration";
+})(ForceMode || (ForceMode = {}));
+var CollisionEventType;
+(function(CollisionEventType2) {
+  CollisionEventType2[CollisionEventType2["Touch"] = 0] = "Touch";
+  CollisionEventType2[CollisionEventType2["TouchLost"] = 1] = "TouchLost";
+  CollisionEventType2[CollisionEventType2["TriggerTouch"] = 2] = "TriggerTouch";
+  CollisionEventType2[CollisionEventType2["TriggerTouchLost"] = 3] = "TriggerTouchLost";
+})(CollisionEventType || (CollisionEventType = {}));
+var Shape;
+(function(Shape2) {
+  Shape2[Shape2["None"] = 0] = "None";
+  Shape2[Shape2["Sphere"] = 1] = "Sphere";
+  Shape2[Shape2["Capsule"] = 2] = "Capsule";
+  Shape2[Shape2["Box"] = 3] = "Box";
+  Shape2[Shape2["Plane"] = 4] = "Plane";
+  Shape2[Shape2["ConvexMesh"] = 5] = "ConvexMesh";
+  Shape2[Shape2["TriangleMesh"] = 6] = "TriangleMesh";
+})(Shape || (Shape = {}));
+var MeshAttribute;
+(function(MeshAttribute2) {
+  MeshAttribute2[MeshAttribute2["Position"] = 0] = "Position";
+  MeshAttribute2[MeshAttribute2["Tangent"] = 1] = "Tangent";
+  MeshAttribute2[MeshAttribute2["Normal"] = 2] = "Normal";
+  MeshAttribute2[MeshAttribute2["TextureCoordinate"] = 3] = "TextureCoordinate";
+  MeshAttribute2[MeshAttribute2["Color"] = 4] = "Color";
+  MeshAttribute2[MeshAttribute2["JointId"] = 5] = "JointId";
+  MeshAttribute2[MeshAttribute2["JointWeight"] = 6] = "JointWeight";
+})(MeshAttribute || (MeshAttribute = {}));
+var MaterialParamType;
+(function(MaterialParamType2) {
+  MaterialParamType2[MaterialParamType2["UnsignedInt"] = 0] = "UnsignedInt";
+  MaterialParamType2[MaterialParamType2["Int"] = 1] = "Int";
+  MaterialParamType2[MaterialParamType2["Float"] = 2] = "Float";
+  MaterialParamType2[MaterialParamType2["Sampler"] = 3] = "Sampler";
+  MaterialParamType2[MaterialParamType2["Font"] = 4] = "Font";
+})(MaterialParamType || (MaterialParamType = {}));
+function isMeshShape(shape) {
+  return shape === Shape.ConvexMesh || shape === Shape.TriangleMesh;
+}
+var UP_VECTOR = [0, 1, 0];
+var Scene = class {
+  /** Called before rendering the scene */
+  onPreRender = new Emitter();
+  /** Called after the scene has been rendered */
+  onPostRender = new Emitter();
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /** Ray hit pointer in WASM heap. @hidden */
+  _rayHit;
+  /** Ray hit. @hidden */
+  _hit;
+  constructor(engine2) {
+    this._engine = engine2;
+    this._rayHit = engine2.wasm._malloc(4 * (3 * 4 + 3 * 4 + 4 + 2) + 4);
+    this._hit = new RayHit(this._engine, this._rayHit);
+  }
+  /**
+   * Currently active view components.
+   */
+  get activeViews() {
+    const wasm = this._engine.wasm;
+    const count = wasm._wl_scene_get_active_views(this._engine.wasm._tempMem, 16);
+    const views = [];
+    const viewTypeIndex = wasm._typeIndexFor("view");
+    for (let i = 0; i < count; ++i) {
+      views.push(new ViewComponent(this._engine, viewTypeIndex, this._engine.wasm._tempMemInt[i]));
+    }
+    return views;
+  }
+  /**
+   * Cast a ray through the scene and find intersecting objects.
+   *
+   * The resulting ray hit will contain up to **4** closest ray hits,
+   * sorted by increasing distance.
+   *
+   * @param o Ray origin.
+   * @param d Ray direction.
+   * @param group Collision group to filter by: only objects that are
+   *        part of given group are considered for raycast.
+   *
+   * @returns The scene cached {@link RayHit} instance.
+   * @note The returned object is owned by the Scene instance
+   *   will be reused with the next {@link Scene#rayCast} call.
+   */
+  rayCast(o, d2, group) {
+    this._engine.wasm._wl_scene_ray_cast(o[0], o[1], o[2], d2[0], d2[1], d2[2], group, this._rayHit);
+    return this._hit;
+  }
+  /**
+   * Add an object to the scene.
+   *
+   * @param parent Parent object or `null`.
+   * @returns A newly created object.
+   */
+  addObject(parent = null) {
+    const parentId = parent ? parent.objectId : 0;
+    const objectId = this._engine.wasm._wl_scene_add_object(parentId);
+    return this._engine.wrapObject(objectId);
+  }
+  /**
+   * Batch-add objects to the scene.
+   *
+   * Will provide better performance for adding multiple objects (e.g. > 16)
+   * than calling {@link Scene#addObject} repeatedly in a loop.
+   *
+   * By providing upfront information of how many objects will be required,
+   * the engine is able to batch-allocate the required memory rather than
+   * convervatively grow the memory in small steps.
+   *
+   * **Experimental:** This API might change in upcoming versions.
+   *
+   * @param count Number of objects to add.
+   * @param parent Parent object or `null`, default `null`.
+   * @param componentCountHint Hint for how many components in total will
+   *      be added to the created objects afterwards, default `0`.
+   * @returns Newly created objects
+   */
+  addObjects(count, parent = null, componentCountHint = 0) {
+    const parentId = parent ? parent.objectId : 0;
+    this._engine.wasm.requireTempMem(count * 2);
+    const actualCount = this._engine.wasm._wl_scene_add_objects(parentId, count, componentCountHint || 0, this._engine.wasm._tempMem, this._engine.wasm._tempMemSize >> 1);
+    const ids = this._engine.wasm._tempMemUint16.subarray(0, actualCount);
+    const wrapper = this._engine.wrapObject.bind(this._engine);
+    const objects = Array.from(ids, wrapper);
+    return objects;
+  }
+  /**
+   * Pre-allocate memory for a given amount of objects and components.
+   *
+   * Will provide better performance for adding objects later with {@link Scene#addObject}
+   * and {@link Scene#addObjects}.
+   *
+   * By providing upfront information of how many objects will be required,
+   * the engine is able to batch-allocate the required memory rather than
+   * conservatively grow the memory in small steps.
+   *
+   * **Experimental:** This API might change in upcoming versions.
+   *
+   * @param objectCount Number of objects to add.
+   * @param componentCountPerType Amount of components to
+   *      allocate for {@link Object3D.addComponent}, e.g. `{mesh: 100, collision: 200, "my-comp": 100}`.
+   * @since 0.8.10
+   */
+  reserveObjects(objectCount, componentCountPerType) {
+    const wasm = this._engine.wasm;
+    componentCountPerType = componentCountPerType || {};
+    const jsManagerIndex = wasm._typeIndexFor("js");
+    let countsPerTypeIndex = wasm._tempMemInt.subarray();
+    countsPerTypeIndex.fill(0);
+    for (const e of Object.entries(componentCountPerType)) {
+      const typeIndex = wasm._typeIndexFor(e[0]);
+      countsPerTypeIndex[typeIndex < 0 ? jsManagerIndex : typeIndex] += e[1];
+    }
+    wasm._wl_scene_reserve_objects(objectCount, wasm._tempMem);
+  }
+  /**
+   * Set the background clear color.
+   *
+   * @param color new clear color (RGBA).
+   * @since 0.8.5
+   */
+  set clearColor(color) {
+    this._engine.wasm._wl_scene_set_clearColor(color[0], color[1], color[2], color[3]);
+  }
+  /**
+   * Set whether to clear the color framebuffer before drawing.
+   *
+   * This function is useful if an external framework (e.g. an AR tracking
+   * framework) is responsible for drawing a camera frame before Wonderland
+   * Engine draws the scene on top of it.
+   *
+   * @param b Whether to enable color clear.
+   * @since 0.9.4
+   */
+  set colorClearEnabled(b) {
+    this._engine.wasm._wl_scene_enableColorClear(b);
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
+  /**
+   * Load a scene file (.bin)
+   *
+   * Will replace the currently active scene with the one loaded
+   * from given file. It is assumed that JavaScript components required by
+   * the new scene were registered in advance.
+   *
+   * @param filename Path to the .bin file.
+   */
+  load(filename) {
+    const wasm = this._engine.wasm;
+    wasm._wl_load_scene(wasm.tempUTF8(filename));
+  }
+  /**
+   * Load an external 3D file (.gltf, .glb).
+   *
+   * Loads and parses the gltf file and its images and appends the result
+   * to scene.
+   *
+   * ```js
+   * WL.scene.append(filename).then(root => {
+   *     // root contains the loaded scene
+   * });
+   * ```
+   *
+   * In case the `loadGltfExtensions` option is set to true, the response
+   * will be an object containing both the root of the loaded scene and
+   * any glTF extensions found on nodes, meshes and the root of the file.
+   *
+   * ```js
+   * WL.scene.append(filename, { loadGltfExtensions: true }).then(({root, extensions}) => {
+   *     // root contains the loaded scene
+   *     // extensions.root contains any extensions at the root of glTF document
+   *     const rootExtensions = extensions.root;
+   *     // extensions.mesh and extensions.node contain extensions indexed by Object id
+   *     const childObject = root.children[0];
+   *     const meshExtensions = root.meshExtensions[childObject.objectId];
+   *     const nodeExtensions = root.nodeExtensions[childObject.objectId];
+   *     // extensions.idMapping contains a mapping from glTF node index to Object id
+   * });
+   * ```
+   *
+   * @param filename Path to the .gltf or .glb file.
+   * @param options Additional options for loading.
+   * @returns Root of the loaded scene.
+   */
+  append(filename, options) {
+    options = options || {};
+    const wasm = this._engine.wasm;
+    const loadGltfExtensions = !!options.loadGltfExtensions;
+    const callback = wasm._sceneLoadedCallback.length;
+    const promise = new Promise((resolve, reject) => {
+      wasm._sceneLoadedCallback[callback] = {
+        success: (id, extensions) => {
+          const root = this._engine.wrapObject(id);
+          resolve(extensions ? { root, extensions } : root);
+        },
+        error: () => reject()
+      };
+    });
+    wasm._wl_append_scene(wasm.tempUTF8(filename), loadGltfExtensions, callback);
+    return promise;
+  }
+  /**
+   * Unmarshalls the GltfExtensions from an Uint32Array.
+   *
+   * @param data Array containing the gltf extension data.
+   * @returns The extensions stored in an object literal.
+   *
+   * @hidden
+   */
+  _unmarshallGltfExtensions(data) {
+    const extensions = {
+      root: {},
+      mesh: {},
+      node: {},
+      idMapping: {}
+    };
+    let index = 0;
+    const readString = () => {
+      const strPtr = data[index++];
+      const strLen = data[index++];
+      return this._engine.wasm.UTF8ViewToString(strPtr, strPtr + strLen);
+    };
+    const idMappingSize = data[index++];
+    const idMapping = new Array(idMappingSize);
+    for (let i = 0; i < idMappingSize; ++i) {
+      idMapping[i] = data[index++];
+    }
+    extensions.idMapping = idMapping;
+    const meshExtensionsSize = data[index++];
+    for (let i = 0; i < meshExtensionsSize; ++i) {
+      const objectId = data[index++];
+      extensions.mesh[idMapping[objectId]] = JSON.parse(readString());
+    }
+    const nodeExtensionsSize = data[index++];
+    for (let i = 0; i < nodeExtensionsSize; ++i) {
+      const objectId = data[index++];
+      extensions.node[idMapping[objectId]] = JSON.parse(readString());
+    }
+    const rootExtensionsStr = readString();
+    if (rootExtensionsStr) {
+      extensions.root = JSON.parse(rootExtensionsStr);
+    }
+    return extensions;
+  }
+  /**
+   * Reset the scene.
+   *
+   * This method deletes all used and allocated objects, and components.
+   */
+  reset() {
+    this._engine.wasm._wl_scene_reset();
+  }
+};
+var Component = class {
+  /** Manager index. @hidden */
+  _manager;
+  /** Instance index. @hidden */
+  _id;
+  /**
+   * Object containing this object.
+   *
+   * **Note**: This is cached for faster retrieval.
+   *
+   * @hidden
+   */
+  _object;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * Create a new instance
+   *
+   * @param engine The engine instance.
+   * @param manager Index of the manager.
+   * @param id WASM component instance index.
+   *
+   * @hidden
+   */
+  constructor(engine2, manager = -1, id = -1) {
+    this._engine = engine2;
+    this._manager = manager;
+    this._id = id;
+    this._object = null;
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
+  /** The name of this component's type */
+  get type() {
+    const ctor = this.constructor;
+    return ctor.TypeName ?? this._engine.wasm._typeNameFor(this._manager);
+  }
+  /** The object this component is attached to. */
+  get object() {
+    if (!this._object) {
+      const objectId = this._engine.wasm._wl_component_get_object(this._manager, this._id);
+      this._object = this._engine.wrapObject(objectId);
+    }
+    return this._object;
+  }
+  /**
+   * Set whether this component is active.
+   *
+   * Activating/deactivating a component comes at a small cost of reordering
+   * components in the respective component manager. This function therefore
+   * is not a trivial assignment.
+   *
+   * Does nothing if the component is already activated/deactivated.
+   *
+   * @param active New active state.
+   */
+  set active(active) {
+    this._engine.wasm._wl_component_setActive(this._manager, this._id, active);
+  }
+  /**
+   * Whether this component is active
+   */
+  get active() {
+    return this._engine.wasm._wl_component_isActive(this._manager, this._id) != 0;
+  }
+  /**
+   * Remove this component from its objects and destroy it.
+   *
+   * It is best practice to set the component to `null` after,
+   * to ensure it does not get used later.
+   *
+   * ```js
+   *    c.destroy();
+   *    c = null;
+   * ```
+   * @since 0.9.0
+   */
+  destroy() {
+    this._engine.wasm._wl_component_remove(this._manager, this._id);
+    this._manager = -1;
+    this._id = -1;
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native component ids
+   * and component manager types are equal.
+   *
+   * @param otherComponent Component to check equality with.
+   * @returns Whether this component equals the given component.
+   */
+  equals(otherComponent) {
+    if (!otherComponent)
+      return false;
+    return this._manager == otherComponent._manager && this._id == otherComponent._id;
+  }
+};
+/**
+ * Unique identifier for this component class.
+ *
+ * This is used to register, add, and retrieve components of a given type.
+ */
+__publicField(Component, "TypeName");
+/**
+ * Properties of this component class.
+ *
+ * Properties are public attributes that can be configured via the
+ * Wonderland Editor.
+ *
+ * Example:
+ *
+ * ```js
+ * import { Component, Type } from '@wonderlandengine/api';
+ * class MyComponent extends Component {
+ *     static TypeName = 'my-component';
+ *     static Properties = {
+ *         myBoolean: { type: Type.Boolean, default: false },
+ *         myFloat: { type: Type.Float, default: false },
+ *         myTexture: { type: Type.Texture, default: null },
+ *     };
+ * }
+ * ```
+ *
+ * Properties are automatically added to each component instance, and are
+ * accessible like any JS attribute:
+ *
+ * ```js
+ * // Creates a new component and set each properties value:
+ * const myComponent = object.addComponent(MyComponent, {
+ *     myBoolean: true,
+ *     myFloat: 42.0,
+ *     myTexture: null
+ * });
+ *
+ * // You can also override the properties on the instance:
+ * myComponent.myBoolean = false;
+ * myComponent.myFloat = -42.0;
+ * ```
+ */
+__publicField(Component, "Properties");
+/**
+ * This was never released in an official version, we are keeping it
+ * to easy transition to the new API.
+ *
+ * @deprecated Use {@link Component.onRegister} instead.
+ * @hidden
+ */
+__publicField(Component, "Dependencies");
+/**
+ * Called when this component class is registered.
+ *
+ * @example
+ *
+ * This callback can be used to register dependencies of a component,
+ * e.g., component classes that need to be registered in order to add
+ * them at runtime with {@link Object3D.addComponent}, independent of whether
+ * they are used in the editor.
+ *
+ * ```js
+ * class Spawner extends Component {
+ *     static TypeName = 'spawner';
+ *
+ *     static onRegister() {
+ *         engine.registerComponent(SpawnedComponent);
+ *     }
+ *
+ *     // You can now use addComponent with SpawnedComponent
+ * }
+ * ```
+ *
+ * @example
+ *
+ * This callback can be used to register different implementations of a
+ * component depending on client features or API versions.
+ *
+ * ```js
+ * // Properties need to be the same for all implementations!
+ * const SharedProperties = {};
+ *
+ * class Anchor extends Component {
+ *     static TypeName = 'spawner';
+ *     static Properties = SharedProperties;
+ *
+ *     static onRegister() {
+ *         if(navigator.xr === undefined) {
+ *             /* WebXR unsupported, keep this dummy component *\/
+ *             return;
+ *         }
+ *         /* WebXR supported! Override already registered dummy implementation
+ *          * with one depending on hit-test API support *\/
+ *         engine.registerComponent(window.HitTestSource === undefined ?
+ *             AnchorWithoutHitTest : AnchorWithHitTest);
+ *     }
+ *
+ *     // This one implements no functions
+ * }
+ * ```
+ */
+__publicField(Component, "onRegister");
+var _CollisionComponent = class extends Component {
+  /** Collision component collider */
+  get collider() {
+    return this._engine.wasm._wl_collision_component_get_collider(this._id);
+  }
+  /**
+   * Set collision component collider.
+   *
+   * @param collider Collider of the collision component.
+   */
+  set collider(collider) {
+    this._engine.wasm._wl_collision_component_set_collider(this._id, collider);
+  }
+  /**
+   * Collision component extents.
+   *
+   * If {@link collider} returns {@link Collider.Sphere}, only the first
+   * component of the returned vector is used.
+   */
+  get extents() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_collision_component_get_extents(this._id), 3);
+  }
+  /**
+   * Set collision component extents.
+   *
+   * If {@link collider} returns {@link Collider.Sphere}, only the first
+   * component of the passed vector is used.
+   *
+   * Example:
+   *
+   * ```js
+   * // Spans 1 unit on the x-axis, 2 on the y-axis, 3 on the z-axis.
+   * collision.extent = [1, 2, 3];
+   * ```
+   *
+   * @param extents Extents of the collision component, expects a
+   *      3 component array.
+   */
+  set extents(extents) {
+    this.extents.set(extents);
+  }
+  /**
+   * Collision component group.
+   *
+   * The groups is a bitmask that is compared to other components in {@link CollisionComponent#queryOverlaps}
+   * or the group in {@link Scene#rayCast}.
+   *
+   * Colliders that have no common groups will not overlap with each other. If a collider
+   * has none of the groups set for {@link Scene#rayCast}, the ray will not hit it.
+   *
+   * Each bit represents belonging to a group, see example.
+   *
+   * ```js
+   *    // c belongs to group 2
+   *    c.group = (1 << 2);
+   *
+   *    // c belongs to group 0
+   *    c.group = (1 << 0);
+   *
+   *    // c belongs to group 0 *and* 2
+   *    c.group = (1 << 0) | (1 << 2);
+   *
+   *    (c.group & (1 << 2)) != 0; // true
+   *    (c.group & (1 << 7)) != 0; // false
+   * ```
+   */
+  get group() {
+    return this._engine.wasm._wl_collision_component_get_group(this._id);
+  }
+  /**
+   * Set collision component group.
+   *
+   * @param group Group mask of the collision component.
+   */
+  set group(group) {
+    this._engine.wasm._wl_collision_component_set_group(this._id, group);
+  }
+  /**
+   * Query overlapping objects.
+   *
+   * Usage:
+   *
+   * ```js
+   * const collision = object.getComponent('collision');
+   * const overlaps = collision.queryOverlaps();
+   * for(const otherCollision of overlaps) {
+   *     const otherObject = otherCollision.object;
+   *     console.log(`Collision with object ${otherObject.objectId}`);
+   * }
+   * ```
+   *
+   * @returns Collision components overlapping this collider.
+   */
+  queryOverlaps() {
+    const count = this._engine.wasm._wl_collision_component_query_overlaps(this._id, this._engine.wasm._tempMem, this._engine.wasm._tempMemSize >> 1);
+    const overlaps = new Array(count);
+    for (let i = 0; i < count; ++i) {
+      overlaps[i] = new _CollisionComponent(this._engine, this._manager, this._engine.wasm._tempMemUint16[i]);
+    }
+    return overlaps;
+  }
+};
+var CollisionComponent = _CollisionComponent;
+/** @override */
+__publicField(CollisionComponent, "TypeName", "collision");
+__decorate([
+  nativeProperty()
+], CollisionComponent.prototype, "collider", null);
+__decorate([
+  nativeProperty()
+], CollisionComponent.prototype, "extents", null);
+__decorate([
+  nativeProperty()
+], CollisionComponent.prototype, "group", null);
+var TextComponent = class extends Component {
+  /** Text component alignment. */
+  get alignment() {
+    return this._engine.wasm._wl_text_component_get_horizontal_alignment(this._id);
+  }
+  /**
+   * Set text component alignment.
+   *
+   * @param alignment Alignment for the text component.
+   */
+  set alignment(alignment) {
+    this._engine.wasm._wl_text_component_set_horizontal_alignment(this._id, alignment);
+  }
+  /** Text component justification. */
+  get justification() {
+    return this._engine.wasm._wl_text_component_get_vertical_alignment(this._id);
+  }
+  /**
+   * Set text component justification.
+   *
+   * @param justification Justification for the text component.
+   */
+  set justification(justification) {
+    this._engine.wasm._wl_text_component_set_vertical_alignment(this._id, justification);
+  }
+  /** Text component character spacing. */
+  get characterSpacing() {
+    return this._engine.wasm._wl_text_component_get_character_spacing(this._id);
+  }
+  /**
+   * Set text component character spacing.
+   *
+   * @param spacing Character spacing for the text component.
+   */
+  set characterSpacing(spacing) {
+    this._engine.wasm._wl_text_component_set_character_spacing(this._id, spacing);
+  }
+  /** Text component line spacing. */
+  get lineSpacing() {
+    return this._engine.wasm._wl_text_component_get_line_spacing(this._id);
+  }
+  /**
+   * Set text component line spacing
+   *
+   * @param spacing Line spacing for the text component
+   */
+  set lineSpacing(spacing) {
+    this._engine.wasm._wl_text_component_set_line_spacing(this._id, spacing);
+  }
+  /** Text component effect. */
+  get effect() {
+    return this._engine.wasm._wl_text_component_get_effect(this._id);
+  }
+  /**
+   * Set text component effect
+   *
+   * @param effect Effect for the text component
+   */
+  set effect(effect) {
+    this._engine.wasm._wl_text_component_set_effect(this._id, effect);
+  }
+  /** Text component text. */
+  get text() {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_text_component_get_text(this._id);
+    return wasm.UTF8ToString(ptr);
+  }
+  /**
+   * Set text component text.
+   *
+   * @param text Text of the text component.
+   */
+  set text(text) {
+    const wasm = this._engine.wasm;
+    wasm._wl_text_component_set_text(this._id, wasm.tempUTF8(text));
+  }
+  /**
+   * Set material to render the text with.
+   *
+   * @param material New material.
+   */
+  set material(material) {
+    const matIndex = material ? material._index : 0;
+    this._engine.wasm._wl_text_component_set_material(this._id, matIndex);
+  }
+  /** Material used to render the text. */
+  get material() {
+    const id = this._engine.wasm._wl_text_component_get_material(this._id);
+    return id > 0 ? new Material(this._engine, id) : null;
+  }
+};
+/** @override */
+__publicField(TextComponent, "TypeName", "text");
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "alignment", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "justification", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "characterSpacing", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "lineSpacing", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "effect", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "text", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "material", null);
+var ViewComponent = class extends Component {
+  /** Projection matrix. */
+  get projectionMatrix() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_view_component_get_projection_matrix(this._id), 16);
+  }
+  /** ViewComponent near clipping plane value. */
+  get near() {
+    return this._engine.wasm._wl_view_component_get_near(this._id);
+  }
+  /**
+   * Set near clipping plane distance for the view.
+   *
+   * If an XR session is active, the change will apply in the
+   * following frame, otherwise the change is immediate.
+   *
+   * @param near Near depth value.
+   */
+  set near(near) {
+    this._engine.wasm._wl_view_component_set_near(this._id, near);
+  }
+  /** Far clipping plane value. */
+  get far() {
+    return this._engine.wasm._wl_view_component_get_far(this._id);
+  }
+  /**
+   * Set far clipping plane distance for the view.
+   *
+   * If an XR session is active, the change will apply in the
+   * following frame, otherwise the change is immediate.
+   *
+   * @param far Near depth value.
+   */
+  set far(far) {
+    this._engine.wasm._wl_view_component_set_far(this._id, far);
+  }
+  /**
+   * Get the horizontal field of view for the view, **in degrees**.
+   *
+   * If an XR session is active, this returns the field of view reported by
+   * the device, regardless of the fov that was set.
+   */
+  get fov() {
+    return this._engine.wasm._wl_view_component_get_fov(this._id);
+  }
+  /**
+   * Set the horizontal field of view for the view, **in degrees**.
+   *
+   * If an XR session is active, the field of view reported by the device is
+   * used and this value is ignored. After the XR session ends, the new value
+   * is applied.
+   *
+   * @param fov Horizontal field of view, **in degrees**.
+   */
+  set fov(fov) {
+    this._engine.wasm._wl_view_component_set_fov(this._id, fov);
+  }
+};
+/** @override */
+__publicField(ViewComponent, "TypeName", "view");
+__decorate([
+  enumerable()
+], ViewComponent.prototype, "projectionMatrix", null);
+__decorate([
+  nativeProperty()
+], ViewComponent.prototype, "near", null);
+__decorate([
+  nativeProperty()
+], ViewComponent.prototype, "far", null);
+__decorate([
+  nativeProperty()
+], ViewComponent.prototype, "fov", null);
+var InputComponent = class extends Component {
+  /** Input component type */
+  get inputType() {
+    return this._engine.wasm._wl_input_component_get_type(this._id);
+  }
+  /**
+   * Set input component type.
+   *
+   * @params New input component type.
+   */
+  set inputType(type) {
+    this._engine.wasm._wl_input_component_set_type(this._id, type);
+  }
+  /**
+   * WebXR Device API input source associated with this input component,
+   * if type {@link InputType.ControllerLeft} or {@link InputType.ControllerRight}.
+   */
+  get xrInputSource() {
+    const xrSession = this._engine.xrSession;
+    if (xrSession) {
+      for (let inputSource of xrSession.inputSources) {
+        if (inputSource.handedness == this.handedness) {
+          return inputSource;
+        }
+      }
+    }
+    return null;
+  }
+  /**
+   * 'left', 'right' or `null` depending on the {@link InputComponent#inputType}.
+   */
+  get handedness() {
+    const inputType = this.inputType;
+    if (inputType == InputType.ControllerRight || inputType == InputType.RayRight || inputType == InputType.EyeRight)
+      return "right";
+    if (inputType == InputType.ControllerLeft || inputType == InputType.RayLeft || inputType == InputType.EyeLeft)
+      return "left";
+    return null;
+  }
+};
+/** @override */
+__publicField(InputComponent, "TypeName", "input");
+__decorate([
+  nativeProperty()
+], InputComponent.prototype, "inputType", null);
+__decorate([
+  enumerable()
+], InputComponent.prototype, "xrInputSource", null);
+__decorate([
+  enumerable()
+], InputComponent.prototype, "handedness", null);
+var LightComponent = class extends Component {
+  /** View on the light color. */
+  get color() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_light_component_get_color(this._id), 4);
+  }
+  /**
+   * Set light color.
+   *
+   * @param c Color of the light component.
+   */
+  set color(c) {
+    this.color.set(c);
+  }
+  /** Light type. */
+  get lightType() {
+    return this._engine.wasm._wl_light_component_get_type(this._id);
+  }
+  /**
+   * Set light type.
+   *
+   * @param lightType Type of the light component.
+   */
+  set lightType(t) {
+    this._engine.wasm._wl_light_component_set_type(this._id, t);
+  }
+};
+/** @override */
+__publicField(LightComponent, "TypeName", "light");
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "color", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "lightType", null);
+var AnimationComponent = class extends Component {
+  /**
+   * Set animation to play.
+   *
+   * Make sure to {@link Animation#retarget} the animation to affect the
+   * right objects.
+   *
+   * @param anim Animation to play.
+   */
+  set animation(anim) {
+    this._engine.wasm._wl_animation_component_set_animation(this._id, anim ? anim._index : 0);
+  }
+  /** Animation set for this component */
+  get animation() {
+    const id = this._engine.wasm._wl_animation_component_get_animation(this._id);
+    return id > 0 ? new Animation(this._engine, id) : null;
+  }
+  /**
+   * Set play count. Set to `0` to loop indefinitely.
+   *
+   * @param playCount Number of times to repeat the animation.
+   */
+  set playCount(playCount) {
+    this._engine.wasm._wl_animation_component_set_playCount(this._id, playCount);
+  }
+  /** Number of times the animation is played. */
+  get playCount() {
+    return this._engine.wasm._wl_animation_component_get_playCount(this._id);
+  }
+  /**
+   * Set speed. Set to negative values to run the animation backwards.
+   *
+   * Setting speed has an immediate effect for the current frame's update
+   * and will continue with the speed from the current point in the animation.
+   *
+   * @param speed New speed at which to play the animation.
+   * @since 0.8.10
+   */
+  set speed(speed) {
+    this._engine.wasm._wl_animation_component_set_speed(this._id, speed);
+  }
+  /**
+   * Speed factor at which the animation is played.
+   *
+   * @since 0.8.10
+   */
+  get speed() {
+    return this._engine.wasm._wl_animation_component_get_speed(this._id);
+  }
+  /** Current playing state of the animation */
+  get state() {
+    return this._engine.wasm._wl_animation_component_state(this._id);
+  }
+  /**
+   * Play animation.
+   *
+   * If the animation is currently paused, resumes from that position. If the
+   * animation is already playing, does nothing.
+   *
+   * To restart the animation, {@link AnimationComponent#stop} it first.
+   */
+  play() {
+    this._engine.wasm._wl_animation_component_play(this._id);
+  }
+  /** Stop animation. */
+  stop() {
+    this._engine.wasm._wl_animation_component_stop(this._id);
+  }
+  /** Pause animation. */
+  pause() {
+    this._engine.wasm._wl_animation_component_pause(this._id);
+  }
+};
+/** @override */
+__publicField(AnimationComponent, "TypeName", "animation");
+__decorate([
+  nativeProperty()
+], AnimationComponent.prototype, "animation", null);
+__decorate([
+  nativeProperty()
+], AnimationComponent.prototype, "playCount", null);
+__decorate([
+  nativeProperty()
+], AnimationComponent.prototype, "speed", null);
+__decorate([
+  enumerable()
+], AnimationComponent.prototype, "state", null);
+var MeshComponent = class extends Component {
+  /**
+   * Set material to render the mesh with.
+   *
+   * @param material Material to render the mesh with.
+   */
+  set material(material) {
+    this._engine.wasm._wl_mesh_component_set_material(this._id, material ? material._index : 0);
+  }
+  /** Material used to render the mesh. */
+  get material() {
+    const id = this._engine.wasm._wl_mesh_component_get_material(this._id);
+    return id > 0 ? new Material(this._engine, id) : null;
+  }
+  /** Mesh rendered by this component. */
+  get mesh() {
+    const id = this._engine.wasm._wl_mesh_component_get_mesh(this._id);
+    return id > 0 ? new Mesh(this._engine, id) : null;
+  }
+  /**
+   * Set mesh to rendered with this component.
+   *
+   * @param mesh Mesh rendered by this component.
+   */
+  set mesh(mesh) {
+    this._engine.wasm._wl_mesh_component_set_mesh(this._id, mesh ? mesh._index : 0);
+  }
+  /** Skin for this mesh component. */
+  get skin() {
+    const id = this._engine.wasm._wl_mesh_component_get_skin(this._id);
+    return id > 0 ? new Skin(this._engine, id) : null;
+  }
+  /**
+   * Set skin to transform this mesh component.
+   *
+   * @param skin Skin to use for rendering skinned meshes.
+   */
+  set skin(skin) {
+    this._engine.wasm._wl_mesh_component_set_skin(this._id, skin ? skin._index : 0);
+  }
+};
+/** @override */
+__publicField(MeshComponent, "TypeName", "mesh");
+__decorate([
+  nativeProperty()
+], MeshComponent.prototype, "material", null);
+__decorate([
+  nativeProperty()
+], MeshComponent.prototype, "mesh", null);
+__decorate([
+  nativeProperty()
+], MeshComponent.prototype, "skin", null);
+var LockAxis;
+(function(LockAxis2) {
+  LockAxis2[LockAxis2["None"] = 0] = "None";
+  LockAxis2[LockAxis2["X"] = 1] = "X";
+  LockAxis2[LockAxis2["Y"] = 2] = "Y";
+  LockAxis2[LockAxis2["Z"] = 4] = "Z";
+})(LockAxis || (LockAxis = {}));
+var PhysXComponent = class extends Component {
+  /**
+   * Set whether this rigid body is static.
+   *
+   * Setting this property only takes effect once the component
+   * switches from inactive to active.
+   *
+   * @param b Whether the rigid body should be static.
+   */
+  set static(b) {
+    this._engine.wasm._wl_physx_component_set_static(this._id, b);
+  }
+  /**
+   * Whether this rigid body is static.
+   *
+   * This property returns whether the rigid body is *effectively*
+   * static. If static property was set while the rigid body was
+   * active, it will not take effect until the rigid body is set
+   * inactive and active again. Until the component is set inactive,
+   * this getter will return whether the rigid body is actually
+   * static.
+   */
+  get static() {
+    return !!this._engine.wasm._wl_physx_component_get_static(this._id);
+  }
+  /**
+   * Set whether this rigid body is kinematic.
+   *
+   * @param b Whether the rigid body should be kinematic.
+   */
+  set kinematic(b) {
+    this._engine.wasm._wl_physx_component_set_kinematic(this._id, b);
+  }
+  /**
+   * Whether this rigid body is kinematic.
+   */
+  get kinematic() {
+    return !!this._engine.wasm._wl_physx_component_get_kinematic(this._id);
+  }
+  /**
+   * Set whether this rigid body's gravity is enabled.
+   *
+   * @param b Whether the rigid body's gravity should be enabled.
+   */
+  set gravity(b) {
+    this._engine.wasm._wl_physx_component_set_gravity(this._id, b);
+  }
+  /**
+   * Whether this rigid body's gravity flag is enabled.
+   */
+  get gravity() {
+    return !!this._engine.wasm._wl_physx_component_get_gravity(this._id);
+  }
+  /**
+   * Set whether this rigid body's simulate flag is enabled.
+   *
+   * @param b Whether the rigid body's simulate flag should be enabled.
+   */
+  set simulate(b) {
+    this._engine.wasm._wl_physx_component_set_simulate(this._id, b);
+  }
+  /**
+   * Whether this rigid body's simulate flag is enabled.
+   */
+  get simulate() {
+    return !!this._engine.wasm._wl_physx_component_get_simulate(this._id);
+  }
+  /**
+   * Set whether to allow simulation of this rigid body.
+   *
+   * {@link allowSimulation} and {@link trigger} can not be enabled at the
+   * same time. Enabling {@link allowSimulation} while {@link trigger} is enabled
+   * will disable {@link trigger}.
+   *
+   * @param b Whether to allow simulation of this rigid body.
+   */
+  set allowSimulation(b) {
+    this._engine.wasm._wl_physx_component_set_allowSimulation(this._id, b);
+  }
+  /**
+   * Whether to allow simulation of this rigid body.
+   */
+  get allowSimulation() {
+    return !!this._engine.wasm._wl_physx_component_get_allowSimulation(this._id);
+  }
+  /**
+   * Set whether this rigid body may be queried in ray casts.
+   *
+   * @param b Whether this rigid body may be queried in ray casts.
+   */
+  set allowQuery(b) {
+    this._engine.wasm._wl_physx_component_set_allowQuery(this._id, b);
+  }
+  /**
+   * Whether this rigid body may be queried in ray casts.
+   */
+  get allowQuery() {
+    return !!this._engine.wasm._wl_physx_component_get_allowQuery(this._id);
+  }
+  /**
+   * Set whether this physics body is a trigger.
+   *
+   * {@link allowSimulation} and {@link trigger} can not be enabled at the
+   * same time. Enabling trigger while {@link allowSimulation} is enabled,
+   * will disable {@link allowSimulation}.
+   *
+   * @param b Whether this physics body is a trigger.
+   */
+  set trigger(b) {
+    this._engine.wasm._wl_physx_component_set_trigger(this._id, b);
+  }
+  /**
+   * Whether this physics body is a trigger.
+   */
+  get trigger() {
+    return !!this._engine.wasm._wl_physx_component_get_trigger(this._id);
+  }
+  /**
+   * Set the shape for collision detection.
+   *
+   * @param s New shape.
+   * @since 0.8.5
+   */
+  set shape(s) {
+    this._engine.wasm._wl_physx_component_set_shape(this._id, s);
+  }
+  /** The shape for collision detection. */
+  get shape() {
+    return this._engine.wasm._wl_physx_component_get_shape(this._id);
+  }
+  /**
+   * Set additional data for the shape.
+   *
+   * Retrieved only from {@link PhysXComponent#shapeData}.
+   * @since 0.8.10
+   */
+  set shapeData(d2) {
+    if (d2 == null || !isMeshShape(this.shape))
+      return;
+    this._engine.wasm._wl_physx_component_set_shape_data(this._id, d2.index);
+  }
+  /**
+   * Additional data for the shape.
+   *
+   * `null` for {@link Shape} values: `None`, `Sphere`, `Capsule`, `Box`, `Plane`.
+   * `{index: n}` for `TriangleMesh` and `ConvexHull`.
+   *
+   * This data is currently only for passing onto or creating other {@link PhysXComponent}.
+   * @since 0.8.10
+   */
+  get shapeData() {
+    if (!isMeshShape(this.shape))
+      return null;
+    return { index: this._engine.wasm._wl_physx_component_get_shape_data(this._id) };
+  }
+  /**
+   * Set the shape extents for collision detection.
+   *
+   * @param e New extents for the shape.
+   * @since 0.8.5
+   */
+  set extents(e) {
+    this.extents.set(e);
+  }
+  /**
+   * The shape extents for collision detection.
+   */
+  get extents() {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_physx_component_get_extents(this._id);
+    return new Float32Array(wasm.HEAPF32.buffer, ptr, 3);
+  }
+  /**
+   * Get staticFriction.
+   */
+  get staticFriction() {
+    return this._engine.wasm._wl_physx_component_get_staticFriction(this._id);
+  }
+  /**
+   * Set staticFriction.
+   * @param v New staticFriction.
+   */
+  set staticFriction(v) {
+    this._engine.wasm._wl_physx_component_set_staticFriction(this._id, v);
+  }
+  /**
+   * Get dynamicFriction.
+   */
+  get dynamicFriction() {
+    return this._engine.wasm._wl_physx_component_get_dynamicFriction(this._id);
+  }
+  /**
+   * Set dynamicFriction
+   * @param v New dynamicDamping.
+   */
+  set dynamicFriction(v) {
+    this._engine.wasm._wl_physx_component_set_dynamicFriction(this._id, v);
+  }
+  /**
+   * Get bounciness.
+   * @since 0.9.0
+   */
+  get bounciness() {
+    return this._engine.wasm._wl_physx_component_get_bounciness(this._id);
+  }
+  /**
+   * Set bounciness.
+   * @param v New bounciness.
+   * @since 0.9.0
+   */
+  set bounciness(v) {
+    this._engine.wasm._wl_physx_component_set_bounciness(this._id, v);
+  }
+  /**
+   * Get linearDamping/
+   */
+  get linearDamping() {
+    return this._engine.wasm._wl_physx_component_get_linearDamping(this._id);
+  }
+  /**
+   * Set linearDamping.
+   * @param v New linearDamping.
+   */
+  set linearDamping(v) {
+    this._engine.wasm._wl_physx_component_set_linearDamping(this._id, v);
+  }
+  /** Get angularDamping. */
+  get angularDamping() {
+    return this._engine.wasm._wl_physx_component_get_angularDamping(this._id);
+  }
+  /**
+   * Set angularDamping.
+   * @param v New angularDamping.
+   */
+  set angularDamping(v) {
+    this._engine.wasm._wl_physx_component_set_angularDamping(this._id, v);
+  }
+  /**
+   * Set linear velocity.
+   *
+   * [PhysX Manual - "Velocity"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#velocity)
+   *
+   * Has no effect, if the component is not active.
+   *
+   * @param v New linear velocity.
+   */
+  set linearVelocity(v) {
+    this._engine.wasm._wl_physx_component_set_linearVelocity(this._id, v[0], v[1], v[2]);
+  }
+  /** Linear velocity or `[0, 0, 0]` if the component is not active. */
+  get linearVelocity() {
+    const wasm = this._engine.wasm;
+    wasm._wl_physx_component_get_linearVelocity(this._id, wasm._tempMem);
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._tempMem, 3);
+  }
+  /**
+   * Set angular velocity
+   *
+   * [PhysX Manual - "Velocity"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#velocity)
+   *
+   * Has no effect, if the component is not active.
+   *
+   * @param v New angular velocity
+   */
+  set angularVelocity(v) {
+    this._engine.wasm._wl_physx_component_set_angularVelocity(this._id, v[0], v[1], v[2]);
+  }
+  /** Angular velocity or `[0, 0, 0]` if the component is not active. */
+  get angularVelocity() {
+    const wasm = this._engine.wasm;
+    wasm._wl_physx_component_get_angularVelocity(this._id, wasm._tempMem);
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._tempMem, 3);
+  }
+  /**
+   * Set the components groups mask.
+   *
+   * @param flags New flags that need to be set.
+   */
+  set groupsMask(flags) {
+    this._engine.wasm._wl_physx_component_set_groupsMask(this._id, flags);
+  }
+  /**
+   * Get the components groups mask flags.
+   *
+   * Each bit represents membership to group, see example.
+   *
+   * ```js
+   * // Assign c to group 2
+   * c.groupsMask = (1 << 2);
+   *
+   * // Assign c to group 0
+   * c.groupsMask  = (1 << 0);
+   *
+   * // Assign c to group 0 and 2
+   * c.groupsMask = (1 << 0) | (1 << 2);
+   *
+   * (c.groupsMask & (1 << 2)) != 0; // true
+   * (c.groupsMask & (1 << 7)) != 0; // false
+   * ```
+   */
+  get groupsMask() {
+    return this._engine.wasm._wl_physx_component_get_groupsMask(this._id);
+  }
+  /**
+   * Set the components blocks mask.
+   *
+   * @param flags New flags that need to be set.
+   */
+  set blocksMask(flags) {
+    this._engine.wasm._wl_physx_component_set_blocksMask(this._id, flags);
+  }
+  /**
+   * Get the components blocks mask flags.
+   *
+   * Each bit represents membership to the block, see example.
+   *
+   * ```js
+   * // Block overlap with any objects in group 2
+   * c.blocksMask = (1 << 2);
+   *
+   * // Block overlap with any objects in group 0
+   * c.blocksMask  = (1 << 0)
+   *
+   * // Block overlap with any objects in group 0 and 2
+   * c.blocksMask = (1 << 0) | (1 << 2);
+   *
+   * (c.blocksMask & (1 << 2)) != 0; // true
+   * (c.blocksMask & (1 << 7)) != 0; // false
+   * ```
+   */
+  get blocksMask() {
+    return this._engine.wasm._wl_physx_component_get_blocksMask(this._id);
+  }
+  /**
+   * Set axes to lock for linear velocity.
+   *
+   * @param lock The Axis that needs to be set.
+   *
+   * Combine flags with Bitwise OR.
+   * ```js
+   * body.linearLockAxis = LockAxis.X | LockAxis.Y; // x and y set
+   * body.linearLockAxis = LockAxis.X; // y unset
+   * ```
+   *
+   * @note This has no effect if the component is static.
+   */
+  set linearLockAxis(lock) {
+    this._engine.wasm._wl_physx_component_set_linearLockAxis(this._id, lock);
+  }
+  /**
+   * Get the linear lock axes flags.
+   *
+   * To get the state of a specific flag, Bitwise AND with the LockAxis needed.
+   *
+   * ```js
+   * if(body.linearLockAxis & LockAxis.Y) {
+   *     console.log("The Y flag was set!");
+   * }
+   * ```
+   *
+   * @return axes that are currently locked for linear movement.
+   */
+  get linearLockAxis() {
+    return this._engine.wasm._wl_physx_component_get_linearLockAxis(this._id);
+  }
+  /**
+   * Set axes to lock for angular velocity.
+   *
+   * @param lock The Axis that needs to be set.
+   *
+   * ```js
+   * body.angularLockAxis = LockAxis.X | LockAxis.Y; // x and y set
+   * body.angularLockAxis = LockAxis.X; // y unset
+   * ```
+   *
+   * @note This has no effect if the component is static.
+   */
+  set angularLockAxis(lock) {
+    this._engine.wasm._wl_physx_component_set_angularLockAxis(this._id, lock);
+  }
+  /**
+   * Get the angular lock axes flags.
+   *
+   * To get the state of a specific flag, Bitwise AND with the LockAxis needed.
+   *
+   * ```js
+   * if(body.angularLockAxis & LockAxis.Y) {
+   *     console.log("The Y flag was set!");
+   * }
+   * ```
+   *
+   * @return axes that are currently locked for angular movement.
+   */
+  get angularLockAxis() {
+    return this._engine.wasm._wl_physx_component_get_angularLockAxis(this._id);
+  }
+  /**
+   * Set mass.
+   *
+   * [PhysX Manual - "Mass Properties"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#mass-properties)
+   *
+   * @param m New mass.
+   */
+  set mass(m) {
+    this._engine.wasm._wl_physx_component_set_mass(this._id, m);
+  }
+  /** Mass */
+  get mass() {
+    return this._engine.wasm._wl_physx_component_get_mass(this._id);
+  }
+  /**
+   * Set mass space interia tensor.
+   *
+   * [PhysX Manual - "Mass Properties"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#mass-properties)
+   *
+   * Has no effect, if the component is not active.
+   *
+   * @param v New mass space interatia tensor.
+   */
+  set massSpaceInteriaTensor(v) {
+    this._engine.wasm._wl_physx_component_set_massSpaceInertiaTensor(this._id, v[0], v[1], v[2]);
+  }
+  /**
+   * Apply a force.
+   *
+   * [PhysX Manual - "Applying Forces and Torques"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#applying-forces-and-torques)
+   *
+   * Has no effect, if the component is not active.
+   *
+   * @param f Force vector.
+   * @param m Force mode, see {@link ForceMode}, default `Force`.
+   * @param localForce Whether the force vector is in local space, default `false`.
+   * @param p Position to apply force at, default is center of mass.
+   * @param local Whether position is in local space, default `false`.
+   */
+  addForce(f, m = ForceMode.Force, localForce = false, p, local = false) {
+    const wasm = this._engine.wasm;
+    if (!p) {
+      wasm._wl_physx_component_addForce(this._id, f[0], f[1], f[2], m, localForce);
+      return;
+    }
+    wasm._wl_physx_component_addForceAt(this._id, f[0], f[1], f[2], m, localForce, p[0], p[1], p[2], local);
+  }
+  /**
+   * Apply torque.
+   *
+   * [PhysX Manual - "Applying Forces and Torques"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#applying-forces-and-torques)
+   *
+   * Has no effect, if the component is not active.
+   *
+   * @param f Force vector.
+   * @param m Force mode, see {@link ForceMode}, default `Force`.
+   */
+  addTorque(f, m = ForceMode.Force) {
+    this._engine.wasm._wl_physx_component_addTorque(this._id, f[0], f[1], f[2], m);
+  }
+  /**
+   * Add on collision callback.
+   *
+   * @param callback Function to call when this rigid body (un)collides with any other.
+   *
+   * ```js
+   *  let rigidBody = this.object.getComponent('physx');
+   *  rigidBody.onCollision(function(type, other) {
+   *      // Ignore uncollides
+   *      if(type == CollisionEventType.TouchLost) return;
+   *
+   *      // Take damage on collision with enemies
+   *      if(other.object.name.startsWith('enemy-')) {
+   *          this.applyDamage(10);
+   *      }
+   *  }.bind(this));
+   * ```
+   *
+   * @returns Id of the new callback for use with {@link PhysXComponent#removeCollisionCallback}.
+   */
+  onCollision(callback) {
+    return this.onCollisionWith(this, callback);
+  }
+  /**
+   * Add filtered on collision callback.
+   *
+   * @param otherComp Component for which callbacks will
+   *        be triggered. If you pass this component, the method is equivalent to.
+   *        {@link PhysXComponent#onCollision}.
+   * @param callback Function to call when this rigid body
+   *        (un)collides with `otherComp`.
+   * @returns Id of the new callback for use with {@link PhysXComponent#removeCollisionCallback}.
+   */
+  onCollisionWith(otherComp, callback) {
+    const physics = this._engine.physics;
+    physics._callbacks[this._id] = physics._callbacks[this._id] || [];
+    physics._callbacks[this._id].push(callback);
+    return this._engine.wasm._wl_physx_component_addCallback(this._id, otherComp._id || this._id);
+  }
+  /**
+   * Remove a collision callback added with {@link PhysXComponent#onCollision} or {@link PhysXComponent#onCollisionWith}.
+   *
+   * @param callbackId Callback id as returned by {@link PhysXComponent#onCollision} or {@link PhysXComponent#onCollisionWith}.
+   * @throws When the callback does not belong to the component.
+   * @throws When the callback does not exist.
+   */
+  removeCollisionCallback(callbackId) {
+    const physics = this._engine.physics;
+    const r = this._engine.wasm._wl_physx_component_removeCallback(this._id, callbackId);
+    if (r)
+      physics._callbacks[this._id].splice(-r);
+  }
+};
+/** @override */
+__publicField(PhysXComponent, "TypeName", "physx");
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "static", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "kinematic", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "gravity", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "simulate", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "allowSimulation", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "allowQuery", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "trigger", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "shape", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "shapeData", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "extents", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "staticFriction", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "dynamicFriction", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "bounciness", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "linearDamping", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "angularDamping", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "linearVelocity", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "angularVelocity", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "groupsMask", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "blocksMask", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "linearLockAxis", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "angularLockAxis", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "mass", null);
+var Physics = class {
+  /**
+   * @hidden
+   *
+   * **Note**: This is public to emulate a `friend` accessor.
+   */
+  _callbacks;
+  /** Wonderland Engine instance */
+  _engine;
+  /** Ray Hit */
+  _rayHit;
+  /** Hit. */
+  _hit;
+  constructor(engine2) {
+    this._engine = engine2;
+    this._rayHit = engine2.wasm._malloc(4 * (3 * 4 + 3 * 4 + 4 + 2) + 4);
+    this._hit = new RayHit(this._engine, this._rayHit);
+    this._callbacks = {};
+  }
+  /**
+   * Cast a ray through the physics scene and find intersecting objects.
+   *
+   * The resulting ray hit will contain **up to 4** closest ray hits,
+   * sorted by increasing distance.
+   *
+   * @param o Ray origin.
+   * @param d Ray direction.
+   * @param group Collision group to filter by: only objects that are
+   *        part of given group are considered for raycast.
+   * @param maxDistance Maximum ray distance, default `100.0`.
+   *
+   * @returns The RayHit instance, belonging to this class.
+   *
+   * @note The returned {@link RayHit} object is owned by the Physics instance and
+   *       will be reused with the next {@link Physics#rayCast} call.
+   */
+  rayCast(o, d2, group, maxDistance = 100) {
+    this._engine.wasm._wl_physx_ray_cast(o[0], o[1], o[2], d2[0], d2[1], d2[2], group, maxDistance, this._rayHit);
+    return this._hit;
+  }
+};
+var MeshIndexType;
+(function(MeshIndexType2) {
+  MeshIndexType2[MeshIndexType2["UnsignedByte"] = 1] = "UnsignedByte";
+  MeshIndexType2[MeshIndexType2["UnsignedShort"] = 2] = "UnsignedShort";
+  MeshIndexType2[MeshIndexType2["UnsignedInt"] = 4] = "UnsignedInt";
+})(MeshIndexType || (MeshIndexType = {}));
+var Mesh = class {
+  /**
+   * Index of the mesh in the manager.
+   *
+   * @hidden
+   */
+  _index = -1;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * Create a new instance.
+   *
+   * @param params Either a mesh index to wrap or set of parameters to create a new mesh.
+   *    For more information, please have a look at the {@link MeshParameters} interface.
+   */
+  constructor(engine2, params) {
+    this._engine = engine2 ?? WL;
+    this._index = -1;
+    if (isNumber(params)) {
+      this._index = params;
+      return;
+    }
+    if (!params.vertexCount)
+      throw new Error("Missing parameter 'vertexCount'");
+    const wasm = this._engine.wasm;
+    let indexData = 0;
+    let indexType = 0;
+    let indexDataSize = 0;
+    if (params.indexData) {
+      indexType = params.indexType || MeshIndexType.UnsignedShort;
+      indexDataSize = params.indexData.length * indexType;
+      indexData = wasm._malloc(indexDataSize);
+      switch (indexType) {
+        case MeshIndexType.UnsignedByte:
+          wasm.HEAPU8.set(params.indexData, indexData);
+          break;
+        case MeshIndexType.UnsignedShort:
+          wasm.HEAPU16.set(params.indexData, indexData >> 1);
+          break;
+        case MeshIndexType.UnsignedInt:
+          wasm.HEAPU32.set(params.indexData, indexData >> 2);
+          break;
+      }
+    }
+    const { skinned = false } = params;
+    this._index = wasm._wl_mesh_create(indexData, indexDataSize, indexType, params.vertexCount, skinned);
+  }
+  /** Number of vertices in this mesh. */
+  get vertexCount() {
+    return this._engine.wasm._wl_mesh_get_vertexCount(this._index);
+  }
+  /** Index data (read-only) or `null` if the mesh is not indexed. */
+  get indexData() {
+    const wasm = this._engine.wasm;
+    const tempMem = wasm._tempMem;
+    const ptr = wasm._wl_mesh_get_indexData(this._index, tempMem, tempMem + 4);
+    if (ptr === null)
+      return null;
+    const indexCount = wasm.HEAPU32[tempMem / 4];
+    const indexSize = wasm.HEAPU32[tempMem / 4 + 1];
+    switch (indexSize) {
+      case MeshIndexType.UnsignedByte:
+        return new Uint8Array(wasm.HEAPU8.buffer, ptr, indexCount);
+      case MeshIndexType.UnsignedShort:
+        return new Uint16Array(wasm.HEAPU16.buffer, ptr, indexCount);
+      case MeshIndexType.UnsignedInt:
+        return new Uint32Array(wasm.HEAPU32.buffer, ptr, indexCount);
+    }
+    return null;
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
+  /**
+   * Apply changes to {@link attribute | vertex attributes}.
+   *
+   * Uploads the updated vertex attributes to the GPU and updates the bounding
+   * sphere to match the new vertex positions.
+   *
+   * Since this is an expensive operation, call it only once you have performed
+   * all modifications on a mesh and avoid calling if you did not perform any
+   * modifications at all.
+   */
+  update() {
+    this._engine.wasm._wl_mesh_update(this._index);
+  }
+  getBoundingSphere(out = new Float32Array(4)) {
+    const tempMemFloat = this._engine.wasm._tempMemFloat;
+    this._engine.wasm._wl_mesh_get_boundingSphere(this._index, this._engine.wasm._tempMem);
+    out[0] = tempMemFloat[0];
+    out[1] = tempMemFloat[1];
+    out[2] = tempMemFloat[2];
+    out[3] = tempMemFloat[3];
+    return out;
+  }
+  attribute(attr) {
+    if (typeof attr != "number")
+      throw new TypeError("Expected number, but got " + typeof attr);
+    const tempMemUint32 = this._engine.wasm._tempMemUint32;
+    this._engine.wasm._wl_mesh_get_attribute(this._index, attr, this._engine.wasm._tempMem);
+    if (tempMemUint32[0] == 255)
+      return null;
+    const arraySize = tempMemUint32[5];
+    return new MeshAttributeAccessor(this._engine, {
+      attribute: tempMemUint32[0],
+      offset: tempMemUint32[1],
+      stride: tempMemUint32[2],
+      formatSize: tempMemUint32[3],
+      componentCount: tempMemUint32[4],
+      /* The WASM API returns `0` for a scalar value. We clamp it to 1 as we strictly use it as a multiplier for get/set operations */
+      arraySize: arraySize ? arraySize : 1,
+      length: this.vertexCount,
+      bufferType: attr !== MeshAttribute.JointId ? Float32Array : Uint16Array
+    });
+  }
+  /**
+   * Destroy and free the meshes memory.
+   *
+   * It is best practice to set the mesh variable to `null` after calling
+   * destroy to prevent accidental use:
+   *
+   * ```js
+   *   mesh.destroy();
+   *   mesh = null;
+   * ```
+   *
+   * Accessing the mesh after destruction behaves like accessing an empty
+   * mesh.
+   *
+   * @since 0.9.0
+   */
+  destroy() {
+    this._engine.wasm._wl_mesh_destroy(this._index);
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native mesh ids are
+   * equal.
+   *
+   * @param otherMesh Mesh to check equality with.
+   * @returns Whether this mesh equals the given mesh.
+   *
+   * @since 1.0.0
+   */
+  equals(otherMesh) {
+    if (!otherMesh)
+      return false;
+    return this._index === otherMesh._index;
+  }
+};
+var MeshAttributeAccessor = class {
+  /** Max number of elements. */
+  length = 0;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /** Attribute index. @hidden */
+  _attribute = -1;
+  /** Attribute offset. @hidden */
+  _offset = 0;
+  /** Attribute stride. @hidden */
+  _stride = 0;
+  /** Format size native enum. @hidden */
+  _formatSize = 0;
+  /** Number of components per vertex. @hidden */
+  _componentCount = 0;
+  /** Number of values per vertex. @hidden */
+  _arraySize = 1;
+  /**
+   * Class to instantiate an ArrayBuffer to get/set values.
+   */
+  _bufferType;
+  /**
+   * Function to allocate temporary WASM memory. It is cached in the accessor to avoid
+   * conditionals during get/set.
+   */
+  _tempBufferGetter;
+  /**
+   * Create a new instance.
+   *
+   * @note Please use {@link Mesh.attribute} to create a new instance.
+   *
+   * @param options Contains information about how to read the data.
+   * @note Do not use this constructor. Instead, please use the {@link Mesh.attribute} method.
+   *
+   * @hidden
+   */
+  constructor(engine2, options) {
+    this._engine = engine2;
+    const wasm = this._engine.wasm;
+    this._attribute = options.attribute;
+    this._offset = options.offset;
+    this._stride = options.stride;
+    this._formatSize = options.formatSize;
+    this._componentCount = options.componentCount;
+    this._arraySize = options.arraySize;
+    this._bufferType = options.bufferType;
+    this.length = options.length;
+    this._tempBufferGetter = this._bufferType === Float32Array ? wasm.getTempBufferF32.bind(wasm) : wasm.getTempBufferU16.bind(wasm);
+  }
+  /**
+   * Create a new TypedArray to hold this attribute's values.
+   *
+   * This method is useful to create a view to hold the data to
+   * pass to {@link get} and {@link set}
+   *
+   * Example:
+   *
+   * ```js
+   * const vertexCount = 4;
+   * const positionAttribute = mesh.attribute(MeshAttributes.Position);
+   *
+   * // A position has 3 floats per vertex. Thus, positions has length 3 * 4.
+   * const positions = positionAttribute.createArray(vertexCount);
+   * ```
+   *
+   * @param count The number of **vertices** expected.
+   * @returns A TypedArray with the appropriate format to access the data
+   */
+  createArray(count = 1) {
+    count = count > this.length ? this.length : count;
+    return new this._bufferType(count * this._componentCount * this._arraySize);
+  }
+  get(index, out = this.createArray()) {
+    if (out.length % this._componentCount !== 0) {
+      throw new Error(`out.length, ${out.length} is not a multiple of the attribute vector components, ${this._componentCount}`);
+    }
+    const dest = this._tempBufferGetter(out.length);
+    const elementSize = this._bufferType.BYTES_PER_ELEMENT;
+    const destSize = elementSize * out.length;
+    const srcFormatSize = this._formatSize * this._arraySize;
+    const destFormatSize = this._componentCount * elementSize * this._arraySize;
+    this._engine.wasm._wl_mesh_get_attribute_values(this._attribute, srcFormatSize, this._offset + index * this._stride, this._stride, destFormatSize, dest.byteOffset, destSize);
+    for (let i = 0; i < out.length; ++i)
+      out[i] = dest[i];
+    return out;
+  }
+  /**
+   * Set attribute element.
+   *
+   * @param i Index
+   * @param v Value to set the element to
+   *
+   * `v.length` needs to be a multiple of the attributes component count, see
+   * {@link MeshAttribute}. If `v.length` is more than one multiple, it will be
+   * filled with the next n attribute elements, which can reduce overhead
+   * of this call.
+   *
+   * @returns Reference to self (for method chaining)
+   */
+  set(i, v) {
+    if (v.length % this._componentCount !== 0)
+      throw new Error(`out.length, ${v.length} is not a multiple of the attribute vector components, ${this._componentCount}`);
+    const elementSize = this._bufferType.BYTES_PER_ELEMENT;
+    const srcSize = elementSize * v.length;
+    const srcFormatSize = this._componentCount * elementSize * this._arraySize;
+    const destFormatSize = this._formatSize * this._arraySize;
+    const wasm = this._engine.wasm;
+    if (v.buffer != wasm.HEAPU8.buffer) {
+      const dest = this._tempBufferGetter(v.length);
+      dest.set(v);
+      v = dest;
+    }
+    wasm._wl_mesh_set_attribute_values(this._attribute, srcFormatSize, v.byteOffset, srcSize, destFormatSize, this._offset + i * this._stride, this._stride);
+    return this;
+  }
+};
+var Material = class {
+  /**
+   * Index of this material in the manager.
+   *
+   * @hidden
+   */
+  _index;
+  /**
+   * Material definition index in the scene.
+   *
+   * @hidden
+   */
+  _definition;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * Create a new Material.
+   *
+   * @note Creating material is expensive. Please use {@link Material#clone} to clone a material.
+   * @note Do not use this constructor directly with an index, this is reserved for internal purposes.
+   */
+  constructor(engine2, params) {
+    this._engine = engine2;
+    if (typeof params !== "number") {
+      if (!params?.pipeline)
+        throw new Error("Missing parameter 'pipeline'");
+      const wasm = this._engine.wasm;
+      const pipeline = params.pipeline;
+      this._index = wasm._wl_material_create(wasm.tempUTF8(pipeline));
+      if (this._index < 0)
+        throw new Error(`No such pipeline '${pipeline}'`);
+    } else {
+      this._index = params;
+    }
+    this._definition = this._engine.wasm._wl_material_get_definition(this._index);
+    if (!this._engine.wasm._materialDefinitions[this._definition])
+      throw new Error(`Material Definition ${this._definition} not found for material with index ${this._index}`);
+    return new Proxy(this, {
+      get(target, prop) {
+        const wasm = engine2.wasm;
+        const definition = wasm._materialDefinitions[target._definition];
+        const param = definition.get(prop);
+        if (!param)
+          return target[prop];
+        if (wasm._wl_material_get_param_value(target._index, param.index, wasm._tempMem)) {
+          const type = param.type;
+          switch (type.type) {
+            case MaterialParamType.UnsignedInt:
+              return type.componentCount == 1 ? wasm._tempMemUint32[0] : new Uint32Array(wasm.HEAPU32.buffer, wasm._tempMem, type.componentCount);
+            case MaterialParamType.Int:
+              return type.componentCount == 1 ? wasm._tempMemInt[0] : new Int32Array(wasm.HEAP32.buffer, wasm._tempMem, type.componentCount);
+            case MaterialParamType.Float:
+              return type.componentCount == 1 ? wasm._tempMemFloat[0] : new Float32Array(wasm.HEAPF32.buffer, wasm._tempMem, type.componentCount);
+            case MaterialParamType.Sampler:
+              return engine2.textures.wrap(wasm._tempMemInt[0]);
+            default:
+              throw new Error(`Invalid type ${type.type} on parameter ${param.index} for material ${target._index}`);
+          }
+        }
+      },
+      set(target, prop, value) {
+        const wasm = engine2.wasm;
+        const definition = wasm._materialDefinitions[target._definition];
+        const param = definition.get(prop);
+        if (!param) {
+          target[prop] = value;
+          return true;
+        }
+        const type = param.type;
+        switch (type.type) {
+          case MaterialParamType.UnsignedInt:
+          case MaterialParamType.Int:
+          case MaterialParamType.Sampler:
+            const v = value.id ?? value;
+            wasm._wl_material_set_param_value_uint(target._index, param.index, v);
+            break;
+          case MaterialParamType.Float:
+            let count = 1;
+            if (typeof value === "number") {
+              wasm._tempMemFloat[0] = value;
+            } else {
+              count = value.length;
+              for (let i = 0; i < count; ++i)
+                wasm._tempMemFloat[i] = value[i];
+            }
+            wasm._wl_material_set_param_value_float(target._index, param.index, wasm._tempMem, count);
+            break;
+          case MaterialParamType.Font:
+            throw new Error("Setting font properties is currently unsupported.");
+        }
+        return true;
+      }
+    });
+  }
+  /** @deprecated Use {@link #pipeline} instead. */
+  get shader() {
+    return this.pipeline;
+  }
+  /** Name of the pipeline used by this material. */
+  get pipeline() {
+    const wasm = this._engine.wasm;
+    return wasm.UTF8ToString(wasm._wl_material_get_pipeline(this._index));
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
+  /**
+   * Create a copy of the underlying native material.
+   *
+   * @returns Material clone.
+   */
+  clone() {
+    const id = this._engine.wasm._wl_material_clone(this._index);
+    return id > 0 ? new Material(this._engine, id) : null;
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native material ids are
+   * equal.
+   *
+   * @param otherMaterial Material to check equality with.
+   * @returns Whether this material equals the given material.
+   *
+   * @since 1.0.0
+   */
+  equals(otherMaterial) {
+    if (!otherMaterial)
+      return false;
+    return this._index === otherMaterial._index;
+  }
+  /**
+   * Wrap a native material index.
+   *
+   * @param engine Engine instance.
+   * @param index The index.
+   * @returns Material instance or `null` if index <= 0.
+   *
+   * @deprecated Please use `new Material()` instead.
+   */
+  static wrap(engine2, index) {
+    return index > 0 ? new Material(engine2, index) : null;
+  }
+};
+var temp2d = null;
+var Texture = class {
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /** Index in the manager. @hidden */
+  _id = 0;
+  /** HTML image index. @hidden */
+  _imageIndex = null;
+  /**
+   * @param engine The engine instance
+   * @param param HTML media element to create texture from or texture id to wrap.
+   */
+  constructor(engine2, param) {
+    this._engine = engine2 ?? WL;
+    const wasm = engine2.wasm;
+    if (param instanceof HTMLImageElement || param instanceof HTMLVideoElement || param instanceof HTMLCanvasElement) {
+      const index = wasm._images.length;
+      wasm._images.push(param);
+      this._imageIndex = index;
+      this._id = this._engine.wasm._wl_renderer_addImage(index);
+    } else {
+      this._id = param;
+    }
+    this._engine.textures._set(this);
+  }
+  /** Whether this texture is valid. */
+  get valid() {
+    return this._id >= 0;
+  }
+  /** Index in this manager. */
+  get id() {
+    return this._id;
+  }
+  /** Update the texture to match the HTML element (e.g. reflect the current frame of a video). */
+  update() {
+    if (!this.valid || this._imageIndex === null)
+      return;
+    this._engine.wasm._wl_renderer_updateImage(this._id, this._imageIndex);
+  }
+  /** Width of the texture. */
+  get width() {
+    return this._engine.wasm._wl_texture_width(this._id);
+  }
+  /** Height of the texture. */
+  get height() {
+    return this._engine.wasm._wl_texture_height(this._id);
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
+  /**
+   * Update a subrange on the texture to match the HTML element (e.g. reflect the current frame of a video).
+   *
+   * Usage:
+   *
+   * ```js
+   * // Copies rectangle of pixel starting from (10, 20)
+   * texture.updateSubImage(10, 20, 600, 400);
+   * ```
+   *
+   * @param x x offset
+   * @param y y offset
+   * @param w width
+   * @param h height
+   */
+  updateSubImage(x2, y, w, h) {
+    if (!this.valid || this._imageIndex === null)
+      return;
+    if (!temp2d) {
+      const canvas2 = document.createElement("canvas");
+      const ctx = canvas2.getContext("2d");
+      if (!ctx) {
+        throw new Error("Texture.updateSubImage(): Failed to obtain CanvasRenderingContext2D.");
+      }
+      temp2d = { canvas: canvas2, ctx };
+    }
+    const wasm = this._engine.wasm;
+    const img = wasm._images[this._imageIndex];
+    if (!img)
+      return;
+    temp2d.canvas.width = w;
+    temp2d.canvas.height = h;
+    temp2d.ctx.drawImage(img, x2, y, w, h, 0, 0, w, h);
+    const yOffset = (img.videoHeight ?? img.height) - y - h;
+    wasm._images[this._imageIndex] = temp2d.canvas;
+    wasm._wl_renderer_updateImage(this._id, this._imageIndex, x2, yOffset);
+    wasm._images[this._imageIndex] = img;
+  }
+  /**
+   * Destroy and free the texture's texture altas space and memory.
+   *
+   * It is best practice to set the texture variable to `null` after calling
+   * destroy to prevent accidental use of the invalid texture:
+   *
+   * ```js
+   *   texture.destroy();
+   *   texture = null;
+   * ```
+   *
+   * @since 0.9.0
+   */
+  destroy() {
+    this.engine.textures._destroy(this);
+    this._id = -1;
+    this._imageIndex = null;
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native texture ids are
+   * equal.
+   *
+   * @param otherTexture Texture to check equality with.
+   * @returns Whether this texture equals the given texture.
+   *
+   * @since 1.0.0
+   */
+  equals(otherTexture) {
+    if (!otherTexture)
+      return false;
+    return this._id === otherTexture._id;
+  }
+};
+var Animation = class {
+  /** Index of the mesh in the manager. @hidden */
+  _index;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * @param index Index in the manager
+   */
+  constructor(engine2 = WL, index) {
+    this._engine = engine2;
+    this._index = index;
+  }
+  /** Duration of this animation. */
+  get duration() {
+    return this._engine.wasm._wl_animation_get_duration(this._index);
+  }
+  /** Number of tracks in this animation. */
+  get trackCount() {
+    return this._engine.wasm._wl_animation_get_trackCount(this._index);
+  }
+  /**
+   * Clone this animation retargeted to a new set of objects.
+   *
+   * The clone shares most of the data with the original and is therefore
+   * light-weight.
+   *
+   * **Experimental:** This API might change in upcoming versions.
+   *
+   * If retargeting to {@link Skin}, the join names will be used to determine a mapping
+   * from the previous skin to the new skin. The source skin will be retrieved from
+   * the first track in the animation that targets a joint.
+   *
+   * @param newTargets New targets per track. Expected to have
+   *      {@link Animation#trackCount} elements or to be a {@link Skin}.
+   * @returns The retargeted clone of this animation.
+   */
+  retarget(newTargets) {
+    const wasm = this._engine.wasm;
+    if (newTargets instanceof Skin) {
+      const animId2 = wasm._wl_animation_retargetToSkin(this._index, newTargets._index);
+      return new Animation(this._engine, animId2);
+    }
+    if (newTargets.length != this.trackCount) {
+      throw Error("Expected " + this.trackCount.toString() + " targets, but got " + newTargets.length.toString());
+    }
+    const ptr = wasm._malloc(2 * newTargets.length);
+    for (let i = 0; i < newTargets.length; ++i) {
+      wasm.HEAPU16[ptr >> 1 + i] = newTargets[i].objectId;
+    }
+    const animId = wasm._wl_animation_retarget(this._index, ptr);
+    wasm._free(ptr);
+    return new Animation(this._engine, animId);
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native animation ids
+   * are equal.
+   *
+   * @param otherAnimation Animation to check equality with.
+   * @returns Whether this animation equals the given animation.
+   *
+   * @since 1.0.0
+   */
+  equals(otherAnimation) {
+    if (!otherAnimation)
+      return false;
+    return this._index === otherAnimation._index;
+  }
+};
+var Object3D = class {
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * Object index in the manager.
+   *
+   * @hidden
+   */
+  _objectId = -1;
+  /**
+   * @param o Object id to wrap
+   *
+   * For performance reasons, please use {@link WonderlandEngine.wrapObject}
+   */
+  constructor(engine2, o) {
+    this._objectId = o;
+    this._engine = engine2;
+  }
+  /**
+   * Name of the object.
+   *
+   * Useful for identifying objects during debugging.
+   */
+  get name() {
+    const wasm = this._engine.wasm;
+    return wasm.UTF8ToString(wasm._wl_object_name(this.objectId));
+  }
+  /**
+   * Set the object's name.
+   *
+   * @param newName The new name to set.
+   */
+  set name(newName) {
+    const wasm = this._engine.wasm;
+    wasm._wl_object_set_name(this.objectId, wasm.tempUTF8(newName));
+  }
+  /**
+   * Parent of this object or `null` if parented to root.
+   */
+  get parent() {
+    const p = this._engine.wasm._wl_object_parent(this.objectId);
+    return p === 0 ? null : this._engine.wrapObject(p);
+  }
+  /**
+   * Children of this object.
+   */
+  get children() {
+    const childrenCount = this._engine.wasm._wl_object_get_children_count(this.objectId);
+    if (childrenCount === 0)
+      return [];
+    const wasm = this._engine.wasm;
+    wasm.requireTempMem(childrenCount * 2);
+    this._engine.wasm._wl_object_get_children(this.objectId, wasm._tempMem, wasm._tempMemSize >> 1);
+    const children = new Array(childrenCount);
+    for (let i = 0; i < childrenCount; ++i) {
+      children[i] = this._engine.wrapObject(wasm._tempMemUint16[i]);
+    }
+    return children;
+  }
+  /**
+   * Reparent object to given object.
+   *
+   * @note Reparenting is not trivial and might have a noticeable performance impact.
+   *
+   * @param newParent New parent or `null` to parent to root
+   */
+  set parent(newParent) {
+    this._engine.wasm._wl_object_set_parent(this.objectId, newParent == null ? 0 : newParent.objectId);
+  }
+  /** Object index in the manager. */
+  get objectId() {
+    return this._objectId;
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
+  /**
+   * Reset local transformation (translation, rotation and scaling) to identity.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  resetTransform() {
+    this._engine.wasm._wl_object_reset_translation_rotation(this.objectId);
+    this._engine.wasm._wl_object_reset_scaling(this.objectId);
+    return this;
+  }
+  /**
+   * Reset local translation and rotation to identity.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  resetTranslationRotation() {
+    this._engine.wasm._wl_object_reset_translation_rotation(this.objectId);
+    return this;
+  }
+  /**
+   * Reset local rotation, keep translation.
+   *
+   * @note To reset both rotation and translation, prefer
+   *       {@link resetTranslationRotation}.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  resetRotation() {
+    this._engine.wasm._wl_object_reset_rotation(this.objectId);
+    return this;
+  }
+  /**
+   * Reset local translation, keep rotation.
+   *
+   * @note To reset both rotation and translation, prefer
+   *       {@link resetTranslationRotation}.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  resetTranslation() {
+    this._engine.wasm._wl_object_reset_translation(this.objectId);
+    return this;
+  }
+  /**
+   * Reset local scaling to identity (``[1.0, 1.0, 1.0]``).
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  resetScaling() {
+    this._engine.wasm._wl_object_reset_scaling(this.objectId);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.translateLocal} instead. */
+  translate(v) {
+    return this.translateLocal(v);
+  }
+  /**
+   * Translate object by a vector in the parent's space.
+   *
+   * @param v Vector to translate by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  translateLocal(v) {
+    this._engine.wasm._wl_object_translate(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  /**
+   * Translate object by a vector in object space.
+   *
+   * @param v Vector to translate by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  translateObject(v) {
+    this._engine.wasm._wl_object_translate_obj(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  /**
+   * Translate object by a vector in world space.
+   *
+   * @param v Vector to translate by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  translateWorld(v) {
+    this._engine.wasm._wl_object_translate_world(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.rotateAxisAngleDegLocal} instead. */
+  rotateAxisAngleDeg(a, d2) {
+    this.rotateAxisAngleDegLocal(a, d2);
+    return this;
+  }
+  /**
+   * Rotate around given axis by given angle (degrees) in local space.
+   *
+   * @param a Vector representing the rotation axis.
+   * @param d Angle in degrees.
+   *
+   * @note If the object is translated the rotation will be around
+   *     the parent. To rotate around the object origin, use
+   *     {@link rotateAxisAngleDegObject}
+   *
+   * @see {@link rotateAxisAngleRad}
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateAxisAngleDegLocal(a, d2) {
+    this._engine.wasm._wl_object_rotate_axis_angle(this.objectId, a[0], a[1], a[2], d2);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.rotateAxisAngleRadLocal} instead. */
+  rotateAxisAngleRad(a, d2) {
+    return this.rotateAxisAngleRadLocal(a, d2);
+  }
+  /**
+   * Rotate around given axis by given angle (radians) in local space.
+   *
+   * @param a Vector representing the rotation axis.
+   * @param d Angle in radians.
+   *
+   * @note If the object is translated the rotation will be around
+   *     the parent. To rotate around the object origin, use
+   *     {@link rotateAxisAngleDegObject}
+   *
+   * @see {@link rotateAxisAngleDeg}
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateAxisAngleRadLocal(a, d2) {
+    this._engine.wasm._wl_object_rotate_axis_angle_rad(this.objectId, a[0], a[1], a[2], d2);
+    return this;
+  }
+  /**
+   * Rotate around given axis by given angle (degrees) in object space.
+   *
+   * @param a Vector representing the rotation axis.
+   * @param d Angle in degrees.
+   *
+   * Equivalent to prepending a rotation quaternion to the object's
+   * local transformation.
+   *
+   * @see {@link rotateAxisAngleRadObject}
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateAxisAngleDegObject(a, d2) {
+    this._engine.wasm._wl_object_rotate_axis_angle_obj(this.objectId, a[0], a[1], a[2], d2);
+    return this;
+  }
+  /**
+   * Rotate around given axis by given angle (radians) in object space
+   * Equivalent to prepending a rotation quaternion to the object's
+   * local transformation.
+   *
+   * @param a Vector representing the rotation axis
+   * @param d Angle in degrees
+   *
+   * @see {@link rotateAxisAngleDegObject}
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateAxisAngleRadObject(a, d2) {
+    this._engine.wasm._wl_object_rotate_axis_angle_rad_obj(this.objectId, a[0], a[1], a[2], d2);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.rotateLocal} instead. */
+  rotate(q2) {
+    this.rotateLocal(q2);
+    return this;
+  }
+  /**
+   * Rotate by a quaternion.
+   *
+   * @param q the Quaternion to rotate by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateLocal(q2) {
+    this._engine.wasm._wl_object_rotate_quat(this.objectId, q2[0], q2[1], q2[2], q2[3]);
+    return this;
+  }
+  /**
+   * Rotate by a quaternion in object space.
+   *
+   * Equivalent to prepending a rotation quaternion to the object's
+   * local transformation.
+   *
+   * @param q the Quaternion to rotate by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateObject(q2) {
+    this._engine.wasm._wl_object_rotate_quat_obj(this.objectId, q2[0], q2[1], q2[2], q2[3]);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.scaleLocal} instead. */
+  scale(v) {
+    this.scaleLocal(v);
+    return this;
+  }
+  /**
+   * Scale object by a vector in object space.
+   *
+   * @param v Vector to scale by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  scaleLocal(v) {
+    this._engine.wasm._wl_object_scale(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  getTranslationLocal(out = new Float32Array(3)) {
+    const wasm = this._engine.wasm;
+    wasm._wl_object_get_translation_local(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  getTranslationWorld(out = new Float32Array(3)) {
+    const wasm = this._engine.wasm;
+    wasm._wl_object_get_translation_world(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Set local / object space translation.
+   *
+   * Concatenates a new translation dual quaternion onto the existing rotation.
+   *
+   * @param v New local translation array/vector, expected to have at least 3 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setTranslationLocal(v) {
+    this._engine.wasm._wl_object_set_translation_local(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  /**
+   * Set world space translation.
+   *
+   * Applies the inverse parent transform with a new translation dual quaternion
+   * which is concatenated onto the existing rotation.
+   *
+   * @param v New world translation array/vector, expected to have at least 3 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setTranslationWorld(v) {
+    this._engine.wasm._wl_object_set_translation_world(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  getScalingLocal(out = new Float32Array(3)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_scaling_local(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    return out;
+  }
+  /**
+   * Set local / object space scaling.
+   *
+   * @param v New local scaling array/vector, expected to have at least 3 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setScalingLocal(v) {
+    this._engine.wasm._wl_object_set_scaling_local(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  getScalingWorld(out = new Float32Array(3)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_scaling_world(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    return out;
+  }
+  /**
+   * Set World space scaling.
+   *
+   * @param v New world scaling array/vector, expected to have at least 3 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setScalingWorld(v) {
+    this._engine.wasm._wl_object_set_scaling_world(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  getRotationLocal(out = new Float32Array(4)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_local(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    out[3] = wasm.HEAPF32[ptr + 3];
+    return out;
+  }
+  /**
+   * Set local space rotation.
+   *
+   * @param v New world rotation array/vector, expected to have at least 4 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setRotationLocal(v) {
+    this._engine.wasm._wl_object_set_rotation_local(this.objectId, v[0], v[1], v[2], v[3]);
+    return this;
+  }
+  getRotationWorld(out = new Float32Array(4)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_world(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    out[3] = wasm.HEAPF32[ptr + 3];
+    return out;
+  }
+  /**
+   * Set local space rotation.
+   *
+   * @param v New world rotation array/vector, expected to have at least 4 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setRotationWorld(v) {
+    this._engine.wasm._wl_object_set_rotation_world(this.objectId, v[0], v[1], v[2], v[3]);
+    return this;
+  }
+  getTransformLocal(out = new Float32Array(8)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_local(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    out[3] = wasm.HEAPF32[ptr + 3];
+    out[4] = wasm.HEAPF32[ptr + 4];
+    out[5] = wasm.HEAPF32[ptr + 5];
+    out[6] = wasm.HEAPF32[ptr + 6];
+    out[7] = wasm.HEAPF32[ptr + 7];
+    return out;
+  }
+  /**
+   * Set local space rotation.
+   *
+   * @param v New local transform array, expected to have at least 8 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setTransformLocal(v) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_local(this.objectId) / 4;
+    wasm.HEAPF32[ptr] = v[0];
+    wasm.HEAPF32[ptr + 1] = v[1];
+    wasm.HEAPF32[ptr + 2] = v[2];
+    wasm.HEAPF32[ptr + 3] = v[3];
+    wasm.HEAPF32[ptr + 4] = v[4];
+    wasm.HEAPF32[ptr + 5] = v[5];
+    wasm.HEAPF32[ptr + 6] = v[6];
+    wasm.HEAPF32[ptr + 7] = v[7];
+    this.setDirty();
+    return this;
+  }
+  getTransformWorld(out = new Float32Array(8)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_world(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    out[3] = wasm.HEAPF32[ptr + 3];
+    out[4] = wasm.HEAPF32[ptr + 4];
+    out[5] = wasm.HEAPF32[ptr + 5];
+    out[6] = wasm.HEAPF32[ptr + 6];
+    out[7] = wasm.HEAPF32[ptr + 7];
+    return out;
+  }
+  /**
+   * Set world space rotation.
+   *
+   * @param v New world transform array, expected to have at least 8 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setTransformWorld(v) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_world(this.objectId) / 4;
+    wasm.HEAPF32[ptr] = v[0];
+    wasm.HEAPF32[ptr + 1] = v[1];
+    wasm.HEAPF32[ptr + 2] = v[2];
+    wasm.HEAPF32[ptr + 3] = v[3];
+    wasm.HEAPF32[ptr + 4] = v[4];
+    wasm.HEAPF32[ptr + 5] = v[5];
+    wasm.HEAPF32[ptr + 6] = v[6];
+    wasm.HEAPF32[ptr + 7] = v[7];
+    this._engine.wasm._wl_object_trans_world_to_local(this.objectId);
+    return this;
+  }
+  /**
+   * Local space transformation.
+   *
+   * @deprecated Please use {@link Object3D.setTransformLocal} and
+   * {@link Object3D.getTransformLocal} instead.
+   */
+  get transformLocal() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_object_trans_local(this.objectId), 8);
+  }
+  /**
+   * Set local transform.
+   *
+   * @param t Local space transformation.
+   *
+   * @since 0.8.5
+   *
+   * @deprecated Please use {@link Object3D.setTransformLocal} and
+   * {@link Object3D.getTransformLocal} instead.
+   */
+  set transformLocal(t) {
+    this.transformLocal.set(t);
+    this.setDirty();
+  }
+  /**
+   * Global / world space transformation.
+   *
+   * May recompute transformations of the hierarchy of this object,
+   * if they were changed by JavaScript components this frame.
+   *
+   * @deprecated Please use {@link Object3D.setTransformWorld} and
+   * {@link Object3D.getTransformWorld} instead.
+   */
+  get transformWorld() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_object_trans_world(this.objectId), 8);
+  }
+  /**
+   * Set world transform.
+   *
+   * @param t Global / world space transformation.
+   *
+   * @since 0.8.5
+   *
+   * @deprecated Please use {@link Object3D.setTransformWorld} and
+   * {@link Object3D.getTransformWorld} instead.
+   */
+  set transformWorld(t) {
+    this.transformWorld.set(t);
+    this._engine.wasm._wl_object_trans_world_to_local(this.objectId);
+  }
+  /**
+   * Local / object space scaling.
+   *
+   * @deprecated Please use {@link Object3D.setScalingLocal} and
+   * {@link Object3D.getScalingLocal} instead.
+   */
+  get scalingLocal() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_object_scaling_local(this.objectId), 3);
+  }
+  /**
+   * Set local space scaling.
+   *
+   * @param s Local space scaling.
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.setScalingLocal} and
+   * {@link Object3D.getScalingLocal} instead.
+   */
+  set scalingLocal(s) {
+    this.scalingLocal.set(s);
+    this.setDirty();
+  }
+  /**
+   * Global / world space scaling.
+   *
+   * May recompute transformations of the hierarchy of this object,
+   * if they were changed by JavaScript components this frame.
+   *
+   * @deprecated Please use {@link Object3D.setScalingWorld} and
+   * {@link Object3D.getScalingWorld} instead.
+   */
+  get scalingWorld() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_object_scaling_world(this.objectId), 3);
+  }
+  /**
+   * Set world space scaling.
+   *
+   * @param t World space scaling.
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.setScalingWorld} and
+   * {@link Object3D.getScalingWorld} instead.
+   */
+  set scalingWorld(s) {
+    this.scalingWorld.set(s);
+    this._engine.wasm._wl_object_scaling_world_to_local(this.objectId);
+  }
+  /**
+   * Local space rotation.
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.getRotationLocal} and
+   * {@link Object3D.setRotationLocal} instead.
+   */
+  get rotationLocal() {
+    return this.transformLocal.subarray(0, 4);
+  }
+  /**
+   * Global / world space rotation
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.getRotationWorld} and
+   * {@link Object3D.setRotationWorld} instead.
+   */
+  get rotationWorld() {
+    return this.transformWorld.subarray(0, 4);
+  }
+  /**
+   * Set local space rotation.
+   *
+   * @param r Local space rotation
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.getRotationLocal} and
+   * {@link Object3D.setRotationLocal} instead.
+   */
+  set rotationLocal(r) {
+    this._engine.wasm._wl_object_set_rotation_local(this.objectId, r[0], r[1], r[2], r[3]);
+  }
+  /**
+   * Set world space rotation.
+   *
+   * @param r Global / world space rotation.
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.getRotationWorld} and
+   * {@link Object3D.setRotationWorld} instead.
+   */
+  set rotationWorld(r) {
+    this._engine.wasm._wl_object_set_rotation_world(this.objectId, r[0], r[1], r[2], r[3]);
+  }
+  /** @deprecated Please use {@link Object3D.getForwardWorld} instead. */
+  getForward(out) {
+    return this.getForwardWorld(out);
+  }
+  /**
+   * Compute the object's forward facing world space vector.
+   *
+   * The forward vector in object space is along the negative z-axis, i.e.,
+   * `[0, 0, -1]`.
+   *
+   * @param out Destination array/vector, expected to have at least 3 elements.
+   * @return The `out` parameter.
+   */
+  getForwardWorld(out) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = -1;
+    this.transformVectorWorld(out);
+    return out;
+  }
+  /** @deprecated Please use {@link Object3D.getUpWorld} instead. */
+  getUp(out) {
+    return this.getUpWorld(out);
+  }
+  /**
+   * Compute the object's up facing world space vector.
+   *
+   * @param out Destination array/vector, expected to have at least 3 elements.
+   * @return The `out` parameter.
+   */
+  getUpWorld(out) {
+    out[0] = 0;
+    out[1] = 1;
+    out[2] = 0;
+    this.transformVectorWorld(out);
+    return out;
+  }
+  /** @deprecated Please use {@link Object3D.getRightWorld} instead. */
+  getRight(out) {
+    return this.getRightWorld(out);
+  }
+  /**
+   * Compute the object's right facing world space vector.
+   *
+   * @param out Destination array/vector, expected to have at least 3 elements.
+   * @return The `out` parameter.
+   */
+  getRightWorld(out) {
+    out[0] = 1;
+    out[1] = 0;
+    out[2] = 0;
+    this.transformVectorWorld(out);
+    return out;
+  }
+  /**
+   * Transform a vector by this object's world transform.
+   *
+   * @param out Out vector
+   * @param v Vector to transform, default `out`
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformVectorWorld(out, v = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = v[0];
+    wasm._tempMemFloat[1] = v[1];
+    wasm._tempMemFloat[2] = v[2];
+    wasm._wl_object_transformVectorWorld(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a vector by this object's local transform.
+   *
+   * @param out Out vector
+   * @param v Vector to transform, default `out`
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformVectorLocal(out, v = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = v[0];
+    wasm._tempMemFloat[1] = v[1];
+    wasm._tempMemFloat[2] = v[2];
+    wasm._wl_object_transformVectorLocal(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a point by this object's world transform.
+   *
+   * @param out Out point.
+   * @param p Point to transform, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformPointWorld(out, p = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = p[0];
+    wasm._tempMemFloat[1] = p[1];
+    wasm._tempMemFloat[2] = p[2];
+    wasm._wl_object_transformPointWorld(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a point by this object's local transform.
+   *
+   * @param out Out point.
+   * @param p Point to transform, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformPointLocal(out, p = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = p[0];
+    wasm._tempMemFloat[1] = p[1];
+    wasm._tempMemFloat[2] = p[2];
+    wasm._wl_object_transformPointLocal(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a vector by this object's inverse world transform.
+   *
+   * @param out Out vector.
+   * @param v Vector to transform, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformVectorInverseWorld(out, v = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = v[0];
+    wasm._tempMemFloat[1] = v[1];
+    wasm._tempMemFloat[2] = v[2];
+    wasm._wl_object_transformVectorInverseWorld(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a vector by this object's inverse local transform.
+   *
+   * @param out Out vector
+   * @param v Vector to transform, default `out`
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformVectorInverseLocal(out, v = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = v[0];
+    wasm._tempMemFloat[1] = v[1];
+    wasm._tempMemFloat[2] = v[2];
+    wasm._wl_object_transformVectorInverseLocal(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a point by this object's inverse world transform.
+   *
+   * @param out Out point.
+   * @param p Point to transform, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformPointInverseWorld(out, p = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = p[0];
+    wasm._tempMemFloat[1] = p[1];
+    wasm._tempMemFloat[2] = p[2];
+    wasm._wl_object_transformPointInverseWorld(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a point by this object's inverse local transform.
+   *
+   * @param out Out point.
+   * @param p Point to transform, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformPointInverseLocal(out, p = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat.set(p);
+    wasm._wl_object_transformPointInverseLocal(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform an object space dual quaternion into world space.
+   *
+   * @param out Out transformation.
+   * @param q Local space transformation, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  toWorldSpaceTransform(out, q2 = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat.set(q2);
+    wasm._wl_object_toWorldSpaceTransform(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    out[3] = wasm._tempMemFloat[3];
+    out[4] = wasm._tempMemFloat[4];
+    out[5] = wasm._tempMemFloat[5];
+    out[6] = wasm._tempMemFloat[6];
+    out[7] = wasm._tempMemFloat[7];
+    return out;
+  }
+  /**
+   * Transform a world space dual quaternion into local space.
+   *
+   * @param out Out transformation
+   * @param q World space transformation, default `out`
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  toLocalSpaceTransform(out, q2 = out) {
+    const p = this.parent;
+    if (p) {
+      p.toObjectSpaceTransform(out, q2);
+      return out;
+    }
+    if (out !== q2) {
+      out[0] = q2[0];
+      out[1] = q2[1];
+      out[2] = q2[2];
+      out[3] = q2[3];
+      out[4] = q2[4];
+      out[5] = q2[5];
+      out[6] = q2[6];
+      out[7] = q2[7];
+    }
+    return out;
+  }
+  /**
+   * Transform a world space dual quaternion into object space.
+   *
+   * @param out Out transformation.
+   * @param q World space transformation, default `out`
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  toObjectSpaceTransform(out, q2 = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat.set(q2);
+    wasm._wl_object_toObjectSpaceTransform(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    out[3] = wasm._tempMemFloat[3];
+    out[4] = wasm._tempMemFloat[4];
+    out[5] = wasm._tempMemFloat[5];
+    out[6] = wasm._tempMemFloat[6];
+    out[7] = wasm._tempMemFloat[7];
+    return out;
+  }
+  /**
+   * Turn towards / look at target.
+   *
+   * Rotates the object so that its forward vector faces towards the target
+   * position. The `up` vector acts as a hint to uniquely orient the object's
+   * up direction. When orienting a view component, the projected `up` vector
+   * faces upwards on the viewing plane.
+   *
+   * @param p Target position to turn towards, in world space.
+   * @param up Up vector to align object with, in world space. Default is `[0, 1, 0]`.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  lookAt(p, up = UP_VECTOR) {
+    this._engine.wasm._wl_object_lookAt(this.objectId, p[0], p[1], p[2], up[0], up[1], up[2]);
+    return this;
+  }
+  /** Destroy the object with all of its components and remove it from the scene */
+  destroy() {
+    this._engine.wasm._wl_scene_remove_object(this.objectId);
+    this._objectId = -1;
+  }
+  /**
+   * Mark transformation dirty.
+   *
+   * Causes an eventual recalculation of {@link transformWorld}, either
+   * on next {@link getTranslationWorld}, {@link transformWorld} or
+   * {@link scalingWorld} or the beginning of next frame, whichever
+   * happens first.
+   */
+  setDirty() {
+    this._engine.wasm._wl_object_set_dirty(this.objectId);
+  }
+  /**
+   * Disable/enable all components of this object.
+   *
+   * @param b New state for the components.
+   *
+   * @since 0.8.5
+   */
+  set active(b) {
+    const comps = this.getComponents();
+    for (let c of comps) {
+      c.active = b;
+    }
+  }
+  getComponent(typeOrClass, index = 0) {
+    const type = isString(typeOrClass) ? typeOrClass : typeOrClass.TypeName;
+    const wasm = this._engine.wasm;
+    const componentType = wasm._wl_get_component_manager_index(wasm.tempUTF8(type));
+    if (componentType < 0) {
+      const typeIndex = wasm._componentTypeIndices[type];
+      const jsIndex = wasm._wl_get_js_component_index(this.objectId, typeIndex, index);
+      return jsIndex < 0 ? null : this._engine.wasm._components[jsIndex];
+    }
+    const componentId = this._engine.wasm._wl_get_component_id(this.objectId, componentType, index);
+    return this._engine._wrapComponent(type, componentType, componentId);
+  }
+  /**
+   * @param typeOrClass Type name, pass a falsey value (`undefined` or `null`) to retrieve all.
+   *     It's also possible to give a class definition. In this case, the method will use the `class.TypeName` field to
+   *     find the components.
+   * @returns All components of given type attached to this object.
+   *
+   * @note As this function is non-trivial, avoid using it in `update()` repeatedly,
+   *      but rather store its result in `init()` or `start()`
+   * @warning This method will currently return at most 341 components.
+   */
+  getComponents(typeOrClass) {
+    const wasm = this._engine.wasm;
+    let componentType = null;
+    let type = null;
+    if (typeOrClass) {
+      type = isString(typeOrClass) ? typeOrClass : typeOrClass.TypeName;
+      componentType = wasm._typeIndexFor(type);
+    }
+    const components = [];
+    const maxComps = Math.floor(wasm._tempMemSize / 3 * 2);
+    const componentsCount = wasm._wl_object_get_components(this.objectId, wasm._tempMem, maxComps);
+    const offset2 = 2 * componentsCount;
+    wasm._wl_object_get_component_types(this.objectId, wasm._tempMem + offset2, maxComps);
+    const jsManagerIndex = wasm._typeIndexFor("js");
+    for (let i = 0; i < componentsCount; ++i) {
+      const t = wasm._tempMemUint8[i + offset2];
+      const componentId = wasm._tempMemUint16[i];
+      if (t == jsManagerIndex) {
+        const typeIndex = wasm._wl_get_js_component_index_for_id(componentId);
+        const comp = wasm._components[typeIndex];
+        if (componentType === null || comp.type == type)
+          components.push(comp);
+        continue;
+      }
+      if (componentType === null) {
+        const managerName = wasm._typeNameFor(t);
+        components.push(this._engine._wrapComponent(managerName, t, componentId));
+      } else if (t == componentType) {
+        components.push(this._engine._wrapComponent(type, componentType, componentId));
+      }
+    }
+    return components;
+  }
+  addComponent(typeOrClass, params) {
+    const wasm = this._engine.wasm;
+    const type = isString(typeOrClass) ? typeOrClass : typeOrClass.TypeName;
+    const componentType = wasm._typeIndexFor(type);
+    let component = null;
+    let componentIndex = null;
+    if (componentType < 0) {
+      if (!(type in wasm._componentTypeIndices)) {
+        throw new TypeError("Unknown component type '" + type + "'");
+      }
+      const componentId = wasm._wl_object_add_js_component(this.objectId, wasm._componentTypeIndices[type]);
+      componentIndex = wasm._wl_get_js_component_index_for_id(componentId);
+      component = wasm._components[componentIndex];
+    } else {
+      const componentId = wasm._wl_object_add_component(this.objectId, componentType);
+      component = this._engine._wrapComponent(type, componentType, componentId);
+    }
+    if (params !== void 0) {
+      const ctor = component.constructor;
+      for (const key in params) {
+        if (!(key in ctor.Properties))
+          continue;
+        component[key] = params[key];
+      }
+    }
+    if (componentType < 0) {
+      wasm._wljs_component_init(componentIndex);
+    }
+    if (!params || !("active" in params && !params.active)) {
+      component.active = true;
+    }
+    return component;
+  }
+  /**
+   * Whether given object's transformation has changed.
+   */
+  get changed() {
+    return !!this._engine.wasm._wl_object_is_changed(this.objectId);
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native object ids are
+   * equal.
+   *
+   * @param otherObject Object to check equality with.
+   * @returns Whether this object equals the given object.
+   */
+  equals(otherObject) {
+    if (!otherObject)
+      return false;
+    return this.objectId == otherObject.objectId;
+  }
+};
+var Skin = class {
+  /**
+   * Index of the skin in the manager.
+   * @hidden
+   */
+  _index;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  constructor(engine2, index) {
+    this._engine = engine2;
+    this._index = index;
+  }
+  /** Amount of joints in this skin. */
+  get jointCount() {
+    return this._engine.wasm._wl_skin_get_joint_count(this._index);
+  }
+  /** Joints object ids for this skin */
+  get jointIds() {
+    const wasm = this._engine.wasm;
+    return new Uint16Array(wasm.HEAPU16.buffer, wasm._wl_skin_joint_ids(this._index), this.jointCount);
+  }
+  /**
+   * Dual quaternions in a flat array of size 8 times {@link jointCount}.
+   *
+   * Inverse bind transforms of the skin.
+   */
+  get inverseBindTransforms() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_skin_inverse_bind_transforms(this._index), 8 * this.jointCount);
+  }
+  /**
+   * Vectors in a flat array of size 3 times {@link jointCount}.
+   *
+   * Inverse bind scalings of the skin.
+   */
+  get inverseBindScalings() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_skin_inverse_bind_scalings(this._index), 3 * this.jointCount);
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native skin ids are
+   * equal.
+   *
+   * @param otherSkin Skin to check equality with.
+   * @returns Whether this skin equals the given skin.
+   *
+   * @since 1.0.0
+   */
+  equals(otherSkin) {
+    if (!otherSkin)
+      return false;
+    return this._index === otherSkin._index;
+  }
+};
+var RayHit = class {
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /** Pointer to the memory heap. */
+  _ptr;
+  /**
+   * @param ptr Pointer to the ray hits memory.
+   */
+  constructor(engine2, ptr) {
+    if ((ptr & 3) !== 0) {
+      throw new Error("Misaligned pointer: please report a bug");
+    }
+    this._engine = engine2;
+    this._ptr = ptr;
+  }
+  /** Array of ray hit locations. */
+  get locations() {
+    let p = this._ptr;
+    let l2 = [];
+    for (let i = 0; i < this.hitCount; ++i) {
+      l2.push(new Float32Array(this._engine.wasm.HEAPF32.buffer, p + 12 * i, 3));
+    }
+    return l2;
+  }
+  /** Array of ray hit normals (only when using {@link Physics#rayCast}. */
+  get normals() {
+    let p = this._ptr + 48;
+    let l2 = [];
+    for (let i = 0; i < this.hitCount; ++i) {
+      l2.push(new Float32Array(this._engine.wasm.HEAPF32.buffer, p + 12 * i, 3));
+    }
+    return l2;
+  }
+  /**
+   * Prefer these to recalculating the distance from locations.
+   *
+   * Distances of array hits to ray origin.
+   */
+  get distances() {
+    const p = this._ptr + 48 * 2;
+    return new Float32Array(this._engine.wasm.HEAPF32.buffer, p, this.hitCount);
+  }
+  /** Hit objects */
+  get objects() {
+    const HEAPU16 = this._engine.wasm.HEAPU16;
+    const objects = [null, null, null, null];
+    let p = this._ptr + (48 * 2 + 16) >> 1;
+    for (let i = 0; i < this.hitCount; ++i) {
+      objects[i] = this._engine.wrapObject(HEAPU16[p + i]);
+    }
+    return objects;
+  }
+  /** Number of hits (max 4) */
+  get hitCount() {
+    return Math.min(this._engine.wasm.HEAPU32[this._ptr / 4 + 30], 4);
+  }
+};
+var math = class {
+  /** (Experimental!) Cubic Hermite spline interpolation for vector3 and quaternions.
+   *
+   * With `f == 0`, `out` will be `b`, if `f == 1`, `out` will be c.
+   *
+   * Whether a quaternion or vector3 interpolation is intended is determined by
+   * length of `a`.
+   *
+   * @param out Array to write result to.
+   * @param a First tangent/handle.
+   * @param b First point or quaternion.
+   * @param c Second point or quaternion.
+   * @param d Second handle.
+   * @param f Interpolation factor in [0; 1].
+   * @returns The `out` parameter.
+   *
+   * @since 0.8.6
+   */
+  static cubicHermite(out, a, b, c, d2, f, engine2 = WL) {
+    const wasm = engine2.wasm;
+    wasm._tempMemFloat.subarray(0).set(a);
+    wasm._tempMemFloat.subarray(4).set(b);
+    wasm._tempMemFloat.subarray(8).set(c);
+    wasm._tempMemFloat.subarray(12).set(d2);
+    const isQuat = a.length == 4;
+    wasm._wl_math_cubicHermite(wasm._tempMem + 4 * 16, wasm._tempMem + 4 * 0, wasm._tempMem + 4 * 4, wasm._tempMem + 4 * 8, wasm._tempMem + 4 * 12, f, isQuat);
+    out[0] = wasm._tempMemFloat[16];
+    out[1] = wasm._tempMemFloat[17];
+    out[2] = wasm._tempMemFloat[18];
+    if (isQuat)
+      out[3] = wasm._tempMemFloat[19];
+    return out;
+  }
+};
+var I18N = class {
+  /**
+   * {@link Emitter} for language change events.
+   *
+   * First parameter to a listener is the old language index,
+   * second parameter is the new language index.
+   *
+   * Usage from a within a component:
+   * ```js
+   * this.engine.i18n.onLanguageChanged.add((oldLanguageIndex, newLanguageIndex) => {
+   *     const oldLanguage = this.engine.i18n.languageName(oldLanguageIndex);
+   *     const newLanguage = this.engine.i18n.languageName(newLanguageIndex);
+   *     console.log("Switched from", oldLanguage, "to", newLanguage);
+   * });
+   * ```
+   */
+  onLanguageChanged = new Emitter();
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * Constructor
+   */
+  constructor(engine2) {
+    this._engine = engine2;
+  }
+  /**
+   * Set current language and apply translations to linked text parameters.
+   *
+   * @param code Language code to switch to
+   */
+  set language(code) {
+    if (code == null)
+      return;
+    const wasm = this._engine.wasm;
+    wasm._wl_i18n_setLanguage(wasm.tempUTF8(code));
+  }
+  /**
+   * Get current language code.
+   *
+   */
+  get language() {
+    const wasm = this._engine.wasm;
+    const code = wasm._wl_i18n_currentLanguage();
+    if (code === 0)
+      return null;
+    return wasm.UTF8ToString(code);
+  }
+  /**
+   * Get translated string for a term for the currently loaded language.
+   *
+   * @param term Term to translate
+   */
+  translate(term) {
+    const wasm = this._engine.wasm;
+    const translation = wasm._wl_i18n_translate(wasm.tempUTF8(term));
+    if (translation === 0)
+      return null;
+    return wasm.UTF8ToString(translation);
+  }
+  /**
+   * Get the number of languages in the project.
+   *
+   */
+  languageCount() {
+    const wasm = this._engine.wasm;
+    return wasm._wl_i18n_languageCount();
+  }
+  /**
+   * Get a language code.
+   *
+   * @param index Index of the language to get the code from
+   */
+  languageIndex(code) {
+    const wasm = this._engine.wasm;
+    return wasm._wl_i18n_languageIndex(wasm.tempUTF8(code));
+  }
+  /**
+   * Get a language code.
+   *
+   * @param index Index of the language to get the code from
+   */
+  languageCode(index) {
+    const wasm = this._engine.wasm;
+    const code = wasm._wl_i18n_languageCode(index);
+    if (code === 0)
+      return null;
+    return wasm.UTF8ToString(code);
+  }
+  /**
+   * Get a language name.
+   *
+   * @param index Index of the language to get the name from
+   */
+  languageName(index) {
+    const wasm = this._engine.wasm;
+    const name = wasm._wl_i18n_languageName(index);
+    if (name === 0)
+      return null;
+    return wasm.UTF8ToString(name);
+  }
+};
+var XR = class {
+  /** Wonderland WASM bridge. @hidden */
+  #wasm;
+  #mode;
+  constructor(wasm, mode) {
+    this.#wasm = wasm;
+    this.#mode = mode;
+  }
+  /** Current WebXR session mode */
+  get sessionMode() {
+    return this.#mode;
+  }
+  /** Current WebXR session */
+  get session() {
+    return this.#wasm.webxr_session;
+  }
+  /** Current WebXR frame */
+  get frame() {
+    return this.#wasm.webxr_frame;
+  }
+  referenceSpaceForType(type) {
+    return this.#wasm.webxr_refSpaces[type] ?? null;
+  }
+  /** Set current reference space type used for retrieving eye, head, hand and joint poses */
+  set currentReferenceSpace(refSpace) {
+    this.#wasm.webxr_refSpace = refSpace;
+    this.#wasm.webxr_refSpaceType = null;
+    for (const type of Object.keys(this.#wasm.webxr_refSpaces)) {
+      if (this.#wasm.webxr_refSpaces[type] === refSpace) {
+        this.#wasm.webxr_refSpaceType = type;
+      }
+    }
+  }
+  /** Current reference space type used for retrieving eye, head, hand and joint poses */
+  get currentReferenceSpace() {
+    return this.#wasm.webxr_refSpace;
+  }
+  /** Current WebXR reference space type or `null` if not a default reference space */
+  get currentReferenceSpaceType() {
+    return this.#wasm.webxr_refSpaceType;
+  }
+  /** Current WebXR base layer  */
+  get baseLayer() {
+    return this.#wasm.webxr_baseLayer;
+  }
+  /** Current WebXR framebuffer */
+  get framebuffers() {
+    if (!Array.isArray(this.#wasm.webxr_fbo)) {
+      return [this.#wasm.GL.framebuffers[this.#wasm.webxr_fbo]];
+    }
+    return this.#wasm.webxr_fbo.map((id) => this.#wasm.GL.framebuffers[id]);
+  }
+};
+
+// node_modules/@wonderlandengine/api/dist/texture-manager.js
+var TextureManager = class {
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /** Texture cache. @hidden */
+  #cache = [];
+  /** @hidden */
+  constructor(engine2) {
+    this._engine = engine2;
+  }
+  /**
+   * Retrieve the texture with the given id.
+   *
+   * @param id The texture identifier.
+   * @return The {@link Texture} if found, `null` otherwise.
+   */
+  get(id) {
+    return this.#cache[id] ?? null;
+  }
+  /**
+   * Load an image from URL as {@link Texture}.
+   *
+   * @param filename URL to load from.
+   * @param crossOrigin Cross origin flag for the image object.
+   * @returns Loaded texture.
+   */
+  load(filename, crossOrigin) {
+    let image = new Image();
+    image.crossOrigin = crossOrigin ?? image.crossOrigin;
+    image.src = filename;
+    return new Promise((resolve, reject) => {
+      image.onload = () => {
+        let texture = new Texture(this._engine, image);
+        if (!texture.valid) {
+          reject("Failed to add image " + image.src + " to texture atlas. Probably incompatible format.");
+        }
+        resolve(texture);
+      };
+      image.onerror = function() {
+        reject("Failed to load image. Not found or no read access");
+      };
+    });
+  }
+  /**
+   * Wrap a texture ID using {@link Texture}.
+   *
+   * @note This method performs caching and will return the same
+   * instance on subsequent calls.
+   *
+   * @param id ID of the texture to create.
+   *
+   * @returns The texture.
+   */
+  wrap(id) {
+    const texture = this.#cache[id] ?? (this.#cache[id] = new Texture(this._engine, id));
+    texture["_id"] = id;
+    return texture;
+  }
+  /** Number of textures allocated in the manager. */
+  get allocatedCount() {
+    return this.#cache.length;
+  }
+  /**
+   * Number of textures in the manager.
+   *
+   * @note For performance reasons, avoid calling this method when possible.
+   */
+  get count() {
+    let count = 0;
+    for (const tex of this.#cache) {
+      if (tex && tex.id >= 0)
+        ++count;
+    }
+    return count;
+  }
+  /**
+   * Set a new texture in the manager cache.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @param texture The texture to add.
+   *
+   * @hidden
+   */
+  _set(texture) {
+    this.#cache[texture.id] = texture;
+  }
+  /**
+   * Destroys the texture.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @param texture The texture to destroy.
+   *
+   * @hidden
+   */
+  _destroy(texture) {
+    this._engine.wasm._wl_texture_destroy(texture.id);
+    const img = texture["_imageIndex"];
+    if (img !== null) {
+      this._engine.wasm._images[img] = null;
+    }
+  }
+  /**
+   * Reset the manager.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @hidden
+   */
+  _reset() {
+    this.#cache.length = 0;
+  }
+};
+
+// node_modules/@wonderlandengine/api/dist/engine.js
+var WonderlandEngine = class {
+  /**
+   * {@link Emitter} for WebXR session end events.
+   *
+   * Usage from a within a component:
+   * ```js
+   * this.engine.onXRSessionEnd.add(() => console.log("XR session ended."));
+   * ```
+   */
+  onXRSessionEnd = new Emitter();
+  /**
+   * {@link Emitter} for WebXR session start events.
+   *
+   * Usage from a within a component:
+   * ```js
+   * this.engine.onXRSessionStart.add((session, mode) => console.log(session, mode));
+   * ```
+   *
+   * By default, this emitter is retained and will automatically call any callback added
+   * while a session is already started:
+   *
+   * ```js
+   * // XR session is already active.
+   * this.engine.onXRSessionStart.add((session, mode) => {
+   *     console.log(session, mode); // Triggered immediately.
+   * });
+   * ```
+   */
+  onXRSessionStart = new RetainEmitter();
+  /** Whether AR is supported by the browser. */
+  arSupported = false;
+  /** Whether VR is supported by the browser. */
+  vrSupported = false;
+  /**
+   * {@link Emitter} for scene loaded events.
+   *
+   * Listeners get notified when a call to {@link Scene#load()} finishes,
+   * which also happens after the main scene has replaced the loading screen.
+   *
+   * Usage from a within a component:
+   * ```js
+   * this.engine.onSceneLoaded.add(() => console.log("Scene switched!"));
+   * ```
+   */
+  onSceneLoaded = new Emitter();
+  /**
+   * Current main scene.
+   */
+  scene = null;
+  /**
+   * Access to internationalization.
+   */
+  i18n = new I18N(this);
+  /**
+   * WebXR related state, `null` if no XR session is active.
+   */
+  xr = null;
+  /* Component class instances per type to avoid GC */
+  _componentCache = {};
+  /* Object class instances per type to avoid GC */
+  _objectCache = [];
+  /**
+   * WebAssembly bridge.
+   *
+   * @hidden
+   */
+  #wasm;
+  /**
+   * Physics manager, only available when physx is enabled in the runtime.
+   *
+   * @hidden
+   */
+  #physics = null;
+  /** Texture manager. @hidden */
+  #textures = new TextureManager(this);
+  /**
+   * Resize observer to track for canvas size changes.
+   *
+   * @hidden
+   */
+  #resizeObserver = null;
+  /**
+   * Create a new engine instance.
+   *
+   * @param wasm Wasm bridge instance
+   * @param loadingScreen Loading screen .bin file data
+   *
+   * @hidden
+   */
+  constructor(wasm, loadingScreen) {
+    this.#wasm = wasm;
+    this.#wasm["_setEngine"](this);
+    this.#wasm._loadingScreen = loadingScreen;
+    this._componentCache = {};
+    this._objectCache.length = 0;
+    this.canvas.addEventListener("webglcontextlost", function(e) {
+      console.error("Context lost:");
+      console.error(e);
+    }, false);
+  }
+  /**
+   * Start the engine if it's not already running.
+   *
+   * When using the {@link loadRuntime} function, this method is called
+   * automatically.
+   */
+  start() {
+    this.wasm._wl_application_start();
+  }
+  /**
+   * Register a custom JavaScript component type.
+   *
+   * You can register a component directly using a class inheriting from {@link Component}:
+   *
+   * ```js
+   * import { Component, Type } from '@wonderlandengine/api';
+   *
+   * export class MyComponent extends Component {
+   *     static TypeName = 'my-component';
+   *     static Properties = {
+   *         myParam: {type: Type.Float, default: 42.0},
+   *     };
+   *     init() {}
+   *     start() {}
+   *     update(dt) {}
+   *     onActivate() {}
+   *     onDeactivate() {}
+   *     onDestroy() {}
+   * });
+   *
+   * // Here, we assume we have an engine already instantiated.
+   * // In general, the registration occurs in the `index.js` file in your
+   * // final application.
+   * engine.registerComponent(MyComponent);
+   * ```
+   *
+   * {@label CLASSES}
+   * @param classes Custom component(s) extending {@link Component}.
+   *
+   * @since 1.0.0
+   */
+  registerComponent(...classes) {
+    for (const arg of classes) {
+      this.wasm._registerComponent(arg);
+    }
+  }
+  /**
+   * Checks whether the given component is registered or not.
+   *
+   * @param typeOrClass A string representing the component typename (e.g., `'cursor-component'`),
+   *     or a component class (e.g., `CursorComponent`).
+   * @returns `true` if the component is registered, `false` otherwise.
+   */
+  isRegistered(typeOrClass) {
+    return this.#wasm.isRegistered(isString(typeOrClass) ? typeOrClass : typeOrClass.TypeName);
+  }
+  /**
+   * Resize the canvas and the rendering context.
+   *
+   * @note The `width` and `height` parameters will be scaled by the
+   * `dpr` one.
+   *
+   * @param width The width, in CSS pixels.
+   * @param height The height, in CSS pixels.
+   * @param devicePixelRatio The pixel ratio factor.
+   */
+  resize(width, height, devicePixelRatio = window.devicePixelRatio) {
+    width = width * devicePixelRatio;
+    height = height * devicePixelRatio;
+    this.canvas.width = width;
+    this.canvas.height = height;
+    this.wasm._wl_application_resize(width, height);
+  }
+  /**
+   * Request a XR session.
+   *
+   * @note Please use this call instead of directly calling `navigator.xr.requestSession()`.
+   * Wonderland Engine requires to be aware that a session is started, and this
+   * is done through this call.
+   *
+   * @param mode The XR mode.
+   * @param features An array of required features, e.g., `['local-floor', 'hit-test']`.
+   * @param optionalFeatures An array of optional features, e.g., `['bounded-floor', 'depth-sensing']`.
+   * @returns A promise resolving with the `XRSession`, a string error message otherwise.
+   */
+  requestXRSession(mode, features, optionalFeatures = []) {
+    if (!navigator.xr) {
+      const isLocalhost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+      const missingHTTPS = location.protocol !== "https:" && !isLocalhost;
+      return Promise.reject(missingHTTPS ? "WebXR is only supported with HTTPS or on localhost!" : "WebXR unsupported in this browser.");
+    }
+    return this.#wasm.webxr_requestSession(mode, features, optionalFeatures);
+  }
+  /**
+   * Wrap an object ID using {@link Object}.
+   *
+   * @note This method performs caching and will return the same
+   * instance on subsequent calls.
+   *
+   * @param objectId ID of the object to create.
+   *
+   * @returns The object
+   */
+  wrapObject(objectId) {
+    const cache = this._objectCache;
+    const o = cache[objectId] || (cache[objectId] = new Object3D(this, objectId));
+    o["_objectId"] = objectId;
+    return o;
+  }
+  /* Public Getters & Setter */
+  /**
+   * WebAssembly bridge.
+   *
+   * @note Use with care. This object is used to communicate
+   * with the WebAssembly code throughout the api.
+   *
+   * @hidden
+   */
+  get wasm() {
+    return this.#wasm;
+  }
+  /** Canvas element that Wonderland Engine renders to. */
+  get canvas() {
+    return this.#wasm.canvas;
+  }
+  /**
+   * Current WebXR session or `null` if no session active.
+   *
+   * @deprecated Use {@link XR.session} on the {@link xr}
+   * object instead.
+   */
+  get xrSession() {
+    return this.xr?.session ?? null;
+  }
+  /**
+   * Current WebXR frame or `null` if no session active.
+   *
+   * @deprecated Use {@link XR.frame} on the {@link xr}
+   * object instead.
+   */
+  get xrFrame() {
+    return this.xr?.frame ?? null;
+  }
+  /**
+   * Current WebXR base layer or `null` if no session active.
+   *
+   * @deprecated Use {@link XR.baseLayer} on the {@link xr}
+   * object instead.
+   */
+  get xrBaseLayer() {
+    return this.xr?.baseLayer ?? null;
+  }
+  /**
+   * Current WebXR framebuffer or `null` if no session active.
+   *
+   * @deprecated Use {@link XR.framebuffers} on the
+   * {@link xr} object instead.
+   */
+  get xrFramebuffer() {
+    return this.xr?.framebuffers[0] ?? null;
+  }
+  /** Framebuffer scale factor. */
+  get xrFramebufferScaleFactor() {
+    return this.#wasm.webxr_framebufferScaleFactor;
+  }
+  set xrFramebufferScaleFactor(value) {
+    this.#wasm.webxr_framebufferScaleFactor = value;
+  }
+  /** Physics manager, only available when physx is enabled in the runtime. */
+  get physics() {
+    return this.#physics;
+  }
+  /**
+   * Texture managger.
+   *
+   * Use this to load or programmatically create new textures at runtime.
+   */
+  get textures() {
+    return this.#textures;
+  }
+  /*
+   * Enable or disable the mechanism to automatically resize the canvas.
+   *
+   * Internally, the engine uses a [ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
+   * Changing the canvas css will thus automatically be tracked by the engine.
+   */
+  set autoResizeCanvas(flag) {
+    const state = !!this.#resizeObserver;
+    if (state === flag)
+      return;
+    if (!flag) {
+      this.#resizeObserver?.unobserve(this.canvas);
+      this.#resizeObserver = null;
+      return;
+    }
+    this.#resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === this.canvas) {
+          this.resize(entry.contentRect.width, entry.contentRect.height);
+        }
+      }
+    });
+    this.#resizeObserver.observe(this.canvas);
+  }
+  /** `true` if the canvas is automatically resized by the engine. */
+  get autoResizeCanvas() {
+    return this.#resizeObserver !== null;
+  }
+  /** Retrieves the runtime version. */
+  get runtimeVersion() {
+    const wasm = this.#wasm;
+    const v = wasm._wl_application_version(wasm._tempMem);
+    return {
+      major: wasm._tempMemUint16[0],
+      minor: wasm._tempMemUint16[1],
+      patch: wasm._tempMemUint16[2],
+      rc: wasm._tempMemUint16[3]
+    };
+  }
+  /* Internal-Only Methods */
+  /**
+   * Initialize the engine.
+   *
+   * @note Should be called after the WebAssembly is fully loaded.
+   *
+   * @hidden
+   */
+  _init() {
+    this.scene = new Scene(this);
+    this.#wasm._wl_set_error_callback(this.#wasm.addFunction((messagePtr) => {
+      throw new Error(this.#wasm.UTF8ToString(messagePtr));
+    }, "vi"));
+    this.#physics = null;
+    if (this.#wasm.withPhysX) {
+      const physics = new Physics(this);
+      this.#wasm._wl_physx_set_collision_callback(this.#wasm.addFunction((a, index, type, b) => {
+        const callback = physics._callbacks[a][index];
+        const component = new PhysXComponent(this, this.wasm._typeIndexFor("physx"), b);
+        callback(type, component);
+      }, "viiii"));
+      this.#physics = physics;
+    }
+    this.resize(this.canvas.clientWidth, this.canvas.clientHeight);
+  }
+  /**
+   * Reset the runtime state, including:
+   *     - Component cache
+   *     - Images
+   *     - Callbacks
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @hidden
+   */
+  _reset() {
+    this._componentCache = {};
+    this._objectCache.length = 0;
+    this.#textures._reset();
+    this.scene.reset();
+    this.wasm.reset();
+  }
+  /**
+   * Retrieves a component instance if it exists, or create and cache
+   * a new one.
+   *
+   * @note This api is meant to be used internally. Please have a look at
+   * {@link Object3D.addComponent} instead.
+   *
+   * @param type component type name
+   * @param componentType Component manager index
+   * @param componentId Component id in the manager
+   *
+   * @returns JavaScript instance wrapping the native component
+   *
+   * @hidden
+   */
+  _wrapComponent(type, componentType, componentId) {
+    if (componentId < 0)
+      return null;
+    const c = this._componentCache[componentType] || (this._componentCache[componentType] = []);
+    if (c[componentId]) {
+      return c[componentId];
+    }
+    let component;
+    if (type == "collision") {
+      component = new CollisionComponent(this, componentType, componentId);
+    } else if (type == "text") {
+      component = new TextComponent(this, componentType, componentId);
+    } else if (type == "view") {
+      component = new ViewComponent(this, componentType, componentId);
+    } else if (type == "mesh") {
+      component = new MeshComponent(this, componentType, componentId);
+    } else if (type == "input") {
+      component = new InputComponent(this, componentType, componentId);
+    } else if (type == "light") {
+      component = new LightComponent(this, componentType, componentId);
+    } else if (type == "animation") {
+      component = new AnimationComponent(this, componentType, componentId);
+    } else if (type == "physx") {
+      component = new PhysXComponent(this, componentType, componentId);
+    } else {
+      const typeIndex = this.wasm._componentTypeIndices[type];
+      const constructor = this.wasm._componentTypes[typeIndex];
+      component = new constructor(this);
+    }
+    component._engine = this;
+    component._manager = componentType;
+    component._id = componentId;
+    c[componentId] = component;
+    return component;
+  }
+};
+
+// node_modules/@wonderlandengine/api/dist/wasm.js
+var _componentDefaults = /* @__PURE__ */ new Map([
+  [Type.Bool, false],
+  [Type.Int, 0],
+  [Type.Float, 0],
+  [Type.String, ""],
+  [Type.Enum, void 0],
+  [Type.Object, null],
+  [Type.Mesh, null],
+  [Type.Texture, null],
+  [Type.Material, null],
+  [Type.Animation, null],
+  [Type.Skin, null],
+  [Type.Color, [0, 0, 0, 1]]
+]);
+function _setupDefaults(ctor) {
+  for (const name in ctor.Properties) {
+    const p = ctor.Properties[name];
+    if (p.type === Type.Enum) {
+      if (p.values?.length) {
+        if (typeof p.default !== "number") {
+          p.default = p.values.indexOf(p.default);
+        }
+        if (p.default < 0 || p.default >= p.values.length) {
+          p.default = 0;
+        }
+      } else {
+        p.default = void 0;
+      }
+    } else {
+      p.default = p.default ?? _componentDefaults.get(p.type);
+    }
+    ctor.prototype[name] = p.default;
+  }
+}
+var WASM = class {
+  /**
+   * Emscripten worker field.
+   *
+   * @note This api is meant to be used internally.
+   */
+  worker = "";
+  /**
+   * Emscripten wasm field.
+   *
+   * @note This api is meant to be used internally.
+   */
+  wasm = null;
+  /**
+   * Emscripten canvas.
+   *
+   * @note This api is meant to be used internally.
+   */
+  canvas = null;
+  /** Current WebXR  */
+  /**
+   * Emscripten WebXR session.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_session = null;
+  /**
+   * Emscripten WebXR request session callback.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_requestSession = null;
+  /**
+   * Emscripten WebXR frame.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_frame = null;
+  /**
+   * Emscripten current WebXR reference space.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_refSpace = null;
+  /**
+   * Emscripten WebXR reference spaces.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_refSpaces = null;
+  /**
+   * Emscripten WebXR current reference space type.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_refSpaceType = null;
+  /**
+   * Emscripten WebXR GL projection layer.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_baseLayer = null;
+  /**
+   * Emscripten WebXR framebuffer scale factor.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_framebufferScaleFactor = 1;
+  /**
+   * Emscripten WebXR framebuffer(s).
+   *
+   * @note This api is meant to be used internally.
+   */
+  /* webxr_fbo will not get overwritten if we are rendering to the
+   * default framebuffer, e.g., when using WebXR emulator. */
+  webxr_fbo = 0;
+  /**
+   * Convert a WASM memory view to a JavaScript string.
+   *
+   * @param ptr Pointer start
+   * @param ptrEnd Pointer end
+   * @returns JavaScript string
+   */
+  UTF8ViewToString;
+  /** If `true`, logs will not spam the console on error. */
+  _deactivate_component_on_error = false;
+  /** Temporary memory pointer. */
+  _tempMem = null;
+  /** Temporary memory size. */
+  _tempMemSize = 0;
+  /** Temporary float memory view. */
+  _tempMemFloat = null;
+  /** Temporary int memory view. */
+  _tempMemInt = null;
+  /** Temporary uint8 memory view. */
+  _tempMemUint8 = null;
+  /** Temporary uint32 memory view. */
+  _tempMemUint32 = null;
+  /** Temporary uint16 memory view. */
+  _tempMemUint16 = null;
+  /** Loading screen .bin file data */
+  _loadingScreen = null;
+  /** List of callbacks triggered when the scene is loaded. */
+  _sceneLoadedCallback = [];
+  /**
+   * Material definition cache. Each pipeline has its own
+   * associated material definition.
+   */
+  _materialDefinitions = [];
+  /** Image cache. */
+  _images = [];
+  /** Component instances. */
+  _components = [];
+  /** Component Type info. */
+  _componentTypes = [];
+  /** Index per component type name. */
+  _componentTypeIndices = {};
+  /** Wonderland engine instance. */
+  _engine = null;
+  /**
+   * `true` if this runtime is using physx.
+   *
+   * @note This api is meant to be used internally.
+   */
+  _withPhysX = false;
+  /** Decoder for UTF8 `ArrayBuffer` to JavaScript string. */
+  _utf8Decoder = new TextDecoder("utf8");
+  /**
+   * Create a new instance of the WebAssembly <> API bridge.
+   *
+   * @param threads `true` if the runtime used has threads support
+   */
+  constructor(threads2) {
+    if (threads2) {
+      this.UTF8ViewToString = (s, e) => {
+        if (!s)
+          return "";
+        return this._utf8Decoder.decode(this.HEAPU8.slice(s, e));
+      };
+      return;
+    }
+    this.UTF8ViewToString = (s, e) => {
+      if (!s)
+        return "";
+      return this._utf8Decoder.decode(this.HEAPU8.subarray(s, e));
+    };
+  }
+  /**
+   * Reset the cache of the library
+   *
+   * @note Should only be called when tearing down the runtime.
+   */
+  reset() {
+    this._materialDefinitions = [];
+    this._images = [];
+    this._components = [];
+    this._componentTypes = [];
+    this._componentTypeIndices = {};
+  }
+  /**
+   * Checks whether the given component is registered or not.
+   *
+   * @param ctor  A string representing the component typename (e.g., `'cursor-component'`).
+   * @returns `true` if the component is registered, `false` otherwise.
+   */
+  isRegistered(type) {
+    return type in this._componentTypeIndices;
+  }
+  /**
+   * Register a legacy component in this Emscripten instance.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @param typeName The name of the component.
+   * @param params An object containing the parameters (properties).
+   * @param object The object's prototype.
+   * @returns The registration index
+   */
+  _registerComponentLegacy(typeName, params, object) {
+    const ctor = class CustomComponent extends Component {
+    };
+    ctor.TypeName = typeName;
+    ctor.Properties = params;
+    Object.assign(ctor.prototype, object);
+    return this._registerComponent(ctor);
+  }
+  /**
+   * Register a class component in this Emscripten instance.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @param ctor The class to register.
+   * @returns The registration index.
+   */
+  _registerComponent(ctor) {
+    if (!ctor.TypeName)
+      throw new Error("no name provided for component.");
+    const dependencies = ctor.Dependencies;
+    if (dependencies) {
+      for (const dependency of dependencies) {
+        if (!this.isRegistered(dependency.TypeName)) {
+          this._registerComponent(dependency);
+        }
+      }
+    }
+    _setupDefaults(ctor);
+    const typeIndex = ctor.TypeName in this._componentTypeIndices ? this._componentTypeIndices[ctor.TypeName] : this._componentTypes.length;
+    this._componentTypes[typeIndex] = ctor;
+    this._componentTypeIndices[ctor.TypeName] = typeIndex;
+    console.log("Registered component", ctor.TypeName, `(class ${ctor.name})`, "with index", typeIndex);
+    if (ctor.onRegister)
+      ctor.onRegister(this._engine);
+    return typeIndex;
+  }
+  /**
+   * Allocate the requested amount of temporary memory
+   * in this WASM instance.
+   *
+   * @param size The number of bytes to allocate
+   */
+  allocateTempMemory(size) {
+    console.log("Allocating temp mem:", size);
+    this._tempMemSize = size;
+    if (this._tempMem)
+      this._free(this._tempMem);
+    this._tempMem = this._malloc(this._tempMemSize);
+    this.updateTempMemory();
+  }
+  /**
+   * @todo: Delete this and only keep `allocateTempMemory`
+   *
+   * @param size Number of bytes to allocate
+   */
+  requireTempMem(size) {
+    if (this._tempMemSize >= size)
+      return;
+    this.allocateTempMemory(Math.ceil(size / 1024) * 1024);
+  }
+  /**
+   * Update the temporary memory views. This must be called whenever the
+   * temporary memory address changes.
+   *
+   * @note This api is meant to be used internally.
+   */
+  updateTempMemory() {
+    this._tempMemFloat = new Float32Array(this.HEAP8.buffer, this._tempMem, this._tempMemSize >> 2);
+    this._tempMemInt = new Int32Array(this.HEAP8.buffer, this._tempMem, this._tempMemSize >> 2);
+    this._tempMemUint32 = new Uint32Array(this.HEAP8.buffer, this._tempMem, this._tempMemSize >> 2);
+    this._tempMemUint16 = new Uint16Array(this.HEAP8.buffer, this._tempMem, this._tempMemSize >> 1);
+    this._tempMemUint8 = new Uint8Array(this.HEAP8.buffer, this._tempMem, this._tempMemSize);
+  }
+  /**
+   * Returns a uint8 buffer view on temporary WASM memory.
+   *
+   * **Note**: this method might allocate if the requested memory is bigger
+   * than the current temporary memory allocated.
+   *
+   * @param count The number of **elements** required
+   * @returns A {@link TypedArray} over the WASM memory
+   */
+  getTempBufferU8(count) {
+    this.requireTempMem(count);
+    return this._tempMemUint8;
+  }
+  /**
+   * Returns a uint16 buffer view on temporary WASM memory.
+   *
+   * **Note**: this method might allocate if the requested memory is bigger
+   * than the current temporary memory allocated.
+   *
+   * @param count The number of **elements** required
+   * @returns A {@link TypedArray} over the WASM memory
+   */
+  getTempBufferU16(count) {
+    this.requireTempMem(count * 2);
+    return this._tempMemUint16;
+  }
+  /**
+   * Returns a uint32 buffer view on temporary WASM memory.
+   *
+   * **Note**: this method might allocate if the requested memory is bigger
+   * than the current temporary memory allocated.
+   *
+   * @param count The number of **elements** required.
+   * @returns A {@link TypedArray} over the WASM memory.
+   */
+  getTempBufferU32(count) {
+    this.requireTempMem(count * 4);
+    return this._tempMemUint32;
+  }
+  /**
+   * Returns a int32 buffer view on temporary WASM memory.
+   *
+   * **Note**: this method might allocate if the requested memory is bigger
+   * than the current temporary memory allocated.
+   *
+   * @param count The number of **elements** required.
+   * @returns A {@link TypedArray} over the WASM memory.
+   */
+  getTempBufferI32(count) {
+    this.requireTempMem(count * 4);
+    return this._tempMemInt;
+  }
+  /**
+   * Returns a float32 buffer view on temporary WASM memory.
+   *
+   * **Note**: this method might allocate if the requested memory is bigger
+   * than the current temporary memory allocated.
+   *
+   * @param count The number of **elements** required.
+   * @returns A {@link TypedArray} over the WASM memory.
+   */
+  getTempBufferF32(count) {
+    this.requireTempMem(count * 4);
+    return this._tempMemFloat;
+  }
+  /**
+   * Copy the string into temporary WASM memory and retrieve the pointer.
+   *
+   * @note This method will compute the strlen and append a `\0`.
+   *
+   * @note The result should be used **directly** otherwise it might get
+   * overridden by any next call modifying the temporary memory.
+   *
+   * @param str The string to write to temporary memory
+   * @return The temporary pointer onto the WASM memory
+   */
+  tempUTF8(str5) {
+    const strLen = this.lengthBytesUTF8(str5) + 1;
+    this.requireTempMem(strLen);
+    this.stringToUTF8(str5, this._tempMem, strLen);
+    return this._tempMem;
+  }
+  /**
+   * Return the index of the component type.
+   *
+   * @note This method uses malloc and copies the string
+   * to avoid overwriting caller's temporary data.
+   *
+   * @param type The type
+   * @return The component type index
+   */
+  _typeIndexFor(type) {
+    const lengthBytes = this.lengthBytesUTF8(type) + 1;
+    const mem = this._malloc(lengthBytes);
+    this.stringToUTF8(type, mem, lengthBytes);
+    const componentType = this._wl_get_component_manager_index(mem);
+    this._free(mem);
+    return componentType;
+  }
+  /**
+   * Return the name of component type stored at the given index.
+   *
+   * @param typeIndex The type index
+   * @return The name as a string
+   */
+  _typeNameFor(typeIndex) {
+    return this.UTF8ToString(this._wl_component_manager_name(typeIndex));
+  }
+  /**
+   * Returns `true` if the runtime supports physx or not.
+   */
+  get withPhysX() {
+    return this._withPhysX;
+  }
+  /**
+   * Set the engine instance holding this bridge.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @param engine The engine instance.
+   */
+  _setEngine(engine2) {
+    this._engine = engine2;
+  }
+  /* WebAssembly to JS call bridge. */
+  _wljs_xr_session_start(mode) {
+    this._engine.xr = new XR(this, mode);
+    this._engine.onXRSessionStart.notify(this.webxr_session, mode);
+  }
+  _wljs_xr_session_end() {
+    const startEmitter = this._engine.onXRSessionStart;
+    if (startEmitter instanceof RetainEmitter)
+      startEmitter.reset();
+    this._engine.onXRSessionEnd.notify();
+    this._engine.xr = null;
+  }
+  _wljs_xr_disable() {
+    this._engine.arSupported = false;
+    this._engine.vrSupported = false;
+  }
+  _wljs_allocate(numComponents) {
+    this._components = new Array(numComponents);
+  }
+  _wljs_init(withPhysX) {
+    this._withPhysX = withPhysX;
+    this.allocateTempMemory(1024);
+  }
+  _wljs_reallocate(numComponents) {
+    if (numComponents > this._components.length) {
+      this._components.length = numComponents;
+    }
+  }
+  _wljs_scene_add_material_definition(definitionId) {
+    const definition = /* @__PURE__ */ new Map();
+    const nbParams = this._wl_material_definition_get_count(definitionId);
+    for (let i = 0; i < nbParams; ++i) {
+      const name = this.UTF8ToString(this._wl_material_definition_get_param_name(definitionId, i));
+      const t = this._wl_material_definition_get_param_type(definitionId, i);
+      definition.set(name, {
+        index: i,
+        type: {
+          type: t & 255,
+          componentCount: t >> 8 & 255,
+          metaType: t >> 16 & 255
+        }
+      });
+    }
+    this._materialDefinitions[definitionId] = definition;
+  }
+  _wljs_set_component_param_bool(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v !== 0;
+  }
+  _wljs_set_component_param_int(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v;
+  }
+  _wljs_set_component_param_float(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v;
+  }
+  _wljs_set_component_param_string(c, p, pe, v, ve) {
+    const param = this.UTF8ViewToString(p, pe);
+    const value = this.UTF8ViewToString(v, ve);
+    this._components[c][param] = value;
+  }
+  _wljs_set_component_param_color(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = new Float32Array([0, 8, 16, 24].map((s) => (v >>> s & 255) / 255));
+  }
+  _wljs_set_component_param_object(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? this._engine.wrapObject(v) : null;
+  }
+  _wljs_set_component_param_mesh(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? new Mesh(this._engine, v) : null;
+  }
+  _wljs_set_component_param_texture(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? this._engine.textures.wrap(v) : null;
+  }
+  _wljs_set_component_param_material(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? new Material(this._engine, v) : null;
+  }
+  _wljs_set_component_param_animation(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? new Animation(this._engine, v) : null;
+  }
+  _wljs_set_component_param_skin(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? new Skin(this._engine, v) : null;
+  }
+  _wljs_get_component_type_index(namePtr, nameEndPtr) {
+    return this._componentTypeIndices[this.UTF8ViewToString(namePtr, nameEndPtr)];
+  }
+  _wljs_component_create(jsManagerIndex, index, id, type, object) {
+    const ctor = this._componentTypes[type];
+    const component = new ctor();
+    component._engine = this._engine;
+    component._manager = jsManagerIndex;
+    component._id = id;
+    component._object = this._engine.wrapObject(object);
+    this._components[index] = component;
+    return component;
+  }
+  _wljs_component_init(component) {
+    const c = this._components[component];
+    if (c.init) {
+      try {
+        c.init();
+      } catch (e) {
+        console.error(`Exception during ${c.type} init() on object ${c.object.name}`);
+        console.error(e);
+      }
+    }
+    if (c.start) {
+      const oldActivate = c.onActivate;
+      c.onActivate = function() {
+        try {
+          if (this.start)
+            this.start();
+        } catch (e) {
+          console.error(`Exception during ${this.type} start() on object ${this.object.name}`);
+          console.error(e);
+        }
+        this.onActivate = oldActivate;
+        if (this.onActivate) {
+          try {
+            this.onActivate();
+          } catch (e) {
+            console.error(`Exception during ${this.type} onActivate() on object ${this.object.name}`);
+            console.error(e);
+          }
+        }
+      };
+    }
+  }
+  _wljs_component_update(component, dt) {
+    const c = this._components[component];
+    if (!c) {
+      console.warn("WL: component was undefined:", component);
+      this._components[component] = new Component(this._engine);
+      return;
+    }
+    if (!c.update)
+      return;
+    try {
+      c.update(dt);
+    } catch (e) {
+      console.error(`Exception during ${c.type} update() on object ${c.object.name}`);
+      console.error(e);
+      if (this._deactivate_component_on_error)
+        c.active = false;
+    }
+  }
+  _wljs_component_onActivate(component) {
+    const c = this._components[component];
+    if (!c || !c.onActivate)
+      return;
+    try {
+      c.onActivate();
+    } catch (e) {
+      console.error(`Exception during ${c.type} onActivate() on object ${c.object.name}`);
+      console.error(e);
+    }
+  }
+  _wljs_component_onDeactivate(component) {
+    const c = this._components[component];
+    if (!c.onDeactivate)
+      return;
+    try {
+      c.onDeactivate();
+    } catch (e) {
+      console.error(`Exception during ${c.type} onDeactivate() on object ${c.object.name}`);
+      console.error(e);
+    }
+  }
+  _wljs_component_onDestroy(component) {
+    const c = this._components[component];
+    if (!c.onDestroy)
+      return;
+    try {
+      c.onDestroy();
+    } catch (e) {
+      console.error(`Exception during ${c.type} onDestroy() on object ${c.object.name}`);
+      console.error(e);
+    }
+  }
+  _wljs_swap(a, b) {
+    const componentA = this._components[a];
+    this._components[a] = this._components[b];
+    this._components[b] = componentA;
+  }
+  /* JS to WebAssembly bridge. */
+  HEAP8 = null;
+  HEAPU8 = null;
+  HEAPU16 = null;
+  HEAPU32 = null;
+  HEAP32 = null;
+  HEAPF32 = null;
+  GL = null;
+  assert = null;
+  _free = null;
+  _malloc = null;
+  lengthBytesUTF8 = null;
+  stringToUTF8 = null;
+  UTF8ToString = null;
+  addFunction = null;
+  _wl_set_error_callback = null;
+  _wl_application_version = null;
+  _wl_application_start = null;
+  _wl_application_resize = null;
+  _wl_scene_get_active_views = null;
+  _wl_scene_ray_cast = null;
+  _wl_scene_add_object = null;
+  _wl_scene_add_objects = null;
+  _wl_scene_reserve_objects = null;
+  _wl_scene_set_clearColor = null;
+  _wl_scene_enableColorClear = null;
+  _wl_load_scene = null;
+  _wl_append_scene = null;
+  _wl_scene_reset = null;
+  _wl_component_get_object = null;
+  _wl_component_setActive = null;
+  _wl_component_isActive = null;
+  _wl_component_remove = null;
+  _wl_collision_component_get_collider = null;
+  _wl_collision_component_set_collider = null;
+  _wl_collision_component_get_extents = null;
+  _wl_collision_component_get_group = null;
+  _wl_collision_component_set_group = null;
+  _wl_collision_component_query_overlaps = null;
+  _wl_text_component_get_horizontal_alignment = null;
+  _wl_text_component_set_horizontal_alignment = null;
+  _wl_text_component_get_vertical_alignment = null;
+  _wl_text_component_set_vertical_alignment = null;
+  _wl_text_component_get_character_spacing = null;
+  _wl_text_component_set_character_spacing = null;
+  _wl_text_component_get_line_spacing = null;
+  _wl_text_component_set_line_spacing = null;
+  _wl_text_component_get_effect = null;
+  _wl_text_component_set_effect = null;
+  _wl_text_component_get_text = null;
+  _wl_text_component_set_text = null;
+  _wl_text_component_set_material = null;
+  _wl_text_component_get_material = null;
+  _wl_view_component_get_projection_matrix = null;
+  _wl_view_component_get_near = null;
+  _wl_view_component_set_near = null;
+  _wl_view_component_get_far = null;
+  _wl_view_component_set_far = null;
+  _wl_view_component_get_fov = null;
+  _wl_view_component_set_fov = null;
+  _wl_input_component_get_type = null;
+  _wl_input_component_set_type = null;
+  _wl_light_component_get_color = null;
+  _wl_light_component_get_type = null;
+  _wl_light_component_set_type = null;
+  _wl_animation_component_get_animation = null;
+  _wl_animation_component_set_animation = null;
+  _wl_animation_component_get_playCount = null;
+  _wl_animation_component_set_playCount = null;
+  _wl_animation_component_get_speed = null;
+  _wl_animation_component_set_speed = null;
+  _wl_animation_component_play = null;
+  _wl_animation_component_stop = null;
+  _wl_animation_component_pause = null;
+  _wl_animation_component_state = null;
+  _wl_mesh_component_get_material = null;
+  _wl_mesh_component_set_material = null;
+  _wl_mesh_component_get_mesh = null;
+  _wl_mesh_component_set_mesh = null;
+  _wl_mesh_component_get_skin = null;
+  _wl_mesh_component_set_skin = null;
+  _wl_physx_component_get_static = null;
+  _wl_physx_component_set_static = null;
+  _wl_physx_component_get_kinematic = null;
+  _wl_physx_component_set_kinematic = null;
+  _wl_physx_component_get_gravity = null;
+  _wl_physx_component_set_gravity = null;
+  _wl_physx_component_get_simulate = null;
+  _wl_physx_component_set_simulate = null;
+  _wl_physx_component_get_allowSimulation = null;
+  _wl_physx_component_set_allowSimulation = null;
+  _wl_physx_component_get_allowQuery = null;
+  _wl_physx_component_set_allowQuery = null;
+  _wl_physx_component_get_trigger = null;
+  _wl_physx_component_set_trigger = null;
+  _wl_physx_component_get_shape = null;
+  _wl_physx_component_set_shape = null;
+  _wl_physx_component_get_shape_data = null;
+  _wl_physx_component_set_shape_data = null;
+  _wl_physx_component_get_extents = null;
+  _wl_physx_component_get_staticFriction = null;
+  _wl_physx_component_set_staticFriction = null;
+  _wl_physx_component_get_dynamicFriction = null;
+  _wl_physx_component_set_dynamicFriction = null;
+  _wl_physx_component_get_bounciness = null;
+  _wl_physx_component_set_bounciness = null;
+  _wl_physx_component_get_linearDamping = null;
+  _wl_physx_component_set_linearDamping = null;
+  _wl_physx_component_get_angularDamping = null;
+  _wl_physx_component_set_angularDamping = null;
+  _wl_physx_component_get_linearVelocity = null;
+  _wl_physx_component_set_linearVelocity = null;
+  _wl_physx_component_get_angularVelocity = null;
+  _wl_physx_component_set_angularVelocity = null;
+  _wl_physx_component_get_groupsMask = null;
+  _wl_physx_component_set_groupsMask = null;
+  _wl_physx_component_get_blocksMask = null;
+  _wl_physx_component_set_blocksMask = null;
+  _wl_physx_component_get_linearLockAxis = null;
+  _wl_physx_component_set_linearLockAxis = null;
+  _wl_physx_component_get_angularLockAxis = null;
+  _wl_physx_component_set_angularLockAxis = null;
+  _wl_physx_component_get_mass = null;
+  _wl_physx_component_set_mass = null;
+  _wl_physx_component_set_massSpaceInertiaTensor = null;
+  _wl_physx_component_addForce = null;
+  _wl_physx_component_addForceAt = null;
+  _wl_physx_component_addTorque = null;
+  _wl_physx_component_addCallback = null;
+  _wl_physx_component_removeCallback = null;
+  _wl_physx_update = null;
+  _wl_physx_update_global_pose = null;
+  _wl_physx_ray_cast = null;
+  _wl_physx_set_collision_callback = null;
+  _wl_mesh_create = null;
+  _wl_mesh_get_vertexData = null;
+  _wl_mesh_get_vertexCount = null;
+  _wl_mesh_get_indexData = null;
+  _wl_mesh_update = null;
+  _wl_mesh_get_boundingSphere = null;
+  _wl_mesh_get_attribute = null;
+  _wl_mesh_destroy = null;
+  _wl_mesh_get_attribute_values = null;
+  _wl_mesh_set_attribute_values = null;
+  _wl_material_create = null;
+  _wl_material_get_definition = null;
+  _wl_material_definition_get_count = null;
+  _wl_material_definition_get_param_name = null;
+  _wl_material_definition_get_param_type = null;
+  _wl_material_get_pipeline = null;
+  _wl_material_clone = null;
+  _wl_material_get_param_index = null;
+  _wl_material_get_param_type = null;
+  _wl_material_get_param_value = null;
+  _wl_material_set_param_value_uint = null;
+  _wl_material_set_param_value_float = null;
+  _wl_renderer_addImage = null;
+  _wl_texture_width = null;
+  _wl_texture_height = null;
+  _wl_renderer_updateImage = null;
+  _wl_texture_destroy = null;
+  _wl_animation_get_duration = null;
+  _wl_animation_get_trackCount = null;
+  _wl_animation_retargetToSkin = null;
+  _wl_animation_retarget = null;
+  _wl_object_name = null;
+  _wl_object_set_name = null;
+  _wl_object_parent = null;
+  _wl_object_get_children_count = null;
+  _wl_object_get_children = null;
+  _wl_object_set_parent = null;
+  _wl_object_reset_scaling = null;
+  _wl_object_reset_translation_rotation = null;
+  _wl_object_reset_rotation = null;
+  _wl_object_reset_translation = null;
+  _wl_object_translate = null;
+  _wl_object_translate_obj = null;
+  _wl_object_translate_world = null;
+  _wl_object_rotate_axis_angle = null;
+  _wl_object_rotate_axis_angle_rad = null;
+  _wl_object_rotate_axis_angle_obj = null;
+  _wl_object_rotate_axis_angle_rad_obj = null;
+  _wl_object_rotate_quat = null;
+  _wl_object_rotate_quat_obj = null;
+  _wl_object_scale = null;
+  _wl_object_trans_local = null;
+  _wl_object_get_translation_local = null;
+  _wl_object_set_translation_local = null;
+  _wl_object_get_translation_world = null;
+  _wl_object_set_translation_world = null;
+  _wl_object_trans_world = null;
+  _wl_object_trans_world_to_local = null;
+  _wl_object_scaling_local = null;
+  _wl_object_scaling_world = null;
+  _wl_object_set_scaling_local = null;
+  _wl_object_set_scaling_world = null;
+  _wl_object_scaling_world_to_local = null;
+  _wl_object_set_rotation_local = null;
+  _wl_object_set_rotation_world = null;
+  _wl_object_transformVectorWorld = null;
+  _wl_object_transformVectorLocal = null;
+  _wl_object_transformPointWorld = null;
+  _wl_object_transformPointLocal = null;
+  _wl_object_transformVectorInverseWorld = null;
+  _wl_object_transformVectorInverseLocal = null;
+  _wl_object_transformPointInverseWorld = null;
+  _wl_object_transformPointInverseLocal = null;
+  _wl_object_toWorldSpaceTransform = null;
+  _wl_object_toObjectSpaceTransform = null;
+  _wl_object_lookAt = null;
+  _wl_scene_remove_object = null;
+  _wl_object_set_dirty = null;
+  _wl_get_component_manager_index = null;
+  _wl_get_js_component_index = null;
+  _wl_get_js_component_index_for_id = null;
+  _wl_get_component_id = null;
+  _wl_object_get_components = null;
+  _wl_object_get_component_types = null;
+  _wl_object_add_js_component = null;
+  _wl_object_add_component = null;
+  _wl_object_is_changed = null;
+  _wl_component_manager_name = null;
+  _wl_skin_get_joint_count = null;
+  _wl_skin_joint_ids = null;
+  _wl_skin_inverse_bind_transforms = null;
+  _wl_skin_inverse_bind_scalings = null;
+  _wl_math_cubicHermite = null;
+  _wl_i18n_setLanguage = null;
+  _wl_i18n_currentLanguage = null;
+  _wl_i18n_translate = null;
+  _wl_i18n_languageCount = null;
+  _wl_i18n_languageIndex = null;
+  _wl_i18n_languageCode = null;
+  _wl_i18n_languageName = null;
+};
+
+// node_modules/@wonderlandengine/api/dist/version.js
+var APIVersion = {
+  major: 1,
+  minor: 0,
+  patch: 0,
+  rc: 7
+};
+
+// node_modules/@wonderlandengine/api/dist/index.js
+function loadScript(scriptURL) {
+  return new Promise((res, rej) => {
+    const s = document.createElement("script");
+    const node = document.body.appendChild(s);
+    s.onload = () => {
+      document.body.removeChild(node);
+      res();
+    };
+    s.onerror = (e) => {
+      document.body.removeChild(node);
+      rej(e);
+    };
+    s.src = scriptURL;
+  });
+}
+async function detectFeatures() {
+  let [simdSupported, threadsSupported] = await Promise.all([simd(), threads()]);
+  if (simdSupported) {
+    console.log("WASM SIMD is supported");
+  } else {
+    console.warn("WASM SIMD is not supported");
+  }
+  if (threadsSupported) {
+    if (self.crossOriginIsolated) {
+      console.log("WASM Threads is supported");
+    } else {
+      console.warn("WASM Threads is supported, but the page is not crossOriginIsolated, therefore thread support is disabled.");
+    }
+  } else {
+    console.warn("WASM Threads is not supported");
+  }
+  threadsSupported = threadsSupported && self.crossOriginIsolated;
+  return {
+    simdSupported,
+    threadsSupported
+  };
+}
+var xrSupported = {
+  ar: null,
+  vr: null
+};
+function checkXRSupport() {
+  if (typeof navigator === "undefined" || !navigator.xr) {
+    xrSupported.vr = false;
+    xrSupported.ar = false;
+    return Promise.resolve(xrSupported);
+  }
+  const vrPromise = xrSupported.vr !== null ? Promise.resolve() : navigator.xr.isSessionSupported("immersive-vr").then((supported) => xrSupported.vr = supported);
+  const arPromise = xrSupported.ar !== null ? Promise.resolve() : navigator.xr.isSessionSupported("immersive-ar").then((supported) => xrSupported.ar = supported);
+  return Promise.all([vrPromise, arPromise]).then(() => xrSupported);
+}
+function checkRuntimeCompatibility(version) {
+  const { major, minor } = version;
+  let majorDiff = major - APIVersion.major;
+  let minorDiff = minor - APIVersion.minor;
+  if (!majorDiff && !minorDiff)
+    return;
+  const error = "checkRuntimeCompatibility(): Version compatibility mismatch:\n	\u2192 API and runtime compatibility is enforced on a patch level (versions x.y.*)\n";
+  const isRuntimeOlder = majorDiff < 0 || !majorDiff && minorDiff < 0;
+  if (isRuntimeOlder) {
+    throw new Error(`${error}	\u2192 Please use a Wonderland Engine editor version >= ${APIVersion.major}.${APIVersion.minor}.*`);
+  }
+  throw new Error(`${error}	\u2192 Please use a new API version >= ${version.major}.${version.minor}.*`);
+}
+async function loadRuntime(runtime, options = {}) {
+  const xrPromise = checkXRSupport();
+  const { simdSupported, threadsSupported } = await detectFeatures();
+  const { simd: simd2 = simdSupported, threads: threads2 = threadsSupported, physx = false, loader = false, xrFramebufferScaleFactor = 1, loadingScreen = "WonderlandRuntime-LoadingScreen.bin", canvas: canvas2 = "canvas" } = options;
+  const variant = [];
+  if (loader)
+    variant.push("loader");
+  if (physx)
+    variant.push("physx");
+  if (simd2)
+    variant.push("simd");
+  if (threads2)
+    variant.push("threads");
+  const variantStr = variant.join("-");
+  let filename = runtime;
+  if (variantStr)
+    filename = `${filename}-${variantStr}`;
+  const download = function(filename2, errorMessage) {
+    return fetch(filename2).then((r) => {
+      if (!r.ok)
+        return Promise.reject(errorMessage);
+      return r.arrayBuffer();
+    }).catch((_) => Promise.reject(errorMessage));
+  };
+  const [wasmData, loadingScreenData] = await Promise.all([
+    download(`${filename}.wasm`, "Failed to fetch runtime .wasm file"),
+    download(loadingScreen, "Failed to fetch loading screen file").catch((_) => null)
+  ]);
+  const glCanvas = document.getElementById(canvas2);
+  if (!glCanvas) {
+    throw new Error(`loadRuntime(): Failed to find canvas with id '${canvas2}'`);
+  }
+  if (!(glCanvas instanceof HTMLCanvasElement)) {
+    throw new Error(`loadRuntime(): HTML element '${canvas2}' must be a canvas`);
+  }
+  const wasm = new WASM(threads2);
+  wasm.worker = `${filename}.worker.js`;
+  wasm.wasm = wasmData;
+  wasm.canvas = glCanvas;
+  const engine2 = new WonderlandEngine(wasm, loadingScreenData);
+  if (!window._WL) {
+    window._WL = { runtimes: {} };
+  }
+  const runtimes = window._WL.runtimes;
+  const runtimeGlobalId = variantStr ? variantStr : "default";
+  if (!runtimes[runtimeGlobalId]) {
+    await loadScript(`${filename}.js`);
+    runtimes[runtimeGlobalId] = window.instantiateWonderlandRuntime;
+    window.instantiateWonderlandRuntime = void 0;
+  }
+  await runtimes[runtimeGlobalId](wasm);
+  checkRuntimeCompatibility(engine2.runtimeVersion);
+  engine2._init();
+  const xr = await xrPromise;
+  engine2.arSupported = xr.ar;
+  engine2.vrSupported = xr.vr;
+  engine2.xrFramebufferScaleFactor = xrFramebufferScaleFactor;
+  engine2.autoResizeCanvas = true;
+  engine2.start();
+  return engine2;
+}
+
+// node_modules/@wonderlandengine/components/dist/8thwall-camera.js
+var ARCamera8thwall = class extends Component {
+  /* 8thwall camera pipeline module name */
+  name = "wonderland-engine-8thwall-camera";
+  started = false;
+  view = null;
+  // cache camera
+  position = [0, 0, 0];
+  // cache 8thwall cam position
+  rotation = [0, 0, 0, -1];
+  // cache 8thwall cam rotation
+  glTextureRenderer = null;
+  // cache XR8.GlTextureRenderer.pipelineModule
+  promptForDeviceMotion() {
+    return new Promise(async (resolve, reject) => {
+      window.dispatchEvent(new Event("8thwall-request-user-interaction"));
+      window.addEventListener("8thwall-safe-to-request-permissions", async () => {
+        try {
+          const motionEvent = await DeviceMotionEvent.requestPermission();
+          resolve(motionEvent);
+        } catch (exception) {
+          reject(exception);
+        }
+      });
+    });
+  }
+  async getPermissions() {
+    if (DeviceMotionEvent && DeviceMotionEvent.requestPermission) {
+      try {
+        const result = await DeviceMotionEvent.requestPermission();
+        if (result !== "granted") {
+          throw new Error("MotionEvent");
+        }
+      } catch (exception) {
+        if (exception.name === "NotAllowedError") {
+          const motionEvent = await this.promptForDeviceMotion();
+          if (motionEvent !== "granted") {
+            throw new Error("MotionEvent");
+          }
+        } else {
+          throw new Error("MotionEvent");
+        }
+      }
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+      });
+      stream.getTracks().forEach((track) => {
+        track.stop();
+      });
+    } catch (exception) {
+      throw new Error("Camera");
+    }
+  }
+  init() {
+    this.view = this.object.getComponent("view");
+    this.onUpdate = this.onUpdate.bind(this);
+    this.onAttach = this.onAttach.bind(this);
+    this.onException = this.onException.bind(this);
+    this.onCameraStatusChange = this.onCameraStatusChange.bind(this);
+  }
+  async start() {
+    this.view = this.object.getComponent("view");
+    if (!this.useCustomUIOverlays) {
+      OverlaysHandler.init();
+    }
+    try {
+      await this.getPermissions();
+    } catch (error) {
+      window.dispatchEvent(new CustomEvent("8thwall-permission-fail", { detail: error }));
+      return;
+    }
+    await this.waitForXR8();
+    XR8.XrController.configure({
+      disableWorldTracking: false
+    });
+    this.glTextureRenderer = XR8.GlTextureRenderer.pipelineModule();
+    XR8.addCameraPipelineModules([
+      this.glTextureRenderer,
+      XR8.XrController.pipelineModule(),
+      this
+    ]);
+    const config = {
+      cameraConfig: {
+        direction: XR8.XrConfig.camera().BACK
+      },
+      canvas: Module.canvas,
+      allowedDevices: XR8.XrConfig.device().ANY,
+      ownRunLoop: false
+    };
+    XR8.run(config);
+  }
+  /**
+   * @private
+   * 8thwall pipeline function
+   */
+  onAttach(params) {
+    this.started = true;
+    this.engine.scene.colorClearEnabled = false;
+    const gl = Module.ctx;
+    const rot = this.object.rotationWorld;
+    const pos = this.object.getTranslationWorld([]);
+    this.position = Array.from(pos);
+    this.rotation = Array.from(rot);
+    XR8.XrController.updateCameraProjectionMatrix({
+      origin: { x: pos[0], y: pos[1], z: pos[2] },
+      facing: { x: rot[0], y: rot[1], z: rot[2], w: rot[3] },
+      cam: {
+        pixelRectWidth: Module.canvas.width,
+        pixelRectHeight: Module.canvas.height,
+        nearClipPlane: this.view.near,
+        farClipPlane: this.view.far
+      }
+    });
+    this.engine.scene.onPreRender.push(() => {
+      gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, null);
+      XR8.runPreRender(Date.now());
+      XR8.runRender();
+    });
+    this.engine.scene.onPostRender.push(() => {
+      XR8.runPostRender(Date.now());
+    });
+  }
+  /**
+   * @private
+   * 8thwall pipeline function
+   */
+  onCameraStatusChange(e) {
+    if (e && e.status === "failed") {
+      this.onException(new Error(`Camera failed with status: ${e.status}`));
+    }
+  }
+  /**
+   * @private
+   * 8thwall pipeline function
+   */
+  onUpdate(e) {
+    if (!e.processCpuResult.reality)
+      return;
+    const { rotation, position, intrinsics } = e.processCpuResult.reality;
+    this.rotation[0] = rotation.x;
+    this.rotation[1] = rotation.y;
+    this.rotation[2] = rotation.z;
+    this.rotation[3] = rotation.w;
+    this.position[0] = position.x;
+    this.position[1] = position.y;
+    this.position[2] = position.z;
+    if (intrinsics) {
+      const projectionMatrix = this.view.projectionMatrix;
+      for (let i = 0; i < 16; i++) {
+        if (Number.isFinite(intrinsics[i])) {
+          projectionMatrix[i] = intrinsics[i];
+        }
+      }
+    }
+    if (position && rotation) {
+      this.object.rotationWorld = this.rotation;
+      this.object.setTranslationWorld(this.position);
+    }
+  }
+  /**
+   * @private
+   * 8thwall pipeline function
+   */
+  onException(error) {
+    console.error("8thwall exception:", error);
+    window.dispatchEvent(new CustomEvent("8thwall-error", { detail: error }));
+  }
+  waitForXR8() {
+    return new Promise((resolve, _rej) => {
+      if (window.XR8) {
+        resolve();
+      } else {
+        window.addEventListener("xrloaded", () => resolve());
+      }
+    });
+  }
+};
+__publicField(ARCamera8thwall, "TypeName", "8thwall-camera");
+__publicField(ARCamera8thwall, "Properties", {
+  /** Override the WL html overlays for handling camera/motion permissions and error handling */
+  useCustomUIOverlays: { type: Type.Bool, default: false }
+});
+var OverlaysHandler = {
+  init: function() {
+    this.handleRequestUserInteraction = this.handleRequestUserInteraction.bind(this);
+    this.handlePermissionFail = this.handlePermissionFail.bind(this);
+    this.handleError = this.handleError.bind(this);
+    window.addEventListener("8thwall-request-user-interaction", this.handleRequestUserInteraction);
+    window.addEventListener("8thwall-permission-fail", this.handlePermissionFail);
+    window.addEventListener("8thwall-error", this.handleError);
+  },
+  handleRequestUserInteraction: function() {
+    const overlay = this.showOverlay(requestPermissionOverlay);
+    window.addEventListener("8thwall-safe-to-request-permissions", () => {
+      overlay.remove();
+    });
+  },
+  handlePermissionFail: function(_reason) {
+    this.showOverlay(failedPermissionOverlay);
+  },
+  handleError: function(_error) {
+    this.showOverlay(runtimeErrorOverlay);
+  },
+  showOverlay: function(htmlContent) {
+    const overlay = document.createElement("div");
+    overlay.innerHTML = htmlContent;
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+};
+var requestPermissionOverlay = `
+<style>
+  #request-permission-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-family: sans-serif;
+  }
+
+  .request-permission-overlay_title {
+    margin: 30px;
+    font-size: 32px;
+  }
+
+  .request-permission-overlay_button {
+    background-color: #e80086;
+    font-size: 22px;
+    padding: 10px 30px;
+    color: #fff;
+    border-radius: 15px;
+    border: none;
+  }
+</style>
+
+<div id="request-permission-overlay">
+  <div class="request-permission-overlay_title">This app requires to use your camera and motion sensors</div>
+
+  <button class="request-permission-overlay_button" onclick="window.dispatchEvent(new Event('8thwall-safe-to-request-permissions'))">OK</button>
+</div>`;
+var failedPermissionOverlay = `
+<style>
+  #failed-permission-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-family: sans-serif;
+  }
+
+  .failed-permission-overlay_title {
+    margin: 30px;
+    font-size: 32px;
+  }
+
+  .failed-permission-overlay_button {
+    background-color: #e80086;
+    font-size: 22px;
+    padding: 10px 30px;
+    color: #fff;
+    border-radius: 15px;
+    border: none;
+  }
+</style>
+
+<div id="failed-permission-overlay">
+  <div class="failed-permission-overlay_title">Failed to grant permissions. Reset the the permissions and refresh the page.</div>
+
+  <button class="failed-permission-overlay_button" onclick="window.location.reload()">Refresh the page</button>
+</div>`;
+var runtimeErrorOverlay = `
+<style>
+  #wall-error-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-family: sans-serif;
+  }
+
+  .wall-error-overlay_title {
+    margin: 30px;
+    font-size: 32px;
+  }
+
+  .wall-error-overlay_button {
+    background-color: #e80086;
+    font-size: 22px;
+    padding: 10px 30px;
+    color: #fff;
+    border-radius: 15px;
+    border: none;
+  }
+</style>
+
+<div id="wall-error-overlay">
+  <div class="wall-error-overlay_title">Error has occurred. Please reload the page</div>
+
+  <button class="wall-error-overlay_button" onclick="window.location.reload()">Reload</button>
+</div>`;
+
+// node_modules/@wonderlandengine/components/dist/utils/webxr.js
+var tempVec = new Float32Array(3);
+var tempQuat = new Float32Array(4);
+function setXRRigidTransformLocal(o, transform) {
+  const r = transform.orientation;
+  tempQuat[0] = r.x;
+  tempQuat[1] = r.y;
+  tempQuat[2] = r.z;
+  tempQuat[3] = r.w;
+  const t = transform.position;
+  tempVec[0] = t.x;
+  tempVec[1] = t.y;
+  tempVec[2] = t.z;
+  o.resetTranslationRotation();
+  o.transformLocal.set(tempQuat);
+  o.translate(tempVec);
+}
+
+// node_modules/@wonderlandengine/components/dist/anchor.js
+var __decorate2 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var tempVec3 = new Float32Array(3);
+var tempQuat2 = new Float32Array(4);
+var _anchors, _addAnchor, addAnchor_fn, _removeAnchor, removeAnchor_fn, _getFrame, getFrame_fn, _createAnchor, createAnchor_fn, _onAddAnchor, onAddAnchor_fn, _onRestoreAnchor, onRestoreAnchor_fn, _onCreate, onCreate_fn;
+var _Anchor = class extends Component {
+  constructor() {
+    super(...arguments);
+    __privateAdd(this, _getFrame);
+    __privateAdd(this, _createAnchor);
+    __privateAdd(this, _onAddAnchor);
+    __privateAdd(this, _onRestoreAnchor);
+    __privateAdd(this, _onCreate);
+    __publicField(this, "persist", false);
+    /** Unique identifier to load a persistent anchor from, or empty/null if unknown */
+    __publicField(this, "uuid", null);
+    /** The xrAnchor, if created */
+    __publicField(this, "xrAnchor", null);
+    /** Emits events when the anchor is created either by being restored or newly created */
+    __publicField(this, "onCreate", new Emitter());
+    /** Whether the anchor is currently being tracked */
+    __publicField(this, "visible", false);
+    /** Emits an event when this anchor starts tracking */
+    __publicField(this, "onTrackingFound", new Emitter());
+    /** Emits an event when this anchor stops tracking */
+    __publicField(this, "onTrackingLost", new Emitter());
+    /** XRFrame to use for creating the anchor */
+    __publicField(this, "xrFrame", null);
+    /** XRHitTestResult to use for creating the anchor */
+    __publicField(this, "xrHitResult", null);
+  }
+  /** Retrieve all anchors of the current scene */
+  static getAllAnchors() {
+    return __privateGet(_Anchor, _anchors);
+  }
+  /**
+   * Create a new anchor
+   *
+   * @param o Object to attach the component to
+   * @param params Parameters for the anchor component
+   * @param frame XRFrame to use for anchor cration, if null, will use the current frame if available
+   * @param hitResult Optional hit-test result to create the anchor with
+   * @returns Promise for the newly created anchor component
+   */
+  static create(o, params, frame, hitResult) {
+    const a = o.addComponent(_Anchor, { ...params, active: false });
+    if (a === null)
+      return null;
+    a.xrHitResult = hitResult ?? null;
+    a.xrFrame = frame ?? null;
+    a.onCreate.once(() => (a.xrFrame = null, a.xrHitResult = null));
+    a.active = true;
+    return a.onCreate.promise();
+  }
+  start() {
+    if (this.uuid && this.engine.xr) {
+      this.persist = true;
+      if (this.engine.xr.session.restorePersistentAnchor === void 0) {
+        console.warn("anchor: Persistent anchors are not supported by your client. Ignoring persist property.");
+      }
+      this.engine.xr.session.restorePersistentAnchor(this.uuid).then(__privateMethod(this, _onRestoreAnchor, onRestoreAnchor_fn).bind(this));
+    } else if (__privateMethod(this, _getFrame, getFrame_fn).call(this)) {
+      __privateMethod(this, _createAnchor, createAnchor_fn).call(this).then(__privateMethod(this, _onAddAnchor, onAddAnchor_fn).bind(this));
+    } else {
+      throw new Error("Anchors can only be created during the XR frame in an active XR session");
+    }
+  }
+  update() {
+    if (!this.xrAnchor || !this.engine.xr)
+      return;
+    const pose = this.engine.xr.frame.getPose(this.xrAnchor.anchorSpace, this.engine.xr.currentReferenceSpace);
+    const visible = !!pose;
+    if (visible != this.visible) {
+      this.visible = visible;
+      (visible ? this.onTrackingFound : this.onTrackingLost).notify(this);
+    }
+    if (pose) {
+      setXRRigidTransformLocal(this.object, pose.transform);
+    }
+  }
+  onDestroy() {
+    var _a;
+    __privateMethod(_a = _Anchor, _removeAnchor, removeAnchor_fn).call(_a, this);
+  }
+};
+var Anchor = _Anchor;
+_anchors = new WeakMap();
+_addAnchor = new WeakSet();
+addAnchor_fn = function(anchor) {
+  __privateGet(_Anchor, _anchors).push(anchor);
+};
+_removeAnchor = new WeakSet();
+removeAnchor_fn = function(anchor) {
+  const index = __privateGet(_Anchor, _anchors).indexOf(anchor);
+  if (index < 0)
+    return;
+  __privateGet(_Anchor, _anchors).splice(index, 1);
+};
+_getFrame = new WeakSet();
+getFrame_fn = function() {
+  return this.xrFrame || this.engine.xr.frame;
+};
+_createAnchor = new WeakSet();
+createAnchor_fn = async function() {
+  if (!__privateMethod(this, _getFrame, getFrame_fn).call(this).createAnchor) {
+    throw new Error("Cannot create anchor - anchors not supported, did you enable the 'anchors' WebXR feature?");
+  }
+  if (this.xrHitResult) {
+    if (this.xrHitResult.createAnchor === void 0) {
+      throw new Error("Requested anchor on XRHitTestResult, but WebXR hit-test feature is not available.");
+    }
+    return this.xrHitResult.createAnchor();
+  } else {
+    this.object.getTranslationWorld(tempVec3);
+    tempQuat2.set(this.object.rotationWorld);
+    const rotation = tempQuat2;
+    const anchorPose = new XRRigidTransform({ x: tempVec3[0], y: tempVec3[1], z: tempVec3[2] }, { x: rotation[0], y: rotation[1], z: rotation[2], w: rotation[3] });
+    return __privateMethod(this, _getFrame, getFrame_fn).call(this)?.createAnchor(anchorPose, this.engine.xr.currentReferenceSpace);
+  }
+};
+_onAddAnchor = new WeakSet();
+onAddAnchor_fn = function(anchor) {
+  if (!anchor)
+    return;
+  if (this.persist) {
+    if (anchor.requestPersistentHandle !== void 0) {
+      anchor.requestPersistentHandle().then((uuid) => {
+        var _a;
+        this.uuid = uuid;
+        __privateMethod(this, _onCreate, onCreate_fn).call(this, anchor);
+        __privateMethod(_a = _Anchor, _addAnchor, addAnchor_fn).call(_a, this);
+      });
+      return;
+    } else {
+      console.warn("anchor: Persistent anchors are not supported by your client. Ignoring persist property.");
+    }
+  }
+  __privateMethod(this, _onCreate, onCreate_fn).call(this, anchor);
+};
+_onRestoreAnchor = new WeakSet();
+onRestoreAnchor_fn = function(anchor) {
+  __privateMethod(this, _onCreate, onCreate_fn).call(this, anchor);
+};
+_onCreate = new WeakSet();
+onCreate_fn = function(anchor) {
+  this.xrAnchor = anchor;
+  this.onCreate.notify(this);
+};
+__privateAdd(Anchor, _addAnchor);
+__privateAdd(Anchor, _removeAnchor);
+__publicField(Anchor, "TypeName", "anchor");
+/* Static management of all anchors */
+__privateAdd(Anchor, _anchors, []);
+__decorate2([
+  property.bool(false)
+], Anchor.prototype, "persist", void 0);
+__decorate2([
+  property.string()
+], Anchor.prototype, "uuid", void 0);
+
+// node_modules/@wonderlandengine/components/dist/cursor-target.js
+var CursorTarget = class extends Component {
+  /** Emitter for events when the target is hovered */
+  onHover = new Emitter();
+  /** Emitter for events when the target is unhovered */
+  onUnhover = new Emitter();
+  /** Emitter for events when the target is clicked */
+  onClick = new Emitter();
+  /** Emitter for events when the cursor moves on the target */
+  onMove = new Emitter();
+  /** Emitter for events when the user pressed the select button on the target */
+  onDown = new Emitter();
+  /** Emitter for events when the user unpressed the select button on the target */
+  onUp = new Emitter();
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    this.onHover.add(f);
+   */
+  addHoverFunction(f) {
+    this.onHover.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    this.onHover.remove(f);
+   */
+  removeHoverFunction(f) {
+    this.onHover.remove(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    this.onUnhover.add(f);
+   */
+  addUnHoverFunction(f) {
+    this.onUnhover.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    this.onUnhover.remove(f);
+   */
+  removeUnHoverFunction(f) {
+    this.onUnhover.remove(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    this.onClick.add(f);
+   */
+  addClickFunction(f) {
+    this.onClick.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onClick.remove(f);
+   */
+  removeClickFunction(f) {
+    this.onClick.remove(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onMove.add(f);
+   */
+  addMoveFunction(f) {
+    this.onMove.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onMove.remove(f);
+   */
+  removeMoveFunction(f) {
+    this.onMove.remove(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onDown.add(f);
+   */
+  addDownFunction(f) {
+    this.onDown.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onDown.remove(f);
+   */
+  removeDownFunction(f) {
+    this.onDown.remove(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onUp.add(f);
+   */
+  addUpFunction(f) {
+    this.onUp.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onUp.remove(f);
+   */
+  removeUpFunction(f) {
+    this.onUp.remove(f);
+  }
+};
+__publicField(CursorTarget, "TypeName", "cursor-target");
+__publicField(CursorTarget, "Properties", {});
+
+// node_modules/gl-matrix/esm/common.js
+var EPSILON = 1e-6;
+var ARRAY_TYPE = typeof Float32Array !== "undefined" ? Float32Array : Array;
+var RANDOM = Math.random;
+var degree = Math.PI / 180;
+if (!Math.hypot)
+  Math.hypot = function() {
+    var y = 0, i = arguments.length;
+    while (i--) {
+      y += arguments[i] * arguments[i];
+    }
+    return Math.sqrt(y);
+  };
+
+// node_modules/gl-matrix/esm/mat3.js
+function create() {
+  var out = new ARRAY_TYPE(9);
+  if (ARRAY_TYPE != Float32Array) {
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+    out[5] = 0;
+    out[6] = 0;
+    out[7] = 0;
+  }
+  out[0] = 1;
+  out[4] = 1;
+  out[8] = 1;
+  return out;
+}
+
+// node_modules/gl-matrix/esm/mat4.js
+var mat4_exports = {};
+__export(mat4_exports, {
+  add: () => add,
+  adjoint: () => adjoint,
+  clone: () => clone,
+  copy: () => copy,
+  create: () => create2,
+  determinant: () => determinant,
+  equals: () => equals,
+  exactEquals: () => exactEquals,
+  frob: () => frob,
+  fromQuat: () => fromQuat,
+  fromQuat2: () => fromQuat2,
+  fromRotation: () => fromRotation,
+  fromRotationTranslation: () => fromRotationTranslation,
+  fromRotationTranslationScale: () => fromRotationTranslationScale,
+  fromRotationTranslationScaleOrigin: () => fromRotationTranslationScaleOrigin,
+  fromScaling: () => fromScaling,
+  fromTranslation: () => fromTranslation,
+  fromValues: () => fromValues,
+  fromXRotation: () => fromXRotation,
+  fromYRotation: () => fromYRotation,
+  fromZRotation: () => fromZRotation,
+  frustum: () => frustum,
+  getRotation: () => getRotation,
+  getScaling: () => getScaling,
+  getTranslation: () => getTranslation,
+  identity: () => identity,
+  invert: () => invert,
+  lookAt: () => lookAt,
+  mul: () => mul,
+  multiply: () => multiply,
+  multiplyScalar: () => multiplyScalar,
+  multiplyScalarAndAdd: () => multiplyScalarAndAdd,
+  ortho: () => ortho,
+  orthoNO: () => orthoNO,
+  orthoZO: () => orthoZO,
+  perspective: () => perspective,
+  perspectiveFromFieldOfView: () => perspectiveFromFieldOfView,
+  perspectiveNO: () => perspectiveNO,
+  perspectiveZO: () => perspectiveZO,
+  rotate: () => rotate,
+  rotateX: () => rotateX,
+  rotateY: () => rotateY,
+  rotateZ: () => rotateZ,
+  scale: () => scale,
+  set: () => set,
+  str: () => str,
+  sub: () => sub,
+  subtract: () => subtract,
+  targetTo: () => targetTo,
+  translate: () => translate,
+  transpose: () => transpose
+});
+function create2() {
+  var out = new ARRAY_TYPE(16);
+  if (ARRAY_TYPE != Float32Array) {
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+    out[4] = 0;
+    out[6] = 0;
+    out[7] = 0;
+    out[8] = 0;
+    out[9] = 0;
+    out[11] = 0;
+    out[12] = 0;
+    out[13] = 0;
+    out[14] = 0;
+  }
+  out[0] = 1;
+  out[5] = 1;
+  out[10] = 1;
+  out[15] = 1;
+  return out;
+}
+function clone(a) {
+  var out = new ARRAY_TYPE(16);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  out[9] = a[9];
+  out[10] = a[10];
+  out[11] = a[11];
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  out[9] = a[9];
+  out[10] = a[10];
+  out[11] = a[11];
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+function fromValues(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+  var out = new ARRAY_TYPE(16);
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m03;
+  out[4] = m10;
+  out[5] = m11;
+  out[6] = m12;
+  out[7] = m13;
+  out[8] = m20;
+  out[9] = m21;
+  out[10] = m22;
+  out[11] = m23;
+  out[12] = m30;
+  out[13] = m31;
+  out[14] = m32;
+  out[15] = m33;
+  return out;
+}
+function set(out, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m03;
+  out[4] = m10;
+  out[5] = m11;
+  out[6] = m12;
+  out[7] = m13;
+  out[8] = m20;
+  out[9] = m21;
+  out[10] = m22;
+  out[11] = m23;
+  out[12] = m30;
+  out[13] = m31;
+  out[14] = m32;
+  out[15] = m33;
+  return out;
+}
+function identity(out) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function transpose(out, a) {
+  if (out === a) {
+    var a01 = a[1], a02 = a[2], a03 = a[3];
+    var a12 = a[6], a13 = a[7];
+    var a23 = a[11];
+    out[1] = a[4];
+    out[2] = a[8];
+    out[3] = a[12];
+    out[4] = a01;
+    out[6] = a[9];
+    out[7] = a[13];
+    out[8] = a02;
+    out[9] = a12;
+    out[11] = a[14];
+    out[12] = a03;
+    out[13] = a13;
+    out[14] = a23;
+  } else {
+    out[0] = a[0];
+    out[1] = a[4];
+    out[2] = a[8];
+    out[3] = a[12];
+    out[4] = a[1];
+    out[5] = a[5];
+    out[6] = a[9];
+    out[7] = a[13];
+    out[8] = a[2];
+    out[9] = a[6];
+    out[10] = a[10];
+    out[11] = a[14];
+    out[12] = a[3];
+    out[13] = a[7];
+    out[14] = a[11];
+    out[15] = a[15];
+  }
+  return out;
+}
+function invert(out, a) {
+  var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  var a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  var a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  var b00 = a00 * a11 - a01 * a10;
+  var b01 = a00 * a12 - a02 * a10;
+  var b02 = a00 * a13 - a03 * a10;
+  var b03 = a01 * a12 - a02 * a11;
+  var b04 = a01 * a13 - a03 * a11;
+  var b05 = a02 * a13 - a03 * a12;
+  var b06 = a20 * a31 - a21 * a30;
+  var b07 = a20 * a32 - a22 * a30;
+  var b08 = a20 * a33 - a23 * a30;
+  var b09 = a21 * a32 - a22 * a31;
+  var b10 = a21 * a33 - a23 * a31;
+  var b11 = a22 * a33 - a23 * a32;
+  var det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+  if (!det) {
+    return null;
+  }
+  det = 1 / det;
+  out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
+  out[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+  out[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
+  out[3] = (a22 * b04 - a21 * b05 - a23 * b03) * det;
+  out[4] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
+  out[5] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+  out[6] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
+  out[7] = (a20 * b05 - a22 * b02 + a23 * b01) * det;
+  out[8] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
+  out[9] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+  out[10] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
+  out[11] = (a21 * b02 - a20 * b04 - a23 * b00) * det;
+  out[12] = (a11 * b07 - a10 * b09 - a12 * b06) * det;
+  out[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
+  out[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det;
+  out[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
+  return out;
+}
+function adjoint(out, a) {
+  var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  var a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  var a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  out[0] = a11 * (a22 * a33 - a23 * a32) - a21 * (a12 * a33 - a13 * a32) + a31 * (a12 * a23 - a13 * a22);
+  out[1] = -(a01 * (a22 * a33 - a23 * a32) - a21 * (a02 * a33 - a03 * a32) + a31 * (a02 * a23 - a03 * a22));
+  out[2] = a01 * (a12 * a33 - a13 * a32) - a11 * (a02 * a33 - a03 * a32) + a31 * (a02 * a13 - a03 * a12);
+  out[3] = -(a01 * (a12 * a23 - a13 * a22) - a11 * (a02 * a23 - a03 * a22) + a21 * (a02 * a13 - a03 * a12));
+  out[4] = -(a10 * (a22 * a33 - a23 * a32) - a20 * (a12 * a33 - a13 * a32) + a30 * (a12 * a23 - a13 * a22));
+  out[5] = a00 * (a22 * a33 - a23 * a32) - a20 * (a02 * a33 - a03 * a32) + a30 * (a02 * a23 - a03 * a22);
+  out[6] = -(a00 * (a12 * a33 - a13 * a32) - a10 * (a02 * a33 - a03 * a32) + a30 * (a02 * a13 - a03 * a12));
+  out[7] = a00 * (a12 * a23 - a13 * a22) - a10 * (a02 * a23 - a03 * a22) + a20 * (a02 * a13 - a03 * a12);
+  out[8] = a10 * (a21 * a33 - a23 * a31) - a20 * (a11 * a33 - a13 * a31) + a30 * (a11 * a23 - a13 * a21);
+  out[9] = -(a00 * (a21 * a33 - a23 * a31) - a20 * (a01 * a33 - a03 * a31) + a30 * (a01 * a23 - a03 * a21));
+  out[10] = a00 * (a11 * a33 - a13 * a31) - a10 * (a01 * a33 - a03 * a31) + a30 * (a01 * a13 - a03 * a11);
+  out[11] = -(a00 * (a11 * a23 - a13 * a21) - a10 * (a01 * a23 - a03 * a21) + a20 * (a01 * a13 - a03 * a11));
+  out[12] = -(a10 * (a21 * a32 - a22 * a31) - a20 * (a11 * a32 - a12 * a31) + a30 * (a11 * a22 - a12 * a21));
+  out[13] = a00 * (a21 * a32 - a22 * a31) - a20 * (a01 * a32 - a02 * a31) + a30 * (a01 * a22 - a02 * a21);
+  out[14] = -(a00 * (a11 * a32 - a12 * a31) - a10 * (a01 * a32 - a02 * a31) + a30 * (a01 * a12 - a02 * a11));
+  out[15] = a00 * (a11 * a22 - a12 * a21) - a10 * (a01 * a22 - a02 * a21) + a20 * (a01 * a12 - a02 * a11);
+  return out;
+}
+function determinant(a) {
+  var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  var a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  var a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  var b00 = a00 * a11 - a01 * a10;
+  var b01 = a00 * a12 - a02 * a10;
+  var b02 = a00 * a13 - a03 * a10;
+  var b03 = a01 * a12 - a02 * a11;
+  var b04 = a01 * a13 - a03 * a11;
+  var b05 = a02 * a13 - a03 * a12;
+  var b06 = a20 * a31 - a21 * a30;
+  var b07 = a20 * a32 - a22 * a30;
+  var b08 = a20 * a33 - a23 * a30;
+  var b09 = a21 * a32 - a22 * a31;
+  var b10 = a21 * a33 - a23 * a31;
+  var b11 = a22 * a33 - a23 * a32;
+  return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+}
+function multiply(out, a, b) {
+  var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  var a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  var a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  out[0] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[1] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[2] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[3] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[4];
+  b1 = b[5];
+  b2 = b[6];
+  b3 = b[7];
+  out[4] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[5] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[6] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[7] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[8];
+  b1 = b[9];
+  b2 = b[10];
+  b3 = b[11];
+  out[8] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[9] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[10] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[11] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[12];
+  b1 = b[13];
+  b2 = b[14];
+  b3 = b[15];
+  out[12] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[13] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[14] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  return out;
+}
+function translate(out, a, v) {
+  var x2 = v[0], y = v[1], z = v[2];
+  var a00, a01, a02, a03;
+  var a10, a11, a12, a13;
+  var a20, a21, a22, a23;
+  if (a === out) {
+    out[12] = a[0] * x2 + a[4] * y + a[8] * z + a[12];
+    out[13] = a[1] * x2 + a[5] * y + a[9] * z + a[13];
+    out[14] = a[2] * x2 + a[6] * y + a[10] * z + a[14];
+    out[15] = a[3] * x2 + a[7] * y + a[11] * z + a[15];
+  } else {
+    a00 = a[0];
+    a01 = a[1];
+    a02 = a[2];
+    a03 = a[3];
+    a10 = a[4];
+    a11 = a[5];
+    a12 = a[6];
+    a13 = a[7];
+    a20 = a[8];
+    a21 = a[9];
+    a22 = a[10];
+    a23 = a[11];
+    out[0] = a00;
+    out[1] = a01;
+    out[2] = a02;
+    out[3] = a03;
+    out[4] = a10;
+    out[5] = a11;
+    out[6] = a12;
+    out[7] = a13;
+    out[8] = a20;
+    out[9] = a21;
+    out[10] = a22;
+    out[11] = a23;
+    out[12] = a00 * x2 + a10 * y + a20 * z + a[12];
+    out[13] = a01 * x2 + a11 * y + a21 * z + a[13];
+    out[14] = a02 * x2 + a12 * y + a22 * z + a[14];
+    out[15] = a03 * x2 + a13 * y + a23 * z + a[15];
+  }
+  return out;
+}
+function scale(out, a, v) {
+  var x2 = v[0], y = v[1], z = v[2];
+  out[0] = a[0] * x2;
+  out[1] = a[1] * x2;
+  out[2] = a[2] * x2;
+  out[3] = a[3] * x2;
+  out[4] = a[4] * y;
+  out[5] = a[5] * y;
+  out[6] = a[6] * y;
+  out[7] = a[7] * y;
+  out[8] = a[8] * z;
+  out[9] = a[9] * z;
+  out[10] = a[10] * z;
+  out[11] = a[11] * z;
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+function rotate(out, a, rad, axis) {
+  var x2 = axis[0], y = axis[1], z = axis[2];
+  var len4 = Math.hypot(x2, y, z);
+  var s, c, t;
+  var a00, a01, a02, a03;
+  var a10, a11, a12, a13;
+  var a20, a21, a22, a23;
+  var b00, b01, b02;
+  var b10, b11, b12;
+  var b20, b21, b22;
+  if (len4 < EPSILON) {
+    return null;
+  }
+  len4 = 1 / len4;
+  x2 *= len4;
+  y *= len4;
+  z *= len4;
+  s = Math.sin(rad);
+  c = Math.cos(rad);
+  t = 1 - c;
+  a00 = a[0];
+  a01 = a[1];
+  a02 = a[2];
+  a03 = a[3];
+  a10 = a[4];
+  a11 = a[5];
+  a12 = a[6];
+  a13 = a[7];
+  a20 = a[8];
+  a21 = a[9];
+  a22 = a[10];
+  a23 = a[11];
+  b00 = x2 * x2 * t + c;
+  b01 = y * x2 * t + z * s;
+  b02 = z * x2 * t - y * s;
+  b10 = x2 * y * t - z * s;
+  b11 = y * y * t + c;
+  b12 = z * y * t + x2 * s;
+  b20 = x2 * z * t + y * s;
+  b21 = y * z * t - x2 * s;
+  b22 = z * z * t + c;
+  out[0] = a00 * b00 + a10 * b01 + a20 * b02;
+  out[1] = a01 * b00 + a11 * b01 + a21 * b02;
+  out[2] = a02 * b00 + a12 * b01 + a22 * b02;
+  out[3] = a03 * b00 + a13 * b01 + a23 * b02;
+  out[4] = a00 * b10 + a10 * b11 + a20 * b12;
+  out[5] = a01 * b10 + a11 * b11 + a21 * b12;
+  out[6] = a02 * b10 + a12 * b11 + a22 * b12;
+  out[7] = a03 * b10 + a13 * b11 + a23 * b12;
+  out[8] = a00 * b20 + a10 * b21 + a20 * b22;
+  out[9] = a01 * b20 + a11 * b21 + a21 * b22;
+  out[10] = a02 * b20 + a12 * b21 + a22 * b22;
+  out[11] = a03 * b20 + a13 * b21 + a23 * b22;
+  if (a !== out) {
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+  return out;
+}
+function rotateX(out, a, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  var a10 = a[4];
+  var a11 = a[5];
+  var a12 = a[6];
+  var a13 = a[7];
+  var a20 = a[8];
+  var a21 = a[9];
+  var a22 = a[10];
+  var a23 = a[11];
+  if (a !== out) {
+    out[0] = a[0];
+    out[1] = a[1];
+    out[2] = a[2];
+    out[3] = a[3];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+  out[4] = a10 * c + a20 * s;
+  out[5] = a11 * c + a21 * s;
+  out[6] = a12 * c + a22 * s;
+  out[7] = a13 * c + a23 * s;
+  out[8] = a20 * c - a10 * s;
+  out[9] = a21 * c - a11 * s;
+  out[10] = a22 * c - a12 * s;
+  out[11] = a23 * c - a13 * s;
+  return out;
+}
+function rotateY(out, a, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  var a00 = a[0];
+  var a01 = a[1];
+  var a02 = a[2];
+  var a03 = a[3];
+  var a20 = a[8];
+  var a21 = a[9];
+  var a22 = a[10];
+  var a23 = a[11];
+  if (a !== out) {
+    out[4] = a[4];
+    out[5] = a[5];
+    out[6] = a[6];
+    out[7] = a[7];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+  out[0] = a00 * c - a20 * s;
+  out[1] = a01 * c - a21 * s;
+  out[2] = a02 * c - a22 * s;
+  out[3] = a03 * c - a23 * s;
+  out[8] = a00 * s + a20 * c;
+  out[9] = a01 * s + a21 * c;
+  out[10] = a02 * s + a22 * c;
+  out[11] = a03 * s + a23 * c;
+  return out;
+}
+function rotateZ(out, a, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  var a00 = a[0];
+  var a01 = a[1];
+  var a02 = a[2];
+  var a03 = a[3];
+  var a10 = a[4];
+  var a11 = a[5];
+  var a12 = a[6];
+  var a13 = a[7];
+  if (a !== out) {
+    out[8] = a[8];
+    out[9] = a[9];
+    out[10] = a[10];
+    out[11] = a[11];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+  out[0] = a00 * c + a10 * s;
+  out[1] = a01 * c + a11 * s;
+  out[2] = a02 * c + a12 * s;
+  out[3] = a03 * c + a13 * s;
+  out[4] = a10 * c - a00 * s;
+  out[5] = a11 * c - a01 * s;
+  out[6] = a12 * c - a02 * s;
+  out[7] = a13 * c - a03 * s;
+  return out;
+}
+function fromTranslation(out, v) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+  return out;
+}
+function fromScaling(out, v) {
+  out[0] = v[0];
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = v[1];
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = v[2];
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function fromRotation(out, rad, axis) {
+  var x2 = axis[0], y = axis[1], z = axis[2];
+  var len4 = Math.hypot(x2, y, z);
+  var s, c, t;
+  if (len4 < EPSILON) {
+    return null;
+  }
+  len4 = 1 / len4;
+  x2 *= len4;
+  y *= len4;
+  z *= len4;
+  s = Math.sin(rad);
+  c = Math.cos(rad);
+  t = 1 - c;
+  out[0] = x2 * x2 * t + c;
+  out[1] = y * x2 * t + z * s;
+  out[2] = z * x2 * t - y * s;
+  out[3] = 0;
+  out[4] = x2 * y * t - z * s;
+  out[5] = y * y * t + c;
+  out[6] = z * y * t + x2 * s;
+  out[7] = 0;
+  out[8] = x2 * z * t + y * s;
+  out[9] = y * z * t - x2 * s;
+  out[10] = z * z * t + c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function fromXRotation(out, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = c;
+  out[6] = s;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = -s;
+  out[10] = c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function fromYRotation(out, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  out[0] = c;
+  out[1] = 0;
+  out[2] = -s;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = s;
+  out[9] = 0;
+  out[10] = c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function fromZRotation(out, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  out[0] = c;
+  out[1] = s;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = -s;
+  out[5] = c;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function fromRotationTranslation(out, q2, v) {
+  var x2 = q2[0], y = q2[1], z = q2[2], w = q2[3];
+  var x22 = x2 + x2;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x2 * x22;
+  var xy = x2 * y2;
+  var xz = x2 * z2;
+  var yy = y * y2;
+  var yz = y * z2;
+  var zz = z * z2;
+  var wx = w * x22;
+  var wy = w * y2;
+  var wz = w * z2;
+  out[0] = 1 - (yy + zz);
+  out[1] = xy + wz;
+  out[2] = xz - wy;
+  out[3] = 0;
+  out[4] = xy - wz;
+  out[5] = 1 - (xx + zz);
+  out[6] = yz + wx;
+  out[7] = 0;
+  out[8] = xz + wy;
+  out[9] = yz - wx;
+  out[10] = 1 - (xx + yy);
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+  return out;
+}
+function fromQuat2(out, a) {
+  var translation = new ARRAY_TYPE(3);
+  var bx = -a[0], by = -a[1], bz = -a[2], bw = a[3], ax = a[4], ay = a[5], az = a[6], aw = a[7];
+  var magnitude = bx * bx + by * by + bz * bz + bw * bw;
+  if (magnitude > 0) {
+    translation[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2 / magnitude;
+    translation[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2 / magnitude;
+    translation[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2 / magnitude;
+  } else {
+    translation[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2;
+    translation[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2;
+    translation[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2;
+  }
+  fromRotationTranslation(out, a, translation);
+  return out;
+}
+function getTranslation(out, mat) {
+  out[0] = mat[12];
+  out[1] = mat[13];
+  out[2] = mat[14];
+  return out;
+}
+function getScaling(out, mat) {
+  var m11 = mat[0];
+  var m12 = mat[1];
+  var m13 = mat[2];
+  var m21 = mat[4];
+  var m22 = mat[5];
+  var m23 = mat[6];
+  var m31 = mat[8];
+  var m32 = mat[9];
+  var m33 = mat[10];
+  out[0] = Math.hypot(m11, m12, m13);
+  out[1] = Math.hypot(m21, m22, m23);
+  out[2] = Math.hypot(m31, m32, m33);
+  return out;
+}
+function getRotation(out, mat) {
+  var scaling = new ARRAY_TYPE(3);
+  getScaling(scaling, mat);
+  var is1 = 1 / scaling[0];
+  var is2 = 1 / scaling[1];
+  var is3 = 1 / scaling[2];
+  var sm11 = mat[0] * is1;
+  var sm12 = mat[1] * is2;
+  var sm13 = mat[2] * is3;
+  var sm21 = mat[4] * is1;
+  var sm22 = mat[5] * is2;
+  var sm23 = mat[6] * is3;
+  var sm31 = mat[8] * is1;
+  var sm32 = mat[9] * is2;
+  var sm33 = mat[10] * is3;
+  var trace = sm11 + sm22 + sm33;
+  var S = 0;
+  if (trace > 0) {
+    S = Math.sqrt(trace + 1) * 2;
+    out[3] = 0.25 * S;
+    out[0] = (sm23 - sm32) / S;
+    out[1] = (sm31 - sm13) / S;
+    out[2] = (sm12 - sm21) / S;
+  } else if (sm11 > sm22 && sm11 > sm33) {
+    S = Math.sqrt(1 + sm11 - sm22 - sm33) * 2;
+    out[3] = (sm23 - sm32) / S;
+    out[0] = 0.25 * S;
+    out[1] = (sm12 + sm21) / S;
+    out[2] = (sm31 + sm13) / S;
+  } else if (sm22 > sm33) {
+    S = Math.sqrt(1 + sm22 - sm11 - sm33) * 2;
+    out[3] = (sm31 - sm13) / S;
+    out[0] = (sm12 + sm21) / S;
+    out[1] = 0.25 * S;
+    out[2] = (sm23 + sm32) / S;
+  } else {
+    S = Math.sqrt(1 + sm33 - sm11 - sm22) * 2;
+    out[3] = (sm12 - sm21) / S;
+    out[0] = (sm31 + sm13) / S;
+    out[1] = (sm23 + sm32) / S;
+    out[2] = 0.25 * S;
+  }
+  return out;
+}
+function fromRotationTranslationScale(out, q2, v, s) {
+  var x2 = q2[0], y = q2[1], z = q2[2], w = q2[3];
+  var x22 = x2 + x2;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x2 * x22;
+  var xy = x2 * y2;
+  var xz = x2 * z2;
+  var yy = y * y2;
+  var yz = y * z2;
+  var zz = z * z2;
+  var wx = w * x22;
+  var wy = w * y2;
+  var wz = w * z2;
+  var sx = s[0];
+  var sy = s[1];
+  var sz = s[2];
+  out[0] = (1 - (yy + zz)) * sx;
+  out[1] = (xy + wz) * sx;
+  out[2] = (xz - wy) * sx;
+  out[3] = 0;
+  out[4] = (xy - wz) * sy;
+  out[5] = (1 - (xx + zz)) * sy;
+  out[6] = (yz + wx) * sy;
+  out[7] = 0;
+  out[8] = (xz + wy) * sz;
+  out[9] = (yz - wx) * sz;
+  out[10] = (1 - (xx + yy)) * sz;
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+  return out;
+}
+function fromRotationTranslationScaleOrigin(out, q2, v, s, o) {
+  var x2 = q2[0], y = q2[1], z = q2[2], w = q2[3];
+  var x22 = x2 + x2;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x2 * x22;
+  var xy = x2 * y2;
+  var xz = x2 * z2;
+  var yy = y * y2;
+  var yz = y * z2;
+  var zz = z * z2;
+  var wx = w * x22;
+  var wy = w * y2;
+  var wz = w * z2;
+  var sx = s[0];
+  var sy = s[1];
+  var sz = s[2];
+  var ox = o[0];
+  var oy = o[1];
+  var oz = o[2];
+  var out0 = (1 - (yy + zz)) * sx;
+  var out1 = (xy + wz) * sx;
+  var out2 = (xz - wy) * sx;
+  var out4 = (xy - wz) * sy;
+  var out5 = (1 - (xx + zz)) * sy;
+  var out6 = (yz + wx) * sy;
+  var out8 = (xz + wy) * sz;
+  var out9 = (yz - wx) * sz;
+  var out10 = (1 - (xx + yy)) * sz;
+  out[0] = out0;
+  out[1] = out1;
+  out[2] = out2;
+  out[3] = 0;
+  out[4] = out4;
+  out[5] = out5;
+  out[6] = out6;
+  out[7] = 0;
+  out[8] = out8;
+  out[9] = out9;
+  out[10] = out10;
+  out[11] = 0;
+  out[12] = v[0] + ox - (out0 * ox + out4 * oy + out8 * oz);
+  out[13] = v[1] + oy - (out1 * ox + out5 * oy + out9 * oz);
+  out[14] = v[2] + oz - (out2 * ox + out6 * oy + out10 * oz);
+  out[15] = 1;
+  return out;
+}
+function fromQuat(out, q2) {
+  var x2 = q2[0], y = q2[1], z = q2[2], w = q2[3];
+  var x22 = x2 + x2;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x2 * x22;
+  var yx = y * x22;
+  var yy = y * y2;
+  var zx = z * x22;
+  var zy = z * y2;
+  var zz = z * z2;
+  var wx = w * x22;
+  var wy = w * y2;
+  var wz = w * z2;
+  out[0] = 1 - yy - zz;
+  out[1] = yx + wz;
+  out[2] = zx - wy;
+  out[3] = 0;
+  out[4] = yx - wz;
+  out[5] = 1 - xx - zz;
+  out[6] = zy + wx;
+  out[7] = 0;
+  out[8] = zx + wy;
+  out[9] = zy - wx;
+  out[10] = 1 - xx - yy;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function frustum(out, left, right, bottom, top, near, far) {
+  var rl = 1 / (right - left);
+  var tb = 1 / (top - bottom);
+  var nf = 1 / (near - far);
+  out[0] = near * 2 * rl;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = near * 2 * tb;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = (right + left) * rl;
+  out[9] = (top + bottom) * tb;
+  out[10] = (far + near) * nf;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = far * near * 2 * nf;
+  out[15] = 0;
+  return out;
+}
+function perspectiveNO(out, fovy, aspect, near, far) {
+  var f = 1 / Math.tan(fovy / 2), nf;
+  out[0] = f / aspect;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = f;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[15] = 0;
+  if (far != null && far !== Infinity) {
+    nf = 1 / (near - far);
+    out[10] = (far + near) * nf;
+    out[14] = 2 * far * near * nf;
+  } else {
+    out[10] = -1;
+    out[14] = -2 * near;
+  }
+  return out;
+}
+var perspective = perspectiveNO;
+function perspectiveZO(out, fovy, aspect, near, far) {
+  var f = 1 / Math.tan(fovy / 2), nf;
+  out[0] = f / aspect;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = f;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[15] = 0;
+  if (far != null && far !== Infinity) {
+    nf = 1 / (near - far);
+    out[10] = far * nf;
+    out[14] = far * near * nf;
+  } else {
+    out[10] = -1;
+    out[14] = -near;
+  }
+  return out;
+}
+function perspectiveFromFieldOfView(out, fov, near, far) {
+  var upTan = Math.tan(fov.upDegrees * Math.PI / 180);
+  var downTan = Math.tan(fov.downDegrees * Math.PI / 180);
+  var leftTan = Math.tan(fov.leftDegrees * Math.PI / 180);
+  var rightTan = Math.tan(fov.rightDegrees * Math.PI / 180);
+  var xScale = 2 / (leftTan + rightTan);
+  var yScale = 2 / (upTan + downTan);
+  out[0] = xScale;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = yScale;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = -((leftTan - rightTan) * xScale * 0.5);
+  out[9] = (upTan - downTan) * yScale * 0.5;
+  out[10] = far / (near - far);
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = far * near / (near - far);
+  out[15] = 0;
+  return out;
+}
+function orthoNO(out, left, right, bottom, top, near, far) {
+  var lr = 1 / (left - right);
+  var bt2 = 1 / (bottom - top);
+  var nf = 1 / (near - far);
+  out[0] = -2 * lr;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = -2 * bt2;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 2 * nf;
+  out[11] = 0;
+  out[12] = (left + right) * lr;
+  out[13] = (top + bottom) * bt2;
+  out[14] = (far + near) * nf;
+  out[15] = 1;
+  return out;
+}
+var ortho = orthoNO;
+function orthoZO(out, left, right, bottom, top, near, far) {
+  var lr = 1 / (left - right);
+  var bt2 = 1 / (bottom - top);
+  var nf = 1 / (near - far);
+  out[0] = -2 * lr;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = -2 * bt2;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = nf;
+  out[11] = 0;
+  out[12] = (left + right) * lr;
+  out[13] = (top + bottom) * bt2;
+  out[14] = near * nf;
+  out[15] = 1;
+  return out;
+}
+function lookAt(out, eye, center, up) {
+  var x0, x1, x2, y0, y1, y2, z0, z1, z2, len4;
+  var eyex = eye[0];
+  var eyey = eye[1];
+  var eyez = eye[2];
+  var upx = up[0];
+  var upy = up[1];
+  var upz = up[2];
+  var centerx = center[0];
+  var centery = center[1];
+  var centerz = center[2];
+  if (Math.abs(eyex - centerx) < EPSILON && Math.abs(eyey - centery) < EPSILON && Math.abs(eyez - centerz) < EPSILON) {
+    return identity(out);
+  }
+  z0 = eyex - centerx;
+  z1 = eyey - centery;
+  z2 = eyez - centerz;
+  len4 = 1 / Math.hypot(z0, z1, z2);
+  z0 *= len4;
+  z1 *= len4;
+  z2 *= len4;
+  x0 = upy * z2 - upz * z1;
+  x1 = upz * z0 - upx * z2;
+  x2 = upx * z1 - upy * z0;
+  len4 = Math.hypot(x0, x1, x2);
+  if (!len4) {
+    x0 = 0;
+    x1 = 0;
+    x2 = 0;
+  } else {
+    len4 = 1 / len4;
+    x0 *= len4;
+    x1 *= len4;
+    x2 *= len4;
+  }
+  y0 = z1 * x2 - z2 * x1;
+  y1 = z2 * x0 - z0 * x2;
+  y2 = z0 * x1 - z1 * x0;
+  len4 = Math.hypot(y0, y1, y2);
+  if (!len4) {
+    y0 = 0;
+    y1 = 0;
+    y2 = 0;
+  } else {
+    len4 = 1 / len4;
+    y0 *= len4;
+    y1 *= len4;
+    y2 *= len4;
+  }
+  out[0] = x0;
+  out[1] = y0;
+  out[2] = z0;
+  out[3] = 0;
+  out[4] = x1;
+  out[5] = y1;
+  out[6] = z1;
+  out[7] = 0;
+  out[8] = x2;
+  out[9] = y2;
+  out[10] = z2;
+  out[11] = 0;
+  out[12] = -(x0 * eyex + x1 * eyey + x2 * eyez);
+  out[13] = -(y0 * eyex + y1 * eyey + y2 * eyez);
+  out[14] = -(z0 * eyex + z1 * eyey + z2 * eyez);
+  out[15] = 1;
+  return out;
+}
+function targetTo(out, eye, target, up) {
+  var eyex = eye[0], eyey = eye[1], eyez = eye[2], upx = up[0], upy = up[1], upz = up[2];
+  var z0 = eyex - target[0], z1 = eyey - target[1], z2 = eyez - target[2];
+  var len4 = z0 * z0 + z1 * z1 + z2 * z2;
+  if (len4 > 0) {
+    len4 = 1 / Math.sqrt(len4);
+    z0 *= len4;
+    z1 *= len4;
+    z2 *= len4;
+  }
+  var x0 = upy * z2 - upz * z1, x1 = upz * z0 - upx * z2, x2 = upx * z1 - upy * z0;
+  len4 = x0 * x0 + x1 * x1 + x2 * x2;
+  if (len4 > 0) {
+    len4 = 1 / Math.sqrt(len4);
+    x0 *= len4;
+    x1 *= len4;
+    x2 *= len4;
+  }
+  out[0] = x0;
+  out[1] = x1;
+  out[2] = x2;
+  out[3] = 0;
+  out[4] = z1 * x2 - z2 * x1;
+  out[5] = z2 * x0 - z0 * x2;
+  out[6] = z0 * x1 - z1 * x0;
+  out[7] = 0;
+  out[8] = z0;
+  out[9] = z1;
+  out[10] = z2;
+  out[11] = 0;
+  out[12] = eyex;
+  out[13] = eyey;
+  out[14] = eyez;
+  out[15] = 1;
+  return out;
+}
+function str(a) {
+  return "mat4(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ", " + a[4] + ", " + a[5] + ", " + a[6] + ", " + a[7] + ", " + a[8] + ", " + a[9] + ", " + a[10] + ", " + a[11] + ", " + a[12] + ", " + a[13] + ", " + a[14] + ", " + a[15] + ")";
+}
+function frob(a) {
+  return Math.hypot(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15]);
+}
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  out[4] = a[4] + b[4];
+  out[5] = a[5] + b[5];
+  out[6] = a[6] + b[6];
+  out[7] = a[7] + b[7];
+  out[8] = a[8] + b[8];
+  out[9] = a[9] + b[9];
+  out[10] = a[10] + b[10];
+  out[11] = a[11] + b[11];
+  out[12] = a[12] + b[12];
+  out[13] = a[13] + b[13];
+  out[14] = a[14] + b[14];
+  out[15] = a[15] + b[15];
+  return out;
+}
+function subtract(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  out[3] = a[3] - b[3];
+  out[4] = a[4] - b[4];
+  out[5] = a[5] - b[5];
+  out[6] = a[6] - b[6];
+  out[7] = a[7] - b[7];
+  out[8] = a[8] - b[8];
+  out[9] = a[9] - b[9];
+  out[10] = a[10] - b[10];
+  out[11] = a[11] - b[11];
+  out[12] = a[12] - b[12];
+  out[13] = a[13] - b[13];
+  out[14] = a[14] - b[14];
+  out[15] = a[15] - b[15];
+  return out;
+}
+function multiplyScalar(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  out[4] = a[4] * b;
+  out[5] = a[5] * b;
+  out[6] = a[6] * b;
+  out[7] = a[7] * b;
+  out[8] = a[8] * b;
+  out[9] = a[9] * b;
+  out[10] = a[10] * b;
+  out[11] = a[11] * b;
+  out[12] = a[12] * b;
+  out[13] = a[13] * b;
+  out[14] = a[14] * b;
+  out[15] = a[15] * b;
+  return out;
+}
+function multiplyScalarAndAdd(out, a, b, scale6) {
+  out[0] = a[0] + b[0] * scale6;
+  out[1] = a[1] + b[1] * scale6;
+  out[2] = a[2] + b[2] * scale6;
+  out[3] = a[3] + b[3] * scale6;
+  out[4] = a[4] + b[4] * scale6;
+  out[5] = a[5] + b[5] * scale6;
+  out[6] = a[6] + b[6] * scale6;
+  out[7] = a[7] + b[7] * scale6;
+  out[8] = a[8] + b[8] * scale6;
+  out[9] = a[9] + b[9] * scale6;
+  out[10] = a[10] + b[10] * scale6;
+  out[11] = a[11] + b[11] * scale6;
+  out[12] = a[12] + b[12] * scale6;
+  out[13] = a[13] + b[13] * scale6;
+  out[14] = a[14] + b[14] * scale6;
+  out[15] = a[15] + b[15] * scale6;
+  return out;
+}
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5] && a[6] === b[6] && a[7] === b[7] && a[8] === b[8] && a[9] === b[9] && a[10] === b[10] && a[11] === b[11] && a[12] === b[12] && a[13] === b[13] && a[14] === b[14] && a[15] === b[15];
+}
+function equals(a, b) {
+  var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  var a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7];
+  var a8 = a[8], a9 = a[9], a10 = a[10], a11 = a[11];
+  var a12 = a[12], a13 = a[13], a14 = a[14], a15 = a[15];
+  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  var b4 = b[4], b5 = b[5], b6 = b[6], b7 = b[7];
+  var b8 = b[8], b9 = b[9], b10 = b[10], b11 = b[11];
+  var b12 = b[12], b13 = b[13], b14 = b[14], b15 = b[15];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON * Math.max(1, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON * Math.max(1, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON * Math.max(1, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON * Math.max(1, Math.abs(a7), Math.abs(b7)) && Math.abs(a8 - b8) <= EPSILON * Math.max(1, Math.abs(a8), Math.abs(b8)) && Math.abs(a9 - b9) <= EPSILON * Math.max(1, Math.abs(a9), Math.abs(b9)) && Math.abs(a10 - b10) <= EPSILON * Math.max(1, Math.abs(a10), Math.abs(b10)) && Math.abs(a11 - b11) <= EPSILON * Math.max(1, Math.abs(a11), Math.abs(b11)) && Math.abs(a12 - b12) <= EPSILON * Math.max(1, Math.abs(a12), Math.abs(b12)) && Math.abs(a13 - b13) <= EPSILON * Math.max(1, Math.abs(a13), Math.abs(b13)) && Math.abs(a14 - b14) <= EPSILON * Math.max(1, Math.abs(a14), Math.abs(b14)) && Math.abs(a15 - b15) <= EPSILON * Math.max(1, Math.abs(a15), Math.abs(b15));
+}
+var mul = multiply;
+var sub = subtract;
+
+// node_modules/gl-matrix/esm/quat.js
+var quat_exports = {};
+__export(quat_exports, {
+  add: () => add4,
+  calculateW: () => calculateW,
+  clone: () => clone4,
+  conjugate: () => conjugate,
+  copy: () => copy4,
+  create: () => create5,
+  dot: () => dot3,
+  equals: () => equals4,
+  exactEquals: () => exactEquals4,
+  exp: () => exp,
+  fromEuler: () => fromEuler,
+  fromMat3: () => fromMat3,
+  fromValues: () => fromValues4,
+  getAngle: () => getAngle,
+  getAxisAngle: () => getAxisAngle,
+  identity: () => identity2,
+  invert: () => invert2,
+  len: () => len2,
+  length: () => length3,
+  lerp: () => lerp3,
+  ln: () => ln,
+  mul: () => mul3,
+  multiply: () => multiply3,
+  normalize: () => normalize3,
+  pow: () => pow,
+  random: () => random2,
+  rotateX: () => rotateX3,
+  rotateY: () => rotateY3,
+  rotateZ: () => rotateZ3,
+  rotationTo: () => rotationTo,
+  scale: () => scale4,
+  set: () => set4,
+  setAxes: () => setAxes,
+  setAxisAngle: () => setAxisAngle,
+  slerp: () => slerp,
+  sqlerp: () => sqlerp,
+  sqrLen: () => sqrLen2,
+  squaredLength: () => squaredLength3,
+  str: () => str3
+});
+
+// node_modules/gl-matrix/esm/vec3.js
+var vec3_exports = {};
+__export(vec3_exports, {
+  add: () => add2,
+  angle: () => angle,
+  bezier: () => bezier,
+  ceil: () => ceil,
+  clone: () => clone2,
+  copy: () => copy2,
+  create: () => create3,
+  cross: () => cross,
+  dist: () => dist,
+  distance: () => distance,
+  div: () => div,
+  divide: () => divide,
+  dot: () => dot,
+  equals: () => equals2,
+  exactEquals: () => exactEquals2,
+  floor: () => floor,
+  forEach: () => forEach,
+  fromValues: () => fromValues2,
+  hermite: () => hermite,
+  inverse: () => inverse,
+  len: () => len,
+  length: () => length,
+  lerp: () => lerp,
+  max: () => max,
+  min: () => min,
+  mul: () => mul2,
+  multiply: () => multiply2,
+  negate: () => negate,
+  normalize: () => normalize,
+  random: () => random,
+  rotateX: () => rotateX2,
+  rotateY: () => rotateY2,
+  rotateZ: () => rotateZ2,
+  round: () => round,
+  scale: () => scale2,
+  scaleAndAdd: () => scaleAndAdd,
+  set: () => set2,
+  sqrDist: () => sqrDist,
+  sqrLen: () => sqrLen,
+  squaredDistance: () => squaredDistance,
+  squaredLength: () => squaredLength,
+  str: () => str2,
+  sub: () => sub2,
+  subtract: () => subtract2,
+  transformMat3: () => transformMat3,
+  transformMat4: () => transformMat4,
+  transformQuat: () => transformQuat,
+  zero: () => zero
+});
+function create3() {
+  var out = new ARRAY_TYPE(3);
+  if (ARRAY_TYPE != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+  }
+  return out;
+}
+function clone2(a) {
+  var out = new ARRAY_TYPE(3);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  return out;
+}
+function length(a) {
+  var x2 = a[0];
+  var y = a[1];
+  var z = a[2];
+  return Math.hypot(x2, y, z);
+}
+function fromValues2(x2, y, z) {
+  var out = new ARRAY_TYPE(3);
+  out[0] = x2;
+  out[1] = y;
+  out[2] = z;
+  return out;
+}
+function copy2(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  return out;
+}
+function set2(out, x2, y, z) {
+  out[0] = x2;
+  out[1] = y;
+  out[2] = z;
+  return out;
+}
+function add2(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  return out;
+}
+function subtract2(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  return out;
+}
+function multiply2(out, a, b) {
+  out[0] = a[0] * b[0];
+  out[1] = a[1] * b[1];
+  out[2] = a[2] * b[2];
+  return out;
+}
+function divide(out, a, b) {
+  out[0] = a[0] / b[0];
+  out[1] = a[1] / b[1];
+  out[2] = a[2] / b[2];
+  return out;
+}
+function ceil(out, a) {
+  out[0] = Math.ceil(a[0]);
+  out[1] = Math.ceil(a[1]);
+  out[2] = Math.ceil(a[2]);
+  return out;
+}
+function floor(out, a) {
+  out[0] = Math.floor(a[0]);
+  out[1] = Math.floor(a[1]);
+  out[2] = Math.floor(a[2]);
+  return out;
+}
+function min(out, a, b) {
+  out[0] = Math.min(a[0], b[0]);
+  out[1] = Math.min(a[1], b[1]);
+  out[2] = Math.min(a[2], b[2]);
+  return out;
+}
+function max(out, a, b) {
+  out[0] = Math.max(a[0], b[0]);
+  out[1] = Math.max(a[1], b[1]);
+  out[2] = Math.max(a[2], b[2]);
+  return out;
+}
+function round(out, a) {
+  out[0] = Math.round(a[0]);
+  out[1] = Math.round(a[1]);
+  out[2] = Math.round(a[2]);
+  return out;
+}
+function scale2(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  return out;
+}
+function scaleAndAdd(out, a, b, scale6) {
+  out[0] = a[0] + b[0] * scale6;
+  out[1] = a[1] + b[1] * scale6;
+  out[2] = a[2] + b[2] * scale6;
+  return out;
+}
+function distance(a, b) {
+  var x2 = b[0] - a[0];
+  var y = b[1] - a[1];
+  var z = b[2] - a[2];
+  return Math.hypot(x2, y, z);
+}
+function squaredDistance(a, b) {
+  var x2 = b[0] - a[0];
+  var y = b[1] - a[1];
+  var z = b[2] - a[2];
+  return x2 * x2 + y * y + z * z;
+}
+function squaredLength(a) {
+  var x2 = a[0];
+  var y = a[1];
+  var z = a[2];
+  return x2 * x2 + y * y + z * z;
+}
+function negate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  return out;
+}
+function inverse(out, a) {
+  out[0] = 1 / a[0];
+  out[1] = 1 / a[1];
+  out[2] = 1 / a[2];
+  return out;
+}
+function normalize(out, a) {
+  var x2 = a[0];
+  var y = a[1];
+  var z = a[2];
+  var len4 = x2 * x2 + y * y + z * z;
+  if (len4 > 0) {
+    len4 = 1 / Math.sqrt(len4);
+  }
+  out[0] = a[0] * len4;
+  out[1] = a[1] * len4;
+  out[2] = a[2] * len4;
+  return out;
+}
+function dot(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+function cross(out, a, b) {
+  var ax = a[0], ay = a[1], az = a[2];
+  var bx = b[0], by = b[1], bz = b[2];
+  out[0] = ay * bz - az * by;
+  out[1] = az * bx - ax * bz;
+  out[2] = ax * by - ay * bx;
+  return out;
+}
+function lerp(out, a, b, t) {
+  var ax = a[0];
+  var ay = a[1];
+  var az = a[2];
+  out[0] = ax + t * (b[0] - ax);
+  out[1] = ay + t * (b[1] - ay);
+  out[2] = az + t * (b[2] - az);
+  return out;
+}
+function hermite(out, a, b, c, d2, t) {
+  var factorTimes2 = t * t;
+  var factor1 = factorTimes2 * (2 * t - 3) + 1;
+  var factor2 = factorTimes2 * (t - 2) + t;
+  var factor3 = factorTimes2 * (t - 1);
+  var factor4 = factorTimes2 * (3 - 2 * t);
+  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d2[0] * factor4;
+  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d2[1] * factor4;
+  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d2[2] * factor4;
+  return out;
+}
+function bezier(out, a, b, c, d2, t) {
+  var inverseFactor = 1 - t;
+  var inverseFactorTimesTwo = inverseFactor * inverseFactor;
+  var factorTimes2 = t * t;
+  var factor1 = inverseFactorTimesTwo * inverseFactor;
+  var factor2 = 3 * t * inverseFactorTimesTwo;
+  var factor3 = 3 * factorTimes2 * inverseFactor;
+  var factor4 = factorTimes2 * t;
+  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d2[0] * factor4;
+  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d2[1] * factor4;
+  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d2[2] * factor4;
+  return out;
+}
+function random(out, scale6) {
+  scale6 = scale6 || 1;
+  var r = RANDOM() * 2 * Math.PI;
+  var z = RANDOM() * 2 - 1;
+  var zScale = Math.sqrt(1 - z * z) * scale6;
+  out[0] = Math.cos(r) * zScale;
+  out[1] = Math.sin(r) * zScale;
+  out[2] = z * scale6;
+  return out;
+}
+function transformMat4(out, a, m) {
+  var x2 = a[0], y = a[1], z = a[2];
+  var w = m[3] * x2 + m[7] * y + m[11] * z + m[15];
+  w = w || 1;
+  out[0] = (m[0] * x2 + m[4] * y + m[8] * z + m[12]) / w;
+  out[1] = (m[1] * x2 + m[5] * y + m[9] * z + m[13]) / w;
+  out[2] = (m[2] * x2 + m[6] * y + m[10] * z + m[14]) / w;
+  return out;
+}
+function transformMat3(out, a, m) {
+  var x2 = a[0], y = a[1], z = a[2];
+  out[0] = x2 * m[0] + y * m[3] + z * m[6];
+  out[1] = x2 * m[1] + y * m[4] + z * m[7];
+  out[2] = x2 * m[2] + y * m[5] + z * m[8];
+  return out;
+}
+function transformQuat(out, a, q2) {
+  var qx = q2[0], qy = q2[1], qz = q2[2], qw = q2[3];
+  var x2 = a[0], y = a[1], z = a[2];
+  var uvx = qy * z - qz * y, uvy = qz * x2 - qx * z, uvz = qx * y - qy * x2;
+  var uuvx = qy * uvz - qz * uvy, uuvy = qz * uvx - qx * uvz, uuvz = qx * uvy - qy * uvx;
+  var w2 = qw * 2;
+  uvx *= w2;
+  uvy *= w2;
+  uvz *= w2;
+  uuvx *= 2;
+  uuvy *= 2;
+  uuvz *= 2;
+  out[0] = x2 + uvx + uuvx;
+  out[1] = y + uvy + uuvy;
+  out[2] = z + uvz + uuvz;
+  return out;
+}
+function rotateX2(out, a, b, rad) {
+  var p = [], r = [];
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2];
+  r[0] = p[0];
+  r[1] = p[1] * Math.cos(rad) - p[2] * Math.sin(rad);
+  r[2] = p[1] * Math.sin(rad) + p[2] * Math.cos(rad);
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+  return out;
+}
+function rotateY2(out, a, b, rad) {
+  var p = [], r = [];
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2];
+  r[0] = p[2] * Math.sin(rad) + p[0] * Math.cos(rad);
+  r[1] = p[1];
+  r[2] = p[2] * Math.cos(rad) - p[0] * Math.sin(rad);
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+  return out;
+}
+function rotateZ2(out, a, b, rad) {
+  var p = [], r = [];
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2];
+  r[0] = p[0] * Math.cos(rad) - p[1] * Math.sin(rad);
+  r[1] = p[0] * Math.sin(rad) + p[1] * Math.cos(rad);
+  r[2] = p[2];
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+  return out;
+}
+function angle(a, b) {
+  var ax = a[0], ay = a[1], az = a[2], bx = b[0], by = b[1], bz = b[2], mag1 = Math.sqrt(ax * ax + ay * ay + az * az), mag2 = Math.sqrt(bx * bx + by * by + bz * bz), mag = mag1 * mag2, cosine = mag && dot(a, b) / mag;
+  return Math.acos(Math.min(Math.max(cosine, -1), 1));
+}
+function zero(out) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  return out;
+}
+function str2(a) {
+  return "vec3(" + a[0] + ", " + a[1] + ", " + a[2] + ")";
+}
+function exactEquals2(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2];
+}
+function equals2(a, b) {
+  var a0 = a[0], a1 = a[1], a2 = a[2];
+  var b0 = b[0], b1 = b[1], b2 = b[2];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2));
+}
+var sub2 = subtract2;
+var mul2 = multiply2;
+var div = divide;
+var dist = distance;
+var sqrDist = squaredDistance;
+var len = length;
+var sqrLen = squaredLength;
+var forEach = function() {
+  var vec = create3();
+  return function(a, stride, offset2, count, fn, arg) {
+    var i, l2;
+    if (!stride) {
+      stride = 3;
+    }
+    if (!offset2) {
+      offset2 = 0;
+    }
+    if (count) {
+      l2 = Math.min(count * stride + offset2, a.length);
+    } else {
+      l2 = a.length;
+    }
+    for (i = offset2; i < l2; i += stride) {
+      vec[0] = a[i];
+      vec[1] = a[i + 1];
+      vec[2] = a[i + 2];
+      fn(vec, vec, arg);
+      a[i] = vec[0];
+      a[i + 1] = vec[1];
+      a[i + 2] = vec[2];
+    }
+    return a;
+  };
+}();
+
+// node_modules/gl-matrix/esm/vec4.js
+function create4() {
+  var out = new ARRAY_TYPE(4);
+  if (ARRAY_TYPE != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+  }
+  return out;
+}
+function clone3(a) {
+  var out = new ARRAY_TYPE(4);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  return out;
+}
+function fromValues3(x2, y, z, w) {
+  var out = new ARRAY_TYPE(4);
+  out[0] = x2;
+  out[1] = y;
+  out[2] = z;
+  out[3] = w;
+  return out;
+}
+function copy3(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  return out;
+}
+function set3(out, x2, y, z, w) {
+  out[0] = x2;
+  out[1] = y;
+  out[2] = z;
+  out[3] = w;
+  return out;
+}
+function add3(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  return out;
+}
+function scale3(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  return out;
+}
+function length2(a) {
+  var x2 = a[0];
+  var y = a[1];
+  var z = a[2];
+  var w = a[3];
+  return Math.hypot(x2, y, z, w);
+}
+function squaredLength2(a) {
+  var x2 = a[0];
+  var y = a[1];
+  var z = a[2];
+  var w = a[3];
+  return x2 * x2 + y * y + z * z + w * w;
+}
+function normalize2(out, a) {
+  var x2 = a[0];
+  var y = a[1];
+  var z = a[2];
+  var w = a[3];
+  var len4 = x2 * x2 + y * y + z * z + w * w;
+  if (len4 > 0) {
+    len4 = 1 / Math.sqrt(len4);
+  }
+  out[0] = x2 * len4;
+  out[1] = y * len4;
+  out[2] = z * len4;
+  out[3] = w * len4;
+  return out;
+}
+function dot2(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+}
+function lerp2(out, a, b, t) {
+  var ax = a[0];
+  var ay = a[1];
+  var az = a[2];
+  var aw = a[3];
+  out[0] = ax + t * (b[0] - ax);
+  out[1] = ay + t * (b[1] - ay);
+  out[2] = az + t * (b[2] - az);
+  out[3] = aw + t * (b[3] - aw);
+  return out;
+}
+function exactEquals3(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
+}
+function equals3(a, b) {
+  var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3));
+}
+var forEach2 = function() {
+  var vec = create4();
+  return function(a, stride, offset2, count, fn, arg) {
+    var i, l2;
+    if (!stride) {
+      stride = 4;
+    }
+    if (!offset2) {
+      offset2 = 0;
+    }
+    if (count) {
+      l2 = Math.min(count * stride + offset2, a.length);
+    } else {
+      l2 = a.length;
+    }
+    for (i = offset2; i < l2; i += stride) {
+      vec[0] = a[i];
+      vec[1] = a[i + 1];
+      vec[2] = a[i + 2];
+      vec[3] = a[i + 3];
+      fn(vec, vec, arg);
+      a[i] = vec[0];
+      a[i + 1] = vec[1];
+      a[i + 2] = vec[2];
+      a[i + 3] = vec[3];
+    }
+    return a;
+  };
+}();
+
+// node_modules/gl-matrix/esm/quat.js
+function create5() {
+  var out = new ARRAY_TYPE(4);
+  if (ARRAY_TYPE != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+  }
+  out[3] = 1;
+  return out;
+}
+function identity2(out) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  return out;
+}
+function setAxisAngle(out, axis, rad) {
+  rad = rad * 0.5;
+  var s = Math.sin(rad);
+  out[0] = s * axis[0];
+  out[1] = s * axis[1];
+  out[2] = s * axis[2];
+  out[3] = Math.cos(rad);
+  return out;
+}
+function getAxisAngle(out_axis, q2) {
+  var rad = Math.acos(q2[3]) * 2;
+  var s = Math.sin(rad / 2);
+  if (s > EPSILON) {
+    out_axis[0] = q2[0] / s;
+    out_axis[1] = q2[1] / s;
+    out_axis[2] = q2[2] / s;
+  } else {
+    out_axis[0] = 1;
+    out_axis[1] = 0;
+    out_axis[2] = 0;
+  }
+  return rad;
+}
+function getAngle(a, b) {
+  var dotproduct = dot3(a, b);
+  return Math.acos(2 * dotproduct * dotproduct - 1);
+}
+function multiply3(out, a, b) {
+  var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var bx = b[0], by = b[1], bz = b[2], bw = b[3];
+  out[0] = ax * bw + aw * bx + ay * bz - az * by;
+  out[1] = ay * bw + aw * by + az * bx - ax * bz;
+  out[2] = az * bw + aw * bz + ax * by - ay * bx;
+  out[3] = aw * bw - ax * bx - ay * by - az * bz;
+  return out;
+}
+function rotateX3(out, a, rad) {
+  rad *= 0.5;
+  var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var bx = Math.sin(rad), bw = Math.cos(rad);
+  out[0] = ax * bw + aw * bx;
+  out[1] = ay * bw + az * bx;
+  out[2] = az * bw - ay * bx;
+  out[3] = aw * bw - ax * bx;
+  return out;
+}
+function rotateY3(out, a, rad) {
+  rad *= 0.5;
+  var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var by = Math.sin(rad), bw = Math.cos(rad);
+  out[0] = ax * bw - az * by;
+  out[1] = ay * bw + aw * by;
+  out[2] = az * bw + ax * by;
+  out[3] = aw * bw - ay * by;
+  return out;
+}
+function rotateZ3(out, a, rad) {
+  rad *= 0.5;
+  var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var bz = Math.sin(rad), bw = Math.cos(rad);
+  out[0] = ax * bw + ay * bz;
+  out[1] = ay * bw - ax * bz;
+  out[2] = az * bw + aw * bz;
+  out[3] = aw * bw - az * bz;
+  return out;
+}
+function calculateW(out, a) {
+  var x2 = a[0], y = a[1], z = a[2];
+  out[0] = x2;
+  out[1] = y;
+  out[2] = z;
+  out[3] = Math.sqrt(Math.abs(1 - x2 * x2 - y * y - z * z));
+  return out;
+}
+function exp(out, a) {
+  var x2 = a[0], y = a[1], z = a[2], w = a[3];
+  var r = Math.sqrt(x2 * x2 + y * y + z * z);
+  var et = Math.exp(w);
+  var s = r > 0 ? et * Math.sin(r) / r : 0;
+  out[0] = x2 * s;
+  out[1] = y * s;
+  out[2] = z * s;
+  out[3] = et * Math.cos(r);
+  return out;
+}
+function ln(out, a) {
+  var x2 = a[0], y = a[1], z = a[2], w = a[3];
+  var r = Math.sqrt(x2 * x2 + y * y + z * z);
+  var t = r > 0 ? Math.atan2(r, w) / r : 0;
+  out[0] = x2 * t;
+  out[1] = y * t;
+  out[2] = z * t;
+  out[3] = 0.5 * Math.log(x2 * x2 + y * y + z * z + w * w);
+  return out;
+}
+function pow(out, a, b) {
+  ln(out, a);
+  scale4(out, out, b);
+  exp(out, out);
+  return out;
+}
+function slerp(out, a, b, t) {
+  var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var bx = b[0], by = b[1], bz = b[2], bw = b[3];
+  var omega, cosom, sinom, scale0, scale1;
+  cosom = ax * bx + ay * by + az * bz + aw * bw;
+  if (cosom < 0) {
+    cosom = -cosom;
+    bx = -bx;
+    by = -by;
+    bz = -bz;
+    bw = -bw;
+  }
+  if (1 - cosom > EPSILON) {
+    omega = Math.acos(cosom);
+    sinom = Math.sin(omega);
+    scale0 = Math.sin((1 - t) * omega) / sinom;
+    scale1 = Math.sin(t * omega) / sinom;
+  } else {
+    scale0 = 1 - t;
+    scale1 = t;
+  }
+  out[0] = scale0 * ax + scale1 * bx;
+  out[1] = scale0 * ay + scale1 * by;
+  out[2] = scale0 * az + scale1 * bz;
+  out[3] = scale0 * aw + scale1 * bw;
+  return out;
+}
+function random2(out) {
+  var u1 = RANDOM();
+  var u2 = RANDOM();
+  var u3 = RANDOM();
+  var sqrt1MinusU1 = Math.sqrt(1 - u1);
+  var sqrtU1 = Math.sqrt(u1);
+  out[0] = sqrt1MinusU1 * Math.sin(2 * Math.PI * u2);
+  out[1] = sqrt1MinusU1 * Math.cos(2 * Math.PI * u2);
+  out[2] = sqrtU1 * Math.sin(2 * Math.PI * u3);
+  out[3] = sqrtU1 * Math.cos(2 * Math.PI * u3);
+  return out;
+}
+function invert2(out, a) {
+  var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  var dot5 = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
+  var invDot = dot5 ? 1 / dot5 : 0;
+  out[0] = -a0 * invDot;
+  out[1] = -a1 * invDot;
+  out[2] = -a2 * invDot;
+  out[3] = a3 * invDot;
+  return out;
+}
+function conjugate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  out[3] = a[3];
+  return out;
+}
+function fromMat3(out, m) {
+  var fTrace = m[0] + m[4] + m[8];
+  var fRoot;
+  if (fTrace > 0) {
+    fRoot = Math.sqrt(fTrace + 1);
+    out[3] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot;
+    out[0] = (m[5] - m[7]) * fRoot;
+    out[1] = (m[6] - m[2]) * fRoot;
+    out[2] = (m[1] - m[3]) * fRoot;
+  } else {
+    var i = 0;
+    if (m[4] > m[0])
+      i = 1;
+    if (m[8] > m[i * 3 + i])
+      i = 2;
+    var j = (i + 1) % 3;
+    var k = (i + 2) % 3;
+    fRoot = Math.sqrt(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + 1);
+    out[i] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot;
+    out[3] = (m[j * 3 + k] - m[k * 3 + j]) * fRoot;
+    out[j] = (m[j * 3 + i] + m[i * 3 + j]) * fRoot;
+    out[k] = (m[k * 3 + i] + m[i * 3 + k]) * fRoot;
+  }
+  return out;
+}
+function fromEuler(out, x2, y, z) {
+  var halfToRad = 0.5 * Math.PI / 180;
+  x2 *= halfToRad;
+  y *= halfToRad;
+  z *= halfToRad;
+  var sx = Math.sin(x2);
+  var cx = Math.cos(x2);
+  var sy = Math.sin(y);
+  var cy = Math.cos(y);
+  var sz = Math.sin(z);
+  var cz = Math.cos(z);
+  out[0] = sx * cy * cz - cx * sy * sz;
+  out[1] = cx * sy * cz + sx * cy * sz;
+  out[2] = cx * cy * sz - sx * sy * cz;
+  out[3] = cx * cy * cz + sx * sy * sz;
+  return out;
+}
+function str3(a) {
+  return "quat(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
+}
+var clone4 = clone3;
+var fromValues4 = fromValues3;
+var copy4 = copy3;
+var set4 = set3;
+var add4 = add3;
+var mul3 = multiply3;
+var scale4 = scale3;
+var dot3 = dot2;
+var lerp3 = lerp2;
+var length3 = length2;
+var len2 = length3;
+var squaredLength3 = squaredLength2;
+var sqrLen2 = squaredLength3;
+var normalize3 = normalize2;
+var exactEquals4 = exactEquals3;
+var equals4 = equals3;
+var rotationTo = function() {
+  var tmpvec3 = create3();
+  var xUnitVec3 = fromValues2(1, 0, 0);
+  var yUnitVec3 = fromValues2(0, 1, 0);
+  return function(out, a, b) {
+    var dot5 = dot(a, b);
+    if (dot5 < -0.999999) {
+      cross(tmpvec3, xUnitVec3, a);
+      if (len(tmpvec3) < 1e-6)
+        cross(tmpvec3, yUnitVec3, a);
+      normalize(tmpvec3, tmpvec3);
+      setAxisAngle(out, tmpvec3, Math.PI);
+      return out;
+    } else if (dot5 > 0.999999) {
+      out[0] = 0;
+      out[1] = 0;
+      out[2] = 0;
+      out[3] = 1;
+      return out;
+    } else {
+      cross(tmpvec3, a, b);
+      out[0] = tmpvec3[0];
+      out[1] = tmpvec3[1];
+      out[2] = tmpvec3[2];
+      out[3] = 1 + dot5;
+      return normalize3(out, out);
+    }
+  };
+}();
+var sqlerp = function() {
+  var temp1 = create5();
+  var temp2 = create5();
+  return function(out, a, b, c, d2, t) {
+    slerp(temp1, a, d2, t);
+    slerp(temp2, b, c, t);
+    slerp(out, temp1, temp2, 2 * t * (1 - t));
+    return out;
+  };
+}();
+var setAxes = function() {
+  var matr = create();
+  return function(out, view, right, up) {
+    matr[0] = right[0];
+    matr[3] = right[1];
+    matr[6] = right[2];
+    matr[1] = up[0];
+    matr[4] = up[1];
+    matr[7] = up[2];
+    matr[2] = -view[0];
+    matr[5] = -view[1];
+    matr[8] = -view[2];
+    return normalize3(out, fromMat3(out, matr));
+  };
+}();
+
+// node_modules/gl-matrix/esm/quat2.js
+var quat2_exports = {};
+__export(quat2_exports, {
+  add: () => add5,
+  clone: () => clone5,
+  conjugate: () => conjugate2,
+  copy: () => copy5,
+  create: () => create6,
+  dot: () => dot4,
+  equals: () => equals5,
+  exactEquals: () => exactEquals5,
+  fromMat4: () => fromMat4,
+  fromRotation: () => fromRotation2,
+  fromRotationTranslation: () => fromRotationTranslation2,
+  fromRotationTranslationValues: () => fromRotationTranslationValues,
+  fromTranslation: () => fromTranslation2,
+  fromValues: () => fromValues5,
+  getDual: () => getDual,
+  getReal: () => getReal,
+  getTranslation: () => getTranslation2,
+  identity: () => identity3,
+  invert: () => invert3,
+  len: () => len3,
+  length: () => length4,
+  lerp: () => lerp4,
+  mul: () => mul4,
+  multiply: () => multiply4,
+  normalize: () => normalize4,
+  rotateAroundAxis: () => rotateAroundAxis,
+  rotateByQuatAppend: () => rotateByQuatAppend,
+  rotateByQuatPrepend: () => rotateByQuatPrepend,
+  rotateX: () => rotateX4,
+  rotateY: () => rotateY4,
+  rotateZ: () => rotateZ4,
+  scale: () => scale5,
+  set: () => set5,
+  setDual: () => setDual,
+  setReal: () => setReal,
+  sqrLen: () => sqrLen3,
+  squaredLength: () => squaredLength4,
+  str: () => str4,
+  translate: () => translate2
+});
+function create6() {
+  var dq = new ARRAY_TYPE(8);
+  if (ARRAY_TYPE != Float32Array) {
+    dq[0] = 0;
+    dq[1] = 0;
+    dq[2] = 0;
+    dq[4] = 0;
+    dq[5] = 0;
+    dq[6] = 0;
+    dq[7] = 0;
+  }
+  dq[3] = 1;
+  return dq;
+}
+function clone5(a) {
+  var dq = new ARRAY_TYPE(8);
+  dq[0] = a[0];
+  dq[1] = a[1];
+  dq[2] = a[2];
+  dq[3] = a[3];
+  dq[4] = a[4];
+  dq[5] = a[5];
+  dq[6] = a[6];
+  dq[7] = a[7];
+  return dq;
+}
+function fromValues5(x1, y1, z1, w1, x2, y2, z2, w2) {
+  var dq = new ARRAY_TYPE(8);
+  dq[0] = x1;
+  dq[1] = y1;
+  dq[2] = z1;
+  dq[3] = w1;
+  dq[4] = x2;
+  dq[5] = y2;
+  dq[6] = z2;
+  dq[7] = w2;
+  return dq;
+}
+function fromRotationTranslationValues(x1, y1, z1, w1, x2, y2, z2) {
+  var dq = new ARRAY_TYPE(8);
+  dq[0] = x1;
+  dq[1] = y1;
+  dq[2] = z1;
+  dq[3] = w1;
+  var ax = x2 * 0.5, ay = y2 * 0.5, az = z2 * 0.5;
+  dq[4] = ax * w1 + ay * z1 - az * y1;
+  dq[5] = ay * w1 + az * x1 - ax * z1;
+  dq[6] = az * w1 + ax * y1 - ay * x1;
+  dq[7] = -ax * x1 - ay * y1 - az * z1;
+  return dq;
+}
+function fromRotationTranslation2(out, q2, t) {
+  var ax = t[0] * 0.5, ay = t[1] * 0.5, az = t[2] * 0.5, bx = q2[0], by = q2[1], bz = q2[2], bw = q2[3];
+  out[0] = bx;
+  out[1] = by;
+  out[2] = bz;
+  out[3] = bw;
+  out[4] = ax * bw + ay * bz - az * by;
+  out[5] = ay * bw + az * bx - ax * bz;
+  out[6] = az * bw + ax * by - ay * bx;
+  out[7] = -ax * bx - ay * by - az * bz;
+  return out;
+}
+function fromTranslation2(out, t) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  out[4] = t[0] * 0.5;
+  out[5] = t[1] * 0.5;
+  out[6] = t[2] * 0.5;
+  out[7] = 0;
+  return out;
+}
+function fromRotation2(out, q2) {
+  out[0] = q2[0];
+  out[1] = q2[1];
+  out[2] = q2[2];
+  out[3] = q2[3];
+  out[4] = 0;
+  out[5] = 0;
+  out[6] = 0;
+  out[7] = 0;
+  return out;
+}
+function fromMat4(out, a) {
+  var outer = create5();
+  getRotation(outer, a);
+  var t = new ARRAY_TYPE(3);
+  getTranslation(t, a);
+  fromRotationTranslation2(out, outer, t);
+  return out;
+}
+function copy5(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  return out;
+}
+function identity3(out) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  out[4] = 0;
+  out[5] = 0;
+  out[6] = 0;
+  out[7] = 0;
+  return out;
+}
+function set5(out, x1, y1, z1, w1, x2, y2, z2, w2) {
+  out[0] = x1;
+  out[1] = y1;
+  out[2] = z1;
+  out[3] = w1;
+  out[4] = x2;
+  out[5] = y2;
+  out[6] = z2;
+  out[7] = w2;
+  return out;
+}
+var getReal = copy4;
+function getDual(out, a) {
+  out[0] = a[4];
+  out[1] = a[5];
+  out[2] = a[6];
+  out[3] = a[7];
+  return out;
+}
+var setReal = copy4;
+function setDual(out, q2) {
+  out[4] = q2[0];
+  out[5] = q2[1];
+  out[6] = q2[2];
+  out[7] = q2[3];
+  return out;
+}
+function getTranslation2(out, a) {
+  var ax = a[4], ay = a[5], az = a[6], aw = a[7], bx = -a[0], by = -a[1], bz = -a[2], bw = a[3];
+  out[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2;
+  out[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2;
+  out[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2;
+  return out;
+}
+function translate2(out, a, v) {
+  var ax1 = a[0], ay1 = a[1], az1 = a[2], aw1 = a[3], bx1 = v[0] * 0.5, by1 = v[1] * 0.5, bz1 = v[2] * 0.5, ax2 = a[4], ay2 = a[5], az2 = a[6], aw2 = a[7];
+  out[0] = ax1;
+  out[1] = ay1;
+  out[2] = az1;
+  out[3] = aw1;
+  out[4] = aw1 * bx1 + ay1 * bz1 - az1 * by1 + ax2;
+  out[5] = aw1 * by1 + az1 * bx1 - ax1 * bz1 + ay2;
+  out[6] = aw1 * bz1 + ax1 * by1 - ay1 * bx1 + az2;
+  out[7] = -ax1 * bx1 - ay1 * by1 - az1 * bz1 + aw2;
+  return out;
+}
+function rotateX4(out, a, rad) {
+  var bx = -a[0], by = -a[1], bz = -a[2], bw = a[3], ax = a[4], ay = a[5], az = a[6], aw = a[7], ax1 = ax * bw + aw * bx + ay * bz - az * by, ay1 = ay * bw + aw * by + az * bx - ax * bz, az1 = az * bw + aw * bz + ax * by - ay * bx, aw1 = aw * bw - ax * bx - ay * by - az * bz;
+  rotateX3(out, a, rad);
+  bx = out[0];
+  by = out[1];
+  bz = out[2];
+  bw = out[3];
+  out[4] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[5] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[6] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[7] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  return out;
+}
+function rotateY4(out, a, rad) {
+  var bx = -a[0], by = -a[1], bz = -a[2], bw = a[3], ax = a[4], ay = a[5], az = a[6], aw = a[7], ax1 = ax * bw + aw * bx + ay * bz - az * by, ay1 = ay * bw + aw * by + az * bx - ax * bz, az1 = az * bw + aw * bz + ax * by - ay * bx, aw1 = aw * bw - ax * bx - ay * by - az * bz;
+  rotateY3(out, a, rad);
+  bx = out[0];
+  by = out[1];
+  bz = out[2];
+  bw = out[3];
+  out[4] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[5] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[6] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[7] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  return out;
+}
+function rotateZ4(out, a, rad) {
+  var bx = -a[0], by = -a[1], bz = -a[2], bw = a[3], ax = a[4], ay = a[5], az = a[6], aw = a[7], ax1 = ax * bw + aw * bx + ay * bz - az * by, ay1 = ay * bw + aw * by + az * bx - ax * bz, az1 = az * bw + aw * bz + ax * by - ay * bx, aw1 = aw * bw - ax * bx - ay * by - az * bz;
+  rotateZ3(out, a, rad);
+  bx = out[0];
+  by = out[1];
+  bz = out[2];
+  bw = out[3];
+  out[4] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[5] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[6] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[7] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  return out;
+}
+function rotateByQuatAppend(out, a, q2) {
+  var qx = q2[0], qy = q2[1], qz = q2[2], qw = q2[3], ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  out[0] = ax * qw + aw * qx + ay * qz - az * qy;
+  out[1] = ay * qw + aw * qy + az * qx - ax * qz;
+  out[2] = az * qw + aw * qz + ax * qy - ay * qx;
+  out[3] = aw * qw - ax * qx - ay * qy - az * qz;
+  ax = a[4];
+  ay = a[5];
+  az = a[6];
+  aw = a[7];
+  out[4] = ax * qw + aw * qx + ay * qz - az * qy;
+  out[5] = ay * qw + aw * qy + az * qx - ax * qz;
+  out[6] = az * qw + aw * qz + ax * qy - ay * qx;
+  out[7] = aw * qw - ax * qx - ay * qy - az * qz;
+  return out;
+}
+function rotateByQuatPrepend(out, q2, a) {
+  var qx = q2[0], qy = q2[1], qz = q2[2], qw = q2[3], bx = a[0], by = a[1], bz = a[2], bw = a[3];
+  out[0] = qx * bw + qw * bx + qy * bz - qz * by;
+  out[1] = qy * bw + qw * by + qz * bx - qx * bz;
+  out[2] = qz * bw + qw * bz + qx * by - qy * bx;
+  out[3] = qw * bw - qx * bx - qy * by - qz * bz;
+  bx = a[4];
+  by = a[5];
+  bz = a[6];
+  bw = a[7];
+  out[4] = qx * bw + qw * bx + qy * bz - qz * by;
+  out[5] = qy * bw + qw * by + qz * bx - qx * bz;
+  out[6] = qz * bw + qw * bz + qx * by - qy * bx;
+  out[7] = qw * bw - qx * bx - qy * by - qz * bz;
+  return out;
+}
+function rotateAroundAxis(out, a, axis, rad) {
+  if (Math.abs(rad) < EPSILON) {
+    return copy5(out, a);
+  }
+  var axisLength = Math.hypot(axis[0], axis[1], axis[2]);
+  rad = rad * 0.5;
+  var s = Math.sin(rad);
+  var bx = s * axis[0] / axisLength;
+  var by = s * axis[1] / axisLength;
+  var bz = s * axis[2] / axisLength;
+  var bw = Math.cos(rad);
+  var ax1 = a[0], ay1 = a[1], az1 = a[2], aw1 = a[3];
+  out[0] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[1] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[2] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[3] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  var ax = a[4], ay = a[5], az = a[6], aw = a[7];
+  out[4] = ax * bw + aw * bx + ay * bz - az * by;
+  out[5] = ay * bw + aw * by + az * bx - ax * bz;
+  out[6] = az * bw + aw * bz + ax * by - ay * bx;
+  out[7] = aw * bw - ax * bx - ay * by - az * bz;
+  return out;
+}
+function add5(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  out[4] = a[4] + b[4];
+  out[5] = a[5] + b[5];
+  out[6] = a[6] + b[6];
+  out[7] = a[7] + b[7];
+  return out;
+}
+function multiply4(out, a, b) {
+  var ax0 = a[0], ay0 = a[1], az0 = a[2], aw0 = a[3], bx1 = b[4], by1 = b[5], bz1 = b[6], bw1 = b[7], ax1 = a[4], ay1 = a[5], az1 = a[6], aw1 = a[7], bx0 = b[0], by0 = b[1], bz0 = b[2], bw0 = b[3];
+  out[0] = ax0 * bw0 + aw0 * bx0 + ay0 * bz0 - az0 * by0;
+  out[1] = ay0 * bw0 + aw0 * by0 + az0 * bx0 - ax0 * bz0;
+  out[2] = az0 * bw0 + aw0 * bz0 + ax0 * by0 - ay0 * bx0;
+  out[3] = aw0 * bw0 - ax0 * bx0 - ay0 * by0 - az0 * bz0;
+  out[4] = ax0 * bw1 + aw0 * bx1 + ay0 * bz1 - az0 * by1 + ax1 * bw0 + aw1 * bx0 + ay1 * bz0 - az1 * by0;
+  out[5] = ay0 * bw1 + aw0 * by1 + az0 * bx1 - ax0 * bz1 + ay1 * bw0 + aw1 * by0 + az1 * bx0 - ax1 * bz0;
+  out[6] = az0 * bw1 + aw0 * bz1 + ax0 * by1 - ay0 * bx1 + az1 * bw0 + aw1 * bz0 + ax1 * by0 - ay1 * bx0;
+  out[7] = aw0 * bw1 - ax0 * bx1 - ay0 * by1 - az0 * bz1 + aw1 * bw0 - ax1 * bx0 - ay1 * by0 - az1 * bz0;
+  return out;
+}
+var mul4 = multiply4;
+function scale5(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  out[4] = a[4] * b;
+  out[5] = a[5] * b;
+  out[6] = a[6] * b;
+  out[7] = a[7] * b;
+  return out;
+}
+var dot4 = dot3;
+function lerp4(out, a, b, t) {
+  var mt2 = 1 - t;
+  if (dot4(a, b) < 0)
+    t = -t;
+  out[0] = a[0] * mt2 + b[0] * t;
+  out[1] = a[1] * mt2 + b[1] * t;
+  out[2] = a[2] * mt2 + b[2] * t;
+  out[3] = a[3] * mt2 + b[3] * t;
+  out[4] = a[4] * mt2 + b[4] * t;
+  out[5] = a[5] * mt2 + b[5] * t;
+  out[6] = a[6] * mt2 + b[6] * t;
+  out[7] = a[7] * mt2 + b[7] * t;
+  return out;
+}
+function invert3(out, a) {
+  var sqlen = squaredLength4(a);
+  out[0] = -a[0] / sqlen;
+  out[1] = -a[1] / sqlen;
+  out[2] = -a[2] / sqlen;
+  out[3] = a[3] / sqlen;
+  out[4] = -a[4] / sqlen;
+  out[5] = -a[5] / sqlen;
+  out[6] = -a[6] / sqlen;
+  out[7] = a[7] / sqlen;
+  return out;
+}
+function conjugate2(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  out[3] = a[3];
+  out[4] = -a[4];
+  out[5] = -a[5];
+  out[6] = -a[6];
+  out[7] = a[7];
+  return out;
+}
+var length4 = length3;
+var len3 = length4;
+var squaredLength4 = squaredLength3;
+var sqrLen3 = squaredLength4;
+function normalize4(out, a) {
+  var magnitude = squaredLength4(a);
+  if (magnitude > 0) {
+    magnitude = Math.sqrt(magnitude);
+    var a0 = a[0] / magnitude;
+    var a1 = a[1] / magnitude;
+    var a2 = a[2] / magnitude;
+    var a3 = a[3] / magnitude;
+    var b0 = a[4];
+    var b1 = a[5];
+    var b2 = a[6];
+    var b3 = a[7];
+    var a_dot_b = a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3;
+    out[0] = a0;
+    out[1] = a1;
+    out[2] = a2;
+    out[3] = a3;
+    out[4] = (b0 - a0 * a_dot_b) / magnitude;
+    out[5] = (b1 - a1 * a_dot_b) / magnitude;
+    out[6] = (b2 - a2 * a_dot_b) / magnitude;
+    out[7] = (b3 - a3 * a_dot_b) / magnitude;
+  }
+  return out;
+}
+function str4(a) {
+  return "quat2(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ", " + a[4] + ", " + a[5] + ", " + a[6] + ", " + a[7] + ")";
+}
+function exactEquals5(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5] && a[6] === b[6] && a[7] === b[7];
+}
+function equals5(a, b) {
+  var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7];
+  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5], b6 = b[6], b7 = b[7];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON * Math.max(1, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON * Math.max(1, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON * Math.max(1, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON * Math.max(1, Math.abs(a7), Math.abs(b7));
+}
+
+// node_modules/@wonderlandengine/components/dist/hit-test-location.js
+var __decorate3 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var HitTestLocation = class extends Component {
+  tempScaling = new Float32Array(3);
+  visible = false;
+  xrHitTestSource = null;
+  /** Reference space for creating the hit test when the session starts */
+  xrReferenceSpace = null;
+  /**
+   * For maintaining backwards compatibility: Whether to scale the object to 0 and back.
+   * @deprecated Use onHitLost and onHitFound instead.
+   */
+  scaleObject = true;
+  /** Emits an event when the hit test switches from visible to invisible */
+  onHitLost = new Emitter();
+  /** Emits an event when the hit test switches from invisible to visible */
+  onHitFound = new Emitter();
+  onSessionStartCallback = null;
+  onSessionEndCallback = null;
+  start() {
+    this.onSessionStartCallback = this.onXRSessionStart.bind(this);
+    this.onSessionEndCallback = this.onXRSessionEnd.bind(this);
+    if (this.scaleObject) {
+      this.tempScaling.set(this.object.scalingLocal);
+      this.object.scale([0, 0, 0]);
+      this.onHitLost.add(() => {
+        this.tempScaling.set(this.object.scalingLocal);
+        this.object.scale([0, 0, 0]);
+      });
+      this.onHitFound.add(() => {
+        this.object.scalingLocal.set(this.tempScaling);
+        this.object.setDirty();
+      });
+    }
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.add(this.onSessionEndCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.remove(this.onSessionEndCallback);
+  }
+  update() {
+    const wasVisible = this.visible;
+    if (this.xrHitTestSource) {
+      const frame = this.engine.xrFrame;
+      if (!frame)
+        return;
+      let hitTestResults = frame.getHitTestResults(this.xrHitTestSource);
+      if (hitTestResults.length > 0) {
+        let pose = hitTestResults[0].getPose(this.engine.xr.currentReferenceSpace);
+        this.visible = !!pose;
+        if (pose) {
+          setXRRigidTransformLocal(this.object, pose.transform);
+        }
+      } else {
+        this.visible = false;
+      }
+    }
+    if (this.visible != wasVisible) {
+      (this.visible ? this.onHitFound : this.onHitLost).notify(this);
+    }
+  }
+  getHitTestResults(frame = this.engine.xr?.frame ?? null) {
+    if (!frame)
+      return [];
+    if (!this.xrHitTestSource)
+      return [];
+    return frame.getHitTestResults(this.xrHitTestSource);
+  }
+  onXRSessionStart(session) {
+    if (session.requestHitTestSource === void 0) {
+      console.error("hit-test-location: hit test feature not available. Deactivating component.");
+      this.active = false;
+      return;
+    }
+    session.requestHitTestSource({
+      space: this.xrReferenceSpace ?? this.engine.xr.referenceSpaceForType("viewer")
+    }).then((hitTestSource) => {
+      this.xrHitTestSource = hitTestSource;
+    }).catch(console.error);
+  }
+  onXRSessionEnd() {
+    if (!this.xrHitTestSource)
+      return;
+    this.xrHitTestSource.cancel();
+    this.xrHitTestSource = null;
+  }
+};
+__publicField(HitTestLocation, "TypeName", "hit-test-location");
+__decorate3([
+  property.bool(true)
+], HitTestLocation.prototype, "scaleObject", void 0);
+
+// node_modules/@wonderlandengine/components/dist/cursor.js
+var __decorate4 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var tempVec2 = new Float32Array(3);
+var CursorTargetEmitters = class {
+  /** Emitter for events when the target is hovered */
+  onHover = new Emitter();
+  /** Emitter for events when the target is unhovered */
+  onUnhover = new Emitter();
+  /** Emitter for events when the target is clicked */
+  onClick = new Emitter();
+  /** Emitter for events when the cursor moves on the target */
+  onMove = new Emitter();
+  /** Emitter for events when the user pressed the select button on the target */
+  onDown = new Emitter();
+  /** Emitter for events when the user unpressed the select button on the target */
+  onUp = new Emitter();
+};
+var Cursor = class extends Component {
+  static onRegister(engine2) {
+    engine2.registerComponent(HitTestLocation);
+  }
+  _collisionMask = 0;
+  _onDeactivateCallbacks = [];
+  _input = null;
+  _origin = new Float32Array(3);
+  _cursorObjScale = new Float32Array(3);
+  _direction = new Float32Array(3);
+  _projectionMatrix = new Float32Array(16);
+  _viewComponent = null;
+  _isDown = false;
+  _lastIsDown = false;
+  _arTouchDown = false;
+  _lastCursorPosOnTarget = new Float32Array(3);
+  _cursorRayScale = new Float32Array(3);
+  _hitTestLocation = null;
+  _hitTestObject = null;
+  _onSessionStartCallback = null;
+  /**
+   * Whether the cursor (and cursorObject) is visible, i.e. pointing at an object
+   * that matches the collision group
+   */
+  visible = true;
+  /** Maximum distance for the cursor's ray cast */
+  maxDistance = 100;
+  /** Currently hovered object */
+  hoveringObject = null;
+  /** CursorTarget component of the currently hovered object */
+  hoveringObjectTarget = null;
+  /** Whether the cursor is hovering reality via hit-test */
+  hoveringReality = false;
+  /**
+   * Global target lets you receive global cursor events on any object.
+   */
+  globalTarget = new CursorTargetEmitters();
+  /**
+   * Hit test target lets you receive cursor events for "reality", if
+   * `useWebXRHitTest` is set to `true`.
+   *
+   * @example
+   * ```js
+   * cursor.hitTestTarget.onClick.add((hit, cursor) => {
+   *     // User clicked on reality
+   * });
+   * ```
+   */
+  hitTestTarget = new CursorTargetEmitters();
+  /** World position of the cursor */
+  cursorPos = new Float32Array(3);
+  /** Collision group for the ray cast. Only objects in this group will be affected by this cursor. */
+  collisionGroup = 1;
+  /** (optional) Object that visualizes the cursor's ray. */
+  cursorRayObject = null;
+  /** Axis along which to scale the `cursorRayObject`. */
+  cursorRayScalingAxis = 2;
+  /** (optional) Object that visualizes the cursor's hit location. */
+  cursorObject = null;
+  /** Handedness for VR cursors to accept trigger events only from respective controller. */
+  handedness = 0;
+  /** Mode for raycasting, whether to use PhysX or simple collision components */
+  rayCastMode = 0;
+  /** Whether to set the CSS style of the mouse cursor on desktop */
+  styleCursor = true;
+  /**
+   * Use WebXR hit-test if available.
+   *
+   * Attaches a hit-test-location component to the cursorObject, which will be used
+   * by the cursor to send events to the hitTestTarget with HitTestResult.
+   */
+  useWebXRHitTest = false;
+  start() {
+    this._collisionMask = 1 << this.collisionGroup;
+    if (this.handedness == 0) {
+      const inputComp = this.object.getComponent("input");
+      if (!inputComp) {
+        console.warn("cursor component on object", this.object.name, 'was configured with handedness "input component", but object has no input component.');
+      } else {
+        this.handedness = inputComp.handedness || "none";
+        this._input = inputComp;
+      }
+    } else {
+      this.handedness = ["left", "right", "none"][this.handedness - 1];
+    }
+    this._viewComponent = this.object.getComponent(ViewComponent);
+    if (this.useWebXRHitTest) {
+      this._hitTestObject = this.engine.scene.addObject(this.object);
+      this._hitTestLocation = this._hitTestObject.addComponent(HitTestLocation, {
+        scaleObject: false
+      }) ?? null;
+    }
+    this._onSessionStartCallback = this.setupVREvents.bind(this);
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this._onSessionStartCallback);
+    this._setCursorVisibility(true);
+    if (this._viewComponent != null) {
+      const canvas2 = this.engine.canvas;
+      const onClick = this.onClick.bind(this);
+      const onPointerMove = this.onPointerMove.bind(this);
+      const onPointerDown = this.onPointerDown.bind(this);
+      const onPointerUp = this.onPointerUp.bind(this);
+      canvas2.addEventListener("click", onClick);
+      canvas2.addEventListener("pointermove", onPointerMove);
+      canvas2.addEventListener("pointerdown", onPointerDown);
+      canvas2.addEventListener("pointerup", onPointerUp);
+      mat4_exports.invert(this._projectionMatrix, this._viewComponent.projectionMatrix);
+      const onViewportResize = this.onViewportResize.bind(this);
+      window.addEventListener("resize", onViewportResize);
+      this._onDeactivateCallbacks.push(() => {
+        canvas2.removeEventListener("click", onClick);
+        canvas2.removeEventListener("pointermove", onPointerMove);
+        canvas2.removeEventListener("pointerdown", onPointerDown);
+        canvas2.removeEventListener("pointerup", onPointerUp);
+        window.removeEventListener("resize", onViewportResize);
+      });
+    }
+    this.object.getTranslationWorld(this._origin);
+    this.object.getForward(this._direction);
+    if (this.cursorRayObject) {
+      this._cursorRayScale.set(this.cursorRayObject.scalingLocal);
+      this._setCursorRayTransform(vec3_exports.add(tempVec2, this._origin, this._direction));
+    }
+  }
+  onViewportResize() {
+    if (!this._viewComponent)
+      return;
+    mat4_exports.invert(this._projectionMatrix, this._viewComponent.projectionMatrix);
+  }
+  _setCursorRayTransform(hitPosition) {
+    if (!this.cursorRayObject)
+      return;
+    const dist2 = vec3_exports.dist(this._origin, hitPosition);
+    this.cursorRayObject.setTranslationLocal([0, 0, -dist2 / 2]);
+    if (this.cursorRayScalingAxis != 4) {
+      this.cursorRayObject.resetScaling();
+      this._cursorRayScale[this.cursorRayScalingAxis] = dist2 / 2;
+      this.cursorRayObject.scale(this._cursorRayScale);
+    }
+  }
+  _setCursorVisibility(visible) {
+    if (this.visible == visible)
+      return;
+    this.visible = visible;
+    if (!this.cursorObject)
+      return;
+    if (visible) {
+      this.cursorObject.resetScaling();
+      this.cursorObject.scale(this._cursorObjScale);
+    } else {
+      this._cursorObjScale.set(this.cursorObject.scalingLocal);
+      this.cursorObject.scale([0, 0, 0]);
+    }
+  }
+  update() {
+    if (this.engine.xr && this._arTouchDown && this._input && this.engine.xr.session.inputSources[0].handedness === "none" && this.engine.xr.session.inputSources[0].gamepad) {
+      const p = this.engine.xr.session.inputSources[0].gamepad.axes;
+      this._direction[0] = p[0];
+      this._direction[1] = -p[1];
+      this._direction[2] = -1;
+      this.updateDirection();
+    } else {
+      this.object.getTranslationWorld(this._origin);
+      this.object.getForwardWorld(this._direction);
+    }
+    this.rayCast(null, this.engine.xr?.frame);
+    if (this.cursorObject) {
+      if (this.hoveringObject && (this.cursorPos[0] != 0 || this.cursorPos[1] != 0 || this.cursorPos[2] != 0)) {
+        this._setCursorVisibility(true);
+        this.cursorObject.setTranslationWorld(this.cursorPos);
+        this._setCursorRayTransform(this.cursorPos);
+      } else {
+        this._setCursorVisibility(false);
+      }
+    }
+  }
+  /* Returns the hovered cursor target, if available */
+  notify(event, originalEvent) {
+    const target = this.hoveringObject;
+    if (target) {
+      const cursorTarget = this.hoveringObjectTarget;
+      if (cursorTarget)
+        cursorTarget[event].notify(target, this, originalEvent ?? void 0);
+      this.globalTarget[event].notify(target, this, originalEvent ?? void 0);
+    }
+  }
+  hoverBehaviour(rayHit, hitTestResult, doClick, originalEvent) {
+    const hit = !this.hoveringReality && rayHit.hitCount > 0 ? rayHit.objects[0] : null;
+    if (hit) {
+      if (!this.hoveringObject || !this.hoveringObject.equals(hit)) {
+        if (this.hoveringObject) {
+          this.notify("onUnhover", originalEvent);
+        }
+        this.hoveringObject = hit;
+        this.hoveringObjectTarget = this.hoveringObject.getComponent(CursorTarget);
+        if (this.styleCursor)
+          this.engine.canvas.style.cursor = "pointer";
+        this.notify("onHover", originalEvent);
+      }
+    } else if (this.hoveringObject) {
+      this.notify("onUnhover", originalEvent);
+      this.hoveringObject = null;
+      this.hoveringObjectTarget = null;
+      if (this.styleCursor)
+        this.engine.canvas.style.cursor = "default";
+    }
+    if (this.hoveringObject) {
+      if (this._isDown !== this._lastIsDown) {
+        this.notify(this._isDown ? "onDown" : "onUp", originalEvent);
+      }
+      if (doClick)
+        this.notify("onClick", originalEvent);
+    } else if (this.hoveringReality) {
+      if (this._isDown !== this._lastIsDown) {
+        (this._isDown ? this.hitTestTarget.onDown : this.hitTestTarget.onUp).notify(hitTestResult, this, originalEvent ?? void 0);
+      }
+      if (doClick)
+        this.hitTestTarget.onClick.notify(hitTestResult, this, originalEvent ?? void 0);
+    }
+    if (hit) {
+      if (this.hoveringObject) {
+        this.hoveringObject.toLocalSpaceTransform(tempVec2, this.cursorPos);
+      } else {
+        tempVec2.set(this.cursorPos);
+      }
+      if (this._lastCursorPosOnTarget[0] != tempVec2[0] || this._lastCursorPosOnTarget[1] != tempVec2[1] || this._lastCursorPosOnTarget[2] != tempVec2[2]) {
+        this.notify("onMove", originalEvent);
+        this._lastCursorPosOnTarget.set(tempVec2);
+      }
+    } else if (this.hoveringReality) {
+      if (this._lastCursorPosOnTarget[0] != this.cursorPos[0] || this._lastCursorPosOnTarget[1] != this.cursorPos[1] || this._lastCursorPosOnTarget[2] != this.cursorPos[2]) {
+        this.hitTestTarget.onMove.notify(hitTestResult, this, originalEvent ?? void 0);
+        this._lastCursorPosOnTarget.set(this.cursorPos);
+      }
+    }
+    this._lastIsDown = this._isDown;
+  }
+  /**
+   * Setup event listeners on session object
+   * @param s WebXR session
+   *
+   * Sets up 'select' and 'end' events.
+   */
+  setupVREvents(s) {
+    if (!s)
+      console.error("setupVREvents called without a valid session");
+    const onSelect = this.onSelect.bind(this);
+    s.addEventListener("select", onSelect);
+    const onSelectStart = this.onSelectStart.bind(this);
+    s.addEventListener("selectstart", onSelectStart);
+    const onSelectEnd = this.onSelectEnd.bind(this);
+    s.addEventListener("selectend", onSelectEnd);
+    this._onDeactivateCallbacks.push(() => {
+      if (!this.engine.xrSession)
+        return;
+      s.removeEventListener("select", onSelect);
+      s.removeEventListener("selectstart", onSelectStart);
+      s.removeEventListener("selectend", onSelectEnd);
+    });
+    this.onViewportResize();
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this._onSessionStartCallback);
+    this._setCursorVisibility(false);
+    if (this.hoveringObject)
+      this.notify("onUnhover", null);
+    if (this.cursorRayObject)
+      this.cursorRayObject.scale([0, 0, 0]);
+    for (const f of this._onDeactivateCallbacks)
+      f();
+    this._onDeactivateCallbacks.length = 0;
+  }
+  onDestroy() {
+    this._hitTestObject?.destroy();
+  }
+  /** 'select' event listener */
+  onSelect(e) {
+    if (e.inputSource.handedness != this.handedness)
+      return;
+    this.rayCast(e, e.frame, true);
+  }
+  /** 'selectstart' event listener */
+  onSelectStart(e) {
+    this._arTouchDown = true;
+    if (e.inputSource.handedness == this.handedness) {
+      this._isDown = true;
+      this.rayCast(e, e.frame);
+    }
+  }
+  /** 'selectend' event listener */
+  onSelectEnd(e) {
+    this._arTouchDown = false;
+    if (e.inputSource.handedness == this.handedness) {
+      this._isDown = false;
+      this.rayCast(e, e.frame);
+    }
+  }
+  /** 'pointermove' event listener */
+  onPointerMove(e) {
+    if (!e.isPrimary)
+      return;
+    this.updateMousePos(e);
+    this.rayCast(e, null);
+  }
+  /** 'click' event listener */
+  onClick(e) {
+    this.updateMousePos(e);
+    this.rayCast(e, null, true);
+  }
+  /** 'pointerdown' event listener */
+  onPointerDown(e) {
+    if (!e.isPrimary || e.button !== 0)
+      return;
+    this.updateMousePos(e);
+    this._isDown = true;
+    this.rayCast(e);
+  }
+  /** 'pointerup' event listener */
+  onPointerUp(e) {
+    if (!e.isPrimary || e.button !== 0)
+      return;
+    this.updateMousePos(e);
+    this._isDown = false;
+    this.rayCast(e);
+  }
+  /**
+   * Update mouse position in non-VR mode and raycast for new position
+   * @returns @ref WL.RayHit for new position.
+   */
+  updateMousePos(e) {
+    const bounds = this.engine.canvas.getBoundingClientRect();
+    const left = e.clientX / bounds.width;
+    const top = e.clientY / bounds.height;
+    this._direction[0] = left * 2 - 1;
+    this._direction[1] = -top * 2 + 1;
+    this._direction[2] = -1;
+    this.updateDirection();
+  }
+  updateDirection() {
+    this.object.getTranslationWorld(this._origin);
+    vec3_exports.transformMat4(this._direction, this._direction, this._projectionMatrix);
+    vec3_exports.normalize(this._direction, this._direction);
+    vec3_exports.transformQuat(this._direction, this._direction, this.object.transformWorld);
+  }
+  rayCast(originalEvent, frame = null, doClick = false) {
+    const rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(this._origin, this._direction, this._collisionMask) : this.engine.physics.rayCast(this._origin, this._direction, this._collisionMask, this.maxDistance);
+    let hitResultDistance = Infinity;
+    let hitTestResult = null;
+    if (this._hitTestLocation?.visible) {
+      this._hitTestObject.getTranslationWorld(this.cursorPos);
+      hitResultDistance = vec3_exports.distance(this.object.getTranslationWorld(tempVec2), this.cursorPos);
+      hitTestResult = this._hitTestLocation?.getHitTestResults(frame)[0];
+    }
+    let hoveringReality = false;
+    if (rayHit.hitCount > 0) {
+      const d2 = rayHit.distances[0];
+      if (hitResultDistance >= d2) {
+        this.cursorPos.set(rayHit.locations[0]);
+      } else {
+        hoveringReality = true;
+      }
+    } else if (hitResultDistance < Infinity) {
+    } else {
+      this.cursorPos.fill(0);
+    }
+    if (hoveringReality && !this.hoveringReality) {
+      this.hitTestTarget.onHover.notify(hitTestResult, this);
+    } else if (!hoveringReality && this.hoveringReality) {
+      this.hitTestTarget.onUnhover.notify(hitTestResult, this);
+    }
+    this.hoveringReality = hoveringReality;
+    this.hoverBehaviour(rayHit, hitTestResult, doClick, originalEvent);
+    return rayHit;
+  }
+};
+__publicField(Cursor, "TypeName", "cursor");
+/* Dependencies is deprecated, but we keep it here for compatibility
+ * with 1.0.0-rc2 until 1.0.0 is released */
+__publicField(Cursor, "Dependencies", [HitTestLocation]);
+__decorate4([
+  property.int(1)
+], Cursor.prototype, "collisionGroup", void 0);
+__decorate4([
+  property.object()
+], Cursor.prototype, "cursorRayObject", void 0);
+__decorate4([
+  property.enum(["x", "y", "z", "none"], "z")
+], Cursor.prototype, "cursorRayScalingAxis", void 0);
+__decorate4([
+  property.object()
+], Cursor.prototype, "cursorObject", void 0);
+__decorate4([
+  property.enum(["input component", "left", "right", "none"], "input component")
+], Cursor.prototype, "handedness", void 0);
+__decorate4([
+  property.enum(["collision", "physx"], "collision")
+], Cursor.prototype, "rayCastMode", void 0);
+__decorate4([
+  property.bool(true)
+], Cursor.prototype, "styleCursor", void 0);
+__decorate4([
+  property.bool(false)
+], Cursor.prototype, "useWebXRHitTest", void 0);
+
+// node_modules/@wonderlandengine/components/dist/debug-object.js
+var __decorate5 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var DebugObject = class extends Component {
+  /** A second object to print the name of */
+  obj = null;
+  start() {
+    let origin = new Float32Array(3);
+    quat2_exports.getTranslation(origin, this.object.transformWorld);
+    console.log("Debug object:", this.object.name);
+    console.log("Other object:", this.obj?.name);
+    console.log("	translation", origin);
+    console.log("	transformWorld", this.object.transformWorld);
+    console.log("	transformLocal", this.object.transformLocal);
+  }
+};
+__publicField(DebugObject, "TypeName", "debug-object");
+__decorate5([
+  property.object()
+], DebugObject.prototype, "obj", void 0);
+
+// node_modules/@wonderlandengine/components/dist/fixed-foveation.js
+var FixedFoveation = class extends Component {
+  start() {
+    this.onSessionStartCallback = this.setFixedFoveation().bind(this);
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
+  }
+  setFixedFoveation() {
+    this.engine.xr.baseLayer.fixedFoveation = this.fixedFoveation;
+  }
+};
+__publicField(FixedFoveation, "TypeName", "fixed-foveation");
+__publicField(FixedFoveation, "Properties", {
+  /** Amount to apply from 0 (none) to 1 (full) */
+  fixedFoveation: { type: Type.Float, default: 0.5 }
+});
+
+// node_modules/@wonderlandengine/components/dist/hand-tracking.js
+var ORDERED_JOINTS = [
+  "wrist",
+  "thumb-metacarpal",
+  "thumb-phalanx-proximal",
+  "thumb-phalanx-distal",
+  "thumb-tip",
+  "index-finger-metacarpal",
+  "index-finger-phalanx-proximal",
+  "index-finger-phalanx-intermediate",
+  "index-finger-phalanx-distal",
+  "index-finger-tip",
+  "middle-finger-metacarpal",
+  "middle-finger-phalanx-proximal",
+  "middle-finger-phalanx-intermediate",
+  "middle-finger-phalanx-distal",
+  "middle-finger-tip",
+  "ring-finger-metacarpal",
+  "ring-finger-phalanx-proximal",
+  "ring-finger-phalanx-intermediate",
+  "ring-finger-phalanx-distal",
+  "ring-finger-tip",
+  "pinky-finger-metacarpal",
+  "pinky-finger-phalanx-proximal",
+  "pinky-finger-phalanx-intermediate",
+  "pinky-finger-phalanx-distal",
+  "pinky-finger-tip"
+];
+var invTranslation = new Float32Array(3);
+var invRotation = new Float32Array(4);
+var HandTracking = class extends Component {
+  init() {
+    this.handedness = ["left", "right"][this.handedness];
+  }
+  joints = {};
+  session = null;
+  /* Whether last update had a hand pose */
+  hasPose = false;
+  _childrenActive = true;
+  start() {
+    if (!("XRHand" in window)) {
+      console.warn("WebXR Hand Tracking not supported by this browser.");
+      this.active = false;
+      return;
+    }
+    if (this.handSkin) {
+      let skin = this.handSkin;
+      let jointIds = skin.jointIds;
+      this.joints[ORDERED_JOINTS[0]] = this.engine.wrapObject(jointIds[0]);
+      for (let j = 0; j < jointIds.length; ++j) {
+        let joint = this.engine.wrapObject(jointIds[j]);
+        this.joints[joint.name] = joint;
+      }
+      return;
+    }
+    const jointObjects = this.engine.scene.addObjects(ORDERED_JOINTS.length, this.object.parent, ORDERED_JOINTS.length);
+    for (let j = 0; j < ORDERED_JOINTS.length; ++j) {
+      let joint = jointObjects[j];
+      joint.addComponent(MeshComponent, {
+        mesh: this.jointMesh,
+        material: this.jointMaterial
+      });
+      this.joints[ORDERED_JOINTS[j]] = joint;
+    }
+  }
+  update(dt) {
+    if (!this.session) {
+      if (this.engine.xr)
+        this.setupVREvents(this.engine.xr.session);
+    }
+    if (!this.session)
+      return;
+    this.hasPose = false;
+    if (this.session && this.session.inputSources) {
+      for (let i = 0; i < this.session.inputSources.length; ++i) {
+        const inputSource = this.session.inputSources[i];
+        if (!inputSource || !inputSource.hand || inputSource.handedness != this.handedness)
+          continue;
+        this.hasPose = true;
+        const wristSpace = inputSource.hand.get("wrist");
+        if (wristSpace !== null) {
+          const p = this.engine.xr.frame.getJointPose(wristSpace, this.engine.xr.currentReferenceSpace);
+          if (p) {
+            setXRRigidTransformLocal(this.object, p.transform);
+          }
+        }
+        this.object.getRotationLocal(invRotation);
+        quat_exports.conjugate(invRotation, invRotation);
+        this.object.getTranslationLocal(invTranslation);
+        for (let j = 0; j < ORDERED_JOINTS.length; ++j) {
+          const jointName = ORDERED_JOINTS[j];
+          const joint = this.joints[jointName];
+          if (joint === null)
+            continue;
+          let jointPose = null;
+          const jointSpace = inputSource.hand.get(jointName);
+          if (jointSpace !== null) {
+            jointPose = this.engine.xr.frame.getJointPose(jointSpace, this.engine.xr.currentReferenceSpace);
+          }
+          if (jointPose !== null) {
+            if (this.handSkin) {
+              joint.resetTranslationRotation();
+              joint.translate([
+                jointPose.transform.position.x - invTranslation[0],
+                jointPose.transform.position.y - invTranslation[1],
+                jointPose.transform.position.z - invTranslation[2]
+              ]);
+              joint.rotate(invRotation);
+              joint.rotateObject([
+                jointPose.transform.orientation.x,
+                jointPose.transform.orientation.y,
+                jointPose.transform.orientation.z,
+                jointPose.transform.orientation.w
+              ]);
+            } else {
+              setXRRigidTransformLocal(joint, jointPose.transform);
+              const r = jointPose.radius || 7e-3;
+              joint.setScalingLocal([r, r, r]);
+            }
+          }
+        }
+      }
+    }
+    if (!this.hasPose && this._childrenActive) {
+      this._childrenActive = false;
+      if (this.deactivateChildrenWithoutPose) {
+        this.setChildrenActive(false);
+      }
+      if (this.controllerToDeactivate) {
+        this.controllerToDeactivate.active = true;
+        this.setChildrenActive(true, this.controllerToDeactivate);
+      }
+    } else if (this.hasPose && !this._childrenActive) {
+      this._childrenActive = true;
+      if (this.deactivateChildrenWithoutPose) {
+        this.setChildrenActive(true);
+      }
+      if (this.controllerToDeactivate) {
+        this.controllerToDeactivate.active = false;
+        this.setChildrenActive(false, this.controllerToDeactivate);
+      }
+    }
+  }
+  setChildrenActive(active, object) {
+    object = object || this.object;
+    const children = object.children;
+    for (const o of children) {
+      o.active = active;
+      this.setChildrenActive(active, o);
+    }
+  }
+  isGrabbing() {
+    const indexTipPos = [0, 0, 0];
+    quat2_exports.getTranslation(indexTipPos, this.joints["index-finger-tip"].transformLocal);
+    const thumbTipPos = [0, 0, 0];
+    quat2_exports.getTranslation(thumbTipPos, this.joints["thumb-tip"].transformLocal);
+    return vec3_exports.sqrDist(thumbTipPos, indexTipPos) < 1e-3;
+  }
+  setupVREvents(s) {
+    this.session = s;
+  }
+};
+__publicField(HandTracking, "TypeName", "hand-tracking");
+__publicField(HandTracking, "Properties", {
+  /** Handedness determining whether to receive tracking input from right or left hand */
+  handedness: { type: Type.Enum, default: "left", values: ["left", "right"] },
+  /** (optional) Mesh to use to visualize joints */
+  jointMesh: { type: Type.Mesh, default: null },
+  /** Material to use for display. Applied to either the spawned skinned mesh or the joint spheres. */
+  jointMaterial: { type: Type.Material, default: null },
+  /** (optional) Skin to apply tracked joint poses to. If not present, joint spheres will be used for display instead. */
+  handSkin: { type: Type.Skin, default: null },
+  /** Deactivate children if no pose was tracked */
+  deactivateChildrenWithoutPose: { type: Type.Bool, default: true },
+  /** Controller objects to activate including children if no pose is available */
+  controllerToDeactivate: { type: Type.Object }
+});
+
+// node_modules/@wonderlandengine/components/dist/howler-audio-listener.js
+var import_howler = __toESM(require_howler(), 1);
+var HowlerAudioListener = class extends Component {
+  init() {
+    this.origin = new Float32Array(3);
+    this.fwd = new Float32Array(3);
+    this.up = new Float32Array(3);
+  }
+  update() {
+    if (!this.spatial)
+      return;
+    this.object.getTranslationWorld(this.origin);
+    this.object.getForward(this.fwd);
+    this.object.getUp(this.up);
+    Howler.pos(this.origin[0], this.origin[1], this.origin[2]);
+    Howler.orientation(this.fwd[0], this.fwd[1], this.fwd[2], this.up[0], this.up[1], this.up[2]);
+  }
+};
+__publicField(HowlerAudioListener, "TypeName", "howler-audio-listener");
+__publicField(HowlerAudioListener, "Properties", {
+  /** Whether audio should be spatialized/positional. */
+  spatial: { type: Type.Bool, default: true }
+});
+
+// node_modules/@wonderlandengine/components/dist/howler-audio-source.js
+var import_howler2 = __toESM(require_howler(), 1);
+var HowlerAudioSource = class extends Component {
+  start() {
+    this.audio = new Howl({
+      src: [this.src],
+      loop: this.loop,
+      volume: this.volume,
+      autoplay: this.autoplay
+    });
+    this.lastPlayedAudioId = null;
+    this.origin = new Float32Array(3);
+    this.lastOrigin = new Float32Array(3);
+    if (this.spatial && this.autoplay) {
+      this.updatePosition();
+      this.play();
+    }
+  }
+  update() {
+    if (!this.spatial || !this.lastPlayedAudioId)
+      return;
+    this.object.getTranslationWorld(this.origin);
+    if (Math.abs(this.lastOrigin[0] - this.origin[0]) > 5e-3 || Math.abs(this.lastOrigin[1] - this.origin[1]) > 5e-3 || Math.abs(this.lastOrigin[2] - this.origin[2]) > 5e-3) {
+      this.updatePosition();
+    }
+  }
+  updatePosition() {
+    this.audio.pos(this.origin[0], this.origin[1], this.origin[2], this.lastPlayedAudioId);
+    this.lastOrigin.set(this.origin);
+  }
+  play() {
+    if (this.lastPlayedAudioId)
+      this.audio.stop(this.lastPlayedAudioId);
+    this.lastPlayedAudioId = this.audio.play();
+    if (this.spatial)
+      this.updatePosition();
+  }
+  stop() {
+    if (!this.lastPlayedAudioId)
+      return;
+    this.audio.stop(this.lastPlayedAudioId);
+    this.lastPlayedAudioId = null;
+  }
+  onDeactivate() {
+    this.stop();
+  }
+};
+__publicField(HowlerAudioSource, "TypeName", "howler-audio-source");
+__publicField(HowlerAudioSource, "Properties", {
+  /** Volume */
+  volume: { type: Type.Float, default: 1 },
+  /** Whether audio should be spatialized/positional */
+  spatial: { type: Type.Bool, default: true },
+  /** Whether to loop the sound */
+  loop: { type: Type.Bool, default: false },
+  /** Whether to start playing automatically */
+  autoplay: { type: Type.Bool, default: false },
+  /** URL to a sound file to play */
+  src: { type: Type.String, default: "" }
+});
+
+// node_modules/@wonderlandengine/components/dist/image-texture.js
+var ImageTexture = class extends Component {
+  start() {
+    if (!this.material) {
+      throw Error("image-texture: material property not set");
+    }
+    this.engine.textures.load(this.url, "anonymous").then((texture) => {
+      const mat = this.material;
+      const shader = mat.shader;
+      if (shader === "Flat Opaque Textured") {
+        mat.flatTexture = texture;
+      } else if (shader === "Phong Opaque Textured" || shader === "Foliage") {
+        mat.diffuseTexture = texture;
+      } else if (shader === "Background") {
+        mat.texture = texture;
+      } else if (shader === "Physical Opaque Textured") {
+        mat.albedoTexture = texture;
+      } else {
+        console.error("Shader", shader, "not supported by image-texture");
+      }
+    }).catch(console.err);
+  }
+};
+__publicField(ImageTexture, "TypeName", "image-texture");
+__publicField(ImageTexture, "Properties", {
+  /** URL to download the image from */
+  url: { type: Type.String },
+  /** Material to apply the video texture to */
+  material: { type: Type.Material }
+});
+
+// node_modules/@wonderlandengine/components/dist/mouse-look.js
+var MouseLookComponent = class extends Component {
+  init() {
+    this.currentRotationY = 0;
+    this.currentRotationX = 0;
+    this.origin = new Float32Array(3);
+    this.parentOrigin = new Float32Array(3);
+    this.rotationX = 0;
+    this.rotationY = 0;
+  }
+  start() {
+    document.addEventListener("mousemove", (e) => {
+      if (this.active && (this.mouseDown || !this.requireMouseDown)) {
+        this.rotationY = -this.sensitity * e.movementX / 100;
+        this.rotationX = -this.sensitity * e.movementY / 100;
+        this.currentRotationX += this.rotationX;
+        this.currentRotationY += this.rotationY;
+        this.currentRotationX = Math.min(1.507, this.currentRotationX);
+        this.currentRotationX = Math.max(-1.507, this.currentRotationX);
+        this.object.getTranslationWorld(this.origin);
+        const parent = this.object.parent;
+        if (parent !== null) {
+          parent.getTranslationWorld(this.parentOrigin);
+          vec3_exports.sub(this.origin, this.origin, this.parentOrigin);
+        }
+        this.object.resetTranslationRotation();
+        this.object.rotateAxisAngleRad([1, 0, 0], this.currentRotationX);
+        this.object.rotateAxisAngleRad([0, 1, 0], this.currentRotationY);
+        this.object.translate(this.origin);
+      }
+    });
+    const canvas2 = this.engine.canvas;
+    if (this.pointerLockOnClick) {
+      canvas2.addEventListener("mousedown", () => {
+        canvas2.requestPointerLock = canvas2.requestPointerLock || canvas2.mozRequestPointerLock || canvas2.webkitRequestPointerLock;
+        canvas2.requestPointerLock();
+      });
+    }
+    if (this.requireMouseDown) {
+      if (this.mouseButtonIndex == 2) {
+        canvas2.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+        }, false);
+      }
+      canvas2.addEventListener("mousedown", (e) => {
+        if (e.button == this.mouseButtonIndex) {
+          this.mouseDown = true;
+          document.body.style.cursor = "grabbing";
+          if (e.button == 1) {
+            e.preventDefault();
+            return false;
+          }
+        }
+      });
+      canvas2.addEventListener("mouseup", (e) => {
+        if (e.button == this.mouseButtonIndex) {
+          this.mouseDown = false;
+          document.body.style.cursor = "initial";
+        }
+      });
+    }
+  }
+};
+__publicField(MouseLookComponent, "TypeName", "mouse-look");
+__publicField(MouseLookComponent, "Properties", {
+  /** Mouse look sensitivity */
+  sensitity: { type: Type.Float, default: 0.25 },
+  /** Require a mouse button to be pressed to control view.
+   * Otherwise view will allways follow mouse movement */
+  requireMouseDown: { type: Type.Bool, default: true },
+  /** If "moveOnClick" is enabled, mouse button which should
+   * be held down to control view */
+  mouseButtonIndex: { type: Type.Int },
+  /** Enables pointer lock on "mousedown" event on canvas */
+  pointerLockOnClick: { type: Type.Bool, default: false }
+});
+
+// node_modules/@wonderlandengine/components/dist/player-height.js
+var PlayerHeight = class extends Component {
+  start() {
+    this.object.resetTranslationRotation();
+    this.object.translate([0, this.height, 0]);
+    this.onSessionStartCallback = this.onXRSessionStart.bind(this);
+    this.onSessionEndCallback = this.onXRSessionEnd.bind(this);
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.add(this.onSessionEndCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.remove(this.onSessionEndCallback);
+  }
+  onXRSessionStart() {
+    if (!["local", "viewer"].includes(this.engine.xr.currentReferenceSpace)) {
+      this.object.resetTranslationRotation();
+    }
+  }
+  onXRSessionEnd() {
+    if (!["local", "viewer"].includes(this.engine.xr.currentReferenceSpace)) {
+      this.object.resetTranslationRotation();
+      this.object.translate([0, this.height, 0]);
+    }
+  }
+};
+__publicField(PlayerHeight, "TypeName", "player-height");
+__publicField(PlayerHeight, "Properties", {
+  height: { type: Type.Float, default: 1.75 }
+});
+
+// node_modules/@wonderlandengine/components/dist/target-framerate.js
+var TargetFramerate = class extends Component {
+  start() {
+    this.onSessionStartCallback = this.setTargetFramerate().bind(this);
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
+  }
+  setTargetFramerate(s) {
+    if (s.supportedFrameRates && s.updateTargetFrameRate) {
+      const a = this.engine.xrSession.supportedFrameRates;
+      a.sort((a2, b) => Math.abs(a2 - this.framerate) - Math.abs(b - this.framerate));
+      this.engine.xrSession.updateTargetFrameRate(a[0]);
+    }
+  }
+};
+__publicField(TargetFramerate, "TypeName", "target-framerate");
+__publicField(TargetFramerate, "Properties", {
+  framerate: { type: Type.Float, default: 90 }
+});
+
+// node_modules/@wonderlandengine/components/dist/teleport.js
+var TeleportComponent = class extends Component {
+  init() {
+    this._prevThumbstickAxis = new Float32Array(2);
+    this._tempVec = new Float32Array(3);
+    this._tempVec0 = new Float32Array(3);
+    this._currentIndicatorRotation = 0;
+    this.input = this.object.getComponent("input");
+    if (!this.input) {
+      console.error(this.object.name, "generic-teleport-component.js: input component is required on the object");
+      return;
+    }
+    if (!this.teleportIndicatorMeshObject) {
+      console.error(this.object.name, "generic-teleport-component.js: Teleport indicator mesh is missing");
+      return;
+    }
+    if (!this.camRoot) {
+      console.error(this.object.name, "generic-teleport-component.js: camRoot not set");
+      return;
+    }
+    this.isIndicating = false;
+    this.indicatorHidden = true;
+    this.hitSpot = new Float32Array(3);
+    this._hasHit = false;
+    this._extraRotation = 0;
+    this._currentStickAxes = new Float32Array(2);
+  }
+  start() {
+    if (this.cam) {
+      this.isMouseIndicating = false;
+      canvas.addEventListener("mousedown", this.onMouseDown.bind(this));
+      canvas.addEventListener("mouseup", this.onMouseUp.bind(this));
+    }
+    if (this.handedness == 0) {
+      const inputComp = this.object.getComponent("input");
+      if (!inputComp) {
+        console.warn("teleport component on object", this.object.name, 'was configured with handedness "input component", but object has no input component.');
+      } else {
+        this.handedness = inputComp.handedness;
+        this.input = inputComp;
+      }
+    } else {
+      this.handedness = ["left", "right"][this.handedness - 1];
+    }
+    this.onSessionStartCallback = this.setupVREvents.bind(this);
+    this.teleportIndicatorMeshObject.active = false;
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
+  }
+  /* Get current camera Y rotation */
+  _getCamRotation() {
+    this.eyeLeft.getForward(this._tempVec);
+    this._tempVec[1] = 0;
+    vec3_exports.normalize(this._tempVec, this._tempVec);
+    return Math.atan2(this._tempVec[0], this._tempVec[2]);
+  }
+  update() {
+    let inputLength = 0;
+    if (this.gamepad && this.gamepad.axes) {
+      this._currentStickAxes[0] = this.gamepad.axes[2];
+      this._currentStickAxes[1] = this.gamepad.axes[3];
+      inputLength = Math.abs(this._currentStickAxes[0]) + Math.abs(this._currentStickAxes[1]);
+    }
+    if (!this.isIndicating && this._prevThumbstickAxis[1] >= this.thumbstickActivationThreshhold && this._currentStickAxes[1] < this.thumbstickActivationThreshhold) {
+      this.isIndicating = true;
+    } else if (this.isIndicating && inputLength < this.thumbstickDeactivationThreshhold) {
+      this.isIndicating = false;
+      this.teleportIndicatorMeshObject.active = false;
+      if (this._hasHit) {
+        this._teleportPlayer(this.hitSpot, this._extraRotation);
+      }
+    }
+    if (this.isIndicating && this.teleportIndicatorMeshObject && this.input) {
+      const origin = this._tempVec0;
+      quat2_exports.getTranslation(origin, this.object.transformWorld);
+      const direction2 = this.object.getForward(this._tempVec);
+      let rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(origin, direction2, 1 << this.floorGroup) : this.engine.physics.rayCast(origin, direction2, 1 << this.floorGroup, this.maxDistance);
+      if (rayHit.hitCount > 0) {
+        this.indicatorHidden = false;
+        this._extraRotation = Math.PI + Math.atan2(this._currentStickAxes[0], this._currentStickAxes[1]);
+        this._currentIndicatorRotation = this._getCamRotation() + (this._extraRotation - Math.PI);
+        this.teleportIndicatorMeshObject.resetTranslationRotation();
+        this.teleportIndicatorMeshObject.rotateAxisAngleRad([0, 1, 0], this._currentIndicatorRotation);
+        this.teleportIndicatorMeshObject.translate(rayHit.locations[0]);
+        this.teleportIndicatorMeshObject.translate([
+          0,
+          this.indicatorYOffset,
+          0
+        ]);
+        this.teleportIndicatorMeshObject.active = true;
+        this.hitSpot.set(rayHit.locations[0]);
+        this._hasHit = true;
+      } else {
+        if (!this.indicatorHidden) {
+          this.teleportIndicatorMeshObject.active = false;
+          this.indicatorHidden = true;
+        }
+        this._hasHit = false;
+      }
+    } else if (this.teleportIndicatorMeshObject && this.isMouseIndicating) {
+      this.onMousePressed();
+    }
+    this._prevThumbstickAxis.set(this._currentStickAxes);
+  }
+  setupVREvents(s) {
+    this.session = s;
+    s.addEventListener("end", function() {
+      this.gamepad = null;
+      this.session = null;
+    }.bind(this));
+    if (s.inputSources && s.inputSources.length) {
+      for (let i = 0; i < s.inputSources.length; i++) {
+        let inputSource = s.inputSources[i];
+        if (inputSource.handedness == this.handedness) {
+          this.gamepad = inputSource.gamepad;
+        }
+      }
+    }
+    s.addEventListener("inputsourceschange", function(e) {
+      if (e.added && e.added.length) {
+        for (let i = 0; i < e.added.length; i++) {
+          let inputSource = e.added[i];
+          if (inputSource.handedness == this.handedness) {
+            this.gamepad = inputSource.gamepad;
+          }
+        }
+      }
+    }.bind(this));
+  }
+  onMouseDown() {
+    this.isMouseIndicating = true;
+  }
+  onMouseUp() {
+    this.isMouseIndicating = false;
+    this.teleportIndicatorMeshObject.active = false;
+    if (this._hasHit) {
+      this._teleportPlayer(this.hitSpot, 0);
+    }
+  }
+  onMousePressed() {
+    let origin = [0, 0, 0];
+    quat2_exports.getTranslation(origin, this.cam.transformWorld);
+    const direction2 = this.cam.getForward(this._tempVec);
+    let rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(origin, direction2, 1 << this.floorGroup) : this.engine.physics.rayCast(origin, direction2, 1 << this.floorGroup, this.maxDistance);
+    if (rayHit.hitCount > 0) {
+      this.indicatorHidden = false;
+      direction2[1] = 0;
+      vec3_exports.normalize(direction2, direction2);
+      this._currentIndicatorRotation = -Math.sign(direction2[2]) * Math.acos(direction2[0]) - Math.PI * 0.5;
+      this.teleportIndicatorMeshObject.resetTranslationRotation();
+      this.teleportIndicatorMeshObject.rotateAxisAngleRad([0, 1, 0], this._currentIndicatorRotation);
+      this.teleportIndicatorMeshObject.translate(rayHit.locations[0]);
+      this.teleportIndicatorMeshObject.active = true;
+      this.hitSpot = rayHit.locations[0];
+      this._hasHit = true;
+    } else {
+      if (!this.indicatorHidden) {
+        this.teleportIndicatorMeshObject.active = false;
+        this.indicatorHidden = true;
+      }
+      this._hasHit = false;
+    }
+  }
+  _teleportPlayer(newPosition, rotationToAdd) {
+    this.camRoot.rotateAxisAngleRad([0, 1, 0], rotationToAdd);
+    const p = this._tempVec;
+    const p1 = this._tempVec0;
+    if (this.session) {
+      this.eyeLeft.getTranslationWorld(p);
+      this.eyeRight.getTranslationWorld(p1);
+      vec3_exports.add(p, p, p1);
+      vec3_exports.scale(p, p, 0.5);
+    } else {
+      this.cam.getTranslationWorld(p);
+    }
+    this.camRoot.getTranslationWorld(p1);
+    vec3_exports.sub(p, p1, p);
+    p[0] += newPosition[0];
+    p[1] = newPosition[1];
+    p[2] += newPosition[2];
+    this.camRoot.setTranslationWorld(p);
+  }
+};
+__publicField(TeleportComponent, "TypeName", "teleport");
+__publicField(TeleportComponent, "Properties", {
+  /** Object that will be placed as indiciation forwhere the player will teleport to. */
+  teleportIndicatorMeshObject: { type: Type.Object },
+  /** Root of the player, the object that will be positioned on teleportation. */
+  camRoot: { type: Type.Object },
+  /** Non-vr camera for use outside of VR */
+  cam: { type: Type.Object },
+  /** Left eye for use in VR*/
+  eyeLeft: { type: Type.Object },
+  /** Right eye for use in VR*/
+  eyeRight: { type: Type.Object },
+  /** Handedness for VR cursors to accept trigger events only from respective controller. */
+  handedness: {
+    type: Type.Enum,
+    values: ["input component", "left", "right", "none"],
+    default: "input component"
+  },
+  /** Collision group of valid "floor" objects that can be teleported on */
+  floorGroup: { type: Type.Int, default: 1 },
+  /** How far the thumbstick needs to be pushed to have the teleport target indicator show up */
+  thumbstickActivationThreshhold: { type: Type.Float, default: -0.7 },
+  /** How far the thumbstick needs to be released to execute the teleport */
+  thumbstickDeactivationThreshhold: { type: Type.Float, default: 0.3 },
+  /** Offset to apply to the indicator object, e.g. to avoid it from Z-fighting with the floor */
+  indicatorYOffset: { type: Type.Float, default: 0.01 },
+  /** Mode for raycasting, whether to use PhysX or simple collision components */
+  rayCastMode: {
+    type: Type.Enum,
+    values: ["collision", "physx"],
+    default: "collision"
+  },
+  /** Max distance for PhysX raycast */
+  maxDistance: { type: Type.Float, default: 100 }
+});
+
+// node_modules/@wonderlandengine/components/dist/trail.js
+var direction = vec3_exports.create();
+var offset = vec3_exports.create();
+var normal = vec3_exports.create();
+var Trail = class extends Component {
+  init() {
+    this.points = new Array(this.segments + 1);
+    for (let i = 0; i < this.points.length; ++i) {
+      this.points[i] = vec3_exports.create();
+    }
+    this.currentPointOffset = 0;
+    this.up = [0, 1, 0];
+    this.timeTillNext = this.interval;
+  }
+  start() {
+    this.trailContainer = this.engine.scene.addObject();
+    this.meshComp = this.trailContainer.addComponent("mesh");
+    this.meshComp.material = this.material;
+    const vertexCount = 2 * this.points.length;
+    this.indexData = new Uint32Array(6 * this.segments);
+    for (let i = 0, v = 0; i < vertexCount - 2; i += 2, v += 6) {
+      this.indexData.subarray(v, v + 6).set([i + 1, i + 0, i + 2, i + 2, i + 3, i + 1]);
+    }
+    this.mesh = new Mesh(this.engine, {
+      vertexCount,
+      indexData: this.indexData,
+      indexType: MeshIndexType.UnsignedInt
+    });
+    this.meshComp.mesh = this.mesh;
+  }
+  updateVertices() {
+    const positions = this.mesh.attribute(MeshAttribute.Position);
+    const texCoords = this.mesh.attribute(MeshAttribute.TextureCoordinate);
+    const normals = this.mesh.attribute(MeshAttribute.Normal);
+    vec3_exports.set(direction, 0, 0, 0);
+    for (let i = 0; i < this.points.length; ++i) {
+      const curr = this.points[(this.currentPointIndex + i + 1) % this.points.length];
+      const next = this.points[(this.currentPointIndex + i + 2) % this.points.length];
+      if (i !== this.points.length - 1) {
+        vec3_exports.sub(direction, next, curr);
+      }
+      vec3_exports.cross(offset, this.up, direction);
+      vec3_exports.normalize(offset, offset);
+      const timeFraction = 1 - this.timeTillNext / this.interval;
+      const fraction = (i - timeFraction) / this.segments;
+      vec3_exports.scale(offset, offset, (this.taper ? fraction : 1) * this.width / 2);
+      positions.set(i * 2, [
+        curr[0] - offset[0],
+        curr[1] - offset[1],
+        curr[2] - offset[2]
+      ]);
+      positions.set(i * 2 + 1, [
+        curr[0] + offset[0],
+        curr[1] + offset[1],
+        curr[2] + offset[2]
+      ]);
+      if (normals) {
+        vec3_exports.cross(normal, direction, offset);
+        vec3_exports.normalize(normal, normal);
+        normals.set(i * 2, normal);
+        normals.set(i * 2 + 1, normal);
+      }
+      if (texCoords) {
+        texCoords.set(i * 2, [0, fraction]);
+        texCoords.set(i * 2 + 1, [1, fraction]);
+      }
+    }
+    this.mesh.update();
+  }
+  resetTrail() {
+    this.object.getTranslationWorld(this.points[0]);
+    for (let i = 1; i < this.points.length; ++i) {
+      vec3_exports.copy(this.points[i], this.points[0]);
+    }
+    this.currentPointIndex = 0;
+    this.timeTillNext = this.interval;
+  }
+  update(dt) {
+    this.timeTillNext -= dt;
+    if (dt > this.resetThreshold) {
+      this.resetTrail();
+    }
+    if (this.timeTillNext < 0) {
+      this.currentPointIndex = (this.currentPointIndex + 1) % this.points.length;
+      this.timeTillNext = this.timeTillNext % this.interval + this.interval;
+    }
+    this.object.getTranslationWorld(this.points[this.currentPointIndex]);
+    this.updateVertices();
+  }
+  onActivate() {
+    this.resetTrail();
+  }
+  onDestroy() {
+    this.trailContainer.destroy();
+    this.mesh.destroy();
+  }
+};
+__publicField(Trail, "TypeName", "trail");
+__publicField(Trail, "Properties", {
+  /** The material to apply to the trail mesh */
+  material: { type: Type.Material },
+  /** The number of segments in the trail mesh */
+  segments: { type: Type.Int, default: 50 },
+  /** The time interval before recording a new point */
+  interval: { type: Type.Float, default: 0.1 },
+  /** The width of the trail (in world space) */
+  width: { type: Type.Float, default: 1 },
+  /** Whether or not the trail should taper off */
+  taper: { type: Type.Bool, default: true },
+  /**
+   * The maximum delta time in seconds, above which the trail resets.
+   * This prevents the trail from jumping around when updates happen
+   * infrequently (e.g. when the tab doesn't have focus).
+   */
+  resetThreshold: { type: Type.Float, default: 0.5 }
+});
+
+// node_modules/@wonderlandengine/components/dist/two-joint-ik-solver.js
+Math.clamp = function(v, a, b) {
+  return Math.max(a, Math.min(v, b));
+};
+var twoJointIK = function() {
+  let ta = new Float32Array(3);
+  let ca = new Float32Array(3);
+  let ba = new Float32Array(3);
+  let ab = new Float32Array(3);
+  let cb = new Float32Array(3);
+  let axis0 = new Float32Array(3);
+  let axis1 = new Float32Array(3);
+  let temp = new Float32Array(4);
+  let r0 = new Float32Array(4);
+  let r1 = new Float32Array(4);
+  let r2 = new Float32Array(4);
+  return function(a_lr, b_lr, a, b, c, t, eps, a_gr, b_gr, helper) {
+    vec3_exports.sub(ba, b, a);
+    const lab = vec3_exports.length(ba);
+    vec3_exports.sub(ta, b, c);
+    const lcb = vec3_exports.length(ta);
+    vec3_exports.sub(ta, t, a);
+    const lat = Math.clamp(vec3_exports.length(ta), eps, lab + lcb - eps);
+    vec3_exports.sub(ca, c, a);
+    vec3_exports.sub(ab, a, b);
+    vec3_exports.sub(cb, c, b);
+    vec3_exports.normalize(ca, ca);
+    vec3_exports.normalize(ba, ba);
+    vec3_exports.normalize(ab, ab);
+    vec3_exports.normalize(cb, cb);
+    vec3_exports.normalize(ta, ta);
+    const ac_ab_0 = Math.acos(Math.clamp(vec3_exports.dot(ca, ba), -1, 1));
+    const ba_bc_0 = Math.acos(Math.clamp(vec3_exports.dot(ab, cb), -1, 1));
+    const ac_at_0 = Math.acos(Math.clamp(vec3_exports.dot(ca, ta), -1, 1));
+    const ac_ab_1 = Math.acos(Math.clamp((lcb * lcb - lab * lab - lat * lat) / (-2 * lab * lat), -1, 1));
+    const ba_bc_1 = Math.acos(Math.clamp((lat * lat - lab * lab - lcb * lcb) / (-2 * lab * lcb), -1, 1));
+    vec3_exports.sub(ca, c, a);
+    vec3_exports.sub(ba, b, a);
+    vec3_exports.sub(ta, t, a);
+    vec3_exports.cross(axis0, ca, ba);
+    vec3_exports.cross(axis1, ca, ta);
+    if (helper) {
+      vec3_exports.sub(ba, helper, b);
+      vec3_exports.transformQuat(ba, [0, 0, -1], b_gr);
+    } else {
+      vec3_exports.sub(ba, b, a);
+    }
+    const l2 = vec3_exports.length(axis0);
+    if (l2 == 0) {
+      axis0.set([1, 0, 0]);
+    } else {
+      vec3_exports.scale(axis0, axis0, 1 / l2);
+    }
+    vec3_exports.normalize(axis1, axis1);
+    quat_exports.conjugate(a_gr, a_gr);
+    quat_exports.setAxisAngle(r0, vec3_exports.transformQuat(temp, axis0, a_gr), ac_ab_1 - ac_ab_0);
+    quat_exports.setAxisAngle(r2, vec3_exports.transformQuat(temp, axis1, a_gr), ac_at_0);
+    quat_exports.mul(a_lr, a_lr, quat_exports.mul(temp, r0, r2));
+    quat_exports.normalize(a_lr, a_lr);
+    quat_exports.conjugate(b_gr, b_gr);
+    quat_exports.setAxisAngle(r1, vec3_exports.transformQuat(temp, axis0, b_gr), ba_bc_1 - ba_bc_0);
+    quat_exports.mul(b_lr, b_lr, r1);
+    quat_exports.normalize(b_lr, b_lr);
+  };
+}();
+var TwoJointIkSolver = class extends Component {
+  init() {
+    this.pos = new Float32Array(3 * 7);
+    this.p = [
+      this.pos.subarray(0, 3),
+      this.pos.subarray(3, 6),
+      this.pos.subarray(6, 9),
+      this.pos.subarray(9, 12),
+      this.pos.subarray(12, 15),
+      this.pos.subarray(15, 18),
+      this.pos.subarray(18, 21)
+    ];
+  }
+  update() {
+    const p = this.p;
+    this.root.getTranslationWorld(p[0]);
+    this.middle.getTranslationWorld(p[1]);
+    this.end.getTranslationWorld(p[2]);
+    this.target.getTranslationWorld(p[3]);
+    const tla = p[4];
+    const tlb = p[5];
+    this.root.getTranslationLocal(tla);
+    this.middle.getTranslationLocal(tlb);
+    if (this.helper)
+      this.helper.getTranslationWorld(p[6]);
+    twoJointIK(this.root.transformLocal, this.middle.transformLocal, p[0], p[1], p[2], p[3], 0.01, this.root.transformWorld.subarray(0, 4), this.middle.transformWorld.subarray(0, 4), this.helper ? p[6] : null);
+    this.root.setTranslationLocal(tla);
+    this.middle.setTranslationLocal(tlb);
+    this.root.setDirty();
+    this.middle.setDirty();
+  }
+};
+__publicField(TwoJointIkSolver, "TypeName", "two-joint-ik-solver");
+__publicField(TwoJointIkSolver, "Properties", {
+  /** Root bone, never moves */
+  root: { type: Type.Object },
+  /** Bone attached to the root */
+  middle: { type: Type.Object },
+  /** Bone attached to the middle */
+  end: { type: Type.Object },
+  /** Target the joins should reach for */
+  target: { type: Type.Object },
+  /** Helper object to use to determine joint rotation axis */
+  helper: { type: Type.Object }
+});
+
+// node_modules/@wonderlandengine/components/dist/video-texture.js
+var VideoTexture = class extends Component {
+  init() {
+    if (!this.material) {
+      throw Error("video-texture: material property not set");
+    }
+    this.loaded = false;
+    this.frameUpdateRequested = true;
+  }
+  start() {
+    this.video = document.createElement("video");
+    this.video.src = this.url;
+    this.video.crossOrigin = "anonymous";
+    this.video.playsInline = true;
+    this.video.loop = this.loop;
+    this.video.muted = this.muted;
+    this.video.addEventListener("playing", () => {
+      this.loaded = true;
+    });
+    if (this.autoplay) {
+      const playAfterUserGesture = () => {
+        this.video.play();
+        window.removeEventListener("click", playAfterUserGesture);
+        window.removeEventListener("touchstart", playAfterUserGesture);
+      };
+      window.addEventListener("click", playAfterUserGesture);
+      window.addEventListener("touchstart", playAfterUserGesture);
+    }
+  }
+  applyTexture() {
+    const mat = this.material;
+    const shader = mat.shader;
+    const texture = this.texture = new Texture(this.engine, this.video);
+    if (shader === "Flat Opaque Textured") {
+      mat.flatTexture = texture;
+    } else if (shader === "Phong Opaque Textured" || shader === "Foliage") {
+      mat.diffuseTexture = texture;
+    } else if (shader === "Background") {
+      mat.texture = texture;
+    } else if (shader === "Physical Opaque Textured") {
+      mat.albedoTexture = texture;
+    } else {
+      console.error("Shader", shader, "not supported by video-texture");
+    }
+    if ("requestVideoFrameCallback" in this.video) {
+      this.video.requestVideoFrameCallback(this.updateVideo.bind(this));
+    } else {
+      this.video.addEventListener("timeupdate", () => {
+        this.frameUpdateRequested = true;
+      });
+    }
+  }
+  update(dt) {
+    if (this.loaded && this.frameUpdateRequested) {
+      if (this.texture) {
+        this.texture.update();
+      } else {
+        this.applyTexture();
+      }
+      this.frameUpdateRequested = false;
+    }
+  }
+  updateVideo() {
+    this.frameUpdateRequested = true;
+    this.video.requestVideoFrameCallback(this.updateVideo.bind(this));
+  }
+};
+__publicField(VideoTexture, "TypeName", "video-texture");
+__publicField(VideoTexture, "Properties", {
+  /** URL to download video from */
+  url: { type: Type.String },
+  /** Material to apply the video texture to */
+  material: { type: Type.Material },
+  /** Whether to loop the video */
+  loop: { type: Type.Bool, default: true },
+  /** Whether to automatically start playing the video */
+  autoplay: { type: Type.Bool, default: true },
+  /** Whether to mute sound */
+  muted: { type: Type.Bool, default: true }
+});
+
+// node_modules/@wonderlandengine/components/dist/vr-mode-active-switch.js
+var VrModeActiveSwitch = class extends Component {
+  start() {
+    this.components = [];
+    this.getComponents(this.object);
+    this.onXRSessionEnd();
+    this.onSessionStartCallback = this.onXRSessionStart.bind(this);
+    this.onSessionEndCallback = this.onXRSessionEnd.bind(this);
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.add(this.onSessionEndCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.remove(this.onSessionEndCallback);
+  }
+  getComponents(obj) {
+    const comps = obj.getComponents().filter((c) => c.type !== "vr-mode-active-switch");
+    this.components = this.components.concat(comps);
+    if (this.affectChildren) {
+      let children = obj.children;
+      for (let i = 0; i < children.length; ++i) {
+        this.getComponents(children[i]);
+      }
+    }
+  }
+  setComponentsActive(active) {
+    const comps = this.components;
+    for (let i = 0; i < comps.length; ++i) {
+      comps[i].active = active;
+    }
+  }
+  onXRSessionStart() {
+    this.setComponentsActive(this.activateComponents == 0);
+  }
+  onXRSessionEnd() {
+    this.setComponentsActive(this.activateComponents != 0);
+  }
+};
+__publicField(VrModeActiveSwitch, "TypeName", "vr-mode-active-switch");
+__publicField(VrModeActiveSwitch, "Properties", {
+  /** When components should be active: In VR or when not in VR */
+  activateComponents: {
+    type: Type.Enum,
+    values: ["in VR", "in non-VR"],
+    default: "in VR"
+  },
+  /** Whether child object's components should be affected */
+  affectChildren: { type: Type.Bool, default: true }
+});
+
+// node_modules/@wonderlandengine/components/dist/plane-detection.js
+var import_earcut = __toESM(require_earcut(), 1);
+var __decorate6 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var tempVec32 = new Float32Array(3);
+function extentsFromContour(out, points) {
+  if (points.length == 0)
+    return out;
+  let absMaxX = Math.abs(points[0].x);
+  let absMaxZ = Math.abs(points[0].z);
+  for (let i = 1; i < points.length; ++i) {
+    absMaxX = Math.max(absMaxX, Math.abs(points[i].x));
+    absMaxZ = Math.max(absMaxZ, Math.abs(points[i].z));
+  }
+  out[0] = absMaxX;
+  out[1] = 0;
+  out[2] = absMaxZ;
+}
+function planeMeshFromContour(engine2, points, meshToUpdate = null) {
+  const vertexCount = points.length;
+  const vertices = new Float32Array(vertexCount * 2);
+  for (let i = 0, d2 = 0; i < vertexCount; ++i, d2 += 2) {
+    vertices[d2] = points[i].x;
+    vertices[d2 + 1] = points[i].z;
+  }
+  const triangles = (0, import_earcut.default)(vertices);
+  const mesh = meshToUpdate || new Mesh(engine2, {
+    vertexCount,
+    /* Assumption here that we will never have more than 256 points
+     * in the detected plane meshes! */
+    indexType: MeshIndexType.UnsignedByte,
+    indexData: triangles
+  });
+  if (mesh.vertexCount !== vertexCount) {
+    console.warn("vertexCount of meshToUpdate did not match required vertexCount");
+    return mesh;
+  }
+  const positions = mesh.attribute(MeshAttribute.Position);
+  const textureCoords = mesh.attribute(MeshAttribute.TextureCoordinate);
+  const normals = mesh.attribute(MeshAttribute.Normal);
+  tempVec32[1] = 0;
+  for (let i = 0, s = 0; i < vertexCount; ++i, s += 2) {
+    tempVec32[0] = vertices[s];
+    tempVec32[2] = vertices[s + 1];
+    positions.set(i, tempVec32);
+  }
+  textureCoords?.set(0, vertices);
+  if (normals) {
+    tempVec32[0] = 0;
+    tempVec32[1] = 1;
+    tempVec32[2] = 0;
+    for (let i = 0; i < vertexCount; ++i) {
+      normals.set(i, tempVec32);
+    }
+  }
+  if (meshToUpdate)
+    mesh.update();
+  return mesh;
+}
+var _planeLost, planeLost_fn, _planeFound, planeFound_fn, _planeUpdate, planeUpdate_fn, _planeUpdatePose, planeUpdatePose_fn;
+var PlaneDetection = class extends Component {
+  constructor() {
+    super(...arguments);
+    __privateAdd(this, _planeLost);
+    __privateAdd(this, _planeFound);
+    __privateAdd(this, _planeUpdate);
+    __privateAdd(this, _planeUpdatePose);
+    /**
+     * Material to assign to created plane meshes or `null` if meshes should not be created.
+     */
+    __publicField(this, "planeMaterial", null);
+    /**
+     * Collision mask to assign to newly created collision components or a negative value if
+     * collision components should not be created.
+     */
+    __publicField(this, "collisionMask", -1);
+    /** Map of all planes and their last updated timestamps */
+    __publicField(this, "planes", /* @__PURE__ */ new Map());
+    /** Objects generated for each XRPlane */
+    __publicField(this, "planeObjects", /* @__PURE__ */ new Map());
+    /** Called when a plane starts tracking */
+    __publicField(this, "onPlaneFound", new Emitter());
+    /** Called when a plane stops tracking */
+    __publicField(this, "onPlaneLost", new Emitter());
+  }
+  update() {
+    if (!this.engine.xr?.frame)
+      return;
+    if (this.engine.xr.frame.detectedPlanes === void 0) {
+      console.error("plane-detection: WebXR feature not available.");
+      this.active = false;
+      return;
+    }
+    const detectedPlanes = this.engine.xr.frame.detectedPlanes;
+    for (const [plane, _] of this.planes) {
+      if (!detectedPlanes.has(plane)) {
+        __privateMethod(this, _planeLost, planeLost_fn).call(this, plane);
+      }
+    }
+    detectedPlanes.forEach((plane) => {
+      if (this.planes.has(plane)) {
+        if (plane.lastChangedTime > this.planes.get(plane)) {
+          __privateMethod(this, _planeUpdate, planeUpdate_fn).call(this, plane);
+        }
+      } else {
+        __privateMethod(this, _planeFound, planeFound_fn).call(this, plane);
+      }
+      __privateMethod(this, _planeUpdatePose, planeUpdatePose_fn).call(this, plane);
+    });
+  }
+};
+_planeLost = new WeakSet();
+planeLost_fn = function(plane) {
+  this.planes.delete(plane);
+  const o = this.planeObjects.get(plane);
+  this.onPlaneLost.notify(plane, o);
+  if (o.objectId > 0)
+    o.destroy();
+};
+_planeFound = new WeakSet();
+planeFound_fn = function(plane) {
+  this.planes.set(plane, plane.lastChangedTime);
+  const o = this.engine.scene.addObject(this.object);
+  this.planeObjects.set(plane, o);
+  if (this.planeMaterial) {
+    o.addComponent(MeshComponent, {
+      mesh: planeMeshFromContour(this.engine, plane.polygon),
+      material: this.planeMaterial
+    });
+  }
+  if (this.collisionMask >= 0) {
+    extentsFromContour(tempVec32, plane.polygon);
+    tempVec32[1] = 0.025;
+    o.addComponent(CollisionComponent, {
+      group: this.collisionMask,
+      collider: Collider.Box,
+      extents: tempVec32
+    });
+  }
+  this.onPlaneFound.notify(plane, o);
+};
+_planeUpdate = new WeakSet();
+planeUpdate_fn = function(plane) {
+  this.planes.set(plane, plane.lastChangedTime);
+  const planeMesh = this.planeObjects.get(plane).getComponent(MeshComponent);
+  if (!planeMesh)
+    return;
+  planeMeshFromContour(this.engine, plane.polygon, planeMesh.mesh);
+};
+_planeUpdatePose = new WeakSet();
+planeUpdatePose_fn = function(plane) {
+  const o = this.planeObjects.get(plane);
+  const pose = this.engine.xr.frame.getPose(plane.planeSpace, this.engine.xr.currentReferenceSpace);
+  if (!pose) {
+    o.active = false;
+    return;
+  }
+  setXRRigidTransformLocal(o, pose.transform);
+};
+__publicField(PlaneDetection, "TypeName", "plane-detection");
+__decorate6([
+  property.material()
+], PlaneDetection.prototype, "planeMaterial", void 0);
+__decorate6([
+  property.int()
+], PlaneDetection.prototype, "collisionMask", void 0);
+
+// node_modules/@wonderlandengine/components/dist/vrm.js
+var VRM_ROLL_AXES = {
+  X: [1, 0, 0],
+  Y: [0, 1, 0],
+  Z: [0, 0, 1]
+};
+var VRM_AIM_AXES = {
+  PositiveX: [1, 0, 0],
+  NegativeX: [-1, 0, 0],
+  PositiveY: [0, 1, 0],
+  NegativeY: [0, -1, 0],
+  PositiveZ: [0, 0, 1],
+  NegativeZ: [0, 0, -1]
+};
+var Vrm = class extends Component {
+  /** Meta information about the VRM model */
+  meta = null;
+  /** The humanoid bones of the VRM model */
+  bones = {
+    /* Torso */
+    hips: null,
+    spine: null,
+    chest: null,
+    upperChest: null,
+    neck: null,
+    /* Head */
+    head: null,
+    leftEye: null,
+    rightEye: null,
+    jaw: null,
+    /* Legs */
+    leftUpperLeg: null,
+    leftLowerLeg: null,
+    leftFoot: null,
+    leftToes: null,
+    rightUpperLeg: null,
+    rightLowerLeg: null,
+    rightFoot: null,
+    rightToes: null,
+    /* Arms */
+    leftShoulder: null,
+    leftUpperArm: null,
+    leftLowerArm: null,
+    leftHand: null,
+    rightShoulder: null,
+    rightUpperArm: null,
+    rightLowerArm: null,
+    rightHand: null,
+    /* Fingers */
+    leftThumbMetacarpal: null,
+    leftThumbProximal: null,
+    leftThumbDistal: null,
+    leftIndexProximal: null,
+    leftIndexIntermediate: null,
+    leftIndexDistal: null,
+    leftMiddleProximal: null,
+    leftMiddleIntermediate: null,
+    leftMiddleDistal: null,
+    leftRingProximal: null,
+    leftRingIntermediate: null,
+    leftRingDistal: null,
+    leftLittleProximal: null,
+    leftLittleIntermediate: null,
+    leftLittleDistal: null,
+    rightThumbMetacarpal: null,
+    rightThumbProximal: null,
+    rightThumbDistal: null,
+    rightIndexProximal: null,
+    rightIndexIntermediate: null,
+    rightIndexDistal: null,
+    rightMiddleProximal: null,
+    rightMiddleIntermediate: null,
+    rightMiddleDistal: null,
+    rightRingProximal: null,
+    rightRingIntermediate: null,
+    rightRingDistal: null,
+    rightLittleProximal: null,
+    rightLittleIntermediate: null,
+    rightLittleDistal: null
+  };
+  /** Rotations of the bones in the rest pose (T-pose) */
+  restPose = {};
+  /* All node constraints, ordered to deal with dependencies */
+  _nodeConstraints = [];
+  /* VRMC_springBone chains */
+  _springChains = [];
+  /* Spherical colliders for spring bones */
+  _sphereColliders = [];
+  /* Capsule shaped colliders for spring bones */
+  _capsuleColliders = [];
+  /* Indicates which meshes are rendered in first/third person views */
+  _firstPersonAnnotations = [];
+  /* Contains details for (bone type) lookAt behaviour */
+  _lookAt = null;
+  /* Whether or not the VRM component has been initialized with `initializeVrm` */
+  _initialized = false;
+  init() {
+    this._tempV3 = vec3_exports.create();
+    this._tempV3A = vec3_exports.create();
+    this._tempV3B = vec3_exports.create();
+    this._tempQuat = quat_exports.create();
+    this._tempQuatA = quat_exports.create();
+    this._tempQuatB = quat_exports.create();
+    this._tempMat4A = mat4_exports.create();
+    this._tempQuat2 = quat2_exports.create();
+    this._tailToShape = vec3_exports.create();
+    this._headToTail = vec3_exports.create();
+    this._inertia = vec3_exports.create();
+    this._stiffness = vec3_exports.create();
+    this._external = vec3_exports.create();
+    this._rightVector = vec3_exports.set(vec3_exports.create(), 1, 0, 0);
+    this._upVector = vec3_exports.set(vec3_exports.create(), 0, 1, 0);
+    this._forwardVector = vec3_exports.set(vec3_exports.create(), 0, 0, 1);
+    this._identityQuat = quat_exports.identity(quat_exports.create());
+    this._rad2deg = 180 / Math.PI;
+  }
+  start() {
+    if (!this.src) {
+      console.error("vrm: src property not set");
+      return;
+    }
+    this.engine.scene.append(this.src, { loadGltfExtensions: true }).then(({ root, extensions }) => {
+      root.children.forEach((child) => child.parent = this.object);
+      this._initializeVrm(extensions);
+      root.destroy();
+    });
+  }
+  /**
+   * Parses the VRM glTF extensions and initializes the vrm component.
+   * @param {GLTFExtensions} extensions The glTF extensions for the VRM model
+   */
+  _initializeVrm(extensions) {
+    if (this._initialized) {
+      throw Error("VRM component has already been initialized");
+    }
+    const VRMC_vrm = extensions.root["VRMC_vrm"];
+    if (!VRMC_vrm) {
+      throw Error("Missing VRM extensions");
+    }
+    if (VRMC_vrm.specVersion !== "1.0") {
+      throw Error(`Unsupported VRM version, only 1.0 is supported, but encountered '${VRMC_vrm.specVersion}'`);
+    }
+    this.meta = VRMC_vrm.meta;
+    this._parseHumanoid(VRMC_vrm.humanoid, extensions);
+    if (VRMC_vrm.firstPerson) {
+      this._parseFirstPerson(VRMC_vrm.firstPerson, extensions);
+    }
+    if (VRMC_vrm.lookAt) {
+      this._parseLookAt(VRMC_vrm.lookAt);
+    }
+    this._findAndParseNodeConstraints(extensions);
+    const springBone = extensions.root["VRMC_springBone"];
+    if (springBone) {
+      this._parseAndInitializeSpringBones(springBone, extensions);
+    }
+    this._initialized = true;
+  }
+  _parseHumanoid(humanoid, extensions) {
+    for (const boneName in humanoid.humanBones) {
+      if (!(boneName in this.bones)) {
+        console.warn(`Unrecognized bone '${boneName}'`);
+        continue;
+      }
+      const node = humanoid.humanBones[boneName].node;
+      const objectId = extensions.idMapping[node];
+      this.bones[boneName] = this.engine.wrapObject(objectId);
+      this.restPose[boneName] = quat_exports.copy(quat_exports.create(), this.bones[boneName].rotationLocal);
+    }
+  }
+  _parseFirstPerson(firstPerson, extensions) {
+    for (const meshAnnotation of firstPerson.meshAnnotations) {
+      const annotation = {
+        node: this.engine.wrapObject(extensions.idMapping[meshAnnotation.node]),
+        firstPerson: true,
+        thirdPerson: true
+      };
+      switch (meshAnnotation.type) {
+        case "firstPersonOnly":
+          annotation.thirdPerson = false;
+          break;
+        case "thirdPersonOnly":
+          annotation.firstPerson = false;
+          break;
+        case "both":
+          break;
+        case "auto":
+          console.warn("First person mesh annotation type 'auto' is not supported, treating as 'both'!");
+          break;
+        default:
+          console.error(`Invalid mesh annotation type '${meshAnnotation.type}'`);
+          break;
+      }
+      this._firstPersonAnnotations.push(annotation);
+    }
+  }
+  _parseLookAt(lookAt2) {
+    if (lookAt2.type !== "bone") {
+      console.warn(`Unsupported lookAt type '${lookAt2.type}', only 'bone' is supported`);
+      return;
+    }
+    const parseRangeMap = (rangeMap) => {
+      return {
+        inputMaxValue: rangeMap.inputMaxValue,
+        outputScale: rangeMap.outputScale
+      };
+    };
+    this._lookAt = {
+      offsetFromHeadBone: lookAt2.offsetFromHeadBone || [0, 0, 0],
+      horizontalInner: parseRangeMap(lookAt2.rangeMapHorizontalInner),
+      horizontalOuter: parseRangeMap(lookAt2.rangeMapHorizontalOuter),
+      verticalDown: parseRangeMap(lookAt2.rangeMapVerticalDown),
+      verticalUp: parseRangeMap(lookAt2.rangeMapVerticalUp)
+    };
+  }
+  _findAndParseNodeConstraints(extensions) {
+    const traverse = (object) => {
+      const nodeExtensions = extensions.node[object.objectId];
+      if (nodeExtensions && "VRMC_node_constraint" in nodeExtensions) {
+        const nodeConstraintExtension = nodeExtensions["VRMC_node_constraint"];
+        const constraint = nodeConstraintExtension.constraint;
+        let type, axis;
+        if ("roll" in constraint) {
+          type = "roll";
+          axis = VRM_ROLL_AXES[constraint.roll.rollAxis];
+        } else if ("aim" in constraint) {
+          type = "aim";
+          axis = VRM_AIM_AXES[constraint.aim.aimAxis];
+        } else if ("rotation" in constraint) {
+          type = "rotation";
+        }
+        if (type) {
+          const source = this.engine.wrapObject(extensions.idMapping[constraint[type].source]);
+          this._nodeConstraints.push({
+            type,
+            source,
+            destination: object,
+            axis,
+            weight: constraint[type].weight,
+            /* Rest pose */
+            destinationRestLocalRotation: quat_exports.copy(quat_exports.create(), object.rotationLocal),
+            sourceRestLocalRotation: quat_exports.copy(quat_exports.create(), source.rotationLocal),
+            sourceRestLocalRotationInv: quat_exports.invert(quat_exports.create(), source.rotationLocal)
+          });
+        } else {
+          console.warn("Unrecognized or invalid VRMC_node_constraint, ignoring it");
+        }
+      }
+      for (const child of object.children) {
+        traverse(child);
+      }
+    };
+    traverse(this.object);
+  }
+  _parseAndInitializeSpringBones(springBone, extensions) {
+    const colliders = (springBone.colliders || []).map((collider, i) => {
+      const shapeType = "capsule" in collider.shape ? "capsule" : "sphere";
+      return {
+        id: i,
+        object: this.engine.wrapObject(extensions.idMapping[collider.node]),
+        shape: {
+          isCapsule: shapeType === "capsule",
+          radius: collider.shape[shapeType].radius,
+          offset: collider.shape[shapeType].offset,
+          tail: collider.shape[shapeType].tail
+        },
+        cache: {
+          head: vec3_exports.create(),
+          tail: vec3_exports.create()
+        }
+      };
+    });
+    this._sphereColliders = colliders.filter((c) => !c.shape.isCapsule);
+    this._capsuleColliders = colliders.filter((c) => c.shape.isCapsule);
+    const colliderGroups = (springBone.colliderGroups || []).map((group) => ({
+      name: group.name,
+      colliders: group.colliders.map((c) => colliders[c])
+    }));
+    for (const spring of springBone.springs) {
+      const joints = [];
+      for (const joint of spring.joints) {
+        const springJoint = {
+          hitRadius: 0,
+          stiffness: 1,
+          gravityPower: 0,
+          gravityDir: [0, -1, 0],
+          dragForce: 0.5,
+          node: null,
+          state: null
+        };
+        Object.assign(springJoint, joint);
+        springJoint.node = this.engine.wrapObject(extensions.idMapping[springJoint.node]);
+        joints.push(springJoint);
+      }
+      const springChainColliders = (spring.colliderGroups || []).flatMap((cg) => colliderGroups[cg].colliders);
+      this._springChains.push({
+        name: spring.name,
+        center: spring.center ? this.engine.wrapObject(extensions.idMapping[spring.center]) : null,
+        joints,
+        sphereColliders: springChainColliders.filter((c) => !c.shape.isCapsule),
+        capsuleColliders: springChainColliders.filter((c) => c.shape.isCapsule)
+      });
+    }
+    for (const springChain of this._springChains) {
+      for (let i = 0; i < springChain.joints.length - 1; ++i) {
+        const springBoneJoint = springChain.joints[i];
+        const childSpringBoneJoint = springChain.joints[i + 1];
+        const springBonePosition = springBoneJoint.node.getTranslationWorld(vec3_exports.create());
+        const childSpringBonePosition = childSpringBoneJoint.node.getTranslationWorld(vec3_exports.create());
+        const boneDirection = vec3_exports.subtract(this._tempV3A, springBonePosition, childSpringBonePosition);
+        const state = {
+          prevTail: childSpringBonePosition,
+          currentTail: vec3_exports.copy(vec3_exports.create(), childSpringBonePosition),
+          initialLocalRotation: quat_exports.copy(quat_exports.create(), springBoneJoint.node.rotationLocal),
+          initialLocalTransformInvert: quat2_exports.invert(quat2_exports.create(), springBoneJoint.node.transformLocal),
+          boneAxis: vec3_exports.normalize(vec3_exports.create(), childSpringBoneJoint.node.getTranslationLocal(this._tempV3)),
+          /* Ensure bone length is at least 1cm to avoid jittery behaviour from zero-length bones */
+          boneLength: Math.max(0.01, vec3_exports.length(boneDirection)),
+          /* Tail positions in center space, if needed */
+          prevTailCenter: null,
+          currentTailCenter: null
+        };
+        if (springChain.center) {
+          state.prevTailCenter = springChain.center.transformPointInverseWorld(vec3_exports.create(), childSpringBonePosition);
+          state.currentTailCenter = vec3_exports.copy(vec3_exports.create(), childSpringBonePosition);
+        }
+        springBoneJoint.state = state;
+      }
+    }
+  }
+  update(dt) {
+    if (!this._initialized) {
+      return;
+    }
+    this._resolveLookAt();
+    this._resolveConstraints();
+    this._updateSpringBones(dt);
+  }
+  _rangeMap(rangeMap, input) {
+    const maxValue = rangeMap.inputMaxValue;
+    const outputScale = rangeMap.outputScale;
+    return Math.min(input, maxValue) / maxValue * outputScale;
+  }
+  _resolveLookAt() {
+    if (!this._lookAt || !this.lookAtTarget) {
+      return;
+    }
+    const lookAtSource = this.bones.head.transformPointWorld(this._tempV3A, this._lookAt.offsetFromHeadBone);
+    const lookAtTarget = this.lookAtTarget.getTranslationWorld(this._tempV3B);
+    const lookAtDirection = vec3_exports.sub(this._tempV3A, lookAtTarget, lookAtSource);
+    vec3_exports.normalize(lookAtDirection, lookAtDirection);
+    this.bones.head.parent.transformVectorInverseWorld(lookAtDirection);
+    const z = vec3_exports.dot(lookAtDirection, this._forwardVector);
+    const x2 = vec3_exports.dot(lookAtDirection, this._rightVector);
+    const yaw = Math.atan2(x2, z) * this._rad2deg;
+    const xz = Math.sqrt(x2 * x2 + z * z);
+    const y = vec3_exports.dot(lookAtDirection, this._upVector);
+    let pitch = Math.atan2(-y, xz) * this._rad2deg;
+    if (pitch > 0) {
+      pitch = this._rangeMap(this._lookAt.verticalDown, pitch);
+    } else {
+      pitch = -this._rangeMap(this._lookAt.verticalUp, -pitch);
+    }
+    if (this.bones.leftEye) {
+      let yawLeft = yaw;
+      if (yawLeft > 0) {
+        yawLeft = this._rangeMap(this._lookAt.horizontalInner, yawLeft);
+      } else {
+        yawLeft = -this._rangeMap(this._lookAt.horizontalOuter, -yawLeft);
+      }
+      const eyeRotation = quat_exports.fromEuler(this._tempQuatA, pitch, yawLeft, 0);
+      this.bones.leftEye.rotationLocal = quat_exports.multiply(eyeRotation, this.restPose.leftEye, eyeRotation);
+    }
+    if (this.bones.rightEye) {
+      let yawRight = yaw;
+      if (yawRight > 0) {
+        yawRight = this._rangeMap(this._lookAt.horizontalOuter, yawRight);
+      } else {
+        yawRight = -this._rangeMap(this._lookAt.horizontalInner, -yawRight);
+      }
+      const eyeRotation = quat_exports.fromEuler(this._tempQuatA, pitch, yawRight, 0);
+      this.bones.rightEye.rotationLocal = quat_exports.multiply(eyeRotation, this.restPose.rightEye, eyeRotation);
+    }
+  }
+  _resolveConstraints() {
+    for (const nodeConstraint of this._nodeConstraints) {
+      this._resolveConstraint(nodeConstraint);
+    }
+  }
+  _resolveConstraint(nodeConstraint) {
+    const dstRestQuat = nodeConstraint.destinationRestLocalRotation;
+    const srcRestQuatInv = nodeConstraint.sourceRestLocalRotationInv;
+    const targetQuat = quat_exports.identity(this._tempQuatA);
+    switch (nodeConstraint.type) {
+      case "roll":
+        {
+          const deltaSrcQuat = quat_exports.multiply(this._tempQuatA, srcRestQuatInv, nodeConstraint.source.rotationLocal);
+          const deltaSrcQuatInParent = quat_exports.multiply(this._tempQuatA, nodeConstraint.sourceRestLocalRotation, deltaSrcQuat);
+          quat_exports.mul(deltaSrcQuatInParent, deltaSrcQuatInParent, srcRestQuatInv);
+          const dstRestQuatInv = quat_exports.invert(this._tempQuatB, dstRestQuat);
+          const deltaSrcQuatInDst = quat_exports.multiply(this._tempQuatB, dstRestQuatInv, deltaSrcQuatInParent);
+          quat_exports.multiply(deltaSrcQuatInDst, deltaSrcQuatInDst, dstRestQuat);
+          const toVec = vec3_exports.transformQuat(this._tempV3A, nodeConstraint.axis, deltaSrcQuatInDst);
+          const fromToQuat = quat_exports.rotationTo(this._tempQuatA, nodeConstraint.axis, toVec);
+          quat_exports.mul(targetQuat, dstRestQuat, quat_exports.invert(this._tempQuat, fromToQuat));
+          quat_exports.mul(targetQuat, targetQuat, deltaSrcQuatInDst);
+        }
+        break;
+      case "aim":
+        {
+          const dstParentWorldQuat = nodeConstraint.destination.parent.rotationWorld;
+          const fromVec = vec3_exports.transformQuat(this._tempV3A, nodeConstraint.axis, dstRestQuat);
+          vec3_exports.transformQuat(fromVec, fromVec, dstParentWorldQuat);
+          const toVec = nodeConstraint.source.getTranslationWorld(this._tempV3B);
+          vec3_exports.sub(toVec, toVec, nodeConstraint.destination.getTranslationWorld(this._tempV3));
+          vec3_exports.normalize(toVec, toVec);
+          const fromToQuat = quat_exports.rotationTo(this._tempQuatA, fromVec, toVec);
+          quat_exports.mul(targetQuat, quat_exports.invert(this._tempQuat, dstParentWorldQuat), fromToQuat);
+          quat_exports.mul(targetQuat, targetQuat, dstParentWorldQuat);
+          quat_exports.mul(targetQuat, targetQuat, dstRestQuat);
+        }
+        break;
+      case "rotation":
+        {
+          const srcDeltaQuat = quat_exports.mul(targetQuat, srcRestQuatInv, nodeConstraint.source.rotationLocal);
+          quat_exports.mul(targetQuat, dstRestQuat, srcDeltaQuat);
+        }
+        break;
+    }
+    quat_exports.slerp(targetQuat, dstRestQuat, targetQuat, nodeConstraint.weight);
+    nodeConstraint.destination.rotationLocal = targetQuat;
+  }
+  _updateSpringBones(dt) {
+    this._sphereColliders.forEach(({ object, shape, cache }) => {
+      const offset2 = vec3_exports.copy(cache.head, shape.offset);
+      object.transformVectorWorld(offset2);
+      vec3_exports.add(cache.head, object.getTranslationWorld(this._tempV3), offset2);
+    });
+    this._capsuleColliders.forEach(({ object, shape, cache }) => {
+      const shapeCenter = object.getTranslationWorld(this._tempV3A);
+      const headOffset = vec3_exports.copy(cache.head, shape.offset);
+      object.transformVectorWorld(headOffset);
+      vec3_exports.add(cache.head, shapeCenter, headOffset);
+      const tailOffset = vec3_exports.copy(cache.tail, shape.tail);
+      object.transformVectorWorld(tailOffset);
+      vec3_exports.add(cache.tail, shapeCenter, tailOffset);
+    });
+    this._springChains.forEach((springChain) => {
+      for (let i = 0; i < springChain.joints.length - 1; ++i) {
+        const joint = springChain.joints[i];
+        const parentWorldRotation = joint.node.parent ? joint.node.parent.rotationWorld : this._identityQuat;
+        const inertia = this._inertia;
+        if (springChain.center) {
+          vec3_exports.sub(inertia, joint.state.currentTailCenter, joint.state.prevTailCenter);
+          springChain.center.transformVectorWorld(inertia);
+        } else {
+          vec3_exports.sub(inertia, joint.state.currentTail, joint.state.prevTail);
+        }
+        vec3_exports.scale(inertia, inertia, 1 - joint.dragForce);
+        const stiffness = vec3_exports.copy(this._stiffness, joint.state.boneAxis);
+        vec3_exports.transformQuat(stiffness, stiffness, joint.state.initialLocalRotation);
+        vec3_exports.transformQuat(stiffness, stiffness, parentWorldRotation);
+        vec3_exports.scale(stiffness, stiffness, dt * joint.stiffness);
+        const external = vec3_exports.scale(this._external, joint.gravityDir, dt * joint.gravityPower);
+        const nextTail = vec3_exports.copy(this._tempV3A, joint.state.currentTail);
+        vec3_exports.add(nextTail, nextTail, inertia);
+        vec3_exports.add(nextTail, nextTail, stiffness);
+        vec3_exports.add(nextTail, nextTail, external);
+        const worldPosition = joint.node.getTranslationWorld(this._tempV3B);
+        vec3_exports.sub(nextTail, nextTail, worldPosition);
+        vec3_exports.normalize(nextTail, nextTail);
+        vec3_exports.scaleAndAdd(nextTail, worldPosition, nextTail, joint.state.boneLength);
+        for (const { shape, cache } of springChain.sphereColliders) {
+          let tailToShape = this._tailToShape;
+          const sphereCenter = cache.head;
+          tailToShape = vec3_exports.sub(tailToShape, nextTail, sphereCenter);
+          const radius = shape.radius + joint.hitRadius;
+          const dist2 = vec3_exports.length(tailToShape) - radius;
+          if (dist2 < 0) {
+            vec3_exports.normalize(tailToShape, tailToShape);
+            vec3_exports.scaleAndAdd(nextTail, nextTail, tailToShape, -dist2);
+            vec3_exports.sub(nextTail, nextTail, worldPosition);
+            vec3_exports.normalize(nextTail, nextTail);
+            vec3_exports.scaleAndAdd(nextTail, worldPosition, nextTail, joint.state.boneLength);
+          }
+        }
+        for (const { shape, cache } of springChain.capsuleColliders) {
+          let tailToShape = this._tailToShape;
+          const head = cache.head;
+          const tail = cache.tail;
+          tailToShape = vec3_exports.sub(tailToShape, nextTail, head);
+          const headToTail = vec3_exports.sub(this._headToTail, tail, head);
+          const dot5 = vec3_exports.dot(headToTail, tailToShape);
+          if (vec3_exports.squaredLength(headToTail) <= dot5) {
+            vec3_exports.sub(tailToShape, nextTail, tail);
+          } else if (dot5 > 0) {
+            vec3_exports.scale(headToTail, headToTail, dot5 / vec3_exports.squaredLength(headToTail));
+            vec3_exports.sub(tailToShape, tailToShape, headToTail);
+          }
+          const radius = shape.radius + joint.hitRadius;
+          const dist2 = vec3_exports.length(tailToShape) - radius;
+          if (dist2 < 0) {
+            vec3_exports.normalize(tailToShape, tailToShape);
+            vec3_exports.scaleAndAdd(nextTail, nextTail, tailToShape, -dist2);
+            vec3_exports.sub(nextTail, nextTail, worldPosition);
+            vec3_exports.normalize(nextTail, nextTail);
+            vec3_exports.scaleAndAdd(nextTail, worldPosition, nextTail, joint.state.boneLength);
+          }
+        }
+        vec3_exports.copy(joint.state.prevTail, joint.state.currentTail);
+        vec3_exports.copy(joint.state.currentTail, nextTail);
+        if (springChain.center) {
+          vec3_exports.copy(joint.state.prevTailCenter, joint.state.currentTailCenter);
+          vec3_exports.copy(joint.state.currentTailCenter, nextTail);
+          springChain.center.transformPointInverseWorld(joint.state.currentTailCenter);
+        }
+        joint.node.parent.transformPointInverseWorld(nextTail);
+        const nextTailDualQuat = quat2_exports.fromTranslation(this._tempQuat2, nextTail);
+        quat2_exports.multiply(nextTailDualQuat, joint.state.initialLocalTransformInvert, nextTailDualQuat);
+        quat2_exports.getTranslation(nextTail, nextTailDualQuat);
+        vec3_exports.normalize(nextTail, nextTail);
+        const jointRotation = quat_exports.rotationTo(this._tempQuatA, joint.state.boneAxis, nextTail);
+        joint.node.rotationLocal = quat_exports.mul(this._tempQuatA, joint.state.initialLocalRotation, jointRotation);
+      }
+    });
+  }
+  /**
+   * @param {boolean} firstPerson Whether the model should render for first person or third person views
+   */
+  set firstPerson(firstPerson) {
+    this._firstPersonAnnotations.forEach((annotation) => {
+      const visible = firstPerson == annotation.firstPerson || firstPerson != annotation.thirdPerson;
+      annotation.node.getComponents("mesh").forEach((mesh) => {
+        mesh.active = visible;
+      });
+    });
+  }
+};
+__publicField(Vrm, "TypeName", "vrm");
+__publicField(Vrm, "Properties", {
+  /** URL to a VRM file to load */
+  src: { type: Type.String },
+  /** Object the VRM is looking at */
+  lookAtTarget: { type: Type.Object }
+});
+
+// node_modules/@wonderlandengine/components/dist/wasd-controls.js
+var WasdControlsComponent = class extends Component {
+  init() {
+    this.up = false;
+    this.right = false;
+    this.down = false;
+    this.left = false;
+    window.addEventListener("keydown", this.press.bind(this));
+    window.addEventListener("keyup", this.release.bind(this));
+  }
+  start() {
+    this.headObject = this.headObject || this.object;
+  }
+  update() {
+    let direction2 = [0, 0, 0];
+    if (this.up)
+      direction2[2] -= 1;
+    if (this.down)
+      direction2[2] += 1;
+    if (this.left)
+      direction2[0] -= 1;
+    if (this.right)
+      direction2[0] += 1;
+    vec3_exports.normalize(direction2, direction2);
+    direction2[0] *= this.speed;
+    direction2[2] *= this.speed;
+    vec3_exports.transformQuat(direction2, direction2, this.headObject.transformWorld);
+    this.object.translate(direction2);
+  }
+  press(e) {
+    if (e.keyCode === 38 || e.keyCode === 87 || e.keyCode === 90) {
+      this.up = true;
+    } else if (e.keyCode === 39 || e.keyCode === 68) {
+      this.right = true;
+    } else if (e.keyCode === 40 || e.keyCode === 83) {
+      this.down = true;
+    } else if (e.keyCode === 37 || e.keyCode === 65 || e.keyCode === 81) {
+      this.left = true;
+    }
+  }
+  release(e) {
+    if (e.keyCode === 38 || e.keyCode === 87 || e.keyCode === 90) {
+      this.up = false;
+    } else if (e.keyCode === 39 || e.keyCode === 68) {
+      this.right = false;
+    } else if (e.keyCode === 40 || e.keyCode === 83) {
+      this.down = false;
+    } else if (e.keyCode === 37 || e.keyCode === 65 || e.keyCode === 81) {
+      this.left = false;
+    }
+  }
+};
+__publicField(WasdControlsComponent, "TypeName", "wasd-controls");
+__publicField(WasdControlsComponent, "Properties", {
+  /** Movement speed in m/s. */
+  speed: { type: Type.Float, default: 0.1 },
+  /** Object of which the orientation is used to determine forward direction */
+  headObject: { type: Type.Object }
+});
+
+// js/expose-banners.js
+var ExposeBanners = class extends Component {
+  start() {
+    this.banner1 = this.banner1Object.getComponent("zesty-banner");
+    this.banner2 = this.banner2Object.getComponent("zesty-banner");
+    this.banner3 = this.banner3Object.getComponent("zesty-banner");
+    this.banner4 = this.banner4Object.getComponent("zesty-banner");
+    this.banner5 = this.banner5Object.getComponent("zesty-banner");
+    this.banner6 = this.banner6Object.getComponent("zesty-banner");
+    this.banner7 = this.banner7Object.getComponent("zesty-banner");
+    this.banner8 = this.banner8Object.getComponent("zesty-banner");
+    this.banner9 = this.banner9Object.getComponent("zesty-banner");
+    window.testBanners = [
+      this.banner1,
+      this.banner2,
+      this.banner3,
+      this.banner4,
+      this.banner5,
+      this.banner6,
+      this.banner7,
+      this.banner8,
+      this.banner9
+    ];
+  }
+};
+__publicField(ExposeBanners, "TypeName", "expose-banners");
+__publicField(ExposeBanners, "Properties", {
+  banner1Object: Property.object(),
+  banner2Object: Property.object(),
+  banner3Object: Property.object(),
+  banner4Object: Property.object(),
+  banner5Object: Property.object(),
+  banner6Object: Property.object(),
+  banner7Object: Property.object(),
+  banner8Object: Property.object(),
+  banner9Object: Property.object()
+});
+
+// js/zesty-wonderland-sdk.js
+var Yt = Object.create;
+var X = Object.defineProperty;
+var Zt = Object.getOwnPropertyDescriptor;
+var er = Object.getOwnPropertyNames;
+var tr = Object.getPrototypeOf;
+var rr = Object.prototype.hasOwnProperty;
+var nr = (t, e, r) => e in t ? X(t, e, { enumerable: true, configurable: true, writable: true, value: r }) : t[e] = r;
+var l = (t, e) => () => (e || t((e = { exports: {} }).exports, e), e.exports);
+var sr = (t, e, r, s) => {
+  if (e && typeof e == "object" || typeof e == "function")
+    for (let n of er(e))
+      !rr.call(t, n) && n !== r && X(t, n, { get: () => e[n], enumerable: !(s = Zt(e, n)) || s.enumerable });
+  return t;
+};
+var Ae = (t, e, r) => (r = t != null ? Yt(tr(t)) : {}, sr(e || !t || !t.__esModule ? X(r, "default", { value: t, enumerable: true }) : r, t));
+var G = (t, e, r) => (nr(t, typeof e != "symbol" ? e + "" : e, r), r);
+var Q = l((yn, qe) => {
+  "use strict";
+  qe.exports = function(e, r) {
+    return function() {
+      for (var n = new Array(arguments.length), i = 0; i < n.length; i++)
+        n[i] = arguments[i];
+      return e.apply(r, n);
+    };
+  };
+});
+var d = l((vn, Pe) => {
+  "use strict";
+  var ir = Q(), Z = Object.prototype.toString, ee = function(t) {
+    return function(e) {
+      var r = Z.call(e);
+      return t[r] || (t[r] = r.slice(8, -1).toLowerCase());
+    };
+  }(/* @__PURE__ */ Object.create(null));
+  function A(t) {
+    return t = t.toLowerCase(), function(r) {
+      return ee(r) === t;
+    };
+  }
+  function te(t) {
+    return Array.isArray(t);
+  }
+  function F(t) {
+    return typeof t > "u";
+  }
+  function ar(t) {
+    return t !== null && !F(t) && t.constructor !== null && !F(t.constructor) && typeof t.constructor.isBuffer == "function" && t.constructor.isBuffer(t);
+  }
+  var Te = A("ArrayBuffer");
+  function or(t) {
+    var e;
+    return typeof ArrayBuffer < "u" && ArrayBuffer.isView ? e = ArrayBuffer.isView(t) : e = t && t.buffer && Te(t.buffer), e;
+  }
+  function ur(t) {
+    return typeof t == "string";
+  }
+  function cr(t) {
+    return typeof t == "number";
+  }
+  function Se(t) {
+    return t !== null && typeof t == "object";
+  }
+  function j(t) {
+    if (ee(t) !== "object")
+      return false;
+    var e = Object.getPrototypeOf(t);
+    return e === null || e === Object.prototype;
+  }
+  var lr = A("Date"), fr = A("File"), dr = A("Blob"), pr = A("FileList");
+  function re(t) {
+    return Z.call(t) === "[object Function]";
+  }
+  function hr(t) {
+    return Se(t) && re(t.pipe);
+  }
+  function mr(t) {
+    var e = "[object FormData]";
+    return t && (typeof FormData == "function" && t instanceof FormData || Z.call(t) === e || re(t.toString) && t.toString() === e);
+  }
+  var yr = A("URLSearchParams");
+  function vr(t) {
+    return t.trim ? t.trim() : t.replace(/^\s+|\s+$/g, "");
+  }
+  function wr() {
+    return typeof navigator < "u" && (navigator.product === "ReactNative" || navigator.product === "NativeScript" || navigator.product === "NS") ? false : typeof window < "u" && typeof document < "u";
+  }
+  function ne(t, e) {
+    if (!(t === null || typeof t > "u"))
+      if (typeof t != "object" && (t = [t]), te(t))
+        for (var r = 0, s = t.length; r < s; r++)
+          e.call(null, t[r], r, t);
+      else
+        for (var n in t)
+          Object.prototype.hasOwnProperty.call(t, n) && e.call(null, t[n], n, t);
+  }
+  function Y() {
+    var t = {};
+    function e(n, i) {
+      j(t[i]) && j(n) ? t[i] = Y(t[i], n) : j(n) ? t[i] = Y({}, n) : te(n) ? t[i] = n.slice() : t[i] = n;
+    }
+    for (var r = 0, s = arguments.length; r < s; r++)
+      ne(arguments[r], e);
+    return t;
+  }
+  function br(t, e, r) {
+    return ne(e, function(n, i) {
+      r && typeof n == "function" ? t[i] = ir(n, r) : t[i] = n;
+    }), t;
+  }
+  function gr(t) {
+    return t.charCodeAt(0) === 65279 && (t = t.slice(1)), t;
+  }
+  function Er(t, e, r, s) {
+    t.prototype = Object.create(e.prototype, s), t.prototype.constructor = t, r && Object.assign(t.prototype, r);
+  }
+  function xr(t, e, r) {
+    var s, n, i, a = {};
+    e = e || {};
+    do {
+      for (s = Object.getOwnPropertyNames(t), n = s.length; n-- > 0; )
+        i = s[n], a[i] || (e[i] = t[i], a[i] = true);
+      t = Object.getPrototypeOf(t);
+    } while (t && (!r || r(t, e)) && t !== Object.prototype);
+    return e;
+  }
+  function Rr(t, e, r) {
+    t = String(t), (r === void 0 || r > t.length) && (r = t.length), r -= e.length;
+    var s = t.indexOf(e, r);
+    return s !== -1 && s === r;
+  }
+  function Cr(t) {
+    if (!t)
+      return null;
+    var e = t.length;
+    if (F(e))
+      return null;
+    for (var r = new Array(e); e-- > 0; )
+      r[e] = t[e];
+    return r;
+  }
+  var Or = function(t) {
+    return function(e) {
+      return t && e instanceof t;
+    };
+  }(typeof Uint8Array < "u" && Object.getPrototypeOf(Uint8Array));
+  Pe.exports = { isArray: te, isArrayBuffer: Te, isBuffer: ar, isFormData: mr, isArrayBufferView: or, isString: ur, isNumber: cr, isObject: Se, isPlainObject: j, isUndefined: F, isDate: lr, isFile: fr, isBlob: dr, isFunction: re, isStream: hr, isURLSearchParams: yr, isStandardBrowserEnv: wr, forEach: ne, merge: Y, extend: br, trim: vr, stripBOM: gr, inherits: Er, toFlatObject: xr, kindOf: ee, kindOfTest: A, endsWith: Rr, toArray: Cr, isTypedArray: Or, isFileList: pr };
+});
+var se = l((wn, _e) => {
+  "use strict";
+  var S = d();
+  function Ne(t) {
+    return encodeURIComponent(t).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
+  }
+  _e.exports = function(e, r, s) {
+    if (!r)
+      return e;
+    var n;
+    if (s)
+      n = s(r);
+    else if (S.isURLSearchParams(r))
+      n = r.toString();
+    else {
+      var i = [];
+      S.forEach(r, function(c, h) {
+        c === null || typeof c > "u" || (S.isArray(c) ? h = h + "[]" : c = [c], S.forEach(c, function(f) {
+          S.isDate(f) ? f = f.toISOString() : S.isObject(f) && (f = JSON.stringify(f)), i.push(Ne(h) + "=" + Ne(f));
+        }));
+      }), n = i.join("&");
+    }
+    if (n) {
+      var a = e.indexOf("#");
+      a !== -1 && (e = e.slice(0, a)), e += (e.indexOf("?") === -1 ? "?" : "&") + n;
+    }
+    return e;
+  };
+});
+var De = l((bn, ke) => {
+  "use strict";
+  var Ar = d();
+  function I() {
+    this.handlers = [];
+  }
+  I.prototype.use = function(e, r, s) {
+    return this.handlers.push({ fulfilled: e, rejected: r, synchronous: s ? s.synchronous : false, runWhen: s ? s.runWhen : null }), this.handlers.length - 1;
+  };
+  I.prototype.eject = function(e) {
+    this.handlers[e] && (this.handlers[e] = null);
+  };
+  I.prototype.forEach = function(e) {
+    Ar.forEach(this.handlers, function(s) {
+      s !== null && e(s);
+    });
+  };
+  ke.exports = I;
+});
+var Be = l((gn, Ue) => {
+  "use strict";
+  var qr = d();
+  Ue.exports = function(e, r) {
+    qr.forEach(e, function(n, i) {
+      i !== r && i.toUpperCase() === r.toUpperCase() && (e[r] = n, delete e[i]);
+    });
+  };
+});
+var q = l((En, Ie) => {
+  "use strict";
+  var Le = d();
+  function P(t, e, r, s, n) {
+    Error.call(this), this.message = t, this.name = "AxiosError", e && (this.code = e), r && (this.config = r), s && (this.request = s), n && (this.response = n);
+  }
+  Le.inherits(P, Error, { toJSON: function() {
+    return { message: this.message, name: this.name, description: this.description, number: this.number, fileName: this.fileName, lineNumber: this.lineNumber, columnNumber: this.columnNumber, stack: this.stack, config: this.config, code: this.code, status: this.response && this.response.status ? this.response.status : null };
+  } });
+  var je = P.prototype, Fe = {};
+  ["ERR_BAD_OPTION_VALUE", "ERR_BAD_OPTION", "ECONNABORTED", "ETIMEDOUT", "ERR_NETWORK", "ERR_FR_TOO_MANY_REDIRECTS", "ERR_DEPRECATED", "ERR_BAD_RESPONSE", "ERR_BAD_REQUEST", "ERR_CANCELED"].forEach(function(t) {
+    Fe[t] = { value: t };
+  });
+  Object.defineProperties(P, Fe);
+  Object.defineProperty(je, "isAxiosError", { value: true });
+  P.from = function(t, e, r, s, n, i) {
+    var a = Object.create(je);
+    return Le.toFlatObject(t, a, function(c) {
+      return c !== Error.prototype;
+    }), P.call(a, t.message, e, r, s, n), a.name = t.name, i && Object.assign(a, i), a;
+  };
+  Ie.exports = P;
+});
+var ie = l((xn, Me) => {
+  "use strict";
+  Me.exports = { silentJSONParsing: true, forcedJSONParsing: true, clarifyTimeoutError: false };
+});
+var ae = l((Rn, ze) => {
+  "use strict";
+  var g = d();
+  function Tr(t, e) {
+    e = e || new FormData();
+    var r = [];
+    function s(i) {
+      return i === null ? "" : g.isDate(i) ? i.toISOString() : g.isArrayBuffer(i) || g.isTypedArray(i) ? typeof Blob == "function" ? new Blob([i]) : Buffer.from(i) : i;
+    }
+    function n(i, a) {
+      if (g.isPlainObject(i) || g.isArray(i)) {
+        if (r.indexOf(i) !== -1)
+          throw Error("Circular reference detected in " + a);
+        r.push(i), g.forEach(i, function(c, h) {
+          if (!g.isUndefined(c)) {
+            var o = a ? a + "." + h : h, f;
+            if (c && !a && typeof c == "object") {
+              if (g.endsWith(h, "{}"))
+                c = JSON.stringify(c);
+              else if (g.endsWith(h, "[]") && (f = g.toArray(c))) {
+                f.forEach(function(v) {
+                  !g.isUndefined(v) && e.append(o, s(v));
+                });
+                return;
+              }
+            }
+            n(c, o);
+          }
+        }), r.pop();
+      } else
+        e.append(a, s(i));
+    }
+    return n(t), e;
+  }
+  ze.exports = Tr;
+});
+var He = l((Cn, $e) => {
+  "use strict";
+  var oe = q();
+  $e.exports = function(e, r, s) {
+    var n = s.config.validateStatus;
+    !s.status || !n || n(s.status) ? e(s) : r(new oe("Request failed with status code " + s.status, [oe.ERR_BAD_REQUEST, oe.ERR_BAD_RESPONSE][Math.floor(s.status / 100) - 4], s.config, s.request, s));
+  };
+});
+var We = l((On, Je) => {
+  "use strict";
+  var M = d();
+  Je.exports = M.isStandardBrowserEnv() ? function() {
+    return { write: function(r, s, n, i, a, u) {
+      var c = [];
+      c.push(r + "=" + encodeURIComponent(s)), M.isNumber(n) && c.push("expires=" + new Date(n).toGMTString()), M.isString(i) && c.push("path=" + i), M.isString(a) && c.push("domain=" + a), u === true && c.push("secure"), document.cookie = c.join("; ");
+    }, read: function(r) {
+      var s = document.cookie.match(new RegExp("(^|;\\s*)(" + r + ")=([^;]*)"));
+      return s ? decodeURIComponent(s[3]) : null;
+    }, remove: function(r) {
+      this.write(r, "", Date.now() - 864e5);
+    } };
+  }() : function() {
+    return { write: function() {
+    }, read: function() {
+      return null;
+    }, remove: function() {
+    } };
+  }();
+});
+var Ke = l((An, Ve) => {
+  "use strict";
+  Ve.exports = function(e) {
+    return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(e);
+  };
+});
+var Ge = l((qn, Xe) => {
+  "use strict";
+  Xe.exports = function(e, r) {
+    return r ? e.replace(/\/+$/, "") + "/" + r.replace(/^\/+/, "") : e;
+  };
+});
+var ue = l((Tn, Qe) => {
+  "use strict";
+  var Sr = Ke(), Pr = Ge();
+  Qe.exports = function(e, r) {
+    return e && !Sr(r) ? Pr(e, r) : r;
+  };
+});
+var Ze = l((Sn, Ye) => {
+  "use strict";
+  var ce = d(), Nr = ["age", "authorization", "content-length", "content-type", "etag", "expires", "from", "host", "if-modified-since", "if-unmodified-since", "last-modified", "location", "max-forwards", "proxy-authorization", "referer", "retry-after", "user-agent"];
+  Ye.exports = function(e) {
+    var r = {}, s, n, i;
+    return e && ce.forEach(e.split(`
+`), function(u) {
+      if (i = u.indexOf(":"), s = ce.trim(u.substr(0, i)).toLowerCase(), n = ce.trim(u.substr(i + 1)), s) {
+        if (r[s] && Nr.indexOf(s) >= 0)
+          return;
+        s === "set-cookie" ? r[s] = (r[s] ? r[s] : []).concat([n]) : r[s] = r[s] ? r[s] + ", " + n : n;
+      }
+    }), r;
+  };
+});
+var rt = l((Pn, tt) => {
+  "use strict";
+  var et = d();
+  tt.exports = et.isStandardBrowserEnv() ? function() {
+    var e = /(msie|trident)/i.test(navigator.userAgent), r = document.createElement("a"), s;
+    function n(i) {
+      var a = i;
+      return e && (r.setAttribute("href", a), a = r.href), r.setAttribute("href", a), { href: r.href, protocol: r.protocol ? r.protocol.replace(/:$/, "") : "", host: r.host, search: r.search ? r.search.replace(/^\?/, "") : "", hash: r.hash ? r.hash.replace(/^#/, "") : "", hostname: r.hostname, port: r.port, pathname: r.pathname.charAt(0) === "/" ? r.pathname : "/" + r.pathname };
+    }
+    return s = n(window.location.href), function(a) {
+      var u = et.isString(a) ? n(a) : a;
+      return u.protocol === s.protocol && u.host === s.host;
+    };
+  }() : function() {
+    return function() {
+      return true;
+    };
+  }();
+});
+var U = l((Nn, st) => {
+  "use strict";
+  var le = q(), _r = d();
+  function nt(t) {
+    le.call(this, t ?? "canceled", le.ERR_CANCELED), this.name = "CanceledError";
+  }
+  _r.inherits(nt, le, { __CANCEL__: true });
+  st.exports = nt;
+});
+var at = l((_n, it) => {
+  "use strict";
+  it.exports = function(e) {
+    var r = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
+    return r && r[1] || "";
+  };
+});
+var fe = l((kn, ot) => {
+  "use strict";
+  var B = d(), kr = He(), Dr = We(), Ur = se(), Br = ue(), Lr = Ze(), jr = rt(), Fr = ie(), E = q(), Ir = U(), Mr = at();
+  ot.exports = function(e) {
+    return new Promise(function(s, n) {
+      var i = e.data, a = e.headers, u = e.responseType, c;
+      function h() {
+        e.cancelToken && e.cancelToken.unsubscribe(c), e.signal && e.signal.removeEventListener("abort", c);
+      }
+      B.isFormData(i) && B.isStandardBrowserEnv() && delete a["Content-Type"];
+      var o = new XMLHttpRequest();
+      if (e.auth) {
+        var f = e.auth.username || "", v = e.auth.password ? unescape(encodeURIComponent(e.auth.password)) : "";
+        a.Authorization = "Basic " + btoa(f + ":" + v);
+      }
+      var m = Br(e.baseURL, e.url);
+      o.open(e.method.toUpperCase(), Ur(m, e.params, e.paramsSerializer), true), o.timeout = e.timeout;
+      function Ce() {
+        if (o) {
+          var b = "getAllResponseHeaders" in o ? Lr(o.getAllResponseHeaders()) : null, T = !u || u === "text" || u === "json" ? o.responseText : o.response, O = { data: T, status: o.status, statusText: o.statusText, headers: b, config: e, request: o };
+          kr(function(K) {
+            s(K), h();
+          }, function(K) {
+            n(K), h();
+          }, O), o = null;
+        }
+      }
+      if ("onloadend" in o ? o.onloadend = Ce : o.onreadystatechange = function() {
+        !o || o.readyState !== 4 || o.status === 0 && !(o.responseURL && o.responseURL.indexOf("file:") === 0) || setTimeout(Ce);
+      }, o.onabort = function() {
+        o && (n(new E("Request aborted", E.ECONNABORTED, e, o)), o = null);
+      }, o.onerror = function() {
+        n(new E("Network Error", E.ERR_NETWORK, e, o, o)), o = null;
+      }, o.ontimeout = function() {
+        var T = e.timeout ? "timeout of " + e.timeout + "ms exceeded" : "timeout exceeded", O = e.transitional || Fr;
+        e.timeoutErrorMessage && (T = e.timeoutErrorMessage), n(new E(T, O.clarifyTimeoutError ? E.ETIMEDOUT : E.ECONNABORTED, e, o)), o = null;
+      }, B.isStandardBrowserEnv()) {
+        var Oe = (e.withCredentials || jr(m)) && e.xsrfCookieName ? Dr.read(e.xsrfCookieName) : void 0;
+        Oe && (a[e.xsrfHeaderName] = Oe);
+      }
+      "setRequestHeader" in o && B.forEach(a, function(T, O) {
+        typeof i > "u" && O.toLowerCase() === "content-type" ? delete a[O] : o.setRequestHeader(O, T);
+      }), B.isUndefined(e.withCredentials) || (o.withCredentials = !!e.withCredentials), u && u !== "json" && (o.responseType = e.responseType), typeof e.onDownloadProgress == "function" && o.addEventListener("progress", e.onDownloadProgress), typeof e.onUploadProgress == "function" && o.upload && o.upload.addEventListener("progress", e.onUploadProgress), (e.cancelToken || e.signal) && (c = function(b) {
+        o && (n(!b || b && b.type ? new Ir() : b), o.abort(), o = null);
+      }, e.cancelToken && e.cancelToken.subscribe(c), e.signal && (e.signal.aborted ? c() : e.signal.addEventListener("abort", c))), i || (i = null);
+      var V = Mr(m);
+      if (V && ["http", "https", "file"].indexOf(V) === -1) {
+        n(new E("Unsupported protocol " + V + ":", E.ERR_BAD_REQUEST, e));
+        return;
+      }
+      o.send(i);
+    });
+  };
+});
+var ct = l((Dn, ut) => {
+  ut.exports = null;
+});
+var $ = l((Un, pt) => {
+  "use strict";
+  var p = d(), lt = Be(), ft = q(), zr = ie(), $r = ae(), Hr = { "Content-Type": "application/x-www-form-urlencoded" };
+  function dt(t, e) {
+    !p.isUndefined(t) && p.isUndefined(t["Content-Type"]) && (t["Content-Type"] = e);
+  }
+  function Jr() {
+    var t;
+    return typeof XMLHttpRequest < "u" ? t = fe() : typeof process < "u" && Object.prototype.toString.call(process) === "[object process]" && (t = fe()), t;
+  }
+  function Wr(t, e, r) {
+    if (p.isString(t))
+      try {
+        return (e || JSON.parse)(t), p.trim(t);
+      } catch (s) {
+        if (s.name !== "SyntaxError")
+          throw s;
+      }
+    return (r || JSON.stringify)(t);
+  }
+  var z = { transitional: zr, adapter: Jr(), transformRequest: [function(e, r) {
+    if (lt(r, "Accept"), lt(r, "Content-Type"), p.isFormData(e) || p.isArrayBuffer(e) || p.isBuffer(e) || p.isStream(e) || p.isFile(e) || p.isBlob(e))
+      return e;
+    if (p.isArrayBufferView(e))
+      return e.buffer;
+    if (p.isURLSearchParams(e))
+      return dt(r, "application/x-www-form-urlencoded;charset=utf-8"), e.toString();
+    var s = p.isObject(e), n = r && r["Content-Type"], i;
+    if ((i = p.isFileList(e)) || s && n === "multipart/form-data") {
+      var a = this.env && this.env.FormData;
+      return $r(i ? { "files[]": e } : e, a && new a());
+    } else if (s || n === "application/json")
+      return dt(r, "application/json"), Wr(e);
+    return e;
+  }], transformResponse: [function(e) {
+    var r = this.transitional || z.transitional, s = r && r.silentJSONParsing, n = r && r.forcedJSONParsing, i = !s && this.responseType === "json";
+    if (i || n && p.isString(e) && e.length)
+      try {
+        return JSON.parse(e);
+      } catch (a) {
+        if (i)
+          throw a.name === "SyntaxError" ? ft.from(a, ft.ERR_BAD_RESPONSE, this, null, this.response) : a;
+      }
+    return e;
+  }], timeout: 0, xsrfCookieName: "XSRF-TOKEN", xsrfHeaderName: "X-XSRF-TOKEN", maxContentLength: -1, maxBodyLength: -1, env: { FormData: ct() }, validateStatus: function(e) {
+    return e >= 200 && e < 300;
+  }, headers: { common: { Accept: "application/json, text/plain, */*" } } };
+  p.forEach(["delete", "get", "head"], function(e) {
+    z.headers[e] = {};
+  });
+  p.forEach(["post", "put", "patch"], function(e) {
+    z.headers[e] = p.merge(Hr);
+  });
+  pt.exports = z;
+});
+var mt = l((Bn, ht) => {
+  "use strict";
+  var Vr = d(), Kr = $();
+  ht.exports = function(e, r, s) {
+    var n = this || Kr;
+    return Vr.forEach(s, function(a) {
+      e = a.call(n, e, r);
+    }), e;
+  };
+});
+var de = l((Ln, yt) => {
+  "use strict";
+  yt.exports = function(e) {
+    return !!(e && e.__CANCEL__);
+  };
+});
+var bt = l((jn, wt) => {
+  "use strict";
+  var vt = d(), pe = mt(), Xr = de(), Gr = $(), Qr = U();
+  function he(t) {
+    if (t.cancelToken && t.cancelToken.throwIfRequested(), t.signal && t.signal.aborted)
+      throw new Qr();
+  }
+  wt.exports = function(e) {
+    he(e), e.headers = e.headers || {}, e.data = pe.call(e, e.data, e.headers, e.transformRequest), e.headers = vt.merge(e.headers.common || {}, e.headers[e.method] || {}, e.headers), vt.forEach(["delete", "get", "head", "post", "put", "patch", "common"], function(n) {
+      delete e.headers[n];
+    });
+    var r = e.adapter || Gr.adapter;
+    return r(e).then(function(n) {
+      return he(e), n.data = pe.call(e, n.data, n.headers, e.transformResponse), n;
+    }, function(n) {
+      return Xr(n) || (he(e), n && n.response && (n.response.data = pe.call(e, n.response.data, n.response.headers, e.transformResponse))), Promise.reject(n);
+    });
+  };
+});
+var me = l((Fn, gt) => {
+  "use strict";
+  var w = d();
+  gt.exports = function(e, r) {
+    r = r || {};
+    var s = {};
+    function n(o, f) {
+      return w.isPlainObject(o) && w.isPlainObject(f) ? w.merge(o, f) : w.isPlainObject(f) ? w.merge({}, f) : w.isArray(f) ? f.slice() : f;
+    }
+    function i(o) {
+      if (w.isUndefined(r[o])) {
+        if (!w.isUndefined(e[o]))
+          return n(void 0, e[o]);
+      } else
+        return n(e[o], r[o]);
+    }
+    function a(o) {
+      if (!w.isUndefined(r[o]))
+        return n(void 0, r[o]);
+    }
+    function u(o) {
+      if (w.isUndefined(r[o])) {
+        if (!w.isUndefined(e[o]))
+          return n(void 0, e[o]);
+      } else
+        return n(void 0, r[o]);
+    }
+    function c(o) {
+      if (o in r)
+        return n(e[o], r[o]);
+      if (o in e)
+        return n(void 0, e[o]);
+    }
+    var h = { url: a, method: a, data: a, baseURL: u, transformRequest: u, transformResponse: u, paramsSerializer: u, timeout: u, timeoutMessage: u, withCredentials: u, adapter: u, responseType: u, xsrfCookieName: u, xsrfHeaderName: u, onUploadProgress: u, onDownloadProgress: u, decompress: u, maxContentLength: u, maxBodyLength: u, beforeRedirect: u, transport: u, httpAgent: u, httpsAgent: u, cancelToken: u, socketPath: u, responseEncoding: u, validateStatus: c };
+    return w.forEach(Object.keys(e).concat(Object.keys(r)), function(f) {
+      var v = h[f] || i, m = v(f);
+      w.isUndefined(m) && v !== c || (s[f] = m);
+    }), s;
+  };
+});
+var ye = l((In, Et) => {
+  Et.exports = { version: "0.27.2" };
+});
+var Ct = l((Mn, Rt) => {
+  "use strict";
+  var Yr = ye().version, C = q(), ve = {};
+  ["object", "boolean", "number", "function", "string", "symbol"].forEach(function(t, e) {
+    ve[t] = function(s) {
+      return typeof s === t || "a" + (e < 1 ? "n " : " ") + t;
+    };
+  });
+  var xt = {};
+  ve.transitional = function(e, r, s) {
+    function n(i, a) {
+      return "[Axios v" + Yr + "] Transitional option '" + i + "'" + a + (s ? ". " + s : "");
+    }
+    return function(i, a, u) {
+      if (e === false)
+        throw new C(n(a, " has been removed" + (r ? " in " + r : "")), C.ERR_DEPRECATED);
+      return r && !xt[a] && (xt[a] = true, console.warn(n(a, " has been deprecated since v" + r + " and will be removed in the near future"))), e ? e(i, a, u) : true;
+    };
+  };
+  function Zr(t, e, r) {
+    if (typeof t != "object")
+      throw new C("options must be an object", C.ERR_BAD_OPTION_VALUE);
+    for (var s = Object.keys(t), n = s.length; n-- > 0; ) {
+      var i = s[n], a = e[i];
+      if (a) {
+        var u = t[i], c = u === void 0 || a(u, i, t);
+        if (c !== true)
+          throw new C("option " + i + " must be " + c, C.ERR_BAD_OPTION_VALUE);
+        continue;
+      }
+      if (r !== true)
+        throw new C("Unknown option " + i, C.ERR_BAD_OPTION);
+    }
+  }
+  Rt.exports = { assertOptions: Zr, validators: ve };
+});
+var Pt = l((zn, St) => {
+  "use strict";
+  var qt = d(), en = se(), Ot = De(), At = bt(), H = me(), tn = ue(), Tt = Ct(), N = Tt.validators;
+  function _(t) {
+    this.defaults = t, this.interceptors = { request: new Ot(), response: new Ot() };
+  }
+  _.prototype.request = function(e, r) {
+    typeof e == "string" ? (r = r || {}, r.url = e) : r = e || {}, r = H(this.defaults, r), r.method ? r.method = r.method.toLowerCase() : this.defaults.method ? r.method = this.defaults.method.toLowerCase() : r.method = "get";
+    var s = r.transitional;
+    s !== void 0 && Tt.assertOptions(s, { silentJSONParsing: N.transitional(N.boolean), forcedJSONParsing: N.transitional(N.boolean), clarifyTimeoutError: N.transitional(N.boolean) }, false);
+    var n = [], i = true;
+    this.interceptors.request.forEach(function(m) {
+      typeof m.runWhen == "function" && m.runWhen(r) === false || (i = i && m.synchronous, n.unshift(m.fulfilled, m.rejected));
+    });
+    var a = [];
+    this.interceptors.response.forEach(function(m) {
+      a.push(m.fulfilled, m.rejected);
+    });
+    var u;
+    if (!i) {
+      var c = [At, void 0];
+      for (Array.prototype.unshift.apply(c, n), c = c.concat(a), u = Promise.resolve(r); c.length; )
+        u = u.then(c.shift(), c.shift());
+      return u;
+    }
+    for (var h = r; n.length; ) {
+      var o = n.shift(), f = n.shift();
+      try {
+        h = o(h);
+      } catch (v) {
+        f(v);
+        break;
+      }
+    }
+    try {
+      u = At(h);
+    } catch (v) {
+      return Promise.reject(v);
+    }
+    for (; a.length; )
+      u = u.then(a.shift(), a.shift());
+    return u;
+  };
+  _.prototype.getUri = function(e) {
+    e = H(this.defaults, e);
+    var r = tn(e.baseURL, e.url);
+    return en(r, e.params, e.paramsSerializer);
+  };
+  qt.forEach(["delete", "get", "head", "options"], function(e) {
+    _.prototype[e] = function(r, s) {
+      return this.request(H(s || {}, { method: e, url: r, data: (s || {}).data }));
+    };
+  });
+  qt.forEach(["post", "put", "patch"], function(e) {
+    function r(s) {
+      return function(i, a, u) {
+        return this.request(H(u || {}, { method: e, headers: s ? { "Content-Type": "multipart/form-data" } : {}, url: i, data: a }));
+      };
+    }
+    _.prototype[e] = r(), _.prototype[e + "Form"] = r(true);
+  });
+  St.exports = _;
+});
+var _t = l(($n, Nt) => {
+  "use strict";
+  var rn = U();
+  function k(t) {
+    if (typeof t != "function")
+      throw new TypeError("executor must be a function.");
+    var e;
+    this.promise = new Promise(function(n) {
+      e = n;
+    });
+    var r = this;
+    this.promise.then(function(s) {
+      if (r._listeners) {
+        var n, i = r._listeners.length;
+        for (n = 0; n < i; n++)
+          r._listeners[n](s);
+        r._listeners = null;
+      }
+    }), this.promise.then = function(s) {
+      var n, i = new Promise(function(a) {
+        r.subscribe(a), n = a;
+      }).then(s);
+      return i.cancel = function() {
+        r.unsubscribe(n);
+      }, i;
+    }, t(function(n) {
+      r.reason || (r.reason = new rn(n), e(r.reason));
+    });
+  }
+  k.prototype.throwIfRequested = function() {
+    if (this.reason)
+      throw this.reason;
+  };
+  k.prototype.subscribe = function(e) {
+    if (this.reason) {
+      e(this.reason);
+      return;
+    }
+    this._listeners ? this._listeners.push(e) : this._listeners = [e];
+  };
+  k.prototype.unsubscribe = function(e) {
+    if (this._listeners) {
+      var r = this._listeners.indexOf(e);
+      r !== -1 && this._listeners.splice(r, 1);
+    }
+  };
+  k.source = function() {
+    var e, r = new k(function(n) {
+      e = n;
+    });
+    return { token: r, cancel: e };
+  };
+  Nt.exports = k;
+});
+var Dt = l((Hn, kt) => {
+  "use strict";
+  kt.exports = function(e) {
+    return function(s) {
+      return e.apply(null, s);
+    };
+  };
+});
+var Bt = l((Jn, Ut) => {
+  "use strict";
+  var nn = d();
+  Ut.exports = function(e) {
+    return nn.isObject(e) && e.isAxiosError === true;
+  };
+});
+var Ft = l((Wn, we) => {
+  "use strict";
+  var Lt = d(), sn = Q(), J = Pt(), an = me(), on = $();
+  function jt(t) {
+    var e = new J(t), r = sn(J.prototype.request, e);
+    return Lt.extend(r, J.prototype, e), Lt.extend(r, e), r.create = function(n) {
+      return jt(an(t, n));
+    }, r;
+  }
+  var y = jt(on);
+  y.Axios = J;
+  y.CanceledError = U();
+  y.CancelToken = _t();
+  y.isCancel = de();
+  y.VERSION = ye().version;
+  y.toFormData = ae();
+  y.AxiosError = q();
+  y.Cancel = y.CanceledError;
+  y.all = function(e) {
+    return Promise.all(e);
+  };
+  y.spread = Dt();
+  y.isAxiosError = Bt();
+  we.exports = y;
+  we.exports.default = y;
+});
+var be = l((Vn, It) => {
+  It.exports = Ft();
+});
+var D = Ae(be(), 1);
+var x = "https://zesty-storage-prod.s3.amazonaws.com/images/zesty";
+var L = { tall: { width: 0.75, height: 1, style: { standard: `${x}/zesty-banner-tall.png`, minimal: `${x}/zesty-banner-tall-minimal.png`, transparent: `${x}/zesty-banner-tall-transparent.png` } }, wide: { width: 4, height: 1, style: { standard: `${x}/zesty-banner-wide.png`, minimal: `${x}/zesty-banner-wide-minimal.png`, transparent: `${x}/zesty-banner-wide-transparent.png` } }, square: { width: 1, height: 1, style: { standard: `${x}/zesty-banner-square.png`, minimal: `${x}/zesty-banner-square-minimal.png`, transparent: `${x}/zesty-banner-square-transparent.png` } } };
+var un = Ae(be(), 1);
+var ge = () => {
+  let t = window.XRHand != null && window.XRMediaBinding != null, e = navigator.userAgent.includes("OculusBrowser"), r = t && e ? "Full" : t || e ? "Partial" : "None";
+  return { match: r !== "None", confidence: r };
+};
+var Ee = () => {
+  let t = window.mozInnerScreenX != null && window.speechSynthesis == null, e = navigator.userAgent.includes("Mobile VR") && !navigator.userAgent.includes("OculusBrowser"), r = t && e ? "Full" : t || e ? "Partial" : "None";
+  return { match: r !== "None", confidence: r };
+};
+var Mt = async () => {
+  let t = navigator.xr && await navigator.xr.isSessionSupported("immersive-vr") && await navigator.xr.isSessionSupported("immersive-ar"), e = navigator.userAgent.includes("Pico Neo 3 Link"), r = t && e ? "Full" : t || e ? "Partial" : "None";
+  return { match: r !== "None", confidence: r };
+};
+var zt = () => {
+  let t = navigator.maxTouchPoints === 0 || navigator.msMaxTouchPoints === 0, e = !navigator.userAgent.includes("Android") && !navigator.userAgent.includes("Mobile"), r = t && e ? "Full" : t || e ? "Partial" : "None";
+  return { match: r !== "None", confidence: r };
+};
+var xe = async () => {
+  let t = { platform: "", confidence: "" };
+  return ge().match ? t = { platform: "Oculus", confidence: ge().confidence } : Ee().match ? t = { platform: "Wolvic", confidence: Ee().confidence } : await Mt().match ? t = { platform: "Pico", confidence: await Mt().confidence } : zt().match ? t = { platform: "Desktop", confidence: zt().confidence } : t = { platform: "Unknown", confidence: "None" }, t;
+};
+var $t = (t) => {
+  if (t) {
+    if (ge().match) {
+      if (t.includes("https://www.oculus.com/experiences/quest/")) {
+        setTimeout(() => {
+          window.open(t, "_blank");
+        }, 1e3);
+        return;
+      }
+    } else if (Ee().match) {
+      let e = document.createElement("div"), r = document.createElement("div"), s = document.createElement("p"), n = document.createElement("button"), i = document.createElement("button");
+      e.style.backgroundColor = "rgb(0, 0, 0, 0.75)", e.style.color = "white", e.style.textAlign = "center", e.style.position = "fixed", e.style.top = "50%", e.style.left = "50%", e.style.padding = "5%", e.style.borderRadius = "5%", e.style.transform = "translate(-50%, -50%)", s.innerHTML = `<b>This billboard leads to ${t}. Continue?</b>`, n.innerText = "Move cursor back into window.", n.style.width = "100vw", n.style.height = "100vh", n.onmouseenter = () => {
+        n.style.width = "auto", n.style.height = "auto", n.innerText = "Yes";
+      }, n.onclick = () => {
+        window.open(t, "_blank"), e.remove();
+      }, i.innerText = "No", i.onclick = () => {
+        e.remove();
+      }, e.append(r), r.append(s), r.append(n), r.append(i), document.body.append(e);
+      return;
+    }
+    window.open(t, "_blank");
+  }
+};
+var Ht = "https://beacon.zesty.market";
+var Jt = "https://beacon2.zesty.market/zgraphql";
+var cn = "https://api.zesty.market/api";
+var Wt = async (t, e = "tall", r = "standard") => {
+  try {
+    let s = encodeURI(window.top.location.href).replace(/\/$/, "");
+    return (await D.default.get(`${cn}/ad?ad_unit_id=${t}&url=${s}`)).data;
+  } catch {
+    return console.warn("No active campaign banner could be located. Displaying default banner."), { Ads: [{ asset_url: L[e].style[r], cta_url: "https://www.zesty.market" }], CampaignId: "TestCampaign" };
+  }
+};
+var Vt = async (t, e = null) => {
+  let { platform: r, confidence: s } = await xe();
+  try {
+    let n = Ht + `/api/v1/space/${t}`;
+    await D.default.put(n), await D.default.post(Jt, { query: `mutation { increment(eventType: visits, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${s} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
+  } catch (n) {
+    console.log("Failed to emit onload event", n.message);
+  }
+};
+var Kt = async (t, e = null) => {
+  let { platform: r, confidence: s } = await xe();
+  try {
+    let n = Ht + `/api/v1/space/click/${t}`;
+    await D.default.put(n), await D.default.post(Jt, { query: `mutation { increment(eventType: clicks, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${s} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
+  } catch (n) {
+    console.log("Failed to emit onclick event", n.message);
+  }
+};
+var Xt = "2.0.2";
+console.log("Zesty SDK Version: ", Xt);
+var hn = "https://ipfs.io/ipns/lib.zesty.market/zesty-formats.js";
+var W = class extends Component {
+  static onRegister(e) {
+    e.registerComponent(CursorTarget);
+  }
+  init() {
+    this.formats = Object.values(L), this.formatKeys = Object.keys(L), this.styleKeys = ["standard", "minimal", "transparent"];
+  }
+  start() {
+    if (this.mesh = this.object.getComponent(MeshComponent), !this.mesh)
+      throw new Error("'zesty-banner ' missing mesh component");
+    if (this.createAutomaticCollision && (this.collision = this.object.getComponent(CollisionComponent) || this.object.addComponent(CollisionComponent, { collider: Collider.Box, group: 2 }), this.cursorTarget = this.object.getComponent(CursorTarget) || this.object.addComponent(CursorTarget), this.cursorTarget.onClick.add(this.onClick.bind(this))), this.dynamicFormats) {
+      let e = document.createElement("script");
+      e.onload = () => {
+        this.formatsOverride = zestyFormats.formats, this.startLoading();
+      }, e.setAttribute("src", hn), e.setAttribute("crossorigin", "anonymous"), document.body.appendChild(e);
+    } else
+      this.startLoading();
+  }
+  startLoading() {
+    this.loadBanner(this.adUnit, this.formatKeys[this.format], this.styleKeys[this.style]).then((e) => {
+      this.banner = e, this.scaleToRatio && (this.height = this.object.scalingLocal[1], this.object.resetScaling(), this.createAutomaticCollision && (this.collision.extents = [this.formats[this.format].width * this.height, this.height, 0.1]), this.object.scale([this.formats[this.format].width * this.height, this.height, 1]));
+      let r = this.mesh.material.clone();
+      if (this.textureProperty === "auto") {
+        let s = r.shader;
+        if (s === "Phong Opaque Textured")
+          r.diffuseTexture = e.texture, r.alphaMaskThreshold = 0.3;
+        else if (s === "Flat Opaque Textured")
+          r.flatTexture = e.texture, r.alphaMaskThreshold = 0.8;
+        else
+          throw Error("'zesty-banner' unable to apply banner texture: unsupported pipeline " + s);
+        this.mesh.material = r, this.mesh.material.alphaMaskTexture = e.texture;
+      } else
+        this.mesh.material[this.textureProperty] = e.texture, this.mesh.material.alphaMaskTexture = e.texture;
+      this.beacon && Vt(this.adUnit);
+    });
+  }
+  onClick() {
+    this.banner?.url && (this.engine.xr ? this.engine.xr.session.end().then(this.executeClick.bind(this)) : this.executeClick());
+  }
+  executeClick() {
+    $t(this.banner.url), this.beacon && Kt(this.adUnit);
+  }
+  async loadBanner(e, r, s) {
+    let n = await Wt(e, r, s), { asset_url: i, cta_url: a } = n.Ads[0];
+    return this.engine.textures.load(i, "").then((u) => ({ texture: u, imageSrc: i, url: a, campaignId: n.CampaignId }));
+  }
+};
+G(W, "TypeName", "zesty-banner"), G(W, "Properties", { adUnit: Property.string(""), format: Property.enum(["tall", "wide", "square"], "square"), style: Property.enum(["standard", "minimal", "transparent"], "transparent"), scaleToRatio: Property.bool(true), textureProperty: Property.string("auto"), assignAlphaMaskTexture: Property.bool(true), beacon: Property.bool(true), dynamicFormats: Property.bool(true), createAutomaticCollision: Property.bool(true) });
+
+// js/index.js
+var RuntimeOptions = {
+  physx: false,
+  loader: false,
+  xrFramebufferScaleFactor: 1,
+  canvas: "canvas"
+};
+var Constants = {
+  ProjectName: "wonderland-test",
+  RuntimeBaseName: "WonderlandRuntime",
+  WebXRRequiredFeatures: ["local"],
+  WebXROptionalFeatures: ["local", "local-floor", "hand-tracking", "hit-test"]
+};
+var engine = await loadRuntime(Constants.RuntimeBaseName, RuntimeOptions);
+Object.assign(engine, dist_exports);
+window.WL = engine;
+engine.onSceneLoaded.once(() => {
+  const el = document.getElementById("version");
+  if (el)
+    setTimeout(() => el.remove(), 2e3);
+});
+function requestSession(mode) {
+  engine.requestXRSession(mode, Constants.WebXRRequiredFeatures, Constants.WebXROptionalFeatures).catch((e) => console.error(e));
+}
+function setupButtonsXR() {
+  const arButton = document.getElementById("ar-button");
+  if (arButton) {
+    arButton.dataset.supported = engine.arSupported;
+    arButton.addEventListener("click", () => requestSession("immersive-ar"));
+  }
+  const vrButton = document.getElementById("vr-button");
+  if (vrButton) {
+    vrButton.dataset.supported = engine.vrSupported;
+    vrButton.addEventListener("click", () => requestSession("immersive-vr"));
+  }
+}
+if (document.readyState === "loading") {
+  window.addEventListener("load", setupButtonsXR);
+} else {
+  setupButtonsXR();
+}
+engine.registerComponent(Cursor);
+engine.registerComponent(CursorTarget);
+engine.registerComponent(HowlerAudioListener);
+engine.registerComponent(MouseLookComponent);
+engine.registerComponent(PlayerHeight);
+engine.registerComponent(VrModeActiveSwitch);
+engine.registerComponent(ExposeBanners);
+engine.registerComponent(W);
+engine.scene.load(`${Constants.ProjectName}.bin`);
+/*! Bundled license information:
+
+howler/dist/howler.js:
+  (*!
+   *  howler.js v2.2.3
+   *  howlerjs.com
+   *
+   *  (c) 2013-2020, James Simpson of GoldFire Studios
+   *  goldfirestudios.com
+   *
+   *  MIT License
+   *)
+  (*!
+   *  Spatial Plugin - Adds support for stereo and 3D audio where Web Audio is supported.
+   *  
+   *  howler.js v2.2.3
+   *  howlerjs.com
+   *
+   *  (c) 2013-2020, James Simpson of GoldFire Studios
+   *  goldfirestudios.com
+   *
+   *  MIT License
+   *)
+*/
 //# sourceMappingURL=wonderland-test-bundle.js.map

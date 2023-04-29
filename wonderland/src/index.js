@@ -141,6 +141,8 @@ export class ZestyBanner extends Component {
     if (this.banner?.url) {
       if (this.engine.xr) {
         this.engine.xr.session.end().then(this.executeClick.bind(this));
+      } else if (this.engine.xrSession) {
+        this.engine.xrSession.end().then(this.executeClick.bind(this));
       } else {
         this.executeClick();
       }

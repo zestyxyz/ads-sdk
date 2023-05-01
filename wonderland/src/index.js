@@ -132,7 +132,7 @@ export class ZestyBanner extends Component {
         this.mesh.material.alphaMaskTexture = banner.texture;
       }
       if (this.beacon) {
-        sendOnLoadMetric(this.adUnit);
+        sendOnLoadMetric(this.adUnit, this.campaignId);
       }
     });
   }
@@ -152,7 +152,7 @@ export class ZestyBanner extends Component {
   executeClick() {
     openURL(this.banner.url);
     if (this.beacon) {
-      sendOnClickMetric(this.adUnit);
+      sendOnClickMetric(this.adUnit, this.campaignId);
     }
   }
 
@@ -160,6 +160,7 @@ export class ZestyBanner extends Component {
     const activeCampaign = await fetchCampaignAd(adUnit, format, style)
 
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
+    this.campaignId = activeCampaign.CampaignId;
 
     return this.engine.textures.load(image, '').then(texture => {
       return { texture, imageSrc: image, url, campaignId: activeCampaign.CampaignId };

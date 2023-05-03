@@ -14,9 +14,9 @@ cd threejs && yarn && yarn run build
 cd ..
 cd web && yarn && yarn run build
 cd ..
-cd wonderland && yarn && yarn run build
+cd wonderland && yarn && yarn run build && yarn run build-compat
 cd ..
-cd utils && yarn && yarn run build
+cd utils && yarn && yarn run build && yarn run build-networking
 cd ..
 
 cp -R aframe/dist dist

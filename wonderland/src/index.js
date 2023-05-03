@@ -15,7 +15,8 @@ import { CursorTarget } from '@wonderlandengine/components';
 
 console.log('Zesty SDK Version: ', version);
 
-const formatsLink = 'https://ipfs.io/ipns/lib.zesty.market/zesty-formats.js';
+const formatsLink = 'https://ipfs.io/ipns/libv2.zesty.market/zesty-formats.js';
+const networkingLink = 'https://ipfs.io/ipns/libv2.zesty.market/zesty-networking.js';
 
 /**
  * [Zesty Market](https://zesty.market) banner ad unit
@@ -45,7 +46,9 @@ export class ZestyBanner extends Component {
     /* Load IPFS gateways and default image uris at runtime, if false at build time */
     dynamicFormats: Property.bool(true),
     /* Automatically creates a collision and cursor-target components, if there isn't one */
-    createAutomaticCollision: Property.bool(true)
+    createAutomaticCollision: Property.bool(true),
+    /* Load networking logic at runtime, if false at build time */
+    dynamicNetworking: Property.bool(false),
   };
   static onRegister(engine) {
     engine.registerComponent(CursorTarget);
@@ -81,11 +84,17 @@ export class ZestyBanner extends Component {
 
       formatsScript.onload = () => {
         this.formatsOverride = zestyFormats.formats;
-        this.startLoading();
       };
       formatsScript.setAttribute('src', formatsLink);
       formatsScript.setAttribute('crossorigin', 'anonymous');
       document.body.appendChild(formatsScript);
+    }
+
+    if (this.dynamicNetworking) {
+      import(networkingLink).then(value => {
+        this.zestyNetworking = Object.assign({}, value);
+        this.startLoading();
+      });
     } else {
       this.startLoading();
     }
@@ -132,7 +141,9 @@ export class ZestyBanner extends Component {
         this.mesh.material.alphaMaskTexture = banner.texture;
       }
       if (this.beacon) {
-        sendOnLoadMetric(this.adUnit, this.campaignId);
+        this.dynamicNetworking ?
+          this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) :
+          sendOnLoadMetric(this.adUnit, this.banner.campaignId);
       }
     });
   }
@@ -152,12 +163,16 @@ export class ZestyBanner extends Component {
   executeClick() {
     openURL(this.banner.url);
     if (this.beacon) {
-      sendOnClickMetric(this.adUnit, this.campaignId);
+      this.dynamicNetworking ?
+        this.zestyNetworking.sendOnClickMetric(this.adUnit, this.banner.campaignId) :
+        sendOnClickMetric(this.adUnit, this.banner.campaignId);
     }
   }
 
   async loadBanner(adUnit, format, style) {
-    const activeCampaign = await fetchCampaignAd(adUnit, format, style)
+    const activeCampaign = this.dynamicNetworking ?
+      await this.zestyNetworking.fetchCampaignAd(adUnit, format, style) :
+      await fetchCampaignAd(adUnit, format, style);
 
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
     this.campaignId = activeCampaign.CampaignId;

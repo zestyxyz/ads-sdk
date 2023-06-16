@@ -995,7 +995,8 @@
                         "adUnit": "999999",
                         "beacon": true,
                         "format": "tall",
-                        "style": "standard"
+                        "style": "standard",
+                        "dynamicNetworking": true
                     }
                 }
             ],
@@ -2010,7 +2011,7 @@
             "version": [
                 1,
                 0,
-                0
+                3
             ]
         },
         "vr": {

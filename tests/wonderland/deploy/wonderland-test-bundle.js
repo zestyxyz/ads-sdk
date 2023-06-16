@@ -1878,15 +1878,15 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      HowlerGlobal.prototype.pos = function(x2, y, z) {
+      HowlerGlobal.prototype.pos = function(x, y, z) {
         var self2 = this;
         if (!self2.ctx || !self2.ctx.listener) {
           return self2;
         }
         y = typeof y !== "number" ? self2._pos[1] : y;
         z = typeof z !== "number" ? self2._pos[2] : z;
-        if (typeof x2 === "number") {
-          self2._pos = [x2, y, z];
+        if (typeof x === "number") {
+          self2._pos = [x, y, z];
           if (typeof self2.ctx.listener.positionX !== "undefined") {
             self2.ctx.listener.positionX.setTargetAtTime(self2._pos[0], Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.positionY.setTargetAtTime(self2._pos[1], Howler.ctx.currentTime, 0.1);
@@ -1899,7 +1899,7 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      HowlerGlobal.prototype.orientation = function(x2, y, z, xUp, yUp, zUp) {
+      HowlerGlobal.prototype.orientation = function(x, y, z, xUp, yUp, zUp) {
         var self2 = this;
         if (!self2.ctx || !self2.ctx.listener) {
           return self2;
@@ -1910,17 +1910,17 @@ var require_howler = __commonJS({
         xUp = typeof xUp !== "number" ? or[3] : xUp;
         yUp = typeof yUp !== "number" ? or[4] : yUp;
         zUp = typeof zUp !== "number" ? or[5] : zUp;
-        if (typeof x2 === "number") {
-          self2._orientation = [x2, y, z, xUp, yUp, zUp];
+        if (typeof x === "number") {
+          self2._orientation = [x, y, z, xUp, yUp, zUp];
           if (typeof self2.ctx.listener.forwardX !== "undefined") {
-            self2.ctx.listener.forwardX.setTargetAtTime(x2, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.forwardX.setTargetAtTime(x, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.forwardY.setTargetAtTime(y, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.forwardZ.setTargetAtTime(z, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.upX.setTargetAtTime(xUp, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.upY.setTargetAtTime(yUp, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.upZ.setTargetAtTime(zUp, Howler.ctx.currentTime, 0.1);
           } else {
-            self2.ctx.listener.setOrientation(x2, y, z, xUp, yUp, zUp);
+            self2.ctx.listener.setOrientation(x, y, z, xUp, yUp, zUp);
           }
         } else {
           return or;
@@ -2004,7 +2004,7 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      Howl.prototype.pos = function(x2, y, z, id) {
+      Howl.prototype.pos = function(x, y, z, id) {
         var self2 = this;
         if (!self2._webAudio) {
           return self2;
@@ -2013,7 +2013,7 @@ var require_howler = __commonJS({
           self2._queue.push({
             event: "pos",
             action: function() {
-              self2.pos(x2, y, z, id);
+              self2.pos(x, y, z, id);
             }
           });
           return self2;
@@ -2021,8 +2021,8 @@ var require_howler = __commonJS({
         y = typeof y !== "number" ? 0 : y;
         z = typeof z !== "number" ? -0.5 : z;
         if (typeof id === "undefined") {
-          if (typeof x2 === "number") {
-            self2._pos = [x2, y, z];
+          if (typeof x === "number") {
+            self2._pos = [x, y, z];
           } else {
             return self2._pos;
           }
@@ -2031,18 +2031,18 @@ var require_howler = __commonJS({
         for (var i = 0; i < ids.length; i++) {
           var sound = self2._soundById(ids[i]);
           if (sound) {
-            if (typeof x2 === "number") {
-              sound._pos = [x2, y, z];
+            if (typeof x === "number") {
+              sound._pos = [x, y, z];
               if (sound._node) {
                 if (!sound._panner || sound._panner.pan) {
                   setupPanner(sound, "spatial");
                 }
                 if (typeof sound._panner.positionX !== "undefined") {
-                  sound._panner.positionX.setValueAtTime(x2, Howler.ctx.currentTime);
+                  sound._panner.positionX.setValueAtTime(x, Howler.ctx.currentTime);
                   sound._panner.positionY.setValueAtTime(y, Howler.ctx.currentTime);
                   sound._panner.positionZ.setValueAtTime(z, Howler.ctx.currentTime);
                 } else {
-                  sound._panner.setPosition(x2, y, z);
+                  sound._panner.setPosition(x, y, z);
                 }
               }
               self2._emit("pos", sound._id);
@@ -2053,7 +2053,7 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      Howl.prototype.orientation = function(x2, y, z, id) {
+      Howl.prototype.orientation = function(x, y, z, id) {
         var self2 = this;
         if (!self2._webAudio) {
           return self2;
@@ -2062,7 +2062,7 @@ var require_howler = __commonJS({
           self2._queue.push({
             event: "orientation",
             action: function() {
-              self2.orientation(x2, y, z, id);
+              self2.orientation(x, y, z, id);
             }
           });
           return self2;
@@ -2070,8 +2070,8 @@ var require_howler = __commonJS({
         y = typeof y !== "number" ? self2._orientation[1] : y;
         z = typeof z !== "number" ? self2._orientation[2] : z;
         if (typeof id === "undefined") {
-          if (typeof x2 === "number") {
-            self2._orientation = [x2, y, z];
+          if (typeof x === "number") {
+            self2._orientation = [x, y, z];
           } else {
             return self2._orientation;
           }
@@ -2080,8 +2080,8 @@ var require_howler = __commonJS({
         for (var i = 0; i < ids.length; i++) {
           var sound = self2._soundById(ids[i]);
           if (sound) {
-            if (typeof x2 === "number") {
-              sound._orientation = [x2, y, z];
+            if (typeof x === "number") {
+              sound._orientation = [x, y, z];
               if (sound._node) {
                 if (!sound._panner) {
                   if (!sound._pos) {
@@ -2090,11 +2090,11 @@ var require_howler = __commonJS({
                   setupPanner(sound, "spatial");
                 }
                 if (typeof sound._panner.orientationX !== "undefined") {
-                  sound._panner.orientationX.setValueAtTime(x2, Howler.ctx.currentTime);
+                  sound._panner.orientationX.setValueAtTime(x, Howler.ctx.currentTime);
                   sound._panner.orientationY.setValueAtTime(y, Howler.ctx.currentTime);
                   sound._panner.orientationZ.setValueAtTime(z, Howler.ctx.currentTime);
                 } else {
-                  sound._panner.setOrientation(x2, y, z);
+                  sound._panner.setOrientation(x, y, z);
                 }
               }
               self2._emit("orientation", sound._id);
@@ -2270,21 +2270,21 @@ var require_earcut = __commonJS({
       var hasHoles = holeIndices && holeIndices.length, outerLen = hasHoles ? holeIndices[0] * dim : data.length, outerNode = linkedList(data, 0, outerLen, dim, true), triangles = [];
       if (!outerNode || outerNode.next === outerNode.prev)
         return triangles;
-      var minX, minY, maxX, maxY, x2, y, invSize;
+      var minX, minY, maxX, maxY, x, y, invSize;
       if (hasHoles)
         outerNode = eliminateHoles(data, holeIndices, outerNode, dim);
       if (data.length > 80 * dim) {
         minX = maxX = data[0];
         minY = maxY = data[1];
         for (var i = dim; i < outerLen; i += dim) {
-          x2 = data[i];
+          x = data[i];
           y = data[i + 1];
-          if (x2 < minX)
-            minX = x2;
+          if (x < minX)
+            minX = x;
           if (y < minY)
             minY = y;
-          if (x2 > maxX)
-            maxX = x2;
+          if (x > maxX)
+            maxX = x;
           if (y > maxY)
             maxY = y;
         }
@@ -2469,11 +2469,11 @@ var require_earcut = __commonJS({
       var p = outerNode, hx = hole.x, hy = hole.y, qx = -Infinity, m;
       do {
         if (hy <= p.y && hy >= p.next.y && p.next.y !== p.y) {
-          var x2 = p.x + (hy - p.y) * (p.next.x - p.x) / (p.next.y - p.y);
-          if (x2 <= hx && x2 > qx) {
-            qx = x2;
+          var x = p.x + (hy - p.y) * (p.next.x - p.x) / (p.next.y - p.y);
+          if (x <= hx && x > qx) {
+            qx = x;
             m = p.x < p.next.x ? p : p.next;
-            if (x2 === hx)
+            if (x === hx)
               return m;
           }
         }
@@ -2553,18 +2553,18 @@ var require_earcut = __commonJS({
       } while (numMerges > 1);
       return list;
     }
-    function zOrder(x2, y, minX, minY, invSize) {
-      x2 = (x2 - minX) * invSize | 0;
+    function zOrder(x, y, minX, minY, invSize) {
+      x = (x - minX) * invSize | 0;
       y = (y - minY) * invSize | 0;
-      x2 = (x2 | x2 << 8) & 16711935;
-      x2 = (x2 | x2 << 4) & 252645135;
-      x2 = (x2 | x2 << 2) & 858993459;
-      x2 = (x2 | x2 << 1) & 1431655765;
+      x = (x | x << 8) & 16711935;
+      x = (x | x << 4) & 252645135;
+      x = (x | x << 2) & 858993459;
+      x = (x | x << 1) & 1431655765;
       y = (y | y << 8) & 16711935;
       y = (y | y << 4) & 252645135;
       y = (y | y << 2) & 858993459;
       y = (y | y << 1) & 1431655765;
-      return x2 | y << 1;
+      return x | y << 1;
     }
     function getLeftmost(start) {
       var p = start, leftmost = start;
@@ -2646,8 +2646,8 @@ var require_earcut = __commonJS({
       b2.prev = bp;
       return b2;
     }
-    function insertNode(i, x2, y, last) {
-      var p = new Node(i, x2, y);
+    function insertNode(i, x, y, last) {
+      var p = new Node(i, x, y);
       if (!last) {
         p.prev = p;
         p.next = p;
@@ -2667,9 +2667,9 @@ var require_earcut = __commonJS({
       if (p.nextZ)
         p.nextZ.prevZ = p.prevZ;
     }
-    function Node(i, x2, y) {
+    function Node(i, x, y) {
       this.i = i;
-      this.x = x2;
+      this.x = x;
       this.y = y;
       this.prev = null;
       this.next = null;
@@ -2712,8 +2712,8 @@ var require_earcut = __commonJS({
       var dim = data[0][0].length, result = { vertices: [], holes: [], dimensions: dim }, holeIndex = 0;
       for (var i = 0; i < data.length; i++) {
         for (var j = 0; j < data[i].length; j++) {
-          for (var d2 = 0; d2 < dim; d2++)
-            result.vertices.push(data[i][j][d2]);
+          for (var d = 0; d < dim; d++)
+            result.vertices.push(data[i][j][d]);
         }
         if (i > 0) {
           holeIndex += data[i - 1].length;
@@ -2753,6 +2753,7 @@ __export(dist_exports, {
   MeshAttributeAccessor: () => MeshAttributeAccessor,
   MeshComponent: () => MeshComponent,
   MeshIndexType: () => MeshIndexType,
+  MeshSkinningType: () => MeshSkinningType,
   Object: () => Object3D,
   Object3D: () => Object3D,
   PhysXComponent: () => PhysXComponent,
@@ -3016,14 +3017,53 @@ var Emitter = class {
    * emitter.remove('my-callback');
    * ```
    *
-   * @param listener The registered callback or a string representing the `id`.
+   * Using identifiers, you will need to ensure your value is unique to avoid
+   * removing listeners from other libraries, e.g.,:
+   *
+   * ```js
+   * emitter.add((data) => console.log(data), {id: 'non-unique'});
+   * // This second listener could be added by a third-party library.
+   * emitter.add((data) => console.log('Hello From Library!'), {id: 'non-unique'});
+   *
+   * // Ho Snap! This also removed the library listener!
+   * emitter.remove('non-unique');
+   * ```
+   *
+   * The identifier can be any type. However, remember that the comparison will be
+   * by-value for primitive types (string, number), but by reference for objects.
+   *
+   * Example:
+   *
+   * ```js
+   * emitter.add(() => console.log('Hello'), {id: {value: 42}});
+   * emitter.add(() => console.log('World!'), {id: {value: 42}});
+   * emitter.remove({value: 42}); // None of the above listeners match!
+   * emitter.notify(); // Prints 'Hello' and 'World!'.
+   * ```
+   *
+   * Here, both emitters have id `{value: 42}`, but the comparison is made by reference. Thus,
+   * the `remove()` call has no effect. We can make it work by doing:
+   *
+   * ```js
+   * const id = {value: 42};
+   * emitter.add(() => console.log('Hello'), {id});
+   * emitter.add(() => console.log('World!'), {id});
+   * emitter.remove(id); // Same reference, it works!
+   * emitter.notify(); // Doesn't print.
+   * ```
+   *
+   * @param listener The registered callback or a value representing the `id`.
    *
    * @returns Reference to self (for method chaining)
    */
   remove(listener) {
-    const index = this._find(listener);
-    if (index !== null)
-      this._listeners.splice(index, 1);
+    const listeners = this._listeners;
+    for (let i = 0; i < listeners.length; ++i) {
+      const target = listeners[i];
+      if (target.callback === listener || target.id === listener) {
+        listeners.splice(i--, 1);
+      }
+    }
     return this;
   }
   /**
@@ -3031,11 +3071,17 @@ var Emitter = class {
    *
    * @note This method performs a linear search.
    *
-   * @param listener The registered callback or a string representing the `id`.
+   * @param listener The registered callback or a value representing the `id`.
    * @returns `true` if the handle is found, `false` otherwise.
    */
   has(listener) {
-    return this._find(listener) !== null;
+    const listeners = this._listeners;
+    for (let i = 0; i < listeners.length; ++i) {
+      const target = listeners[i];
+      if (target.callback === listener || target.id === listener)
+        return true;
+    }
+    return false;
   }
   /**
    * Notify listeners with the given data object.
@@ -3096,28 +3142,13 @@ var Emitter = class {
       });
     });
   }
-  /**
-   * Find the listener index.
-   *
-   * @param listener The registered callback or a string representing the `id`.
-   * @returns The index if found, `null` otherwise.
-   *
-   * @hidden
-   */
-  _find(listener) {
-    const listeners = this._listeners;
-    if (isString(listener)) {
-      for (let i = 0; i < listeners.length; ++i) {
-        if (listeners[i].id === listener)
-          return i;
-      }
-      return null;
-    }
-    for (let i = 0; i < listeners.length; ++i) {
-      if (listeners[i].callback === listener)
-        return i;
-    }
-    return null;
+  /** Number of listeners. */
+  get listenerCount() {
+    return this._listeners.length;
+  }
+  /** `true` if it has no listeners, `false` otherwise. */
+  get isEmpty() {
+    return this.listenerCount === 0;
   }
 };
 var RetainEmitterUndefined = {};
@@ -3140,7 +3171,7 @@ var RetainEmitter = class extends Emitter {
     return this;
   }
   /**
-   * @overload
+   * @override
    *
    * @param listener The callback to register.
    * @param immediate If `true`, directly resolves if the emitter retains a value.
@@ -3172,17 +3203,25 @@ var RetainEmitter = class extends Emitter {
     this._event = RetainEmitterUndefined;
     return this;
   }
+  /** Returns the retained data, or `undefined` if no data was retained. */
+  get data() {
+    return this.isDataRetained ? this._event : void 0;
+  }
+  /** `true` if data is retained from the last event, `false` otherwise. */
+  get isDataRetained() {
+    return this._event !== RetainEmitterUndefined;
+  }
 };
 
 // node_modules/@wonderlandengine/api/dist/wonderland.js
 var __decorate = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d2 = decorators[i])
-        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var Collider;
@@ -3277,262 +3316,6 @@ function isMeshShape(shape) {
   return shape === Shape.ConvexMesh || shape === Shape.TriangleMesh;
 }
 var UP_VECTOR = [0, 1, 0];
-var Scene = class {
-  /** Called before rendering the scene */
-  onPreRender = new Emitter();
-  /** Called after the scene has been rendered */
-  onPostRender = new Emitter();
-  /** Wonderland Engine instance. @hidden */
-  _engine;
-  /** Ray hit pointer in WASM heap. @hidden */
-  _rayHit;
-  /** Ray hit. @hidden */
-  _hit;
-  constructor(engine2) {
-    this._engine = engine2;
-    this._rayHit = engine2.wasm._malloc(4 * (3 * 4 + 3 * 4 + 4 + 2) + 4);
-    this._hit = new RayHit(this._engine, this._rayHit);
-  }
-  /**
-   * Currently active view components.
-   */
-  get activeViews() {
-    const wasm = this._engine.wasm;
-    const count = wasm._wl_scene_get_active_views(this._engine.wasm._tempMem, 16);
-    const views = [];
-    const viewTypeIndex = wasm._typeIndexFor("view");
-    for (let i = 0; i < count; ++i) {
-      views.push(new ViewComponent(this._engine, viewTypeIndex, this._engine.wasm._tempMemInt[i]));
-    }
-    return views;
-  }
-  /**
-   * Cast a ray through the scene and find intersecting objects.
-   *
-   * The resulting ray hit will contain up to **4** closest ray hits,
-   * sorted by increasing distance.
-   *
-   * @param o Ray origin.
-   * @param d Ray direction.
-   * @param group Collision group to filter by: only objects that are
-   *        part of given group are considered for raycast.
-   *
-   * @returns The scene cached {@link RayHit} instance.
-   * @note The returned object is owned by the Scene instance
-   *   will be reused with the next {@link Scene#rayCast} call.
-   */
-  rayCast(o, d2, group) {
-    this._engine.wasm._wl_scene_ray_cast(o[0], o[1], o[2], d2[0], d2[1], d2[2], group, this._rayHit);
-    return this._hit;
-  }
-  /**
-   * Add an object to the scene.
-   *
-   * @param parent Parent object or `null`.
-   * @returns A newly created object.
-   */
-  addObject(parent = null) {
-    const parentId = parent ? parent.objectId : 0;
-    const objectId = this._engine.wasm._wl_scene_add_object(parentId);
-    return this._engine.wrapObject(objectId);
-  }
-  /**
-   * Batch-add objects to the scene.
-   *
-   * Will provide better performance for adding multiple objects (e.g. > 16)
-   * than calling {@link Scene#addObject} repeatedly in a loop.
-   *
-   * By providing upfront information of how many objects will be required,
-   * the engine is able to batch-allocate the required memory rather than
-   * convervatively grow the memory in small steps.
-   *
-   * **Experimental:** This API might change in upcoming versions.
-   *
-   * @param count Number of objects to add.
-   * @param parent Parent object or `null`, default `null`.
-   * @param componentCountHint Hint for how many components in total will
-   *      be added to the created objects afterwards, default `0`.
-   * @returns Newly created objects
-   */
-  addObjects(count, parent = null, componentCountHint = 0) {
-    const parentId = parent ? parent.objectId : 0;
-    this._engine.wasm.requireTempMem(count * 2);
-    const actualCount = this._engine.wasm._wl_scene_add_objects(parentId, count, componentCountHint || 0, this._engine.wasm._tempMem, this._engine.wasm._tempMemSize >> 1);
-    const ids = this._engine.wasm._tempMemUint16.subarray(0, actualCount);
-    const wrapper = this._engine.wrapObject.bind(this._engine);
-    const objects = Array.from(ids, wrapper);
-    return objects;
-  }
-  /**
-   * Pre-allocate memory for a given amount of objects and components.
-   *
-   * Will provide better performance for adding objects later with {@link Scene#addObject}
-   * and {@link Scene#addObjects}.
-   *
-   * By providing upfront information of how many objects will be required,
-   * the engine is able to batch-allocate the required memory rather than
-   * conservatively grow the memory in small steps.
-   *
-   * **Experimental:** This API might change in upcoming versions.
-   *
-   * @param objectCount Number of objects to add.
-   * @param componentCountPerType Amount of components to
-   *      allocate for {@link Object3D.addComponent}, e.g. `{mesh: 100, collision: 200, "my-comp": 100}`.
-   * @since 0.8.10
-   */
-  reserveObjects(objectCount, componentCountPerType) {
-    const wasm = this._engine.wasm;
-    componentCountPerType = componentCountPerType || {};
-    const jsManagerIndex = wasm._typeIndexFor("js");
-    let countsPerTypeIndex = wasm._tempMemInt.subarray();
-    countsPerTypeIndex.fill(0);
-    for (const e of Object.entries(componentCountPerType)) {
-      const typeIndex = wasm._typeIndexFor(e[0]);
-      countsPerTypeIndex[typeIndex < 0 ? jsManagerIndex : typeIndex] += e[1];
-    }
-    wasm._wl_scene_reserve_objects(objectCount, wasm._tempMem);
-  }
-  /**
-   * Set the background clear color.
-   *
-   * @param color new clear color (RGBA).
-   * @since 0.8.5
-   */
-  set clearColor(color) {
-    this._engine.wasm._wl_scene_set_clearColor(color[0], color[1], color[2], color[3]);
-  }
-  /**
-   * Set whether to clear the color framebuffer before drawing.
-   *
-   * This function is useful if an external framework (e.g. an AR tracking
-   * framework) is responsible for drawing a camera frame before Wonderland
-   * Engine draws the scene on top of it.
-   *
-   * @param b Whether to enable color clear.
-   * @since 0.9.4
-   */
-  set colorClearEnabled(b) {
-    this._engine.wasm._wl_scene_enableColorClear(b);
-  }
-  /** Hosting engine instance. */
-  get engine() {
-    return this._engine;
-  }
-  /**
-   * Load a scene file (.bin)
-   *
-   * Will replace the currently active scene with the one loaded
-   * from given file. It is assumed that JavaScript components required by
-   * the new scene were registered in advance.
-   *
-   * @param filename Path to the .bin file.
-   */
-  load(filename) {
-    const wasm = this._engine.wasm;
-    wasm._wl_load_scene(wasm.tempUTF8(filename));
-  }
-  /**
-   * Load an external 3D file (.gltf, .glb).
-   *
-   * Loads and parses the gltf file and its images and appends the result
-   * to scene.
-   *
-   * ```js
-   * WL.scene.append(filename).then(root => {
-   *     // root contains the loaded scene
-   * });
-   * ```
-   *
-   * In case the `loadGltfExtensions` option is set to true, the response
-   * will be an object containing both the root of the loaded scene and
-   * any glTF extensions found on nodes, meshes and the root of the file.
-   *
-   * ```js
-   * WL.scene.append(filename, { loadGltfExtensions: true }).then(({root, extensions}) => {
-   *     // root contains the loaded scene
-   *     // extensions.root contains any extensions at the root of glTF document
-   *     const rootExtensions = extensions.root;
-   *     // extensions.mesh and extensions.node contain extensions indexed by Object id
-   *     const childObject = root.children[0];
-   *     const meshExtensions = root.meshExtensions[childObject.objectId];
-   *     const nodeExtensions = root.nodeExtensions[childObject.objectId];
-   *     // extensions.idMapping contains a mapping from glTF node index to Object id
-   * });
-   * ```
-   *
-   * @param filename Path to the .gltf or .glb file.
-   * @param options Additional options for loading.
-   * @returns Root of the loaded scene.
-   */
-  append(filename, options) {
-    options = options || {};
-    const wasm = this._engine.wasm;
-    const loadGltfExtensions = !!options.loadGltfExtensions;
-    const callback = wasm._sceneLoadedCallback.length;
-    const promise = new Promise((resolve, reject) => {
-      wasm._sceneLoadedCallback[callback] = {
-        success: (id, extensions) => {
-          const root = this._engine.wrapObject(id);
-          resolve(extensions ? { root, extensions } : root);
-        },
-        error: () => reject()
-      };
-    });
-    wasm._wl_append_scene(wasm.tempUTF8(filename), loadGltfExtensions, callback);
-    return promise;
-  }
-  /**
-   * Unmarshalls the GltfExtensions from an Uint32Array.
-   *
-   * @param data Array containing the gltf extension data.
-   * @returns The extensions stored in an object literal.
-   *
-   * @hidden
-   */
-  _unmarshallGltfExtensions(data) {
-    const extensions = {
-      root: {},
-      mesh: {},
-      node: {},
-      idMapping: {}
-    };
-    let index = 0;
-    const readString = () => {
-      const strPtr = data[index++];
-      const strLen = data[index++];
-      return this._engine.wasm.UTF8ViewToString(strPtr, strPtr + strLen);
-    };
-    const idMappingSize = data[index++];
-    const idMapping = new Array(idMappingSize);
-    for (let i = 0; i < idMappingSize; ++i) {
-      idMapping[i] = data[index++];
-    }
-    extensions.idMapping = idMapping;
-    const meshExtensionsSize = data[index++];
-    for (let i = 0; i < meshExtensionsSize; ++i) {
-      const objectId = data[index++];
-      extensions.mesh[idMapping[objectId]] = JSON.parse(readString());
-    }
-    const nodeExtensionsSize = data[index++];
-    for (let i = 0; i < nodeExtensionsSize; ++i) {
-      const objectId = data[index++];
-      extensions.node[idMapping[objectId]] = JSON.parse(readString());
-    }
-    const rootExtensionsStr = readString();
-    if (rootExtensionsStr) {
-      extensions.root = JSON.parse(rootExtensionsStr);
-    }
-    return extensions;
-  }
-  /**
-   * Reset the scene.
-   *
-   * This method deletes all used and allocated objects, and components.
-   */
-  reset() {
-    this._engine.wasm._wl_scene_reset();
-  }
-};
 var Component = class {
   /** Manager index. @hidden */
   _manager;
@@ -3629,6 +3412,130 @@ var Component = class {
       return false;
     return this._manager == otherComponent._manager && this._id == otherComponent._id;
   }
+  /**
+   * Reset the component properties to default.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  reset() {
+    const ctor = this.constructor;
+    const properties = ctor.Properties;
+    for (const name in properties) {
+      this[name] = properties[name].default;
+    }
+    return this;
+  }
+  /**
+   * Trigger the component {@link Component.init} method.
+   *
+   * @note Use this method instead of directly calling {@link Component.init},
+   * because this method creates an handler for the {@link Component.start}.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @hidden
+   */
+  _triggerInit() {
+    if (this.init) {
+      try {
+        this.init();
+      } catch (e) {
+        console.error(`Exception during ${this.type} init() on object ${this.object.name}`);
+        console.error(e);
+      }
+    }
+    if (!this.start)
+      return;
+    const oldActivate = this.onActivate;
+    this.onActivate = function() {
+      try {
+        this.start?.();
+      } catch (e) {
+        console.error(`Exception during ${this.type} start() on object ${this.object.name}`);
+        console.error(e);
+      }
+      this.onActivate = oldActivate;
+      if (!this.onActivate)
+        return;
+      try {
+        this.onActivate();
+      } catch (e) {
+        console.error(`Exception during ${this.type} onActivate() on object ${this.object.name}`);
+        console.error(e);
+      }
+    };
+  }
+  /**
+   * Trigger the component {@link Component.update} method.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @hidden
+   */
+  _triggerUpdate(dt) {
+    if (!this.update)
+      return;
+    try {
+      this.update(dt);
+    } catch (e) {
+      console.error(`Exception during ${this.type} update() on object ${this.object.name}`);
+      console.error(e);
+      if (this._engine.wasm._deactivate_component_on_error) {
+        this.active = false;
+      }
+    }
+  }
+  /**
+   * Trigger the component {@link Component.onActivate} method.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @hidden
+   */
+  _triggerOnActivate() {
+    if (!this.onActivate)
+      return;
+    try {
+      this.onActivate();
+    } catch (e) {
+      console.error(`Exception during ${this.type} onActivate() on object ${this.object.name}`);
+      console.error(e);
+    }
+  }
+  /**
+   * Trigger the component {@link Component.onDeactivate} method.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @hidden
+   */
+  _triggerOnDeactivate() {
+    if (!this.onDeactivate)
+      return;
+    try {
+      this.onDeactivate();
+    } catch (e) {
+      console.error(`Exception during ${this.type} onDeactivate() on object ${this.object.name}`);
+      console.error(e);
+    }
+  }
+  /**
+   * Trigger the component {@link Component.onDestroy} method.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @hidden
+   */
+  _triggerOnDestroy() {
+    if (!this.onDestroy)
+      return;
+    try {
+      this.onDestroy();
+    } catch (e) {
+      console.error(`Exception during ${this.type} onDestroy() on object ${this.object.name}`);
+      console.error(e);
+    }
+  }
 };
 /**
  * Unique identifier for this component class.
@@ -3695,7 +3602,7 @@ __publicField(Component, "Dependencies");
  * class Spawner extends Component {
  *     static TypeName = 'spawner';
  *
- *     static onRegister() {
+ *     static onRegister(engine) {
  *         engine.registerComponent(SpawnedComponent);
  *     }
  *
@@ -3716,7 +3623,7 @@ __publicField(Component, "Dependencies");
  *     static TypeName = 'spawner';
  *     static Properties = SharedProperties;
  *
- *     static onRegister() {
+ *     static onRegister(engine) {
  *         if(navigator.xr === undefined) {
  *             /* WebXR unsupported, keep this dummy component *\/
  *             return;
@@ -3921,7 +3828,7 @@ var TextComponent = class extends Component {
    */
   set text(text) {
     const wasm = this._engine.wasm;
-    wasm._wl_text_component_set_text(this._id, wasm.tempUTF8(text));
+    wasm._wl_text_component_set_text(this._id, wasm.tempUTF8(text.toString()));
   }
   /**
    * Set material to render the text with.
@@ -4085,15 +3992,42 @@ __decorate([
   enumerable()
 ], InputComponent.prototype, "handedness", null);
 var LightComponent = class extends Component {
-  /** View on the light color. */
+  getColor(out = new Float32Array(3)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_light_component_get_color(this._id) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    return out;
+  }
+  /**
+   * Set light color.
+   *
+   * @param c New color array/vector, expected to have at least 3 elements.
+   * @since 1.0.0
+   */
+  setColor(c) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_light_component_get_color(this._id) / 4;
+    wasm.HEAPF32[ptr] = c[0];
+    wasm.HEAPF32[ptr + 1] = c[1];
+    wasm.HEAPF32[ptr + 2] = c[2];
+  }
+  /**
+   * View on the light color.
+   *
+   * @note Prefer to use {@link getColor} in performance-critical code.
+   */
   get color() {
     const wasm = this._engine.wasm;
-    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_light_component_get_color(this._id), 4);
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_light_component_get_color(this._id), 3);
   }
   /**
    * Set light color.
    *
    * @param c Color of the light component.
+   *
+   * @note Prefer to use {@link setColor} in performance-critical code.
    */
   set color(c) {
     this.color.set(c);
@@ -4110,6 +4044,150 @@ var LightComponent = class extends Component {
   set lightType(t) {
     this._engine.wasm._wl_light_component_set_type(this._id, t);
   }
+  /**
+   * Light intensity.
+   * @since 1.0.0
+   */
+  get intensity() {
+    return this._engine.wasm._wl_light_component_get_intensity(this._id);
+  }
+  /**
+   * Set light intensity.
+   *
+   * @param intensity Intensity of the light component.
+   * @since 1.0.0
+   */
+  set intensity(intensity) {
+    this._engine.wasm._wl_light_component_set_intensity(this._id, intensity);
+  }
+  /**
+   * Outer angle for spot lights, in degrees.
+   * @since 1.0.0
+   */
+  get outerAngle() {
+    return this._engine.wasm._wl_light_component_get_outerAngle(this._id);
+  }
+  /**
+   * Set outer angle for spot lights.
+   *
+   * @param angle Outer angle, in degrees.
+   * @since 1.0.0
+   */
+  set outerAngle(angle2) {
+    this._engine.wasm._wl_light_component_set_outerAngle(this._id, angle2);
+  }
+  /**
+   * Inner angle for spot lights, in degrees.
+   * @since 1.0.0
+   */
+  get innerAngle() {
+    return this._engine.wasm._wl_light_component_get_innerAngle(this._id);
+  }
+  /**
+   * Set inner angle for spot lights.
+   *
+   * @param angle Inner angle, in degrees.
+   * @since 1.0.0
+   */
+  set innerAngle(angle2) {
+    this._engine.wasm._wl_light_component_set_innerAngle(this._id, angle2);
+  }
+  /**
+   * Whether the light casts shadows.
+   * @since 1.0.0
+   */
+  get shadows() {
+    return !!this._engine.wasm._wl_light_component_get_shadows(this._id);
+  }
+  /**
+   * Set whether the light casts shadows.
+   *
+   * @param b Whether the light casts shadows.
+   * @since 1.0.0
+   */
+  set shadows(b) {
+    this._engine.wasm._wl_light_component_set_shadows(this._id, b);
+  }
+  /**
+   * Range for shadows.
+   * @since 1.0.0
+   */
+  get shadowRange() {
+    return this._engine.wasm._wl_light_component_get_shadowRange(this._id);
+  }
+  /**
+   * Set range for shadows.
+   *
+   * @param range Range for shadows.
+   * @since 1.0.0
+   */
+  set shadowRange(range) {
+    this._engine.wasm._wl_light_component_set_shadowRange(this._id, range);
+  }
+  /**
+   * Bias value for shadows.
+   * @since 1.0.0
+   */
+  get shadowBias() {
+    return this._engine.wasm._wl_light_component_get_shadowBias(this._id);
+  }
+  /**
+   * Set bias value for shadows.
+   *
+   * @param bias Bias for shadows.
+   * @since 1.0.0
+   */
+  set shadowBias(bias) {
+    this._engine.wasm._wl_light_component_set_shadowBias(this._id, bias);
+  }
+  /**
+   * Normal bias value for shadows.
+   * @since 1.0.0
+   */
+  get shadowNormalBias() {
+    return this._engine.wasm._wl_light_component_get_shadowNormalBias(this._id);
+  }
+  /**
+   * Set normal bias value for shadows.
+   *
+   * @param bias Normal bias for shadows.
+   * @since 1.0.0
+   */
+  set shadowNormalBias(bias) {
+    this._engine.wasm._wl_light_component_set_shadowNormalBias(this._id, bias);
+  }
+  /**
+   * Texel size for shadows.
+   * @since 1.0.0
+   */
+  get shadowTexelSize() {
+    return this._engine.wasm._wl_light_component_get_shadowTexelSize(this._id);
+  }
+  /**
+   * Set texel size for shadows.
+   *
+   * @param size Texel size for shadows.
+   * @since 1.0.0
+   */
+  set shadowTexelSize(size) {
+    this._engine.wasm._wl_light_component_set_shadowTexelSize(this._id, size);
+  }
+  /**
+   * Cascade count for {@link LightType.Sun} shadows.
+   * @since 1.0.0
+   */
+  get cascadeCount() {
+    return this._engine.wasm._wl_light_component_get_cascadeCount(this._id);
+  }
+  /**
+   * Set cascade count for {@link LightType.Sun} shadows.
+   *
+   * @param count Cascade count.
+   * @since 1.0.0
+   */
+  set cascadeCount(count) {
+    this._engine.wasm._wl_light_component_set_cascadeCount(this._id, count);
+  }
 };
 /** @override */
 __publicField(LightComponent, "TypeName", "light");
@@ -4119,6 +4197,33 @@ __decorate([
 __decorate([
   nativeProperty()
 ], LightComponent.prototype, "lightType", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "intensity", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "outerAngle", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "innerAngle", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "shadows", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "shadowRange", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "shadowBias", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "shadowNormalBias", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "shadowTexelSize", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "cascadeCount", null);
 var AnimationComponent = class extends Component {
   /**
    * Set animation to play.
@@ -4401,10 +4506,10 @@ var PhysXComponent = class extends Component {
    * Retrieved only from {@link PhysXComponent#shapeData}.
    * @since 0.8.10
    */
-  set shapeData(d2) {
-    if (d2 == null || !isMeshShape(this.shape))
+  set shapeData(d) {
+    if (d == null || !isMeshShape(this.shape))
       return;
-    this._engine.wasm._wl_physx_component_set_shape_data(this._id, d2.index);
+    this._engine.wasm._wl_physx_component_set_shape_data(this._id, d.index);
   }
   /**
    * Additional data for the shape.
@@ -4700,13 +4805,13 @@ var PhysXComponent = class extends Component {
    * @param p Position to apply force at, default is center of mass.
    * @param local Whether position is in local space, default `false`.
    */
-  addForce(f, m = ForceMode.Force, localForce = false, p, local = false) {
+  addForce(f2, m = ForceMode.Force, localForce = false, p, local = false) {
     const wasm = this._engine.wasm;
     if (!p) {
-      wasm._wl_physx_component_addForce(this._id, f[0], f[1], f[2], m, localForce);
+      wasm._wl_physx_component_addForce(this._id, f2[0], f2[1], f2[2], m, localForce);
       return;
     }
-    wasm._wl_physx_component_addForceAt(this._id, f[0], f[1], f[2], m, localForce, p[0], p[1], p[2], local);
+    wasm._wl_physx_component_addForceAt(this._id, f2[0], f2[1], f2[2], m, localForce, p[0], p[1], p[2], local);
   }
   /**
    * Apply torque.
@@ -4718,8 +4823,8 @@ var PhysXComponent = class extends Component {
    * @param f Force vector.
    * @param m Force mode, see {@link ForceMode}, default `Force`.
    */
-  addTorque(f, m = ForceMode.Force) {
-    this._engine.wasm._wl_physx_component_addTorque(this._id, f[0], f[1], f[2], m);
+  addTorque(f2, m = ForceMode.Force) {
+    this._engine.wasm._wl_physx_component_addTorque(this._id, f2[0], f2[1], f2[2], m);
   }
   /**
    * Add on collision callback.
@@ -4878,8 +4983,8 @@ var Physics = class {
    * @note The returned {@link RayHit} object is owned by the Physics instance and
    *       will be reused with the next {@link Physics#rayCast} call.
    */
-  rayCast(o, d2, group, maxDistance = 100) {
-    this._engine.wasm._wl_physx_ray_cast(o[0], o[1], o[2], d2[0], d2[1], d2[2], group, maxDistance, this._rayHit);
+  rayCast(o, d, group, maxDistance = 100) {
+    this._engine.wasm._wl_physx_ray_cast(o[0], o[1], o[2], d[0], d[1], d[2], group, maxDistance, this._rayHit);
     return this._hit;
   }
 };
@@ -4889,6 +4994,12 @@ var MeshIndexType;
   MeshIndexType2[MeshIndexType2["UnsignedShort"] = 2] = "UnsignedShort";
   MeshIndexType2[MeshIndexType2["UnsignedInt"] = 4] = "UnsignedInt";
 })(MeshIndexType || (MeshIndexType = {}));
+var MeshSkinningType;
+(function(MeshSkinningType2) {
+  MeshSkinningType2[MeshSkinningType2["None"] = 0] = "None";
+  MeshSkinningType2[MeshSkinningType2["FourJoints"] = 1] = "FourJoints";
+  MeshSkinningType2[MeshSkinningType2["EightJoints"] = 2] = "EightJoints";
+})(MeshSkinningType || (MeshSkinningType = {}));
 var Mesh = class {
   /**
    * Index of the mesh in the manager.
@@ -4933,8 +5044,8 @@ var Mesh = class {
           break;
       }
     }
-    const { skinned = false } = params;
-    this._index = wasm._wl_mesh_create(indexData, indexDataSize, indexType, params.vertexCount, skinned);
+    const { skinningType = MeshSkinningType.None } = params;
+    this._index = wasm._wl_mesh_create(indexData, indexDataSize, indexType, params.vertexCount, skinningType);
   }
   /** Number of vertices in this mesh. */
   get vertexCount() {
@@ -5364,7 +5475,7 @@ var Texture = class {
    * @param w width
    * @param h height
    */
-  updateSubImage(x2, y, w, h) {
+  updateSubImage(x, y, w, h) {
     if (!this.valid || this._imageIndex === null)
       return;
     if (!temp2d) {
@@ -5381,10 +5492,10 @@ var Texture = class {
       return;
     temp2d.canvas.width = w;
     temp2d.canvas.height = h;
-    temp2d.ctx.drawImage(img, x2, y, w, h, 0, 0, w, h);
+    temp2d.ctx.drawImage(img, x, y, w, h, 0, 0, w, h);
     const yOffset = (img.videoHeight ?? img.height) - y - h;
     wasm._images[this._imageIndex] = temp2d.canvas;
-    wasm._wl_renderer_updateImage(this._id, this._imageIndex, x2, yOffset);
+    wasm._wl_renderer_updateImage(this._id, this._imageIndex, x, yOffset);
     wasm._images[this._imageIndex] = img;
   }
   /**
@@ -5576,13 +5687,17 @@ var Object3D = class {
     return this;
   }
   /**
-   * Reset local translation and rotation to identity.
+   * Reset local position and rotation to identity.
    *
    * @returns Reference to self (for method chaining).
    */
-  resetTranslationRotation() {
+  resetPositionRotation() {
     this._engine.wasm._wl_object_reset_translation_rotation(this.objectId);
     return this;
+  }
+  /** @deprecated Please use {@link Object3D.resetPositionRotation} instead. */
+  resetTranslationRotation() {
+    return this.resetPositionRotation();
   }
   /**
    * Reset local rotation, keep translation.
@@ -5604,9 +5719,13 @@ var Object3D = class {
    *
    * @returns Reference to self (for method chaining).
    */
-  resetTranslation() {
+  resetPosition() {
     this._engine.wasm._wl_object_reset_translation(this.objectId);
     return this;
+  }
+  /** @deprecated Please use {@link Object3D.resetPosition} instead. */
+  resetTranslation() {
+    return this.resetPosition();
   }
   /**
    * Reset local scaling to identity (``[1.0, 1.0, 1.0]``).
@@ -5655,8 +5774,8 @@ var Object3D = class {
     return this;
   }
   /** @deprecated Please use {@link Object3D.rotateAxisAngleDegLocal} instead. */
-  rotateAxisAngleDeg(a, d2) {
-    this.rotateAxisAngleDegLocal(a, d2);
+  rotateAxisAngleDeg(a, d) {
+    this.rotateAxisAngleDegLocal(a, d);
     return this;
   }
   /**
@@ -5673,13 +5792,13 @@ var Object3D = class {
    *
    * @returns Reference to self (for method chaining).
    */
-  rotateAxisAngleDegLocal(a, d2) {
-    this._engine.wasm._wl_object_rotate_axis_angle(this.objectId, a[0], a[1], a[2], d2);
+  rotateAxisAngleDegLocal(a, d) {
+    this._engine.wasm._wl_object_rotate_axis_angle(this.objectId, a[0], a[1], a[2], d);
     return this;
   }
   /** @deprecated Please use {@link Object3D.rotateAxisAngleRadLocal} instead. */
-  rotateAxisAngleRad(a, d2) {
-    return this.rotateAxisAngleRadLocal(a, d2);
+  rotateAxisAngleRad(a, d) {
+    return this.rotateAxisAngleRadLocal(a, d);
   }
   /**
    * Rotate around given axis by given angle (radians) in local space.
@@ -5695,8 +5814,8 @@ var Object3D = class {
    *
    * @returns Reference to self (for method chaining).
    */
-  rotateAxisAngleRadLocal(a, d2) {
-    this._engine.wasm._wl_object_rotate_axis_angle_rad(this.objectId, a[0], a[1], a[2], d2);
+  rotateAxisAngleRadLocal(a, d) {
+    this._engine.wasm._wl_object_rotate_axis_angle_rad(this.objectId, a[0], a[1], a[2], d);
     return this;
   }
   /**
@@ -5712,8 +5831,8 @@ var Object3D = class {
    *
    * @returns Reference to self (for method chaining).
    */
-  rotateAxisAngleDegObject(a, d2) {
-    this._engine.wasm._wl_object_rotate_axis_angle_obj(this.objectId, a[0], a[1], a[2], d2);
+  rotateAxisAngleDegObject(a, d) {
+    this._engine.wasm._wl_object_rotate_axis_angle_obj(this.objectId, a[0], a[1], a[2], d);
     return this;
   }
   /**
@@ -5728,8 +5847,8 @@ var Object3D = class {
    *
    * @returns Reference to self (for method chaining).
    */
-  rotateAxisAngleRadObject(a, d2) {
-    this._engine.wasm._wl_object_rotate_axis_angle_rad_obj(this.objectId, a[0], a[1], a[2], d2);
+  rotateAxisAngleRadObject(a, d) {
+    this._engine.wasm._wl_object_rotate_axis_angle_rad_obj(this.objectId, a[0], a[1], a[2], d);
     return this;
   }
   /** @deprecated Please use {@link Object3D.rotateLocal} instead. */
@@ -5778,7 +5897,7 @@ var Object3D = class {
     this._engine.wasm._wl_object_scale(this.objectId, v[0], v[1], v[2]);
     return this;
   }
-  getTranslationLocal(out = new Float32Array(3)) {
+  getPositionLocal(out = new Float32Array(3)) {
     const wasm = this._engine.wasm;
     wasm._wl_object_get_translation_local(this.objectId, wasm._tempMem);
     out[0] = wasm._tempMemFloat[0];
@@ -5786,7 +5905,10 @@ var Object3D = class {
     out[2] = wasm._tempMemFloat[2];
     return out;
   }
-  getTranslationWorld(out = new Float32Array(3)) {
+  getTranslationLocal(out = new Float32Array(3)) {
+    return this.getPositionLocal(out);
+  }
+  getPositionWorld(out = new Float32Array(3)) {
     const wasm = this._engine.wasm;
     wasm._wl_object_get_translation_world(this.objectId, wasm._tempMem);
     out[0] = wasm._tempMemFloat[0];
@@ -5794,32 +5916,43 @@ var Object3D = class {
     out[2] = wasm._tempMemFloat[2];
     return out;
   }
+  getTranslationWorld(out = new Float32Array(3)) {
+    return this.getPositionWorld(out);
+  }
   /**
-   * Set local / object space translation.
+   * Set local / object space position.
    *
    * Concatenates a new translation dual quaternion onto the existing rotation.
    *
-   * @param v New local translation array/vector, expected to have at least 3 elements.
+   * @param v New local position array/vector, expected to have at least 3 elements.
    *
    * @returns Reference to self (for method chaining).
    */
-  setTranslationLocal(v) {
+  setPositionLocal(v) {
     this._engine.wasm._wl_object_set_translation_local(this.objectId, v[0], v[1], v[2]);
     return this;
   }
+  /** @deprecated Please use {@link Object3D.setPositionLocal} instead. */
+  setTranslationLocal(v) {
+    return this.setPositionLocal(v);
+  }
   /**
-   * Set world space translation.
+   * Set world space position.
    *
    * Applies the inverse parent transform with a new translation dual quaternion
    * which is concatenated onto the existing rotation.
    *
-   * @param v New world translation array/vector, expected to have at least 3 elements.
+   * @param v New world position array/vector, expected to have at least 3 elements.
    *
    * @returns Reference to self (for method chaining).
    */
-  setTranslationWorld(v) {
+  setPositionWorld(v) {
     this._engine.wasm._wl_object_set_translation_world(this.objectId, v[0], v[1], v[2]);
     return this;
+  }
+  /** @deprecated Please use {@link Object3D.setPositionWorld} instead. */
+  setTranslationWorld(v) {
+    return this.setPositionWorld(v);
   }
   getScalingLocal(out = new Float32Array(3)) {
     const wasm = this._engine.wasm;
@@ -6454,6 +6587,8 @@ var Object3D = class {
     const componentType = wasm._wl_get_component_manager_index(wasm.tempUTF8(type));
     if (componentType < 0) {
       const typeIndex = wasm._componentTypeIndices[type];
+      if (typeIndex === void 0)
+        return null;
       const jsIndex = wasm._wl_get_js_component_index(this.objectId, typeIndex, index);
       return jsIndex < 0 ? null : this._engine.wasm._components[jsIndex];
     }
@@ -6684,14 +6819,14 @@ var math = class {
    *
    * @since 0.8.6
    */
-  static cubicHermite(out, a, b, c, d2, f, engine2 = WL) {
+  static cubicHermite(out, a, b, c, d, f2, engine2 = WL) {
     const wasm = engine2.wasm;
     wasm._tempMemFloat.subarray(0).set(a);
     wasm._tempMemFloat.subarray(4).set(b);
     wasm._tempMemFloat.subarray(8).set(c);
-    wasm._tempMemFloat.subarray(12).set(d2);
+    wasm._tempMemFloat.subarray(12).set(d);
     const isQuat = a.length == 4;
-    wasm._wl_math_cubicHermite(wasm._tempMem + 4 * 16, wasm._tempMem + 4 * 0, wasm._tempMem + 4 * 4, wasm._tempMem + 4 * 8, wasm._tempMem + 4 * 12, f, isQuat);
+    wasm._wl_math_cubicHermite(wasm._tempMem + 4 * 16, wasm._tempMem + 4 * 0, wasm._tempMem + 4 * 4, wasm._tempMem + 4 * 8, wasm._tempMem + 4 * 12, f2, isQuat);
     out[0] = wasm._tempMemFloat[16];
     out[1] = wasm._tempMemFloat[17];
     out[2] = wasm._tempMemFloat[18];
@@ -6855,6 +6990,345 @@ var XR = class {
   }
 };
 
+// node_modules/@wonderlandengine/api/dist/utils/fetch.js
+function fetchWithProgress(path, onProgress) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", path);
+    xhr.responseType = "arraybuffer";
+    xhr.onprogress = (progress) => {
+      if (progress.lengthComputable) {
+        onProgress?.(progress.loaded, progress.total);
+      }
+    };
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        const buffer = xhr.response;
+        onProgress?.(buffer.byteLength, buffer.byteLength);
+        resolve(buffer);
+      } else {
+        reject(xhr.statusText);
+      }
+    };
+    xhr.onerror = () => reject(xhr.statusText);
+    xhr.send();
+  });
+}
+
+// node_modules/@wonderlandengine/api/dist/scene.js
+var Scene = class {
+  /** Called before rendering the scene */
+  onPreRender = new Emitter();
+  /** Called after the scene has been rendered */
+  onPostRender = new Emitter();
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /** Ray hit pointer in WASM heap. @hidden */
+  _rayHit;
+  /** Ray hit. @hidden */
+  _hit;
+  constructor(engine2) {
+    this._engine = engine2;
+    this._rayHit = engine2.wasm._malloc(4 * (3 * 4 + 3 * 4 + 4 + 2) + 4);
+    this._hit = new RayHit(this._engine, this._rayHit);
+  }
+  /**
+   * Currently active view components.
+   */
+  get activeViews() {
+    const wasm = this._engine.wasm;
+    const count = wasm._wl_scene_get_active_views(this._engine.wasm._tempMem, 16);
+    const views = [];
+    const viewTypeIndex = wasm._typeIndexFor("view");
+    for (let i = 0; i < count; ++i) {
+      views.push(new ViewComponent(this._engine, viewTypeIndex, this._engine.wasm._tempMemInt[i]));
+    }
+    return views;
+  }
+  /**
+   * Cast a ray through the scene and find intersecting objects.
+   *
+   * The resulting ray hit will contain up to **4** closest ray hits,
+   * sorted by increasing distance.
+   *
+   * @param o Ray origin.
+   * @param d Ray direction.
+   * @param group Collision group to filter by: only objects that are
+   *        part of given group are considered for raycast.
+   *
+   * @returns The scene cached {@link RayHit} instance.
+   * @note The returned object is owned by the Scene instance
+   *   will be reused with the next {@link Scene#rayCast} call.
+   */
+  rayCast(o, d, group) {
+    this._engine.wasm._wl_scene_ray_cast(o[0], o[1], o[2], d[0], d[1], d[2], group, this._rayHit);
+    return this._hit;
+  }
+  /**
+   * Add an object to the scene.
+   *
+   * @param parent Parent object or `null`.
+   * @returns A newly created object.
+   */
+  addObject(parent = null) {
+    const parentId = parent ? parent.objectId : 0;
+    const objectId = this._engine.wasm._wl_scene_add_object(parentId);
+    return this._engine.wrapObject(objectId);
+  }
+  /**
+   * Batch-add objects to the scene.
+   *
+   * Will provide better performance for adding multiple objects (e.g. > 16)
+   * than calling {@link Scene#addObject} repeatedly in a loop.
+   *
+   * By providing upfront information of how many objects will be required,
+   * the engine is able to batch-allocate the required memory rather than
+   * convervatively grow the memory in small steps.
+   *
+   * **Experimental:** This API might change in upcoming versions.
+   *
+   * @param count Number of objects to add.
+   * @param parent Parent object or `null`, default `null`.
+   * @param componentCountHint Hint for how many components in total will
+   *      be added to the created objects afterwards, default `0`.
+   * @returns Newly created objects
+   */
+  addObjects(count, parent = null, componentCountHint = 0) {
+    const parentId = parent ? parent.objectId : 0;
+    this._engine.wasm.requireTempMem(count * 2);
+    const actualCount = this._engine.wasm._wl_scene_add_objects(parentId, count, componentCountHint || 0, this._engine.wasm._tempMem, this._engine.wasm._tempMemSize >> 1);
+    const ids = this._engine.wasm._tempMemUint16.subarray(0, actualCount);
+    const wrapper = this._engine.wrapObject.bind(this._engine);
+    const objects = Array.from(ids, wrapper);
+    return objects;
+  }
+  /**
+   * Pre-allocate memory for a given amount of objects and components.
+   *
+   * Will provide better performance for adding objects later with {@link Scene#addObject}
+   * and {@link Scene#addObjects}.
+   *
+   * By providing upfront information of how many objects will be required,
+   * the engine is able to batch-allocate the required memory rather than
+   * conservatively grow the memory in small steps.
+   *
+   * **Experimental:** This API might change in upcoming versions.
+   *
+   * @param objectCount Number of objects to add.
+   * @param componentCountPerType Amount of components to
+   *      allocate for {@link Object3D.addComponent}, e.g. `{mesh: 100, collision: 200, "my-comp": 100}`.
+   * @since 0.8.10
+   */
+  reserveObjects(objectCount, componentCountPerType) {
+    const wasm = this._engine.wasm;
+    componentCountPerType = componentCountPerType || {};
+    const jsManagerIndex = wasm._typeIndexFor("js");
+    let countsPerTypeIndex = wasm._tempMemInt.subarray();
+    countsPerTypeIndex.fill(0);
+    for (const e of Object.entries(componentCountPerType)) {
+      const typeIndex = wasm._typeIndexFor(e[0]);
+      countsPerTypeIndex[typeIndex < 0 ? jsManagerIndex : typeIndex] += e[1];
+    }
+    wasm._wl_scene_reserve_objects(objectCount, wasm._tempMem);
+  }
+  /**
+   * Set the background clear color.
+   *
+   * @param color new clear color (RGBA).
+   * @since 0.8.5
+   */
+  set clearColor(color) {
+    this._engine.wasm._wl_scene_set_clearColor(color[0], color[1], color[2], color[3]);
+  }
+  /**
+   * Set whether to clear the color framebuffer before drawing.
+   *
+   * This function is useful if an external framework (e.g. an AR tracking
+   * framework) is responsible for drawing a camera frame before Wonderland
+   * Engine draws the scene on top of it.
+   *
+   * @param b Whether to enable color clear.
+   * @since 0.9.4
+   */
+  set colorClearEnabled(b) {
+    this._engine.wasm._wl_scene_enableColorClear(b);
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
+  /**
+   * Load a scene file (.bin).
+   *
+   * Will replace the currently active scene with the one loaded
+   * from given file. It is assumed that JavaScript components required by
+   * the new scene were registered in advance.
+   *
+   * Once the scene is loaded successfully and initialized,
+   * {@link WonderlandEngine.onSceneLoaded} is notified.
+   *
+   * @param filename Path to the .bin file.
+   * @returns Promise that resolves when the scene was loaded.
+   */
+  async load(filename) {
+    const wasm = this._engine.wasm;
+    const buffer = await fetchWithProgress(filename, (bytes, size2) => {
+      console.log(`Scene downloading: ${bytes} / ${size2}`);
+      wasm._wl_set_loading_screen_progress(bytes / size2);
+    });
+    const size = buffer.byteLength;
+    console.log(`Scene download of ${size} bytes successful.`);
+    const ptr = wasm._malloc(size);
+    new Uint8Array(wasm.HEAPU8.buffer, ptr, size).set(new Uint8Array(buffer));
+    try {
+      wasm._wl_load_scene_bin(ptr, size, wasm.tempUTF8(filename));
+    } finally {
+      wasm._free(ptr);
+    }
+    const binQueue = wasm._queuedBinFiles;
+    if (binQueue.length > 0) {
+      wasm._queuedBinFiles = [];
+      await Promise.all(binQueue.map((path) => this.append(path)));
+    }
+    this._engine.onSceneLoaded.notify();
+  }
+  /**
+   * Append a scene file.
+   *
+   * Loads and parses the file and its images and appends the result
+   * to the currently active scene.
+   *
+   * Supported formats are streamable Wonderland scene files (.bin) and glTF
+   * 3D scenes (.gltf, .glb).
+   *
+   * ```js
+   * WL.scene.append(filename).then(root => {
+   *     // root contains the loaded scene
+   * });
+   * ```
+   *
+   * In case the `loadGltfExtensions` option is set to true, the response
+   * will be an object containing both the root of the loaded scene and
+   * any glTF extensions found on nodes, meshes and the root of the file.
+   *
+   * ```js
+   * WL.scene.append(filename, { loadGltfExtensions: true }).then(({root, extensions}) => {
+   *     // root contains the loaded scene
+   *     // extensions.root contains any extensions at the root of glTF document
+   *     const rootExtensions = extensions.root;
+   *     // extensions.mesh and extensions.node contain extensions indexed by Object id
+   *     const childObject = root.children[0];
+   *     const meshExtensions = root.meshExtensions[childObject.objectId];
+   *     const nodeExtensions = root.nodeExtensions[childObject.objectId];
+   *     // extensions.idMapping contains a mapping from glTF node index to Object id
+   * });
+   * ```
+   *
+   * @param file The .bin, .gltf or .glb file to append. Should be a URL or
+   *   an `ArrayBuffer` with the file content.
+   * @param options Additional options for loading.
+   * @returns Promise that resolves when the scene was appended.
+   */
+  async append(file, options) {
+    const buffer = isString(file) ? await fetchWithProgress(file) : file;
+    const wasm = this._engine.wasm;
+    let callback;
+    const promise = new Promise((resolve, reject) => {
+      callback = wasm.addFunction((objectId, extensionData, extensionDataSize) => {
+        if (objectId < 0) {
+          reject();
+          return;
+        }
+        const root = objectId ? this._engine.wrapObject(objectId) : null;
+        if (extensionData && extensionDataSize) {
+          const marshalled = new Uint32Array(wasm.HEAPU32.buffer, extensionData, extensionDataSize / 4);
+          const extensions = this._unmarshallGltfExtensions(marshalled);
+          resolve({ root, extensions });
+        } else {
+          resolve(root);
+        }
+      }, "viii");
+    }).finally(() => wasm.removeFunction(callback));
+    const size = buffer.byteLength;
+    const ptr = wasm._malloc(size);
+    const data = new Uint8Array(wasm.HEAPU8.buffer, ptr, size);
+    data.set(new Uint8Array(buffer));
+    const MAGIC = "WLEV";
+    const isBinFile = data.byteLength > MAGIC.length && data.subarray(0, MAGIC.length).every((value, i) => value === MAGIC.charCodeAt(i));
+    try {
+      if (isBinFile) {
+        wasm._wl_append_scene_bin(ptr, size, callback);
+      } else {
+        const loadExtensions = options?.loadGltfExtensions ?? false;
+        wasm._wl_append_scene_gltf(ptr, size, loadExtensions, callback);
+      }
+    } catch (e) {
+      wasm.removeFunction(callback);
+      throw e;
+    } finally {
+      wasm._free(ptr);
+    }
+    const result = await promise;
+    const binQueue = wasm._queuedBinFiles;
+    if (isBinFile && binQueue.length > 0) {
+      wasm._queuedBinFiles = [];
+      await Promise.all(binQueue.map((path) => this.append(path, options)));
+    }
+    return result;
+  }
+  /**
+   * Unmarshalls the GltfExtensions from an Uint32Array.
+   *
+   * @param data Array containing the gltf extension data.
+   * @returns The extensions stored in an object literal.
+   *
+   * @hidden
+   */
+  _unmarshallGltfExtensions(data) {
+    const extensions = {
+      root: {},
+      mesh: {},
+      node: {},
+      idMapping: []
+    };
+    let index = 0;
+    const readString = () => {
+      const strPtr = data[index++];
+      const strLen = data[index++];
+      return this._engine.wasm.UTF8ViewToString(strPtr, strPtr + strLen);
+    };
+    const idMappingSize = data[index++];
+    const idMapping = new Array(idMappingSize);
+    for (let i = 0; i < idMappingSize; ++i) {
+      idMapping[i] = data[index++];
+    }
+    extensions.idMapping = idMapping;
+    const meshExtensionsSize = data[index++];
+    for (let i = 0; i < meshExtensionsSize; ++i) {
+      const objectId = data[index++];
+      extensions.mesh[idMapping[objectId]] = JSON.parse(readString());
+    }
+    const nodeExtensionsSize = data[index++];
+    for (let i = 0; i < nodeExtensionsSize; ++i) {
+      const objectId = data[index++];
+      extensions.node[idMapping[objectId]] = JSON.parse(readString());
+    }
+    const rootExtensionsStr = readString();
+    if (rootExtensionsStr) {
+      extensions.root = JSON.parse(rootExtensionsStr);
+    }
+    return extensions;
+  }
+  /**
+   * Reset the scene.
+   *
+   * This method deletes all used and allocated objects, and components.
+   */
+  reset() {
+    this._engine.wasm._wl_scene_reset();
+  }
+};
+
 // node_modules/@wonderlandengine/api/dist/texture-manager.js
 var TextureManager = class {
   /** Wonderland Engine instance. @hidden */
@@ -7000,6 +7474,20 @@ var WonderlandEngine = class {
    * ```
    */
   onXRSessionStart = new RetainEmitter();
+  /**
+   * {@link Emitter} for canvas / main framebuffer resize events.
+   *
+   * Usage from a within a component:
+   * ```js
+   * this.engine.onResize.add(() => {
+   *     const canvas = this.engine.canvas;
+   *     console.log(`New Size: ${canvas.width}, ${canvas.height}`);
+   * });
+   * ```
+   *
+   * @note The size of the canvas is in physical pixels, and is set via {@link WonderlandEngine.resize}.
+   */
+  onResize = new Emitter();
   /** Whether AR is supported by the browser. */
   arSupported = false;
   /** Whether VR is supported by the browser. */
@@ -7131,7 +7619,8 @@ var WonderlandEngine = class {
    * Resize the canvas and the rendering context.
    *
    * @note The `width` and `height` parameters will be scaled by the
-   * `dpr` one.
+   * `devicePixelRatio` value. By default, the pixel ratio used is
+   * [window.devicePixelRatio](https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio).
    *
    * @param width The width, in CSS pixels.
    * @param height The height, in CSS pixels.
@@ -7143,6 +7632,18 @@ var WonderlandEngine = class {
     this.canvas.width = width;
     this.canvas.height = height;
     this.wasm._wl_application_resize(width, height);
+    this.onResize.notify();
+  }
+  /**
+   * Run the next frame.
+   *
+   * @param fixedDelta The elapsed time between this frame and the previous one.
+   *
+   * @note The engine automatically schedules next frames. You should only
+   * use this method for testing.
+   */
+  nextFrame(fixedDelta = 0) {
+    this.#wasm._wl_nextFrame(fixedDelta);
   }
   /**
    * Request a XR session.
@@ -7546,6 +8047,8 @@ var WASM = class {
   _withPhysX = false;
   /** Decoder for UTF8 `ArrayBuffer` to JavaScript string. */
   _utf8Decoder = new TextDecoder("utf8");
+  /** List of .bin files to delay-load. */
+  _queuedBinFiles = [];
   /**
    * Create a new instance of the WebAssembly <> API bridge.
    *
@@ -7616,6 +8119,9 @@ var WASM = class {
   _registerComponent(ctor) {
     if (!ctor.TypeName)
       throw new Error("no name provided for component.");
+    if (!ctor.prototype._triggerInit) {
+      throw new Error(`registerComponent(): Component ${ctor.TypeName} must extend Component`);
+    }
     const dependencies = ctor.Dependencies;
     if (dependencies) {
       for (const dependency of dependencies) {
@@ -7796,8 +8302,10 @@ var WASM = class {
   }
   /* WebAssembly to JS call bridge. */
   _wljs_xr_session_start(mode) {
-    this._engine.xr = new XR(this, mode);
-    this._engine.onXRSessionStart.notify(this.webxr_session, mode);
+    if (this._engine.xr === null) {
+      this._engine.xr = new XR(this, mode);
+      this._engine.onXRSessionStart.notify(this.webxr_session, mode);
+    }
   }
   _wljs_xr_session_end() {
     const startEmitter = this._engine.onXRSessionStart;
@@ -7889,7 +8397,7 @@ var WASM = class {
   }
   _wljs_component_create(jsManagerIndex, index, id, type, object) {
     const ctor = this._componentTypes[type];
-    const component = new ctor();
+    const component = new ctor().reset();
     component._engine = this._engine;
     component._manager = jsManagerIndex;
     component._id = id;
@@ -7899,35 +8407,7 @@ var WASM = class {
   }
   _wljs_component_init(component) {
     const c = this._components[component];
-    if (c.init) {
-      try {
-        c.init();
-      } catch (e) {
-        console.error(`Exception during ${c.type} init() on object ${c.object.name}`);
-        console.error(e);
-      }
-    }
-    if (c.start) {
-      const oldActivate = c.onActivate;
-      c.onActivate = function() {
-        try {
-          if (this.start)
-            this.start();
-        } catch (e) {
-          console.error(`Exception during ${this.type} start() on object ${this.object.name}`);
-          console.error(e);
-        }
-        this.onActivate = oldActivate;
-        if (this.onActivate) {
-          try {
-            this.onActivate();
-          } catch (e) {
-            console.error(`Exception during ${this.type} onActivate() on object ${this.object.name}`);
-            console.error(e);
-          }
-        }
-      };
-    }
+    c._triggerInit();
   }
   _wljs_component_update(component, dt) {
     const c = this._components[component];
@@ -7936,49 +8416,20 @@ var WASM = class {
       this._components[component] = new Component(this._engine);
       return;
     }
-    if (!c.update)
-      return;
-    try {
-      c.update(dt);
-    } catch (e) {
-      console.error(`Exception during ${c.type} update() on object ${c.object.name}`);
-      console.error(e);
-      if (this._deactivate_component_on_error)
-        c.active = false;
-    }
+    c._triggerUpdate(dt);
   }
   _wljs_component_onActivate(component) {
     const c = this._components[component];
-    if (!c || !c.onActivate)
-      return;
-    try {
-      c.onActivate();
-    } catch (e) {
-      console.error(`Exception during ${c.type} onActivate() on object ${c.object.name}`);
-      console.error(e);
-    }
+    if (c)
+      c._triggerOnActivate();
   }
   _wljs_component_onDeactivate(component) {
     const c = this._components[component];
-    if (!c.onDeactivate)
-      return;
-    try {
-      c.onDeactivate();
-    } catch (e) {
-      console.error(`Exception during ${c.type} onDeactivate() on object ${c.object.name}`);
-      console.error(e);
-    }
+    c._triggerOnDeactivate();
   }
   _wljs_component_onDestroy(component) {
     const c = this._components[component];
-    if (!c.onDestroy)
-      return;
-    try {
-      c.onDestroy();
-    } catch (e) {
-      console.error(`Exception during ${c.type} onDestroy() on object ${c.object.name}`);
-      console.error(e);
-    }
+    c._triggerOnDestroy();
   }
   _wljs_swap(a, b) {
     const componentA = this._components[a];
@@ -7989,9 +8440,11 @@ var WASM = class {
   HEAP8 = null;
   HEAPU8 = null;
   HEAPU16 = null;
+  HEAP16 = null;
   HEAPU32 = null;
   HEAP32 = null;
   HEAPF32 = null;
+  HEAPF64 = null;
   GL = null;
   assert = null;
   _free = null;
@@ -8000,10 +8453,14 @@ var WASM = class {
   stringToUTF8 = null;
   UTF8ToString = null;
   addFunction = null;
+  removeFunction = null;
   _wl_set_error_callback = null;
   _wl_application_version = null;
   _wl_application_start = null;
   _wl_application_resize = null;
+  _wl_nextUpdate = null;
+  _wl_nextFrame = null;
+  _wl_renderer_set_mesh_layout = null;
   _wl_scene_get_active_views = null;
   _wl_scene_ray_cast = null;
   _wl_scene_add_object = null;
@@ -8011,8 +8468,10 @@ var WASM = class {
   _wl_scene_reserve_objects = null;
   _wl_scene_set_clearColor = null;
   _wl_scene_enableColorClear = null;
-  _wl_load_scene = null;
-  _wl_append_scene = null;
+  _wl_set_loading_screen_progress = null;
+  _wl_load_scene_bin = null;
+  _wl_append_scene_bin = null;
+  _wl_append_scene_gltf = null;
   _wl_scene_reset = null;
   _wl_component_get_object = null;
   _wl_component_setActive = null;
@@ -8050,6 +8509,24 @@ var WASM = class {
   _wl_light_component_get_color = null;
   _wl_light_component_get_type = null;
   _wl_light_component_set_type = null;
+  _wl_light_component_get_intensity = null;
+  _wl_light_component_set_intensity = null;
+  _wl_light_component_get_outerAngle = null;
+  _wl_light_component_set_outerAngle = null;
+  _wl_light_component_get_innerAngle = null;
+  _wl_light_component_set_innerAngle = null;
+  _wl_light_component_get_shadows = null;
+  _wl_light_component_set_shadows = null;
+  _wl_light_component_get_shadowRange = null;
+  _wl_light_component_set_shadowRange = null;
+  _wl_light_component_get_shadowBias = null;
+  _wl_light_component_set_shadowBias = null;
+  _wl_light_component_get_shadowNormalBias = null;
+  _wl_light_component_set_shadowNormalBias = null;
+  _wl_light_component_get_shadowTexelSize = null;
+  _wl_light_component_set_shadowTexelSize = null;
+  _wl_light_component_get_cascadeCount = null;
+  _wl_light_component_set_cascadeCount = null;
   _wl_animation_component_get_animation = null;
   _wl_animation_component_set_animation = null;
   _wl_animation_component_get_playCount = null;
@@ -8115,7 +8592,6 @@ var WASM = class {
   _wl_physx_component_addTorque = null;
   _wl_physx_component_addCallback = null;
   _wl_physx_component_removeCallback = null;
-  _wl_physx_update = null;
   _wl_physx_update_global_pose = null;
   _wl_physx_ray_cast = null;
   _wl_physx_set_collision_callback = null;
@@ -8225,8 +8701,8 @@ var WASM = class {
 var APIVersion = {
   major: 1,
   minor: 0,
-  patch: 0,
-  rc: 7
+  patch: 1,
+  rc: 0
 };
 
 // node_modules/@wonderlandengine/api/dist/index.js
@@ -8695,13 +9171,13 @@ function setXRRigidTransformLocal(o, transform) {
 
 // node_modules/@wonderlandengine/components/dist/anchor.js
 var __decorate2 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d2 = decorators[i])
-        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var tempVec3 = new Float32Array(3);
@@ -8882,8 +9358,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onHover.add(f);
    */
-  addHoverFunction(f) {
-    this.onHover.add(f);
+  addHoverFunction(f2) {
+    this.onHover.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8891,8 +9367,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onHover.remove(f);
    */
-  removeHoverFunction(f) {
-    this.onHover.remove(f);
+  removeHoverFunction(f2) {
+    this.onHover.remove(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8900,8 +9376,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onUnhover.add(f);
    */
-  addUnHoverFunction(f) {
-    this.onUnhover.add(f);
+  addUnHoverFunction(f2) {
+    this.onUnhover.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8909,8 +9385,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onUnhover.remove(f);
    */
-  removeUnHoverFunction(f) {
-    this.onUnhover.remove(f);
+  removeUnHoverFunction(f2) {
+    this.onUnhover.remove(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8918,8 +9394,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onClick.add(f);
    */
-  addClickFunction(f) {
-    this.onClick.add(f);
+  addClickFunction(f2) {
+    this.onClick.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8927,8 +9403,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onClick.remove(f);
    */
-  removeClickFunction(f) {
-    this.onClick.remove(f);
+  removeClickFunction(f2) {
+    this.onClick.remove(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8936,8 +9412,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onMove.add(f);
    */
-  addMoveFunction(f) {
-    this.onMove.add(f);
+  addMoveFunction(f2) {
+    this.onMove.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8945,8 +9421,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onMove.remove(f);
    */
-  removeMoveFunction(f) {
-    this.onMove.remove(f);
+  removeMoveFunction(f2) {
+    this.onMove.remove(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8954,8 +9430,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onDown.add(f);
    */
-  addDownFunction(f) {
-    this.onDown.add(f);
+  addDownFunction(f2) {
+    this.onDown.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8963,8 +9439,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onDown.remove(f);
    */
-  removeDownFunction(f) {
-    this.onDown.remove(f);
+  removeDownFunction(f2) {
+    this.onDown.remove(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8972,8 +9448,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onUp.add(f);
    */
-  addUpFunction(f) {
-    this.onUp.add(f);
+  addUpFunction(f2) {
+    this.onUp.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -8981,8 +9457,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onUp.remove(f);
    */
-  removeUpFunction(f) {
-    this.onUp.remove(f);
+  removeUpFunction(f2) {
+    this.onUp.remove(f2);
   }
 };
 __publicField(CursorTarget, "TypeName", "cursor-target");
@@ -9349,15 +9825,15 @@ function multiply(out, a, b) {
   return out;
 }
 function translate(out, a, v) {
-  var x2 = v[0], y = v[1], z = v[2];
+  var x = v[0], y = v[1], z = v[2];
   var a00, a01, a02, a03;
   var a10, a11, a12, a13;
   var a20, a21, a22, a23;
   if (a === out) {
-    out[12] = a[0] * x2 + a[4] * y + a[8] * z + a[12];
-    out[13] = a[1] * x2 + a[5] * y + a[9] * z + a[13];
-    out[14] = a[2] * x2 + a[6] * y + a[10] * z + a[14];
-    out[15] = a[3] * x2 + a[7] * y + a[11] * z + a[15];
+    out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
+    out[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
+    out[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
+    out[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
   } else {
     a00 = a[0];
     a01 = a[1];
@@ -9383,19 +9859,19 @@ function translate(out, a, v) {
     out[9] = a21;
     out[10] = a22;
     out[11] = a23;
-    out[12] = a00 * x2 + a10 * y + a20 * z + a[12];
-    out[13] = a01 * x2 + a11 * y + a21 * z + a[13];
-    out[14] = a02 * x2 + a12 * y + a22 * z + a[14];
-    out[15] = a03 * x2 + a13 * y + a23 * z + a[15];
+    out[12] = a00 * x + a10 * y + a20 * z + a[12];
+    out[13] = a01 * x + a11 * y + a21 * z + a[13];
+    out[14] = a02 * x + a12 * y + a22 * z + a[14];
+    out[15] = a03 * x + a13 * y + a23 * z + a[15];
   }
   return out;
 }
 function scale(out, a, v) {
-  var x2 = v[0], y = v[1], z = v[2];
-  out[0] = a[0] * x2;
-  out[1] = a[1] * x2;
-  out[2] = a[2] * x2;
-  out[3] = a[3] * x2;
+  var x = v[0], y = v[1], z = v[2];
+  out[0] = a[0] * x;
+  out[1] = a[1] * x;
+  out[2] = a[2] * x;
+  out[3] = a[3] * x;
   out[4] = a[4] * y;
   out[5] = a[5] * y;
   out[6] = a[6] * y;
@@ -9411,8 +9887,8 @@ function scale(out, a, v) {
   return out;
 }
 function rotate(out, a, rad, axis) {
-  var x2 = axis[0], y = axis[1], z = axis[2];
-  var len4 = Math.hypot(x2, y, z);
+  var x = axis[0], y = axis[1], z = axis[2];
+  var len4 = Math.hypot(x, y, z);
   var s, c, t;
   var a00, a01, a02, a03;
   var a10, a11, a12, a13;
@@ -9424,7 +9900,7 @@ function rotate(out, a, rad, axis) {
     return null;
   }
   len4 = 1 / len4;
-  x2 *= len4;
+  x *= len4;
   y *= len4;
   z *= len4;
   s = Math.sin(rad);
@@ -9442,14 +9918,14 @@ function rotate(out, a, rad, axis) {
   a21 = a[9];
   a22 = a[10];
   a23 = a[11];
-  b00 = x2 * x2 * t + c;
-  b01 = y * x2 * t + z * s;
-  b02 = z * x2 * t - y * s;
-  b10 = x2 * y * t - z * s;
+  b00 = x * x * t + c;
+  b01 = y * x * t + z * s;
+  b02 = z * x * t - y * s;
+  b10 = x * y * t - z * s;
   b11 = y * y * t + c;
-  b12 = z * y * t + x2 * s;
-  b20 = x2 * z * t + y * s;
-  b21 = y * z * t - x2 * s;
+  b12 = z * y * t + x * s;
+  b20 = x * z * t + y * s;
+  b21 = y * z * t - x * s;
   b22 = z * z * t + c;
   out[0] = a00 * b00 + a10 * b01 + a20 * b02;
   out[1] = a01 * b00 + a11 * b01 + a21 * b02;
@@ -9603,29 +10079,29 @@ function fromScaling(out, v) {
   return out;
 }
 function fromRotation(out, rad, axis) {
-  var x2 = axis[0], y = axis[1], z = axis[2];
-  var len4 = Math.hypot(x2, y, z);
+  var x = axis[0], y = axis[1], z = axis[2];
+  var len4 = Math.hypot(x, y, z);
   var s, c, t;
   if (len4 < EPSILON) {
     return null;
   }
   len4 = 1 / len4;
-  x2 *= len4;
+  x *= len4;
   y *= len4;
   z *= len4;
   s = Math.sin(rad);
   c = Math.cos(rad);
   t = 1 - c;
-  out[0] = x2 * x2 * t + c;
-  out[1] = y * x2 * t + z * s;
-  out[2] = z * x2 * t - y * s;
+  out[0] = x * x * t + c;
+  out[1] = y * x * t + z * s;
+  out[2] = z * x * t - y * s;
   out[3] = 0;
-  out[4] = x2 * y * t - z * s;
+  out[4] = x * y * t - z * s;
   out[5] = y * y * t + c;
-  out[6] = z * y * t + x2 * s;
+  out[6] = z * y * t + x * s;
   out[7] = 0;
-  out[8] = x2 * z * t + y * s;
-  out[9] = y * z * t - x2 * s;
+  out[8] = x * z * t + y * s;
+  out[9] = y * z * t - x * s;
   out[10] = z * z * t + c;
   out[11] = 0;
   out[12] = 0;
@@ -9698,17 +10174,17 @@ function fromZRotation(out, rad) {
   return out;
 }
 function fromRotationTranslation(out, q2, v) {
-  var x2 = q2[0], y = q2[1], z = q2[2], w = q2[3];
-  var x22 = x2 + x2;
+  var x = q2[0], y = q2[1], z = q2[2], w = q2[3];
+  var x2 = x + x;
   var y2 = y + y;
   var z2 = z + z;
-  var xx = x2 * x22;
-  var xy = x2 * y2;
-  var xz = x2 * z2;
+  var xx = x * x2;
+  var xy = x * y2;
+  var xz = x * z2;
   var yy = y * y2;
   var yz = y * z2;
   var zz = z * z2;
-  var wx = w * x22;
+  var wx = w * x2;
   var wy = w * y2;
   var wz = w * z2;
   out[0] = 1 - (yy + zz);
@@ -9811,17 +10287,17 @@ function getRotation(out, mat) {
   return out;
 }
 function fromRotationTranslationScale(out, q2, v, s) {
-  var x2 = q2[0], y = q2[1], z = q2[2], w = q2[3];
-  var x22 = x2 + x2;
+  var x = q2[0], y = q2[1], z = q2[2], w = q2[3];
+  var x2 = x + x;
   var y2 = y + y;
   var z2 = z + z;
-  var xx = x2 * x22;
-  var xy = x2 * y2;
-  var xz = x2 * z2;
+  var xx = x * x2;
+  var xy = x * y2;
+  var xz = x * z2;
   var yy = y * y2;
   var yz = y * z2;
   var zz = z * z2;
-  var wx = w * x22;
+  var wx = w * x2;
   var wy = w * y2;
   var wz = w * z2;
   var sx = s[0];
@@ -9846,17 +10322,17 @@ function fromRotationTranslationScale(out, q2, v, s) {
   return out;
 }
 function fromRotationTranslationScaleOrigin(out, q2, v, s, o) {
-  var x2 = q2[0], y = q2[1], z = q2[2], w = q2[3];
-  var x22 = x2 + x2;
+  var x = q2[0], y = q2[1], z = q2[2], w = q2[3];
+  var x2 = x + x;
   var y2 = y + y;
   var z2 = z + z;
-  var xx = x2 * x22;
-  var xy = x2 * y2;
-  var xz = x2 * z2;
+  var xx = x * x2;
+  var xy = x * y2;
+  var xz = x * z2;
   var yy = y * y2;
   var yz = y * z2;
   var zz = z * z2;
-  var wx = w * x22;
+  var wx = w * x2;
   var wy = w * y2;
   var wz = w * z2;
   var sx = s[0];
@@ -9893,17 +10369,17 @@ function fromRotationTranslationScaleOrigin(out, q2, v, s, o) {
   return out;
 }
 function fromQuat(out, q2) {
-  var x2 = q2[0], y = q2[1], z = q2[2], w = q2[3];
-  var x22 = x2 + x2;
+  var x = q2[0], y = q2[1], z = q2[2], w = q2[3];
+  var x2 = x + x;
   var y2 = y + y;
   var z2 = z + z;
-  var xx = x2 * x22;
-  var yx = y * x22;
+  var xx = x * x2;
+  var yx = y * x2;
   var yy = y * y2;
-  var zx = z * x22;
+  var zx = z * x2;
   var zy = z * y2;
   var zz = z * z2;
-  var wx = w * x22;
+  var wx = w * x2;
   var wy = w * y2;
   var wz = w * z2;
   out[0] = 1 - yy - zz;
@@ -9947,13 +10423,13 @@ function frustum(out, left, right, bottom, top, near, far) {
   return out;
 }
 function perspectiveNO(out, fovy, aspect, near, far) {
-  var f = 1 / Math.tan(fovy / 2), nf;
-  out[0] = f / aspect;
+  var f2 = 1 / Math.tan(fovy / 2), nf;
+  out[0] = f2 / aspect;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = f;
+  out[5] = f2;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
@@ -9974,13 +10450,13 @@ function perspectiveNO(out, fovy, aspect, near, far) {
 }
 var perspective = perspectiveNO;
 function perspectiveZO(out, fovy, aspect, near, far) {
-  var f = 1 / Math.tan(fovy / 2), nf;
-  out[0] = f / aspect;
+  var f2 = 1 / Math.tan(fovy / 2), nf;
+  out[0] = f2 / aspect;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = f;
+  out[5] = f2;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
@@ -10026,14 +10502,14 @@ function perspectiveFromFieldOfView(out, fov, near, far) {
 }
 function orthoNO(out, left, right, bottom, top, near, far) {
   var lr = 1 / (left - right);
-  var bt2 = 1 / (bottom - top);
+  var bt = 1 / (bottom - top);
   var nf = 1 / (near - far);
   out[0] = -2 * lr;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = -2 * bt2;
+  out[5] = -2 * bt;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
@@ -10041,7 +10517,7 @@ function orthoNO(out, left, right, bottom, top, near, far) {
   out[10] = 2 * nf;
   out[11] = 0;
   out[12] = (left + right) * lr;
-  out[13] = (top + bottom) * bt2;
+  out[13] = (top + bottom) * bt;
   out[14] = (far + near) * nf;
   out[15] = 1;
   return out;
@@ -10049,14 +10525,14 @@ function orthoNO(out, left, right, bottom, top, near, far) {
 var ortho = orthoNO;
 function orthoZO(out, left, right, bottom, top, near, far) {
   var lr = 1 / (left - right);
-  var bt2 = 1 / (bottom - top);
+  var bt = 1 / (bottom - top);
   var nf = 1 / (near - far);
   out[0] = -2 * lr;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = -2 * bt2;
+  out[5] = -2 * bt;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
@@ -10064,7 +10540,7 @@ function orthoZO(out, left, right, bottom, top, near, far) {
   out[10] = nf;
   out[11] = 0;
   out[12] = (left + right) * lr;
-  out[13] = (top + bottom) * bt2;
+  out[13] = (top + bottom) * bt;
   out[14] = near * nf;
   out[15] = 1;
   return out;
@@ -10384,14 +10860,14 @@ function clone2(a) {
   return out;
 }
 function length(a) {
-  var x2 = a[0];
+  var x = a[0];
   var y = a[1];
   var z = a[2];
-  return Math.hypot(x2, y, z);
+  return Math.hypot(x, y, z);
 }
-function fromValues2(x2, y, z) {
+function fromValues2(x, y, z) {
   var out = new ARRAY_TYPE(3);
-  out[0] = x2;
+  out[0] = x;
   out[1] = y;
   out[2] = z;
   return out;
@@ -10402,8 +10878,8 @@ function copy2(out, a) {
   out[2] = a[2];
   return out;
 }
-function set2(out, x2, y, z) {
-  out[0] = x2;
+function set2(out, x, y, z) {
+  out[0] = x;
   out[1] = y;
   out[2] = z;
   return out;
@@ -10475,22 +10951,22 @@ function scaleAndAdd(out, a, b, scale6) {
   return out;
 }
 function distance(a, b) {
-  var x2 = b[0] - a[0];
+  var x = b[0] - a[0];
   var y = b[1] - a[1];
   var z = b[2] - a[2];
-  return Math.hypot(x2, y, z);
+  return Math.hypot(x, y, z);
 }
 function squaredDistance(a, b) {
-  var x2 = b[0] - a[0];
+  var x = b[0] - a[0];
   var y = b[1] - a[1];
   var z = b[2] - a[2];
-  return x2 * x2 + y * y + z * z;
+  return x * x + y * y + z * z;
 }
 function squaredLength(a) {
-  var x2 = a[0];
+  var x = a[0];
   var y = a[1];
   var z = a[2];
-  return x2 * x2 + y * y + z * z;
+  return x * x + y * y + z * z;
 }
 function negate(out, a) {
   out[0] = -a[0];
@@ -10505,10 +10981,10 @@ function inverse(out, a) {
   return out;
 }
 function normalize(out, a) {
-  var x2 = a[0];
+  var x = a[0];
   var y = a[1];
   var z = a[2];
-  var len4 = x2 * x2 + y * y + z * z;
+  var len4 = x * x + y * y + z * z;
   if (len4 > 0) {
     len4 = 1 / Math.sqrt(len4);
   }
@@ -10537,18 +11013,18 @@ function lerp(out, a, b, t) {
   out[2] = az + t * (b[2] - az);
   return out;
 }
-function hermite(out, a, b, c, d2, t) {
+function hermite(out, a, b, c, d, t) {
   var factorTimes2 = t * t;
   var factor1 = factorTimes2 * (2 * t - 3) + 1;
   var factor2 = factorTimes2 * (t - 2) + t;
   var factor3 = factorTimes2 * (t - 1);
   var factor4 = factorTimes2 * (3 - 2 * t);
-  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d2[0] * factor4;
-  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d2[1] * factor4;
-  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d2[2] * factor4;
+  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
+  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
+  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
   return out;
 }
-function bezier(out, a, b, c, d2, t) {
+function bezier(out, a, b, c, d, t) {
   var inverseFactor = 1 - t;
   var inverseFactorTimesTwo = inverseFactor * inverseFactor;
   var factorTimes2 = t * t;
@@ -10556,9 +11032,9 @@ function bezier(out, a, b, c, d2, t) {
   var factor2 = 3 * t * inverseFactorTimesTwo;
   var factor3 = 3 * factorTimes2 * inverseFactor;
   var factor4 = factorTimes2 * t;
-  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d2[0] * factor4;
-  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d2[1] * factor4;
-  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d2[2] * factor4;
+  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
+  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
+  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
   return out;
 }
 function random(out, scale6) {
@@ -10572,25 +11048,25 @@ function random(out, scale6) {
   return out;
 }
 function transformMat4(out, a, m) {
-  var x2 = a[0], y = a[1], z = a[2];
-  var w = m[3] * x2 + m[7] * y + m[11] * z + m[15];
+  var x = a[0], y = a[1], z = a[2];
+  var w = m[3] * x + m[7] * y + m[11] * z + m[15];
   w = w || 1;
-  out[0] = (m[0] * x2 + m[4] * y + m[8] * z + m[12]) / w;
-  out[1] = (m[1] * x2 + m[5] * y + m[9] * z + m[13]) / w;
-  out[2] = (m[2] * x2 + m[6] * y + m[10] * z + m[14]) / w;
+  out[0] = (m[0] * x + m[4] * y + m[8] * z + m[12]) / w;
+  out[1] = (m[1] * x + m[5] * y + m[9] * z + m[13]) / w;
+  out[2] = (m[2] * x + m[6] * y + m[10] * z + m[14]) / w;
   return out;
 }
 function transformMat3(out, a, m) {
-  var x2 = a[0], y = a[1], z = a[2];
-  out[0] = x2 * m[0] + y * m[3] + z * m[6];
-  out[1] = x2 * m[1] + y * m[4] + z * m[7];
-  out[2] = x2 * m[2] + y * m[5] + z * m[8];
+  var x = a[0], y = a[1], z = a[2];
+  out[0] = x * m[0] + y * m[3] + z * m[6];
+  out[1] = x * m[1] + y * m[4] + z * m[7];
+  out[2] = x * m[2] + y * m[5] + z * m[8];
   return out;
 }
 function transformQuat(out, a, q2) {
   var qx = q2[0], qy = q2[1], qz = q2[2], qw = q2[3];
-  var x2 = a[0], y = a[1], z = a[2];
-  var uvx = qy * z - qz * y, uvy = qz * x2 - qx * z, uvz = qx * y - qy * x2;
+  var x = a[0], y = a[1], z = a[2];
+  var uvx = qy * z - qz * y, uvy = qz * x - qx * z, uvz = qx * y - qy * x;
   var uuvx = qy * uvz - qz * uvy, uuvy = qz * uvx - qx * uvz, uuvz = qx * uvy - qy * uvx;
   var w2 = qw * 2;
   uvx *= w2;
@@ -10599,7 +11075,7 @@ function transformQuat(out, a, q2) {
   uuvx *= 2;
   uuvy *= 2;
   uuvz *= 2;
-  out[0] = x2 + uvx + uuvx;
+  out[0] = x + uvx + uuvx;
   out[1] = y + uvy + uuvy;
   out[2] = z + uvz + uuvz;
   return out;
@@ -10718,9 +11194,9 @@ function clone3(a) {
   out[3] = a[3];
   return out;
 }
-function fromValues3(x2, y, z, w) {
+function fromValues3(x, y, z, w) {
   var out = new ARRAY_TYPE(4);
-  out[0] = x2;
+  out[0] = x;
   out[1] = y;
   out[2] = z;
   out[3] = w;
@@ -10733,8 +11209,8 @@ function copy3(out, a) {
   out[3] = a[3];
   return out;
 }
-function set3(out, x2, y, z, w) {
-  out[0] = x2;
+function set3(out, x, y, z, w) {
+  out[0] = x;
   out[1] = y;
   out[2] = z;
   out[3] = w;
@@ -10755,29 +11231,29 @@ function scale3(out, a, b) {
   return out;
 }
 function length2(a) {
-  var x2 = a[0];
+  var x = a[0];
   var y = a[1];
   var z = a[2];
   var w = a[3];
-  return Math.hypot(x2, y, z, w);
+  return Math.hypot(x, y, z, w);
 }
 function squaredLength2(a) {
-  var x2 = a[0];
+  var x = a[0];
   var y = a[1];
   var z = a[2];
   var w = a[3];
-  return x2 * x2 + y * y + z * z + w * w;
+  return x * x + y * y + z * z + w * w;
 }
 function normalize2(out, a) {
-  var x2 = a[0];
+  var x = a[0];
   var y = a[1];
   var z = a[2];
   var w = a[3];
-  var len4 = x2 * x2 + y * y + z * z + w * w;
+  var len4 = x * x + y * y + z * z + w * w;
   if (len4 > 0) {
     len4 = 1 / Math.sqrt(len4);
   }
-  out[0] = x2 * len4;
+  out[0] = x * len4;
   out[1] = y * len4;
   out[2] = z * len4;
   out[3] = w * len4;
@@ -10920,32 +11396,32 @@ function rotateZ3(out, a, rad) {
   return out;
 }
 function calculateW(out, a) {
-  var x2 = a[0], y = a[1], z = a[2];
-  out[0] = x2;
+  var x = a[0], y = a[1], z = a[2];
+  out[0] = x;
   out[1] = y;
   out[2] = z;
-  out[3] = Math.sqrt(Math.abs(1 - x2 * x2 - y * y - z * z));
+  out[3] = Math.sqrt(Math.abs(1 - x * x - y * y - z * z));
   return out;
 }
 function exp(out, a) {
-  var x2 = a[0], y = a[1], z = a[2], w = a[3];
-  var r = Math.sqrt(x2 * x2 + y * y + z * z);
+  var x = a[0], y = a[1], z = a[2], w = a[3];
+  var r = Math.sqrt(x * x + y * y + z * z);
   var et = Math.exp(w);
   var s = r > 0 ? et * Math.sin(r) / r : 0;
-  out[0] = x2 * s;
+  out[0] = x * s;
   out[1] = y * s;
   out[2] = z * s;
   out[3] = et * Math.cos(r);
   return out;
 }
 function ln(out, a) {
-  var x2 = a[0], y = a[1], z = a[2], w = a[3];
-  var r = Math.sqrt(x2 * x2 + y * y + z * z);
+  var x = a[0], y = a[1], z = a[2], w = a[3];
+  var r = Math.sqrt(x * x + y * y + z * z);
   var t = r > 0 ? Math.atan2(r, w) / r : 0;
-  out[0] = x2 * t;
+  out[0] = x * t;
   out[1] = y * t;
   out[2] = z * t;
-  out[3] = 0.5 * Math.log(x2 * x2 + y * y + z * z + w * w);
+  out[3] = 0.5 * Math.log(x * x + y * y + z * z + w * w);
   return out;
 }
 function pow(out, a, b) {
@@ -11037,13 +11513,13 @@ function fromMat3(out, m) {
   }
   return out;
 }
-function fromEuler(out, x2, y, z) {
+function fromEuler(out, x, y, z) {
   var halfToRad = 0.5 * Math.PI / 180;
-  x2 *= halfToRad;
+  x *= halfToRad;
   y *= halfToRad;
   z *= halfToRad;
-  var sx = Math.sin(x2);
-  var cx = Math.cos(x2);
+  var sx = Math.sin(x);
+  var cx = Math.cos(x);
   var sy = Math.sin(y);
   var cy = Math.cos(y);
   var sz = Math.sin(z);
@@ -11105,8 +11581,8 @@ var rotationTo = function() {
 var sqlerp = function() {
   var temp1 = create5();
   var temp2 = create5();
-  return function(out, a, b, c, d2, t) {
-    slerp(temp1, a, d2, t);
+  return function(out, a, b, c, d, t) {
+    slerp(temp1, a, d, t);
     slerp(temp2, b, c, t);
     slerp(out, temp1, temp2, 2 * t * (1 - t));
     return out;
@@ -11541,13 +12017,13 @@ function equals5(a, b) {
 
 // node_modules/@wonderlandengine/components/dist/hit-test-location.js
 var __decorate3 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d2 = decorators[i])
-        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var HitTestLocation = class extends Component {
@@ -11645,13 +12121,13 @@ __decorate3([
 
 // node_modules/@wonderlandengine/components/dist/cursor.js
 var __decorate4 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d2 = decorators[i])
-        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var tempVec2 = new Float32Array(3);
@@ -11938,8 +12414,8 @@ var Cursor = class extends Component {
       this.notify("onUnhover", null);
     if (this.cursorRayObject)
       this.cursorRayObject.scale([0, 0, 0]);
-    for (const f of this._onDeactivateCallbacks)
-      f();
+    for (const f2 of this._onDeactivateCallbacks)
+      f2();
     this._onDeactivateCallbacks.length = 0;
   }
   onDestroy() {
@@ -12025,8 +12501,8 @@ var Cursor = class extends Component {
     }
     let hoveringReality = false;
     if (rayHit.hitCount > 0) {
-      const d2 = rayHit.distances[0];
-      if (hitResultDistance >= d2) {
+      const d = rayHit.distances[0];
+      if (hitResultDistance >= d) {
         this.cursorPos.set(rayHit.locations[0]);
       } else {
         hoveringReality = true;
@@ -12076,13 +12552,13 @@ __decorate4([
 
 // node_modules/@wonderlandengine/components/dist/debug-object.js
 var __decorate5 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d2 = decorators[i])
-        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var DebugObject = class extends Component {
@@ -13139,13 +13615,13 @@ __publicField(VrModeActiveSwitch, "Properties", {
 // node_modules/@wonderlandengine/components/dist/plane-detection.js
 var import_earcut = __toESM(require_earcut(), 1);
 var __decorate6 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d2 = decorators[i])
-        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var tempVec32 = new Float32Array(3);
@@ -13165,9 +13641,9 @@ function extentsFromContour(out, points) {
 function planeMeshFromContour(engine2, points, meshToUpdate = null) {
   const vertexCount = points.length;
   const vertices = new Float32Array(vertexCount * 2);
-  for (let i = 0, d2 = 0; i < vertexCount; ++i, d2 += 2) {
-    vertices[d2] = points[i].x;
-    vertices[d2 + 1] = points[i].z;
+  for (let i = 0, d = 0; i < vertexCount; ++i, d += 2) {
+    vertices[d] = points[i].x;
+    vertices[d + 1] = points[i].z;
   }
   const triangles = (0, import_earcut.default)(vertices);
   const mesh = meshToUpdate || new Mesh(engine2, {
@@ -13663,9 +14139,9 @@ var Vrm = class extends Component {
     vec3_exports.normalize(lookAtDirection, lookAtDirection);
     this.bones.head.parent.transformVectorInverseWorld(lookAtDirection);
     const z = vec3_exports.dot(lookAtDirection, this._forwardVector);
-    const x2 = vec3_exports.dot(lookAtDirection, this._rightVector);
-    const yaw = Math.atan2(x2, z) * this._rad2deg;
-    const xz = Math.sqrt(x2 * x2 + z * z);
+    const x = vec3_exports.dot(lookAtDirection, this._rightVector);
+    const yaw = Math.atan2(x, z) * this._rad2deg;
+    const xz = Math.sqrt(x * x + z * z);
     const y = vec3_exports.dot(lookAtDirection, this._upVector);
     let pitch = Math.atan2(-y, xz) * this._rad2deg;
     if (pitch > 0) {
@@ -13963,27 +14439,27 @@ var tr = Object.getPrototypeOf;
 var rr = Object.prototype.hasOwnProperty;
 var nr = (t, e, r) => e in t ? X(t, e, { enumerable: true, configurable: true, writable: true, value: r }) : t[e] = r;
 var l = (t, e) => () => (e || t((e = { exports: {} }).exports, e), e.exports);
-var sr = (t, e, r, s) => {
+var ir = (t, e, r, i) => {
   if (e && typeof e == "object" || typeof e == "function")
     for (let n of er(e))
-      !rr.call(t, n) && n !== r && X(t, n, { get: () => e[n], enumerable: !(s = Zt(e, n)) || s.enumerable });
+      !rr.call(t, n) && n !== r && X(t, n, { get: () => e[n], enumerable: !(i = Zt(e, n)) || i.enumerable });
   return t;
 };
-var Ae = (t, e, r) => (r = t != null ? Yt(tr(t)) : {}, sr(e || !t || !t.__esModule ? X(r, "default", { value: t, enumerable: true }) : r, t));
+var Ae = (t, e, r) => (r = t != null ? Yt(tr(t)) : {}, ir(e || !t || !t.__esModule ? X(r, "default", { value: t, enumerable: true }) : r, t));
 var G = (t, e, r) => (nr(t, typeof e != "symbol" ? e + "" : e, r), r);
-var Q = l((yn, qe) => {
+var Q = l((vn, qe) => {
   "use strict";
   qe.exports = function(e, r) {
     return function() {
-      for (var n = new Array(arguments.length), i = 0; i < n.length; i++)
-        n[i] = arguments[i];
+      for (var n = new Array(arguments.length), s = 0; s < n.length; s++)
+        n[s] = arguments[s];
       return e.apply(r, n);
     };
   };
 });
-var d = l((vn, Pe) => {
+var f = l((wn, ke) => {
   "use strict";
-  var ir = Q(), Z = Object.prototype.toString, ee = function(t) {
+  var sr = Q(), Z = Object.prototype.toString, ee = function(t) {
     return function(e) {
       var r = Z.call(e);
       return t[r] || (t[r] = r.slice(8, -1).toLowerCase());
@@ -14023,7 +14499,7 @@ var d = l((vn, Pe) => {
     var e = Object.getPrototypeOf(t);
     return e === null || e === Object.prototype;
   }
-  var lr = A("Date"), fr = A("File"), dr = A("Blob"), pr = A("FileList");
+  var lr = A("Date"), dr = A("File"), fr = A("Blob"), pr = A("FileList");
   function re(t) {
     return Z.call(t) === "[object Function]";
   }
@@ -14044,7 +14520,7 @@ var d = l((vn, Pe) => {
   function ne(t, e) {
     if (!(t === null || typeof t > "u"))
       if (typeof t != "object" && (t = [t]), te(t))
-        for (var r = 0, s = t.length; r < s; r++)
+        for (var r = 0, i = t.length; r < i; r++)
           e.call(null, t[r], r, t);
       else
         for (var n in t)
@@ -14052,40 +14528,40 @@ var d = l((vn, Pe) => {
   }
   function Y() {
     var t = {};
-    function e(n, i) {
-      j(t[i]) && j(n) ? t[i] = Y(t[i], n) : j(n) ? t[i] = Y({}, n) : te(n) ? t[i] = n.slice() : t[i] = n;
+    function e(n, s) {
+      j(t[s]) && j(n) ? t[s] = Y(t[s], n) : j(n) ? t[s] = Y({}, n) : te(n) ? t[s] = n.slice() : t[s] = n;
     }
-    for (var r = 0, s = arguments.length; r < s; r++)
+    for (var r = 0, i = arguments.length; r < i; r++)
       ne(arguments[r], e);
     return t;
   }
-  function br(t, e, r) {
-    return ne(e, function(n, i) {
-      r && typeof n == "function" ? t[i] = ir(n, r) : t[i] = n;
+  function gr(t, e, r) {
+    return ne(e, function(n, s) {
+      r && typeof n == "function" ? t[s] = sr(n, r) : t[s] = n;
     }), t;
   }
-  function gr(t) {
+  function br(t) {
     return t.charCodeAt(0) === 65279 && (t = t.slice(1)), t;
   }
-  function Er(t, e, r, s) {
-    t.prototype = Object.create(e.prototype, s), t.prototype.constructor = t, r && Object.assign(t.prototype, r);
+  function Er(t, e, r, i) {
+    t.prototype = Object.create(e.prototype, i), t.prototype.constructor = t, r && Object.assign(t.prototype, r);
   }
   function xr(t, e, r) {
-    var s, n, i, a = {};
+    var i, n, s, a = {};
     e = e || {};
     do {
-      for (s = Object.getOwnPropertyNames(t), n = s.length; n-- > 0; )
-        i = s[n], a[i] || (e[i] = t[i], a[i] = true);
+      for (i = Object.getOwnPropertyNames(t), n = i.length; n-- > 0; )
+        s = i[n], a[s] || (e[s] = t[s], a[s] = true);
       t = Object.getPrototypeOf(t);
     } while (t && (!r || r(t, e)) && t !== Object.prototype);
     return e;
   }
-  function Rr(t, e, r) {
+  function Cr(t, e, r) {
     t = String(t), (r === void 0 || r > t.length) && (r = t.length), r -= e.length;
-    var s = t.indexOf(e, r);
-    return s !== -1 && s === r;
+    var i = t.indexOf(e, r);
+    return i !== -1 && i === r;
   }
-  function Cr(t) {
+  function Rr(t) {
     if (!t)
       return null;
     var e = t.length;
@@ -14100,29 +14576,29 @@ var d = l((vn, Pe) => {
       return t && e instanceof t;
     };
   }(typeof Uint8Array < "u" && Object.getPrototypeOf(Uint8Array));
-  Pe.exports = { isArray: te, isArrayBuffer: Te, isBuffer: ar, isFormData: mr, isArrayBufferView: or, isString: ur, isNumber: cr, isObject: Se, isPlainObject: j, isUndefined: F, isDate: lr, isFile: fr, isBlob: dr, isFunction: re, isStream: hr, isURLSearchParams: yr, isStandardBrowserEnv: wr, forEach: ne, merge: Y, extend: br, trim: vr, stripBOM: gr, inherits: Er, toFlatObject: xr, kindOf: ee, kindOfTest: A, endsWith: Rr, toArray: Cr, isTypedArray: Or, isFileList: pr };
+  ke.exports = { isArray: te, isArrayBuffer: Te, isBuffer: ar, isFormData: mr, isArrayBufferView: or, isString: ur, isNumber: cr, isObject: Se, isPlainObject: j, isUndefined: F, isDate: lr, isFile: dr, isBlob: fr, isFunction: re, isStream: hr, isURLSearchParams: yr, isStandardBrowserEnv: wr, forEach: ne, merge: Y, extend: gr, trim: vr, stripBOM: br, inherits: Er, toFlatObject: xr, kindOf: ee, kindOfTest: A, endsWith: Cr, toArray: Rr, isTypedArray: Or, isFileList: pr };
 });
-var se = l((wn, _e) => {
+var ie = l((gn, Pe) => {
   "use strict";
-  var S = d();
+  var S = f();
   function Ne(t) {
     return encodeURIComponent(t).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
   }
-  _e.exports = function(e, r, s) {
+  Pe.exports = function(e, r, i) {
     if (!r)
       return e;
     var n;
-    if (s)
-      n = s(r);
+    if (i)
+      n = i(r);
     else if (S.isURLSearchParams(r))
       n = r.toString();
     else {
-      var i = [];
+      var s = [];
       S.forEach(r, function(c, h) {
-        c === null || typeof c > "u" || (S.isArray(c) ? h = h + "[]" : c = [c], S.forEach(c, function(f) {
-          S.isDate(f) ? f = f.toISOString() : S.isObject(f) && (f = JSON.stringify(f)), i.push(Ne(h) + "=" + Ne(f));
+        c === null || typeof c > "u" || (S.isArray(c) ? h = h + "[]" : c = [c], S.forEach(c, function(d) {
+          S.isDate(d) ? d = d.toISOString() : S.isObject(d) && (d = JSON.stringify(d)), s.push(Ne(h) + "=" + Ne(d));
         }));
-      }), n = i.join("&");
+      }), n = s.join("&");
     }
     if (n) {
       var a = e.indexOf("#");
@@ -14131,83 +14607,83 @@ var se = l((wn, _e) => {
     return e;
   };
 });
-var De = l((bn, ke) => {
+var De = l((bn, _e) => {
   "use strict";
-  var Ar = d();
+  var Ar = f();
   function I() {
     this.handlers = [];
   }
-  I.prototype.use = function(e, r, s) {
-    return this.handlers.push({ fulfilled: e, rejected: r, synchronous: s ? s.synchronous : false, runWhen: s ? s.runWhen : null }), this.handlers.length - 1;
+  I.prototype.use = function(e, r, i) {
+    return this.handlers.push({ fulfilled: e, rejected: r, synchronous: i ? i.synchronous : false, runWhen: i ? i.runWhen : null }), this.handlers.length - 1;
   };
   I.prototype.eject = function(e) {
     this.handlers[e] && (this.handlers[e] = null);
   };
   I.prototype.forEach = function(e) {
-    Ar.forEach(this.handlers, function(s) {
-      s !== null && e(s);
+    Ar.forEach(this.handlers, function(i) {
+      i !== null && e(i);
     });
   };
-  ke.exports = I;
+  _e.exports = I;
 });
-var Be = l((gn, Ue) => {
+var Be = l((En, Ue) => {
   "use strict";
-  var qr = d();
+  var qr = f();
   Ue.exports = function(e, r) {
-    qr.forEach(e, function(n, i) {
-      i !== r && i.toUpperCase() === r.toUpperCase() && (e[r] = n, delete e[i]);
+    qr.forEach(e, function(n, s) {
+      s !== r && s.toUpperCase() === r.toUpperCase() && (e[r] = n, delete e[s]);
     });
   };
 });
-var q = l((En, Ie) => {
+var q = l((xn, Ie) => {
   "use strict";
-  var Le = d();
-  function P(t, e, r, s, n) {
-    Error.call(this), this.message = t, this.name = "AxiosError", e && (this.code = e), r && (this.config = r), s && (this.request = s), n && (this.response = n);
+  var Le = f();
+  function k(t, e, r, i, n) {
+    Error.call(this), this.message = t, this.name = "AxiosError", e && (this.code = e), r && (this.config = r), i && (this.request = i), n && (this.response = n);
   }
-  Le.inherits(P, Error, { toJSON: function() {
+  Le.inherits(k, Error, { toJSON: function() {
     return { message: this.message, name: this.name, description: this.description, number: this.number, fileName: this.fileName, lineNumber: this.lineNumber, columnNumber: this.columnNumber, stack: this.stack, config: this.config, code: this.code, status: this.response && this.response.status ? this.response.status : null };
   } });
-  var je = P.prototype, Fe = {};
+  var je = k.prototype, Fe = {};
   ["ERR_BAD_OPTION_VALUE", "ERR_BAD_OPTION", "ECONNABORTED", "ETIMEDOUT", "ERR_NETWORK", "ERR_FR_TOO_MANY_REDIRECTS", "ERR_DEPRECATED", "ERR_BAD_RESPONSE", "ERR_BAD_REQUEST", "ERR_CANCELED"].forEach(function(t) {
     Fe[t] = { value: t };
   });
-  Object.defineProperties(P, Fe);
+  Object.defineProperties(k, Fe);
   Object.defineProperty(je, "isAxiosError", { value: true });
-  P.from = function(t, e, r, s, n, i) {
+  k.from = function(t, e, r, i, n, s) {
     var a = Object.create(je);
     return Le.toFlatObject(t, a, function(c) {
       return c !== Error.prototype;
-    }), P.call(a, t.message, e, r, s, n), a.name = t.name, i && Object.assign(a, i), a;
+    }), k.call(a, t.message, e, r, i, n), a.name = t.name, s && Object.assign(a, s), a;
   };
-  Ie.exports = P;
+  Ie.exports = k;
 });
-var ie = l((xn, Me) => {
+var se = l((Cn, ze) => {
   "use strict";
-  Me.exports = { silentJSONParsing: true, forcedJSONParsing: true, clarifyTimeoutError: false };
+  ze.exports = { silentJSONParsing: true, forcedJSONParsing: true, clarifyTimeoutError: false };
 });
-var ae = l((Rn, ze) => {
+var ae = l((Rn, Me) => {
   "use strict";
-  var g = d();
+  var b = f();
   function Tr(t, e) {
     e = e || new FormData();
     var r = [];
-    function s(i) {
-      return i === null ? "" : g.isDate(i) ? i.toISOString() : g.isArrayBuffer(i) || g.isTypedArray(i) ? typeof Blob == "function" ? new Blob([i]) : Buffer.from(i) : i;
+    function i(s) {
+      return s === null ? "" : b.isDate(s) ? s.toISOString() : b.isArrayBuffer(s) || b.isTypedArray(s) ? typeof Blob == "function" ? new Blob([s]) : Buffer.from(s) : s;
     }
-    function n(i, a) {
-      if (g.isPlainObject(i) || g.isArray(i)) {
-        if (r.indexOf(i) !== -1)
+    function n(s, a) {
+      if (b.isPlainObject(s) || b.isArray(s)) {
+        if (r.indexOf(s) !== -1)
           throw Error("Circular reference detected in " + a);
-        r.push(i), g.forEach(i, function(c, h) {
-          if (!g.isUndefined(c)) {
-            var o = a ? a + "." + h : h, f;
+        r.push(s), b.forEach(s, function(c, h) {
+          if (!b.isUndefined(c)) {
+            var o = a ? a + "." + h : h, d;
             if (c && !a && typeof c == "object") {
-              if (g.endsWith(h, "{}"))
+              if (b.endsWith(h, "{}"))
                 c = JSON.stringify(c);
-              else if (g.endsWith(h, "[]") && (f = g.toArray(c))) {
-                f.forEach(function(v) {
-                  !g.isUndefined(v) && e.append(o, s(v));
+              else if (b.endsWith(h, "[]") && (d = b.toArray(c))) {
+                d.forEach(function(v) {
+                  !b.isUndefined(v) && e.append(o, i(v));
                 });
                 return;
               }
@@ -14216,30 +14692,30 @@ var ae = l((Rn, ze) => {
           }
         }), r.pop();
       } else
-        e.append(a, s(i));
+        e.append(a, i(s));
     }
     return n(t), e;
   }
-  ze.exports = Tr;
+  Me.exports = Tr;
 });
-var He = l((Cn, $e) => {
+var He = l((On, $e) => {
   "use strict";
   var oe = q();
-  $e.exports = function(e, r, s) {
-    var n = s.config.validateStatus;
-    !s.status || !n || n(s.status) ? e(s) : r(new oe("Request failed with status code " + s.status, [oe.ERR_BAD_REQUEST, oe.ERR_BAD_RESPONSE][Math.floor(s.status / 100) - 4], s.config, s.request, s));
+  $e.exports = function(e, r, i) {
+    var n = i.config.validateStatus;
+    !i.status || !n || n(i.status) ? e(i) : r(new oe("Request failed with status code " + i.status, [oe.ERR_BAD_REQUEST, oe.ERR_BAD_RESPONSE][Math.floor(i.status / 100) - 4], i.config, i.request, i));
   };
 });
-var We = l((On, Je) => {
+var Je = l((An, We) => {
   "use strict";
-  var M = d();
-  Je.exports = M.isStandardBrowserEnv() ? function() {
-    return { write: function(r, s, n, i, a, u) {
+  var z = f();
+  We.exports = z.isStandardBrowserEnv() ? function() {
+    return { write: function(r, i, n, s, a, u) {
       var c = [];
-      c.push(r + "=" + encodeURIComponent(s)), M.isNumber(n) && c.push("expires=" + new Date(n).toGMTString()), M.isString(i) && c.push("path=" + i), M.isString(a) && c.push("domain=" + a), u === true && c.push("secure"), document.cookie = c.join("; ");
+      c.push(r + "=" + encodeURIComponent(i)), z.isNumber(n) && c.push("expires=" + new Date(n).toGMTString()), z.isString(s) && c.push("path=" + s), z.isString(a) && c.push("domain=" + a), u === true && c.push("secure"), document.cookie = c.join("; ");
     }, read: function(r) {
-      var s = document.cookie.match(new RegExp("(^|;\\s*)(" + r + ")=([^;]*)"));
-      return s ? decodeURIComponent(s[3]) : null;
+      var i = document.cookie.match(new RegExp("(^|;\\s*)(" + r + ")=([^;]*)"));
+      return i ? decodeURIComponent(i[3]) : null;
     }, remove: function(r) {
       this.write(r, "", Date.now() - 864e5);
     } };
@@ -14251,52 +14727,52 @@ var We = l((On, Je) => {
     } };
   }();
 });
-var Ke = l((An, Ve) => {
+var Ke = l((qn, Ve) => {
   "use strict";
   Ve.exports = function(e) {
     return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(e);
   };
 });
-var Ge = l((qn, Xe) => {
+var Ge = l((Tn, Xe) => {
   "use strict";
   Xe.exports = function(e, r) {
     return r ? e.replace(/\/+$/, "") + "/" + r.replace(/^\/+/, "") : e;
   };
 });
-var ue = l((Tn, Qe) => {
+var ue = l((Sn, Qe) => {
   "use strict";
-  var Sr = Ke(), Pr = Ge();
+  var Sr = Ke(), kr = Ge();
   Qe.exports = function(e, r) {
-    return e && !Sr(r) ? Pr(e, r) : r;
+    return e && !Sr(r) ? kr(e, r) : r;
   };
 });
-var Ze = l((Sn, Ye) => {
+var Ze = l((kn, Ye) => {
   "use strict";
-  var ce = d(), Nr = ["age", "authorization", "content-length", "content-type", "etag", "expires", "from", "host", "if-modified-since", "if-unmodified-since", "last-modified", "location", "max-forwards", "proxy-authorization", "referer", "retry-after", "user-agent"];
+  var ce = f(), Nr = ["age", "authorization", "content-length", "content-type", "etag", "expires", "from", "host", "if-modified-since", "if-unmodified-since", "last-modified", "location", "max-forwards", "proxy-authorization", "referer", "retry-after", "user-agent"];
   Ye.exports = function(e) {
-    var r = {}, s, n, i;
+    var r = {}, i, n, s;
     return e && ce.forEach(e.split(`
 `), function(u) {
-      if (i = u.indexOf(":"), s = ce.trim(u.substr(0, i)).toLowerCase(), n = ce.trim(u.substr(i + 1)), s) {
-        if (r[s] && Nr.indexOf(s) >= 0)
+      if (s = u.indexOf(":"), i = ce.trim(u.substr(0, s)).toLowerCase(), n = ce.trim(u.substr(s + 1)), i) {
+        if (r[i] && Nr.indexOf(i) >= 0)
           return;
-        s === "set-cookie" ? r[s] = (r[s] ? r[s] : []).concat([n]) : r[s] = r[s] ? r[s] + ", " + n : n;
+        i === "set-cookie" ? r[i] = (r[i] ? r[i] : []).concat([n]) : r[i] = r[i] ? r[i] + ", " + n : n;
       }
     }), r;
   };
 });
-var rt = l((Pn, tt) => {
+var rt = l((Nn, tt) => {
   "use strict";
-  var et = d();
+  var et = f();
   tt.exports = et.isStandardBrowserEnv() ? function() {
-    var e = /(msie|trident)/i.test(navigator.userAgent), r = document.createElement("a"), s;
-    function n(i) {
-      var a = i;
+    var e = /(msie|trident)/i.test(navigator.userAgent), r = document.createElement("a"), i;
+    function n(s) {
+      var a = s;
       return e && (r.setAttribute("href", a), a = r.href), r.setAttribute("href", a), { href: r.href, protocol: r.protocol ? r.protocol.replace(/:$/, "") : "", host: r.host, search: r.search ? r.search.replace(/^\?/, "") : "", hash: r.hash ? r.hash.replace(/^#/, "") : "", hostname: r.hostname, port: r.port, pathname: r.pathname.charAt(0) === "/" ? r.pathname : "/" + r.pathname };
     }
-    return s = n(window.location.href), function(a) {
+    return i = n(window.location.href), function(a) {
       var u = et.isString(a) ? n(a) : a;
-      return u.protocol === s.protocol && u.host === s.host;
+      return u.protocol === i.protocol && u.host === i.host;
     };
   }() : function() {
     return function() {
@@ -14304,153 +14780,153 @@ var rt = l((Pn, tt) => {
     };
   }();
 });
-var U = l((Nn, st) => {
+var U = l((Pn, it) => {
   "use strict";
-  var le = q(), _r = d();
+  var le = q(), Pr = f();
   function nt(t) {
     le.call(this, t ?? "canceled", le.ERR_CANCELED), this.name = "CanceledError";
   }
-  _r.inherits(nt, le, { __CANCEL__: true });
-  st.exports = nt;
+  Pr.inherits(nt, le, { __CANCEL__: true });
+  it.exports = nt;
 });
-var at = l((_n, it) => {
+var at = l((_n, st) => {
   "use strict";
-  it.exports = function(e) {
+  st.exports = function(e) {
     var r = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
     return r && r[1] || "";
   };
 });
-var fe = l((kn, ot) => {
+var de = l((Dn, ot) => {
   "use strict";
-  var B = d(), kr = He(), Dr = We(), Ur = se(), Br = ue(), Lr = Ze(), jr = rt(), Fr = ie(), E = q(), Ir = U(), Mr = at();
+  var B = f(), _r = He(), Dr = Je(), Ur = ie(), Br = ue(), Lr = Ze(), jr = rt(), Fr = se(), x = q(), Ir = U(), zr = at();
   ot.exports = function(e) {
-    return new Promise(function(s, n) {
-      var i = e.data, a = e.headers, u = e.responseType, c;
+    return new Promise(function(i, n) {
+      var s = e.data, a = e.headers, u = e.responseType, c;
       function h() {
         e.cancelToken && e.cancelToken.unsubscribe(c), e.signal && e.signal.removeEventListener("abort", c);
       }
-      B.isFormData(i) && B.isStandardBrowserEnv() && delete a["Content-Type"];
+      B.isFormData(s) && B.isStandardBrowserEnv() && delete a["Content-Type"];
       var o = new XMLHttpRequest();
       if (e.auth) {
-        var f = e.auth.username || "", v = e.auth.password ? unescape(encodeURIComponent(e.auth.password)) : "";
-        a.Authorization = "Basic " + btoa(f + ":" + v);
+        var d = e.auth.username || "", v = e.auth.password ? unescape(encodeURIComponent(e.auth.password)) : "";
+        a.Authorization = "Basic " + btoa(d + ":" + v);
       }
       var m = Br(e.baseURL, e.url);
       o.open(e.method.toUpperCase(), Ur(m, e.params, e.paramsSerializer), true), o.timeout = e.timeout;
-      function Ce() {
+      function Re() {
         if (o) {
-          var b = "getAllResponseHeaders" in o ? Lr(o.getAllResponseHeaders()) : null, T = !u || u === "text" || u === "json" ? o.responseText : o.response, O = { data: T, status: o.status, statusText: o.statusText, headers: b, config: e, request: o };
-          kr(function(K) {
-            s(K), h();
+          var g = "getAllResponseHeaders" in o ? Lr(o.getAllResponseHeaders()) : null, T = !u || u === "text" || u === "json" ? o.responseText : o.response, O = { data: T, status: o.status, statusText: o.statusText, headers: g, config: e, request: o };
+          _r(function(K) {
+            i(K), h();
           }, function(K) {
             n(K), h();
           }, O), o = null;
         }
       }
-      if ("onloadend" in o ? o.onloadend = Ce : o.onreadystatechange = function() {
-        !o || o.readyState !== 4 || o.status === 0 && !(o.responseURL && o.responseURL.indexOf("file:") === 0) || setTimeout(Ce);
+      if ("onloadend" in o ? o.onloadend = Re : o.onreadystatechange = function() {
+        !o || o.readyState !== 4 || o.status === 0 && !(o.responseURL && o.responseURL.indexOf("file:") === 0) || setTimeout(Re);
       }, o.onabort = function() {
-        o && (n(new E("Request aborted", E.ECONNABORTED, e, o)), o = null);
+        o && (n(new x("Request aborted", x.ECONNABORTED, e, o)), o = null);
       }, o.onerror = function() {
-        n(new E("Network Error", E.ERR_NETWORK, e, o, o)), o = null;
+        n(new x("Network Error", x.ERR_NETWORK, e, o, o)), o = null;
       }, o.ontimeout = function() {
         var T = e.timeout ? "timeout of " + e.timeout + "ms exceeded" : "timeout exceeded", O = e.transitional || Fr;
-        e.timeoutErrorMessage && (T = e.timeoutErrorMessage), n(new E(T, O.clarifyTimeoutError ? E.ETIMEDOUT : E.ECONNABORTED, e, o)), o = null;
+        e.timeoutErrorMessage && (T = e.timeoutErrorMessage), n(new x(T, O.clarifyTimeoutError ? x.ETIMEDOUT : x.ECONNABORTED, e, o)), o = null;
       }, B.isStandardBrowserEnv()) {
         var Oe = (e.withCredentials || jr(m)) && e.xsrfCookieName ? Dr.read(e.xsrfCookieName) : void 0;
         Oe && (a[e.xsrfHeaderName] = Oe);
       }
       "setRequestHeader" in o && B.forEach(a, function(T, O) {
-        typeof i > "u" && O.toLowerCase() === "content-type" ? delete a[O] : o.setRequestHeader(O, T);
-      }), B.isUndefined(e.withCredentials) || (o.withCredentials = !!e.withCredentials), u && u !== "json" && (o.responseType = e.responseType), typeof e.onDownloadProgress == "function" && o.addEventListener("progress", e.onDownloadProgress), typeof e.onUploadProgress == "function" && o.upload && o.upload.addEventListener("progress", e.onUploadProgress), (e.cancelToken || e.signal) && (c = function(b) {
-        o && (n(!b || b && b.type ? new Ir() : b), o.abort(), o = null);
-      }, e.cancelToken && e.cancelToken.subscribe(c), e.signal && (e.signal.aborted ? c() : e.signal.addEventListener("abort", c))), i || (i = null);
-      var V = Mr(m);
+        typeof s > "u" && O.toLowerCase() === "content-type" ? delete a[O] : o.setRequestHeader(O, T);
+      }), B.isUndefined(e.withCredentials) || (o.withCredentials = !!e.withCredentials), u && u !== "json" && (o.responseType = e.responseType), typeof e.onDownloadProgress == "function" && o.addEventListener("progress", e.onDownloadProgress), typeof e.onUploadProgress == "function" && o.upload && o.upload.addEventListener("progress", e.onUploadProgress), (e.cancelToken || e.signal) && (c = function(g) {
+        o && (n(!g || g && g.type ? new Ir() : g), o.abort(), o = null);
+      }, e.cancelToken && e.cancelToken.subscribe(c), e.signal && (e.signal.aborted ? c() : e.signal.addEventListener("abort", c))), s || (s = null);
+      var V = zr(m);
       if (V && ["http", "https", "file"].indexOf(V) === -1) {
-        n(new E("Unsupported protocol " + V + ":", E.ERR_BAD_REQUEST, e));
+        n(new x("Unsupported protocol " + V + ":", x.ERR_BAD_REQUEST, e));
         return;
       }
-      o.send(i);
+      o.send(s);
     });
   };
 });
-var ct = l((Dn, ut) => {
+var ct = l((Un, ut) => {
   ut.exports = null;
 });
-var $ = l((Un, pt) => {
+var $ = l((Bn, pt) => {
   "use strict";
-  var p = d(), lt = Be(), ft = q(), zr = ie(), $r = ae(), Hr = { "Content-Type": "application/x-www-form-urlencoded" };
-  function dt(t, e) {
+  var p = f(), lt = Be(), dt = q(), Mr = se(), $r = ae(), Hr = { "Content-Type": "application/x-www-form-urlencoded" };
+  function ft(t, e) {
     !p.isUndefined(t) && p.isUndefined(t["Content-Type"]) && (t["Content-Type"] = e);
   }
-  function Jr() {
+  function Wr() {
     var t;
-    return typeof XMLHttpRequest < "u" ? t = fe() : typeof process < "u" && Object.prototype.toString.call(process) === "[object process]" && (t = fe()), t;
+    return typeof XMLHttpRequest < "u" ? t = de() : typeof process < "u" && Object.prototype.toString.call(process) === "[object process]" && (t = de()), t;
   }
-  function Wr(t, e, r) {
+  function Jr(t, e, r) {
     if (p.isString(t))
       try {
         return (e || JSON.parse)(t), p.trim(t);
-      } catch (s) {
-        if (s.name !== "SyntaxError")
-          throw s;
+      } catch (i) {
+        if (i.name !== "SyntaxError")
+          throw i;
       }
     return (r || JSON.stringify)(t);
   }
-  var z = { transitional: zr, adapter: Jr(), transformRequest: [function(e, r) {
+  var M = { transitional: Mr, adapter: Wr(), transformRequest: [function(e, r) {
     if (lt(r, "Accept"), lt(r, "Content-Type"), p.isFormData(e) || p.isArrayBuffer(e) || p.isBuffer(e) || p.isStream(e) || p.isFile(e) || p.isBlob(e))
       return e;
     if (p.isArrayBufferView(e))
       return e.buffer;
     if (p.isURLSearchParams(e))
-      return dt(r, "application/x-www-form-urlencoded;charset=utf-8"), e.toString();
-    var s = p.isObject(e), n = r && r["Content-Type"], i;
-    if ((i = p.isFileList(e)) || s && n === "multipart/form-data") {
+      return ft(r, "application/x-www-form-urlencoded;charset=utf-8"), e.toString();
+    var i = p.isObject(e), n = r && r["Content-Type"], s;
+    if ((s = p.isFileList(e)) || i && n === "multipart/form-data") {
       var a = this.env && this.env.FormData;
-      return $r(i ? { "files[]": e } : e, a && new a());
-    } else if (s || n === "application/json")
-      return dt(r, "application/json"), Wr(e);
+      return $r(s ? { "files[]": e } : e, a && new a());
+    } else if (i || n === "application/json")
+      return ft(r, "application/json"), Jr(e);
     return e;
   }], transformResponse: [function(e) {
-    var r = this.transitional || z.transitional, s = r && r.silentJSONParsing, n = r && r.forcedJSONParsing, i = !s && this.responseType === "json";
-    if (i || n && p.isString(e) && e.length)
+    var r = this.transitional || M.transitional, i = r && r.silentJSONParsing, n = r && r.forcedJSONParsing, s = !i && this.responseType === "json";
+    if (s || n && p.isString(e) && e.length)
       try {
         return JSON.parse(e);
       } catch (a) {
-        if (i)
-          throw a.name === "SyntaxError" ? ft.from(a, ft.ERR_BAD_RESPONSE, this, null, this.response) : a;
+        if (s)
+          throw a.name === "SyntaxError" ? dt.from(a, dt.ERR_BAD_RESPONSE, this, null, this.response) : a;
       }
     return e;
   }], timeout: 0, xsrfCookieName: "XSRF-TOKEN", xsrfHeaderName: "X-XSRF-TOKEN", maxContentLength: -1, maxBodyLength: -1, env: { FormData: ct() }, validateStatus: function(e) {
     return e >= 200 && e < 300;
   }, headers: { common: { Accept: "application/json, text/plain, */*" } } };
   p.forEach(["delete", "get", "head"], function(e) {
-    z.headers[e] = {};
+    M.headers[e] = {};
   });
   p.forEach(["post", "put", "patch"], function(e) {
-    z.headers[e] = p.merge(Hr);
+    M.headers[e] = p.merge(Hr);
   });
-  pt.exports = z;
+  pt.exports = M;
 });
-var mt = l((Bn, ht) => {
+var mt = l((Ln, ht) => {
   "use strict";
-  var Vr = d(), Kr = $();
-  ht.exports = function(e, r, s) {
+  var Vr = f(), Kr = $();
+  ht.exports = function(e, r, i) {
     var n = this || Kr;
-    return Vr.forEach(s, function(a) {
+    return Vr.forEach(i, function(a) {
       e = a.call(n, e, r);
     }), e;
   };
 });
-var de = l((Ln, yt) => {
+var fe = l((jn, yt) => {
   "use strict";
   yt.exports = function(e) {
     return !!(e && e.__CANCEL__);
   };
 });
-var bt = l((jn, wt) => {
+var gt = l((Fn, wt) => {
   "use strict";
-  var vt = d(), pe = mt(), Xr = de(), Gr = $(), Qr = U();
+  var vt = f(), pe = mt(), Xr = fe(), Gr = $(), Qr = U();
   function he(t) {
     if (t.cancelToken && t.cancelToken.throwIfRequested(), t.signal && t.signal.aborted)
       throw new Qr();
@@ -14467,16 +14943,16 @@ var bt = l((jn, wt) => {
     });
   };
 });
-var me = l((Fn, gt) => {
+var me = l((In, bt) => {
   "use strict";
-  var w = d();
-  gt.exports = function(e, r) {
+  var w = f();
+  bt.exports = function(e, r) {
     r = r || {};
-    var s = {};
-    function n(o, f) {
-      return w.isPlainObject(o) && w.isPlainObject(f) ? w.merge(o, f) : w.isPlainObject(f) ? w.merge({}, f) : w.isArray(f) ? f.slice() : f;
+    var i = {};
+    function n(o, d) {
+      return w.isPlainObject(o) && w.isPlainObject(d) ? w.merge(o, d) : w.isPlainObject(d) ? w.merge({}, d) : w.isArray(d) ? d.slice() : d;
     }
-    function i(o) {
+    function s(o) {
       if (w.isUndefined(r[o])) {
         if (!w.isUndefined(e[o]))
           return n(void 0, e[o]);
@@ -14501,82 +14977,82 @@ var me = l((Fn, gt) => {
         return n(void 0, e[o]);
     }
     var h = { url: a, method: a, data: a, baseURL: u, transformRequest: u, transformResponse: u, paramsSerializer: u, timeout: u, timeoutMessage: u, withCredentials: u, adapter: u, responseType: u, xsrfCookieName: u, xsrfHeaderName: u, onUploadProgress: u, onDownloadProgress: u, decompress: u, maxContentLength: u, maxBodyLength: u, beforeRedirect: u, transport: u, httpAgent: u, httpsAgent: u, cancelToken: u, socketPath: u, responseEncoding: u, validateStatus: c };
-    return w.forEach(Object.keys(e).concat(Object.keys(r)), function(f) {
-      var v = h[f] || i, m = v(f);
-      w.isUndefined(m) && v !== c || (s[f] = m);
-    }), s;
+    return w.forEach(Object.keys(e).concat(Object.keys(r)), function(d) {
+      var v = h[d] || s, m = v(d);
+      w.isUndefined(m) && v !== c || (i[d] = m);
+    }), i;
   };
 });
-var ye = l((In, Et) => {
+var ye = l((zn, Et) => {
   Et.exports = { version: "0.27.2" };
 });
-var Ct = l((Mn, Rt) => {
+var Rt = l((Mn, Ct) => {
   "use strict";
-  var Yr = ye().version, C = q(), ve = {};
+  var Yr = ye().version, R = q(), ve = {};
   ["object", "boolean", "number", "function", "string", "symbol"].forEach(function(t, e) {
-    ve[t] = function(s) {
-      return typeof s === t || "a" + (e < 1 ? "n " : " ") + t;
+    ve[t] = function(i) {
+      return typeof i === t || "a" + (e < 1 ? "n " : " ") + t;
     };
   });
   var xt = {};
-  ve.transitional = function(e, r, s) {
-    function n(i, a) {
-      return "[Axios v" + Yr + "] Transitional option '" + i + "'" + a + (s ? ". " + s : "");
+  ve.transitional = function(e, r, i) {
+    function n(s, a) {
+      return "[Axios v" + Yr + "] Transitional option '" + s + "'" + a + (i ? ". " + i : "");
     }
-    return function(i, a, u) {
+    return function(s, a, u) {
       if (e === false)
-        throw new C(n(a, " has been removed" + (r ? " in " + r : "")), C.ERR_DEPRECATED);
-      return r && !xt[a] && (xt[a] = true, console.warn(n(a, " has been deprecated since v" + r + " and will be removed in the near future"))), e ? e(i, a, u) : true;
+        throw new R(n(a, " has been removed" + (r ? " in " + r : "")), R.ERR_DEPRECATED);
+      return r && !xt[a] && (xt[a] = true, console.warn(n(a, " has been deprecated since v" + r + " and will be removed in the near future"))), e ? e(s, a, u) : true;
     };
   };
   function Zr(t, e, r) {
     if (typeof t != "object")
-      throw new C("options must be an object", C.ERR_BAD_OPTION_VALUE);
-    for (var s = Object.keys(t), n = s.length; n-- > 0; ) {
-      var i = s[n], a = e[i];
+      throw new R("options must be an object", R.ERR_BAD_OPTION_VALUE);
+    for (var i = Object.keys(t), n = i.length; n-- > 0; ) {
+      var s = i[n], a = e[s];
       if (a) {
-        var u = t[i], c = u === void 0 || a(u, i, t);
+        var u = t[s], c = u === void 0 || a(u, s, t);
         if (c !== true)
-          throw new C("option " + i + " must be " + c, C.ERR_BAD_OPTION_VALUE);
+          throw new R("option " + s + " must be " + c, R.ERR_BAD_OPTION_VALUE);
         continue;
       }
       if (r !== true)
-        throw new C("Unknown option " + i, C.ERR_BAD_OPTION);
+        throw new R("Unknown option " + s, R.ERR_BAD_OPTION);
     }
   }
-  Rt.exports = { assertOptions: Zr, validators: ve };
+  Ct.exports = { assertOptions: Zr, validators: ve };
 });
-var Pt = l((zn, St) => {
+var kt = l(($n, St) => {
   "use strict";
-  var qt = d(), en = se(), Ot = De(), At = bt(), H = me(), tn = ue(), Tt = Ct(), N = Tt.validators;
-  function _(t) {
+  var qt = f(), en = ie(), Ot = De(), At = gt(), H = me(), tn = ue(), Tt = Rt(), N = Tt.validators;
+  function P(t) {
     this.defaults = t, this.interceptors = { request: new Ot(), response: new Ot() };
   }
-  _.prototype.request = function(e, r) {
+  P.prototype.request = function(e, r) {
     typeof e == "string" ? (r = r || {}, r.url = e) : r = e || {}, r = H(this.defaults, r), r.method ? r.method = r.method.toLowerCase() : this.defaults.method ? r.method = this.defaults.method.toLowerCase() : r.method = "get";
-    var s = r.transitional;
-    s !== void 0 && Tt.assertOptions(s, { silentJSONParsing: N.transitional(N.boolean), forcedJSONParsing: N.transitional(N.boolean), clarifyTimeoutError: N.transitional(N.boolean) }, false);
-    var n = [], i = true;
+    var i = r.transitional;
+    i !== void 0 && Tt.assertOptions(i, { silentJSONParsing: N.transitional(N.boolean), forcedJSONParsing: N.transitional(N.boolean), clarifyTimeoutError: N.transitional(N.boolean) }, false);
+    var n = [], s = true;
     this.interceptors.request.forEach(function(m) {
-      typeof m.runWhen == "function" && m.runWhen(r) === false || (i = i && m.synchronous, n.unshift(m.fulfilled, m.rejected));
+      typeof m.runWhen == "function" && m.runWhen(r) === false || (s = s && m.synchronous, n.unshift(m.fulfilled, m.rejected));
     });
     var a = [];
     this.interceptors.response.forEach(function(m) {
       a.push(m.fulfilled, m.rejected);
     });
     var u;
-    if (!i) {
+    if (!s) {
       var c = [At, void 0];
       for (Array.prototype.unshift.apply(c, n), c = c.concat(a), u = Promise.resolve(r); c.length; )
         u = u.then(c.shift(), c.shift());
       return u;
     }
     for (var h = r; n.length; ) {
-      var o = n.shift(), f = n.shift();
+      var o = n.shift(), d = n.shift();
       try {
         h = o(h);
       } catch (v) {
-        f(v);
+        d(v);
         break;
       }
     }
@@ -14589,30 +15065,30 @@ var Pt = l((zn, St) => {
       u = u.then(a.shift(), a.shift());
     return u;
   };
-  _.prototype.getUri = function(e) {
+  P.prototype.getUri = function(e) {
     e = H(this.defaults, e);
     var r = tn(e.baseURL, e.url);
     return en(r, e.params, e.paramsSerializer);
   };
   qt.forEach(["delete", "get", "head", "options"], function(e) {
-    _.prototype[e] = function(r, s) {
-      return this.request(H(s || {}, { method: e, url: r, data: (s || {}).data }));
+    P.prototype[e] = function(r, i) {
+      return this.request(H(i || {}, { method: e, url: r, data: (i || {}).data }));
     };
   });
   qt.forEach(["post", "put", "patch"], function(e) {
-    function r(s) {
-      return function(i, a, u) {
-        return this.request(H(u || {}, { method: e, headers: s ? { "Content-Type": "multipart/form-data" } : {}, url: i, data: a }));
+    function r(i) {
+      return function(s, a, u) {
+        return this.request(H(u || {}, { method: e, headers: i ? { "Content-Type": "multipart/form-data" } : {}, url: s, data: a }));
       };
     }
-    _.prototype[e] = r(), _.prototype[e + "Form"] = r(true);
+    P.prototype[e] = r(), P.prototype[e + "Form"] = r(true);
   });
-  St.exports = _;
+  St.exports = P;
 });
-var _t = l(($n, Nt) => {
+var Pt = l((Hn, Nt) => {
   "use strict";
   var rn = U();
-  function k(t) {
+  function _(t) {
     if (typeof t != "function")
       throw new TypeError("executor must be a function.");
     var e;
@@ -14620,78 +15096,78 @@ var _t = l(($n, Nt) => {
       e = n;
     });
     var r = this;
-    this.promise.then(function(s) {
+    this.promise.then(function(i) {
       if (r._listeners) {
-        var n, i = r._listeners.length;
-        for (n = 0; n < i; n++)
-          r._listeners[n](s);
+        var n, s = r._listeners.length;
+        for (n = 0; n < s; n++)
+          r._listeners[n](i);
         r._listeners = null;
       }
-    }), this.promise.then = function(s) {
-      var n, i = new Promise(function(a) {
+    }), this.promise.then = function(i) {
+      var n, s = new Promise(function(a) {
         r.subscribe(a), n = a;
-      }).then(s);
-      return i.cancel = function() {
+      }).then(i);
+      return s.cancel = function() {
         r.unsubscribe(n);
-      }, i;
+      }, s;
     }, t(function(n) {
       r.reason || (r.reason = new rn(n), e(r.reason));
     });
   }
-  k.prototype.throwIfRequested = function() {
+  _.prototype.throwIfRequested = function() {
     if (this.reason)
       throw this.reason;
   };
-  k.prototype.subscribe = function(e) {
+  _.prototype.subscribe = function(e) {
     if (this.reason) {
       e(this.reason);
       return;
     }
     this._listeners ? this._listeners.push(e) : this._listeners = [e];
   };
-  k.prototype.unsubscribe = function(e) {
+  _.prototype.unsubscribe = function(e) {
     if (this._listeners) {
       var r = this._listeners.indexOf(e);
       r !== -1 && this._listeners.splice(r, 1);
     }
   };
-  k.source = function() {
-    var e, r = new k(function(n) {
+  _.source = function() {
+    var e, r = new _(function(n) {
       e = n;
     });
     return { token: r, cancel: e };
   };
-  Nt.exports = k;
+  Nt.exports = _;
 });
-var Dt = l((Hn, kt) => {
+var Dt = l((Wn, _t) => {
   "use strict";
-  kt.exports = function(e) {
-    return function(s) {
-      return e.apply(null, s);
+  _t.exports = function(e) {
+    return function(i) {
+      return e.apply(null, i);
     };
   };
 });
 var Bt = l((Jn, Ut) => {
   "use strict";
-  var nn = d();
+  var nn = f();
   Ut.exports = function(e) {
     return nn.isObject(e) && e.isAxiosError === true;
   };
 });
-var Ft = l((Wn, we) => {
+var Ft = l((Vn, we) => {
   "use strict";
-  var Lt = d(), sn = Q(), J = Pt(), an = me(), on = $();
+  var Lt = f(), sn = Q(), W = kt(), an = me(), on = $();
   function jt(t) {
-    var e = new J(t), r = sn(J.prototype.request, e);
-    return Lt.extend(r, J.prototype, e), Lt.extend(r, e), r.create = function(n) {
+    var e = new W(t), r = sn(W.prototype.request, e);
+    return Lt.extend(r, W.prototype, e), Lt.extend(r, e), r.create = function(n) {
       return jt(an(t, n));
     }, r;
   }
   var y = jt(on);
-  y.Axios = J;
+  y.Axios = W;
   y.CanceledError = U();
-  y.CancelToken = _t();
-  y.isCancel = de();
+  y.CancelToken = Pt();
+  y.isCancel = fe();
   y.VERSION = ye().version;
   y.toFormData = ae();
   y.AxiosError = q();
@@ -14704,14 +15180,14 @@ var Ft = l((Wn, we) => {
   we.exports = y;
   we.exports.default = y;
 });
-var be = l((Vn, It) => {
+var ge = l((Kn, It) => {
   It.exports = Ft();
 });
-var D = Ae(be(), 1);
-var x = "https://zesty-storage-prod.s3.amazonaws.com/images/zesty";
-var L = { tall: { width: 0.75, height: 1, style: { standard: `${x}/zesty-banner-tall.png`, minimal: `${x}/zesty-banner-tall-minimal.png`, transparent: `${x}/zesty-banner-tall-transparent.png` } }, wide: { width: 4, height: 1, style: { standard: `${x}/zesty-banner-wide.png`, minimal: `${x}/zesty-banner-wide-minimal.png`, transparent: `${x}/zesty-banner-wide-transparent.png` } }, square: { width: 1, height: 1, style: { standard: `${x}/zesty-banner-square.png`, minimal: `${x}/zesty-banner-square-minimal.png`, transparent: `${x}/zesty-banner-square-transparent.png` } } };
-var un = Ae(be(), 1);
-var ge = () => {
+var D = Ae(ge(), 1);
+var C = "https://zesty-storage-prod.s3.amazonaws.com/images/zesty";
+var L = { tall: { width: 0.75, height: 1, style: { standard: `${C}/zesty-banner-tall.png`, minimal: `${C}/zesty-banner-tall-minimal.png`, transparent: `${C}/zesty-banner-tall-transparent.png` } }, wide: { width: 4, height: 1, style: { standard: `${C}/zesty-banner-wide.png`, minimal: `${C}/zesty-banner-wide-minimal.png`, transparent: `${C}/zesty-banner-wide-transparent.png` } }, square: { width: 1, height: 1, style: { standard: `${C}/zesty-banner-square.png`, minimal: `${C}/zesty-banner-square-minimal.png`, transparent: `${C}/zesty-banner-square-transparent.png` } } };
+var un = Ae(ge(), 1);
+var be = () => {
   let t = window.XRHand != null && window.XRMediaBinding != null, e = navigator.userAgent.includes("OculusBrowser"), r = t && e ? "Full" : t || e ? "Partial" : "None";
   return { match: r !== "None", confidence: r };
 };
@@ -14719,21 +15195,21 @@ var Ee = () => {
   let t = window.mozInnerScreenX != null && window.speechSynthesis == null, e = navigator.userAgent.includes("Mobile VR") && !navigator.userAgent.includes("OculusBrowser"), r = t && e ? "Full" : t || e ? "Partial" : "None";
   return { match: r !== "None", confidence: r };
 };
-var Mt = async () => {
+var zt = async () => {
   let t = navigator.xr && await navigator.xr.isSessionSupported("immersive-vr") && await navigator.xr.isSessionSupported("immersive-ar"), e = navigator.userAgent.includes("Pico Neo 3 Link"), r = t && e ? "Full" : t || e ? "Partial" : "None";
   return { match: r !== "None", confidence: r };
 };
-var zt = () => {
+var Mt = () => {
   let t = navigator.maxTouchPoints === 0 || navigator.msMaxTouchPoints === 0, e = !navigator.userAgent.includes("Android") && !navigator.userAgent.includes("Mobile"), r = t && e ? "Full" : t || e ? "Partial" : "None";
   return { match: r !== "None", confidence: r };
 };
 var xe = async () => {
   let t = { platform: "", confidence: "" };
-  return ge().match ? t = { platform: "Oculus", confidence: ge().confidence } : Ee().match ? t = { platform: "Wolvic", confidence: Ee().confidence } : await Mt().match ? t = { platform: "Pico", confidence: await Mt().confidence } : zt().match ? t = { platform: "Desktop", confidence: zt().confidence } : t = { platform: "Unknown", confidence: "None" }, t;
+  return be().match ? t = { platform: "Oculus", confidence: be().confidence } : Ee().match ? t = { platform: "Wolvic", confidence: Ee().confidence } : await zt().match ? t = { platform: "Pico", confidence: await zt().confidence } : Mt().match ? t = { platform: "Desktop", confidence: Mt().confidence } : t = { platform: "Unknown", confidence: "None" }, t;
 };
 var $t = (t) => {
   if (t) {
-    if (ge().match) {
+    if (be().match) {
       if (t.includes("https://www.oculus.com/experiences/quest/")) {
         setTimeout(() => {
           window.open(t, "_blank");
@@ -14741,52 +15217,53 @@ var $t = (t) => {
         return;
       }
     } else if (Ee().match) {
-      let e = document.createElement("div"), r = document.createElement("div"), s = document.createElement("p"), n = document.createElement("button"), i = document.createElement("button");
-      e.style.backgroundColor = "rgb(0, 0, 0, 0.75)", e.style.color = "white", e.style.textAlign = "center", e.style.position = "fixed", e.style.top = "50%", e.style.left = "50%", e.style.padding = "5%", e.style.borderRadius = "5%", e.style.transform = "translate(-50%, -50%)", s.innerHTML = `<b>This billboard leads to ${t}. Continue?</b>`, n.innerText = "Move cursor back into window.", n.style.width = "100vw", n.style.height = "100vh", n.onmouseenter = () => {
+      let e = document.createElement("div"), r = document.createElement("div"), i = document.createElement("p"), n = document.createElement("button"), s = document.createElement("button");
+      e.style.backgroundColor = "rgb(0, 0, 0, 0.75)", e.style.color = "white", e.style.textAlign = "center", e.style.position = "fixed", e.style.top = "50%", e.style.left = "50%", e.style.padding = "5%", e.style.borderRadius = "5%", e.style.transform = "translate(-50%, -50%)", i.innerHTML = `<b>This billboard leads to ${t}. Continue?</b>`, n.innerText = "Move cursor back into window.", n.style.width = "100vw", n.style.height = "100vh", n.onmouseenter = () => {
         n.style.width = "auto", n.style.height = "auto", n.innerText = "Yes";
       }, n.onclick = () => {
         window.open(t, "_blank"), e.remove();
-      }, i.innerText = "No", i.onclick = () => {
+      }, s.innerText = "No", s.onclick = () => {
         e.remove();
-      }, e.append(r), r.append(s), r.append(n), r.append(i), document.body.append(e);
+      }, e.append(r), r.append(i), r.append(n), r.append(s), document.body.append(e);
       return;
     }
     window.open(t, "_blank");
   }
 };
 var Ht = "https://beacon.zesty.market";
-var Jt = "https://beacon2.zesty.market/zgraphql";
+var Wt = "https://beacon2.zesty.market/zgraphql";
 var cn = "https://api.zesty.market/api";
-var Wt = async (t, e = "tall", r = "standard") => {
+var Jt = async (t, e = "tall", r = "standard") => {
   try {
-    let s = encodeURI(window.top.location.href).replace(/\/$/, "");
-    return (await D.default.get(`${cn}/ad?ad_unit_id=${t}&url=${s}`)).data;
+    let i = encodeURI(window.top.location.href).replace(/\/$/, "");
+    return (await D.default.get(`${cn}/ad?ad_unit_id=${t}&url=${i}`)).data;
   } catch {
     return console.warn("No active campaign banner could be located. Displaying default banner."), { Ads: [{ asset_url: L[e].style[r], cta_url: "https://www.zesty.market" }], CampaignId: "TestCampaign" };
   }
 };
 var Vt = async (t, e = null) => {
-  let { platform: r, confidence: s } = await xe();
+  let { platform: r, confidence: i } = await xe();
   try {
     let n = Ht + `/api/v1/space/${t}`;
-    await D.default.put(n), await D.default.post(Jt, { query: `mutation { increment(eventType: visits, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${s} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
+    await D.default.put(n), await D.default.post(Wt, { query: `mutation { increment(eventType: visits, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${i} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
   } catch (n) {
     console.log("Failed to emit onload event", n.message);
   }
 };
 var Kt = async (t, e = null) => {
-  let { platform: r, confidence: s } = await xe();
+  let { platform: r, confidence: i } = await xe();
   try {
     let n = Ht + `/api/v1/space/click/${t}`;
-    await D.default.put(n), await D.default.post(Jt, { query: `mutation { increment(eventType: clicks, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${s} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
+    await D.default.put(n), await D.default.post(Wt, { query: `mutation { increment(eventType: clicks, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${i} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
   } catch (n) {
     console.log("Failed to emit onclick event", n.message);
   }
 };
-var Xt = "2.0.2";
+var Xt = "2.0.6";
 console.log("Zesty SDK Version: ", Xt);
-var hn = "https://ipfs.io/ipns/lib.zesty.market/zesty-formats.js";
-var W = class extends Component {
+var hn = "https://cdn.zesty.xyz/sdk/zesty-formats.js";
+var mn = "https://cdn.zesty.xyz/sdk/zesty-networkingLOL.js";
+var J = class extends Component {
   static onRegister(e) {
     e.registerComponent(CursorTarget);
   }
@@ -14799,41 +15276,45 @@ var W = class extends Component {
     if (this.createAutomaticCollision && (this.collision = this.object.getComponent(CollisionComponent) || this.object.addComponent(CollisionComponent, { collider: Collider.Box, group: 2 }), this.cursorTarget = this.object.getComponent(CursorTarget) || this.object.addComponent(CursorTarget), this.cursorTarget.onClick.add(this.onClick.bind(this))), this.dynamicFormats) {
       let e = document.createElement("script");
       e.onload = () => {
-        this.formatsOverride = zestyFormats.formats, this.startLoading();
+        this.formatsOverride = zestyFormats.formats;
       }, e.setAttribute("src", hn), e.setAttribute("crossorigin", "anonymous"), document.body.appendChild(e);
-    } else
-      this.startLoading();
+    }
+    this.dynamicNetworking ? import(mn).then((e) => {
+      this.zestyNetworking = Object.assign({}, e), this.startLoading();
+    }).catch(() => {
+      console.error("Failed to dynamically retrieve networking code, falling back to bundled version."), this.dynamicNetworking = false, this.startLoading();
+    }) : this.startLoading();
   }
   startLoading() {
     this.loadBanner(this.adUnit, this.formatKeys[this.format], this.styleKeys[this.style]).then((e) => {
       this.banner = e, this.scaleToRatio && (this.height = this.object.scalingLocal[1], this.object.resetScaling(), this.createAutomaticCollision && (this.collision.extents = [this.formats[this.format].width * this.height, this.height, 0.1]), this.object.scale([this.formats[this.format].width * this.height, this.height, 1]));
       let r = this.mesh.material.clone();
       if (this.textureProperty === "auto") {
-        let s = r.shader;
-        if (s === "Phong Opaque Textured")
+        let i = r.shader;
+        if (i === "Phong Opaque Textured")
           r.diffuseTexture = e.texture, r.alphaMaskThreshold = 0.3;
-        else if (s === "Flat Opaque Textured")
+        else if (i === "Flat Opaque Textured")
           r.flatTexture = e.texture, r.alphaMaskThreshold = 0.8;
         else
-          throw Error("'zesty-banner' unable to apply banner texture: unsupported pipeline " + s);
+          throw Error("'zesty-banner' unable to apply banner texture: unsupported pipeline " + i);
         this.mesh.material = r, this.mesh.material.alphaMaskTexture = e.texture;
       } else
         this.mesh.material[this.textureProperty] = e.texture, this.mesh.material.alphaMaskTexture = e.texture;
-      this.beacon && Vt(this.adUnit);
+      this.beacon && (this.dynamicNetworking ? this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) : Vt(this.adUnit, this.banner.campaignId));
     });
   }
   onClick() {
-    this.banner?.url && (this.engine.xr ? this.engine.xr.session.end().then(this.executeClick.bind(this)) : this.executeClick());
+    this.banner?.url && (this.engine.xr ? this.engine.xr.session.end().then(this.executeClick.bind(this)) : this.engine.xrSession ? this.engine.xrSession.end().then(this.executeClick.bind(this)) : this.executeClick());
   }
   executeClick() {
-    $t(this.banner.url), this.beacon && Kt(this.adUnit);
+    $t(this.banner.url), this.beacon && (this.dynamicNetworking ? this.zestyNetworking.sendOnClickMetric(this.adUnit, this.banner.campaignId) : Kt(this.adUnit, this.banner.campaignId));
   }
-  async loadBanner(e, r, s) {
-    let n = await Wt(e, r, s), { asset_url: i, cta_url: a } = n.Ads[0];
-    return this.engine.textures.load(i, "").then((u) => ({ texture: u, imageSrc: i, url: a, campaignId: n.CampaignId }));
+  async loadBanner(e, r, i) {
+    let n = this.dynamicNetworking ? await this.zestyNetworking.fetchCampaignAd(e, r, i) : await Jt(e, r, i), { asset_url: s, cta_url: a } = n.Ads[0];
+    return this.campaignId = n.CampaignId, this.engine.textures.load(s, "").then((u) => ({ texture: u, imageSrc: s, url: a, campaignId: n.CampaignId }));
   }
 };
-G(W, "TypeName", "zesty-banner"), G(W, "Properties", { adUnit: Property.string(""), format: Property.enum(["tall", "wide", "square"], "square"), style: Property.enum(["standard", "minimal", "transparent"], "transparent"), scaleToRatio: Property.bool(true), textureProperty: Property.string("auto"), assignAlphaMaskTexture: Property.bool(true), beacon: Property.bool(true), dynamicFormats: Property.bool(true), createAutomaticCollision: Property.bool(true) });
+G(J, "TypeName", "zesty-banner"), G(J, "Properties", { adUnit: Property.string(""), format: Property.enum(["tall", "wide", "square"], "square"), style: Property.enum(["standard", "minimal", "transparent"], "transparent"), scaleToRatio: Property.bool(true), textureProperty: Property.string("auto"), assignAlphaMaskTexture: Property.bool(true), beacon: Property.bool(true), dynamicFormats: Property.bool(true), createAutomaticCollision: Property.bool(true), dynamicNetworking: Property.bool(false) });
 
 // js/index.js
 var RuntimeOptions = {
@@ -14883,7 +15364,7 @@ engine.registerComponent(MouseLookComponent);
 engine.registerComponent(PlayerHeight);
 engine.registerComponent(VrModeActiveSwitch);
 engine.registerComponent(ExposeBanners);
-engine.registerComponent(W);
+engine.registerComponent(J);
 engine.scene.load(`${Constants.ProjectName}.bin`);
 /*! Bundled license information:
 

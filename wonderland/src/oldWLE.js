@@ -7,8 +7,8 @@ import { version } from '../package.json';
 
 console.log(`Zesty SDK Version: ${version} (compatibility)`);
 
-const formatsLink = 'https://ipfs.io/ipns/libv2.zesty.market/zesty-formats.js';
-const networkingLink = 'https://ipfs.io/ipns/libv2.zesty.market/zesty-networking.js';
+const formatsLink = 'https://cdn.zesty.xyz/sdk/zesty-formats.js';
+const networkingLink = 'https://cdn.zesty.xyz/sdk/zesty-networking.js';
 
 /**
  * [Zesty Market](https://zesty.market) banner ad unit
@@ -83,10 +83,16 @@ WL.registerComponent(
       }
 
       if (this.dynamicNetworking) {
-        import(networkingLink).then(value => {
-          this.zestyNetworking = Object.assign({}, value);
-          this.startLoading();
-        });
+        import(networkingLink)
+          .then(value => {
+            this.zestyNetworking = Object.assign({}, value);
+            this.startLoading();
+          })
+          .catch(() => {
+            console.error('Failed to dynamically retrieve networking code, falling back to bundled version.');
+            this.dynamicNetworking = null;
+            this.startLoading();
+          });
       } else {
         this.startLoading();
       }

@@ -5,6 +5,7 @@
   "main": "networking.js",
   "scripts": {
     "build": "esbuild formats.js --format=iife --global-name=zestyFormats --bundle --minify --outfile=dist/zesty-formats.js",
+    "build-networking": "esbuild networking.js --format=esm --global-name=zestyNetworking --bundle --minify --outfile=dist/zesty-networking.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

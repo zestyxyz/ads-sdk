@@ -1,6 +1,6 @@
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
+import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { openURL, parseProtocol } from '../../utils/helpers';
+import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
 
 console.log('Zesty SDK Version: ', version);
@@ -8,8 +8,7 @@ console.log('Zesty SDK Version: ', version);
 class Zesty extends HTMLElement {
   constructor() {
     super();
-    this.space = '';
-    this.network = 'polygon';
+    this.adUnit = '';
     this.format = defaultFormat;
     this.bannerstyle = defaultStyle;
     this.width = '100%';
@@ -23,20 +22,8 @@ class Zesty extends HTMLElement {
   connectedCallback() {
     this.style.cursor = 'pointer';
 
-    this.space = this.hasAttribute('space')
-      ? this.getAttribute('space')
-      : this.hasAttribute('adspace')
-      ? this.getAttribute('adspace')
-      : this.space;
-    if (this.getAttribute('creator') !== null) {
-      console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
-    }
-    this.network = this.hasAttribute('network') ? this.getAttribute('network') : this.network;
-    this.format = this.hasAttribute('format')
-      ? this.getAttribute('format')
-      : this.hasAttribute('adformat')
-      ? this.getAttribute('adformat')
-      : this.format;
+    this.adUnit = this.hasAttribute('ad-unit') ? this.getAttribute('ad-unit') : this.adUnit;
+    this.format = this.hasAttribute('format') ? this.getAttribute('format') : this.format;
     this.bannerstyle = this.hasAttribute('bannerstyle')
       ? this.getAttribute('bannerstyle')
       : this.bannerstyle;
@@ -46,24 +33,14 @@ class Zesty extends HTMLElement {
 
     this.adjustHeightandWidth();
 
-    async function loadBanner(space, creator, network, format, style, shadow, width, height, beacon) {
-      const activeNFT = await fetchNFT(space, creator, network);
-      const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
+    async function loadBanner(adUnit, format, style, shadow, width, height, beacon) {
+      const activeCampaign = await fetchCampaignAd(adUnit, format, style);
 
-      // Need to add https:// if missing for page to open properly
-      let url = activeBanner.data.url;
-      url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
-
-      if (url === 'https://www.zesty.market') {
-        url = `https://app.zesty.market/space/${space}`;
-      }
-
-      let image = activeBanner.data.image;
-      image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
+      const { id, asset_url: image, cta_url: url } = activeCampaign.Ads[0];
 
       const img = document.createElement('img');
       shadow.appendChild(img);
-      img.setAttribute('id', activeBanner.uri);
+      img.setAttribute('id', id);
       img.style.width = width;
       img.style.height = height;
       img.setAttribute('crossorigin', '');
@@ -72,18 +49,18 @@ class Zesty extends HTMLElement {
         e.preventDefault();
         openURL(url);
         if (beacon) {
-          sendOnClickMetric(space);
+          sendOnClickMetric(adUnit, activeCampaign.CampaignId);
         }
       });
 
       if (beacon) {
-        sendOnLoadMetric(space);
+        sendOnLoadMetric(adUnit, activeCampaign.CampaignId);
       }
 
-      if (activeBanner.data.image) {
+      if (image) {
         img.setAttribute('src', image);
         return new Promise((resolve, reject) => {
-          img.onload = () => resolve({ img: img, uri: activeBanner.uri, url: url });
+          img.onload = () => resolve({ img, url });
           img.onerror = () => reject(new Error('img load error'));
         });
       } else {
@@ -92,9 +69,7 @@ class Zesty extends HTMLElement {
     }
 
     loadBanner(
-      this.space,
-      this.creator,
-      this.network,
+      this.adUnit,
       this.format,
       this.bannerstyle,
       this.shadow,

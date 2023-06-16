@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { useRef, useState, Suspense, useEffect } from 'react';
-import { useLoader } from '@react-three/fiber';
+import { useLoader, useThree } from '@react-three/fiber';
+import { Interactive } from '@react-three/xr';
 import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
@@ -52,8 +53,9 @@ export default function ZestyBanner(props) {
 }
 
 function BannerPlane(props) {
-  let texture;
   const mesh = useRef();
+  const { gl } = useThree();
+  let texture;
 
   if (!props.bannerData.image) return null;
 
@@ -66,16 +68,22 @@ function BannerPlane(props) {
   const onClick = (event) => {
     const banner = props.bannerData.data;
     let url = banner.url || banner.properties?.url;
+    if (gl.xr.isPresenting) {
+      const session = gl.xr.getSession();
+      if (session) session.end();
+    }
     openURL(url);
     if (props.beacon) sendOnClickMetric(props.newAdUnit, props.bannerData.campaignId);
   };
 
   return (
-    <mesh {...props} ref={mesh} scale={0.5} onClick={onClick}>
-      <planeGeometry
-        args={[formats[props.newFormat].width * props.height, props.height]}
-      />
-      <meshBasicMaterial map={texture} transparent={true} />
-    </mesh>
+    <Interactive onSelect={onClick}>
+      <mesh {...props} ref={mesh} scale={0.5} onClick={onClick}>
+        <planeGeometry
+          args={[formats[props.newFormat].width * props.height, props.height]}
+        />
+        <meshBasicMaterial map={texture} transparent={true} />
+      </mesh>
+    </Interactive>
   );
 }

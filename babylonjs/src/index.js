@@ -1,14 +1,14 @@
 /* global BABYLON */
 
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
+import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
 import { formats } from '../../utils/formats';
-import { openURL, parseProtocol } from '../../utils/helpers';
+import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
 
 console.log('Zesty SDK Version: ', version);
 
 export default class ZestyBanner {
-  constructor(space, network, format, style, height, scene, webXRExperienceHelper = null, beacon = true) {
+  constructor(adUnit, format, style, height, scene, webXRExperienceHelper = null, beacon = true) {
     const options = {
       height: height,
       width: formats[format].width * height
@@ -16,12 +16,12 @@ export default class ZestyBanner {
 
     this.zestyBanner = BABYLON.MeshBuilder.CreatePlane('zestybanner', options);
 
-    loadBanner(space, network, format, style).then(data => {
+    loadBanner(adUnit, format, style).then(data => {
       this.zestyBanner.material = data.mat;
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
 
       if (beacon) {
-        sendOnLoadMetric(space);
+        sendOnLoadMetric(adUnit, data.campaignId);
       }
 
       this.zestyBanner.actionManager.registerAction(
@@ -34,7 +34,7 @@ export default class ZestyBanner {
             openURL(data.url);
           }
           if (beacon) {
-            sendOnClickMetric(space);
+            sendOnClickMetric(adUnit, data.campaignId);
           }
         })
       );
@@ -44,26 +44,16 @@ export default class ZestyBanner {
   }
 }
 
-async function loadBanner(space, network, format, style) {
-  const activeNFT = await fetchNFT(space, network);
-  const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
+async function loadBanner(adUnit, format, style) {
+  const activeBanner = await fetchCampaignAd(adUnit, format, style);
 
-  // Need to add https:// if missing for page to open properly
-  let url = activeBanner.data.url;
-  url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
-
-  if (url === 'https://www.zesty.market') {
-    url = `https://app.zesty.market/space/${space}`;
-  }
-
-  let image = activeBanner.data.image;
-  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
+  const { asset_url: image, cta_url: url } = activeBanner.Ads[0];
 
   const mat = new BABYLON.StandardMaterial('');
   mat.diffuseTexture = new BABYLON.Texture(image);
   mat.diffuseTexture.hasAlpha = true;
 
-  return { mat: mat, src: image, uri: activeBanner.uri, url: url };
+  return { mat: mat, src: image, uri: activeBanner.uri, url: url, campaignId: activeBanner.CampaignId };
 }
 
 window.ZestyBanner = ZestyBanner;

@@ -21,7 +21,7 @@ test.describe('Standard styles', () => {
     const banner1 = await page.evaluate(
       () => window.scene.meshes[4].material.diffuseTexture.name
     );
-    expect(banner1.split('/').pop()).toBe('QmSasURHs9AHTmJA7W98QsZ884zb6VVgFfF85Wf3HpNcBb');
+    expect(banner1.split('/').pop()).toBe('zesty-banner-tall.png');
   });
 
   test('The wide standard banner is present', async ({ page }) => {
@@ -29,7 +29,7 @@ test.describe('Standard styles', () => {
     const banner2 = await page.evaluate(
       () => window.scene.meshes[5].material.diffuseTexture.name
     );
-    expect(banner2.split('/').pop()).toBe('QmeBbzTnaMqedDaBRuxtjJCJMBwtbWuuXVsNNAAV6LQopF');
+    expect(banner2.split('/').pop()).toBe('zesty-banner-wide.png');
   });
 
   test('The square standard banner is present', async ({ page }) => {
@@ -37,7 +37,7 @@ test.describe('Standard styles', () => {
     const banner3 = await page.evaluate(
       () => window.scene.meshes[6].material.diffuseTexture.name
     );
-    expect(banner3.split('/').pop()).toBe('Qmbu9MAHHxB7JCTyyt291upMMMqZCjtoqbrvDMG56Lug3z');
+    expect(banner3.split('/').pop()).toBe('zesty-banner-square.png');
   });
 });
 
@@ -47,7 +47,7 @@ test.describe('Minimal styles', () => {
     const banner4 = await page.evaluate(
       () => window.scene.meshes[7].material.diffuseTexture.name
     );
-    expect(banner4.split('/').pop()).toBe('QmPCtWL6HhRJaeEPj3y26GSEofchLfWyX79kan2QZ66bbu');
+    expect(banner4.split('/').pop()).toBe('zesty-banner-tall-minimal.png');
   });
 
   test('The wide minimal banner is present', async ({ page }) => {
@@ -55,7 +55,7 @@ test.describe('Minimal styles', () => {
     const banner5 = await page.evaluate(
       () => window.scene.meshes[8].material.diffuseTexture.name
     );
-    expect(banner5.split('/').pop()).toBe('QmYwZ7BxeG1drdPcPo61vH4yLaMiBo5UypymfKC6T3kehV');
+    expect(banner5.split('/').pop()).toBe('zesty-banner-wide-minimal.png');
   });
 
   test('The square minimal banner is present', async ({ page }) => {
@@ -63,7 +63,7 @@ test.describe('Minimal styles', () => {
     const banner6 = await page.evaluate(
       () => window.scene.meshes[9].material.diffuseTexture.name
     );
-    expect(banner6.split('/').pop()).toBe('QmYWsEm5m2MbVRHk4G4gUfH3qyNSiraVm5BS4FUxjfp6KU');
+    expect(banner6.split('/').pop()).toBe('zesty-banner-square-minimal.png');
   });
 });
 
@@ -73,7 +73,7 @@ test.describe('Transparent styles', () => {
     const banner7 = await page.evaluate(
       () => window.scene.meshes[10].material.diffuseTexture.name
     );
-    expect(banner7.split('/').pop()).toBe('QmRiTKTFNDbe8tq7xXdWcyXqRAWsKKgbGdiz6wofrCceua');
+    expect(banner7.split('/').pop()).toBe('zesty-banner-tall-transparent.png');
   });
 
   test('The wide transparent banner is present', async ({ page }) => {
@@ -81,7 +81,7 @@ test.describe('Transparent styles', () => {
     const banner8 = await page.evaluate(
       () => window.scene.meshes[11].material.diffuseTexture.name
     );
-    expect(banner8.split('/').pop()).toBe('QmPHHXwUXHog4KtwYmPKU1bqCJ7MJ9mwPV799HaHE6MQS3');
+    expect(banner8.split('/').pop()).toBe('zesty-banner-wide-transparent.png');
   });
 
   test('The square transparent banner is present', async ({ page }) => {
@@ -89,7 +89,7 @@ test.describe('Transparent styles', () => {
     const banner9 = await page.evaluate(
       () => window.scene.meshes[12].material.diffuseTexture.name
     );
-    expect(banner9.split('/').pop()).toBe('QmQ3nGPFJKeTdhW3zSzgYDttARQDCbrqqh7aCSAs4Lc6pH');
+    expect(banner9.split('/').pop()).toBe('zesty-banner-square-transparent.png');
   });
 });
 

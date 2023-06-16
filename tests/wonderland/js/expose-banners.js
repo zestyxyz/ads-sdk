@@ -1,18 +1,23 @@
+import { Component, Property } from '@wonderlandengine/api';
+
 /**
  * This component exposes the banners in the scene for testing purposes.
  */
-WL.registerComponent('expose-banners', {
-    banner1Object: {type: WL.Type.Object},
-    banner2Object: {type: WL.Type.Object},
-    banner3Object: {type: WL.Type.Object},
-    banner4Object: {type: WL.Type.Object},
-    banner5Object: {type: WL.Type.Object},
-    banner6Object: {type: WL.Type.Object},
-    banner7Object: {type: WL.Type.Object},
-    banner8Object: {type: WL.Type.Object},
-    banner9Object: {type: WL.Type.Object}
-}, {
-    start: function() {
+export class ExposeBanners extends Component {
+    static TypeName = 'expose-banners';
+    static Properties = {
+        banner1Object: Property.object(),
+        banner2Object: Property.object(),
+        banner3Object: Property.object(),
+        banner4Object: Property.object(),
+        banner5Object: Property.object(),
+        banner6Object: Property.object(),
+        banner7Object: Property.object(),
+        banner8Object: Property.object(),
+        banner9Object: Property.object(),
+    };
+
+    start() {
         this.banner1 = this.banner1Object.getComponent('zesty-banner');
         this.banner2 = this.banner2Object.getComponent('zesty-banner');
         this.banner3 = this.banner3Object.getComponent('zesty-banner');
@@ -34,4 +39,4 @@ WL.registerComponent('expose-banners', {
             this.banner9
         ]
     }
-});
+};

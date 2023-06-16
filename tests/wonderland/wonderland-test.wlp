@@ -2,23 +2,21 @@
     "objects": {
         "14": {
             "name": "Player",
-            "transformation": [
-                0.9999998,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.9999998,
-                0.0,
+            "translation": [
                 -2.5,
                 0.0,
-                1.1575536,
+                1.1575535
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
+            ],
+            "scaling": [
+                0.9999998,
+                1.0,
+                0.9999998
             ]
         },
         "15": {
@@ -47,55 +45,22 @@
                     }
                 }
             ],
-            "transformation": [
+            "translation": [
+                0.0,
+                0.0,
+                1.1920928955078125e-7
+            ],
+            "rotation": [
+                -0.7072496,
+                0.0,
+                0.0,
+                0.7069638
+            ],
+            "scaling": [
                 4.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                -0.0016164,
-                -3.9999997,
-                0.0,
-                0.0,
-                3.9999997,
-                -0.0016164,
-                0.0,
-                0.0,
-                0.0,
-                1.192092895507813e-7,
-                1.0
+                4.0,
+                4.0
             ]
-        },
-        "16": {
-            "name": "Cube",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "8",
-                        "material": "22"
-                    }
-                }
-            ],
-            "transformation": [
-                0.5,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.5,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.5,
-                0.0,
-                2.9802322387695329e-8,
-                0.4999999,
-                5.960464477539065e-8,
-                1.0
-            ],
-            "deleted": true
         },
         "17": {
             "name": "NonVrCamera",
@@ -110,27 +75,34 @@
                 {
                     "type": "cursor",
                     "cursor": {
-                        "collisionGroup": 2,
+                        "collisionGroup": 0,
                         "handedness": "none"
+                    }
+                },
+                {
+                    "type": "howler-audio-listener"
+                },
+                {
+                    "type": "vr-mode-active-switch",
+                    "vr-mode-active-switch": {
+                        "activateComponents": "in non-VR"
                     }
                 }
             ],
-            "transformation": [
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0
             ]
         },
@@ -148,25 +120,27 @@
                     }
                 },
                 {
-                    "type": "howler-audio-listener"
+                    "type": "howler-audio-listener",
+                    "active": false
+                },
+                {
+                    "type": "vr-mode-active-switch"
                 }
             ],
-            "transformation": [
+            "translation": [
+                0.0,
+                0.0,
+                -2.384185791015625e-7
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
                 1.0
             ]
         },
@@ -184,22 +158,20 @@
                     }
                 }
             ],
-            "transformation": [
+            "translation": [
+                0.0,
+                0.0,
+                -2.384185791015625e-7
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
                 1.0
             ]
         },
@@ -213,22 +185,20 @@
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "translation": [
                 0.0,
                 3.0,
-                2.0,
+                2.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
                 1.0
             ]
         },
@@ -242,86 +212,22 @@
                     }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "translation": [
                 -1.0,
                 3.0,
-                -1.0,
+                -1.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
                 1.0
             ]
-        },
-        "24": {
-            "name": "Cone",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "10",
-                        "material": "25"
-                    }
-                }
-            ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                1.5,
-                1.0,
-                -1.4901161193847657e-8,
-                1.0
-            ],
-            "deleted": true
-        },
-        "27": {
-            "name": "Sphere",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "9",
-                        "material": "26"
-                    }
-                }
-            ],
-            "transformation": [
-                0.75,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.75,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.75,
-                0.0,
-                0.4999999,
-                0.75,
-                -1.25,
-                1.0
-            ],
-            "deleted": true
         },
         "53": {
             "link": {
@@ -330,25 +236,22 @@
             },
             "parent": "130",
             "name": "ControllerModelLeft",
-            "transformation": [
-                -0.9999998,
-                2.9802311729554277e-8,
-                -5.960464477539065e-8,
-                0.0,
-                -2.9802322387695329e-8,
-                0.0706573,
-                0.9975006,
-                0.0,
-                0.0,
-                0.9975004,
-                -0.0706574,
-                0.0,
-                -0.0117515,
+            "translation": [
+                -0.0117514,
                 0.0008869,
-                0.0161192,
-                1.0
+                0.0161192
             ],
-            "deleted": true
+            "rotation": [
+                -0.0,
+                0.7316615,
+                0.6816681,
+                3.196286257889369e-8
+            ],
+            "scaling": [
+                0.9999998,
+                0.9999999,
+                0.9999997
+            ]
         },
         "54": {
             "link": {
@@ -360,240 +263,210 @@
                 {
                     "active": false
                 }
-            ],
-            "deleted": true
+            ]
         },
         "55": {
             "link": {
                 "name": "thumbrest_pressed_max<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "56": {
             "link": {
                 "name": "thumbrest_pressed_min<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "57": {
             "link": {
                 "name": "thumbrest_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "58": {
             "link": {
                 "name": "x_button_pressed_max<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "59": {
             "link": {
                 "name": "x_button_pressed_min<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "60": {
             "link": {
                 "name": "x_button_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "61": {
             "link": {
                 "name": "x_button<x_button_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "60",
-            "deleted": true
+            "parent": "60"
         },
         "62": {
             "link": {
                 "name": "xr_standard_squeeze_pressed_max<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "63": {
             "link": {
                 "name": "xr_standard_squeeze_pressed_min<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "64": {
             "link": {
                 "name": "xr_standard_squeeze_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "65": {
             "link": {
                 "name": "squeeze<xr_standard_squeeze_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "64",
-            "deleted": true
+            "parent": "64"
         },
         "66": {
             "link": {
                 "name": "xr_standard_thumbstick_pressed_max<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "67": {
             "link": {
                 "name": "xr_standard_thumbstick_pressed_min<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "68": {
             "link": {
                 "name": "xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "69": {
             "link": {
                 "name": "xr_standard_thumbstick_xaxis_pressed_max<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "68",
-            "deleted": true
+            "parent": "68"
         },
         "70": {
             "link": {
                 "name": "xr_standard_thumbstick_xaxis_pressed_min<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "68",
-            "deleted": true
+            "parent": "68"
         },
         "71": {
             "link": {
                 "name": "xr_standard_thumbstick_xaxis_pressed_value<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "68",
-            "deleted": true
+            "parent": "68"
         },
         "72": {
             "link": {
                 "name": "xr_standard_thumbstick_yaxis_pressed_max<xr_standard_thumbstick_xaxis_pressed_value<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "71",
-            "deleted": true
+            "parent": "71"
         },
         "73": {
             "link": {
                 "name": "xr_standard_thumbstick_yaxis_pressed_min<xr_standard_thumbstick_xaxis_pressed_value<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "71",
-            "deleted": true
+            "parent": "71"
         },
         "74": {
             "link": {
                 "name": "xr_standard_thumbstick_yaxis_pressed_value<xr_standard_thumbstick_xaxis_pressed_value<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "71",
-            "deleted": true
+            "parent": "71"
         },
         "75": {
             "link": {
                 "name": "thumbstick<xr_standard_thumbstick_yaxis_pressed_value<xr_standard_thumbstick_xaxis_pressed_value<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "74",
-            "deleted": true
+            "parent": "74"
         },
         "76": {
             "link": {
                 "name": "xr_standard_trigger_pressed_max<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "77": {
             "link": {
                 "name": "xr_standard_trigger_pressed_min<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "78": {
             "link": {
                 "name": "xr_standard_trigger_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "79": {
             "link": {
                 "name": "trigger<xr_standard_trigger_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "78",
-            "deleted": true
+            "parent": "78"
         },
         "80": {
             "link": {
                 "name": "y_button_pressed_max<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "81": {
             "link": {
                 "name": "y_button_pressed_min<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "82": {
             "link": {
                 "name": "y_button_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "53",
-            "deleted": true
+            "parent": "53"
         },
         "83": {
             "link": {
                 "name": "y_button<y_button_pressed_value<root",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "parent": "82",
-            "deleted": true
+            "parent": "82"
         },
         "95": {
             "link": {
@@ -602,89 +475,78 @@
             },
             "parent": "129",
             "name": "ControllerModelRight",
-            "transformation": [
-                -0.9993979,
-                0.0,
-                8.344650268554688e-7,
-                0.0,
-                -1.4901161193847657e-8,
-                0.9990808,
-                -0.0251145,
-                0.0,
-                -8.642673492431641e-7,
-                -0.0251297,
-                -0.9996858,
-                0.0,
-                0.0097995,
+            "translation": [
+                0.0097994,
                 -0.0006203,
-                0.0177838,
-                1.0
+                0.0177838
             ],
-            "deleted": true
+            "rotation": [
+                -0.0,
+                0.999921,
+                -0.0125658,
+                -4.174509058429976e-7
+            ],
+            "scaling": [
+                0.9993978,
+                0.9993963,
+                1.0000015
+            ]
         },
         "96": {
             "link": {
                 "name": "a_button_pressed_max<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "97": {
             "link": {
                 "name": "a_button_pressed_min<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "98": {
             "link": {
                 "name": "a_button_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "99": {
             "link": {
                 "name": "a_button<a_button_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "98",
-            "deleted": true
+            "parent": "98"
         },
         "100": {
             "link": {
                 "name": "b_button_pressed_max<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "101": {
             "link": {
                 "name": "b_button_pressed_min<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "102": {
             "link": {
                 "name": "b_button_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "103": {
             "link": {
                 "name": "b_button<b_button_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "102",
-            "deleted": true
+            "parent": "102"
         },
         "104": {
             "link": {
@@ -696,283 +558,158 @@
                 {
                     "active": false
                 }
-            ],
-            "deleted": true
+            ]
         },
         "105": {
             "link": {
                 "name": "thumbrest_pressed_max<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "106": {
             "link": {
                 "name": "thumbrest_pressed_min<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "107": {
             "link": {
                 "name": "thumbrest_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "108": {
             "link": {
                 "name": "xr_standard_squeeze_pressed_max<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "109": {
             "link": {
                 "name": "xr_standard_squeeze_pressed_min<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "110": {
             "link": {
                 "name": "xr_standard_squeeze_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "111": {
             "link": {
                 "name": "squeeze<xr_standard_squeeze_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "110",
-            "deleted": true
+            "parent": "110"
         },
         "112": {
             "link": {
                 "name": "xr_standard_thumbstick_pressed_max<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "113": {
             "link": {
                 "name": "xr_standard_thumbstick_pressed_min<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "114": {
             "link": {
                 "name": "xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "115": {
             "link": {
                 "name": "xr_standard_thumbstick_xaxis_pressed_max<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "114",
-            "deleted": true
+            "parent": "114"
         },
         "116": {
             "link": {
                 "name": "xr_standard_thumbstick_xaxis_pressed_min<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "114",
-            "deleted": true
+            "parent": "114"
         },
         "117": {
             "link": {
                 "name": "xr_standard_thumbstick_xaxis_pressed_value<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "114",
-            "deleted": true
+            "parent": "114"
         },
         "118": {
             "link": {
                 "name": "xr_standard_thumbstick_yaxis_pressed_max<xr_standard_thumbstick_xaxis_pressed_value<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "117",
-            "deleted": true
+            "parent": "117"
         },
         "119": {
             "link": {
                 "name": "xr_standard_thumbstick_yaxis_pressed_min<xr_standard_thumbstick_xaxis_pressed_value<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "117",
-            "deleted": true
+            "parent": "117"
         },
         "120": {
             "link": {
                 "name": "xr_standard_thumbstick_yaxis_pressed_value<xr_standard_thumbstick_xaxis_pressed_value<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "117",
-            "deleted": true
+            "parent": "117"
         },
         "121": {
             "link": {
                 "name": "thumbstick<xr_standard_thumbstick_yaxis_pressed_value<xr_standard_thumbstick_xaxis_pressed_value<xr_standard_thumbstick_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "120",
-            "deleted": true
+            "parent": "120"
         },
         "122": {
             "link": {
                 "name": "xr_standard_trigger_pressed_max<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "123": {
             "link": {
                 "name": "xr_standard_trigger_pressed_min<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "124": {
             "link": {
                 "name": "xr_standard_trigger_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "95",
-            "deleted": true
+            "parent": "95"
         },
         "125": {
             "link": {
                 "name": "trigger<xr_standard_trigger_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "124",
-            "deleted": true
-        },
-        "126": {
-            "name": "CursorLeft",
-            "parent": "205",
-            "components": [
-                {
-                    "type": "cursor",
-                    "cursor": {
-                        "cursorObject": "127",
-                        "collisionGroup": 0,
-                        "cursorRayObject": "209",
-                        "cursorRayScalingAxis": "y"
-                    }
-                },
-                {
-                    "type": "input",
-                    "input": {
-                        "type": "ray left"
-                    }
-                },
-                {
-                    "type": "teleport",
-                    "teleport": {
-                        "floorGroup": 2,
-                        "camRoot": "14",
-                        "cam": "17",
-                        "teleportIndicatorMeshObject": "208",
-                        "indicatorYOffset": 0.0099999,
-                        "eyeLeft": "18",
-                        "eyeRight": "19"
-                    },
-                    "active": false
-                }
-            ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                2.384185791015625e-7,
-                1.192092895507813e-7,
-                -2.384185791015625e-7,
-                1.0
-            ],
-            "deleted": true
-        },
-        "127": {
-            "name": "3DCursorHitLeft",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "9",
-                        "material": "128"
-                    }
-                }
-            ],
-            "transformation": [
-                0.0099999,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0099999,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0099999,
-                0.0,
-                0.0,
-                0.0388118,
-                1.5585095,
-                1.0
-            ],
-            "parent": null,
-            "deleted": true
+            "parent": "124"
         },
         "129": {
             "name": "ControllerRight",
             "parent": "205",
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
-                1.0
-            ],
             "components": [
                 null,
                 null,
@@ -1010,6 +747,22 @@
                     "type": "vr-mode-active-switch",
                     "active": true
                 }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                -2.384185791015625e-7
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         },
         "130": {
@@ -1053,906 +806,47 @@
                     "active": true
                 }
             ],
-            "transformation": [
+            "translation": [
+                0.0,
+                0.0,
+                -2.384185791015625e-7
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
                 1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
                 1.0
             ]
-        },
-        "134": {
-            "link": {
-                "name": "Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "205",
-            "name": "HandLeft",
-            "components": [
-                {
-                    "type": "hand-tracking",
-                    "hand-tracking": {
-                        "handedness": "left",
-                        "handSkin": "133",
-                        "controllerToDeactivate": "130",
-                        "deactivateChildrenWithoutPose": true
-                    }
-                },
-                {
-                    "type": "vr-mode-active-switch",
-                    "active": true
-                }
-            ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
-                1.0
-            ],
-            "deleted": true
-        },
-        "135": {
-            "link": {
-                "name": "l_handMeshNode<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "components": [
-                {
-                    "active": true
-                }
-            ],
-            "deleted": true
-        },
-        "136": {
-            "link": {
-                "name": "xr_standard_trigger_pressed_max<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "137": {
-            "link": {
-                "name": "xr_standard_trigger_pressed_min<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "138": {
-            "link": {
-                "name": "xr_standard_trigger_pressed_value<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "139": {
-            "link": {
-                "name": "pinky-finger-tip<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "140": {
-            "link": {
-                "name": "pinky-finger-phalanx-distal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "141": {
-            "link": {
-                "name": "pinky-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "142": {
-            "link": {
-                "name": "pinky-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "143": {
-            "link": {
-                "name": "pinky-finger-metacarpal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "144": {
-            "link": {
-                "name": "ring-finger-tip<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "145": {
-            "link": {
-                "name": "ring-finger-phalanx-distal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "146": {
-            "link": {
-                "name": "ring-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "147": {
-            "link": {
-                "name": "ring-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "148": {
-            "link": {
-                "name": "ring-finger-metacarpal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "149": {
-            "link": {
-                "name": "middle-finger-tip<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "150": {
-            "link": {
-                "name": "middle-finger-phalanx-distal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "151": {
-            "link": {
-                "name": "middle-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "152": {
-            "link": {
-                "name": "middle-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "153": {
-            "link": {
-                "name": "middle-finger-metacarpal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "154": {
-            "link": {
-                "name": "index-finger-tip<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "components": [
-                {
-                    "type": "finger-cursor"
-                },
-                {
-                    "type": "collision",
-                    "collision": {
-                        "sphere": {
-                            "radius": 0.0099999
-                        },
-                        "groups": 2
-                    }
-                }
-            ],
-            "deleted": true
-        },
-        "155": {
-            "link": {
-                "name": "index-finger-phalanx-distal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "156": {
-            "link": {
-                "name": "index-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "157": {
-            "link": {
-                "name": "index-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "158": {
-            "link": {
-                "name": "index-finger-metacarpal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "159": {
-            "link": {
-                "name": "thumb-tip<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "160": {
-            "link": {
-                "name": "thumb-phalanx-distal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "161": {
-            "link": {
-                "name": "thumb-phalanx-proximal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "162": {
-            "link": {
-                "name": "thumb-metacarpal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "163": {
-            "link": {
-                "name": "wrist<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "deleted": true
-        },
-        "167": {
-            "link": {
-                "name": "Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "205",
-            "name": "HandRight",
-            "components": [
-                {
-                    "type": "hand-tracking",
-                    "hand-tracking": {
-                        "handedness": "right",
-                        "handSkin": "166",
-                        "controllerToDeactivate": "129"
-                    },
-                    "active": true
-                },
-                {
-                    "type": "vr-mode-active-switch",
-                    "active": true
-                }
-            ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
-                1.0
-            ],
-            "deleted": true
-        },
-        "168": {
-            "link": {
-                "name": "r_handMeshNode<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "169": {
-            "link": {
-                "name": "wrist<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "170": {
-            "link": {
-                "name": "thumb-metacarpal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "171": {
-            "link": {
-                "name": "thumb-phalanx-proximal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "172": {
-            "link": {
-                "name": "thumb-phalanx-distal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "173": {
-            "link": {
-                "name": "thumb-tip<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "174": {
-            "link": {
-                "name": "index-finger-metacarpal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "175": {
-            "link": {
-                "name": "index-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "176": {
-            "link": {
-                "name": "index-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "177": {
-            "link": {
-                "name": "index-finger-phalanx-distal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "178": {
-            "link": {
-                "name": "index-finger-tip<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "components": [
-                {
-                    "type": "collision",
-                    "collision": {
-                        "sphere": {
-                            "radius": 0.0099999
-                        },
-                        "groups": 2
-                    }
-                },
-                {
-                    "type": "finger-cursor"
-                }
-            ],
-            "deleted": true
-        },
-        "179": {
-            "link": {
-                "name": "middle-finger-metacarpal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "180": {
-            "link": {
-                "name": "middle-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "181": {
-            "link": {
-                "name": "middle-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "182": {
-            "link": {
-                "name": "middle-finger-phalanx-distal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "183": {
-            "link": {
-                "name": "middle-finger-tip<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "184": {
-            "link": {
-                "name": "ring-finger-metacarpal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "185": {
-            "link": {
-                "name": "ring-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "186": {
-            "link": {
-                "name": "ring-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "187": {
-            "link": {
-                "name": "ring-finger-phalanx-distal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "188": {
-            "link": {
-                "name": "ring-finger-tip<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "189": {
-            "link": {
-                "name": "pinky-finger-metacarpal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "190": {
-            "link": {
-                "name": "pinky-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "191": {
-            "link": {
-                "name": "pinky-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "192": {
-            "link": {
-                "name": "pinky-finger-phalanx-distal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "193": {
-            "link": {
-                "name": "pinky-finger-tip<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "deleted": true
-        },
-        "194": {
-            "name": "Panel",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "195",
-                        "material": "202"
-                    }
-                }
-            ],
-            "transformation": [
-                0.25,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.062447,
-                0.1082836,
-                0.0,
-                0.0,
-                -0.2165673,
-                0.1248941,
-                0.0,
-                -2.5,
-                1.2,
-                0.0,
-                1.0
-            ],
-            "deleted": true
-        },
-        "196": {
-            "link": {
-                "name": "Cube",
-                "file": "models\\button.glb"
-            },
-            "parent": "197",
-            "components": [
-                {
-                    "mesh": {
-                        "material": "26"
-                    }
-                }
-            ],
-            "name": "ButtonMesh",
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.999999,
-                0.0000012,
-                0.0,
-                0.0,
-                -0.0000019,
-                0.999999,
-                0.0,
-                -0.0000095,
-                0.3244419,
-                -0.0000677,
-                1.0
-            ],
-            "deleted": true
-        },
-        "197": {
-            "name": "Button",
-            "parent": "194",
-            "transformation": [
-                0.4,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.4999999,
-                -0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.3,
-                0.0,
-                0.0,
-                0.057682,
-                0.1754341,
-                1.0
-            ],
-            "components": [
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                0.0974999,
-                                0.025,
-                                0.045
-                            ]
-                        },
-                        "groups": 251
-                    }
-                },
-                {
-                    "type": "cursor-target"
-                },
-                {
-                    "type": "button",
-                    "button": {
-                        "buttonMeshObject": "196",
-                        "hoverMaterial": "203"
-                    }
-                }
-            ],
-            "deleted": true
-        },
-        "198": {
-            "name": "ButtonLabel",
-            "parent": "196",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "Thanks!"
-                    }
-                }
-            ],
-            "transformation": [
-                2.5,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0031942,
-                -3.7999985,
-                0.0,
-                0.0,
-                4.8000044,
-                0.0040349,
-                0.0,
-                -0.0001564,
-                0.108458,
-                0.0000047,
-                1.0
-            ],
-            "deleted": true
-        },
-        "200": {
-            "name": "Title",
-            "parent": "194",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "Welcome to\nWonderland",
-                        "material": "201"
-                    }
-                }
-            ],
-            "transformation": [
-                1.5,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0021012,
-                -2.9999995,
-                0.0,
-                0.0,
-                1.4999996,
-                0.0010506,
-                0.0,
-                -0.0000023,
-                0.1554994,
-                -0.3034151,
-                1.0
-            ],
-            "deleted": true
-        },
-        "204": {
-            "name": "TeleportTarget",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "11",
-                        "material": "128"
-                    }
-                }
-            ],
-            "transformation": [
-                0.5,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0099999,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.5,
-                0.0,
-                0.0311205,
-                0.0,
-                1.2337659,
-                1.0
-            ],
-            "deleted": true
         },
         "205": {
             "name": "TrackedSpace",
             "parent": "14",
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                1.75,
-                0.0,
-                1.0
-            ],
             "components": [
                 {
                     "type": "player-height"
                 }
+            ],
+            "translation": [
+                0.0,
+                1.75,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
-        },
-        "208": {
-            "link": {
-                "name": "TeleportIndicator",
-                "file": "models\\teleport-indicator.glb"
-            },
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0099999,
-                1.3311299,
-                1.0
-            ],
-            "deleted": true
-        },
-        "209": {
-            "name": "CursorRayLeft",
-            "parent": "126",
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                2.384185791015625e-7,
-                1.0
-            ],
-            "deleted": true
-        },
-        "210": {
-            "name": "CuresorRayMeshLeft",
-            "parent": "209",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "10",
-                        "material": "128"
-                    }
-                }
-            ],
-            "transformation": [
-                0.0049999,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0001057,
-                0.3500003,
-                0.0,
-                0.0,
-                -0.005,
-                0.0000015,
-                0.0,
-                2.384192896442983e-7,
-                0.0002447,
-                0.0,
-                1.0
-            ],
-            "deleted": true
-        },
-        "211": {
-            "name": "CursorRight",
-            "parent": "205",
-            "components": [
-                {
-                    "type": "cursor"
-                }
-            ],
-            "deleted": true
         },
         "212": {
             "name": "CursorRight",
@@ -1972,66 +866,47 @@
                     "input": {
                         "type": "ray right"
                     }
-                },
-                {
-                    "type": "teleport",
-                    "teleport": {
-                        "floorGroup": 2,
-                        "camRoot": "14",
-                        "cam": "17",
-                        "teleportIndicatorMeshObject": "208",
-                        "indicatorYOffset": 0.0099999,
-                        "eyeLeft": "18",
-                        "eyeRight": "19"
-                    },
-                    "active": false
                 }
             ],
-            "transformation": [
-                1.0,
+            "translation": [
+                0.0,
+                0.0,
+                -2.384185791015625e-7
+            ],
+            "rotation": [
                 0.0,
                 0.0,
                 0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                -2.384185791015625e-7,
                 1.0
             ],
-            "deleted": true
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "213": {
             "name": "CursorRayRight",
             "parent": "212",
-            "transformation": [
-                1.0,
+            "translation": [
+                0.0,
+                0.0,
+                2.384185791015625e-7
+            ],
+            "rotation": [
                 0.0,
                 0.0,
                 0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                2.384185791015625e-7,
                 1.0
             ],
-            "deleted": true
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "214": {
-            "name": "CuresorRayMeshRight",
+            "name": "CursorRayMeshRight",
             "parent": "213",
             "components": [
                 {
@@ -2042,25 +917,22 @@
                     }
                 }
             ],
-            "transformation": [
-                0.0049999,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                -0.0001711,
-                0.3499999,
-                0.0,
-                0.0,
-                -0.0049999,
-                -0.0000024,
-                0.0,
+            "translation": [
                 2.384185791015625e-7,
                 0.0002447,
-                0.0,
-                1.0
+                0.0
             ],
-            "deleted": true
+            "rotation": [
+                0.7072796,
+                0.0,
+                0.0,
+                0.7069339
+            ],
+            "scaling": [
+                0.0049998,
+                0.3499999,
+                0.0049999
+            ]
         },
         "215": {
             "name": "3DCursorHitRight",
@@ -2073,88 +945,37 @@
                     }
                 }
             ],
-            "transformation": [
-                0.0099999,
+            "parent": null,
+            "translation": [
                 0.0,
                 0.0,
-                0.0,
-                0.0,
-                0.0099999,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0099999,
-                0.0,
+                0.0
+            ],
+            "rotation": [
                 0.0,
                 0.0,
                 0.0,
                 1.0
             ],
-            "parent": null,
-            "deleted": true
+            "scaling": [
+                0.0099999,
+                0.0099999,
+                0.0099999
+            ]
         },
-        "216": {
-            "name": "FloorPlane",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "7",
-                        "material": "20"
-                    },
-                    "active": true
-                },
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "aabb",
-                        "aabb": {
-                            "extents": [
-                                1.0,
-                                0.05,
-                                1.0
-                            ]
-                        },
-                        "groups": 4
-                    }
-                }
-            ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                -0.0004041,
-                -0.9999999,
-                0.0,
-                0.0,
-                0.9999999,
-                -0.0004041,
-                0.0,
-                0.0,
-                -4.76837158203125e-7,
-                -6.5,
-                1.0
-            ],
-            "parent": null,
-            "deleted": true
-        },
-        "217": {
+        "233": {
             "name": "ZestyBanner1",
             "components": [
                 {
                     "type": "mesh",
                     "mesh": {
                         "mesh": "7",
-                        "material": "218"
+                        "material": "242"
                     }
                 },
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2166,106 +987,38 @@
                     }
                 },
                 {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "space": 999999,
-                        "creator": "0x0000000000000000000000000000000000000000",
-                        "style": "standard",
-                        "scaleToRatio": true,
-                        "textureProperty": "auto",
-                        "format": "tall",
-                        "beacon": true,
-                        "dynamicFormats": false
-                    }
+                    "type": "cursor-target"
                 },
                 {
-                    "type": "cursor-target"
+                    "type": "zesty-banner",
+                    "zesty-banner": {
+                        "adUnit": "999999",
+                        "beacon": true,
+                        "format": "tall",
+                        "style": "standard",
+                        "dynamicNetworking": true
+                    }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "translation": [
                 -4.0,
                 6.0,
-                -1.7091592,
-                1.0
+                -1.7
             ]
         },
-        "219": {
-            "name": "Test",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "7",
-                        "material": "220"
-                    }
-                }
-            ],
-            "transformation": [
-                -1.1920944587018313e-7,
-                -0.0,
-                1.0000009,
-                0.0,
-                -3.019916334778827e-7,
-                1.0,
-                -0.0,
-                0.0,
-                -1.0000009,
-                -3.019919461166865e-7,
-                -1.192094174484737e-7,
-                0.0,
-                1.192092895507813e-7,
-                1.8288464,
-                1.5713129,
-                1.0
-            ],
-            "deleted": true
-        },
-        "223": {
-            "name": "Test",
-            "components": [
-                {
-                    "type": "test",
-                    "test": {
-                        "banner1Object": "217",
-                        "banner2Object": "224",
-                        "banner3Object": "225",
-                        "banner4Object": "226",
-                        "banner5Object": "227",
-                        "banner6Object": "228",
-                        "banner7Object": "229",
-                        "banner8Object": "230",
-                        "banner9Object": "231"
-                    }
-                }
-            ],
-            "deleted": true
-        },
-        "224": {
+        "243": {
             "name": "ZestyBanner2",
             "components": [
                 {
                     "type": "mesh",
                     "mesh": {
                         "mesh": "7",
-                        "material": "218"
+                        "material": "242"
                     }
                 },
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2277,55 +1030,38 @@
                     }
                 },
                 {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "space": 999999,
-                        "creator": "0x0000000000000000000000000000000000000000",
-                        "style": "standard",
-                        "scaleToRatio": true,
-                        "textureProperty": "auto",
-                        "format": "wide",
-                        "dynamicFormats": false
-                    }
+                    "type": "cursor-target"
                 },
                 {
-                    "type": "cursor-target"
+                    "type": "zesty-banner",
+                    "zesty-banner": {
+                        "adUnit": "999999",
+                        "beacon": false,
+                        "format": "wide",
+                        "style": "standard"
+                    }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 -4.0,
                 4.0,
-                -1.7091592,
-                1.0
-            ],
-            "parent": null
+                -1.7
+            ]
         },
-        "225": {
+        "244": {
             "name": "ZestyBanner3",
             "components": [
                 {
                     "type": "mesh",
                     "mesh": {
                         "mesh": "7",
-                        "material": "218"
+                        "material": "242"
                     }
                 },
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2337,55 +1073,37 @@
                     }
                 },
                 {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "space": 999999,
-                        "creator": "0x0000000000000000000000000000000000000000",
-                        "style": "standard",
-                        "scaleToRatio": true,
-                        "textureProperty": "auto",
-                        "format": "square",
-                        "dynamicFormats": false
-                    }
+                    "type": "cursor-target"
                 },
                 {
-                    "type": "cursor-target"
+                    "type": "zesty-banner",
+                    "zesty-banner": {
+                        "adUnit": "999999",
+                        "beacon": false,
+                        "style": "standard"
+                    }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 -4.0,
                 2.0,
-                -1.7091592,
-                1.0
-            ],
-            "parent": null
+                -1.7
+            ]
         },
-        "226": {
+        "245": {
             "name": "ZestyBanner4",
             "components": [
                 {
                     "type": "mesh",
                     "mesh": {
                         "mesh": "7",
-                        "material": "218"
+                        "material": "242"
                     }
                 },
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2397,55 +1115,38 @@
                     }
                 },
                 {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "space": 999999,
-                        "creator": "0x0000000000000000000000000000000000000000",
-                        "style": "minimal",
-                        "scaleToRatio": true,
-                        "textureProperty": "auto",
-                        "format": "tall",
-                        "dynamicFormats": false
-                    }
+                    "type": "cursor-target"
                 },
                 {
-                    "type": "cursor-target"
+                    "type": "zesty-banner",
+                    "zesty-banner": {
+                        "adUnit": "999999",
+                        "beacon": false,
+                        "format": "tall",
+                        "style": "minimal"
+                    }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 -2.0,
                 6.0,
-                -1.7091592,
-                1.0
-            ],
-            "parent": null
+                -1.7
+            ]
         },
-        "227": {
+        "246": {
             "name": "ZestyBanner5",
             "components": [
                 {
                     "type": "mesh",
                     "mesh": {
                         "mesh": "7",
-                        "material": "218"
+                        "material": "242"
                     }
                 },
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2457,55 +1158,38 @@
                     }
                 },
                 {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "space": 999999,
-                        "creator": "0x0000000000000000000000000000000000000000",
-                        "style": "minimal",
-                        "scaleToRatio": true,
-                        "textureProperty": "auto",
-                        "format": "wide",
-                        "dynamicFormats": false
-                    }
+                    "type": "cursor-target"
                 },
                 {
-                    "type": "cursor-target"
+                    "type": "zesty-banner",
+                    "zesty-banner": {
+                        "adUnit": "999999",
+                        "beacon": false,
+                        "format": "wide",
+                        "style": "minimal"
+                    }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 -2.0,
                 4.0,
-                -1.7091592,
-                1.0
-            ],
-            "parent": null
+                -1.7
+            ]
         },
-        "228": {
+        "247": {
             "name": "ZestyBanner6",
             "components": [
                 {
                     "type": "mesh",
                     "mesh": {
                         "mesh": "7",
-                        "material": "218"
+                        "material": "242"
                     }
                 },
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2517,55 +1201,38 @@
                     }
                 },
                 {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "space": 999999,
-                        "creator": "0x0000000000000000000000000000000000000000",
-                        "style": "minimal",
-                        "scaleToRatio": true,
-                        "textureProperty": "auto",
-                        "format": "square",
-                        "dynamicFormats": false
-                    }
+                    "type": "cursor-target"
                 },
                 {
-                    "type": "cursor-target"
+                    "type": "zesty-banner",
+                    "zesty-banner": {
+                        "adUnit": "999999",
+                        "beacon": false,
+                        "format": "square",
+                        "style": "minimal"
+                    }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 -2.0,
                 2.0,
-                -1.7091592,
-                1.0
-            ],
-            "parent": null
+                -1.7
+            ]
         },
-        "229": {
+        "248": {
             "name": "ZestyBanner7",
             "components": [
                 {
                     "type": "mesh",
                     "mesh": {
                         "mesh": "7",
-                        "material": "218"
+                        "material": "242"
                     }
                 },
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2577,55 +1244,37 @@
                     }
                 },
                 {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "space": 999999,
-                        "creator": "0x0000000000000000000000000000000000000000",
-                        "style": "transparent",
-                        "scaleToRatio": true,
-                        "textureProperty": "auto",
-                        "format": "tall",
-                        "dynamicFormats": false
-                    }
+                    "type": "cursor-target"
                 },
                 {
-                    "type": "cursor-target"
+                    "type": "zesty-banner",
+                    "zesty-banner": {
+                        "adUnit": "999999",
+                        "beacon": false,
+                        "format": "tall"
+                    }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 0.0,
                 6.0,
-                -1.7091592,
-                1.0
-            ],
-            "parent": null
+                -1.7
+            ]
         },
-        "230": {
+        "249": {
             "name": "ZestyBanner8",
             "components": [
                 {
                     "type": "mesh",
                     "mesh": {
                         "mesh": "7",
-                        "material": "218"
+                        "material": "242"
                     }
                 },
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2637,55 +1286,37 @@
                     }
                 },
                 {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "space": 999999,
-                        "creator": "0x0000000000000000000000000000000000000000",
-                        "style": "transparent",
-                        "scaleToRatio": true,
-                        "textureProperty": "auto",
-                        "format": "wide",
-                        "dynamicFormats": false
-                    }
+                    "type": "cursor-target"
                 },
                 {
-                    "type": "cursor-target"
+                    "type": "zesty-banner",
+                    "zesty-banner": {
+                        "adUnit": "999999",
+                        "beacon": false,
+                        "format": "wide"
+                    }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 0.0,
                 4.0,
-                -1.7091592,
-                1.0
-            ],
-            "parent": null
+                -1.7
+            ]
         },
-        "231": {
+        "250": {
             "name": "ZestyBanner9",
             "components": [
                 {
                     "type": "mesh",
                     "mesh": {
                         "mesh": "7",
-                        "material": "218"
+                        "material": "242"
                     }
                 },
                 {
                     "type": "collision",
                     "collision": {
-                        "groups": 255,
                         "collider": "box",
                         "box": {
                             "extents": [
@@ -2697,138 +1328,38 @@
                     }
                 },
                 {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "space": 999999,
-                        "creator": "0x0000000000000000000000000000000000000000",
-                        "style": "transparent",
-                        "scaleToRatio": true,
-                        "textureProperty": "auto",
-                        "format": "square",
-                        "dynamicFormats": false
-                    }
+                    "type": "cursor-target"
                 },
                 {
-                    "type": "cursor-target"
+                    "type": "zesty-banner",
+                    "zesty-banner": {
+                        "adUnit": "999999",
+                        "beacon": false
+                    }
                 }
             ],
-            "transformation": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
+            "parent": null,
+            "translation": [
                 0.0,
                 2.0,
-                -1.7091592,
-                1.0
-            ],
-            "parent": null
+                -1.7
+            ]
         },
-        "232": {
+        "251": {
             "name": "ExposeBanners",
             "components": [
                 {
                     "type": "expose-banners",
                     "expose-banners": {
-                        "banner1Object": "217",
-                        "banner2Object": "224",
-                        "banner3Object": "225",
-                        "banner4Object": "226",
-                        "banner5Object": "227",
-                        "banner6Object": "228",
-                        "banner7Object": "229",
-                        "banner8Object": "230",
-                        "banner9Object": "231"
-                    }
-                }
-            ]
-        },
-        "235": {
-            "name": "CursorObject",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "9",
-                        "material": "20"
-                    }
-                }
-            ],
-            "transformation": [
-                0.1,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.1,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.1,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ]
-        },
-        "236": {
-            "name": "CursorRayObject",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "11",
-                        "material": "20"
-                    }
-                }
-            ],
-            "transformation": [
-                0.05,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                -4.1723239974089668e-8,
-                0.3499998,
-                0.0,
-                0.0,
-                -0.0499998,
-                -0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "parent": "237"
-        },
-        "237": {
-            "name": "CursorRight",
-            "parent": "205",
-            "components": [
-                {
-                    "type": "cursor",
-                    "cursor": {
-                        "cursorRayScalingAxis": "y",
-                        "cursorObject": "235",
-                        "cursorRayObject": "236",
-                        "collisionGroup": 0
-                    }
-                },
-                {
-                    "type": "input",
-                    "input": {
-                        "type": "ray right"
+                        "banner1Object": "233",
+                        "banner2Object": "243",
+                        "banner3Object": "244",
+                        "banner4Object": "245",
+                        "banner5Object": "246",
+                        "banner6Object": "247",
+                        "banner7Object": "248",
+                        "banner8Object": "249",
+                        "banner9Object": "250"
                     }
                 }
             ]
@@ -2972,13 +1503,6 @@
         }
     },
     "textures": {
-        "t0": {
-            "link": {
-                "name": "DefaultFont",
-                "file": "default"
-            },
-            "name": "DefaultFont"
-        },
         "44": {
             "link": {
                 "name": "texture_0",
@@ -3002,21 +1526,9 @@
                 "name": "texture_1",
                 "file": "models\\oculus-touch-v2-right.glb"
             }
-        },
-        "222": {
-            "link": {
-                "name": "zesty-banner-square-transparent.png",
-                "file": "zesty-banner-square-transparent.png"
-            }
         }
     },
     "images": {
-        "f0": {
-            "link": {
-                "name": "DefaultFontImage",
-                "file": "default"
-            }
-        },
         "42": {
             "link": {
                 "name": "Image_0",
@@ -3056,12 +1568,6 @@
                 256,
                 256
             ]
-        },
-        "221": {
-            "link": {
-                "name": "zesty-banner-square-transparent.png",
-                "file": "zesty-banner-square-transparent.png"
-            }
         }
     },
     "materials": {
@@ -3070,18 +1576,14 @@
                 "name": "DefaultFontMaterial",
                 "file": "default"
             },
-            "DistanceFieldVector": {
-                "outlineRange": [
-                    0.4499999,
-                    0.4499999
-                ],
-                "smoothness": 0.0299999,
-                "outlineColor": [
+            "Text": {
+                "effectColor": [
                     1.0,
                     1.0,
                     1.0,
                     1.0
-                ]
+                ],
+                "font": "230"
             }
         },
         "20": {
@@ -3089,12 +1591,18 @@
             "shader": "Phong",
             "Phong": {
                 "specularColor": [
-                    9.999899930335233e-7,
+                    9.999899930335232e-7,
                     9.99993744699168e-7,
-                    9.999999974752428e-7,
+                    9.999999974752427e-7,
                     1.0
                 ],
-                "shininess": 1
+                "shininess": 1,
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ]
             }
         },
         "22": {
@@ -3107,16 +1615,22 @@
                     1.0
                 ],
                 "specularColor": [
-                    9.999899930335233e-7,
-                    9.999911299019005e-7,
-                    9.999999974752428e-7,
+                    9.999899930335232e-7,
+                    9.999911299019004e-7,
+                    9.999999974752427e-7,
                     1.0
                 ],
                 "shininess": 10,
                 "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "emissiveColor": [
                     0.317647,
                     0.0,
-                    0.2165777,
+                    0.2165776,
                     1.0
                 ]
             }
@@ -3131,12 +1645,18 @@
                     1.0
                 ],
                 "specularColor": [
-                    9.999999974752428e-7,
-                    9.999899930335233e-7,
-                    9.999899930335233e-7,
+                    9.999999974752427e-7,
+                    9.999899930335232e-7,
+                    9.999899930335232e-7,
                     1.0
                 ],
                 "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "emissiveColor": [
                     0.3843137,
                     0.3089579,
                     0.0,
@@ -3154,15 +1674,21 @@
                     1.0
                 ],
                 "specularColor": [
-                    9.999999974752428e-7,
-                    9.999899930335233e-7,
-                    9.999899930335233e-7,
+                    9.999999974752427e-7,
+                    9.999899930335232e-7,
+                    9.999899930335232e-7,
                     1.0
                 ],
                 "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "emissiveColor": [
                     0.0,
                     0.2352941,
-                    0.1437908,
+                    0.1437907,
                     1.0
                 ]
             }
@@ -3172,23 +1698,51 @@
                 "name": "skel_controller_materials_controllerMTL1",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "name": "ControllerLeft"
+            "name": "ControllerLeft",
+            "Phong": {
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "diffuseColor": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
         },
         "88": {
             "link": {
                 "name": "skel_controller_materials_controllerMTL",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "name": "ControllerRight"
+            "name": "ControllerRight",
+            "Phong": {
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "diffuseColor": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
         },
         "128": {
             "name": "Cursor",
             "shader": "Phong",
             "Phong": {
                 "specularColor": [
-                    9.999899930335233e-7,
+                    9.999899930335232e-7,
                     9.99993744699168e-7,
-                    9.999999974752428e-7,
+                    9.999999974752427e-7,
                     1.0
                 ],
                 "shininess": 1
@@ -3200,14 +1754,30 @@
                 "name": "Default_Material",
                 "file": "models\\hand-left.glb"
             },
-            "name": "HandLeft"
+            "name": "HandLeft",
+            "Phong": {
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ]
+            }
         },
         "164": {
             "link": {
                 "name": "lambert2",
                 "file": "models\\hand-right.glb"
             },
-            "name": "HandRight"
+            "name": "HandRight",
+            "Phong": {
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ]
+            }
         },
         "201": {
             "link": {
@@ -3215,17 +1785,14 @@
                 "file": "default"
             },
             "name": "TextAccent",
-            "DistanceFieldVector": {
+            "Text": {
                 "color": [
                     0.9098039,
                     0.0,
                     0.5411764,
                     1.0
                 ],
-                "outlineRange": [
-                    0.4,
-                    0.4
-                ]
+                "font": "230"
             }
         },
         "202": {
@@ -3233,9 +1800,9 @@
             "shader": "Phong",
             "Phong": {
                 "specularColor": [
-                    9.999899930335233e-7,
+                    9.999899930335232e-7,
                     9.99993744699168e-7,
-                    9.999999974752428e-7,
+                    9.999999974752427e-7,
                     1.0
                 ],
                 "shininess": 1,
@@ -3246,9 +1813,15 @@
                     1.0
                 ],
                 "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "emissiveColor": [
                     0.0274509,
-                    0.0274507,
-                    0.0274507,
+                    0.0274506,
+                    0.0274506,
                     1.0
                 ]
             }
@@ -3263,14 +1836,20 @@
                     1.0
                 ],
                 "specularColor": [
-                    9.999999974752428e-7,
-                    9.999899930335233e-7,
-                    9.999899930335233e-7,
+                    9.999999974752427e-7,
+                    9.999899930335232e-7,
+                    9.999899930335232e-7,
                     1.0
                 ],
                 "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "emissiveColor": [
                     0.0,
-                    0.3294117,
+                    0.3294116,
                     0.2013071,
                     1.0
                 ]
@@ -3299,101 +1878,140 @@
                 ]
             }
         },
-        "218": {
+        "242": {
             "name": "Banner",
-            "pipeline": "35",
-            "Phong": {
-                "alphaMaskThreshold": 0.5
-            }
+            "pipeline": "35"
         }
     },
     "shaders": {
         "1": {
             "link": {
-                "name": "DistanceFieldVector Textured",
+                "name": "DistanceFieldVector Textured.frag",
                 "file": "default"
             }
         },
         "2": {
             "link": {
-                "name": "Flat",
+                "name": "Flat.frag",
                 "file": "default"
             }
         },
         "3": {
             "link": {
-                "name": "Flat Textured",
+                "name": "Flat Textured.frag",
                 "file": "default"
             }
         },
         "4": {
             "link": {
-                "name": "MeshVisualizer",
+                "name": "MeshVisualizer.frag",
                 "file": "default"
             }
         },
         "5": {
             "link": {
-                "name": "Phong",
+                "name": "Phong.frag",
                 "file": "default"
             }
         },
         "6": {
             "link": {
-                "name": "Phong Textured",
+                "name": "Phong Textured.frag",
                 "file": "default"
             }
         },
         "28": {
             "link": {
-                "name": "Dynamic",
+                "name": "Dynamic.vert",
                 "file": "default"
             }
         },
         "29": {
             "link": {
-                "name": "Particle Textured",
+                "name": "Particle Textured.frag",
                 "file": "default"
             }
         },
         "30": {
             "link": {
-                "name": "Skinning",
+                "name": "Skinning.vert",
                 "file": "default"
             }
         },
         "31": {
             "link": {
-                "name": "Static",
+                "name": "Static.frag",
                 "file": "default"
             }
         },
         "32": {
             "link": {
-                "name": "DistanceFieldVector",
+                "name": "DistanceFieldVector.frag",
                 "file": "default"
             }
         },
         "37": {
             "link": {
-                "name": "Particle",
+                "name": "Particle.frag",
                 "file": "default"
             }
         },
-        "233": {
+        "217": {
             "link": {
-                "name": "Depth",
+                "name": "Background.frag",
+                "file": "default"
+            }
+        },
+        "218": {
+            "link": {
+                "name": "Depth.frag",
+                "file": "default"
+            }
+        },
+        "220": {
+            "link": {
+                "name": "FullScreenTriangle.vert",
+                "file": "default"
+            }
+        },
+        "221": {
+            "link": {
+                "name": "Physical.frag",
+                "file": "default"
+            }
+        },
+        "224": {
+            "link": {
+                "name": "Sky.frag",
+                "file": "default"
+            }
+        },
+        "225": {
+            "link": {
+                "name": "Text.frag",
+                "file": "default"
+            }
+        },
+        "227": {
+            "link": {
+                "name": "Text.vert",
+                "file": "default"
+            }
+        },
+        "228": {
+            "link": {
+                "name": "TileFeedback.frag",
                 "file": "default"
             }
         }
     },
     "settings": {
         "project": {
-            "name": "Wonderland Test",
+            "name": "wonderland-test",
             "version": [
+                1,
                 0,
-                8,
-                10
+                3
             ]
         },
         "vr": {
@@ -3402,11 +2020,12 @@
         },
         "scripting": {
             "sourcePaths": [
-                "/js/editor-components-bundle.js",
-                "js/",
-                "../../wonderland/dist/zesty-wonderland-sdk.js"
+                "js/"
             ],
-            "useInternalBundler": true
+            "bundlingType": "esbuild",
+            "libraryPaths": [
+                "/js/lib/"
+            ]
         },
         "runtime": {
             "visualizeColliders": false,
@@ -3424,14 +2043,16 @@
                 "name": "Armature",
                 "file": "models\\hand-left.glb"
             },
-            "name": "HandLeftSkin"
+            "name": "HandLeftSkin",
+            "joints": []
         },
         "166": {
             "link": {
                 "name": "Armature",
                 "file": "models\\hand-right.glb"
             },
-            "name": "HandRightSkin"
+            "name": "HandRightSkin",
+            "joints": []
         }
     },
     "pipelines": {
@@ -3451,6 +2072,9 @@
             "link": {
                 "name": "Flat Opaque Textured",
                 "file": "default"
+            },
+            "features": {
+                "ALPHA_MASKED": true
             }
         },
         "36": {
@@ -3463,6 +2087,9 @@
             "link": {
                 "name": "Phong Opaque",
                 "file": "default"
+            },
+            "features": {
+                "WITH_EMISSIVE": true
             }
         },
         "38": {
@@ -3483,9 +2110,45 @@
                 "file": "default"
             }
         },
-        "234": {
+        "219": {
             "link": {
                 "name": "Depth",
+                "file": "default"
+            }
+        },
+        "222": {
+            "link": {
+                "name": "Physical Opaque",
+                "file": "default"
+            }
+        },
+        "223": {
+            "link": {
+                "name": "Physical Opaque Textured",
+                "file": "default"
+            }
+        },
+        "226": {
+            "link": {
+                "name": "Text",
+                "file": "default"
+            }
+        },
+        "229": {
+            "link": {
+                "name": "Sky",
+                "file": "default"
+            }
+        },
+        "231": {
+            "link": {
+                "name": "Phong Normalmapped",
+                "file": "default"
+            }
+        },
+        "232": {
+            "link": {
+                "name": "Phong Lightmapped",
                 "file": "default"
             }
         }
@@ -3496,7 +2159,15 @@
         "models/hand-left.glb",
         "models/hand-right.glb",
         "models/button.glb",
-        "models/teleport-indicator.glb",
-        "zesty-banner-square-transparent.png"
-    ]
+        "models/teleport-indicator.glb"
+    ],
+    "fonts": {
+        "230": {
+            "link": {
+                "name": "DejaVuSans.ttf",
+                "file": "default"
+            }
+        }
+    },
+    "languages": {}
 }

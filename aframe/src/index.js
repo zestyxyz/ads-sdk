@@ -1,8 +1,8 @@
 /* global AFRAME */
 
-import { fetchNFT, fetchActiveBanner, sendOnLoadMetric, sendOnClickMetric, analyticsSession } from '../../utils/networking';
+import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { openURL, parseProtocol } from '../../utils/helpers';
+import { openURL } from '../../utils/helpers';
 import './visibility_check';
 import { version } from '../package.json';
 
@@ -11,11 +11,7 @@ console.log('Zesty SDK Version: ', version);
 AFRAME.registerComponent('zesty-banner', {
   data: {},
   schema: {
-    adSpace: { type: 'string' },
-    space: { type: 'string' },
-    creator: { type: 'string' },
-    network: { type: 'string', default: 'polygon', oneOf: ['matic', 'polygon', 'rinkeby'] },
-    adFormat: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
+    adUnit: { type: 'string' },
     format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
     style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
     height: { type: 'float', default: 1 },
@@ -23,64 +19,25 @@ AFRAME.registerComponent('zesty-banner', {
   },
 
   init: function() {
-    if (this.data.creator) {
-      console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
-    }
     this.tick = AFRAME.utils.throttleTick(this.tick, 30000, this);
     this.registerEntity();
   },
 
   registerEntity: function() {
-    const space = this.data.space ? this.data.space : this.data.adSpace;
-    const format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
-    createBanner(this.el, space, this.data.network, format, this.data.style, this.data.height, this.data.beacon);
+    const adUnit = this.data.adUnit;
+    const format = this.data.format || defaultFormat;
+    createBanner(this.el, adUnit, format, this.data.style, this.data.height, this.data.beacon);
   },
 
   // Every 30sec check for `visible` component
   tick: function() {
-    if (this.data.space) {
-      analyticsSession(this.data.space);
+    if (this.data.adUnit) {
+      analyticsSession(this.data.adUnit, null);
     }
   },
 });
 
-AFRAME.registerComponent('zesty-ad', {
-  data: {},
-  schema: {
-    adSpace: { type: 'string' },
-    space: { type: 'string' },
-    creator: { type: 'string' },
-    network: { type: 'string', default: 'polygon', oneOf: ['matic', 'polygon', 'rinkeby'] },
-    adFormat: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
-    format: { type: 'string', oneOf: ['tall', 'wide', 'square'] },
-    style: { type: 'string', default: defaultStyle, oneOf: ['standard', 'minimal'] },
-    height: { type: 'float', default: 1 },
-    beacon: { type: 'boolean', default: true },
-  },
-
-  init: function() {
-    if (this.data.creator) {
-      console.warn(`'creator' is no longer a required property of the Zesty Banner and can be omitted.`);
-    }
-    this.tick = AFRAME.utils.throttleTick(this.tick, 30000, this);
-    this.registerEntity();
-  },
-
-  registerEntity: function() {
-    const space = this.data.space ? this.data.space : this.data.adSpace;
-    const format = (this.data.format ? this.data.format : this.data.adFormat) || defaultFormat;
-    createBanner(this.el, space, this.data.network, format, this.data.style, this.data.height, this.data.beacon);
-  },
-
-  // Every 30sec check for `visible` component
-  tick: function() {
-    if (this.data.space) {
-      analyticsSession(this.data.space);
-    }
-  },
-});
-
-async function createBanner(el, space, network, format, style, height, beacon) {
+async function createBanner(el, adUnit, format, style, height, beacon) {
   const scene = document.querySelector('a-scene');
   let assets = scene.querySelector('a-assets');
   if (!assets) {
@@ -88,12 +45,9 @@ async function createBanner(el, space, network, format, style, height, beacon) {
     scene.appendChild(assets);
   }
 
-  const bannerPromise = loadBanner(space, network, format, style, beacon).then(banner => {
+  const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
     if (banner.img) {
       assets.appendChild(banner.img);
-    }
-    if (banner.url === 'https://www.zesty.market') {
-      banner.url = `https://app.zesty.market/space/${space}`;
     }
     return banner;
   });
@@ -117,7 +71,7 @@ async function createBanner(el, space, network, format, style, height, beacon) {
       plane.setAttribute('class', 'clickable'); // required for BE
 
       if (beacon) {
-        sendOnLoadMetric(space);
+        sendOnLoadMetric(adUnit, banner.campaignId);
       }
 
       // handle clicks
@@ -128,7 +82,7 @@ async function createBanner(el, space, network, format, style, height, beacon) {
         if (banner.url) {
           openURL(banner.url);
           if (beacon) {
-            sendOnClickMetric(space);
+            sendOnClickMetric(adUnit, banner.campaignId);
           }
         }
       };
@@ -142,24 +96,18 @@ async function createBanner(el, space, network, format, style, height, beacon) {
   })
 }
 
-async function loadBanner(space, network, format, style) {
-  const activeNFT = await fetchNFT(space, network);
-  const activeBanner = await fetchActiveBanner(activeNFT.uri, format, style, space);
+async function loadBanner(adUnit, format, style) {
+  const activeCampaign = await fetchCampaignAd(adUnit, format, style);
 
-  // Need to add https:// if missing for page to open properly
-  let url = activeBanner.data.url;
-  url = url.match(/^http[s]?:\/\//) ? url : 'https://' + url;
-
-  let image = activeBanner.data.image;
-  image = image.match(/^.+\.(png|jpe?g)/i) ? image : parseProtocol(image);
+  const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
 
   const img = document.createElement('img');
-  img.setAttribute('id', activeBanner.uri + Math.random());
+  img.setAttribute('id', adUnit + Math.random());
   img.setAttribute('crossorigin', '');
-  if (activeBanner.data.image) {
+  if (image) {
     img.setAttribute('src', image);
     return new Promise((resolve, reject) => {
-      img.onload = () => resolve({ img: img, uri: activeBanner.uri, url: url });
+      img.onload = () => resolve({ img: img, uri: adUnit, url: url, campaignId: activeCampaign.CampaignId });
       img.onerror = () => reject(new Error('img load error'));
     });
   } else {
@@ -169,7 +117,7 @@ async function loadBanner(space, network, format, style) {
 
 AFRAME.registerPrimitive('a-zesty', {
   defaultComponents: {
-    'zesty-banner': { space: '' },
+    'zesty-banner': { adUnit: '' },
     'visibility-check': {}
   }
 });

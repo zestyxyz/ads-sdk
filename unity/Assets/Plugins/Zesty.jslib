@@ -1,11 +1,11 @@
 mergeInto(LibraryManager.library, {
-    _sendOnLoadMetric: async function(spaceId, campaignId) {
-        var spaceString = UTF8ToString(spaceId);
+    _sendOnLoadMetric: async function(adUnitId, campaignId) {
+        var adUnitString = UTF8ToString(adUnitId);
         var campaignIdString = UTF8ToString(campaignId);
         var userPlatform = await Module.Zesty.checkUserPlatform();
         var platform = userPlatform.platform;
         var confidence = userPlatform.confidence;
-        var body = { query: `mutation { increment(eventType: visits, spaceId: "${spaceString}", campaignId: \"${campaignIdString}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` };
+        var body = { query: `mutation { increment(eventType: visits, spaceId: "${adUnitString}", campaignId: \"${campaignIdString}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` };
         
         try {
             await fetch('https://beacon2.zesty.market/zgraphql', {
@@ -19,13 +19,13 @@ mergeInto(LibraryManager.library, {
             console.log("Failed to emit onload event", e.message)
         }
     },
-    _sendOnClickMetric: async function(spaceId, campaignId) {
-        var spaceString = UTF8ToString(spaceId);
+    _sendOnClickMetric: async function(adUnitId, campaignId) {
+        var adUnitString = UTF8ToString(adUnitId);
         var campaignIdString = UTF8ToString(campaignId);
         var userPlatform = await Module.Zesty.checkUserPlatform();
         var platform = userPlatform.platform;
         var confidence = userPlatform.confidence;
-        var body = { query: `mutation { increment(eventType: clicks, spaceId: "${spaceString}", campaignId: \"${campaignIdString}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` };
+        var body = { query: `mutation { increment(eventType: clicks, spaceId: "${adUnitString}", campaignId: \"${campaignIdString}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` };
         
         try {
             await fetch('https://beacon2.zesty.market/zgraphql', {

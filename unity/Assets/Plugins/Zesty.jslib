@@ -1,10 +1,11 @@
 mergeInto(LibraryManager.library, {
-    _sendOnLoadMetric: async function(spaceId) {
+    _sendOnLoadMetric: async function(spaceId, campaignId) {
         var spaceString = UTF8ToString(spaceId);
+        var campaignIdString = UTF8ToString(campaignId);
         var userPlatform = await Module.Zesty.checkUserPlatform();
         var platform = userPlatform.platform;
         var confidence = userPlatform.confidence;
-        var body = { query: `mutation { increment(eventType: visits, spaceId: "${spaceString}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` };
+        var body = { query: `mutation { increment(eventType: visits, spaceId: "${spaceString}", campaignId: \"${campaignIdString}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` };
         
         try {
             await fetch('https://beacon2.zesty.market/zgraphql', {
@@ -18,12 +19,13 @@ mergeInto(LibraryManager.library, {
             console.log("Failed to emit onload event", e.message)
         }
     },
-    _sendOnClickMetric: async function(spaceId) {
+    _sendOnClickMetric: async function(spaceId, campaignId) {
         var spaceString = UTF8ToString(spaceId);
+        var campaignIdString = UTF8ToString(campaignId);
         var userPlatform = await Module.Zesty.checkUserPlatform();
         var platform = userPlatform.platform;
         var confidence = userPlatform.confidence;
-        var body = { query: `mutation { increment(eventType: clicks, spaceId: "${spaceString}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` };
+        var body = { query: `mutation { increment(eventType: clicks, spaceId: "${spaceString}", campaignId: \"${campaignIdString}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` };
         
         try {
             await fetch('https://beacon2.zesty.market/zgraphql', {

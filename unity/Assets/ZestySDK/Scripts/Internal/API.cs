@@ -77,10 +77,7 @@ namespace Zesty {
             }
             else if (callback != null)
             {
-                var response = JSON.Parse(request.downloadHandler.text)["data"]["tokenDatas"][0];
-                Dictionary<string, string> bannerData = ParseGraphResponse(response, elmsKey);
-                                
-                callback(bannerData);
+                // Unused with current ad server architecture
             }
 
             request.Dispose();
@@ -93,7 +90,7 @@ namespace Zesty {
         /// <param name="elmsKey">The keys to check for in the response object data.</param>
         /// <param name="callback">The callback function to send the processed response data to.</param>
         /// <returns></returns>
-        public static IEnumerator GetRequest(string url, string[] elmsKey, Action<Dictionary<string, string>> callback) {
+        public static IEnumerator GetRequest(string url, string[] elmsKey, Action<BannerInfo> callback) {
             if (string.IsNullOrEmpty(url))
             {
                 callback(null);
@@ -107,13 +104,22 @@ namespace Zesty {
             if (isConnectionOrProtocolError(request)) {
                 Debug.Log("GET request error: " + request.error);
                 Debug.Log("Tried to retrieve: " + url);
+                List<Ad> Ads = new List<Ad> { new Ad() { asset_url = Formats.Square.Images[0], cta_url = "www.zesty.market" } };
+                string CampaignId = "TestCampaign";
+                callback(new BannerInfo { Ads = Ads, CampaignId = CampaignId });
             } else {
                 var response = JSON.Parse(request.downloadHandler.text);
-                Dictionary<string, string> bannerData = new Dictionary<string, string>();
+                BannerInfo bannerData = new BannerInfo();
 
-                foreach (string elm in elmsKey) {
-                    bannerData.Add(elm, response[elm]);
+                List<Ad> ads = new List<Ad>();
+                for (int i = 0; i < response["Ads"].Count; i++) {
+                    Ad ad = new Ad();
+                    ad.asset_url = response["Ads"][i]["asset_url"];
+                    ad.cta_url = response["Ads"][i]["cta_url"];
+                    ads.Add(ad);
                 }
+                bannerData.Ads = ads;
+                bannerData.CampaignId = response["CampaignId"];
 
                 callback(bannerData);
             }
@@ -138,33 +144,6 @@ namespace Zesty {
                 Texture t = ((DownloadHandlerTexture)request.downloadHandler).texture;
                 callback(t);
             }
-        }
-
-        /// <summary>
-        /// Parses the JSON response from The Graph into a Dictionary.
-        /// </summary>
-        /// <param name="response">The JSON response from The Graph.</param>
-        /// <param name="elmsKey">The keys to add to the Dictionary.</param>
-        /// <returns>A Dictionary with the specified keys.</returns>
-        public static Dictionary<string, string> ParseGraphResponse(JSONNode response, string[] elmsKey)
-        {
-            var sellerAuction = response?["sellerNFTSetting"]?["sellerAuctions"]?[0];
-            var latestAuction = new JSONObject();
-            for (int i = 0; i < sellerAuction?["buyerCampaignsApproved"].Count; i++)
-            {
-                if (sellerAuction?["buyerCampaignsApproved"][i] && sellerAuction?["buyerCampaignsApproved"].Count > 0)
-                {
-                    latestAuction = (JSONObject)sellerAuction["buyerCampaigns"][i];
-                }
-            }
-
-            Dictionary<string, string> bannerData = new Dictionary<string, string>();
-
-            foreach (string elm in elmsKey)
-            {
-                bannerData.Add(elm, latestAuction[elm]);
-            }
-            return bannerData;
         }
 
         /// <summary>

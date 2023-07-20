@@ -32,25 +32,25 @@ namespace Zesty
 
         // Tall
         static string[] tallImages = {
-            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-tall.png",
-            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-tall-minimal.png",
-            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-tall-transparent.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-banner-tall.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-banner-tall-minimal.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-banner-tall-transparent.png",
         };
         public static Format Tall = new Format(0.75, 1, tallImages);
 
         // Wide
         static string[] wideImages = {
-            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-wide.png",
-            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-wide-minimal.png",
-            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-wide-transparent.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-banner-wide.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-banner-wide-minimal.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-banner-wide-transparent.png",
         };
         public static Format Wide = new Format(4, 1, wideImages);
 
         // Square
         static string[] squareImages = {
-            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-square.png",
-            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-square-minimal.png",
-            $"{Utils.getIPFSGateway()}/ipns/lib.zesty.market/assets/zesty-banner-square-transparent.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-banner-square.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-banner-square-minimal.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-banner-square-transparent.png",
         };
         public static Format Square = new Format(1, 1, squareImages);
 

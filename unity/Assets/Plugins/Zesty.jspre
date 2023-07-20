@@ -24,7 +24,7 @@ Module['Zesty'].checkWolvicBrowser = function() {
 Module['Zesty'].checkPicoBrowser = async function() {
     // Pico's internal browser is a Chromium fork and seems to expose some WebXR AR modules,
     // so perform an isSessionSupported() check for immersive-vr and immersive-ar.
-    var featureDetect = (await navigator.xr.isSessionSupported('immersive-vr') && await navigator.xr.isSessionSupported('immersive-ar'));
+    var featureDetect = "xr" in navigator && (await navigator.xr.isSessionSupported('immersive-vr') && await navigator.xr.isSessionSupported('immersive-ar'));
     var uaCheck = navigator.userAgent.includes('Pico Neo 3 Link');
     var confidence = featureDetect && uaCheck ? 'Full' : 
                         featureDetect || uaCheck ? 'Partial' : 

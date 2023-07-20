@@ -17,7 +17,7 @@ namespace Zesty
 
     [ExecuteInEditMode]
     public class Banner : MonoBehaviour {
-        public string space;
+        public string adUnit;
         public string hostURL;
         public Formats.Types format;
         public Formats.Styles style;
@@ -33,8 +33,8 @@ namespace Zesty
 
         // Banner info
         string url;
-        [DllImport("__Internal")] private static extern void _sendOnLoadMetric(string spaceId, string campaignId);
-        [DllImport("__Internal")] private static extern void _sendOnClickMetric(string spaceId, string campaignId);
+        [DllImport("__Internal")] private static extern void _sendOnLoadMetric(string adUnitId, string campaignId);
+        [DllImport("__Internal")] private static extern void _sendOnClickMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _open(string url);
         string bannerTextureURL;
         string campaignId = "";
@@ -52,7 +52,7 @@ namespace Zesty
         /// Fetches the active campaign ad, if one exists, from the ad server
         /// </summary>
         void FetchCampaignAd() {
-            string url = $"{Constants.AD_SERVER_URL}/ad?ad_unit_id={space}&url={hostURL}";
+            string url = $"{Constants.AD_SERVER_URL}/ad?ad_unit_id={adUnit}&url={hostURL}";
             string[] elmsKey = { "Ads", "CampaignId" };
             StartCoroutine(API.GetRequest(url, elmsKey, SetBannerInfo));
         }
@@ -112,9 +112,9 @@ namespace Zesty
 #if UNITY_EDITOR
 #else
                 // Fire onLoad signal to v1 beacon
-                StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/{space}", "onLoad"));
+                StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/{adUnit}", "onLoad"));
                 // Fire increment mutation to v2 beacon
-                _sendOnLoadMetric(space, campaignId);
+                _sendOnLoadMetric(adUnit, campaignId);
 #endif
             }
         }
@@ -162,9 +162,9 @@ namespace Zesty
             if (beaconEnabled)
             {
                 // Fire onClick signal to beacon
-                StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/click/{space}", "onClick"));
+                StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/click/{adUnit}", "onClick"));
                 // Fire increment mutation to v2 beacon
-                _sendOnClickMetric(space, campaignId);
+                _sendOnClickMetric(adUnit, campaignId);
             }
         }
 

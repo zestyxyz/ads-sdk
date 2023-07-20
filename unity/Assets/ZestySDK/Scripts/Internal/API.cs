@@ -112,10 +112,10 @@ namespace Zesty {
                 BannerInfo bannerData = new BannerInfo();
 
                 List<Ad> ads = new List<Ad>();
-                foreach (var elm in response["Ads"]) {
+                for (int i = 0; i < response["Ads"].Count; i++) {
                     Ad ad = new Ad();
-                    ad.asset_url = response["Ads"][0]["asset_url"];
-                    ad.cta_url = response["Ads"][0]["cta_url"];
+                    ad.asset_url = response["Ads"][i]["asset_url"];
+                    ad.cta_url = response["Ads"][i]["cta_url"];
                     ads.Add(ad);
                 }
                 bannerData.Ads = ads;

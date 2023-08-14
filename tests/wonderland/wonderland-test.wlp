@@ -996,7 +996,7 @@
                         "beacon": true,
                         "format": "tall",
                         "style": "standard",
-                        "dynamicNetworking": true
+                        "dynamicNetworking": false
                     }
                 }
             ],

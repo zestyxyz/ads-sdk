@@ -16,9 +16,14 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
   try {
     const url = encodeURI(window.top.location.href).replace(/\/$/, ''); // If URL ends with a slash, remove it
     const res = await axios.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}&url=${url}`);
-    return res.data;
+    if (res.data)
+      return res.data;
+    else {
+      // No active campaign, just display default banner
+      return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.market' }], CampaignId: 'TestCampaign'};
+    }
   } catch {
-    console.warn('No active campaign banner could be located. Displaying default banner.')
+    console.warn('Could not retrieve an active campaign banner. Retrieving default banner.')
     return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.market' }], CampaignId: 'TestCampaign'};
   }
 }

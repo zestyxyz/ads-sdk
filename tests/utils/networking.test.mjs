@@ -21,7 +21,7 @@ const MOCK_IFRAME_SETUP2 = {
 test.describe('fetchCampaignAd', () => {
   test('fetchCampaignAd should return a default banner if no URI is given', () => {
     return expect(fetchCampaignAd()).resolves.toMatchObject(
-      { Ads: [{ asset_url: DEFAULT_BANNER, cta_url: 'https://www.zesty.market' }], CampaignId: 'TestCampaign'}
+      { Ads: [{ asset_url: DEFAULT_BANNER, cta_url: 'https://www.zesty.xyz' }], CampaignId: 'TestCampaign'}
     )
   });
 

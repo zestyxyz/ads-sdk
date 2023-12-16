@@ -15277,7 +15277,7 @@ var Wt = async (t, e = "tall", r = "standard") => {
     let i = encodeURI(window.top.location.href).replace(/\/$/, "");
     return (await W.default.get(`${un}/ad?ad_unit_id=${t}&url=${i}`)).data;
   } catch {
-    return console.warn("No active campaign banner could be located. Displaying default banner."), { Ads: [{ asset_url: B[e].style[r], cta_url: "https://www.zesty.market" }], CampaignId: "TestCampaign" };
+    return console.warn("No active campaign banner could be located. Displaying default banner."), { Ads: [{ asset_url: B[e].style[r], cta_url: "https://www.zesty.xyz" }], CampaignId: "TestCampaign" };
   }
 };
 var Jt = async (t, e = null) => {

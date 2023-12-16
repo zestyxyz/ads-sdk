@@ -97,7 +97,7 @@ namespace Zesty
                         StartCoroutine(API.GetTexture(Formats.Square.Images[(int)style], SetTexture));
                         break;
                 }
-                SetURL($"https://www.zesty.market/");
+                SetURL($"https://www.zesty.xyz/");
             }
             else if (bannerInfo.Ads.Count > 0)
             {

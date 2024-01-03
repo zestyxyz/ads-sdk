@@ -1,6 +1,6 @@
 # zesty-billboard
 
-The Zesty Billboard SDK allows developers to integrate their app into the Zesty Network. More docs: https://docs.zesty.market
+The Zesty Billboard SDK allows developers to integrate their app into the Zesty Network. More [docs](https://zestyxyz.notion.site/Zesty-Market-Documentation-346d6f9aa8544cf9a5484c3ccf61523a)
 
 Currently, we support the following platforms:
 

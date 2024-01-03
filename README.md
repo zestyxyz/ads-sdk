@@ -1,15 +1,16 @@
-# zesty-billboard
+# zesty-ads-sdk
 
-The Zesty Billboard SDK allows developers to integrate their app into the Zesty Network. More [docs](https://zestyxyz.notion.site/Zesty-Market-Documentation-346d6f9aa8544cf9a5484c3ccf61523a)
+The Zesty Ads SDK allows developers to integrate their app into the Zesty Network. More [docs](https://zestyxyz.notion.site/Zesty-Market-Documentation-346d6f9aa8544cf9a5484c3ccf61523a)
 
 Currently, we support the following platforms:
 
-- [aframe](https://github.com/zestymarket/billboard/tree/main/aframe)
-- [babylon.js](https://github.com/zestymarket/billboard/tree/main/babylonjs)
-- [react-three-fiber](https://github.com/zestymarket/billboard/tree/main/r3f)
-- [three.js](https://github.com/zestymarket/billboard/tree/main/threejs)
-- [web](https://github.com/zestymarket/billboard/tree/main/web)
-- [wonderland](https://github.com/zestymarket/billboard/tree/main/wonderland)
+- [aframe](https://github.com/zestyxyz/ads-sdk/tree/main/aframe)
+- [babylon.js](https://github.com/zestyxyz/ads-sdk/tree/main/babylonjs)
+- [react-three-fiber](https://github.com/zestyxyz/ads-sdk/tree/main/r3f)
+- [three.js](https://github.com/zestyxyz/ads-sdk/tree/main/threejs)
+- [web](https://github.com/zestyxyz/ads-sdk/tree/main/web)
+- [unity](https://github.com/zestyxyz/ads-sdk/tree/main/unity)
+- [wonderland](https://github.com/zestyxyz/ads-sdk/tree/main/wonderland)
 
 ## What's Zesty?
 

@@ -1,6 +1,6 @@
 # Zesty Wonderland SDK
 
-[Zesty Market](https://zesty.market) Banner integration for [Wonderland Engine](https://wonderlandengine.com).
+[Zesty Market](https://zesty.xyz) Banner integration for [Wonderland Engine](https://wonderlandengine.com).
 
 ## Getting started
 
@@ -44,7 +44,7 @@ Make sure that you set up a cursor to enable clicking.
 ## Configuring
 
 To set up the `zesty-banner` component, make sure to create an account and space on the market,
-[find more info here](https://docs.zesty.market/guides/creators).
+[find more info here](https://zestyxyz.notion.site/Docs-346d6f9aa8544cf9a5484c3ccf61523a).
 
  1. Right-click "root" > Add Object > Mesh.
  2. Set mesh to "PrimitivePlane".

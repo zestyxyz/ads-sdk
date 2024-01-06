@@ -101,7 +101,7 @@ const DEFAULT_URI_CONTENT = {
   "name": "Default banner",
   "description": "This is the default banner that would be displayed ipsum",
   "image": "https://ipfs.zesty.market/ipfs/QmWBNfP8roDrwz3XQo4qpu9fMxvUSTn8LB7d4JK7ybrfZ2/assets/zesty-ad-square.png",
-  "url": "https://www.zesty.market"
+  "url": "https://www.zesty.xyz"
 }
 
 /**

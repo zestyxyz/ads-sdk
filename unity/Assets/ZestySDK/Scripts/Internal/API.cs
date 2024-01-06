@@ -104,7 +104,7 @@ namespace Zesty {
             if (isConnectionOrProtocolError(request)) {
                 Debug.Log("GET request error: " + request.error);
                 Debug.Log("Tried to retrieve: " + url);
-                List<Ad> Ads = new List<Ad> { new Ad() { asset_url = Formats.Square.Images[0], cta_url = "www.zesty.market" } };
+                List<Ad> Ads = new List<Ad> { new Ad() { asset_url = Formats.Square.Images[0], cta_url = "www.zesty.xyz" } };
                 string CampaignId = "TestCampaign";
                 callback(new BannerInfo { Ads = Ads, CampaignId = CampaignId });
             } else {

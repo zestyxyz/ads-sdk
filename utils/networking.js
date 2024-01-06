@@ -8,7 +8,7 @@ const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
 
 const DB_ENDPOINT = 'https://api.zesty.market/api';
 // TODO: Determine best way to enable switching to staging
-const STAGING_DB_ENDPOINT = 'https://api-staging.zesty.market/api';
+// const STAGING_DB_ENDPOINT = 'https://api-staging.zesty.market/api';
 
 //const sessionId = uuidv4();
 
@@ -20,11 +20,11 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
       return res.data;
     else {
       // No active campaign, just display default banner
-      return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.market' }], CampaignId: 'TestCampaign'};
+      return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'TestCampaign'};
     }
   } catch {
     console.warn('Could not retrieve an active campaign banner. Retrieving default banner.')
-    return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.market' }], CampaignId: 'TestCampaign'};
+    return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'TestCampaign'};
   }
 }
 

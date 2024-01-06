@@ -9,7 +9,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "publish": "node scripts/build_publish.js",
-    "test": "npx playwright test",
+    "test": "npx playwright test --grep-invert @skip",
     "serve": "npx http-server"
   },
   "repository": {

@@ -1,4 +1,4 @@
-const assetsURL = 'https://zesty-storage-prod.s3.amazonaws.com/images/zesty';
+const assetsURL = 'https://cdn.zesty.xyz/images/zesty';
 
 const formats = {
     'tall': {

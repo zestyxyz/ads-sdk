@@ -15224,7 +15224,7 @@ var ge = l((Vn, It) => {
   It.exports = Ft();
 });
 var W = Ae(ge(), 1);
-var R = "https://zesty-storage-prod.s3.amazonaws.com/images/zesty";
+var R = "https://cdn.zesty.xyz/images/zesty";
 var B = { tall: { width: 0.75, height: 1, style: { standard: `${R}/zesty-banner-tall.png`, minimal: `${R}/zesty-banner-tall-minimal.png`, transparent: `${R}/zesty-banner-tall-transparent.png` } }, wide: { width: 4, height: 1, style: { standard: `${R}/zesty-banner-wide.png`, minimal: `${R}/zesty-banner-wide-minimal.png`, transparent: `${R}/zesty-banner-wide-transparent.png` } }, square: { width: 1, height: 1, style: { standard: `${R}/zesty-banner-square.png`, minimal: `${R}/zesty-banner-square-minimal.png`, transparent: `${R}/zesty-banner-square-transparent.png` } } };
 var on = Ae(ge(), 1);
 var be = () => {
@@ -15277,7 +15277,7 @@ var Wt = async (t, e = "tall", r = "standard") => {
     let i = encodeURI(window.top.location.href).replace(/\/$/, "");
     return (await W.default.get(`${un}/ad?ad_unit_id=${t}&url=${i}`)).data;
   } catch {
-    return console.warn("No active campaign banner could be located. Displaying default banner."), { Ads: [{ asset_url: B[e].style[r], cta_url: "https://www.zesty.market" }], CampaignId: "TestCampaign" };
+    return console.warn("No active campaign banner could be located. Displaying default banner."), { Ads: [{ asset_url: B[e].style[r], cta_url: "https://www.zesty.xyz" }], CampaignId: "TestCampaign" };
   }
 };
 var Jt = async (t, e = null) => {

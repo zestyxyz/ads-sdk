@@ -11,7 +11,7 @@ const formatsLink = 'https://cdn.zesty.xyz/sdk/zesty-formats.js';
 const networkingLink = 'https://cdn.zesty.xyz/sdk/zesty-networking.js';
 
 /**
- * [Zesty Market](https://zesty.market) banner ad unit
+ * [Zesty Market](https://zesty.xyz) banner ad unit
  *
  * Fetches a banner and applies it to a texture. If no `cursor-target` and `collision`
  * is found on the object, they will be created automatically (with box shape in group 1).

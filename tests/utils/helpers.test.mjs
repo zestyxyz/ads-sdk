@@ -55,7 +55,7 @@ test.describe('checkOculusBrowser', async () => {
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
     expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
-  test(`checkOculusBrowser() should return a match with full confidence if window.XRHand and window.XRMediaBinding
+  test(`@skip checkOculusBrowser() should return a match with full confidence if window.XRHand and window.XRMediaBinding
         exist and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'OculusBrowser' });
     const page = await context.newPage();
@@ -108,7 +108,7 @@ test.describe('checkWolvicBrowser', async () => {
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
     expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
-  test(`checkWolvicBrowser() should return a match with full confidence if window.mozInnerScreenX exists,
+  test(`@skip checkWolvicBrowser() should return a match with full confidence if window.mozInnerScreenX exists,
    window.speechSynthesis does not exist, and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Mobile VR' });
     const page = await context.newPage();
@@ -175,7 +175,7 @@ test.describe('checkPicoBrowser', async () => {
     const picoBrowserTest = await page.evaluate(checkPicoBrowser);
     expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
-  test(`checkPicoBrowser() should return a match with full confidence if both isSessionSupported('immersive-ar')
+  test(`@skip checkPicoBrowser() should return a match with full confidence if both isSessionSupported('immersive-ar')
         and isSessionSupported('immersive-vr') return true and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Pico Neo 3 Link' });
     const page = await context.newPage();

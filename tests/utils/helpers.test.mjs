@@ -193,7 +193,7 @@ test.describe('openURL', async () => {
     if (!url) return null;
   
     if (isOculus) {
-      if (url.includes('https://www.oculus.com/experiences/quest/')) {
+      if (url.includes('https://www.meta.com/experiences/')) {
         return 'Deeplink';
       }
     }
@@ -206,7 +206,7 @@ test.describe('openURL', async () => {
   });
   test('An Oculus Store URL should not deeplink if not on Quest', async ({ page }) => {
     const isOculus = (await page.evaluate(checkOculusBrowser)).match;
-    const result = openURL('https://www.oculus.com/experiences/quest/', isOculus);
+    const result = openURL('https://www.meta.com/experiences/', isOculus);
     expect(result).toBe('Link');
   });
   test('An Oculus Store URL should deeplink if on Quest', async ({ page }) => {
@@ -215,7 +215,7 @@ test.describe('openURL', async () => {
       window.XRMediaBinding = 1;
     });
     const isOculus = (await page.evaluate(checkOculusBrowser)).match;
-    const result = openURL('https://www.oculus.com/experiences/quest/', isOculus);
+    const result = openURL('https://www.meta.com/experiences/', isOculus);
     expect(result).toBe('Deeplink');
   });
   test('Any other URL should link regularly', async () => {

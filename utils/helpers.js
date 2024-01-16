@@ -147,7 +147,7 @@ const openURL = url => {
   // Are we on a device that will deeplink?
   // This may need to be expanded in the future.
   if (checkOculusBrowser().match) {
-    if (url.includes('https://www.oculus.com/experiences/quest/')) {
+    if (url.includes('https://www.meta.com/experiences/')) {
         setTimeout(() => {
           window.open(url, '_blank');
         }, 1000);

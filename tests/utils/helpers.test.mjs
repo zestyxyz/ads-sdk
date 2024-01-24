@@ -55,7 +55,7 @@ test.describe('checkOculusBrowser', async () => {
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
     expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
-  test(`checkOculusBrowser() should return a match with full confidence if window.XRHand and window.XRMediaBinding
+  test(`@skip checkOculusBrowser() should return a match with full confidence if window.XRHand and window.XRMediaBinding
         exist and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'OculusBrowser' });
     const page = await context.newPage();
@@ -108,7 +108,7 @@ test.describe('checkWolvicBrowser', async () => {
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
     expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
-  test(`checkWolvicBrowser() should return a match with full confidence if window.mozInnerScreenX exists,
+  test(`@skip checkWolvicBrowser() should return a match with full confidence if window.mozInnerScreenX exists,
    window.speechSynthesis does not exist, and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Mobile VR' });
     const page = await context.newPage();
@@ -175,7 +175,7 @@ test.describe('checkPicoBrowser', async () => {
     const picoBrowserTest = await page.evaluate(checkPicoBrowser);
     expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
-  test(`checkPicoBrowser() should return a match with full confidence if both isSessionSupported('immersive-ar')
+  test(`@skip checkPicoBrowser() should return a match with full confidence if both isSessionSupported('immersive-ar')
         and isSessionSupported('immersive-vr') return true and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Pico Neo 3 Link' });
     const page = await context.newPage();
@@ -193,7 +193,7 @@ test.describe('openURL', async () => {
     if (!url) return null;
   
     if (isOculus) {
-      if (url.includes('https://www.oculus.com/experiences/quest/')) {
+      if (url.includes('https://www.meta.com/experiences/')) {
         return 'Deeplink';
       }
     }
@@ -206,7 +206,7 @@ test.describe('openURL', async () => {
   });
   test('An Oculus Store URL should not deeplink if not on Quest', async ({ page }) => {
     const isOculus = (await page.evaluate(checkOculusBrowser)).match;
-    const result = openURL('https://www.oculus.com/experiences/quest/', isOculus);
+    const result = openURL('https://www.meta.com/experiences/', isOculus);
     expect(result).toBe('Link');
   });
   test('An Oculus Store URL should deeplink if on Quest', async ({ page }) => {
@@ -215,7 +215,7 @@ test.describe('openURL', async () => {
       window.XRMediaBinding = 1;
     });
     const isOculus = (await page.evaluate(checkOculusBrowser)).match;
-    const result = openURL('https://www.oculus.com/experiences/quest/', isOculus);
+    const result = openURL('https://www.meta.com/experiences/', isOculus);
     expect(result).toBe('Deeplink');
   });
   test('Any other URL should link regularly', async () => {

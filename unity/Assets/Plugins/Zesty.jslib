@@ -47,7 +47,7 @@ mergeInto(LibraryManager.library, {
         // Are we on a device that will deeplink?
         // This may need to be expanded in the future.
         if (Module.Zesty.checkOculusBrowser().match) {
-            if (urlString.includes('https://www.oculus.com/experiences/quest/')) {
+            if (urlString.includes('https://www.meta.com/experiences/')) {
                 setTimeout(() => {
                     window.open(urlString, '_blank');
                 }, 1000);      

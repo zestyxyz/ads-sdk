@@ -15250,7 +15250,7 @@ var xe = async () => {
 var $t = (t) => {
   if (t) {
     if (be().match) {
-      if (t.includes("https://www.oculus.com/experiences/quest/")) {
+      if (t.includes("https://www.meta.com/experiences/")) {
         setTimeout(() => {
           window.open(t, "_blank");
         }, 1e3);

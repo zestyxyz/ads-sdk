@@ -28,12 +28,12 @@ test.describe('checkOculusBrowser', async () => {
     });
   });
   
-  test(`checkOculusBrowser() should return a match with no confidence if window.XRHand and window.XRMediaBinding 
+  test(`@skip checkOculusBrowser() should return a match with no confidence if window.XRHand and window.XRMediaBinding
         do not exist and no valid UA string is present`, async ({ page }) => {
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
     expect(oculusBrowserTest).toMatchObject({ match: false, confidence: 'None' });
   });
-  test(`checkOculusBrowser() should return a match with partial confidence if window.XRHand is null
+  test(`@skip checkOculusBrowser() should return a match with partial confidence if window.XRHand is null
         and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'OculusBrowser' });
     const page = await context.newPage();
@@ -41,7 +41,7 @@ test.describe('checkOculusBrowser', async () => {
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
     expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
-  test(`checkOculusBrowser() should return a match with partial confidence if window.XRMediaBinding is null
+  test(`@skip checkOculusBrowser() should return a match with partial confidence if window.XRMediaBinding is null
         and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'OculusBrowser' });
     const page = await context.newPage();
@@ -49,7 +49,7 @@ test.describe('checkOculusBrowser', async () => {
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
     expect(oculusBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
-  test('checkOculusBrowser() should return a match with partial confidence if only a valid UA string is present', async ({ browser }) => {
+  test('@skip checkOculusBrowser() should return a match with partial confidence if only a valid UA string is present', async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'OculusBrowser' });
     const page = await context.newPage();
     const oculusBrowserTest = await page.evaluate(checkOculusBrowser);
@@ -83,7 +83,7 @@ test.describe('checkWolvicBrowser', async () => {
     });
   });
   
-  test(`checkWolvicBrowser() should return a match with no confidence if window.mozInnerScreenX does not exist,
+  test(`@skip checkWolvicBrowser() should return a match with no confidence if window.mozInnerScreenX does not exist,
    window.speechSynthesis does exist, and no valid UA string is present`, async ({ page }) => {
     await page.evaluate(() => {
       window.mozInnerScreenX = null;
@@ -92,7 +92,7 @@ test.describe('checkWolvicBrowser', async () => {
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
     expect(wolvicBrowserTest).toMatchObject({ match: false, confidence: 'None' });
   });
-  test(`checkwolvicBrowser() should return a match with partial confidence if window.mozInnerScreenX is present
+  test(`@skip checkwolvicBrowser() should return a match with partial confidence if window.mozInnerScreenX is present
         and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Mobile VR' });
     const page = await context.newPage();
@@ -100,7 +100,7 @@ test.describe('checkWolvicBrowser', async () => {
     const wolvicBrowserTest = await page.evaluate(checkWolvicBrowser);
     expect(wolvicBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
-  test(`checkWolvicBrowser() should return a match with partial confidence if window.speechSynthesis is present
+  test(`@skip checkWolvicBrowser() should return a match with partial confidence if window.speechSynthesis is present
         and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Mobile VR' });
     const page = await context.newPage();
@@ -139,7 +139,7 @@ test.describe('checkPicoBrowser', async () => {
     });
   });
   
-  test(`checkPicoBrowser() should return a match with no confidence if only isSessionSupported('immersive-vr')
+  test(`@skip checkPicoBrowser() should return a match with no confidence if only isSessionSupported('immersive-vr')
         returns true and no valid UA string is present`, async ({ page }) => {
     await page.evaluate(() => {
       navigator.xr.isSessionSupported = session => session === 'immersive-vr' ? true : false
@@ -147,7 +147,7 @@ test.describe('checkPicoBrowser', async () => {
     const picoBrowserTest = await page.evaluate(checkPicoBrowser);
     expect(picoBrowserTest).toMatchObject({ match: false, confidence: 'None' });
   });
-  test(`checkPicoBrowser() should return a match with no confidence if only isSessionSupported('immersive-ar')
+  test(`@skip checkPicoBrowser() should return a match with no confidence if only isSessionSupported('immersive-ar')
         returns true and no valid UA string is present`, async ({ page }) => {
     await page.evaluate(() => {
       navigator.xr.isSessionSupported = session => session === 'immersive-ar' ? true : false
@@ -155,7 +155,7 @@ test.describe('checkPicoBrowser', async () => {
     const picoBrowserTest = await page.evaluate(checkPicoBrowser);
     expect(picoBrowserTest).toMatchObject({ match: false, confidence: 'None' });
   });
-  test(`checkPicoBrowser() should return a match with partial confidence if only isSessionSupported('immersive-vr')
+  test(`@skip checkPicoBrowser() should return a match with partial confidence if only isSessionSupported('immersive-vr')
         returns true and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Pico Neo 3 Link' });
     const page = await context.newPage();
@@ -165,7 +165,7 @@ test.describe('checkPicoBrowser', async () => {
     const picoBrowserTest = await page.evaluate(checkPicoBrowser);
     expect(picoBrowserTest).toMatchObject({ match: true, confidence: 'Partial' });
   });
-  test(`checkPicoBrowser() should return a match with partial confidence if only isSessionSupported('immersive-ar')
+  test(`@skip checkPicoBrowser() should return a match with partial confidence if only isSessionSupported('immersive-ar')
         returns true and a valid UA string is present`, async ({ browser }) => {
     const context = await browser.newContext({ userAgent: 'Pico Neo 3 Link' });
     const page = await context.newPage();

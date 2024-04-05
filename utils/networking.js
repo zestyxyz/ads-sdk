@@ -12,7 +12,6 @@ const DB_ENDPOINT = 'https://api.zesty.market/api';
 
 //const sessionId = uuidv4();
 
-const prebid = true;
 let interval = null;
 const retryCount = 4;
 let currentTries = 0;
@@ -90,45 +89,45 @@ const initPrebid = (adUnitId) => {
   });
 }
 
+const getDefaultBanner = (format, style) => {
+  return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'TestCampaign' }
+}
+
 const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {
-  if (prebid) {
-    initPrebid(adUnitId, format, style);
+  initPrebid(adUnitId, format, style);
 
-    return new Promise((res, rej) => {
-      interval = setInterval(() => {
-        // This function is injected, so if it isn't present yet return
-        if (!window.pbjs.getAllWinningBids) return;
+  return new Promise((res, rej) => {
+    interval = setInterval(async () => {
+      // This function is injected, so if it isn't present yet return
+      if (!window.pbjs.getAllWinningBids) return;
 
-        if (window.pbjs.getAllWinningBids().length > 0) {
-          // Clear the interval and grab the image+url from the prebid ad
+      if (window.pbjs.getAllWinningBids().length > 0) {
+        // Clear the interval and grab the image+url from the prebid ad
+        clearInterval(interval);
+        const { asset_url, cta_url } = getPrebidWinnerInfo();
+        res({ Ads: [{ asset_url, cta_url }], CampaignId: 'TestCampaign' });
+      } else {
+        // Wait to see if we get any winning bids. If we hit max retry count, fallback to Zesty ad server
+        currentTries++;
+        if (currentTries == retryCount) {
           clearInterval(interval);
-          const { asset_url, cta_url } = getPrebidWinnerInfo();
-          res({ Ads: [{ asset_url, cta_url }], CampaignId: 'TestCampaign' });
-        } else {
-          // Wait to see if we get any winning bids, otherwise send default Zetsy banner
-          currentTries++;
-          if (currentTries == retryCount) {
-            clearInterval(interval);
-            res({ Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'TestCampaign' });
+          try {
+            const url = encodeURI(window.top.location.href).replace(/\/$/, ''); // If URL ends with a slash, remove it
+            const res = await axios.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}&url=${url}`);
+            if (res.data)
+              res(res.data);
+            else {
+              // No active campaign, just display default banner
+              res(getDefaultBanner(format, style));
+            }
+          } catch {
+            console.warn('Could not retrieve an active campaign banner. Retrieving default banner.')
+            res(getDefaultBanner(format, style));
           }
         }
-      }, 1000);
-    });
-  } else {
-    try {
-      const url = encodeURI(window.top.location.href).replace(/\/$/, ''); // If URL ends with a slash, remove it
-      const res = await axios.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}&url=${url}`);
-      if (res.data)
-        return res.data;
-      else {
-        // No active campaign, just display default banner
-        return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'TestCampaign' };
       }
-    } catch {
-      console.warn('Could not retrieve an active campaign banner. Retrieving default banner.')
-      return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'TestCampaign' };
-    }
-  }
+    }, 1000);
+  });
 }
 
 /**

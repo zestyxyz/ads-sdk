@@ -45,26 +45,6 @@ test.describe('Standard styles', () => {
   });
 });
 
-test.describe('Minimal styles', () => {
-  test('The tall minimal banner is displaying the correct default image', async ({ page }) => {
-    const banner = await page.locator('#banner4 > a-plane');
-    const img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
-    expect(img.split('/').pop()).toBe('zesty-banner-tall-minimal.png');
-  });
-
-  test('The wide minimal banner is displaying the correct default image', async ({ page }) => {
-    const banner = await page.locator('#banner5 > a-plane');
-    const img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
-    expect(img.split('/').pop()).toBe('zesty-banner-wide-minimal.png');
-  });
-
-  test('The square minimal banner is displaying the correct default image', async ({ page }) => {
-    const banner = await page.locator('#banner6 > a-plane');
-    const img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
-    expect(img.split('/').pop()).toBe('zesty-banner-square-minimal.png');
-  });
-});
-
 test.describe('Transparent styles', () => {
   test('The tall transparent banner is displaying the correct default image', async ({ page }) => {
     const banner = await page.locator('#banner7 > a-plane');

@@ -43,32 +43,6 @@ test.describe('Standard styles', () => {
   });
 });
 
-test.describe('Minimal styles', () => {
-  test('The tall standard banner is present', async ({ page }) => {
-    await page.waitForFunction(() => document.getElementById('banner4').shadowRoot.children[0]);
-    const banner4 = await page.evaluate(
-      () => document.getElementById('banner4').shadowRoot.children[0].src
-    );
-    expect(banner4.split('/').pop()).toBe('zesty-banner-tall-minimal.png');
-  });
-
-  test('The wide standard banner is present', async ({ page }) => {
-    await page.waitForFunction(() => document.getElementById('banner5').shadowRoot.children[0]);
-    const banner5 = await page.evaluate(
-      () => document.getElementById('banner5').shadowRoot.children[0].src
-    );
-    expect(banner5.split('/').pop()).toBe('zesty-banner-wide-minimal.png');
-  });
-
-  test('The square standard banner is present', async ({ page }) => {
-    await page.waitForFunction(() => document.getElementById('banner6').shadowRoot.children[0]);
-    const banner6 = await page.evaluate(
-      () => document.getElementById('banner6').shadowRoot.children[0].src
-    );
-    expect(banner6.split('/').pop()).toBe('zesty-banner-square-minimal.png');
-  });
-});
-
 test.describe('Transparent styles', () => {
   test('The tall transparent banner is present', async ({ page }) => {
     await page.waitForFunction(() => document.getElementById('banner7').shadowRoot.children[0]);

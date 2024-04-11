@@ -41,32 +41,6 @@ test.describe('Standard styles', () => {
   });
 });
 
-test.describe('Minimal styles', () => {
-  test('The tall minimal banner is present', async ({ page }) => {
-    await page.waitForFunction(() => window.scene.meshes[7].material != null);
-    const banner4 = await page.evaluate(
-      () => window.scene.meshes[7].material.diffuseTexture.name
-    );
-    expect(banner4.split('/').pop()).toBe('zesty-banner-tall-minimal.png');
-  });
-
-  test('The wide minimal banner is present', async ({ page }) => {
-    await page.waitForFunction(() => window.scene.meshes[8].material != null);
-    const banner5 = await page.evaluate(
-      () => window.scene.meshes[8].material.diffuseTexture.name
-    );
-    expect(banner5.split('/').pop()).toBe('zesty-banner-wide-minimal.png');
-  });
-
-  test('The square minimal banner is present', async ({ page }) => {
-    await page.waitForFunction(() => window.scene.meshes[9].material != null);
-    const banner6 = await page.evaluate(
-      () => window.scene.meshes[9].material.diffuseTexture.name
-    );
-    expect(banner6.split('/').pop()).toBe('zesty-banner-square-minimal.png');
-  });
-});
-
 test.describe('Transparent styles', () => {
   test('The tall transparent banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.meshes[10].material != null);

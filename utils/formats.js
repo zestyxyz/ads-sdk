@@ -6,7 +6,7 @@ const formats = {
         height: 1,
         style: {
             'standard': `${assetsURL}/zesty-banner-tall.png`,
-            'minimal': `${assetsURL}/zesty-banner-tall-minimal.png`,
+            'minimal': `${assetsURL}/zesty-banner-tall.png`,
             'transparent': `${assetsURL}/zesty-banner-tall-transparent.png`
         }
     },
@@ -15,7 +15,7 @@ const formats = {
         height: 1,
         style: {
             'standard': `${assetsURL}/zesty-banner-wide.png`,
-            'minimal': `${assetsURL}/zesty-banner-wide-minimal.png`,
+            'minimal': `${assetsURL}/zesty-banner-wide.png`,
             'transparent': `${assetsURL}/zesty-banner-wide-transparent.png`
         }
     },
@@ -24,7 +24,7 @@ const formats = {
         height: 1,
         style: {
             'standard': `${assetsURL}/zesty-banner-square.png`,
-            'minimal': `${assetsURL}/zesty-banner-square-minimal.png`,
+            'minimal': `${assetsURL}/zesty-banner-square.png`,
             'transparent': `${assetsURL}/zesty-banner-square-transparent.png`
         }
     }

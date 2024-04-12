@@ -15,77 +15,36 @@ const DB_ENDPOINT = 'https://api.zesty.market/api';
 let interval = null;
 const retryCount = 4;
 let currentTries = 0;
-
-function renderAllAdUnits() {
-  var winners = window.pbjs.getHighestCpmBids();
-  for (var i = 0; i < winners.length; i++) {
-    renderOne(winners[i]);
-  }
-}
-
-function renderOne(winningBid) {
-  if (winningBid && winningBid.adId) {
-    var div = document.getElementById(winningBid.adUnitCode);
-    if (div) {
-      const iframe = document.createElement('iframe');
-      div.appendChild(iframe);
-      const iframeDoc = iframe.contentWindow.document;
-      window.pbjs.renderAd(iframeDoc, winningBid.adId);
-      iframe.style.display = 'none';
-    }
-  }
-}
+/** @type {HTMLIFrameElement} */
+let iframe = null;
+let ready = false;
+let bids = null;
 
 function getPrebidWinnerInfo() {
-  const winner = window.pbjs.getAllWinningBids()[0];
+  const winner = bids;
   const regex = /(?:https:\/\/)[^\s"']+?(?=["']|\s)/g;
-  const matches = winner.ad.match(regex);
+  const matches = winner.match(regex);
 
   return { asset_url: matches[1], cta_url: matches[0] };
 }
 
 const initPrebid = (adUnitId) => {
-  // Create prebid window objects
-  window.pbjs = window.pbjs || {};
-  window.pbjs.que = window.pbjs.que || [];
-
-  // Construct an ad unit and respective div
-  const adUnit = {
-    code: adUnitId,
-    mediaTypes: {
-      banner: {
-        sizes: [[300, 250]]
-      }
-    },
-    bids: [
-      {
-        bidder: 'appnexus',
-        params: {
-          placementId: 13144370
-        }
-      }
-    ]
+  // Load zesty prebid iframe
+  iframe = document.createElement('iframe');
+  iframe.src = 'https://www.zesty.xyz/prebid.html'
+  document.body.appendChild(iframe);
+  iframe.onload = () => {
+    iframe.contentWindow.postMessage({ type: 'readycheck' }, '*');
   }
-  const div = document.createElement('div');
-  div.id = adUnit.code;
-  document.body.appendChild(div);
-
-  // Load our prebid script and add it to the page
-  const script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://cdn.zesty.xyz/sdk/zesty-prebid.js';
-  document.head.appendChild(script);
-
-  // Add our ad unit to the queue and request bids
-  window.pbjs.que.push(function () {
-    window.pbjs.addAdUnits([adUnit]);
-  });
-
-  window.pbjs.que.push(function () {
-    window.pbjs.requestBids({
-      timeout: 2000,
-      bidsBackHandler: renderAllAdUnits
-    });
+  window.addEventListener('message', ({ data }) => {
+    switch (data.type) {
+      case 'readystatus':
+        ready = data.content;
+        break;
+      case 'bids':
+        bids = data.content;
+        break;
+    }
   });
 }
 
@@ -98,13 +57,11 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
 
   return new Promise((res, rej) => {
     interval = setInterval(async () => {
-      // This function is injected, so if it isn't present yet return
-      if (!window.pbjs.getAllWinningBids) return;
-
-      if (window.pbjs.getAllWinningBids().length > 0) {
+      if (bids && bids.length > 0) {
         // Clear the interval and grab the image+url from the prebid ad
         clearInterval(interval);
         const { asset_url, cta_url } = getPrebidWinnerInfo();
+        console.log(asset_url, cta_url);
         res({ Ads: [{ asset_url, cta_url }], CampaignId: 'TestCampaign' });
       } else {
         // Wait to see if we get any winning bids. If we hit max retry count, fallback to Zesty ad server

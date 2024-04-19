@@ -32,25 +32,25 @@ namespace Zesty
 
         // Tall
         static string[] tallImages = {
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-tall.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-tall.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-tall-transparent.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-mobile-phone-interstitial.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-mobile-phone-interstitial.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-mobile-phone-interstitial.png",
         };
         public static Format Tall = new Format(0.75, 1, tallImages);
 
         // Wide
         static string[] wideImages = {
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-wide.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-wide.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-wide-transparent.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-billboard.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-billboard.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-billboard.png",
         };
         public static Format Wide = new Format(4, 1, wideImages);
 
         // Square
         static string[] squareImages = {
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-square.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-square.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-square-transparent.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-med-rectangle.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-med-rectangle.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-med-rectangle.png",
         };
         public static Format Square = new Format(1, 1, squareImages);
 

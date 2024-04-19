@@ -5,27 +5,27 @@ const formats = {
         width: 0.75,
         height: 1,
         style: {
-            'standard': `${assetsURL}/zesty-banner-tall.png`,
-            'minimal': `${assetsURL}/zesty-banner-tall.png`,
-            'transparent': `${assetsURL}/zesty-banner-tall-transparent.png`
+            'standard': `${assetsURL}/zesty-default-mobile-phone-interstitial.png`,
+            'minimal': `${assetsURL}/zesty-default-mobile-phone-interstitial.png`,
+            'transparent': `${assetsURL}/zesty-default-mobile-phone-interstitial.png`
         }
     },
     'wide': {
         width: 4,
         height: 1,
         style: {
-            'standard': `${assetsURL}/zesty-banner-wide.png`,
-            'minimal': `${assetsURL}/zesty-banner-wide.png`,
-            'transparent': `${assetsURL}/zesty-banner-wide-transparent.png`
+            'standard': `${assetsURL}/zesty-default-billboard.png`,
+            'minimal': `${assetsURL}/zesty-default-billboard.png`,
+            'transparent': `${assetsURL}/zesty-default-billboard.png`
         }
     },
     'square': {
         width: 1,
         height: 1,
         style: {
-            'standard': `${assetsURL}/zesty-banner-square.png`,
-            'minimal': `${assetsURL}/zesty-banner-square.png`,
-            'transparent': `${assetsURL}/zesty-banner-square-transparent.png`
+            'standard': `${assetsURL}/zesty-default-med-rectangle.png`,
+            'minimal': `${assetsURL}/zesty-default-med-rectangle.png`,
+            'transparent': `${assetsURL}/zesty-default-med-rectangle.png`
         }
     }
 }

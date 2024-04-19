@@ -29,39 +29,19 @@ test.describe('Standard styles', () => {
   test('The tall standard banner is displaying the correct default image', async ({ page }) => {
     const banner = await page.locator('#banner1 > a-plane');
     const img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
-    expect(img.split('/').pop()).toBe('zesty-banner-tall.png');
+    expect(img.split('/').pop()).toBe('zesty-default-mobile-phone-interstitial.png');
   });
 
   test('The wide standard banner is displaying the correct default image', async ({ page }) => {
     const banner = await page.locator('#banner2 > a-plane');
     const img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
-    expect(img.split('/').pop()).toBe('zesty-banner-wide.png');
+    expect(img.split('/').pop()).toBe('zesty-default-billboard.png');
   });
 
   test('The square standard banner is displaying the correct default image', async ({ page }) => {
     const banner = await page.locator('#banner3 > a-plane');
     const img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
-    expect(img.split('/').pop()).toBe('zesty-banner-square.png');
-  });
-});
-
-test.describe('Transparent styles', () => {
-  test('The tall transparent banner is displaying the correct default image', async ({ page }) => {
-    const banner = await page.locator('#banner7 > a-plane');
-    const img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
-    expect(img.split('/').pop()).toBe('zesty-banner-tall-transparent.png');
-  });
-
-  test('The wide transparent banner is displaying the correct default image', async ({ page }) => {
-    const banner = await page.locator('#banner8 > a-plane');
-    const img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
-    expect(img.split('/').pop()).toBe('zesty-banner-wide-transparent.png');
-  });
-
-  test('The square transparent banner is displaying the correct default image', async ({ page }) => {
-    const banner = await page.locator('#banner9 > a-plane');
-    const img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
-    expect(img.split('/').pop()).toBe('zesty-banner-square-transparent.png');
+    expect(img.split('/').pop()).toBe('zesty-default-med-rect.png');
   });
 });
 

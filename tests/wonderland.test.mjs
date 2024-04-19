@@ -20,39 +20,19 @@ test.describe('Standard styles', () => {
   test('@skip The tall standard banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.testBanners[0].banner != null);
     const banner1 = await page.evaluate(() => window.testBanners[0].banner.imageSrc);
-    expect(banner1.split('/').pop()).toBe('zesty-banner-tall.png');
+    expect(banner1.split('/').pop()).toBe('zesty-default-mobile-phone-interstitial.png');
   });
 
   test('@skip The wide standard banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.testBanners[1].banner != null);
     const banner2 = await page.evaluate(() => window.testBanners[1].banner.imageSrc);
-    expect(banner2.split('/').pop()).toBe('zesty-banner-wide.png');
+    expect(banner2.split('/').pop()).toBe('zesty-default-billboard.png');
   });
 
   test('@skip The square standard banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.testBanners[2].banner != null);
     const banner3 = await page.evaluate(() => window.testBanners[2].banner.imageSrc);
-    expect(banner3.split('/').pop()).toBe('zesty-banner-square.png');
-  });
-});
-
-test.describe('Transparent styles', () => {
-  test('@skip The tall transparent banner is present', async ({ page }) => {
-    await page.waitForFunction(() => window.testBanners[6].banner != null);
-    const banner7 = await page.evaluate(() => window.testBanners[6].banner.imageSrc);
-    expect(banner7.split('/').pop()).toBe('zesty-banner-tall-transparent.png');
-  });
-
-  test('@skip The wide transparent banner is present', async ({ page }) => {
-    await page.waitForFunction(() => window.testBanners[7].banner != null);
-    const banner8 = await page.evaluate(() => window.testBanners[7].banner.imageSrc);
-    expect(banner8.split('/').pop()).toBe('zesty-banner-wide-transparent.png');
-  });
-
-  test('@skip The square transparent banner is present', async ({ page }) => {
-    await page.waitForFunction(() => window.testBanners[8].banner != null);
-    const banner9 = await page.evaluate(() => window.testBanners[8].banner.imageSrc);
-    expect(banner9.split('/').pop()).toBe('zesty-banner-square-transparent.png');
+    expect(banner3.split('/').pop()).toBe('zesty-default-med-rectangle.png');
   });
 });
 

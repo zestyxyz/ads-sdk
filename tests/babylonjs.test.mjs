@@ -21,7 +21,7 @@ test.describe('Standard styles', () => {
     const banner1 = await page.evaluate(
       () => window.scene.meshes[4].material.diffuseTexture.name
     );
-    expect(banner1.split('/').pop()).toBe('zesty-banner-tall.png');
+    expect(banner1.split('/').pop()).toBe('zesty-default-mobile-phone-interstitial.png');
   });
 
   test('The wide standard banner is present', async ({ page }) => {
@@ -29,7 +29,7 @@ test.describe('Standard styles', () => {
     const banner2 = await page.evaluate(
       () => window.scene.meshes[5].material.diffuseTexture.name
     );
-    expect(banner2.split('/').pop()).toBe('zesty-banner-wide.png');
+    expect(banner2.split('/').pop()).toBe('zesty-default-billboard.png');
   });
 
   test('The square standard banner is present', async ({ page }) => {
@@ -37,33 +37,7 @@ test.describe('Standard styles', () => {
     const banner3 = await page.evaluate(
       () => window.scene.meshes[6].material.diffuseTexture.name
     );
-    expect(banner3.split('/').pop()).toBe('zesty-banner-square.png');
-  });
-});
-
-test.describe('Transparent styles', () => {
-  test('The tall transparent banner is present', async ({ page }) => {
-    await page.waitForFunction(() => window.scene.meshes[10].material != null);
-    const banner7 = await page.evaluate(
-      () => window.scene.meshes[10].material.diffuseTexture.name
-    );
-    expect(banner7.split('/').pop()).toBe('zesty-banner-tall-transparent.png');
-  });
-
-  test('The wide transparent banner is present', async ({ page }) => {
-    await page.waitForFunction(() => window.scene.meshes[11].material != null);
-    const banner8 = await page.evaluate(
-      () => window.scene.meshes[11].material.diffuseTexture.name
-    );
-    expect(banner8.split('/').pop()).toBe('zesty-banner-wide-transparent.png');
-  });
-
-  test('The square transparent banner is present', async ({ page }) => {
-    await page.waitForFunction(() => window.scene.meshes[12].material != null);
-    const banner9 = await page.evaluate(
-      () => window.scene.meshes[12].material.diffuseTexture.name
-    );
-    expect(banner9.split('/').pop()).toBe('zesty-banner-square-transparent.png');
+    expect(banner3.split('/').pop()).toBe('zesty-default-med-rectangle.png');
   });
 });
 

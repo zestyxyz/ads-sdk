@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { fetchCampaignAd } from '../../utils/networking.js';
 
-const DEFAULT_BANNER = 'https://cdn.zesty.xyz/images/zesty/zesty-banner-tall.png'
+const DEFAULT_BANNER = 'https://cdn.zesty.xyz/images/zesty/zesty-default-mobile-phone-interstitial.png'
 
 const MOCK_IFRAME_SETUP = {
   window: {

@@ -41,7 +41,7 @@ test.describe('Standard styles', () => {
   test('The square standard banner is displaying the correct default image', async ({ page }) => {
     const banner = await page.locator('#banner3 > a-plane');
     const img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
-    expect(img.split('/').pop()).toBe('zesty-default-med-rect.png');
+    expect(img.split('/').pop()).toBe('zesty-default-medium-rectangle.png');
   });
 });
 

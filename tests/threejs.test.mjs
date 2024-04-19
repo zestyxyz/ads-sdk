@@ -31,7 +31,7 @@ test.describe('Standard styles', () => {
   test('The square standard banner is present', async ({ page }) => {
     await page.waitForFunction(() => window.scene.children[2].banner.src != null);
     const banner3 = await page.evaluate(() => window.scene.children[2].banner.src);
-    expect(banner3.split('/').pop()).toBe('zesty-default-med-rectangle.png');
+    expect(banner3.split('/').pop()).toBe('zesty-default-medium-rectangle.png');
   });
 });
 

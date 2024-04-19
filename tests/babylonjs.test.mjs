@@ -37,7 +37,7 @@ test.describe('Standard styles', () => {
     const banner3 = await page.evaluate(
       () => window.scene.meshes[6].material.diffuseTexture.name
     );
-    expect(banner3.split('/').pop()).toBe('zesty-default-med-rectangle.png');
+    expect(banner3.split('/').pop()).toBe('zesty-default-medium-rectangle.png');
   });
 });
 

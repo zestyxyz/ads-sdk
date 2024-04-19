@@ -48,9 +48,9 @@ namespace Zesty
 
         // Square
         static string[] squareImages = {
-            $"{Constants.CDN_URL}/images/zesty/zesty-default-med-rectangle.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-default-med-rectangle.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-default-med-rectangle.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-medium-rectangle.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-medium-rectangle.png",
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-medium-rectangle.png",
         };
         public static Format Square = new Format(1, 1, squareImages);
 

@@ -15225,7 +15225,7 @@ var ge = l((Vn, It) => {
 });
 var W = Ae(ge(), 1);
 var R = "https://cdn.zesty.xyz/images/zesty";
-var B = { tall: { width: 0.75, height: 1, style: { standard: `${R}/zesty-default-mobile-phone-interstitial.png`, minimal: `${R}/zesty-default-mobile-phone-interstitial.png`, transparent: `${R}/zesty-default-mobile-phone-interstitial.png` } }, wide: { width: 4, height: 1, style: { standard: `${R}/zesty-default-billboard.png`, minimal: `${R}/zesty-default-billboard.png`, transparent: `${R}/zesty-default-billboard.png` } }, square: { width: 1, height: 1, style: { standard: `${R}/zesty-default-med-rectangle.png`, minimal: `${R}/zesty-default-med-rectangle.png`, transparent: `${R}/zesty-default-med-rectangle.png` } } };
+var B = { tall: { width: 0.75, height: 1, style: { standard: `${R}/zesty-default-mobile-phone-interstitial.png`, minimal: `${R}/zesty-default-mobile-phone-interstitial.png`, transparent: `${R}/zesty-default-mobile-phone-interstitial.png` } }, wide: { width: 4, height: 1, style: { standard: `${R}/zesty-default-billboard.png`, minimal: `${R}/zesty-default-billboard.png`, transparent: `${R}/zesty-default-billboard.png` } }, square: { width: 1, height: 1, style: { standard: `${R}/zesty-default-medium-rectangle.png`, minimal: `${R}/zesty-default-medium-rectangle.png`, transparent: `${R}/zesty-default-medium-rectangle.png` } } };
 var on = Ae(ge(), 1);
 var be = () => {
   let t = window.XRHand != null && window.XRMediaBinding != null, e = navigator.userAgent.includes("OculusBrowser"), r = t && e ? "Full" : t || e ? "Partial" : "None";

@@ -23,9 +23,9 @@ const formats = {
         width: 1,
         height: 1,
         style: {
-            'standard': `${assetsURL}/zesty-default-med-rectangle.png`,
-            'minimal': `${assetsURL}/zesty-default-med-rectangle.png`,
-            'transparent': `${assetsURL}/zesty-default-med-rectangle.png`
+            'standard': `${assetsURL}/zesty-default-medium-rectangle.png`,
+            'minimal': `${assetsURL}/zesty-default-medium-rectangle.png`,
+            'transparent': `${assetsURL}/zesty-default-medium-rectangle.png`
         }
     }
 }

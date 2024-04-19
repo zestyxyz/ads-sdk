@@ -39,7 +39,7 @@ test.describe('Standard styles', () => {
     const banner3 = await page.evaluate(
       () => document.getElementById('banner3').shadowRoot.children[0].src
     );
-    expect(banner3.split('/').pop()).toBe('zesty-default-med-rectangle.png');
+    expect(banner3.split('/').pop()).toBe('zesty-default-medium-rectangle.png');
   });
 });
 

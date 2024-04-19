@@ -45,6 +45,17 @@ async function createBanner(el, adUnit, format, style, height, beacon) {
     scene.appendChild(assets);
   }
 
+  const plane = document.createElement('a-plane');
+  plane.setAttribute('src', `${formats[format].style[style]}`);
+  plane.setAttribute('width', formats[format].width * height);
+  plane.setAttribute('height', height);
+  // for textures that are 1024x1024, not setting this causes white border
+  plane.setAttribute('transparent', 'true');
+  plane.setAttribute('shader', 'flat');
+  plane.setAttribute('side', 'double');
+  plane.setAttribute('class', 'clickable'); // required for BE
+  el.appendChild(plane);
+
   const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
     if (banner.img) {
       assets.appendChild(banner.img);
@@ -52,48 +63,9 @@ async function createBanner(el, adUnit, format, style, height, beacon) {
     return banner;
   });
 
-  bannerPromise.then(banner => {
-    // don't attach plane if element's visibility is false
-    if (el.getAttribute('visible') !== false) {
-      const plane = document.createElement('a-plane');
-      if (banner.img) {
-        plane.setAttribute('src', `#${banner.img.id}`);
-        plane.setAttribute('width', formats[format].width * height);
-        plane.setAttribute('height', height);
-        // for textures that are 1024x1024, not setting this causes white border
-        plane.setAttribute('transparent', 'true');
-        plane.setAttribute('shader', 'flat');
-      } else {
-        // No banner to display, hide the plane texture while still leaving it accessible to raycasters
-        plane.setAttribute('material', 'opacity: 0');
-      }
-      plane.setAttribute('side', 'double');
-      plane.setAttribute('class', 'clickable'); // required for BE
-
-      if (beacon) {
-        sendOnLoadMetric(adUnit, banner.campaignId);
-      }
-
-      // handle clicks
-      plane.onclick = async () => {
-        const scene = document.querySelector('a-scene');
-        await scene.exitVR();
-        // Open link in new tab
-        if (banner.url) {
-          openURL(banner.url);
-          if (beacon) {
-            sendOnClickMetric(adUnit, banner.campaignId);
-          }
-        }
-      };
-      el.appendChild(plane);
-
-      // Set ad properties
-      el.bannerURI = banner.uri;
-      el.imgSrc = banner.img.src;
-      el.url = banner.cta;
-    }
-  })
+  //setInterval(() => {
+    bannerPromise.then(banner => updateBanner(banner, plane, el, adUnit, format, style, height, beacon));
+  //}, 5000);
 }
 
 async function loadBanner(adUnit, format, style) {
@@ -112,6 +84,45 @@ async function loadBanner(adUnit, format, style) {
     });
   } else {
     return { id: 'blank' };
+  }
+}
+
+async function updateBanner(banner, plane, el, adUnit, format, style, height, beacon) {
+  // don't attach plane if element's visibility is false
+  if (el.getAttribute('visible') !== false) {
+    if (banner.img) {
+      plane.setAttribute('src', `#${banner.img.id}`);
+      plane.setAttribute('width', formats[format].width * height);
+      plane.setAttribute('height', height);
+      // for textures that are 1024x1024, not setting this causes white border
+      plane.setAttribute('transparent', 'true');
+      plane.setAttribute('shader', 'flat');
+    } else {
+      // No banner to display, hide the plane texture while still leaving it accessible to raycasters
+      //plane.setAttribute('material', 'opacity: 0');
+    }
+
+    if (beacon) {
+      sendOnLoadMetric(adUnit, banner.campaignId);
+    }
+
+    // handle clicks
+    plane.onclick = async () => {
+      const scene = document.querySelector('a-scene');
+      await scene.exitVR();
+      // Open link in new tab
+      if (banner.url) {
+        openURL(banner.url);
+        if (beacon) {
+          sendOnClickMetric(adUnit, banner.campaignId);
+        }
+      }
+    };
+
+    // Set ad properties
+    el.bannerURI = banner.uri;
+    el.imgSrc = banner.img.src;
+    el.url = banner.cta;
   }
 }
 

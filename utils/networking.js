@@ -12,6 +12,8 @@ const DB_ENDPOINT = 'https://api.zesty.market/api';
 
 //const sessionId = uuidv4();
 
+// Prebid variables
+let prebidInit = false;
 let interval = null;
 const retryCount = 4;
 let currentTries = 0;
@@ -20,19 +22,11 @@ let iframe = null;
 let ready = false;
 let bids = null;
 
-function getPrebidWinnerInfo() {
-  const winner = bids;
-  const regex = /(?:https:\/\/)[^\s"']+?(?=["']|\s)/g;
-  const matches = winner.match(regex);
-
-  return { asset_url: matches[1], cta_url: matches[0] };
-}
-
-const initPrebid = (adUnitId) => {
+const initPrebid = (format) => {
   // Load zesty prebid iframe
   iframe = document.createElement('iframe');
-  iframe.src = 'https://www.zesty.xyz/prebid.html'
-  document.body.appendChild(iframe);
+  iframe.src = 'https://www.zesty.xyz/prebid/?size=' + format + '&source=' + Math.round(Math.random());
+  document.body.prepend(iframe);
   iframe.onload = () => {
     iframe.contentWindow.postMessage({ type: 'readycheck' }, '*');
   }
@@ -44,8 +38,12 @@ const initPrebid = (adUnitId) => {
       case 'bids':
         bids = data.content;
         break;
+      case 'refreshing':
+        console.log(data.content);
+        break;
     }
   });
+  prebidInit = true;
 }
 
 const getDefaultBanner = (format, style) => {
@@ -53,15 +51,19 @@ const getDefaultBanner = (format, style) => {
 }
 
 const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {
-  initPrebid(adUnitId, format, style);
+  if (!prebidInit) {
+    initPrebid(adUnitId, format, style);
+  } else {
+    bids = null;
+    iframe.contentWindow.postMessage({ type: 'refresh' }, '*');
+  }
 
   return new Promise((res, rej) => {
     interval = setInterval(async () => {
       if (bids && bids.length > 0) {
         // Clear the interval and grab the image+url from the prebid ad
         clearInterval(interval);
-        const { asset_url, cta_url } = getPrebidWinnerInfo();
-        console.log(asset_url, cta_url);
+        const { asset_url, cta_url } = JSON.parse(bids);
         res({ Ads: [{ asset_url, cta_url }], CampaignId: 'TestCampaign' });
       } else {
         // Wait to see if we get any winning bids. If we hit max retry count, fallback to Zesty ad server

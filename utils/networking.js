@@ -46,20 +46,34 @@ const initPrebid = (format) => {
   prebidInit = true;
 }
 
+const isV3Beta = (adUnitId) => {
+  const units = [
+    '4902864a-5531-496b-8d4d-ec7b9849e8e1',
+    '14dccdbe-18b7-40d0-93d8-c104fd9486e8',
+  ];
+  return units.includes(adUnitId);
+}
+
 const getDefaultBanner = (format, style) => {
   return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'TestCampaign' }
 }
 
 const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {
-  if (!prebidInit) {
-    initPrebid(adUnitId, format, style);
-  } else {
-    bids = null;
-    iframe.contentWindow.postMessage({ type: 'refresh' }, '*');
+  if (isV3Beta(adUnitId)) {
+    if (!prebidInit) {
+      initPrebid(adUnitId, format, style);
+    } else {
+      bids = null;
+      iframe.contentWindow.postMessage({ type: 'refresh' }, '*');
+    }
   }
 
   return new Promise((res, rej) => {
     interval = setInterval(async () => {
+      // If not in beta, skip directly to ad server fallback
+      if (!isV3Beta(adUnitId)) {
+        currentTries = retryCount - 1;
+      }
       if (bids && bids.length > 0) {
         // Clear the interval and grab the image+url from the prebid ad
         clearInterval(interval);

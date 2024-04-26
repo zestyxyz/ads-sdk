@@ -1,16 +1,4 @@
 /**
- * Parses ipfs:// and ar:// links and IPFS hashes to URLs.
- * @param {String} uri The ipfs:// link or IPFS hash.
- * @returns A formatted URL to the IPFS resource.
- */
-export function parseProtocol(uri: string): string;
-/**
- * Retrieves an IPFS gateway to alleviate rate-throttling from using only a single gateway.
- * Selection is weighted random based on average latency.
- * @returns A weighted random public IPFS gateway
- */
-export function getIPFSGateway(): string;
-/**
  * For each of the following browser checking functions, we have a match with a
  * confidence of "Full" if both the feature detection check and user agent check
  * come back true. If only one of them comes back true, we have a match with a confidence

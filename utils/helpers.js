@@ -1,58 +1,3 @@
-import axios from 'axios';
-
-/**
- * Parses ipfs:// and ar:// links and IPFS hashes to URLs.
- * @param {String} uri The ipfs:// link or IPFS hash.
- * @returns A formatted URL to the IPFS resource.
- */
-const parseProtocol = uri => {
-  if (uri.substring(0,4) === "ipfs") {
-    return `https://ipfs.zesty.market/ipfs/${uri.substring(7)}`;
-  } else if (uri.substring(0,4) === "http") {
-    return uri;
-  } else if (uri.substring(0,5) === "https") {
-    return uri;
-  } else if (uri.substring(0,2) === "ar") {
-    // get redirected url
-    axios.get(`https://arweave.net/${uri.substring(5)}`)
-      .then(res => {
-        return res.url;
-      })
-      .catch(err => {
-        console.error(err);
-      })
-
-  } else {
-    // default to ipfs
-    return `https://ipfs.zesty.market/ipfs/${uri}`;
-  }
-}
-
-/**
- * Retrieves an IPFS gateway to alleviate rate-throttling from using only a single gateway.
- * Selection is weighted random based on average latency.
- * @returns A weighted random public IPFS gateway
- */
-const getIPFSGateway = () => {
-  // Temporarily re-weighting for ease of testing during V2 migration
-  const gateways = [
-    { gateway: 'https://ipfs.filebase.io', weight: 34 },
-    { gateway: 'https://cloudflare-ipfs.com', weight: 33 },
-    { gateway: 'https://gateway.pinata.cloud', weight: 33 },
-  ];
-
-  const weights = [];
-  let i;
-  for (i = 0; i < gateways.length; i++) {
-    weights[i] = gateways[i].weight + (weights[i - 1] || 0);
-  }
-  const random = Math.random() * weights[weights.length - 1];
-  for (i = 0; i < weights.length; i++) {
-    if (weights[i] > random) break;
-  }
-  return gateways[i].gateway;
-}
-
 /**
  * For each of the following browser checking functions, we have a match with a
  * confidence of "Full" if both the feature detection check and user agent check
@@ -218,8 +163,6 @@ const appendUTMParams = (url, spaceId) => {
 }
 
 export {
-  parseProtocol,
-  getIPFSGateway,
   checkOculusBrowser,
   checkWolvicBrowser,
   checkPicoBrowser,

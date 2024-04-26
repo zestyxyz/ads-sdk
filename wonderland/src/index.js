@@ -43,7 +43,7 @@ export class ZestyBanner extends Component {
     /* Whether to assign the banner to the alphaMaskTexture property of the material */
     assignAlphaMaskTexture: Property.bool(true),
     beacon: Property.bool(true),
-    /* Load IPFS gateways and default image uris at runtime, if false at build time */
+    /* Load default image uris at runtime, if false at build time */
     dynamicFormats: Property.bool(true),
     /* Automatically creates a collision and cursor-target components, if there isn't one */
     createAutomaticCollision: Property.bool(true),

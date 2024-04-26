@@ -15,17 +15,22 @@ const DB_ENDPOINT = 'https://api.zesty.market/api';
 // Prebid variables
 let prebidInit = false;
 let interval = null;
-const retryCount = 4;
+const retryCount = 10;
 let currentTries = 0;
 /** @type {HTMLIFrameElement} */
 let iframe = null;
 let ready = false;
 let bids = null;
 
-const initPrebid = (format) => {
+const initPrebid = (adUnitId, format) => {
   // Load zesty prebid iframe
   iframe = document.createElement('iframe');
-  iframe.src = 'https://www.zesty.xyz/prebid/?size=' + format + '&source=' + Math.round(Math.random());
+  iframe.src = `https://www.zesty.xyz/prebid/?size=${format}&source=${Math.round(Math.random())}&ad_unit_id=${adUnitId}`;
+  iframe.width = '1';
+  iframe.height = '1';
+  iframe.style.position = 'fixed';
+  iframe.style.border = 'none';
+  iframe.style.zIndex = '-2';
   document.body.prepend(iframe);
   iframe.onload = () => {
     iframe.contentWindow.postMessage({ type: 'readycheck' }, '*');
@@ -39,7 +44,7 @@ const initPrebid = (format) => {
         bids = data.content;
         break;
       case 'refreshing':
-        console.log(data.content);
+        // TODO: Implement ad refreshing
         break;
     }
   });
@@ -55,7 +60,7 @@ const isV3Beta = (adUnitId) => {
 }
 
 const getDefaultBanner = (format, style) => {
-  return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'TestCampaign' }
+  return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'DefaultCampaign' }
 }
 
 const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {
@@ -78,7 +83,7 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
         // Clear the interval and grab the image+url from the prebid ad
         clearInterval(interval);
         const { asset_url, cta_url } = JSON.parse(bids);
-        res({ Ads: [{ asset_url, cta_url }], CampaignId: 'TestCampaign' });
+        res({ Ads: [{ asset_url, cta_url }], CampaignId: 'Prebid' });
       } else {
         // Wait to see if we get any winning bids. If we hit max retry count, fallback to Zesty ad server
         currentTries++;

@@ -51,22 +51,29 @@ const initPrebid = (adUnitId, format) => {
   prebidInit = true;
 }
 
+const betaUnits = [
+  { id: '4902864a-5531-496b-8d4d-ec7b9849e8e1', format: 'mobile-phone-interstitial' },
+  { id: '14dccdbe-18b7-40d0-93d8-c104fd9486e8', format: 'medium-rectangle' },
+];
+
 const isV3Beta = (adUnitId) => {
-  const units = [
-    '4902864a-5531-496b-8d4d-ec7b9849e8e1',
-    '14dccdbe-18b7-40d0-93d8-c104fd9486e8',
-  ];
-  return units.includes(adUnitId);
+  return betaUnits.some(betaUnit => betaUnit.id === adUnitId);
 }
 
-const getDefaultBanner = (format, style) => {
-  return { Ads: [{ asset_url: formats[format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'DefaultCampaign' }
+const getV3BetaFormat = (adUnitId) => {
+  return betaUnits.find(unit => unit.id === adUnitId)?.format;
+}
+
+const getDefaultBanner = (format, style, isBeta, betaFormat) => {
+  return { Ads: [{ asset_url: formats[isBeta ? betaFormat : format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'DefaultCampaign' }
 }
 
 const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {
-  if (isV3Beta(adUnitId)) {
+  const isBeta = isV3Beta(adUnitId);
+  const betaFormat = getV3BetaFormat(adUnitId);
+  if (isBeta) {
     if (!prebidInit) {
-      initPrebid(adUnitId, format, style);
+      initPrebid(adUnitId, betaFormat, style);
     } else {
       bids = null;
       iframe.contentWindow.postMessage({ type: 'refresh' }, '*');
@@ -76,7 +83,7 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
   return new Promise((res, rej) => {
     interval = setInterval(async () => {
       // If not in beta, skip directly to ad server fallback
-      if (!isV3Beta(adUnitId)) {
+      if (!isBeta) {
         currentTries = retryCount - 1;
       }
       if (bids && bids.length > 0) {
@@ -96,11 +103,11 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
               res(res.data);
             else {
               // No active campaign, just display default banner
-              res(getDefaultBanner(format, style));
+              res(getDefaultBanner(format, style, isBeta, betaFormat));
             }
           } catch {
             console.warn('Could not retrieve an active campaign banner. Retrieving default banner.')
-            res(getDefaultBanner(format, style));
+            res(getDefaultBanner(format, style, isBeta, betaFormat));
           }
         }
       }

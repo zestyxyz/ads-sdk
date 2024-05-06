@@ -162,4 +162,4 @@ const analyticsSession = async (spaceId, campaignId) => {
   }
 }
 
-export { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession };
+export { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession, isV3Beta, getV3BetaFormat };

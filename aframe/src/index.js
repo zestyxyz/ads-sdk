@@ -5,6 +5,8 @@ import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
 import './visibility_check';
 import { version } from '../package.json';
+import { isV3Beta } from '../../utils/networking';
+import { getV3BetaFormat } from '../../utils/networking';
 
 console.log('Zesty SDK Version: ', version);
 
@@ -38,6 +40,9 @@ AFRAME.registerComponent('zesty-banner', {
 });
 
 async function createBanner(el, adUnit, format, style, height, beacon) {
+  const isBeta = isV3Beta(adUnit);
+  const betaFormat = getV3BetaFormat(adUnit);
+
   const scene = document.querySelector('a-scene');
   let assets = scene.querySelector('a-assets');
   if (!assets) {
@@ -46,8 +51,8 @@ async function createBanner(el, adUnit, format, style, height, beacon) {
   }
 
   const plane = document.createElement('a-plane');
-  plane.setAttribute('src', `${formats[format].style[style]}`);
-  plane.setAttribute('width', formats[format].width * height);
+  plane.setAttribute('src', `${formats[isBeta ? betaFormat : format].style[style]}`);
+  plane.setAttribute('width', formats[isBeta ? betaFormat : format].width * height);
   plane.setAttribute('height', height);
   // for textures that are 1024x1024, not setting this causes white border
   plane.setAttribute('transparent', 'true');

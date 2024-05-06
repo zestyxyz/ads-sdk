@@ -81,21 +81,19 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
   }
 
   return new Promise((res, rej) => {
-    interval = setInterval(async () => {
+    async function getBanner() {
       // If not in beta, skip directly to ad server fallback
       if (!isBeta) {
         currentTries = retryCount - 1;
       }
       if (bids && bids.length > 0) {
         // Clear the interval and grab the image+url from the prebid ad
-        clearInterval(interval);
         const { asset_url, cta_url } = JSON.parse(bids);
         res({ Ads: [{ asset_url, cta_url }], CampaignId: 'Prebid' });
       } else {
         // Wait to see if we get any winning bids. If we hit max retry count, fallback to Zesty ad server
         currentTries++;
         if (currentTries == retryCount) {
-          clearInterval(interval);
           try {
             const url = encodeURI(window.top.location.href).replace(/\/$/, ''); // If URL ends with a slash, remove it
             const res = await axios.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}&url=${url}`);
@@ -109,9 +107,12 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
             console.warn('Could not retrieve an active campaign banner. Retrieving default banner.')
             res(getDefaultBanner(format, style, isBeta, betaFormat));
           }
+        } else {
+          setTimeout(getBanner, 1000);
         }
       }
-    }, 1000);
+    }
+    getBanner();
   });
 }
 

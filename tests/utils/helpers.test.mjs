@@ -1,17 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { checkOculusBrowser, checkWolvicBrowser, checkPicoBrowser, parseProtocol } from '../../utils/helpers.js';
+import { checkOculusBrowser, checkWolvicBrowser, checkPicoBrowser } from '../../utils/helpers.js';
 
-const IPFS_TEST_URI = 'test';
-const IPFS_TEST_URL = 'ipfs://test';
-
-test.describe('parseProtocol', async () => {
-  test('parseProtocol should return a valid HTTPS URL if given an IPFS URI', async () => {
-    expect(parseProtocol(IPFS_TEST_URI)).toBe('https://ipfs.zesty.market/ipfs/test');
-  });
-  test('parseProtocol should return a valid HTTPS URL if given an ipfs:// URL', async () => {
-    expect(parseProtocol(IPFS_TEST_URL)).toBe('https://ipfs.zesty.market/ipfs/test');
-  });
-});
 
 test.describe('checkOculusBrowser', async () => {
   test.beforeEach(async ({ page }) => {

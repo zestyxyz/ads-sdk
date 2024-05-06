@@ -37,7 +37,7 @@ WL.registerComponent(
      * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
     textureProperty: { type: WL.Type.String, default: 'auto' },
     beacon: { type: WL.Type.Bool, default: true },
-    /* Load IPFS gateways and default image uris at runtime, if false at build time */
+    /* Load default image uris at runtime, if false at build time */
     dynamicFormats: { type: WL.Type.Bool, default: true },
     /* Automatically creates a collision and cursor-target components, if there isn't one */
     createAutomaticCollision: { type: WL.Type.Bool, default: true },

@@ -26,12 +26,15 @@
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
     "@react-three/fiber": "^8.9.2",
-    "@react-three/xr": "^5.1.2",
+    "@react-three/xr": "^5.7.1",
     "babel-loader": "^8.2.5",
     "react": "^18.0.2",
-    "three": "^0.148.0",
+    "three": "^0.162.0",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.2"
+  },
+  "peerDependencies": {
+    "three": "^0.151.0"
   }
 }

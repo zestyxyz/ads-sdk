@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { useRef, useState, Suspense, useEffect } from 'react';
-import { useLoader, useThree } from '@react-three/fiber';
+import React, { useRef, useState, useEffect } from 'react';
+import { useThree } from '@react-three/fiber';
 import { Interactive } from '@react-three/xr';
 import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
@@ -13,6 +13,9 @@ console.log('Zesty SDK Version: ', version);
 
 export default function ZestyBanner(props) {
   const [bannerData, setBannerData] = useState(false);
+  const [material, setMaterial] = useState(new THREE.MeshBasicMaterial());
+  const mesh = useRef();
+  const { gl } = useThree();
 
   const adUnit = props.adUnit;
   const format = props.format ?? defaultFormat;
@@ -36,53 +39,32 @@ export default function ZestyBanner(props) {
     });
   }, [adUnit]);
 
-  return (
-    <Suspense fallback={null}>
-      {bannerData && (
-        <BannerPlane
-          {...props}
-          bannerData={bannerData}
-          newAdUnit={adUnit}
-          newFormat={format}
-          width={width}
-          height={height}
-        />
-      )}
-    </Suspense>
-  );
-}
-
-function BannerPlane(props) {
-  const mesh = useRef();
-  const { gl } = useThree();
-  let texture;
-
-  if (!props.bannerData.image) return null;
-
-  try {
-    texture = useLoader(THREE.TextureLoader, props.bannerData.image);
-  } catch {
-    return null;
-  }
+  useEffect(() => {
+    if (bannerData) {
+      new THREE.TextureLoader().load(bannerData.image, tex => {
+        const material = new THREE.MeshBasicMaterial({ map: tex, transparent: true });
+        setMaterial(material);
+      });
+    }
+  }, [bannerData]);
 
   const onClick = (event) => {
-    const banner = props.bannerData.data;
+    const banner = bannerData;
     let url = banner.url || banner.properties?.url;
     if (gl.xr.isPresenting) {
       const session = gl.xr.getSession();
       if (session) session.end();
     }
     openURL(url);
-    if (props.beacon) sendOnClickMetric(props.newAdUnit, props.bannerData.campaignId);
+    if (props.beacon) sendOnClickMetric(props.adUnit, bannerData.campaignId);
   };
 
   return (
     <Interactive onSelect={onClick}>
-      <mesh {...props} ref={mesh} scale={0.5} onClick={onClick}>
+      <mesh {...props} ref={mesh} scale={0.5} onClick={onClick} material={material}>
         <planeGeometry
-          args={[formats[props.newFormat].width * props.height, props.height]}
+          args={[formats[format].width * height, height]}
         />
-        <meshBasicMaterial map={texture} transparent={true} />
       </mesh>
     </Interactive>
   );

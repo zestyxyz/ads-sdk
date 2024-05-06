@@ -27,10 +27,31 @@ const formats = {
             'minimal': `${assetsURL}/zesty-banner-square-minimal.png`,
             'transparent': `${assetsURL}/zesty-banner-square-transparent.png`
         }
+    },
+    'mobile-phone-interstitial': {
+        width: 0.56,
+        height: 1,
+        style: {
+            'standard': `${assetsURL}/zesty-default-mobile-phone-interstitial.png`,
+        }
+    },
+    'billboard': {
+        width: 3.88,
+        height: 1,
+        style: {
+            'standard': `${assetsURL}/zesty-default-billboard.png`,
+        }
+    },
+    'medium-rectangle': {
+        width: 1.2,
+        height: 1,
+        style: {
+            'standard': `${assetsURL}/zesty-default-medium-rectangle.png`,
+        }
     }
 }
 
-const defaultFormat = 'square';
+const defaultFormat = 'medium-rectangle';
 const defaultStyle = 'standard';
 
 export { formats, defaultFormat, defaultStyle };

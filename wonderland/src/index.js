@@ -129,10 +129,10 @@ export class ZestyBanner extends Component {
       const m = this.mesh.material.clone();
       if (this.textureProperty === 'auto') {
         const pipeline = m.shader;
-        if (pipeline === 'Phong Opaque Textured') {
+        if (m.diffuseTexture) {
           m.diffuseTexture = banner.texture;
           m.alphaMaskThreshold = 0.3;
-        } else if (pipeline === 'Flat Opaque Textured') {
+        } else if (m.flatTexture) {
           m.flatTexture = banner.texture;
           m.alphaMaskThreshold = 0.8;
         } else {

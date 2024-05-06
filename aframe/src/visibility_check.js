@@ -120,7 +120,7 @@ function getDistanceToCamera(object, camera, sceneEl) {
   }
 
   if (sceneEl.is('vr-mode')) {
-    const currentCameraPose = sceneEl.renderer.xr.getCameraPose();
+    const currentCameraPose = sceneEl.renderer.xr.getCamera();
     const position = currentCameraPose.transform.position;
 
     // Adding parent position to Camera in WebXR space
@@ -152,7 +152,7 @@ AFRAME.registerComponent('visibility-check', {
     this.sceneEl = document.querySelector('a-scene');
     this.scene = this.sceneEl.object3D;
 
-    this.ad = this.el.components['zesty-ad'];
+    this.ad = this.el.components['zesty-banner'];
 
     this.lastVisible = null;
     this.durationThreshold = 10000;

@@ -1,4 +1,5 @@
 ﻿using SimpleJSON;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -36,6 +37,8 @@ namespace Zesty
         [DllImport("__Internal")] private static extern void _sendOnLoadMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _sendOnClickMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _open(string url);
+        [DllImport("__Internal")] private static extern void _initPrebid(string adUnitId);
+        [DllImport("__Internal")] private static extern string _tryGetWinningBidInfo();
         string bannerTextureURL;
         string campaignId = "";
 
@@ -45,7 +48,17 @@ namespace Zesty
         void Start() {
             m_Renderer = GetComponent<MeshRenderer>();
             m_Collider = GetComponent<MeshCollider>();
-            FetchCampaignAd();
+            if (Constants.PREBID)
+            {
+#if !UNITY_EDITOR
+                _initPrebid(adUnit);
+                StartCoroutine(TryGetWinningBidInfo());
+#endif
+            }
+            else
+            {
+                FetchCampaignAd();
+            }
         }
 
         /// <summary>
@@ -101,10 +114,15 @@ namespace Zesty
             }
             else if (bannerInfo.Ads.Count > 0)
             {
+                Debug.Log("Should be setting banner info now");
                 bannerTextureURL = bannerInfo.Ads[0].asset_url;
                 StartCoroutine(API.GetTexture(bannerTextureURL, SetTexture));
                 SetURL(bannerInfo.Ads[0].cta_url);
                 campaignId = bannerInfo.CampaignId;
+            }
+            else
+            {
+                Debug.Log("Couldn't set banner info");
             }
 
             if (beaconEnabled)
@@ -125,10 +143,15 @@ namespace Zesty
         /// <param name="texture">The texture to set the banner to.</param>
         public void SetTexture(Texture texture) {
             if (texture != null) {
+                Debug.Log("Should be setting texture now");
                 Material bannerMaterial = new Material(runtimeBanner);
                 m_Renderer.sharedMaterial = bannerMaterial;
                 bannerMaterial.mainTexture = texture;
                 bannerLoadedSuccessfully = true;
+            }
+            else
+            {
+                Debug.Log("Failed to set texture");
             }
         }
 
@@ -193,7 +216,41 @@ namespace Zesty
                     gameObject.GetComponent<Renderer>().material = placeholderMaterials[2];
                     break;
             }
+        }
 
+        private IEnumerator TryGetWinningBidInfo()
+        {
+            for (int i = 0; i < Constants.MAX_PREBID_RETRIES; i++)
+            {
+                string json = _tryGetWinningBidInfo();
+                Debug.Log(json);
+                if (json == "")
+                {
+                    yield return new WaitForSeconds(1);
+                }
+                else
+                {
+                    var response = JSON.Parse(json);
+                    BannerInfo bannerData = new BannerInfo();
+
+                    List<Ad> ads = new List<Ad>();
+                    for (int j = 0; j < response["Ads"].Count; j++)
+                    {
+                        Ad ad = new Ad();
+                        ad.asset_url = response["Ads"][j]["asset_url"];
+                        ad.cta_url = response["Ads"][j]["cta_url"];
+                        ads.Add(ad);
+                    }
+                    bannerData.Ads = ads;
+                    bannerData.CampaignId = response["CampaignId"];
+
+                    Debug.Log(bannerData);
+
+                    SetBannerInfo(bannerData);
+
+                    break;
+                }
+            }
         }
     }
 }

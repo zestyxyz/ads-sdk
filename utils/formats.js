@@ -33,8 +33,6 @@ const formats = {
         height: 1,
         style: {
             'standard': `${assetsURL}/zesty-default-mobile-phone-interstitial.png`,
-            'minimal': `${assetsURL}/zesty-default-mobile-phone-interstitial.png`,
-            'transparent': `${assetsURL}/zesty-default-mobile-phone-interstitial.png`
         }
     },
     'billboard': {
@@ -42,8 +40,6 @@ const formats = {
         height: 1,
         style: {
             'standard': `${assetsURL}/zesty-default-billboard.png`,
-            'minimal': `${assetsURL}/zesty-default-billboard.png`,
-            'transparent': `${assetsURL}/zesty-default-billboard.png`
         }
     },
     'medium-rectangle': {
@@ -51,8 +47,6 @@ const formats = {
         height: 1,
         style: {
             'standard': `${assetsURL}/zesty-default-medium-rectangle.png`,
-            'minimal': `${assetsURL}/zesty-default-medium-rectangle.png`,
-            'transparent': `${assetsURL}/zesty-default-medium-rectangle.png`
         }
     }
 }

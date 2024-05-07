@@ -1,6 +1,6 @@
-# zesty-ads-sdk
+# ads-sdk
 
-The Zesty Ads SDK allows developers to integrate their app into the Zesty Network. More [docs](https://zestyxyz.notion.site/Zesty-Market-Documentation-346d6f9aa8544cf9a5484c3ccf61523a)
+The Zesty Ads SDK allows developers to integrate their app into the Zesty Network. More [docs](https://docs.zesty.xyz)
 
 Currently, we support the following platforms:
 
@@ -11,10 +11,6 @@ Currently, we support the following platforms:
 - [web](https://github.com/zestyxyz/ads-sdk/tree/main/web)
 - [unity](https://github.com/zestyxyz/ads-sdk/tree/main/unity)
 - [wonderland](https://github.com/zestyxyz/ads-sdk/tree/main/wonderland)
-
-## What's Zesty?
-
-Zesty is an open and permissionless monetization protocol for creators of content. It is open in the sense that anyone can integrate our SDK to monetize their apps, without the permission of a centralized authority.
 
 ## Getting Started
 

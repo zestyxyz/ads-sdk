@@ -57,7 +57,7 @@ const betaUnits = [
 ];
 
 const getV3BetaUnitInfo = (adUnitId) => {
-  return betaUnits.find(unit => unit.id === adUnitId);
+  return betaUnits.find(unit => unit.id === adUnitId) || {};
 }
 
 const getDefaultBanner = (format, style, isBeta, betaFormat) => {

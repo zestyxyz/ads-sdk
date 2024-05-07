@@ -25,7 +25,7 @@ let bids = null;
 const initPrebid = (adUnitId, format) => {
   // Load zesty prebid iframe
   iframe = document.createElement('iframe');
-  iframe.src = `https://www.zesty.xyz/prebid/?size=${format}&source=${Math.round(Math.random())}&ad_unit_id=${adUnitId}`;
+  iframe.src = `https://www.zesty.xyz/prebid/?size=${format}&source=${Math.round(Math.random())}&ad_unit_id=${adUnitId}&utm_source=${adUnitId}`;
   iframe.width = '1';
   iframe.height = '1';
   iframe.style.position = 'fixed';

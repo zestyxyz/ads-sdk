@@ -1,0 +1,20 @@
+name: check-pr
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run: |
+          chmod +x scripts/build.sh
+          chmod +x scripts/deploy.sh
+          scripts/build.sh
+      - name: Test
+        run: |
+          cd ~/work/ads-sdk/ads-sdk
+          npx playwright install
+          yarn run test

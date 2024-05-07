@@ -52,16 +52,12 @@ const initPrebid = (adUnitId, format) => {
 }
 
 const betaUnits = [
-  { id: '4902864a-5531-496b-8d4d-ec7b9849e8e1', format: 'mobile-phone-interstitial' },
+  { id: '4902864a-5531-496b-8d4d-ec7b9849e8e1', format: 'medium-rectangle', absoluteWidth: 0.75, absoluteHeight: .625 },
   { id: '14dccdbe-18b7-40d0-93d8-c104fd9486e8', format: 'medium-rectangle' },
 ];
 
-const isV3Beta = (adUnitId) => {
-  return betaUnits.some(betaUnit => betaUnit.id === adUnitId);
-}
-
-const getV3BetaFormat = (adUnitId) => {
-  return betaUnits.find(unit => unit.id === adUnitId)?.format;
+const getV3BetaUnitInfo = (adUnitId) => {
+  return betaUnits.find(unit => unit.id === adUnitId);
 }
 
 const getDefaultBanner = (format, style, isBeta, betaFormat) => {
@@ -69,8 +65,8 @@ const getDefaultBanner = (format, style, isBeta, betaFormat) => {
 }
 
 const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {
-  const isBeta = isV3Beta(adUnitId);
-  const betaFormat = getV3BetaFormat(adUnitId);
+  const isBeta = betaUnits.find(unit => unit.id === adUnitId);
+  const { format: betaFormat } = getV3BetaUnitInfo(adUnitId);
   if (isBeta) {
     if (!prebidInit) {
       initPrebid(adUnitId, betaFormat, style);
@@ -162,4 +158,4 @@ const analyticsSession = async (spaceId, campaignId) => {
   }
 }
 
-export { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession };
+export { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession, getV3BetaUnitInfo };

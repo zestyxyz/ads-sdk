@@ -5,6 +5,7 @@ import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
 import './visibility_check';
 import { version } from '../package.json';
+import { getV3BetaUnitInfo } from '../../utils/networking';
 
 console.log('Zesty SDK Version: ', version);
 
@@ -38,6 +39,12 @@ AFRAME.registerComponent('zesty-banner', {
 });
 
 async function createBanner(el, adUnit, format, style, height, beacon) {
+  const {
+    format: adjustedFormat = format,
+    absoluteWidth: adjustedWidth = formats[format].width * height,
+    absoluteHeight: adjustedHeight = height
+  } = getV3BetaUnitInfo(adUnit);
+
   const scene = document.querySelector('a-scene');
   let assets = scene.querySelector('a-assets');
   if (!assets) {
@@ -46,9 +53,9 @@ async function createBanner(el, adUnit, format, style, height, beacon) {
   }
 
   const plane = document.createElement('a-plane');
-  plane.setAttribute('src', `${formats[format].style[style]}`);
-  plane.setAttribute('width', formats[format].width * height);
-  plane.setAttribute('height', height);
+  plane.setAttribute('src', `${formats[adjustedFormat].style[style]}`);
+  plane.setAttribute('width', adjustedWidth);
+  plane.setAttribute('height', adjustedHeight);
   // for textures that are 1024x1024, not setting this causes white border
   plane.setAttribute('transparent', 'true');
   plane.setAttribute('shader', 'flat');
@@ -88,12 +95,17 @@ async function loadBanner(adUnit, format, style) {
 }
 
 async function updateBanner(banner, plane, el, adUnit, format, style, height, beacon) {
+  const {
+    absoluteWidth: adjustedWidth = formats[format].width * height,
+    absoluteHeight: adjustedHeight = height
+  } = getV3BetaUnitInfo(adUnit);
+
   // don't attach plane if element's visibility is false
   if (el.getAttribute('visible') !== false) {
     if (banner.img) {
       plane.setAttribute('src', `#${banner.img.id}`);
-      plane.setAttribute('width', formats[format].width * height);
-      plane.setAttribute('height', height);
+      plane.setAttribute('width', adjustedWidth * height);
+      plane.setAttribute('height', adjustedHeight);
       // for textures that are 1024x1024, not setting this causes white border
       plane.setAttribute('transparent', 'true');
       plane.setAttribute('shader', 'flat');

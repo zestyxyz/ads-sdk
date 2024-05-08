@@ -993,11 +993,12 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "adUnit": "999999",
-                        "beacon": true,
+                        "beacon": false,
                         "format": "tall",
                         "style": "standard",
                         "dynamicNetworking": false
-                    }
+                    },
+                    "active": true
                 }
             ],
             "translation": [
@@ -1038,8 +1039,10 @@
                         "adUnit": "999999",
                         "beacon": false,
                         "format": "wide",
-                        "style": "standard"
-                    }
+                        "style": "standard",
+                        "dynamicNetworking": false
+                    },
+                    "active": true
                 }
             ],
             "parent": null,
@@ -1081,7 +1084,8 @@
                         "adUnit": "999999",
                         "beacon": false,
                         "style": "standard"
-                    }
+                    },
+                    "active": true
                 }
             ],
             "parent": null,
@@ -1124,7 +1128,8 @@
                         "beacon": false,
                         "format": "tall",
                         "style": "minimal"
-                    }
+                    },
+                    "active": true
                 }
             ],
             "parent": null,
@@ -1167,7 +1172,8 @@
                         "beacon": false,
                         "format": "wide",
                         "style": "minimal"
-                    }
+                    },
+                    "active": true
                 }
             ],
             "parent": null,
@@ -1210,7 +1216,8 @@
                         "beacon": false,
                         "format": "square",
                         "style": "minimal"
-                    }
+                    },
+                    "active": true
                 }
             ],
             "parent": null,
@@ -1252,7 +1259,8 @@
                         "adUnit": "999999",
                         "beacon": false,
                         "format": "tall"
-                    }
+                    },
+                    "active": true
                 }
             ],
             "parent": null,
@@ -1294,7 +1302,8 @@
                         "adUnit": "999999",
                         "beacon": false,
                         "format": "wide"
-                    }
+                    },
+                    "active": true
                 }
             ],
             "parent": null,
@@ -1335,7 +1344,8 @@
                     "zesty-banner": {
                         "adUnit": "999999",
                         "beacon": false
-                    }
+                    },
+                    "active": true
                 }
             ],
             "parent": null,
@@ -2003,6 +2013,108 @@
                 "name": "TileFeedback.frag",
                 "file": "default"
             }
+        },
+        "252": {
+            "link": {
+                "name": "lib\\Color.glsl",
+                "file": "default"
+            }
+        },
+        "253": {
+            "link": {
+                "name": "lib\\Compatibility.frag",
+                "file": "default"
+            }
+        },
+        "254": {
+            "link": {
+                "name": "lib\\CoordinateSystems.glsl",
+                "file": "default"
+            }
+        },
+        "255": {
+            "link": {
+                "name": "lib\\GI.frag",
+                "file": "default"
+            }
+        },
+        "256": {
+            "link": {
+                "name": "lib\\Inputs.frag",
+                "file": "default"
+            }
+        },
+        "257": {
+            "link": {
+                "name": "lib\\Lights.frag",
+                "file": "default"
+            }
+        },
+        "258": {
+            "link": {
+                "name": "lib\\Materials.frag",
+                "file": "default"
+            }
+        },
+        "259": {
+            "link": {
+                "name": "lib\\Math.glsl",
+                "file": "default"
+            }
+        },
+        "260": {
+            "link": {
+                "name": "lib\\MorphTargets.glsl",
+                "file": "default"
+            }
+        },
+        "261": {
+            "link": {
+                "name": "lib\\Packing.frag",
+                "file": "default"
+            }
+        },
+        "262": {
+            "link": {
+                "name": "lib\\PhysicalBSDF.glsl",
+                "file": "default"
+            }
+        },
+        "263": {
+            "link": {
+                "name": "lib\\Quaternion.glsl",
+                "file": "default"
+            }
+        },
+        "264": {
+            "link": {
+                "name": "lib\\Slug.frag",
+                "file": "default"
+            }
+        },
+        "265": {
+            "link": {
+                "name": "lib\\Slug.vert",
+                "file": "default"
+            }
+        },
+        "266": {
+            "link": {
+                "name": "lib\\Surface.frag",
+                "file": "default"
+            }
+        },
+        "267": {
+            "link": {
+                "name": "lib\\Textures.frag",
+                "file": "default"
+            }
+        },
+        "269": {
+            "link": {
+                "name": "lib\\Uniforms.glsl",
+                "file": "default"
+            }
         }
     },
     "settings": {
@@ -2010,8 +2122,8 @@
             "name": "wonderland-test",
             "version": [
                 1,
-                0,
-                3
+                2,
+                0
             ]
         },
         "vr": {
@@ -2033,6 +2145,11 @@
                 "optionalFeatures": {
                     "local-floor": true
                 }
+            }
+        },
+        "rendering": {
+            "hdr": {
+                "exposure": 1.5
             }
         }
     },
@@ -2151,16 +2268,40 @@
                 "name": "Phong Lightmapped",
                 "file": "default"
             }
+        },
+        "268": {
+            "link": {
+                "name": "TileFeedback",
+                "file": "default"
+            }
         }
     },
-    "files": [
-        "models/oculus-touch-v2-left.glb",
-        "models/oculus-touch-v2-right.glb",
-        "models/hand-left.glb",
-        "models/hand-right.glb",
-        "models/button.glb",
-        "models/teleport-indicator.glb"
-    ],
+    "files": {
+        "270": {
+            "fileName": "models/oculus-touch-v2-left.glb",
+            "importerName": ""
+        },
+        "271": {
+            "fileName": "models/oculus-touch-v2-right.glb",
+            "importerName": ""
+        },
+        "272": {
+            "fileName": "models/hand-left.glb",
+            "importerName": ""
+        },
+        "273": {
+            "fileName": "models/hand-right.glb",
+            "importerName": ""
+        },
+        "274": {
+            "fileName": "models/button.glb",
+            "importerName": ""
+        },
+        "275": {
+            "fileName": "models/teleport-indicator.glb",
+            "importerName": ""
+        }
+    },
     "fonts": {
         "230": {
             "link": {
@@ -2169,5 +2310,6 @@
             }
         }
     },
-    "languages": {}
+    "languages": {},
+    "morphTargets": {}
 }

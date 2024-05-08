@@ -28,7 +28,7 @@ export class ExposeBanners extends Component {
         this.banner8 = this.banner8Object.getComponent('zesty-banner');
         this.banner9 = this.banner9Object.getComponent('zesty-banner');
         window.testBanners = [
-            this.banner1, 
+            this.banner1,
             this.banner2, 
             this.banner3, 
             this.banner4, 

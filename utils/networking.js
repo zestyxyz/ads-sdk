@@ -54,6 +54,8 @@ const initPrebid = (adUnitId, format) => {
 const betaUnits = [
   { id: '4902864a-5531-496b-8d4d-ec7b9849e8e1', format: 'medium-rectangle', absoluteWidth: 0.75, absoluteHeight: .625 },
   { id: '14dccdbe-18b7-40d0-93d8-c104fd9486e8', format: 'medium-rectangle' },
+  { id: 'a8e0496f-034d-4cea-ba5f-653bba4fba39', format: 'billboard' },
+  { id: 'a181cc07-fda7-462e-adba-0fd8abf0af24', format: 'billboard' },
 ];
 
 const getV3BetaUnitInfo = (adUnitId) => {

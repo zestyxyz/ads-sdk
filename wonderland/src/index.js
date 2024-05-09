@@ -1,6 +1,6 @@
 /* global WL */
 
-import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
+import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, getV3BetaUnitInfo } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
@@ -116,23 +116,26 @@ export class ZestyBanner extends Component {
       if (this.scaleToRatio) {
         /* Make banner always 1 meter height, adjust width according to banner aspect ratio */
         this.height = this.object.scalingLocal[1];
+        const {
+          absoluteWidth: adjustedWidth = this.formats[this.format].width * this.height,
+          absoluteHeight: adjustedHeight = this.object.scalingLocal[1]
+        } = getV3BetaUnitInfo(this.adUnit);
         this.object.resetScaling();
         if (this.createAutomaticCollision) {
           this.collision.extents = [
-            this.formats[this.format].width * this.height,
-            this.height,
+            adjustedWidth,
+            adjustedHeight,
             0.1
           ];
         }
-        this.object.scale([this.formats[this.format].width * this.height, this.height, 1.0]);
+        this.object.scale([adjustedWidth, adjustedHeight, 1.0]);
       }
       const m = this.mesh.material.clone();
       if (this.textureProperty === 'auto') {
-        const pipeline = m.shader;
-        if (m.diffuseTexture) {
+        if (m.diffuseTexture || m.hasParameter('diffuseTexture')) {
           m.diffuseTexture = banner.texture;
           m.alphaMaskThreshold = 0.3;
-        } else if (m.flatTexture) {
+        } else if (m.flatTexture || m.hasParameter('flatTexture')) {
           m.flatTexture = banner.texture;
           m.alphaMaskThreshold = 0.8;
         } else {
@@ -176,8 +179,18 @@ export class ZestyBanner extends Component {
   }
 
   async loadBanner(adUnit, format, style) {
+    const {
+      format: adjustedFormat = format,
+    } = getV3BetaUnitInfo(adUnit);
+
+
+    const betaFormats = ['mobile-phone-interstitial', 'billboard', 'medium-rectangle'];
+    if (betaFormats.includes(adjustedFormat)) {
+      this.format = betaFormats.indexOf(adjustedFormat) + 3;
+    }
+
     const activeCampaign = this.dynamicNetworking ?
-      await this.zestyNetworking.fetchCampaignAd(adUnit, format, style) :
+      await this.zestyNetworking.fetchCampaignAd(adUnit, adjustedFormat, style) :
       await fetchCampaignAd(adUnit, format, style);
 
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];

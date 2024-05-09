@@ -41,9 +41,11 @@ AFRAME.registerComponent('zesty-banner', {
 async function createBanner(el, adUnit, format, style, height, beacon) {
   const {
     format: adjustedFormat = format,
-    absoluteWidth: adjustedWidth = formats[format].width * height,
+    absoluteWidth: adjustedWidth = formats[adjustedFormat].width,
     absoluteHeight: adjustedHeight = height
   } = getV3BetaUnitInfo(adUnit);
+  const isBeta = getV3BetaUnitInfo(adUnit).hasOwnProperty('format');
+  const absoluteDimensions = adjustedHeight !== height;
 
   const scene = document.querySelector('a-scene');
   let assets = scene.querySelector('a-assets');
@@ -54,7 +56,7 @@ async function createBanner(el, adUnit, format, style, height, beacon) {
 
   const plane = document.createElement('a-plane');
   plane.setAttribute('src', `${formats[adjustedFormat].style[style]}`);
-  plane.setAttribute('width', adjustedWidth);
+  plane.setAttribute('width', adjustedWidth * (absoluteDimensions ? 1 : adjustedHeight));
   plane.setAttribute('height', adjustedHeight);
   // for textures that are 1024x1024, not setting this causes white border
   plane.setAttribute('transparent', 'true');
@@ -63,16 +65,21 @@ async function createBanner(el, adUnit, format, style, height, beacon) {
   plane.setAttribute('class', 'clickable'); // required for BE
   el.appendChild(plane);
 
-  const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
-    if (banner.img) {
-      assets.appendChild(banner.img);
-    }
-    return banner;
-  });
-
-  //setInterval(() => {
+  const getBanner = () => {
+    const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
+      if (banner.img) {
+        assets.appendChild(banner.img);
+      }
+      return banner;
+    });
+  
     bannerPromise.then(banner => updateBanner(banner, plane, el, adUnit, format, style, height, beacon));
-  //}, 5000);
+  }
+
+  getBanner();
+  if (isBeta) {
+    setInterval(getBanner, 30000);
+  }
 }
 
 async function loadBanner(adUnit, format, style) {
@@ -96,15 +103,17 @@ async function loadBanner(adUnit, format, style) {
 
 async function updateBanner(banner, plane, el, adUnit, format, style, height, beacon) {
   const {
-    absoluteWidth: adjustedWidth = formats[format].width * height,
+    format: adjustedFormat = format,
+    absoluteWidth: adjustedWidth = formats[adjustedFormat].width,
     absoluteHeight: adjustedHeight = height
   } = getV3BetaUnitInfo(adUnit);
+  const absoluteDimensions = adjustedHeight !== height;
 
   // don't attach plane if element's visibility is false
   if (el.getAttribute('visible') !== false) {
     if (banner.img) {
       plane.setAttribute('src', `#${banner.img.id}`);
-      plane.setAttribute('width', adjustedWidth * height);
+      plane.setAttribute('width', adjustedWidth * (absoluteDimensions ? 1 : adjustedHeight));
       plane.setAttribute('height', adjustedHeight);
       // for textures that are 1024x1024, not setting this causes white border
       plane.setAttribute('transparent', 'true');

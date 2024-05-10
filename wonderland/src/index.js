@@ -58,6 +58,7 @@ export class ZestyBanner extends Component {
     this.formats = Object.values(formats);
     this.formatKeys = Object.keys(formats);
     this.styleKeys = ['standard', 'minimal', 'transparent'];
+    this.loadedFirstAd = false;
   }
 
   start() {
@@ -118,6 +119,9 @@ export class ZestyBanner extends Component {
   }
 
   startLoading() {
+    if (!this.checkVisibility() && this.loadedFirstAd) return;
+    if (!this.loadedFirstAd) this.loadedFirstAd = true;
+
     this.loadBanner(
       this.adUnit,
       this.formatKeys[this.format],
@@ -143,10 +147,10 @@ export class ZestyBanner extends Component {
       }
       const m = this.mesh.material.clone();
       if (this.textureProperty === 'auto') {
-        if (m.diffuseTexture || m.hasParameter('diffuseTexture')) {
+        if (m.diffuseTexture || m?.hasParameter('diffuseTexture')) {
           m.diffuseTexture = banner.texture;
           m.alphaMaskThreshold = 0.3;
-        } else if (m.flatTexture || m.hasParameter('flatTexture')) {
+        } else if (m.flatTexture || m?.hasParameter('flatTexture')) {
           m.flatTexture = banner.texture;
           m.alphaMaskThreshold = 0.8;
         } else {
@@ -210,5 +214,12 @@ export class ZestyBanner extends Component {
     return this.engine.textures.load(image, '').then(texture => {
       return { texture, imageSrc: image, url, campaignId: activeCampaign.CampaignId };
     });
+  }
+
+  checkVisibility() {
+    let cameraOrigin = WL.scene.activeViews[0].object.getPositionWorld([]);
+    let cameraDirection = WL.scene.activeViews[0].object.getForwardWorld([]);
+    let raycast = WL.scene.rayCast(cameraOrigin, cameraDirection, 255, 100);
+    return raycast.objects.some(object => object?.objectId == this.object.objectId);
   }
 }

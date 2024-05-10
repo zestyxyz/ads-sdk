@@ -17,6 +17,7 @@ console.log('Zesty SDK Version: ', version);
 
 const formatsLink = 'https://cdn.zesty.xyz/sdk/zesty-formats.js';
 const networkingLink = 'https://cdn.zesty.xyz/sdk/zesty-networking.js';
+const AD_REFRESH_INTERVAL = 30000; // 30 seconds
 
 /**
  * [Zesty Market](https://zesty.xyz) banner ad unit
@@ -99,7 +100,7 @@ export class ZestyBanner extends Component {
           this.zestyNetworking = Object.assign({}, value);
           this.startLoading();
           if (isBeta) {
-            setInterval(this.startLoading.bind(this), 30000);
+            setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
           }
         })
         .catch(() => {
@@ -107,13 +108,13 @@ export class ZestyBanner extends Component {
           this.dynamicNetworking = false;
           this.startLoading();
           if (isBeta) {
-            setInterval(this.startLoading.bind(this), 30000);
+            setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
           }
         });
     } else {
       this.startLoading();
       if (isBeta) {
-        setInterval(this.startLoading.bind(this), 30000);
+        setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
       }
     }
   }

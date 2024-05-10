@@ -61,6 +61,8 @@ export class ZestyBanner extends Component {
   }
 
   start() {
+    const isBeta = getV3BetaUnitInfo(this.adUnit).hasOwnProperty('format');
+
     this.mesh = this.object.getComponent(MeshComponent);
     if (!this.mesh) {
       throw new Error("'zesty-banner ' missing mesh component");
@@ -95,14 +97,23 @@ export class ZestyBanner extends Component {
         .then(value => {
           this.zestyNetworking = Object.assign({}, value);
           this.startLoading();
+          if (isBeta) {
+            setInterval(this.startLoading.bind(this), 30000);
+          }
         })
         .catch(() => {
           console.error('Failed to dynamically retrieve networking code, falling back to bundled version.');
           this.dynamicNetworking = false;
           this.startLoading();
+          if (isBeta) {
+            setInterval(this.startLoading.bind(this), 30000);
+          }
         });
     } else {
       this.startLoading();
+      if (isBeta) {
+        setInterval(this.startLoading.bind(this), 30000);
+      }
     }
   }
 
@@ -191,7 +202,7 @@ export class ZestyBanner extends Component {
 
     const activeCampaign = this.dynamicNetworking ?
       await this.zestyNetworking.fetchCampaignAd(adUnit, adjustedFormat, style) :
-      await fetchCampaignAd(adUnit, format, style);
+      await fetchCampaignAd(adUnit, adjustedFormat, style);
 
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
     this.campaignId = activeCampaign.CampaignId;

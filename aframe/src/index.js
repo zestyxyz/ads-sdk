@@ -8,7 +8,6 @@ import { getV3BetaUnitInfo } from '../../utils/networking';
 
 console.log('Zesty SDK Version: ', version);
 
-let loadedFirstAd = false;
 const AD_REFRESH_INTERVAL = 30000; // 30 seconds
 
 function getCameraHelper(callback) {
@@ -46,6 +45,8 @@ AFRAME.registerComponent('zesty-banner', {
   },
 
   init: function() {
+    this.loadedFirstAd = false;
+
     // Visibility check vars
     this.lastVisible = null;
     this.durationThreshold = 10000;
@@ -80,6 +81,10 @@ AFRAME.registerComponent('zesty-banner', {
   },
 
   checkVisibility: function() {
+    if (!this.loadedFirstAd) {
+      this.loadedFirstAd = true;
+      return true;
+    }
     let isVisible = false;
     const boundingBox = new THREE.Box3().setFromObject(this.el.object3D);
     const frustum = new THREE.Frustum();
@@ -121,8 +126,7 @@ async function createBanner(el, adUnit, format, style, height, beacon, visibilit
   el.appendChild(plane);
 
   const getBanner = () => {
-    if (loadedFirstAd && !visibilityCheckFunc()) return;
-    if (!loadedFirstAd) loadedFirstAd = true;
+    if (!visibilityCheckFunc()) return;
 
     const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
       if (banner.img) {

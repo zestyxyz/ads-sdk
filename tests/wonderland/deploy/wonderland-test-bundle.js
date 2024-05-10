@@ -105,8 +105,8 @@ var require_howler = __commonJS({
             for (var i = 0; i < self2._howls.length; i++) {
               if (!self2._howls[i]._webAudio) {
                 var ids = self2._howls[i]._getSoundIds();
-                for (var j2 = 0; j2 < ids.length; j2++) {
-                  var sound = self2._howls[i]._soundById(ids[j2]);
+                for (var j = 0; j < ids.length; j++) {
+                  var sound = self2._howls[i]._soundById(ids[j]);
                   if (sound && sound._node) {
                     sound._node.volume = sound._volume * vol;
                   }
@@ -133,8 +133,8 @@ var require_howler = __commonJS({
           for (var i = 0; i < self2._howls.length; i++) {
             if (!self2._howls[i]._webAudio) {
               var ids = self2._howls[i]._getSoundIds();
-              for (var j2 = 0; j2 < ids.length; j2++) {
-                var sound = self2._howls[i]._soundById(ids[j2]);
+              for (var j = 0; j < ids.length; j++) {
+                var sound = self2._howls[i]._soundById(ids[j]);
                 if (sound && sound._node) {
                   sound._node.muted = muted ? true : sound._muted;
                 }
@@ -284,8 +284,8 @@ var require_howler = __commonJS({
             for (var i = 0; i < self2._howls.length; i++) {
               if (!self2._howls[i]._webAudio) {
                 var ids = self2._howls[i]._getSoundIds();
-                for (var j2 = 0; j2 < ids.length; j2++) {
-                  var sound = self2._howls[i]._soundById(ids[j2]);
+                for (var j = 0; j < ids.length; j++) {
+                  var sound = self2._howls[i]._soundById(ids[j]);
                   if (sound && sound._node && !sound._node._unlocked) {
                     sound._node._unlocked = true;
                     sound._node.load();
@@ -364,8 +364,8 @@ var require_howler = __commonJS({
           }
           for (var i = 0; i < self2._howls.length; i++) {
             if (self2._howls[i]._webAudio) {
-              for (var j2 = 0; j2 < self2._howls[i]._sounds.length; j2++) {
-                if (!self2._howls[i]._sounds[j2]._paused) {
+              for (var j = 0; j < self2._howls[i]._sounds.length; j++) {
+                if (!self2._howls[i]._sounds[j]._paused) {
                   return self2;
                 }
               }
@@ -1878,15 +1878,15 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      HowlerGlobal.prototype.pos = function(x2, y, z) {
+      HowlerGlobal.prototype.pos = function(x2, y, z2) {
         var self2 = this;
         if (!self2.ctx || !self2.ctx.listener) {
           return self2;
         }
         y = typeof y !== "number" ? self2._pos[1] : y;
-        z = typeof z !== "number" ? self2._pos[2] : z;
+        z2 = typeof z2 !== "number" ? self2._pos[2] : z2;
         if (typeof x2 === "number") {
-          self2._pos = [x2, y, z];
+          self2._pos = [x2, y, z2];
           if (typeof self2.ctx.listener.positionX !== "undefined") {
             self2.ctx.listener.positionX.setTargetAtTime(self2._pos[0], Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.positionY.setTargetAtTime(self2._pos[1], Howler.ctx.currentTime, 0.1);
@@ -1899,28 +1899,28 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      HowlerGlobal.prototype.orientation = function(x2, y, z, xUp, yUp, zUp) {
+      HowlerGlobal.prototype.orientation = function(x2, y, z2, xUp, yUp, zUp) {
         var self2 = this;
         if (!self2.ctx || !self2.ctx.listener) {
           return self2;
         }
         var or2 = self2._orientation;
         y = typeof y !== "number" ? or2[1] : y;
-        z = typeof z !== "number" ? or2[2] : z;
+        z2 = typeof z2 !== "number" ? or2[2] : z2;
         xUp = typeof xUp !== "number" ? or2[3] : xUp;
         yUp = typeof yUp !== "number" ? or2[4] : yUp;
         zUp = typeof zUp !== "number" ? or2[5] : zUp;
         if (typeof x2 === "number") {
-          self2._orientation = [x2, y, z, xUp, yUp, zUp];
+          self2._orientation = [x2, y, z2, xUp, yUp, zUp];
           if (typeof self2.ctx.listener.forwardX !== "undefined") {
             self2.ctx.listener.forwardX.setTargetAtTime(x2, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.forwardY.setTargetAtTime(y, Howler.ctx.currentTime, 0.1);
-            self2.ctx.listener.forwardZ.setTargetAtTime(z, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.forwardZ.setTargetAtTime(z2, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.upX.setTargetAtTime(xUp, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.upY.setTargetAtTime(yUp, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.upZ.setTargetAtTime(zUp, Howler.ctx.currentTime, 0.1);
           } else {
-            self2.ctx.listener.setOrientation(x2, y, z, xUp, yUp, zUp);
+            self2.ctx.listener.setOrientation(x2, y, z2, xUp, yUp, zUp);
           }
         } else {
           return or2;
@@ -2004,7 +2004,7 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      Howl.prototype.pos = function(x2, y, z, id) {
+      Howl.prototype.pos = function(x2, y, z2, id) {
         var self2 = this;
         if (!self2._webAudio) {
           return self2;
@@ -2013,16 +2013,16 @@ var require_howler = __commonJS({
           self2._queue.push({
             event: "pos",
             action: function() {
-              self2.pos(x2, y, z, id);
+              self2.pos(x2, y, z2, id);
             }
           });
           return self2;
         }
         y = typeof y !== "number" ? 0 : y;
-        z = typeof z !== "number" ? -0.5 : z;
+        z2 = typeof z2 !== "number" ? -0.5 : z2;
         if (typeof id === "undefined") {
           if (typeof x2 === "number") {
-            self2._pos = [x2, y, z];
+            self2._pos = [x2, y, z2];
           } else {
             return self2._pos;
           }
@@ -2032,7 +2032,7 @@ var require_howler = __commonJS({
           var sound = self2._soundById(ids[i]);
           if (sound) {
             if (typeof x2 === "number") {
-              sound._pos = [x2, y, z];
+              sound._pos = [x2, y, z2];
               if (sound._node) {
                 if (!sound._panner || sound._panner.pan) {
                   setupPanner(sound, "spatial");
@@ -2040,9 +2040,9 @@ var require_howler = __commonJS({
                 if (typeof sound._panner.positionX !== "undefined") {
                   sound._panner.positionX.setValueAtTime(x2, Howler.ctx.currentTime);
                   sound._panner.positionY.setValueAtTime(y, Howler.ctx.currentTime);
-                  sound._panner.positionZ.setValueAtTime(z, Howler.ctx.currentTime);
+                  sound._panner.positionZ.setValueAtTime(z2, Howler.ctx.currentTime);
                 } else {
-                  sound._panner.setPosition(x2, y, z);
+                  sound._panner.setPosition(x2, y, z2);
                 }
               }
               self2._emit("pos", sound._id);
@@ -2053,7 +2053,7 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      Howl.prototype.orientation = function(x2, y, z, id) {
+      Howl.prototype.orientation = function(x2, y, z2, id) {
         var self2 = this;
         if (!self2._webAudio) {
           return self2;
@@ -2062,16 +2062,16 @@ var require_howler = __commonJS({
           self2._queue.push({
             event: "orientation",
             action: function() {
-              self2.orientation(x2, y, z, id);
+              self2.orientation(x2, y, z2, id);
             }
           });
           return self2;
         }
         y = typeof y !== "number" ? self2._orientation[1] : y;
-        z = typeof z !== "number" ? self2._orientation[2] : z;
+        z2 = typeof z2 !== "number" ? self2._orientation[2] : z2;
         if (typeof id === "undefined") {
           if (typeof x2 === "number") {
-            self2._orientation = [x2, y, z];
+            self2._orientation = [x2, y, z2];
           } else {
             return self2._orientation;
           }
@@ -2081,7 +2081,7 @@ var require_howler = __commonJS({
           var sound = self2._soundById(ids[i]);
           if (sound) {
             if (typeof x2 === "number") {
-              sound._orientation = [x2, y, z];
+              sound._orientation = [x2, y, z2];
               if (sound._node) {
                 if (!sound._panner) {
                   if (!sound._pos) {
@@ -2092,9 +2092,9 @@ var require_howler = __commonJS({
                 if (typeof sound._panner.orientationX !== "undefined") {
                   sound._panner.orientationX.setValueAtTime(x2, Howler.ctx.currentTime);
                   sound._panner.orientationY.setValueAtTime(y, Howler.ctx.currentTime);
-                  sound._panner.orientationZ.setValueAtTime(z, Howler.ctx.currentTime);
+                  sound._panner.orientationZ.setValueAtTime(z2, Howler.ctx.currentTime);
                 } else {
-                  sound._panner.setOrientation(x2, y, z);
+                  sound._panner.setOrientation(x2, y, z2);
                 }
               }
               self2._emit("orientation", sound._id);
@@ -2466,37 +2466,37 @@ var require_earcut = __commonJS({
       return filterPoints(bridge, bridge.next);
     }
     function findHoleBridge(hole, outerNode) {
-      var p = outerNode, hx = hole.x, hy = hole.y, qx = -Infinity, m;
+      var p = outerNode, hx = hole.x, hy = hole.y, qx = -Infinity, m2;
       do {
         if (hy <= p.y && hy >= p.next.y && p.next.y !== p.y) {
           var x2 = p.x + (hy - p.y) * (p.next.x - p.x) / (p.next.y - p.y);
           if (x2 <= hx && x2 > qx) {
             qx = x2;
-            m = p.x < p.next.x ? p : p.next;
+            m2 = p.x < p.next.x ? p : p.next;
             if (x2 === hx)
-              return m;
+              return m2;
           }
         }
         p = p.next;
       } while (p !== outerNode);
-      if (!m)
+      if (!m2)
         return null;
-      var stop = m, mx = m.x, my = m.y, tanMin = Infinity, tan;
-      p = m;
+      var stop = m2, mx = m2.x, my = m2.y, tanMin = Infinity, tan;
+      p = m2;
       do {
         if (hx >= p.x && p.x >= mx && hx !== p.x && pointInTriangle(hy < my ? hx : qx, hy, mx, my, hy < my ? qx : hx, hy, p.x, p.y)) {
           tan = Math.abs(hy - p.y) / (hx - p.x);
-          if (locallyInside(p, hole) && (tan < tanMin || tan === tanMin && (p.x > m.x || p.x === m.x && sectorContainsSector(m, p)))) {
-            m = p;
+          if (locallyInside(p, hole) && (tan < tanMin || tan === tanMin && (p.x > m2.x || p.x === m2.x && sectorContainsSector(m2, p)))) {
+            m2 = p;
             tanMin = tan;
           }
         }
         p = p.next;
       } while (p !== stop);
-      return m;
+      return m2;
     }
-    function sectorContainsSector(m, p) {
-      return area(m.prev, m, p.prev) < 0 && area(p.next, m, m.next) < 0;
+    function sectorContainsSector(m2, p) {
+      return area(m2.prev, m2, p.prev) < 0 && area(p.next, m2, m2.next) < 0;
     }
     function indexCurve(start, minX, minY, invSize) {
       var p = start;
@@ -2702,18 +2702,18 @@ var require_earcut = __commonJS({
     };
     function signedArea(data, start, end, dim) {
       var sum = 0;
-      for (var i = start, j2 = end - dim; i < end; i += dim) {
-        sum += (data[j2] - data[i]) * (data[i + 1] + data[j2 + 1]);
-        j2 = i;
+      for (var i = start, j = end - dim; i < end; i += dim) {
+        sum += (data[j] - data[i]) * (data[i + 1] + data[j + 1]);
+        j = i;
       }
       return sum;
     }
     earcut2.flatten = function(data) {
       var dim = data[0][0].length, result = { vertices: [], holes: [], dimensions: dim }, holeIndex = 0;
       for (var i = 0; i < data.length; i++) {
-        for (var j2 = 0; j2 < data[i].length; j2++) {
+        for (var j = 0; j < data[i].length; j++) {
           for (var d = 0; d < dim; d++)
-            result.vertices.push(data[i][j2][d]);
+            result.vertices.push(data[i][j][d]);
         }
         if (i > 0) {
           holeIndex += data[i - 1].length;
@@ -2938,8 +2938,8 @@ var Property = {
    * @param y The y component.
    * @param z The z component.
    */
-  vector3(x2 = 0, y = 0, z = 0) {
-    return { type: Type.Vector3, default: [x2, y, z] };
+  vector3(x2 = 0, y = 0, z2 = 0) {
+    return { type: Type.Vector3, default: [x2, y, z2] };
   },
   /**
    * Create a four-element vector property.
@@ -2949,8 +2949,8 @@ var Property = {
    * @param z The z component.
    * @param w The w component.
    */
-  vector4(x2 = 0, y = 0, z = 0, w2 = 0) {
-    return { type: Type.Vector4, default: [x2, y, z, w2] };
+  vector4(x2 = 0, y = 0, z2 = 0, w = 0) {
+    return { type: Type.Vector4, default: [x2, y, z2, w] };
   }
 };
 
@@ -4663,11 +4663,11 @@ var _Component = class {
    *
    * @hidden
    */
-  _triggerUpdate(dt2) {
+  _triggerUpdate(dt) {
     if (!this.update)
       return;
     try {
-      this.update(dt2);
+      this.update(dt);
     } catch (e) {
       this.engine.log.error(LogTag.Component, `Exception during ${this.type} update() on object ${this.object.name}`);
       this.engine.log.error(LogTag.Component, e);
@@ -6478,8 +6478,8 @@ var PhysXComponent = class extends Component {
    *
    * @param m New mass.
    */
-  set mass(m) {
-    this.engine.wasm._wl_physx_component_set_mass(this._id, m);
+  set mass(m2) {
+    this.engine.wasm._wl_physx_component_set_mass(this._id, m2);
   }
   /** Mass */
   get mass() {
@@ -6530,13 +6530,13 @@ var PhysXComponent = class extends Component {
    * @param p Position to apply force at, default is center of mass.
    * @param local Whether position is in local space, default `false`.
    */
-  addForce(f, m = ForceMode.Force, localForce = false, p, local = false) {
+  addForce(f, m2 = ForceMode.Force, localForce = false, p, local = false) {
     const wasm = this.engine.wasm;
     if (!p) {
-      wasm._wl_physx_component_addForce(this._id, f[0], f[1], f[2], m, localForce);
+      wasm._wl_physx_component_addForce(this._id, f[0], f[1], f[2], m2, localForce);
       return;
     }
-    wasm._wl_physx_component_addForceAt(this._id, f[0], f[1], f[2], m, localForce, p[0], p[1], p[2], local);
+    wasm._wl_physx_component_addForceAt(this._id, f[0], f[1], f[2], m2, localForce, p[0], p[1], p[2], local);
   }
   /**
    * Apply torque.
@@ -6548,8 +6548,8 @@ var PhysXComponent = class extends Component {
    * @param f Force vector.
    * @param m Force mode, see {@link ForceMode}, default `Force`.
    */
-  addTorque(f, m = ForceMode.Force) {
-    this.engine.wasm._wl_physx_component_addTorque(this._id, f[0], f[1], f[2], m);
+  addTorque(f, m2 = ForceMode.Force) {
+    this.engine.wasm._wl_physx_component_addTorque(this._id, f[0], f[1], f[2], m2);
   }
   /**
    * Add on collision callback.
@@ -7096,7 +7096,7 @@ var Texture = class extends Resource {
    * @param w width
    * @param h height
    */
-  updateSubImage(x2, y, w2, h2) {
+  updateSubImage(x2, y, w, h2) {
     if (this.isDestroyed)
       return;
     const image = this._imageIndex;
@@ -7118,9 +7118,9 @@ var Texture = class extends Resource {
     const img = wasm._images[jsImageIndex];
     if (!img)
       return;
-    temp2d.canvas.width = w2;
+    temp2d.canvas.width = w;
     temp2d.canvas.height = h2;
-    temp2d.ctx.drawImage(img, x2, y, w2, h2, 0, 0, w2, h2);
+    temp2d.ctx.drawImage(img, x2, y, w, h2, 0, 0, w, h2);
     const yOffset = (img.videoHeight ?? img.height) - y - h2;
     wasm._images[jsImageIndex] = temp2d.canvas;
     wasm._wl_renderer_updateImage(image, x2, yOffset);
@@ -11584,11 +11584,11 @@ var WASM = class {
         this._log.error(LogTag.Engine, `Component parameter data has size ${paramValues.length} but expected ${paramNames.length}`);
         continue;
       }
-      for (let j2 = 0; j2 < paramValues.length; ++j2) {
-        const name = paramNames[j2];
+      for (let j = 0; j < paramValues.length; ++j) {
+        const name = paramNames[j];
         const property2 = ctor.Properties[name];
         const type = property2.type;
-        let value = paramValues[j2];
+        let value = paramValues[j];
         if (value === void 0) {
           const cloner = property2.cloner ?? defaultPropertyCloner;
           value = cloner.clone(type, property2.default);
@@ -11660,9 +11660,9 @@ var WASM = class {
     const c = components[component];
     c._triggerInit();
   }
-  _wljs_component_update(component, dt2) {
+  _wljs_component_update(component, dt) {
     const c = this._components[component];
-    c._triggerUpdate(dt2);
+    c._triggerUpdate(dt);
   }
   _wljs_component_onActivate(component) {
     const c = this._components[component];
@@ -12874,15 +12874,15 @@ function multiply(out, a, b) {
   return out;
 }
 function translate(out, a, v) {
-  var x2 = v[0], y = v[1], z = v[2];
+  var x2 = v[0], y = v[1], z2 = v[2];
   var a00, a01, a02, a03;
   var a10, a11, a12, a13;
   var a20, a21, a22, a23;
   if (a === out) {
-    out[12] = a[0] * x2 + a[4] * y + a[8] * z + a[12];
-    out[13] = a[1] * x2 + a[5] * y + a[9] * z + a[13];
-    out[14] = a[2] * x2 + a[6] * y + a[10] * z + a[14];
-    out[15] = a[3] * x2 + a[7] * y + a[11] * z + a[15];
+    out[12] = a[0] * x2 + a[4] * y + a[8] * z2 + a[12];
+    out[13] = a[1] * x2 + a[5] * y + a[9] * z2 + a[13];
+    out[14] = a[2] * x2 + a[6] * y + a[10] * z2 + a[14];
+    out[15] = a[3] * x2 + a[7] * y + a[11] * z2 + a[15];
   } else {
     a00 = a[0];
     a01 = a[1];
@@ -12908,15 +12908,15 @@ function translate(out, a, v) {
     out[9] = a21;
     out[10] = a22;
     out[11] = a23;
-    out[12] = a00 * x2 + a10 * y + a20 * z + a[12];
-    out[13] = a01 * x2 + a11 * y + a21 * z + a[13];
-    out[14] = a02 * x2 + a12 * y + a22 * z + a[14];
-    out[15] = a03 * x2 + a13 * y + a23 * z + a[15];
+    out[12] = a00 * x2 + a10 * y + a20 * z2 + a[12];
+    out[13] = a01 * x2 + a11 * y + a21 * z2 + a[13];
+    out[14] = a02 * x2 + a12 * y + a22 * z2 + a[14];
+    out[15] = a03 * x2 + a13 * y + a23 * z2 + a[15];
   }
   return out;
 }
 function scale(out, a, v) {
-  var x2 = v[0], y = v[1], z = v[2];
+  var x2 = v[0], y = v[1], z2 = v[2];
   out[0] = a[0] * x2;
   out[1] = a[1] * x2;
   out[2] = a[2] * x2;
@@ -12925,10 +12925,10 @@ function scale(out, a, v) {
   out[5] = a[5] * y;
   out[6] = a[6] * y;
   out[7] = a[7] * y;
-  out[8] = a[8] * z;
-  out[9] = a[9] * z;
-  out[10] = a[10] * z;
-  out[11] = a[11] * z;
+  out[8] = a[8] * z2;
+  out[9] = a[9] * z2;
+  out[10] = a[10] * z2;
+  out[11] = a[11] * z2;
   out[12] = a[12];
   out[13] = a[13];
   out[14] = a[14];
@@ -12936,8 +12936,8 @@ function scale(out, a, v) {
   return out;
 }
 function rotate(out, a, rad, axis) {
-  var x2 = axis[0], y = axis[1], z = axis[2];
-  var len4 = Math.hypot(x2, y, z);
+  var x2 = axis[0], y = axis[1], z2 = axis[2];
+  var len4 = Math.hypot(x2, y, z2);
   var s, c, t;
   var a00, a01, a02, a03;
   var a10, a11, a12, a13;
@@ -12951,7 +12951,7 @@ function rotate(out, a, rad, axis) {
   len4 = 1 / len4;
   x2 *= len4;
   y *= len4;
-  z *= len4;
+  z2 *= len4;
   s = Math.sin(rad);
   c = Math.cos(rad);
   t = 1 - c;
@@ -12968,14 +12968,14 @@ function rotate(out, a, rad, axis) {
   a22 = a[10];
   a23 = a[11];
   b00 = x2 * x2 * t + c;
-  b01 = y * x2 * t + z * s;
-  b02 = z * x2 * t - y * s;
-  b10 = x2 * y * t - z * s;
+  b01 = y * x2 * t + z2 * s;
+  b02 = z2 * x2 * t - y * s;
+  b10 = x2 * y * t - z2 * s;
   b11 = y * y * t + c;
-  b12 = z * y * t + x2 * s;
-  b20 = x2 * z * t + y * s;
-  b21 = y * z * t - x2 * s;
-  b22 = z * z * t + c;
+  b12 = z2 * y * t + x2 * s;
+  b20 = x2 * z2 * t + y * s;
+  b21 = y * z2 * t - x2 * s;
+  b22 = z2 * z2 * t + c;
   out[0] = a00 * b00 + a10 * b01 + a20 * b02;
   out[1] = a01 * b00 + a11 * b01 + a21 * b02;
   out[2] = a02 * b00 + a12 * b01 + a22 * b02;
@@ -13128,8 +13128,8 @@ function fromScaling(out, v) {
   return out;
 }
 function fromRotation(out, rad, axis) {
-  var x2 = axis[0], y = axis[1], z = axis[2];
-  var len4 = Math.hypot(x2, y, z);
+  var x2 = axis[0], y = axis[1], z2 = axis[2];
+  var len4 = Math.hypot(x2, y, z2);
   var s, c, t;
   if (len4 < EPSILON) {
     return null;
@@ -13137,21 +13137,21 @@ function fromRotation(out, rad, axis) {
   len4 = 1 / len4;
   x2 *= len4;
   y *= len4;
-  z *= len4;
+  z2 *= len4;
   s = Math.sin(rad);
   c = Math.cos(rad);
   t = 1 - c;
   out[0] = x2 * x2 * t + c;
-  out[1] = y * x2 * t + z * s;
-  out[2] = z * x2 * t - y * s;
+  out[1] = y * x2 * t + z2 * s;
+  out[2] = z2 * x2 * t - y * s;
   out[3] = 0;
-  out[4] = x2 * y * t - z * s;
+  out[4] = x2 * y * t - z2 * s;
   out[5] = y * y * t + c;
-  out[6] = z * y * t + x2 * s;
+  out[6] = z2 * y * t + x2 * s;
   out[7] = 0;
-  out[8] = x2 * z * t + y * s;
-  out[9] = y * z * t - x2 * s;
-  out[10] = z * z * t + c;
+  out[8] = x2 * z2 * t + y * s;
+  out[9] = y * z2 * t - x2 * s;
+  out[10] = z2 * z2 * t + c;
   out[11] = 0;
   out[12] = 0;
   out[13] = 0;
@@ -13223,19 +13223,19 @@ function fromZRotation(out, rad) {
   return out;
 }
 function fromRotationTranslation(out, q2, v) {
-  var x2 = q2[0], y = q2[1], z = q2[2], w2 = q2[3];
+  var x2 = q2[0], y = q2[1], z2 = q2[2], w = q2[3];
   var x22 = x2 + x2;
   var y2 = y + y;
-  var z2 = z + z;
+  var z22 = z2 + z2;
   var xx = x2 * x22;
   var xy = x2 * y2;
-  var xz = x2 * z2;
+  var xz = x2 * z22;
   var yy = y * y2;
-  var yz = y * z2;
-  var zz = z * z2;
-  var wx = w2 * x22;
-  var wy = w2 * y2;
-  var wz = w2 * z2;
+  var yz = y * z22;
+  var zz = z2 * z22;
+  var wx = w * x22;
+  var wy = w * y2;
+  var wz = w * z22;
   out[0] = 1 - (yy + zz);
   out[1] = xy + wz;
   out[2] = xz - wy;
@@ -13336,19 +13336,19 @@ function getRotation(out, mat) {
   return out;
 }
 function fromRotationTranslationScale(out, q2, v, s) {
-  var x2 = q2[0], y = q2[1], z = q2[2], w2 = q2[3];
+  var x2 = q2[0], y = q2[1], z2 = q2[2], w = q2[3];
   var x22 = x2 + x2;
   var y2 = y + y;
-  var z2 = z + z;
+  var z22 = z2 + z2;
   var xx = x2 * x22;
   var xy = x2 * y2;
-  var xz = x2 * z2;
+  var xz = x2 * z22;
   var yy = y * y2;
-  var yz = y * z2;
-  var zz = z * z2;
-  var wx = w2 * x22;
-  var wy = w2 * y2;
-  var wz = w2 * z2;
+  var yz = y * z22;
+  var zz = z2 * z22;
+  var wx = w * x22;
+  var wy = w * y2;
+  var wz = w * z22;
   var sx = s[0];
   var sy = s[1];
   var sz = s[2];
@@ -13371,19 +13371,19 @@ function fromRotationTranslationScale(out, q2, v, s) {
   return out;
 }
 function fromRotationTranslationScaleOrigin(out, q2, v, s, o) {
-  var x2 = q2[0], y = q2[1], z = q2[2], w2 = q2[3];
+  var x2 = q2[0], y = q2[1], z2 = q2[2], w = q2[3];
   var x22 = x2 + x2;
   var y2 = y + y;
-  var z2 = z + z;
+  var z22 = z2 + z2;
   var xx = x2 * x22;
   var xy = x2 * y2;
-  var xz = x2 * z2;
+  var xz = x2 * z22;
   var yy = y * y2;
-  var yz = y * z2;
-  var zz = z * z2;
-  var wx = w2 * x22;
-  var wy = w2 * y2;
-  var wz = w2 * z2;
+  var yz = y * z22;
+  var zz = z2 * z22;
+  var wx = w * x22;
+  var wy = w * y2;
+  var wz = w * z22;
   var sx = s[0];
   var sy = s[1];
   var sz = s[2];
@@ -13418,19 +13418,19 @@ function fromRotationTranslationScaleOrigin(out, q2, v, s, o) {
   return out;
 }
 function fromQuat(out, q2) {
-  var x2 = q2[0], y = q2[1], z = q2[2], w2 = q2[3];
+  var x2 = q2[0], y = q2[1], z2 = q2[2], w = q2[3];
   var x22 = x2 + x2;
   var y2 = y + y;
-  var z2 = z + z;
+  var z22 = z2 + z2;
   var xx = x2 * x22;
   var yx = y * x22;
   var yy = y * y2;
-  var zx = z * x22;
-  var zy = z * y2;
-  var zz = z * z2;
-  var wx = w2 * x22;
-  var wy = w2 * y2;
-  var wz = w2 * z2;
+  var zx = z2 * x22;
+  var zy = z2 * y2;
+  var zz = z2 * z22;
+  var wx = w * x22;
+  var wy = w * y2;
+  var wz = w * z22;
   out[0] = 1 - yy - zz;
   out[1] = yx + wz;
   out[2] = zx - wy;
@@ -13551,14 +13551,14 @@ function perspectiveFromFieldOfView(out, fov, near, far) {
 }
 function orthoNO(out, left, right, bottom, top, near, far) {
   var lr2 = 1 / (left - right);
-  var bt2 = 1 / (bottom - top);
+  var bt = 1 / (bottom - top);
   var nf = 1 / (near - far);
   out[0] = -2 * lr2;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = -2 * bt2;
+  out[5] = -2 * bt;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
@@ -13566,7 +13566,7 @@ function orthoNO(out, left, right, bottom, top, near, far) {
   out[10] = 2 * nf;
   out[11] = 0;
   out[12] = (left + right) * lr2;
-  out[13] = (top + bottom) * bt2;
+  out[13] = (top + bottom) * bt;
   out[14] = (far + near) * nf;
   out[15] = 1;
   return out;
@@ -13574,14 +13574,14 @@ function orthoNO(out, left, right, bottom, top, near, far) {
 var ortho = orthoNO;
 function orthoZO(out, left, right, bottom, top, near, far) {
   var lr2 = 1 / (left - right);
-  var bt2 = 1 / (bottom - top);
+  var bt = 1 / (bottom - top);
   var nf = 1 / (near - far);
   out[0] = -2 * lr2;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = -2 * bt2;
+  out[5] = -2 * bt;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
@@ -13589,7 +13589,7 @@ function orthoZO(out, left, right, bottom, top, near, far) {
   out[10] = nf;
   out[11] = 0;
   out[12] = (left + right) * lr2;
-  out[13] = (top + bottom) * bt2;
+  out[13] = (top + bottom) * bt;
   out[14] = near * nf;
   out[15] = 1;
   return out;
@@ -13911,14 +13911,14 @@ function clone2(a) {
 function length(a) {
   var x2 = a[0];
   var y = a[1];
-  var z = a[2];
-  return Math.hypot(x2, y, z);
+  var z2 = a[2];
+  return Math.hypot(x2, y, z2);
 }
-function fromValues2(x2, y, z) {
+function fromValues2(x2, y, z2) {
   var out = new ARRAY_TYPE(3);
   out[0] = x2;
   out[1] = y;
-  out[2] = z;
+  out[2] = z2;
   return out;
 }
 function copy2(out, a) {
@@ -13927,10 +13927,10 @@ function copy2(out, a) {
   out[2] = a[2];
   return out;
 }
-function set2(out, x2, y, z) {
+function set2(out, x2, y, z2) {
   out[0] = x2;
   out[1] = y;
-  out[2] = z;
+  out[2] = z2;
   return out;
 }
 function add2(out, a, b) {
@@ -14002,20 +14002,20 @@ function scaleAndAdd(out, a, b, scale6) {
 function distance(a, b) {
   var x2 = b[0] - a[0];
   var y = b[1] - a[1];
-  var z = b[2] - a[2];
-  return Math.hypot(x2, y, z);
+  var z2 = b[2] - a[2];
+  return Math.hypot(x2, y, z2);
 }
 function squaredDistance(a, b) {
   var x2 = b[0] - a[0];
   var y = b[1] - a[1];
-  var z = b[2] - a[2];
-  return x2 * x2 + y * y + z * z;
+  var z2 = b[2] - a[2];
+  return x2 * x2 + y * y + z2 * z2;
 }
 function squaredLength(a) {
   var x2 = a[0];
   var y = a[1];
-  var z = a[2];
-  return x2 * x2 + y * y + z * z;
+  var z2 = a[2];
+  return x2 * x2 + y * y + z2 * z2;
 }
 function negate(out, a) {
   out[0] = -a[0];
@@ -14032,8 +14032,8 @@ function inverse(out, a) {
 function normalize(out, a) {
   var x2 = a[0];
   var y = a[1];
-  var z = a[2];
-  var len4 = x2 * x2 + y * y + z * z;
+  var z2 = a[2];
+  var len4 = x2 * x2 + y * y + z2 * z2;
   if (len4 > 0) {
     len4 = 1 / Math.sqrt(len4);
   }
@@ -14089,33 +14089,33 @@ function bezier(out, a, b, c, d, t) {
 function random(out, scale6) {
   scale6 = scale6 || 1;
   var r = RANDOM() * 2 * Math.PI;
-  var z = RANDOM() * 2 - 1;
-  var zScale = Math.sqrt(1 - z * z) * scale6;
+  var z2 = RANDOM() * 2 - 1;
+  var zScale = Math.sqrt(1 - z2 * z2) * scale6;
   out[0] = Math.cos(r) * zScale;
   out[1] = Math.sin(r) * zScale;
-  out[2] = z * scale6;
+  out[2] = z2 * scale6;
   return out;
 }
-function transformMat4(out, a, m) {
-  var x2 = a[0], y = a[1], z = a[2];
-  var w2 = m[3] * x2 + m[7] * y + m[11] * z + m[15];
-  w2 = w2 || 1;
-  out[0] = (m[0] * x2 + m[4] * y + m[8] * z + m[12]) / w2;
-  out[1] = (m[1] * x2 + m[5] * y + m[9] * z + m[13]) / w2;
-  out[2] = (m[2] * x2 + m[6] * y + m[10] * z + m[14]) / w2;
+function transformMat4(out, a, m2) {
+  var x2 = a[0], y = a[1], z2 = a[2];
+  var w = m2[3] * x2 + m2[7] * y + m2[11] * z2 + m2[15];
+  w = w || 1;
+  out[0] = (m2[0] * x2 + m2[4] * y + m2[8] * z2 + m2[12]) / w;
+  out[1] = (m2[1] * x2 + m2[5] * y + m2[9] * z2 + m2[13]) / w;
+  out[2] = (m2[2] * x2 + m2[6] * y + m2[10] * z2 + m2[14]) / w;
   return out;
 }
-function transformMat3(out, a, m) {
-  var x2 = a[0], y = a[1], z = a[2];
-  out[0] = x2 * m[0] + y * m[3] + z * m[6];
-  out[1] = x2 * m[1] + y * m[4] + z * m[7];
-  out[2] = x2 * m[2] + y * m[5] + z * m[8];
+function transformMat3(out, a, m2) {
+  var x2 = a[0], y = a[1], z2 = a[2];
+  out[0] = x2 * m2[0] + y * m2[3] + z2 * m2[6];
+  out[1] = x2 * m2[1] + y * m2[4] + z2 * m2[7];
+  out[2] = x2 * m2[2] + y * m2[5] + z2 * m2[8];
   return out;
 }
 function transformQuat(out, a, q2) {
   var qx = q2[0], qy = q2[1], qz = q2[2], qw = q2[3];
-  var x2 = a[0], y = a[1], z = a[2];
-  var uvx = qy * z - qz * y, uvy = qz * x2 - qx * z, uvz = qx * y - qy * x2;
+  var x2 = a[0], y = a[1], z2 = a[2];
+  var uvx = qy * z2 - qz * y, uvy = qz * x2 - qx * z2, uvz = qx * y - qy * x2;
   var uuvx = qy * uvz - qz * uvy, uuvy = qz * uvx - qx * uvz, uuvz = qx * uvy - qy * uvx;
   var w2 = qw * 2;
   uvx *= w2;
@@ -14126,7 +14126,7 @@ function transformQuat(out, a, q2) {
   uuvz *= 2;
   out[0] = x2 + uvx + uuvx;
   out[1] = y + uvy + uuvy;
-  out[2] = z + uvz + uuvz;
+  out[2] = z2 + uvz + uuvz;
   return out;
 }
 function rotateX2(out, a, b, rad) {
@@ -14243,12 +14243,12 @@ function clone3(a) {
   out[3] = a[3];
   return out;
 }
-function fromValues3(x2, y, z, w2) {
+function fromValues3(x2, y, z2, w) {
   var out = new ARRAY_TYPE(4);
   out[0] = x2;
   out[1] = y;
-  out[2] = z;
-  out[3] = w2;
+  out[2] = z2;
+  out[3] = w;
   return out;
 }
 function copy3(out, a) {
@@ -14258,11 +14258,11 @@ function copy3(out, a) {
   out[3] = a[3];
   return out;
 }
-function set3(out, x2, y, z, w2) {
+function set3(out, x2, y, z2, w) {
   out[0] = x2;
   out[1] = y;
-  out[2] = z;
-  out[3] = w2;
+  out[2] = z2;
+  out[3] = w;
   return out;
 }
 function add3(out, a, b) {
@@ -14282,30 +14282,30 @@ function scale3(out, a, b) {
 function length2(a) {
   var x2 = a[0];
   var y = a[1];
-  var z = a[2];
-  var w2 = a[3];
-  return Math.hypot(x2, y, z, w2);
+  var z2 = a[2];
+  var w = a[3];
+  return Math.hypot(x2, y, z2, w);
 }
 function squaredLength2(a) {
   var x2 = a[0];
   var y = a[1];
-  var z = a[2];
-  var w2 = a[3];
-  return x2 * x2 + y * y + z * z + w2 * w2;
+  var z2 = a[2];
+  var w = a[3];
+  return x2 * x2 + y * y + z2 * z2 + w * w;
 }
 function normalize2(out, a) {
   var x2 = a[0];
   var y = a[1];
-  var z = a[2];
-  var w2 = a[3];
-  var len4 = x2 * x2 + y * y + z * z + w2 * w2;
+  var z2 = a[2];
+  var w = a[3];
+  var len4 = x2 * x2 + y * y + z2 * z2 + w * w;
   if (len4 > 0) {
     len4 = 1 / Math.sqrt(len4);
   }
   out[0] = x2 * len4;
   out[1] = y * len4;
-  out[2] = z * len4;
-  out[3] = w2 * len4;
+  out[2] = z2 * len4;
+  out[3] = w * len4;
   return out;
 }
 function dot2(a, b) {
@@ -14445,32 +14445,32 @@ function rotateZ3(out, a, rad) {
   return out;
 }
 function calculateW(out, a) {
-  var x2 = a[0], y = a[1], z = a[2];
+  var x2 = a[0], y = a[1], z2 = a[2];
   out[0] = x2;
   out[1] = y;
-  out[2] = z;
-  out[3] = Math.sqrt(Math.abs(1 - x2 * x2 - y * y - z * z));
+  out[2] = z2;
+  out[3] = Math.sqrt(Math.abs(1 - x2 * x2 - y * y - z2 * z2));
   return out;
 }
 function exp(out, a) {
-  var x2 = a[0], y = a[1], z = a[2], w2 = a[3];
-  var r = Math.sqrt(x2 * x2 + y * y + z * z);
-  var et = Math.exp(w2);
+  var x2 = a[0], y = a[1], z2 = a[2], w = a[3];
+  var r = Math.sqrt(x2 * x2 + y * y + z2 * z2);
+  var et = Math.exp(w);
   var s = r > 0 ? et * Math.sin(r) / r : 0;
   out[0] = x2 * s;
   out[1] = y * s;
-  out[2] = z * s;
+  out[2] = z2 * s;
   out[3] = et * Math.cos(r);
   return out;
 }
 function ln(out, a) {
-  var x2 = a[0], y = a[1], z = a[2], w2 = a[3];
-  var r = Math.sqrt(x2 * x2 + y * y + z * z);
-  var t = r > 0 ? Math.atan2(r, w2) / r : 0;
+  var x2 = a[0], y = a[1], z2 = a[2], w = a[3];
+  var r = Math.sqrt(x2 * x2 + y * y + z2 * z2);
+  var t = r > 0 ? Math.atan2(r, w) / r : 0;
   out[0] = x2 * t;
   out[1] = y * t;
-  out[2] = z * t;
-  out[3] = 0.5 * Math.log(x2 * x2 + y * y + z * z + w2 * w2);
+  out[2] = z2 * t;
+  out[3] = 0.5 * Math.log(x2 * x2 + y * y + z2 * z2 + w * w);
   return out;
 }
 function pow(out, a, b) {
@@ -14535,44 +14535,44 @@ function conjugate(out, a) {
   out[3] = a[3];
   return out;
 }
-function fromMat3(out, m) {
-  var fTrace = m[0] + m[4] + m[8];
+function fromMat3(out, m2) {
+  var fTrace = m2[0] + m2[4] + m2[8];
   var fRoot;
   if (fTrace > 0) {
     fRoot = Math.sqrt(fTrace + 1);
     out[3] = 0.5 * fRoot;
     fRoot = 0.5 / fRoot;
-    out[0] = (m[5] - m[7]) * fRoot;
-    out[1] = (m[6] - m[2]) * fRoot;
-    out[2] = (m[1] - m[3]) * fRoot;
+    out[0] = (m2[5] - m2[7]) * fRoot;
+    out[1] = (m2[6] - m2[2]) * fRoot;
+    out[2] = (m2[1] - m2[3]) * fRoot;
   } else {
     var i = 0;
-    if (m[4] > m[0])
+    if (m2[4] > m2[0])
       i = 1;
-    if (m[8] > m[i * 3 + i])
+    if (m2[8] > m2[i * 3 + i])
       i = 2;
-    var j2 = (i + 1) % 3;
+    var j = (i + 1) % 3;
     var k = (i + 2) % 3;
-    fRoot = Math.sqrt(m[i * 3 + i] - m[j2 * 3 + j2] - m[k * 3 + k] + 1);
+    fRoot = Math.sqrt(m2[i * 3 + i] - m2[j * 3 + j] - m2[k * 3 + k] + 1);
     out[i] = 0.5 * fRoot;
     fRoot = 0.5 / fRoot;
-    out[3] = (m[j2 * 3 + k] - m[k * 3 + j2]) * fRoot;
-    out[j2] = (m[j2 * 3 + i] + m[i * 3 + j2]) * fRoot;
-    out[k] = (m[k * 3 + i] + m[i * 3 + k]) * fRoot;
+    out[3] = (m2[j * 3 + k] - m2[k * 3 + j]) * fRoot;
+    out[j] = (m2[j * 3 + i] + m2[i * 3 + j]) * fRoot;
+    out[k] = (m2[k * 3 + i] + m2[i * 3 + k]) * fRoot;
   }
   return out;
 }
-function fromEuler(out, x2, y, z) {
+function fromEuler(out, x2, y, z2) {
   var halfToRad = 0.5 * Math.PI / 180;
   x2 *= halfToRad;
   y *= halfToRad;
-  z *= halfToRad;
+  z2 *= halfToRad;
   var sx = Math.sin(x2);
   var cx = Math.cos(x2);
   var sy = Math.sin(y);
   var cy = Math.cos(y);
-  var sz = Math.sin(z);
-  var cz = Math.cos(z);
+  var sz = Math.sin(z2);
+  var cz = Math.cos(z2);
   out[0] = sx * cy * cz - cx * sy * sz;
   out[1] = cx * sy * cz + sx * cy * sz;
   out[2] = cx * cy * sz - sx * sy * cz;
@@ -15735,24 +15735,24 @@ var HandTracking = class extends Component {
       const skin = this.handSkin;
       const jointIds = skin.jointIds;
       this.joints[ORDERED_JOINTS[0]] = this.engine.wrapObject(jointIds[0]);
-      for (let j2 = 0; j2 < jointIds.length; ++j2) {
-        const joint = this.engine.wrapObject(jointIds[j2]);
+      for (let j = 0; j < jointIds.length; ++j) {
+        const joint = this.engine.wrapObject(jointIds[j]);
         this.joints[joint.name] = joint;
       }
       return;
     }
     const jointObjects = this.engine.scene.addObjects(ORDERED_JOINTS.length, this.object, ORDERED_JOINTS.length);
-    for (let j2 = 0; j2 < ORDERED_JOINTS.length; ++j2) {
-      const joint = jointObjects[j2];
+    for (let j = 0; j < ORDERED_JOINTS.length; ++j) {
+      const joint = jointObjects[j];
       joint.addComponent(MeshComponent, {
         mesh: this.jointMesh,
         material: this.jointMaterial
       });
-      this.joints[ORDERED_JOINTS[j2]] = joint;
-      joint.name = ORDERED_JOINTS[j2];
+      this.joints[ORDERED_JOINTS[j]] = joint;
+      joint.name = ORDERED_JOINTS[j];
     }
   }
-  update(dt2) {
+  update(dt) {
     if (!this.engine.xr)
       return;
     this.hasPose = false;
@@ -15772,8 +15772,8 @@ var HandTracking = class extends Component {
         quat_exports.conjugate(invRotation, invRotation);
         this.object.getPositionLocal(invTranslation);
         this.joints["wrist"].resetTransform();
-        for (let j2 = 0; j2 < ORDERED_JOINTS.length; ++j2) {
-          const jointName = ORDERED_JOINTS[j2];
+        for (let j = 0; j < ORDERED_JOINTS.length; ++j) {
+          const jointName = ORDERED_JOINTS[j];
           const joint = this.joints[jointName];
           if (!joint)
             continue;
@@ -16523,9 +16523,9 @@ var Trail = class extends Component {
     this._currentPointIndex = 0;
     this._timeTillNext = this.interval;
   }
-  update(dt2) {
-    this._timeTillNext -= dt2;
-    if (dt2 > this.resetThreshold) {
+  update(dt) {
+    this._timeTillNext -= dt;
+    if (dt > this.resetThreshold) {
       this.resetTrail();
     }
     if (this._timeTillNext < 0) {
@@ -16636,8 +16636,8 @@ var TwoJointIkSolver = class extends Component {
     this.middle.getTransformLocal(middleTransform);
     this.end.getTransformLocal(endTransform);
   }
-  update(dt2) {
-    this.time += dt2;
+  update(dt) {
+    this.time += dt;
     this.root.setTransformLocal(rootTransform);
     this.middle.setTransformLocal(middleTransform);
     this.end.setTransformLocal(endTransform);
@@ -16719,7 +16719,7 @@ var VideoTexture = class extends Component {
       });
     }
   }
-  update(dt2) {
+  update(dt) {
     if (this.loaded && this.frameUpdateRequested) {
       if (this.texture) {
         this.texture.update();
@@ -17306,13 +17306,13 @@ var Vrm = class extends Component {
       }
     }
   }
-  update(dt2) {
+  update(dt) {
     if (!this._initialized) {
       return;
     }
     this._resolveLookAt();
     this._resolveConstraints();
-    this._updateSpringBones(dt2);
+    this._updateSpringBones(dt);
   }
   _rangeMap(rangeMap, input) {
     const maxValue = rangeMap.inputMaxValue;
@@ -17328,10 +17328,10 @@ var Vrm = class extends Component {
     const lookAtDirection = vec3_exports.sub(this._tempV3A, lookAtTarget, lookAtSource);
     vec3_exports.normalize(lookAtDirection, lookAtDirection);
     this.bones.head.parent.transformVectorInverseWorld(lookAtDirection);
-    const z = vec3_exports.dot(lookAtDirection, this._forwardVector);
+    const z2 = vec3_exports.dot(lookAtDirection, this._forwardVector);
     const x2 = vec3_exports.dot(lookAtDirection, this._rightVector);
-    const yaw = Math.atan2(x2, z) * this._rad2deg;
-    const xz = Math.sqrt(x2 * x2 + z * z);
+    const yaw = Math.atan2(x2, z2) * this._rad2deg;
+    const xz = Math.sqrt(x2 * x2 + z2 * z2);
     const y = vec3_exports.dot(lookAtDirection, this._upVector);
     let pitch = Math.atan2(-y, xz) * this._rad2deg;
     if (pitch > 0) {
@@ -17408,7 +17408,7 @@ var Vrm = class extends Component {
     quat_exports.slerp(targetQuat, dstRestQuat, targetQuat, nodeConstraint.weight);
     nodeConstraint.destination.rotationLocal = targetQuat;
   }
-  _updateSpringBones(dt2) {
+  _updateSpringBones(dt) {
     this._sphereColliders.forEach(({ object, shape, cache }) => {
       const offset2 = vec3_exports.copy(cache.head, shape.offset);
       object.transformVectorWorld(offset2);
@@ -17438,8 +17438,8 @@ var Vrm = class extends Component {
         const stiffness = vec3_exports.copy(this._stiffness, joint.state.boneAxis);
         vec3_exports.transformQuat(stiffness, stiffness, joint.state.initialLocalRotation);
         vec3_exports.transformQuat(stiffness, stiffness, parentWorldRotation);
-        vec3_exports.scale(stiffness, stiffness, dt2 * joint.stiffness);
-        const external = vec3_exports.scale(this._external, joint.gravityDir, dt2 * joint.gravityPower);
+        vec3_exports.scale(stiffness, stiffness, dt * joint.stiffness);
+        const external = vec3_exports.scale(this._external, joint.gravityDir, dt * joint.gravityPower);
         const nextTail = vec3_exports.copy(this._tempV3A, joint.state.currentTail);
         vec3_exports.add(nextTail, nextTail, inertia);
         vec3_exports.add(nextTail, nextTail, stiffness);
@@ -17796,15 +17796,15 @@ var _InputProfile = class extends Component {
     this._axes = [];
     for (const i in components) {
       const visualResponses = components[i].visualResponses;
-      for (const j2 in visualResponses) {
-        const visualResponse = visualResponses[j2];
+      for (const j in visualResponses) {
+        const visualResponse = visualResponses[j];
         const valueNode = visualResponse.valueNodeName;
         const minNode = visualResponse.minNodeName;
         const maxNode = visualResponse.maxNodeName;
         this._gamepadObjects[valueNode] = obj.findByNameRecursive(valueNode)[0];
         this._gamepadObjects[minNode] = obj.findByNameRecursive(minNode)[0];
         this._gamepadObjects[maxNode] = obj.findByNameRecursive(maxNode)[0];
-        const indice = visualResponses[j2].componentProperty;
+        const indice = visualResponses[j].componentProperty;
         const response = {
           target: this._gamepadObjects[valueNode],
           min: this._gamepadObjects[minNode],
@@ -18185,25 +18185,25 @@ __publicField(ExposeBanners, "Properties", {
 });
 
 // js/zesty-wonderland-sdk.js
-var ir = Object.create;
-var G = Object.defineProperty;
-var sr = Object.getOwnPropertyDescriptor;
-var ar = Object.getOwnPropertyNames;
-var or = Object.getPrototypeOf;
-var ur = Object.prototype.hasOwnProperty;
-var cr = (t, e, r) => e in t ? G(t, e, { enumerable: true, configurable: true, writable: true, value: r }) : t[e] = r;
+var sr = Object.create;
+var Z = Object.defineProperty;
+var ar = Object.getOwnPropertyDescriptor;
+var or = Object.getOwnPropertyNames;
+var ur = Object.getPrototypeOf;
+var cr = Object.prototype.hasOwnProperty;
+var lr = (t, e, r) => e in t ? Z(t, e, { enumerable: true, configurable: true, writable: true, value: r }) : t[e] = r;
 var l = (t, e) => () => (e || t((e = { exports: {} }).exports, e), e.exports);
-var lr = (t, e, r, i) => {
+var dr = (t, e, r, i) => {
   if (e && typeof e == "object" || typeof e == "function")
-    for (let n of ar(e))
-      !ur.call(t, n) && n !== r && G(t, n, { get: () => e[n], enumerable: !(i = sr(e, n)) || i.enumerable });
+    for (let n of or(e))
+      !cr.call(t, n) && n !== r && Z(t, n, { get: () => e[n], enumerable: !(i = ar(e, n)) || i.enumerable });
   return t;
 };
-var dr = (t, e, r) => (r = t != null ? ir(or(t)) : {}, lr(e || !t || !t.__esModule ? G(r, "default", { value: t, enumerable: true }) : r, t));
-var Z = (t, e, r) => (cr(t, typeof e != "symbol" ? e + "" : e, r), r);
-var ee = l((On, Se) => {
+var fr = (t, e, r) => (r = t != null ? sr(ur(t)) : {}, dr(e || !t || !t.__esModule ? Z(r, "default", { value: t, enumerable: true }) : r, t));
+var ee = (t, e, r) => (lr(t, typeof e != "symbol" ? e + "" : e, r), r);
+var te = l((An, Pe) => {
   "use strict";
-  Se.exports = function(e, r) {
+  Pe.exports = function(e, r) {
     return function() {
       for (var n = new Array(arguments.length), s = 0; s < n.length; s++)
         n[s] = arguments[s];
@@ -18211,96 +18211,96 @@ var ee = l((On, Se) => {
     };
   };
 });
-var h = l((An, Pe) => {
+var h = l((Tn, _e) => {
   "use strict";
-  var fr = ee(), re = Object.prototype.toString, ne = function(t) {
+  var hr = te(), ne = Object.prototype.toString, ie = function(t) {
     return function(e) {
-      var r = re.call(e);
+      var r = ne.call(e);
       return t[r] || (t[r] = r.slice(8, -1).toLowerCase());
     };
   }(/* @__PURE__ */ Object.create(null));
   function T(t) {
     return t = t.toLowerCase(), function(r) {
-      return ne(r) === t;
+      return ie(r) === t;
     };
   }
-  function ie(t) {
+  function se(t) {
     return Array.isArray(t);
   }
-  function F(t) {
+  function I(t) {
     return typeof t > "u";
   }
-  function hr(t) {
-    return t !== null && !F(t) && t.constructor !== null && !F(t.constructor) && typeof t.constructor.isBuffer == "function" && t.constructor.isBuffer(t);
+  function pr(t) {
+    return t !== null && !I(t) && t.constructor !== null && !I(t.constructor) && typeof t.constructor.isBuffer == "function" && t.constructor.isBuffer(t);
   }
   var ke = T("ArrayBuffer");
-  function pr(t) {
+  function mr(t) {
     var e;
     return typeof ArrayBuffer < "u" && ArrayBuffer.isView ? e = ArrayBuffer.isView(t) : e = t && t.buffer && ke(t.buffer), e;
   }
-  function mr(t) {
+  function yr(t) {
     return typeof t == "string";
   }
-  function yr(t) {
+  function br(t) {
     return typeof t == "number";
   }
   function Ne(t) {
     return t !== null && typeof t == "object";
   }
-  function z(t) {
-    if (ne(t) !== "object")
+  function F(t) {
+    if (ie(t) !== "object")
       return false;
     var e = Object.getPrototypeOf(t);
     return e === null || e === Object.prototype;
   }
-  var br = T("Date"), vr = T("File"), wr = T("Blob"), gr = T("FileList");
-  function se(t) {
-    return re.call(t) === "[object Function]";
-  }
-  function Er(t) {
-    return Ne(t) && se(t.pipe);
+  var vr = T("Date"), wr = T("File"), gr = T("Blob"), Er = T("FileList");
+  function ae(t) {
+    return ne.call(t) === "[object Function]";
   }
   function xr(t) {
+    return Ne(t) && ae(t.pipe);
+  }
+  function Rr(t) {
     var e = "[object FormData]";
-    return t && (typeof FormData == "function" && t instanceof FormData || re.call(t) === e || se(t.toString) && t.toString() === e);
+    return t && (typeof FormData == "function" && t instanceof FormData || ne.call(t) === e || ae(t.toString) && t.toString() === e);
   }
   var Cr = T("URLSearchParams");
-  function Rr(t) {
+  function Or(t) {
     return t.trim ? t.trim() : t.replace(/^\s+|\s+$/g, "");
   }
-  function Or() {
+  function Ar() {
     return typeof navigator < "u" && (navigator.product === "ReactNative" || navigator.product === "NativeScript" || navigator.product === "NS") ? false : typeof window < "u" && typeof document < "u";
   }
-  function ae(t, e) {
+  function oe(t, e) {
     if (!(t === null || typeof t > "u"))
-      if (typeof t != "object" && (t = [t]), ie(t))
+      if (typeof t != "object" && (t = [t]), se(t))
         for (var r = 0, i = t.length; r < i; r++)
           e.call(null, t[r], r, t);
       else
         for (var n in t)
           Object.prototype.hasOwnProperty.call(t, n) && e.call(null, t[n], n, t);
   }
-  function te() {
+  function re() {
     var t = {};
     function e(n, s) {
-      z(t[s]) && z(n) ? t[s] = te(t[s], n) : z(n) ? t[s] = te({}, n) : ie(n) ? t[s] = n.slice() : t[s] = n;
+      F(t[s]) && F(n) ? t[s] = re(t[s], n) : F(n) ? t[s] = re({}, n) : se(n) ? t[s] = n.slice() : t[s] = n;
     }
     for (var r = 0, i = arguments.length; r < i; r++)
-      ae(arguments[r], e);
+      oe(arguments[r], e);
     return t;
   }
-  function Ar(t, e, r) {
-    return ae(e, function(n, s) {
-      r && typeof n == "function" ? t[s] = fr(n, r) : t[s] = n;
+  function Tr(t, e, r) {
+    return oe(e, function(n, s) {
+      r && typeof n == "function" ? t[s] = hr(n, r) : t[s] = n;
     }), t;
   }
-  function Tr(t) {
+  function qr(t) {
     return t.charCodeAt(0) === 65279 && (t = t.slice(1)), t;
   }
-  function qr(t, e, r, i) {
+  function Sr(t, e, r, i) {
     t.prototype = Object.create(e.prototype, i), t.prototype.constructor = t, r && Object.assign(t.prototype, r);
   }
-  function Sr(t, e, r) {
+  function Pr(t, e, r) {
     var i, n, s, a = {};
     e = e || {};
     do {
@@ -18319,38 +18319,38 @@ var h = l((An, Pe) => {
     if (!t)
       return null;
     var e = t.length;
-    if (F(e))
+    if (I(e))
       return null;
     for (var r = new Array(e); e-- > 0; )
       r[e] = t[e];
     return r;
   }
-  var Pr = function(t) {
+  var _r = function(t) {
     return function(e) {
       return t && e instanceof t;
     };
   }(typeof Uint8Array < "u" && Object.getPrototypeOf(Uint8Array));
-  Pe.exports = { isArray: ie, isArrayBuffer: ke, isBuffer: hr, isFormData: xr, isArrayBufferView: pr, isString: mr, isNumber: yr, isObject: Ne, isPlainObject: z, isUndefined: F, isDate: br, isFile: vr, isBlob: wr, isFunction: se, isStream: Er, isURLSearchParams: Cr, isStandardBrowserEnv: Or, forEach: ae, merge: te, extend: Ar, trim: Rr, stripBOM: Tr, inherits: qr, toFlatObject: Sr, kindOf: ne, kindOfTest: T, endsWith: kr, toArray: Nr, isTypedArray: Pr, isFileList: gr };
+  _e.exports = { isArray: se, isArrayBuffer: ke, isBuffer: pr, isFormData: Rr, isArrayBufferView: mr, isString: yr, isNumber: br, isObject: Ne, isPlainObject: F, isUndefined: I, isDate: vr, isFile: wr, isBlob: gr, isFunction: ae, isStream: xr, isURLSearchParams: Cr, isStandardBrowserEnv: Ar, forEach: oe, merge: re, extend: Tr, trim: Or, stripBOM: qr, inherits: Sr, toFlatObject: Pr, kindOf: ie, kindOfTest: T, endsWith: kr, toArray: Nr, isTypedArray: _r, isFileList: Er };
 });
-var oe = l((Tn, De) => {
+var ue = l((qn, Le) => {
   "use strict";
-  var k = h();
-  function _e(t) {
+  var P = h();
+  function De(t) {
     return encodeURIComponent(t).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
   }
-  De.exports = function(e, r, i) {
+  Le.exports = function(e, r, i) {
     if (!r)
       return e;
     var n;
     if (i)
       n = i(r);
-    else if (k.isURLSearchParams(r))
+    else if (P.isURLSearchParams(r))
       n = r.toString();
     else {
       var s = [];
-      k.forEach(r, function(c, d) {
-        c === null || typeof c > "u" || (k.isArray(c) ? d = d + "[]" : c = [c], k.forEach(c, function(f) {
-          k.isDate(f) ? f = f.toISOString() : k.isObject(f) && (f = JSON.stringify(f)), s.push(_e(d) + "=" + _e(f));
+      P.forEach(r, function(c, d) {
+        c === null || typeof c > "u" || (P.isArray(c) ? d = d + "[]" : c = [c], P.forEach(c, function(f) {
+          P.isDate(f) ? f = f.toISOString() : P.isObject(f) && (f = JSON.stringify(f)), s.push(De(d) + "=" + De(f));
         }));
       }), n = s.join("&");
     }
@@ -18361,65 +18361,65 @@ var oe = l((Tn, De) => {
     return e;
   };
 });
-var Ue = l((qn, Be) => {
+var Be = l((Sn, je) => {
   "use strict";
-  var _r = h();
-  function I() {
+  var Dr = h();
+  function M() {
     this.handlers = [];
   }
-  I.prototype.use = function(e, r, i) {
+  M.prototype.use = function(e, r, i) {
     return this.handlers.push({ fulfilled: e, rejected: r, synchronous: i ? i.synchronous : false, runWhen: i ? i.runWhen : null }), this.handlers.length - 1;
   };
-  I.prototype.eject = function(e) {
+  M.prototype.eject = function(e) {
     this.handlers[e] && (this.handlers[e] = null);
   };
-  I.prototype.forEach = function(e) {
-    _r.forEach(this.handlers, function(i) {
+  M.prototype.forEach = function(e) {
+    Dr.forEach(this.handlers, function(i) {
       i !== null && e(i);
     });
   };
-  Be.exports = I;
+  je.exports = M;
 });
-var Le = l((Sn, je) => {
+var ze = l((Pn, Ue) => {
   "use strict";
-  var Dr = h();
-  je.exports = function(e, r) {
-    Dr.forEach(e, function(n, s) {
+  var Lr = h();
+  Ue.exports = function(e, r) {
+    Lr.forEach(e, function(n, s) {
       s !== r && s.toUpperCase() === r.toUpperCase() && (e[r] = n, delete e[s]);
     });
   };
 });
-var q = l((kn, Me) => {
+var q = l((kn, $e) => {
   "use strict";
-  var ze = h();
-  function N(t, e, r, i, n) {
+  var Fe = h();
+  function k(t, e, r, i, n) {
     Error.call(this), this.message = t, this.name = "AxiosError", e && (this.code = e), r && (this.config = r), i && (this.request = i), n && (this.response = n);
   }
-  ze.inherits(N, Error, { toJSON: function() {
+  Fe.inherits(k, Error, { toJSON: function() {
     return { message: this.message, name: this.name, description: this.description, number: this.number, fileName: this.fileName, lineNumber: this.lineNumber, columnNumber: this.columnNumber, stack: this.stack, config: this.config, code: this.code, status: this.response && this.response.status ? this.response.status : null };
   } });
-  var Fe = N.prototype, Ie = {};
+  var Ie = k.prototype, Me = {};
   ["ERR_BAD_OPTION_VALUE", "ERR_BAD_OPTION", "ECONNABORTED", "ETIMEDOUT", "ERR_NETWORK", "ERR_FR_TOO_MANY_REDIRECTS", "ERR_DEPRECATED", "ERR_BAD_RESPONSE", "ERR_BAD_REQUEST", "ERR_CANCELED"].forEach(function(t) {
-    Ie[t] = { value: t };
+    Me[t] = { value: t };
   });
-  Object.defineProperties(N, Ie);
-  Object.defineProperty(Fe, "isAxiosError", { value: true });
-  N.from = function(t, e, r, i, n, s) {
-    var a = Object.create(Fe);
-    return ze.toFlatObject(t, a, function(c) {
+  Object.defineProperties(k, Me);
+  Object.defineProperty(Ie, "isAxiosError", { value: true });
+  k.from = function(t, e, r, i, n, s) {
+    var a = Object.create(Ie);
+    return Fe.toFlatObject(t, a, function(c) {
       return c !== Error.prototype;
-    }), N.call(a, t.message, e, r, i, n), a.name = t.name, s && Object.assign(a, s), a;
+    }), k.call(a, t.message, e, r, i, n), a.name = t.name, s && Object.assign(a, s), a;
   };
-  Me.exports = N;
+  $e.exports = k;
 });
-var ue = l((Nn, $e) => {
+var ce = l((Nn, He) => {
   "use strict";
-  $e.exports = { silentJSONParsing: true, forcedJSONParsing: true, clarifyTimeoutError: false };
+  He.exports = { silentJSONParsing: true, forcedJSONParsing: true, clarifyTimeoutError: false };
 });
-var ce = l((Pn, He) => {
+var le = l((_n, We) => {
   "use strict";
   var E = h();
-  function Br(t, e) {
+  function jr(t, e) {
     e = e || new FormData();
     var r = [];
     function i(s) {
@@ -18436,8 +18436,8 @@ var ce = l((Pn, He) => {
               if (E.endsWith(d, "{}"))
                 c = JSON.stringify(c);
               else if (E.endsWith(d, "[]") && (f = E.toArray(c))) {
-                f.forEach(function(b) {
-                  !E.isUndefined(b) && e.append(o, i(b));
+                f.forEach(function(v) {
+                  !E.isUndefined(v) && e.append(o, i(v));
                 });
                 return;
               }
@@ -18450,23 +18450,23 @@ var ce = l((Pn, He) => {
     }
     return n(t), e;
   }
-  He.exports = Br;
+  We.exports = jr;
 });
-var Je = l((_n, We) => {
+var Je = l((Dn, Ve) => {
   "use strict";
-  var le = q();
-  We.exports = function(e, r, i) {
+  var de = q();
+  Ve.exports = function(e, r, i) {
     var n = i.config.validateStatus;
-    !i.status || !n || n(i.status) ? e(i) : r(new le("Request failed with status code " + i.status, [le.ERR_BAD_REQUEST, le.ERR_BAD_RESPONSE][Math.floor(i.status / 100) - 4], i.config, i.request, i));
+    !i.status || !n || n(i.status) ? e(i) : r(new de("Request failed with status code " + i.status, [de.ERR_BAD_REQUEST, de.ERR_BAD_RESPONSE][Math.floor(i.status / 100) - 4], i.config, i.request, i));
   };
 });
-var Ke = l((Dn, Ve) => {
+var Xe = l((Ln, Ke) => {
   "use strict";
-  var M = h();
-  Ve.exports = M.isStandardBrowserEnv() ? function() {
+  var $ = h();
+  Ke.exports = $.isStandardBrowserEnv() ? function() {
     return { write: function(r, i, n, s, a, u) {
       var c = [];
-      c.push(r + "=" + encodeURIComponent(i)), M.isNumber(n) && c.push("expires=" + new Date(n).toGMTString()), M.isString(s) && c.push("path=" + s), M.isString(a) && c.push("domain=" + a), u === true && c.push("secure"), document.cookie = c.join("; ");
+      c.push(r + "=" + encodeURIComponent(i)), $.isNumber(n) && c.push("expires=" + new Date(n).toGMTString()), $.isString(s) && c.push("path=" + s), $.isString(a) && c.push("domain=" + a), u === true && c.push("secure"), document.cookie = c.join("; ");
     }, read: function(r) {
       var i = document.cookie.match(new RegExp("(^|;\\s*)(" + r + ")=([^;]*)"));
       return i ? decodeURIComponent(i[3]) : null;
@@ -18481,51 +18481,51 @@ var Ke = l((Dn, Ve) => {
     } };
   }();
 });
-var Qe = l((Bn, Xe) => {
+var Ye = l((jn, Qe) => {
   "use strict";
-  Xe.exports = function(e) {
+  Qe.exports = function(e) {
     return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(e);
   };
 });
-var Ge = l((Un, Ye) => {
+var Ze = l((Bn, Ge) => {
   "use strict";
-  Ye.exports = function(e, r) {
+  Ge.exports = function(e, r) {
     return r ? e.replace(/\/+$/, "") + "/" + r.replace(/^\/+/, "") : e;
   };
 });
-var de = l((jn, Ze) => {
+var fe = l((Un, et) => {
   "use strict";
-  var Ur = Qe(), jr = Ge();
-  Ze.exports = function(e, r) {
-    return e && !Ur(r) ? jr(e, r) : r;
+  var Br = Ye(), Ur = Ze();
+  et.exports = function(e, r) {
+    return e && !Br(r) ? Ur(e, r) : r;
   };
 });
-var tt = l((Ln, et) => {
+var rt = l((zn, tt) => {
   "use strict";
-  var fe = h(), Lr = ["age", "authorization", "content-length", "content-type", "etag", "expires", "from", "host", "if-modified-since", "if-unmodified-since", "last-modified", "location", "max-forwards", "proxy-authorization", "referer", "retry-after", "user-agent"];
-  et.exports = function(e) {
+  var he = h(), zr = ["age", "authorization", "content-length", "content-type", "etag", "expires", "from", "host", "if-modified-since", "if-unmodified-since", "last-modified", "location", "max-forwards", "proxy-authorization", "referer", "retry-after", "user-agent"];
+  tt.exports = function(e) {
     var r = {}, i, n, s;
-    return e && fe.forEach(e.split(`
+    return e && he.forEach(e.split(`
 `), function(u) {
-      if (s = u.indexOf(":"), i = fe.trim(u.substr(0, s)).toLowerCase(), n = fe.trim(u.substr(s + 1)), i) {
-        if (r[i] && Lr.indexOf(i) >= 0)
+      if (s = u.indexOf(":"), i = he.trim(u.substr(0, s)).toLowerCase(), n = he.trim(u.substr(s + 1)), i) {
+        if (r[i] && zr.indexOf(i) >= 0)
           return;
         i === "set-cookie" ? r[i] = (r[i] ? r[i] : []).concat([n]) : r[i] = r[i] ? r[i] + ", " + n : n;
       }
     }), r;
   };
 });
-var it = l((zn, nt) => {
+var st = l((Fn, it) => {
   "use strict";
-  var rt = h();
-  nt.exports = rt.isStandardBrowserEnv() ? function() {
+  var nt = h();
+  it.exports = nt.isStandardBrowserEnv() ? function() {
     var e = /(msie|trident)/i.test(navigator.userAgent), r = document.createElement("a"), i;
     function n(s) {
       var a = s;
       return e && (r.setAttribute("href", a), a = r.href), r.setAttribute("href", a), { href: r.href, protocol: r.protocol ? r.protocol.replace(/:$/, "") : "", host: r.host, search: r.search ? r.search.replace(/^\?/, "") : "", hash: r.hash ? r.hash.replace(/^#/, "") : "", hostname: r.hostname, port: r.port, pathname: r.pathname.charAt(0) === "/" ? r.pathname : "/" + r.pathname };
     }
     return i = n(window.location.href), function(a) {
-      var u = rt.isString(a) ? n(a) : a;
+      var u = nt.isString(a) ? n(a) : a;
       return u.protocol === i.protocol && u.host === i.host;
     };
   }() : function() {
@@ -18534,90 +18534,90 @@ var it = l((zn, nt) => {
     };
   }();
 });
-var B = l((Fn, at) => {
+var L = l((In, ot) => {
   "use strict";
-  var he = q(), zr = h();
-  function st(t) {
-    he.call(this, t ?? "canceled", he.ERR_CANCELED), this.name = "CanceledError";
+  var pe = q(), Fr = h();
+  function at(t) {
+    pe.call(this, t ?? "canceled", pe.ERR_CANCELED), this.name = "CanceledError";
   }
-  zr.inherits(st, he, { __CANCEL__: true });
-  at.exports = st;
+  Fr.inherits(at, pe, { __CANCEL__: true });
+  ot.exports = at;
 });
-var ut = l((In, ot) => {
+var ct = l((Mn, ut) => {
   "use strict";
-  ot.exports = function(e) {
+  ut.exports = function(e) {
     var r = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
     return r && r[1] || "";
   };
 });
-var pe = l((Mn, ct) => {
+var me = l(($n, lt) => {
   "use strict";
-  var U = h(), Fr = Je(), Ir = Ke(), Mr = oe(), $r = de(), Hr = tt(), Wr = it(), Jr = ue(), R = q(), Vr = B(), Kr = ut();
-  ct.exports = function(e) {
+  var j = h(), Ir = Je(), Mr = Xe(), $r = ue(), Hr = fe(), Wr = rt(), Vr = st(), Jr = ce(), C = q(), Kr = L(), Xr = ct();
+  lt.exports = function(e) {
     return new Promise(function(i, n) {
       var s = e.data, a = e.headers, u = e.responseType, c;
       function d() {
         e.cancelToken && e.cancelToken.unsubscribe(c), e.signal && e.signal.removeEventListener("abort", c);
       }
-      U.isFormData(s) && U.isStandardBrowserEnv() && delete a["Content-Type"];
+      j.isFormData(s) && j.isStandardBrowserEnv() && delete a["Content-Type"];
       var o = new XMLHttpRequest();
       if (e.auth) {
-        var f = e.auth.username || "", b = e.auth.password ? unescape(encodeURIComponent(e.auth.password)) : "";
-        a.Authorization = "Basic " + btoa(f + ":" + b);
+        var f = e.auth.username || "", v = e.auth.password ? unescape(encodeURIComponent(e.auth.password)) : "";
+        a.Authorization = "Basic " + btoa(f + ":" + v);
       }
-      var m = $r(e.baseURL, e.url);
-      o.open(e.method.toUpperCase(), Mr(m, e.params, e.paramsSerializer), true), o.timeout = e.timeout;
-      function Te() {
+      var y = Hr(e.baseURL, e.url);
+      o.open(e.method.toUpperCase(), $r(y, e.params, e.paramsSerializer), true), o.timeout = e.timeout;
+      function qe() {
         if (o) {
-          var g = "getAllResponseHeaders" in o ? Hr(o.getAllResponseHeaders()) : null, S = !u || u === "text" || u === "json" ? o.responseText : o.response, A = { data: S, status: o.status, statusText: o.statusText, headers: g, config: e, request: o };
-          Fr(function(Y) {
-            i(Y), d();
-          }, function(Y) {
-            n(Y), d();
+          var g = "getAllResponseHeaders" in o ? Wr(o.getAllResponseHeaders()) : null, S = !u || u === "text" || u === "json" ? o.responseText : o.response, A = { data: S, status: o.status, statusText: o.statusText, headers: g, config: e, request: o };
+          Ir(function(G) {
+            i(G), d();
+          }, function(G) {
+            n(G), d();
           }, A), o = null;
         }
       }
-      if ("onloadend" in o ? o.onloadend = Te : o.onreadystatechange = function() {
-        !o || o.readyState !== 4 || o.status === 0 && !(o.responseURL && o.responseURL.indexOf("file:") === 0) || setTimeout(Te);
+      if ("onloadend" in o ? o.onloadend = qe : o.onreadystatechange = function() {
+        !o || o.readyState !== 4 || o.status === 0 && !(o.responseURL && o.responseURL.indexOf("file:") === 0) || setTimeout(qe);
       }, o.onabort = function() {
-        o && (n(new R("Request aborted", R.ECONNABORTED, e, o)), o = null);
+        o && (n(new C("Request aborted", C.ECONNABORTED, e, o)), o = null);
       }, o.onerror = function() {
-        n(new R("Network Error", R.ERR_NETWORK, e, o, o)), o = null;
+        n(new C("Network Error", C.ERR_NETWORK, e, o, o)), o = null;
       }, o.ontimeout = function() {
         var S = e.timeout ? "timeout of " + e.timeout + "ms exceeded" : "timeout exceeded", A = e.transitional || Jr;
-        e.timeoutErrorMessage && (S = e.timeoutErrorMessage), n(new R(S, A.clarifyTimeoutError ? R.ETIMEDOUT : R.ECONNABORTED, e, o)), o = null;
-      }, U.isStandardBrowserEnv()) {
-        var qe = (e.withCredentials || Wr(m)) && e.xsrfCookieName ? Ir.read(e.xsrfCookieName) : void 0;
-        qe && (a[e.xsrfHeaderName] = qe);
+        e.timeoutErrorMessage && (S = e.timeoutErrorMessage), n(new C(S, A.clarifyTimeoutError ? C.ETIMEDOUT : C.ECONNABORTED, e, o)), o = null;
+      }, j.isStandardBrowserEnv()) {
+        var Se = (e.withCredentials || Vr(y)) && e.xsrfCookieName ? Mr.read(e.xsrfCookieName) : void 0;
+        Se && (a[e.xsrfHeaderName] = Se);
       }
-      "setRequestHeader" in o && U.forEach(a, function(S, A) {
+      "setRequestHeader" in o && j.forEach(a, function(S, A) {
         typeof s > "u" && A.toLowerCase() === "content-type" ? delete a[A] : o.setRequestHeader(A, S);
-      }), U.isUndefined(e.withCredentials) || (o.withCredentials = !!e.withCredentials), u && u !== "json" && (o.responseType = e.responseType), typeof e.onDownloadProgress == "function" && o.addEventListener("progress", e.onDownloadProgress), typeof e.onUploadProgress == "function" && o.upload && o.upload.addEventListener("progress", e.onUploadProgress), (e.cancelToken || e.signal) && (c = function(g) {
-        o && (n(!g || g && g.type ? new Vr() : g), o.abort(), o = null);
+      }), j.isUndefined(e.withCredentials) || (o.withCredentials = !!e.withCredentials), u && u !== "json" && (o.responseType = e.responseType), typeof e.onDownloadProgress == "function" && o.addEventListener("progress", e.onDownloadProgress), typeof e.onUploadProgress == "function" && o.upload && o.upload.addEventListener("progress", e.onUploadProgress), (e.cancelToken || e.signal) && (c = function(g) {
+        o && (n(!g || g && g.type ? new Kr() : g), o.abort(), o = null);
       }, e.cancelToken && e.cancelToken.subscribe(c), e.signal && (e.signal.aborted ? c() : e.signal.addEventListener("abort", c))), s || (s = null);
-      var Q = Kr(m);
-      if (Q && ["http", "https", "file"].indexOf(Q) === -1) {
-        n(new R("Unsupported protocol " + Q + ":", R.ERR_BAD_REQUEST, e));
+      var Y = Xr(y);
+      if (Y && ["http", "https", "file"].indexOf(Y) === -1) {
+        n(new C("Unsupported protocol " + Y + ":", C.ERR_BAD_REQUEST, e));
         return;
       }
       o.send(s);
     });
   };
 });
-var dt = l(($n, lt) => {
-  lt.exports = null;
+var ft = l((Hn, dt) => {
+  dt.exports = null;
 });
-var H = l((Hn, mt) => {
+var W = l((Wn, yt) => {
   "use strict";
-  var p = h(), ft = Le(), ht = q(), Xr = ue(), Qr = ce(), Yr = { "Content-Type": "application/x-www-form-urlencoded" };
-  function pt(t, e) {
+  var p = h(), ht = ze(), pt = q(), Qr = ce(), Yr = le(), Gr = { "Content-Type": "application/x-www-form-urlencoded" };
+  function mt(t, e) {
     !p.isUndefined(t) && p.isUndefined(t["Content-Type"]) && (t["Content-Type"] = e);
   }
-  function Gr() {
+  function Zr() {
     var t;
-    return typeof XMLHttpRequest < "u" ? t = pe() : typeof process < "u" && Object.prototype.toString.call(process) === "[object process]" && (t = pe()), t;
+    return typeof XMLHttpRequest < "u" ? t = me() : typeof process < "u" && Object.prototype.toString.call(process) === "[object process]" && (t = me()), t;
   }
-  function Zr(t, e, r) {
+  function en(t, e, r) {
     if (p.isString(t))
       try {
         return (e || JSON.parse)(t), p.trim(t);
@@ -18627,99 +18627,99 @@ var H = l((Hn, mt) => {
       }
     return (r || JSON.stringify)(t);
   }
-  var $ = { transitional: Xr, adapter: Gr(), transformRequest: [function(e, r) {
-    if (ft(r, "Accept"), ft(r, "Content-Type"), p.isFormData(e) || p.isArrayBuffer(e) || p.isBuffer(e) || p.isStream(e) || p.isFile(e) || p.isBlob(e))
+  var H = { transitional: Qr, adapter: Zr(), transformRequest: [function(e, r) {
+    if (ht(r, "Accept"), ht(r, "Content-Type"), p.isFormData(e) || p.isArrayBuffer(e) || p.isBuffer(e) || p.isStream(e) || p.isFile(e) || p.isBlob(e))
       return e;
     if (p.isArrayBufferView(e))
       return e.buffer;
     if (p.isURLSearchParams(e))
-      return pt(r, "application/x-www-form-urlencoded;charset=utf-8"), e.toString();
+      return mt(r, "application/x-www-form-urlencoded;charset=utf-8"), e.toString();
     var i = p.isObject(e), n = r && r["Content-Type"], s;
     if ((s = p.isFileList(e)) || i && n === "multipart/form-data") {
       var a = this.env && this.env.FormData;
-      return Qr(s ? { "files[]": e } : e, a && new a());
+      return Yr(s ? { "files[]": e } : e, a && new a());
     } else if (i || n === "application/json")
-      return pt(r, "application/json"), Zr(e);
+      return mt(r, "application/json"), en(e);
     return e;
   }], transformResponse: [function(e) {
-    var r = this.transitional || $.transitional, i = r && r.silentJSONParsing, n = r && r.forcedJSONParsing, s = !i && this.responseType === "json";
+    var r = this.transitional || H.transitional, i = r && r.silentJSONParsing, n = r && r.forcedJSONParsing, s = !i && this.responseType === "json";
     if (s || n && p.isString(e) && e.length)
       try {
         return JSON.parse(e);
       } catch (a) {
         if (s)
-          throw a.name === "SyntaxError" ? ht.from(a, ht.ERR_BAD_RESPONSE, this, null, this.response) : a;
+          throw a.name === "SyntaxError" ? pt.from(a, pt.ERR_BAD_RESPONSE, this, null, this.response) : a;
       }
     return e;
-  }], timeout: 0, xsrfCookieName: "XSRF-TOKEN", xsrfHeaderName: "X-XSRF-TOKEN", maxContentLength: -1, maxBodyLength: -1, env: { FormData: dt() }, validateStatus: function(e) {
+  }], timeout: 0, xsrfCookieName: "XSRF-TOKEN", xsrfHeaderName: "X-XSRF-TOKEN", maxContentLength: -1, maxBodyLength: -1, env: { FormData: ft() }, validateStatus: function(e) {
     return e >= 200 && e < 300;
   }, headers: { common: { Accept: "application/json, text/plain, */*" } } };
   p.forEach(["delete", "get", "head"], function(e) {
-    $.headers[e] = {};
+    H.headers[e] = {};
   });
   p.forEach(["post", "put", "patch"], function(e) {
-    $.headers[e] = p.merge(Yr);
+    H.headers[e] = p.merge(Gr);
   });
-  mt.exports = $;
+  yt.exports = H;
 });
-var bt = l((Wn, yt) => {
+var vt = l((Vn, bt) => {
   "use strict";
-  var en = h(), tn = H();
-  yt.exports = function(e, r, i) {
-    var n = this || tn;
-    return en.forEach(i, function(a) {
+  var tn = h(), rn = W();
+  bt.exports = function(e, r, i) {
+    var n = this || rn;
+    return tn.forEach(i, function(a) {
       e = a.call(n, e, r);
     }), e;
   };
 });
-var me = l((Jn, vt) => {
+var ye = l((Jn, wt) => {
   "use strict";
-  vt.exports = function(e) {
+  wt.exports = function(e) {
     return !!(e && e.__CANCEL__);
   };
 });
-var Et = l((Vn, gt) => {
+var xt = l((Kn, Et) => {
   "use strict";
-  var wt = h(), ye = bt(), rn = me(), nn = H(), sn = B();
-  function be(t) {
+  var gt = h(), be = vt(), nn = ye(), sn = W(), an = L();
+  function ve(t) {
     if (t.cancelToken && t.cancelToken.throwIfRequested(), t.signal && t.signal.aborted)
-      throw new sn();
+      throw new an();
   }
-  gt.exports = function(e) {
-    be(e), e.headers = e.headers || {}, e.data = ye.call(e, e.data, e.headers, e.transformRequest), e.headers = wt.merge(e.headers.common || {}, e.headers[e.method] || {}, e.headers), wt.forEach(["delete", "get", "head", "post", "put", "patch", "common"], function(n) {
+  Et.exports = function(e) {
+    ve(e), e.headers = e.headers || {}, e.data = be.call(e, e.data, e.headers, e.transformRequest), e.headers = gt.merge(e.headers.common || {}, e.headers[e.method] || {}, e.headers), gt.forEach(["delete", "get", "head", "post", "put", "patch", "common"], function(n) {
       delete e.headers[n];
     });
-    var r = e.adapter || nn.adapter;
+    var r = e.adapter || sn.adapter;
     return r(e).then(function(n) {
-      return be(e), n.data = ye.call(e, n.data, n.headers, e.transformResponse), n;
+      return ve(e), n.data = be.call(e, n.data, n.headers, e.transformResponse), n;
     }, function(n) {
-      return rn(n) || (be(e), n && n.response && (n.response.data = ye.call(e, n.response.data, n.response.headers, e.transformResponse))), Promise.reject(n);
+      return nn(n) || (ve(e), n && n.response && (n.response.data = be.call(e, n.response.data, n.response.headers, e.transformResponse))), Promise.reject(n);
     });
   };
 });
-var ve = l((Kn, xt) => {
+var we = l((Xn, Rt) => {
   "use strict";
-  var v = h();
-  xt.exports = function(e, r) {
+  var w = h();
+  Rt.exports = function(e, r) {
     r = r || {};
     var i = {};
     function n(o, f) {
-      return v.isPlainObject(o) && v.isPlainObject(f) ? v.merge(o, f) : v.isPlainObject(f) ? v.merge({}, f) : v.isArray(f) ? f.slice() : f;
+      return w.isPlainObject(o) && w.isPlainObject(f) ? w.merge(o, f) : w.isPlainObject(f) ? w.merge({}, f) : w.isArray(f) ? f.slice() : f;
     }
     function s(o) {
-      if (v.isUndefined(r[o])) {
-        if (!v.isUndefined(e[o]))
+      if (w.isUndefined(r[o])) {
+        if (!w.isUndefined(e[o]))
           return n(void 0, e[o]);
       } else
         return n(e[o], r[o]);
     }
     function a(o) {
-      if (!v.isUndefined(r[o]))
+      if (!w.isUndefined(r[o]))
         return n(void 0, r[o]);
     }
     function u(o) {
-      if (v.isUndefined(r[o])) {
-        if (!v.isUndefined(e[o]))
+      if (w.isUndefined(r[o])) {
+        if (!w.isUndefined(e[o]))
           return n(void 0, e[o]);
       } else
         return n(void 0, r[o]);
@@ -18731,35 +18731,35 @@ var ve = l((Kn, xt) => {
         return n(void 0, e[o]);
     }
     var d = { url: a, method: a, data: a, baseURL: u, transformRequest: u, transformResponse: u, paramsSerializer: u, timeout: u, timeoutMessage: u, withCredentials: u, adapter: u, responseType: u, xsrfCookieName: u, xsrfHeaderName: u, onUploadProgress: u, onDownloadProgress: u, decompress: u, maxContentLength: u, maxBodyLength: u, beforeRedirect: u, transport: u, httpAgent: u, httpsAgent: u, cancelToken: u, socketPath: u, responseEncoding: u, validateStatus: c };
-    return v.forEach(Object.keys(e).concat(Object.keys(r)), function(f) {
-      var b = d[f] || s, m = b(f);
-      v.isUndefined(m) && b !== c || (i[f] = m);
+    return w.forEach(Object.keys(e).concat(Object.keys(r)), function(f) {
+      var v = d[f] || s, y = v(f);
+      w.isUndefined(y) && v !== c || (i[f] = y);
     }), i;
   };
 });
-var we = l((Xn, Ct) => {
+var ge = l((Qn, Ct) => {
   Ct.exports = { version: "0.27.2" };
 });
-var At = l((Qn, Ot) => {
+var Tt = l((Yn, At) => {
   "use strict";
-  var an = we().version, O = q(), ge = {};
+  var on = ge().version, O = q(), Ee = {};
   ["object", "boolean", "number", "function", "string", "symbol"].forEach(function(t, e) {
-    ge[t] = function(i) {
+    Ee[t] = function(i) {
       return typeof i === t || "a" + (e < 1 ? "n " : " ") + t;
     };
   });
-  var Rt = {};
-  ge.transitional = function(e, r, i) {
+  var Ot = {};
+  Ee.transitional = function(e, r, i) {
     function n(s, a) {
-      return "[Axios v" + an + "] Transitional option '" + s + "'" + a + (i ? ". " + i : "");
+      return "[Axios v" + on + "] Transitional option '" + s + "'" + a + (i ? ". " + i : "");
     }
     return function(s, a, u) {
       if (e === false)
         throw new O(n(a, " has been removed" + (r ? " in " + r : "")), O.ERR_DEPRECATED);
-      return r && !Rt[a] && (Rt[a] = true, console.warn(n(a, " has been deprecated since v" + r + " and will be removed in the near future"))), e ? e(s, a, u) : true;
+      return r && !Ot[a] && (Ot[a] = true, console.warn(n(a, " has been deprecated since v" + r + " and will be removed in the near future"))), e ? e(s, a, u) : true;
     };
   };
-  function on(t, e, r) {
+  function un(t, e, r) {
     if (typeof t != "object")
       throw new O("options must be an object", O.ERR_BAD_OPTION_VALUE);
     for (var i = Object.keys(t), n = i.length; n-- > 0; ) {
@@ -18774,29 +18774,29 @@ var At = l((Qn, Ot) => {
         throw new O("Unknown option " + s, O.ERR_BAD_OPTION);
     }
   }
-  Ot.exports = { assertOptions: on, validators: ge };
+  At.exports = { assertOptions: un, validators: Ee };
 });
-var Pt = l((Yn, Nt) => {
+var _t = l((Gn, Nt) => {
   "use strict";
-  var St = h(), un = oe(), Tt = Ue(), qt = Et(), W = ve(), cn = de(), kt = At(), P = kt.validators;
+  var Pt = h(), cn = ue(), qt = Be(), St = xt(), V = we(), ln2 = fe(), kt = Tt(), N = kt.validators;
   function _(t) {
-    this.defaults = t, this.interceptors = { request: new Tt(), response: new Tt() };
+    this.defaults = t, this.interceptors = { request: new qt(), response: new qt() };
   }
   _.prototype.request = function(e, r) {
-    typeof e == "string" ? (r = r || {}, r.url = e) : r = e || {}, r = W(this.defaults, r), r.method ? r.method = r.method.toLowerCase() : this.defaults.method ? r.method = this.defaults.method.toLowerCase() : r.method = "get";
+    typeof e == "string" ? (r = r || {}, r.url = e) : r = e || {}, r = V(this.defaults, r), r.method ? r.method = r.method.toLowerCase() : this.defaults.method ? r.method = this.defaults.method.toLowerCase() : r.method = "get";
     var i = r.transitional;
-    i !== void 0 && kt.assertOptions(i, { silentJSONParsing: P.transitional(P.boolean), forcedJSONParsing: P.transitional(P.boolean), clarifyTimeoutError: P.transitional(P.boolean) }, false);
+    i !== void 0 && kt.assertOptions(i, { silentJSONParsing: N.transitional(N.boolean), forcedJSONParsing: N.transitional(N.boolean), clarifyTimeoutError: N.transitional(N.boolean) }, false);
     var n = [], s = true;
-    this.interceptors.request.forEach(function(m) {
-      typeof m.runWhen == "function" && m.runWhen(r) === false || (s = s && m.synchronous, n.unshift(m.fulfilled, m.rejected));
+    this.interceptors.request.forEach(function(y) {
+      typeof y.runWhen == "function" && y.runWhen(r) === false || (s = s && y.synchronous, n.unshift(y.fulfilled, y.rejected));
     });
     var a = [];
-    this.interceptors.response.forEach(function(m) {
-      a.push(m.fulfilled, m.rejected);
+    this.interceptors.response.forEach(function(y) {
+      a.push(y.fulfilled, y.rejected);
     });
     var u;
     if (!s) {
-      var c = [qt, void 0];
+      var c = [St, void 0];
       for (Array.prototype.unshift.apply(c, n), c = c.concat(a), u = Promise.resolve(r); c.length; )
         u = u.then(c.shift(), c.shift());
       return u;
@@ -18805,43 +18805,43 @@ var Pt = l((Yn, Nt) => {
       var o = n.shift(), f = n.shift();
       try {
         d = o(d);
-      } catch (b) {
-        f(b);
+      } catch (v) {
+        f(v);
         break;
       }
     }
     try {
-      u = qt(d);
-    } catch (b) {
-      return Promise.reject(b);
+      u = St(d);
+    } catch (v) {
+      return Promise.reject(v);
     }
     for (; a.length; )
       u = u.then(a.shift(), a.shift());
     return u;
   };
   _.prototype.getUri = function(e) {
-    e = W(this.defaults, e);
-    var r = cn(e.baseURL, e.url);
-    return un(r, e.params, e.paramsSerializer);
+    e = V(this.defaults, e);
+    var r = ln2(e.baseURL, e.url);
+    return cn(r, e.params, e.paramsSerializer);
   };
-  St.forEach(["delete", "get", "head", "options"], function(e) {
+  Pt.forEach(["delete", "get", "head", "options"], function(e) {
     _.prototype[e] = function(r, i) {
-      return this.request(W(i || {}, { method: e, url: r, data: (i || {}).data }));
+      return this.request(V(i || {}, { method: e, url: r, data: (i || {}).data }));
     };
   });
-  St.forEach(["post", "put", "patch"], function(e) {
+  Pt.forEach(["post", "put", "patch"], function(e) {
     function r(i) {
       return function(s, a, u) {
-        return this.request(W(u || {}, { method: e, headers: i ? { "Content-Type": "multipart/form-data" } : {}, url: s, data: a }));
+        return this.request(V(u || {}, { method: e, headers: i ? { "Content-Type": "multipart/form-data" } : {}, url: s, data: a }));
       };
     }
     _.prototype[e] = r(), _.prototype[e + "Form"] = r(true);
   });
   Nt.exports = _;
 });
-var Dt = l((Gn, _t) => {
+var Lt = l((Zn, Dt) => {
   "use strict";
-  var ln2 = B();
+  var dn = L();
   function D(t) {
     if (typeof t != "function")
       throw new TypeError("executor must be a function.");
@@ -18865,7 +18865,7 @@ var Dt = l((Gn, _t) => {
         r.unsubscribe(n);
       }, s;
     }, t(function(n) {
-      r.reason || (r.reason = new ln2(n), e(r.reason));
+      r.reason || (r.reason = new dn(n), e(r.reason));
     });
   }
   D.prototype.throwIfRequested = function() {
@@ -18891,56 +18891,56 @@ var Dt = l((Gn, _t) => {
     });
     return { token: r, cancel: e };
   };
-  _t.exports = D;
+  Dt.exports = D;
 });
-var Ut = l((Zn, Bt) => {
+var Bt = l((ei, jt) => {
   "use strict";
-  Bt.exports = function(e) {
+  jt.exports = function(e) {
     return function(i) {
       return e.apply(null, i);
     };
   };
 });
-var Lt = l((ei, jt) => {
+var zt = l((ti, Ut) => {
   "use strict";
-  var dn = h();
-  jt.exports = function(e) {
-    return dn.isObject(e) && e.isAxiosError === true;
+  var fn = h();
+  Ut.exports = function(e) {
+    return fn.isObject(e) && e.isAxiosError === true;
   };
 });
-var It = l((ti, Ee) => {
+var Mt = l((ri, xe) => {
   "use strict";
-  var zt = h(), fn = ee(), J = Pt(), hn = ve(), pn = H();
-  function Ft(t) {
-    var e = new J(t), r = fn(J.prototype.request, e);
-    return zt.extend(r, J.prototype, e), zt.extend(r, e), r.create = function(n) {
-      return Ft(hn(t, n));
+  var Ft = h(), hn = te(), J = _t(), pn = we(), mn = W();
+  function It(t) {
+    var e = new J(t), r = hn(J.prototype.request, e);
+    return Ft.extend(r, J.prototype, e), Ft.extend(r, e), r.create = function(n) {
+      return It(pn(t, n));
     }, r;
   }
-  var y = Ft(pn);
-  y.Axios = J;
-  y.CanceledError = B();
-  y.CancelToken = Dt();
-  y.isCancel = me();
-  y.VERSION = we().version;
-  y.toFormData = ce();
-  y.AxiosError = q();
-  y.Cancel = y.CanceledError;
-  y.all = function(e) {
+  var b = It(mn);
+  b.Axios = J;
+  b.CanceledError = L();
+  b.CancelToken = Lt();
+  b.isCancel = ye();
+  b.VERSION = ge().version;
+  b.toFormData = le();
+  b.AxiosError = q();
+  b.Cancel = b.CanceledError;
+  b.all = function(e) {
     return Promise.all(e);
   };
-  y.spread = Ut();
-  y.isAxiosError = Lt();
-  Ee.exports = y;
-  Ee.exports.default = y;
+  b.spread = Bt();
+  b.isAxiosError = zt();
+  xe.exports = b;
+  xe.exports.default = b;
 });
-var $t = l((ri, Mt) => {
-  Mt.exports = It();
+var Ht = l((ni, $t) => {
+  $t.exports = Mt();
 });
-var V = dr($t(), 1);
-var w = "https://cdn.zesty.xyz/images/zesty";
-var j = { tall: { width: 0.75, height: 1, style: { standard: `${w}/zesty-banner-tall.png`, minimal: `${w}/zesty-banner-tall-minimal.png`, transparent: `${w}/zesty-banner-tall-transparent.png` } }, wide: { width: 4, height: 1, style: { standard: `${w}/zesty-banner-wide.png`, minimal: `${w}/zesty-banner-wide-minimal.png`, transparent: `${w}/zesty-banner-wide-transparent.png` } }, square: { width: 1, height: 1, style: { standard: `${w}/zesty-banner-square.png`, minimal: `${w}/zesty-banner-square-minimal.png`, transparent: `${w}/zesty-banner-square-transparent.png` } }, "mobile-phone-interstitial": { width: 0.56, height: 1, style: { standard: `${w}/zesty-default-mobile-phone-interstitial.png` } }, billboard: { width: 3.88, height: 1, style: { standard: `${w}/zesty-default-billboard.png` } }, "medium-rectangle": { width: 1.2, height: 1, style: { standard: `${w}/zesty-default-medium-rectangle.png` } } };
-var xe = () => {
+var X = fr(Ht(), 1);
+var m = "https://cdn.zesty.xyz/images/zesty";
+var B = { tall: { width: 0.75, height: 1, style: { standard: `${m}/zesty-banner-tall.png`, minimal: `${m}/zesty-banner-tall-minimal.png`, transparent: `${m}/zesty-banner-tall-transparent.png` } }, wide: { width: 4, height: 1, style: { standard: `${m}/zesty-banner-wide.png`, minimal: `${m}/zesty-banner-wide-minimal.png`, transparent: `${m}/zesty-banner-wide-transparent.png` } }, square: { width: 1, height: 1, style: { standard: `${m}/zesty-banner-square.png`, minimal: `${m}/zesty-banner-square-minimal.png`, transparent: `${m}/zesty-banner-square-transparent.png` } }, "mobile-phone-interstitial": { width: 0.56, height: 1, style: { standard: `${m}/zesty-default-mobile-phone-interstitial.png`, minimal: `${m}/zesty-default-mobile-phone-interstitial.png`, transparent: `${m}/zesty-default-mobile-phone-interstitial.png` } }, billboard: { width: 3.88, height: 1, style: { standard: `${m}/zesty-default-billboard.png`, minimal: `${m}/zesty-default-billboard.png`, transparent: `${m}/zesty-default-billboard.png` } }, "medium-rectangle": { width: 1.2, height: 1, style: { standard: `${m}/zesty-default-medium-rectangle.png`, minimal: `${m}/zesty-default-medium-rectangle.png`, transparent: `${m}/zesty-default-medium-rectangle.png` } } };
+var Re = () => {
   let t = window.XRHand != null && window.XRMediaBinding != null, e = navigator.userAgent.includes("OculusBrowser"), r = t && e ? "Full" : t || e ? "Partial" : "None";
   return { match: r !== "None", confidence: r };
 };
@@ -18948,21 +18948,21 @@ var Ce = () => {
   let t = window.mozInnerScreenX != null && window.speechSynthesis == null, e = navigator.userAgent.includes("Mobile VR") && !navigator.userAgent.includes("OculusBrowser"), r = t && e ? "Full" : t || e ? "Partial" : "None";
   return { match: r !== "None", confidence: r };
 };
-var Ht = async () => {
+var Wt = async () => {
   let t = navigator.xr && await navigator.xr.isSessionSupported("immersive-vr") && await navigator.xr.isSessionSupported("immersive-ar"), e = navigator.userAgent.includes("Pico Neo 3 Link"), r = t && e ? "Full" : t || e ? "Partial" : "None";
   return { match: r !== "None", confidence: r };
 };
-var Wt = () => {
+var Vt = () => {
   let t = navigator.maxTouchPoints === 0 || navigator.msMaxTouchPoints === 0, e = !navigator.userAgent.includes("Android") && !navigator.userAgent.includes("Mobile"), r = t && e ? "Full" : t || e ? "Partial" : "None";
   return { match: r !== "None", confidence: r };
 };
-var Re = async () => {
+var Oe = async () => {
   let t = { platform: "", confidence: "" };
-  return xe().match ? t = { platform: "Oculus", confidence: xe().confidence } : Ce().match ? t = { platform: "Wolvic", confidence: Ce().confidence } : await Ht().match ? t = { platform: "Pico", confidence: await Ht().confidence } : Wt().match ? t = { platform: "Desktop", confidence: Wt().confidence } : t = { platform: "Unknown", confidence: "None" }, t;
+  return Re().match ? t = { platform: "Oculus", confidence: Re().confidence } : Ce().match ? t = { platform: "Wolvic", confidence: Ce().confidence } : await Wt().match ? t = { platform: "Pico", confidence: await Wt().confidence } : Vt().match ? t = { platform: "Desktop", confidence: Vt().confidence } : t = { platform: "Unknown", confidence: "None" }, t;
 };
 var Jt = (t) => {
   if (t) {
-    if (xe().match) {
+    if (Re().match) {
       if (t.includes("https://www.meta.com/experiences/")) {
         setTimeout(() => {
           window.open(t, "_blank");
@@ -18983,46 +18983,44 @@ var Jt = (t) => {
     window.open(t, "_blank");
   }
 };
-var Xt = "https://beacon2.zesty.market/zgraphql";
-var mn = "https://api.zesty.market/api";
-var Qt = false;
-var Vt = 10;
-var Oe = 0;
+var Qt = "https://beacon2.zesty.market/zgraphql";
+var yn = "https://api.zesty.market/api";
+var Yt = false;
+var Kt = 10;
+var K = 0;
 var x = null;
-var yn = false;
-var L = null;
-var bn = (t, e) => {
-  x = document.createElement("iframe"), x.src = `https://www.zesty.xyz/prebid/?size=${e}&source=${Math.round(Math.random())}&ad_unit_id=${t}&utm_source=test`, x.width = "1", x.height = "1", x.style.position = "fixed", x.style.border = "none", x.style.zIndex = "-2", document.body.prepend(x), x.onload = () => {
+var bn = false;
+var U = null;
+var vn = (t, e) => {
+  x = document.createElement("iframe"), x.src = `https://www.zesty.xyz/prebid/?size=${e}&source=${Math.round(Math.random())}&ad_unit_id=${t}&utm_source=${t}`, x.width = "1", x.height = "1", x.style.position = "fixed", x.style.border = "none", x.style.zIndex = "-2", document.body.prepend(x), x.onload = () => {
     x.contentWindow.postMessage({ type: "readycheck" }, "*");
   }, window.addEventListener("message", ({ data: r }) => {
     switch (r.type) {
       case "readystatus":
-        yn = r.content;
+        bn = r.content;
         break;
       case "bids":
-        L = r.content;
-        break;
-      case "refreshing":
+        U = r.content;
         break;
     }
-  }), Qt = true;
+  }), Yt = true;
 };
-var Yt = [{ id: "4902864a-5531-496b-8d4d-ec7b9849e8e1", format: "medium-rectangle", absoluteWidth: 0.75, absoluteHeight: 0.625 }, { id: "14dccdbe-18b7-40d0-93d8-c104fd9486e8", format: "medium-rectangle" }, { id: "a8e0496f-034d-4cea-ba5f-653bba4fba39", format: "billboard" }, { id: "a181cc07-fda7-462e-adba-0fd8abf0af24", format: "billboard" }];
-var K = (t) => Yt.find((e) => e.id === t) || {};
-var Kt = (t, e, r, i) => ({ Ads: [{ asset_url: j[r ? i : t].style[e], cta_url: "https://www.zesty.xyz" }], CampaignId: "DefaultCampaign" });
-var Gt = async (t, e = "tall", r = "standard") => {
-  let i = Yt.find((s) => s.id === t), { format: n } = K(t);
-  return i && (Qt ? (L = null, x.contentWindow.postMessage({ type: "refresh" }, "*")) : bn(t, n, r)), new Promise((s, a) => {
+var Gt = [{ id: "4902864a-5531-496b-8d4d-ec7b9849e8e1", format: "medium-rectangle", absoluteWidth: 0.75, absoluteHeight: 0.625 }, { id: "14dccdbe-18b7-40d0-93d8-c104fd9486e8", format: "medium-rectangle" }, { id: "a8e0496f-034d-4cea-ba5f-653bba4fba39", format: "billboard" }, { id: "a181cc07-fda7-462e-adba-0fd8abf0af24", format: "billboard" }];
+var z = (t) => Gt.find((e) => e.id === t) || {};
+var Xt = (t, e, r, i) => ({ Ads: [{ asset_url: B[r ? i : t].style[e], cta_url: "https://www.zesty.xyz" }], CampaignId: "DefaultCampaign" });
+var Zt = async (t, e = "tall", r = "standard") => {
+  let i = Gt.find((s) => s.id === t), { format: n } = z(t);
+  return i && (Yt ? (U = null, K = 0, x.contentWindow.postMessage({ type: "refresh" }, "*")) : vn(t, n, r)), new Promise((s, a) => {
     async function u() {
-      if (i || (Oe = Vt - 1), L && L.length > 0) {
-        let { asset_url: c, cta_url: d } = JSON.parse(L);
+      if (i || (K = Kt - 1), U && U.length > 0) {
+        let { asset_url: c, cta_url: d } = JSON.parse(U);
         s({ Ads: [{ asset_url: c, cta_url: d }], CampaignId: "Prebid" });
-      } else if (Oe++, Oe == Vt)
+      } else if (K++, K == Kt)
         try {
-          let c = encodeURI(window.top.location.href).replace(/\/$/, ""), d = await V.default.get(`${mn}/ad?ad_unit_id=${t}&url=${c}`);
-          d.data ? d(d.data) : d(Kt(e, r, i, n));
+          let c = encodeURI(window.top.location.href).replace(/\/$/, ""), d = await X.default.get(`${yn}/ad?ad_unit_id=${t}&url=${c}`);
+          d.data ? d(d.data) : d(Xt(e, r, i, n));
         } catch {
-          console.warn("Could not retrieve an active campaign banner. Retrieving default banner."), s(Kt(e, r, i, n));
+          console.warn("Could not retrieve an active campaign banner. Retrieving default banner."), s(Xt(e, r, i, n));
         }
       else
         setTimeout(u, 1e3);
@@ -19030,83 +19028,89 @@ var Gt = async (t, e = "tall", r = "standard") => {
     u();
   });
 };
-var Zt = async (t, e = null) => {
-  let { platform: r, confidence: i } = await Re();
+var er = async (t, e = null) => {
+  let { platform: r, confidence: i } = await Oe();
   try {
-    await V.default.post(Xt, { query: `mutation { increment(eventType: visits, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${i} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
+    await X.default.post(Qt, { query: `mutation { increment(eventType: visits, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${i} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
   } catch (n) {
     console.log("Failed to emit onload event", n.message);
   }
 };
-var er = async (t, e = null) => {
-  let { platform: r, confidence: i } = await Re();
+var tr = async (t, e = null) => {
+  let { platform: r, confidence: i } = await Oe();
   try {
-    await V.default.post(Xt, { query: `mutation { increment(eventType: clicks, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${i} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
+    await X.default.post(Qt, { query: `mutation { increment(eventType: clicks, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${i} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
   } catch (n) {
     console.log("Failed to emit onclick event", n.message);
   }
 };
-var tr = "2.2.0";
-console.log("Zesty SDK Version: ", tr);
-var xn = "https://cdn.zesty.xyz/sdk/zesty-formats.js";
+var rr = "2.2.0";
+console.log("Zesty SDK Version: ", rr);
+var Rn = "https://cdn.zesty.xyz/sdk/zesty-formats.js";
 var Cn = "https://cdn.zesty.xyz/sdk/zesty-networking.js";
-var X = class extends Component {
+var Te = 3e4;
+var Q = class extends Component {
   static onRegister(e) {
     e.registerComponent(CursorTarget);
   }
   init() {
-    this.formats = Object.values(j), this.formatKeys = Object.keys(j), this.styleKeys = ["standard", "minimal", "transparent"];
+    this.formats = Object.values(B), this.formatKeys = Object.keys(B), this.styleKeys = ["standard", "minimal", "transparent"], this.loadedFirstAd = false;
   }
   start() {
+    let e = z(this.adUnit).hasOwnProperty("format");
     if (this.mesh = this.object.getComponent(MeshComponent), !this.mesh)
       throw new Error("'zesty-banner ' missing mesh component");
     if (this.createAutomaticCollision && (this.collision = this.object.getComponent(CollisionComponent) || this.object.addComponent(CollisionComponent, { collider: Collider.Box, group: 2 }), this.cursorTarget = this.object.getComponent(CursorTarget) || this.object.addComponent(CursorTarget), this.cursorTarget.onClick.add(this.onClick.bind(this))), this.dynamicFormats) {
-      let e = document.createElement("script");
-      e.onload = () => {
+      let r = document.createElement("script");
+      r.onload = () => {
         this.formatsOverride = zestyFormats.formats;
-      }, e.setAttribute("src", xn), e.setAttribute("crossorigin", "anonymous"), document.body.appendChild(e);
+      }, r.setAttribute("src", Rn), r.setAttribute("crossorigin", "anonymous"), document.body.appendChild(r);
     }
-    this.dynamicNetworking ? import(Cn).then((e) => {
-      this.zestyNetworking = Object.assign({}, e), this.startLoading();
+    this.dynamicNetworking ? import(Cn).then((r) => {
+      this.zestyNetworking = Object.assign({}, r), this.startLoading(), e && setInterval(this.startLoading.bind(this), Te);
     }).catch(() => {
-      console.error("Failed to dynamically retrieve networking code, falling back to bundled version."), this.dynamicNetworking = false, this.startLoading();
-    }) : this.startLoading();
+      console.error("Failed to dynamically retrieve networking code, falling back to bundled version."), this.dynamicNetworking = false, this.startLoading(), e && setInterval(this.startLoading.bind(this), Te);
+    }) : (this.startLoading(), e && setInterval(this.startLoading.bind(this), Te));
   }
   startLoading() {
-    this.loadBanner(this.adUnit, this.formatKeys[this.format], this.styleKeys[this.style]).then((e) => {
+    !this.checkVisibility() && this.loadedFirstAd || (this.loadedFirstAd || (this.loadedFirstAd = true), this.loadBanner(this.adUnit, this.formatKeys[this.format], this.styleKeys[this.style]).then((e) => {
       if (this.banner = e, this.scaleToRatio) {
         this.height = this.object.scalingLocal[1];
-        let { absoluteWidth: i = this.formats[this.format].width * this.height, absoluteHeight: n = this.object.scalingLocal[1] } = K(this.adUnit);
+        let { absoluteWidth: i = this.formats[this.format].width * this.height, absoluteHeight: n = this.object.scalingLocal[1] } = z(this.adUnit);
         this.object.resetScaling(), this.createAutomaticCollision && (this.collision.extents = [i, n, 0.1]), this.object.scale([i, n, 1]);
       }
       let r = this.mesh.material.clone();
       if (this.textureProperty === "auto") {
-        if (r.diffuseTexture || r.hasParameter("diffuseTexture"))
+        if (r.diffuseTexture || r.hasParameter && r.hasParameter("diffuseTexture"))
           r.diffuseTexture = e.texture, r.alphaMaskThreshold = 0.3;
-        else if (r.flatTexture || r.hasParameter("flatTexture"))
+        else if (r.flatTexture || r.hasParameter && r.hasParameter("flatTexture"))
           r.flatTexture = e.texture, r.alphaMaskThreshold = 0.8;
         else
           throw Error("'zesty-banner' unable to apply banner texture: unsupported pipeline " + pipeline);
         this.mesh.material = r, this.mesh.material.alphaMaskTexture = e.texture;
       } else
         this.mesh.material[this.textureProperty] = e.texture, this.mesh.material.alphaMaskTexture = e.texture;
-      this.beacon && (this.dynamicNetworking ? this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) : Zt(this.adUnit, this.banner.campaignId));
-    });
+      this.beacon && (this.dynamicNetworking ? this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) : er(this.adUnit, this.banner.campaignId));
+    }));
   }
   onClick() {
     this.banner?.url && (this.engine.xr ? this.engine.xr.session.end().then(this.executeClick.bind(this)) : this.engine.xrSession ? this.engine.xrSession.end().then(this.executeClick.bind(this)) : this.executeClick());
   }
   executeClick() {
-    Jt(this.banner.url), this.beacon && (this.dynamicNetworking ? this.zestyNetworking.sendOnClickMetric(this.adUnit, this.banner.campaignId) : er(this.adUnit, this.banner.campaignId));
+    Jt(this.banner.url), this.beacon && (this.dynamicNetworking ? this.zestyNetworking.sendOnClickMetric(this.adUnit, this.banner.campaignId) : tr(this.adUnit, this.banner.campaignId));
   }
   async loadBanner(e, r, i) {
-    let { format: n = r } = K(e), s = ["mobile-phone-interstitial", "billboard", "medium-rectangle"];
+    let { format: n = r } = z(e), s = ["mobile-phone-interstitial", "billboard", "medium-rectangle"];
     s.includes(n) && (this.format = s.indexOf(n) + 3);
-    let a = this.dynamicNetworking ? await this.zestyNetworking.fetchCampaignAd(e, n, i) : await Gt(e, r, i), { asset_url: u, cta_url: c } = a.Ads[0];
+    let a = this.dynamicNetworking ? await this.zestyNetworking.fetchCampaignAd(e, n, i) : await Zt(e, n, i), { asset_url: u, cta_url: c } = a.Ads[0];
     return this.campaignId = a.CampaignId, this.engine.textures.load(u, "").then((d) => ({ texture: d, imageSrc: u, url: c, campaignId: a.CampaignId }));
   }
+  checkVisibility() {
+    let e = WL.scene.activeViews[0].object.getPositionWorld([]), r = WL.scene.activeViews[0].object.getForwardWorld([]);
+    return WL.scene.rayCast(e, r, 255, 100).objects.some((n) => n?.objectId == this.object.objectId);
+  }
 };
-Z(X, "TypeName", "zesty-banner"), Z(X, "Properties", { adUnit: Property.string(""), format: Property.enum(["tall", "wide", "square"], "square"), style: Property.enum(["standard", "minimal", "transparent"], "transparent"), scaleToRatio: Property.bool(true), textureProperty: Property.string("auto"), assignAlphaMaskTexture: Property.bool(true), beacon: Property.bool(true), dynamicFormats: Property.bool(true), createAutomaticCollision: Property.bool(true), dynamicNetworking: Property.bool(false) });
+ee(Q, "TypeName", "zesty-banner"), ee(Q, "Properties", { adUnit: Property.string(""), format: Property.enum(["tall", "wide", "square"], "square"), style: Property.enum(["standard", "minimal", "transparent"], "transparent"), scaleToRatio: Property.bool(true), textureProperty: Property.string("auto"), assignAlphaMaskTexture: Property.bool(true), beacon: Property.bool(true), dynamicFormats: Property.bool(true), createAutomaticCollision: Property.bool(true), dynamicNetworking: Property.bool(false) });
 
 // js/index.js
 var Constants = {
@@ -19161,7 +19165,7 @@ engine.registerComponent(MouseLookComponent);
 engine.registerComponent(PlayerHeight);
 engine.registerComponent(VrModeActiveSwitch);
 engine.registerComponent(ExposeBanners);
-engine.registerComponent(X);
+engine.registerComponent(Q);
 engine.scene.load(`${Constants.ProjectName}.bin`);
 /*! Bundled license information:
 

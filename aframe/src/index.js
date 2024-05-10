@@ -9,6 +9,7 @@ import { getV3BetaUnitInfo } from '../../utils/networking';
 console.log('Zesty SDK Version: ', version);
 
 let loadedFirstAd = false;
+const AD_REFRESH_INTERVAL = 30000; // 30 seconds
 
 function getCameraHelper(callback) {
   const camera = document.querySelector('[camera]');
@@ -135,7 +136,7 @@ async function createBanner(el, adUnit, format, style, height, beacon, visibilit
 
   getBanner();
   if (isBeta) {
-    setInterval(getBanner, 30000);
+    setInterval(getBanner, AD_REFRESH_INTERVAL);
   }
 }
 

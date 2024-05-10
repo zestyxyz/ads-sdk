@@ -3,11 +3,36 @@
 import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
-import './visibility_check';
 import { version } from '../package.json';
 import { getV3BetaUnitInfo } from '../../utils/networking';
 
 console.log('Zesty SDK Version: ', version);
+
+let loadedFirstAd = false;
+
+function getCameraHelper(callback) {
+  const camera = document.querySelector('[camera]');
+  if (camera && camera.components && camera.components.camera && camera.components.camera.camera) {
+    callback(camera.components.camera.camera);
+  } else {
+    setTimeout(function() {
+      getCameraHelper(callback);
+    }, 2000);
+  }
+}
+
+// Camera might not be initialized at scene initialization, so we poll
+// until we can register the camera.
+async function getCamera() {
+  return new Promise(resolve => {
+    getCameraHelper(camera => {
+      resolve(camera);
+    });
+  });
+}
+
+const cameraFuture = getCamera();
+
 
 AFRAME.registerComponent('zesty-banner', {
   data: {},
@@ -20,6 +45,16 @@ AFRAME.registerComponent('zesty-banner', {
   },
 
   init: function() {
+    // Visibility check vars
+    this.lastVisible = null;
+    this.durationThreshold = 10000;
+    cameraFuture.then(camera => {
+      this.camera = camera;
+    });
+    this.object = this.el.object3D;
+    this.sceneEl = document.querySelector('a-scene');
+    this.scene = this.sceneEl.object3D;
+
     this.tick = AFRAME.utils.throttleTick(this.tick, 30000, this);
     this.registerEntity();
   },
@@ -27,7 +62,7 @@ AFRAME.registerComponent('zesty-banner', {
   registerEntity: function() {
     const adUnit = this.data.adUnit;
     const format = this.data.format || defaultFormat;
-    createBanner(this.el, adUnit, format, this.data.style, this.data.height, this.data.beacon);
+    createBanner(this.el, adUnit, format, this.data.style, this.data.height, this.data.beacon, this.checkVisibility.bind(this));
   },
 
   // Every 30sec check for `visible` component
@@ -36,9 +71,28 @@ AFRAME.registerComponent('zesty-banner', {
       analyticsSession(this.data.adUnit, null);
     }
   },
+
+  sendSessionAnalytics: function () {
+    if (this.data.adUnit) {
+      analyticsSession(this.data.adUnit, null);
+    }
+  },
+
+  checkVisibility: function() {
+    let isVisible = false;
+    const boundingBox = new THREE.Box3().setFromObject(this.el.object3D);
+    const frustum = new THREE.Frustum();
+    frustum.setFromProjectionMatrix(this.camera.projectionMatrix)
+    frustum.planes.forEach(plane => plane.applyMatrix4(this.camera.matrixWorld));
+    if (frustum.intersectsBox(boundingBox)) {
+      isVisible = true;
+    }
+    console.log('is visible: ', isVisible);
+    return isVisible;
+  }
 });
 
-async function createBanner(el, adUnit, format, style, height, beacon) {
+async function createBanner(el, adUnit, format, style, height, beacon, visibilityCheckFunc) {
   const {
     format: adjustedFormat = format,
     absoluteWidth: adjustedWidth = formats[adjustedFormat].width,
@@ -66,6 +120,9 @@ async function createBanner(el, adUnit, format, style, height, beacon) {
   el.appendChild(plane);
 
   const getBanner = () => {
+    if (loadedFirstAd && !visibilityCheckFunc()) return;
+    if (!loadedFirstAd) loadedFirstAd = true;
+
     const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
       if (banner.img) {
         assets.appendChild(banner.img);

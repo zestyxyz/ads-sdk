@@ -52,6 +52,8 @@ WL.registerComponent(
     },
 
     start: function () {
+      const isBeta = getV3BetaUnitInfo(this.adUnit).hasOwnProperty('format');
+
       this.mesh = this.object.getComponent('mesh');
 
       if (!this.mesh) {
@@ -87,14 +89,23 @@ WL.registerComponent(
           .then(value => {
             this.zestyNetworking = Object.assign({}, value);
             this.startLoading();
+            if (isBeta) {
+              setInterval(this.startLoading.bind(this), 30000);
+            }
           })
           .catch(() => {
             console.error('Failed to dynamically retrieve networking code, falling back to bundled version.');
             this.dynamicNetworking = null;
             this.startLoading();
+            if (isBeta) {
+              setInterval(this.startLoading.bind(this), 30000);
+            }
           });
       } else {
         this.startLoading();
+        if (isBeta) {
+          setInterval(this.startLoading.bind(this), 30000);
+        }
       }
     },
 
@@ -186,7 +197,7 @@ WL.registerComponent(
 
       const activeCampaign = this.dynamicNetworking ?
         await this.zestyNetworking.fetchCampaignAd(adUnit, adjustedFormat, style) :
-        await fetchCampaignAd(adUnit, format, style);
+        await fetchCampaignAd(adUnit, adjustedFormat, style);
 
       const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
 

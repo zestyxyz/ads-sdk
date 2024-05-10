@@ -17,6 +17,7 @@ console.log('Zesty SDK Version: ', version);
 
 const formatsLink = 'https://cdn.zesty.xyz/sdk/zesty-formats.js';
 const networkingLink = 'https://cdn.zesty.xyz/sdk/zesty-networking.js';
+const AD_REFRESH_INTERVAL = 30000; // 30 seconds
 
 /**
  * [Zesty Market](https://zesty.xyz) banner ad unit
@@ -58,9 +59,12 @@ export class ZestyBanner extends Component {
     this.formats = Object.values(formats);
     this.formatKeys = Object.keys(formats);
     this.styleKeys = ['standard', 'minimal', 'transparent'];
+    this.loadedFirstAd = false;
   }
 
   start() {
+    const isBeta = getV3BetaUnitInfo(this.adUnit).hasOwnProperty('format');
+
     this.mesh = this.object.getComponent(MeshComponent);
     if (!this.mesh) {
       throw new Error("'zesty-banner ' missing mesh component");
@@ -95,18 +99,30 @@ export class ZestyBanner extends Component {
         .then(value => {
           this.zestyNetworking = Object.assign({}, value);
           this.startLoading();
+          if (isBeta) {
+            setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
+          }
         })
         .catch(() => {
           console.error('Failed to dynamically retrieve networking code, falling back to bundled version.');
           this.dynamicNetworking = false;
           this.startLoading();
+          if (isBeta) {
+            setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
+          }
         });
     } else {
       this.startLoading();
+      if (isBeta) {
+        setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
+      }
     }
   }
 
   startLoading() {
+    if (!this.checkVisibility() && this.loadedFirstAd) return;
+    if (!this.loadedFirstAd) this.loadedFirstAd = true;
+
     this.loadBanner(
       this.adUnit,
       this.formatKeys[this.format],
@@ -132,10 +148,10 @@ export class ZestyBanner extends Component {
       }
       const m = this.mesh.material.clone();
       if (this.textureProperty === 'auto') {
-        if (m.diffuseTexture || m.hasParameter('diffuseTexture')) {
+        if (m.diffuseTexture || (m.hasParameter && m.hasParameter('diffuseTexture'))) {
           m.diffuseTexture = banner.texture;
           m.alphaMaskThreshold = 0.3;
-        } else if (m.flatTexture || m.hasParameter('flatTexture')) {
+        } else if (m.flatTexture || (m.hasParameter && m.hasParameter('flatTexture'))) {
           m.flatTexture = banner.texture;
           m.alphaMaskThreshold = 0.8;
         } else {
@@ -191,7 +207,7 @@ export class ZestyBanner extends Component {
 
     const activeCampaign = this.dynamicNetworking ?
       await this.zestyNetworking.fetchCampaignAd(adUnit, adjustedFormat, style) :
-      await fetchCampaignAd(adUnit, format, style);
+      await fetchCampaignAd(adUnit, adjustedFormat, style);
 
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
     this.campaignId = activeCampaign.CampaignId;
@@ -199,5 +215,12 @@ export class ZestyBanner extends Component {
     return this.engine.textures.load(image, '').then(texture => {
       return { texture, imageSrc: image, url, campaignId: activeCampaign.CampaignId };
     });
+  }
+
+  checkVisibility() {
+    let cameraOrigin = WL.scene.activeViews[0].object.getPositionWorld([]);
+    let cameraDirection = WL.scene.activeViews[0].object.getForwardWorld([]);
+    let raycast = WL.scene.rayCast(cameraOrigin, cameraDirection, 255, 100);
+    return raycast.objects.some(object => object?.objectId == this.object.objectId);
   }
 }

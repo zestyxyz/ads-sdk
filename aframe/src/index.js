@@ -3,11 +3,36 @@
 import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
-import './visibility_check';
 import { version } from '../package.json';
 import { getV3BetaUnitInfo } from '../../utils/networking';
 
 console.log('Zesty SDK Version: ', version);
+
+const AD_REFRESH_INTERVAL = 30000; // 30 seconds
+
+function getCameraHelper(callback) {
+  const camera = document.querySelector('[camera]');
+  if (camera && camera.components && camera.components.camera && camera.components.camera.camera) {
+    callback(camera.components.camera.camera);
+  } else {
+    setTimeout(function() {
+      getCameraHelper(callback);
+    }, 2000);
+  }
+}
+
+// Camera might not be initialized at scene initialization, so we poll
+// until we can register the camera.
+async function getCamera() {
+  return new Promise(resolve => {
+    getCameraHelper(camera => {
+      resolve(camera);
+    });
+  });
+}
+
+const cameraFuture = getCamera();
+
 
 AFRAME.registerComponent('zesty-banner', {
   data: {},
@@ -20,6 +45,18 @@ AFRAME.registerComponent('zesty-banner', {
   },
 
   init: function() {
+    this.loadedFirstAd = false;
+
+    // Visibility check vars
+    this.lastVisible = null;
+    this.durationThreshold = 10000;
+    cameraFuture.then(camera => {
+      this.camera = camera;
+    });
+    this.object = this.el.object3D;
+    this.sceneEl = document.querySelector('a-scene');
+    this.scene = this.sceneEl.object3D;
+
     this.tick = AFRAME.utils.throttleTick(this.tick, 30000, this);
     this.registerEntity();
   },
@@ -27,7 +64,7 @@ AFRAME.registerComponent('zesty-banner', {
   registerEntity: function() {
     const adUnit = this.data.adUnit;
     const format = this.data.format || defaultFormat;
-    createBanner(this.el, adUnit, format, this.data.style, this.data.height, this.data.beacon);
+    createBanner(this.el, adUnit, format, this.data.style, this.data.height, this.data.beacon, this.checkVisibility.bind(this));
   },
 
   // Every 30sec check for `visible` component
@@ -36,14 +73,39 @@ AFRAME.registerComponent('zesty-banner', {
       analyticsSession(this.data.adUnit, null);
     }
   },
+
+  sendSessionAnalytics: function () {
+    if (this.data.adUnit) {
+      analyticsSession(this.data.adUnit, null);
+    }
+  },
+
+  checkVisibility: function() {
+    if (!this.loadedFirstAd) {
+      this.loadedFirstAd = true;
+      return true;
+    }
+    let isVisible = false;
+    const boundingBox = new THREE.Box3().setFromObject(this.el.object3D);
+    const frustum = new THREE.Frustum();
+    frustum.setFromProjectionMatrix(this.camera.projectionMatrix)
+    frustum.planes.forEach(plane => plane.applyMatrix4(this.camera.matrixWorld));
+    if (frustum.intersectsBox(boundingBox)) {
+      isVisible = true;
+    }
+    console.log('is visible: ', isVisible);
+    return isVisible;
+  }
 });
 
-async function createBanner(el, adUnit, format, style, height, beacon) {
+async function createBanner(el, adUnit, format, style, height, beacon, visibilityCheckFunc) {
   const {
     format: adjustedFormat = format,
-    absoluteWidth: adjustedWidth = formats[format].width * height,
+    absoluteWidth: adjustedWidth = formats[adjustedFormat].width,
     absoluteHeight: adjustedHeight = height
   } = getV3BetaUnitInfo(adUnit);
+  const isBeta = getV3BetaUnitInfo(adUnit).hasOwnProperty('format');
+  const absoluteDimensions = adjustedHeight !== height;
 
   const scene = document.querySelector('a-scene');
   let assets = scene.querySelector('a-assets');
@@ -54,7 +116,7 @@ async function createBanner(el, adUnit, format, style, height, beacon) {
 
   const plane = document.createElement('a-plane');
   plane.setAttribute('src', `${formats[adjustedFormat].style[style]}`);
-  plane.setAttribute('width', adjustedWidth);
+  plane.setAttribute('width', adjustedWidth * (absoluteDimensions ? 1 : adjustedHeight));
   plane.setAttribute('height', adjustedHeight);
   // for textures that are 1024x1024, not setting this causes white border
   plane.setAttribute('transparent', 'true');
@@ -63,16 +125,23 @@ async function createBanner(el, adUnit, format, style, height, beacon) {
   plane.setAttribute('class', 'clickable'); // required for BE
   el.appendChild(plane);
 
-  const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
-    if (banner.img) {
-      assets.appendChild(banner.img);
-    }
-    return banner;
-  });
+  const getBanner = () => {
+    if (!visibilityCheckFunc()) return;
 
-  //setInterval(() => {
+    const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
+      if (banner.img) {
+        assets.appendChild(banner.img);
+      }
+      return banner;
+    });
+  
     bannerPromise.then(banner => updateBanner(banner, plane, el, adUnit, format, style, height, beacon));
-  //}, 5000);
+  }
+
+  getBanner();
+  if (isBeta) {
+    setInterval(getBanner, AD_REFRESH_INTERVAL);
+  }
 }
 
 async function loadBanner(adUnit, format, style) {
@@ -96,15 +165,17 @@ async function loadBanner(adUnit, format, style) {
 
 async function updateBanner(banner, plane, el, adUnit, format, style, height, beacon) {
   const {
-    absoluteWidth: adjustedWidth = formats[format].width * height,
+    format: adjustedFormat = format,
+    absoluteWidth: adjustedWidth = formats[adjustedFormat].width,
     absoluteHeight: adjustedHeight = height
   } = getV3BetaUnitInfo(adUnit);
+  const absoluteDimensions = adjustedHeight !== height;
 
   // don't attach plane if element's visibility is false
   if (el.getAttribute('visible') !== false) {
     if (banner.img) {
       plane.setAttribute('src', `#${banner.img.id}`);
-      plane.setAttribute('width', adjustedWidth * height);
+      plane.setAttribute('width', adjustedWidth * (absoluteDimensions ? 1 : adjustedHeight));
       plane.setAttribute('height', adjustedHeight);
       // for textures that are 1024x1024, not setting this causes white border
       plane.setAttribute('transparent', 'true');

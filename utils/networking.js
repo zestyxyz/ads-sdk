@@ -43,9 +43,6 @@ const initPrebid = (adUnitId, format) => {
       case 'bids':
         bids = data.content;
         break;
-      case 'refreshing':
-        // TODO: Implement ad refreshing
-        break;
     }
   });
   prebidInit = true;
@@ -74,6 +71,7 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
       initPrebid(adUnitId, betaFormat, style);
     } else {
       bids = null;
+      currentTries = 0;
       iframe.contentWindow.postMessage({ type: 'refresh' }, '*');
     }
   }

@@ -22,5 +22,8 @@
   },
   "devDependencies": {
     "esbuild": "^0.17.18"
+  },
+  "dependencies": {
+    "gl-matrix": "^3.4.3"
   }
 }

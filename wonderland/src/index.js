@@ -12,6 +12,7 @@ import {
   Property
 } from '@wonderlandengine/api';
 import { CursorTarget } from '@wonderlandengine/components';
+import { vec3 } from 'gl-matrix';
 
 console.log('Zesty SDK Version: ', version);
 
@@ -218,9 +219,11 @@ export class ZestyBanner extends Component {
   }
 
   checkVisibility() {
+    let objectOrigin = this.object.getPositionWorld([])
     let cameraOrigin = WL.scene.activeViews[0].object.getPositionWorld([]);
     let cameraDirection = WL.scene.activeViews[0].object.getForwardWorld([]);
-    let raycast = WL.scene.rayCast(cameraOrigin, cameraDirection, 255, 100);
-    return raycast.objects.some(object => object?.objectId == this.object.objectId);
+    let diff = vec3.sub([], objectOrigin, cameraOrigin);
+    let dot = vec3.dot(cameraDirection, diff);
+    return dot > Math.PI / 2
   }
 }

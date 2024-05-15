@@ -214,6 +214,15 @@ export class ZestyBanner extends Component {
     });
   }
 
+  /**
+   * Checks the visibility of an object based on camera position and direction.
+   * We do this by calculating the dot product of the camera's forward vector
+   * and the vector from the object's position to the camera. If the dot product
+   * is above PI/2 (corresponding to at most a 90 degree angle rotation away),
+   * the object is considered visible.
+   *
+   * @return {boolean} Whether the object is visible or not.
+   */
   checkVisibility() {
     let objectOrigin = this.object.getPositionWorld([])
     let cameraOrigin = WL.scene.activeViews[0].object.getPositionWorld([]);

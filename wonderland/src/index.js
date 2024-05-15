@@ -12,6 +12,7 @@ import {
   Property
 } from '@wonderlandengine/api';
 import { CursorTarget } from '@wonderlandengine/components';
+import { vec3 } from 'gl-matrix';
 
 console.log('Zesty SDK Version: ', version);
 
@@ -33,7 +34,7 @@ export class ZestyBanner extends Component {
     /* Your banner ad unit ID */
     adUnit: Property.string(''),
     /* The default banner format, determines aspect ratio */
-    format: Property.enum(['tall', 'wide', 'square'], 'square'),
+    format: Property.enum(['tall', 'wide', 'square', 'mobile-phone-interstitial', 'billboard', 'medium-rectangle'], 'square'),
     /* The default banner visual style */
     style: Property.enum(['standard', 'minimal', 'transparent'], 'transparent'),
     /* Scale width of the object to banner ratio (see format) and set the collider */
@@ -46,10 +47,8 @@ export class ZestyBanner extends Component {
     beacon: Property.bool(true),
     /* Load default image uris at runtime, if false at build time */
     dynamicFormats: Property.bool(true),
-    /* Automatically creates a collision and cursor-target components, if there isn't one */
-    createAutomaticCollision: Property.bool(true),
     /* Load networking logic at runtime, if false at build time */
-    dynamicNetworking: Property.bool(false),
+    dynamicNetworking: Property.bool(true),
   };
   static onRegister(engine) {
     engine.registerComponent(CursorTarget);
@@ -70,18 +69,16 @@ export class ZestyBanner extends Component {
       throw new Error("'zesty-banner ' missing mesh component");
     }
 
-    if (this.createAutomaticCollision) {
-      this.collision =
-        this.object.getComponent(CollisionComponent) ||
-        this.object.addComponent(CollisionComponent, {
-          collider: Collider.Box,
-          group: 0x2
-        });
+    this.collision =
+      this.object.getComponent(CollisionComponent) ||
+      this.object.addComponent(CollisionComponent, {
+        collider: Collider.Box,
+        group: 0x2
+      });
 
-      this.cursorTarget =
-        this.object.getComponent(CursorTarget) || this.object.addComponent(CursorTarget);
-        this.cursorTarget.onClick.add(this.onClick.bind(this));
-    }
+    this.cursorTarget =
+      this.object.getComponent(CursorTarget) || this.object.addComponent(CursorTarget);
+      this.cursorTarget.onClick.add(this.onClick.bind(this));
 
     if (this.dynamicFormats) {
       let formatsScript = document.createElement('script');
@@ -217,10 +214,21 @@ export class ZestyBanner extends Component {
     });
   }
 
+  /**
+   * Checks the visibility of an object based on camera position and direction.
+   * We do this by calculating the dot product of the camera's forward vector
+   * and the vector from the object's position to the camera. If the dot product
+   * is above PI/2 (corresponding to at most a 90 degree angle rotation away),
+   * the object is considered visible.
+   *
+   * @return {boolean} Whether the object is visible or not.
+   */
   checkVisibility() {
+    let objectOrigin = this.object.getPositionWorld([])
     let cameraOrigin = WL.scene.activeViews[0].object.getPositionWorld([]);
     let cameraDirection = WL.scene.activeViews[0].object.getForwardWorld([]);
-    let raycast = WL.scene.rayCast(cameraOrigin, cameraDirection, 255, 100);
-    return raycast.objects.some(object => object?.objectId == this.object.objectId);
+    let diff = vec3.sub([], objectOrigin, cameraOrigin);
+    let dot = vec3.dot(cameraDirection, diff);
+    return dot > Math.PI / 2
   }
 }

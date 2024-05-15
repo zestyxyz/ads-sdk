@@ -47,10 +47,8 @@ export class ZestyBanner extends Component {
     beacon: Property.bool(true),
     /* Load default image uris at runtime, if false at build time */
     dynamicFormats: Property.bool(true),
-    /* Automatically creates a collision and cursor-target components, if there isn't one */
-    createAutomaticCollision: Property.bool(true),
     /* Load networking logic at runtime, if false at build time */
-    dynamicNetworking: Property.bool(false),
+    dynamicNetworking: Property.bool(true),
   };
   static onRegister(engine) {
     engine.registerComponent(CursorTarget);
@@ -71,18 +69,16 @@ export class ZestyBanner extends Component {
       throw new Error("'zesty-banner ' missing mesh component");
     }
 
-    if (this.createAutomaticCollision) {
-      this.collision =
-        this.object.getComponent(CollisionComponent) ||
-        this.object.addComponent(CollisionComponent, {
-          collider: Collider.Box,
-          group: 0x2
-        });
+    this.collision =
+      this.object.getComponent(CollisionComponent) ||
+      this.object.addComponent(CollisionComponent, {
+        collider: Collider.Box,
+        group: 0x2
+      });
 
-      this.cursorTarget =
-        this.object.getComponent(CursorTarget) || this.object.addComponent(CursorTarget);
-        this.cursorTarget.onClick.add(this.onClick.bind(this));
-    }
+    this.cursorTarget =
+      this.object.getComponent(CursorTarget) || this.object.addComponent(CursorTarget);
+      this.cursorTarget.onClick.add(this.onClick.bind(this));
 
     if (this.dynamicFormats) {
       let formatsScript = document.createElement('script');

@@ -4,7 +4,7 @@ import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession,
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
-import { getV3BetaUnitInfo } from '../../utils/networking';
+import { getOverrideUnitInfo } from '../../utils/networking';
 
 console.log('Zesty SDK Version: ', version);
 
@@ -111,13 +111,11 @@ AFRAME.registerComponent('zesty-banner', {
 });
 
 async function createBanner(el, adUnit, format, style, height, beacon, visibilityCheckFunc) {
-  const {
-    format: adjustedFormat = format,
-    absoluteWidth: adjustedWidth = formats[adjustedFormat].width,
-    absoluteHeight: adjustedHeight = height
-  } = getV3BetaUnitInfo(adUnit);
-  const isBeta = getV3BetaUnitInfo(adUnit).hasOwnProperty('format');
-  const absoluteDimensions = adjustedHeight !== height;
+  let overrideEntry = getOverrideUnitInfo(adUnit);
+  let shouldOverride = overrideEntry && format !== overrideEntry.format;
+  const adjustedFormat = shouldOverride ? overrideEntry.format : format;
+  const adjustedWidth = shouldOverride ? overrideEntry.absoluteWidth : formats[adjustedFormat].width * height;
+  const adjustedHeight = shouldOverride ? overrideEntry.absoluteHeight : height;
 
   const scene = document.querySelector('a-scene');
   let assets = scene.querySelector('a-assets');
@@ -128,7 +126,7 @@ async function createBanner(el, adUnit, format, style, height, beacon, visibilit
 
   const plane = document.createElement('a-plane');
   plane.setAttribute('src', `${formats[adjustedFormat].style[style]}`);
-  plane.setAttribute('width', adjustedWidth * (absoluteDimensions ? 1 : adjustedHeight));
+  plane.setAttribute('width', adjustedWidth);
   plane.setAttribute('height', adjustedHeight);
   // for textures that are 1024x1024, not setting this causes white border
   plane.setAttribute('transparent', 'true');
@@ -151,9 +149,7 @@ async function createBanner(el, adUnit, format, style, height, beacon, visibilit
   }
 
   getBanner();
-  if (isBeta) {
-    setInterval(getBanner, AD_REFRESH_INTERVAL);
-  }
+  setInterval(getBanner, AD_REFRESH_INTERVAL);
 }
 
 async function loadBanner(adUnit, format, style) {
@@ -183,12 +179,8 @@ async function loadBanner(adUnit, format, style) {
 }
 
 async function updateBanner(banner, plane, el, adUnit, format, style, height, beacon) {
-  const {
-    format: adjustedFormat = format,
-    absoluteWidth: adjustedWidth = formats[adjustedFormat].width,
-    absoluteHeight: adjustedHeight = height
-  } = getV3BetaUnitInfo(adUnit);
-  const absoluteDimensions = adjustedHeight !== height;
+  let overrideEntry = getOverrideUnitInfo(adUnit);
+  let shouldOverride = overrideEntry && format !== overrideEntry.format;
 
   // Reset canvas attributes
   if (el.components['zesty-banner'].canvasInterval) {
@@ -244,8 +236,9 @@ async function updateBanner(banner, plane, el, adUnit, format, style, height, be
       } else {
         plane.setAttribute('src', `#${banner.img.id}`);
       }
-      plane.setAttribute('width', adjustedWidth * (absoluteDimensions ? 1 : adjustedHeight));
-      plane.setAttribute('height', adjustedHeight);
+      plane.setAttribute('width', shouldOverride ? overrideEntry.absoluteWidth : width * height);
+      plane.setAttribute('height', shouldOverride ? overrideEntry.absoluteHeight : height);
+
       // for textures that are 1024x1024, not setting this causes white border
       plane.setAttribute('transparent', 'true');
       plane.setAttribute('shader', 'flat');

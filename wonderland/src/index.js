@@ -59,6 +59,11 @@ export class ZestyBanner extends Component {
     this.formatKeys = Object.keys(formats);
     this.styleKeys = ['standard', 'minimal', 'transparent'];
     this.loadedFirstAd = false;
+
+    this.gifCanvas = null;
+    this.gifTexture = null;
+    this.gifCanvasLoaded = false;
+    this.gifTexturePipeline = null;
   }
 
   start() {
@@ -116,9 +121,33 @@ export class ZestyBanner extends Component {
     }
   }
 
+  update() {
+    if (!this.gifCanvasLoaded && this.gifCanvas?.hasAttribute('width')) {
+      this.gifTexture = this.engine.textures.create(this.gifCanvas);
+      this.gifCanvasLoaded = true;
+      if (this.gifTexturePipeline == 'flat') {
+        this.object.getComponent('mesh').material.flatTexture = this.gifTexture
+      } else {
+        this.object.getComponent('mesh').material.diffuseTexture = this.gifTexture
+      }
+    } else if (this.gifTexture) {
+      this.gifTexture.update();
+    }
+  }
+
   startLoading() {
     if (!this.checkVisibility() && this.loadedFirstAd) return;
     if (!this.loadedFirstAd) this.loadedFirstAd = true;
+
+    // Reset gif attributes
+    if (this.gifTexture) {
+      this.gifTexture.destroy();
+      this.gifTexture = null;
+    }
+    if (this.gifCanvas) {
+      document.body.removeChild(this.gifCanvas);
+      this.gifCanvas = null;
+    }
 
     this.loadBanner(
       this.adUnit,
@@ -146,11 +175,29 @@ export class ZestyBanner extends Component {
       const m = this.mesh.material.clone();
       if (this.textureProperty === 'auto') {
         if (m.diffuseTexture || (m.hasParameter && m.hasParameter('diffuseTexture'))) {
-          m.diffuseTexture = banner.texture;
-          m.alphaMaskThreshold = 0.3;
+          if (banner.imageSrc.includes('.gif')) {
+            this.gifCanvas = document.createElement('canvas');
+            this.gifCanvas.id = 'zestyGifCanvas';
+            document.body.appendChild(this.gifCanvas);
+            gifler(banner.imageSrc).animate('#zestyGifCanvas');
+            this.gifCanvasLoaded = false;
+            this.gifTexturePipeline = 'diffuse';
+          } else {
+            m.diffuseTexture = banner.texture;
+            m.alphaMaskThreshold = 0.3;
+          }
         } else if (m.flatTexture || (m.hasParameter && m.hasParameter('flatTexture'))) {
-          m.flatTexture = banner.texture;
-          m.alphaMaskThreshold = 0.8;
+          if (banner.imageSrc.includes('.gif')) {
+            this.gifCanvas = document.createElement('canvas');
+            this.gifCanvas.id = 'zestyGifCanvas';
+            document.body.appendChild(this.gifCanvas);
+            gifler(banner.imageSrc).animate('#zestyGifCanvas');
+            this.gifCanvasLoaded = false;
+            this.gifTexturePipeline = 'flat';
+          } else {
+            m.flatTexture = banner.texture;
+            m.alphaMaskThreshold = 0.8;
+          }
         } else {
           throw Error(
             "'zesty-banner' unable to apply banner texture: unsupported pipeline " + pipeline

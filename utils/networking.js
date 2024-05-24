@@ -45,6 +45,12 @@ const initPrebid = (adUnitId, format) => {
         break;
     }
   });
+
+  // Load gifler script in case gif creative is served
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js';
+  document.head.appendChild(script);
+
   prebidInit = true;
 }
 

@@ -57,6 +57,10 @@ AFRAME.registerComponent('zesty-banner', {
     this.sceneEl = document.querySelector('a-scene');
     this.scene = this.sceneEl.object3D;
 
+    this.gifTexture = null;
+    this.gifCanvas = null;
+    this.gifInterval = null;
+
     this.tick = AFRAME.utils.throttleTick(this.tick, 30000, this);
     this.registerEntity();
   },
@@ -95,6 +99,15 @@ AFRAME.registerComponent('zesty-banner', {
     }
     console.log('is visible: ', isVisible);
     return isVisible;
+  },
+
+  updateGifTexture: function() {
+    if (!this.gifTexture && this.gifCanvas.hasAttribute('width')) {
+      this.gifTexture = new THREE.CanvasTexture(this.gifCanvas);
+      this.el.children[0].setAttribute('material', 'src', this.gifTexture);
+    } else if (this.gifTexture) {
+      this.gifTexture.needsUpdate = true;
+    }
   }
 });
 
@@ -171,10 +184,37 @@ async function updateBanner(banner, plane, el, adUnit, format, style, height, be
   } = getV3BetaUnitInfo(adUnit);
   const absoluteDimensions = adjustedHeight !== height;
 
+  // Reset gif attributes
+  if (el.components['zesty-banner'].gifInterval) {
+    clearInterval(el.components['zesty-banner'].gifInterval);
+    el.components['zesty-banner'].gifInterval = null;
+  }
+  if (el.components['zesty-banner'].gifTexture) {
+    el.components['zesty-banner'].gifTexture.dispose();
+    el.components['zesty-banner'].gifTexture = null;
+  }
+  if (el.components['zesty-banner'].gifCanvas) {
+    document.body.removeChild(el.components['zesty-banner'].gifCanvas);
+    el.components['zesty-banner'].gifCanvas = null;
+  }
+
   // don't attach plane if element's visibility is false
   if (el.getAttribute('visible') !== false) {
     if (banner.img) {
-      plane.setAttribute('src', `#${banner.img.id}`);
+      if (banner.img.src.includes('.gif')) {
+        const canvas = document.createElement('canvas');
+        canvas.id = "zestyGifCanvas";
+        canvas.style.zIndex = -3;
+        document.body.appendChild(canvas);
+        el.components['zesty-banner'].gifCanvas = canvas;
+
+        gifler(banner.img.src).animate('#zestyGifCanvas');
+        el.components['zesty-banner'].gifInterval = setInterval(() => {
+          el.components['zesty-banner'].updateGifTexture();
+        }, 100);
+      } else {
+        plane.setAttribute('src', `#${banner.img.id}`);
+      }
       plane.setAttribute('width', adjustedWidth * (absoluteDimensions ? 1 : adjustedHeight));
       plane.setAttribute('height', adjustedHeight);
       // for textures that are 1024x1024, not setting this causes white border

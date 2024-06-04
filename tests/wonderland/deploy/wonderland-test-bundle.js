@@ -2362,10 +2362,10 @@ var require_earcut = __commonJS({
       }
     }
     function isEar(ear) {
-      var a = ear.prev, b = ear, c = ear.next;
-      if (area(a, b, c) >= 0)
+      var a = ear.prev, b2 = ear, c = ear.next;
+      if (area(a, b2, c) >= 0)
         return false;
-      var ax = a.x, bx = b.x, cx = c.x, ay = a.y, by = b.y, cy = c.y;
+      var ax = a.x, bx = b2.x, cx = c.x, ay = a.y, by = b2.y, cy = c.y;
       var x0 = ax < bx ? ax < cx ? ax : cx : bx < cx ? bx : cx, y0 = ay < by ? ay < cy ? ay : cy : by < cy ? by : cy, x1 = ax > bx ? ax > cx ? ax : cx : bx > cx ? bx : cx, y1 = ay > by ? ay > cy ? ay : cy : by > cy ? by : cy;
       var p = c.next;
       while (p !== a) {
@@ -2376,10 +2376,10 @@ var require_earcut = __commonJS({
       return true;
     }
     function isEarHashed(ear, minX, minY, invSize) {
-      var a = ear.prev, b = ear, c = ear.next;
-      if (area(a, b, c) >= 0)
+      var a = ear.prev, b2 = ear, c = ear.next;
+      if (area(a, b2, c) >= 0)
         return false;
-      var ax = a.x, bx = b.x, cx = c.x, ay = a.y, by = b.y, cy = c.y;
+      var ax = a.x, bx = b2.x, cx = c.x, ay = a.y, by = b2.y, cy = c.y;
       var x0 = ax < bx ? ax < cx ? ax : cx : bx < cx ? bx : cx, y0 = ay < by ? ay < cy ? ay : cy : by < cy ? by : cy, x1 = ax > bx ? ax > cx ? ax : cx : bx > cx ? bx : cx, y1 = ay > by ? ay > cy ? ay : cy : by > cy ? by : cy;
       var minZ = zOrder(x0, y0, minX, minY, invSize), maxZ = zOrder(x1, y1, minX, minY, invSize);
       var p = ear.prevZ, n = ear.nextZ;
@@ -2410,10 +2410,10 @@ var require_earcut = __commonJS({
         if (!equals7(a, b) && intersects(a, p, p.next, b) && locallyInside(a, b) && locallyInside(b, a)) {
           triangles.push(a.i / dim | 0);
           triangles.push(p.i / dim | 0);
-          triangles.push(b.i / dim | 0);
+          triangles.push(b2.i / dim | 0);
           removeNode(p);
           removeNode(p.next);
-          p = start = b;
+          p = start = b2;
         }
         p = p.next;
       } while (p !== start);
@@ -2422,17 +2422,17 @@ var require_earcut = __commonJS({
     function splitEarcut(start, triangles, dim, minX, minY, invSize) {
       var a = start;
       do {
-        var b = a.next.next;
-        while (b !== a.prev) {
-          if (a.i !== b.i && isValidDiagonal(a, b)) {
-            var c = splitPolygon(a, b);
+        var b2 = a.next.next;
+        while (b2 !== a.prev) {
+          if (a.i !== b2.i && isValidDiagonal(a, b2)) {
+            var c = splitPolygon(a, b2);
             a = filterPoints(a, a.next);
             c = filterPoints(c, c.next);
             earcutLinked(a, triangles, dim, minX, minY, invSize, 0);
             earcutLinked(c, triangles, dim, minX, minY, invSize, 0);
             return;
           }
-          b = b.next;
+          b2 = b2.next;
         }
         a = a.next;
       } while (a !== start);
@@ -2453,8 +2453,8 @@ var require_earcut = __commonJS({
       }
       return outerNode;
     }
-    function compareX(a, b) {
-      return a.x - b.x;
+    function compareX(a, b2) {
+      return a.x - b2.x;
     }
     function eliminateHole(hole, outerNode) {
       var bridge = findHoleBridge(hole, outerNode);
@@ -2613,20 +2613,20 @@ var require_earcut = __commonJS({
     function sign(num) {
       return num > 0 ? 1 : num < 0 ? -1 : 0;
     }
-    function intersectsPolygon(a, b) {
+    function intersectsPolygon(a, b2) {
       var p = a;
       do {
-        if (p.i !== a.i && p.next.i !== a.i && p.i !== b.i && p.next.i !== b.i && intersects(p, p.next, a, b))
+        if (p.i !== a.i && p.next.i !== a.i && p.i !== b2.i && p.next.i !== b2.i && intersects(p, p.next, a, b2))
           return true;
         p = p.next;
       } while (p !== a);
       return false;
     }
-    function locallyInside(a, b) {
-      return area(a.prev, a, a.next) < 0 ? area(a, b, a.next) >= 0 && area(a, a.prev, b) >= 0 : area(a, b, a.prev) < 0 || area(a, a.next, b) < 0;
+    function locallyInside(a, b2) {
+      return area(a.prev, a, a.next) < 0 ? area(a, b2, a.next) >= 0 && area(a, a.prev, b2) >= 0 : area(a, b2, a.prev) < 0 || area(a, a.next, b2) < 0;
     }
-    function middleInside(a, b) {
-      var p = a, inside = false, px = (a.x + b.x) / 2, py = (a.y + b.y) / 2;
+    function middleInside(a, b2) {
+      var p = a, inside = false, px = (a.x + b2.x) / 2, py = (a.y + b2.y) / 2;
       do {
         if (p.y > py !== p.next.y > py && p.next.y !== p.y && px < (p.next.x - p.x) * (py - p.y) / (p.next.y - p.y) + p.x)
           inside = !inside;
@@ -2634,17 +2634,17 @@ var require_earcut = __commonJS({
       } while (p !== a);
       return inside;
     }
-    function splitPolygon(a, b) {
-      var a2 = new Node(a.i, a.x, a.y), b2 = new Node(b.i, b.x, b.y), an = a.next, bp = b.prev;
-      a.next = b;
-      b.prev = a;
+    function splitPolygon(a, b2) {
+      var a2 = new Node(a.i, a.x, a.y), b22 = new Node(b2.i, b2.x, b2.y), an = a.next, bp = b2.prev;
+      a.next = b2;
+      b2.prev = a;
       a2.next = an;
       an.prev = a2;
-      b2.next = a2;
-      a2.prev = b2;
-      bp.next = b2;
-      b2.prev = bp;
-      return b2;
+      b22.next = a2;
+      a2.prev = b22;
+      bp.next = b22;
+      b22.prev = bp;
+      return b22;
     }
     function insertNode(i, x, y, last) {
       var p = new Node(i, x, y);
@@ -2692,10 +2692,10 @@ var require_earcut = __commonJS({
       var trianglesArea = 0;
       for (i = 0; i < triangles.length; i += 3) {
         var a = triangles[i] * dim;
-        var b = triangles[i + 1] * dim;
+        var b2 = triangles[i + 1] * dim;
         var c = triangles[i + 2] * dim;
         trianglesArea += Math.abs(
-          (data[a] - data[c]) * (data[b + 1] - data[a + 1]) - (data[a] - data[b]) * (data[c + 1] - data[a + 1])
+          (data[a] - data[c]) * (data[b2 + 1] - data[a + 1]) - (data[a] - data[b2]) * (data[c + 1] - data[a + 1])
         );
       }
       return polygonArea === 0 && trianglesArea === 0 ? 0 : Math.abs((trianglesArea - polygonArea) / polygonArea);
@@ -2712,8 +2712,8 @@ var require_earcut = __commonJS({
       var dim = data[0][0].length, result = { vertices: [], holes: [], dimensions: dim }, holeIndex = 0;
       for (var i = 0; i < data.length; i++) {
         for (var j = 0; j < data[i].length; j++) {
-          for (var d = 0; d < dim; d++)
-            result.vertices.push(data[i][j][d]);
+          for (var d2 = 0; d2 < dim; d2++)
+            result.vertices.push(data[i][j][d2]);
         }
         if (i > 0) {
           holeIndex += data[i - 1].length;
@@ -2919,8 +2919,8 @@ var Property = {
    * @param b The blue component, in the range [0; 1].
    * @param a The alpha component, in the range [0; 1].
    */
-  color(r = 0, g = 0, b = 0, a = 1) {
-    return { type: Type.Color, default: [r, g, b, a] };
+  color(r = 0, g = 0, b2 = 0, a = 1) {
+    return { type: Type.Color, default: [r, g, b2, a] };
   },
   /**
    * Create a two-element vector property.
@@ -4200,13 +4200,13 @@ function createDestroyedProxy2(type) {
 
 // node_modules/@wonderlandengine/api/dist/wonderland.js
 var __decorate = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var LogTag;
@@ -4663,11 +4663,11 @@ var _Component = class {
    *
    * @hidden
    */
-  _triggerUpdate(dt) {
+  _triggerUpdate(dt2) {
     if (!this.update)
       return;
     try {
-      this.update(dt);
+      this.update(dt2);
     } catch (e) {
       this.engine.log.error(LogTag.Component, `Exception during ${this.type} update() on object ${this.object.name}`);
       this.engine.log.error(LogTag.Component, e);
@@ -5551,8 +5551,8 @@ var LightComponent = class extends Component {
    * @param b Whether the light casts shadows.
    * @since 1.0.0
    */
-  set shadows(b) {
-    this.engine.wasm._wl_light_component_set_shadows(this._id, b);
+  set shadows(b2) {
+    this.engine.wasm._wl_light_component_set_shadows(this._id, b2);
   }
   /**
    * Range for shadows.
@@ -6021,8 +6021,8 @@ var PhysXComponent = class extends Component {
    *
    * @param b Whether the rigid body should be static.
    */
-  set static(b) {
-    this.engine.wasm._wl_physx_component_set_static(this._id, b);
+  set static(b2) {
+    this.engine.wasm._wl_physx_component_set_static(this._id, b2);
   }
   /**
    * Whether this rigid body is static.
@@ -6092,8 +6092,8 @@ var PhysXComponent = class extends Component {
    *
    * @param b Whether the rigid body should be kinematic.
    */
-  set kinematic(b) {
-    this.engine.wasm._wl_physx_component_set_kinematic(this._id, b);
+  set kinematic(b2) {
+    this.engine.wasm._wl_physx_component_set_kinematic(this._id, b2);
   }
   /**
    * Whether this rigid body is kinematic.
@@ -6106,8 +6106,8 @@ var PhysXComponent = class extends Component {
    *
    * @param b Whether the rigid body's gravity should be enabled.
    */
-  set gravity(b) {
-    this.engine.wasm._wl_physx_component_set_gravity(this._id, b);
+  set gravity(b2) {
+    this.engine.wasm._wl_physx_component_set_gravity(this._id, b2);
   }
   /**
    * Whether this rigid body's gravity flag is enabled.
@@ -6120,8 +6120,8 @@ var PhysXComponent = class extends Component {
    *
    * @param b Whether the rigid body's simulate flag should be enabled.
    */
-  set simulate(b) {
-    this.engine.wasm._wl_physx_component_set_simulate(this._id, b);
+  set simulate(b2) {
+    this.engine.wasm._wl_physx_component_set_simulate(this._id, b2);
   }
   /**
    * Whether this rigid body's simulate flag is enabled.
@@ -6138,8 +6138,8 @@ var PhysXComponent = class extends Component {
    *
    * @param b Whether to allow simulation of this rigid body.
    */
-  set allowSimulation(b) {
-    this.engine.wasm._wl_physx_component_set_allowSimulation(this._id, b);
+  set allowSimulation(b2) {
+    this.engine.wasm._wl_physx_component_set_allowSimulation(this._id, b2);
   }
   /**
    * Whether to allow simulation of this rigid body.
@@ -6152,8 +6152,8 @@ var PhysXComponent = class extends Component {
    *
    * @param b Whether this rigid body may be queried in ray casts.
    */
-  set allowQuery(b) {
-    this.engine.wasm._wl_physx_component_set_allowQuery(this._id, b);
+  set allowQuery(b2) {
+    this.engine.wasm._wl_physx_component_set_allowQuery(this._id, b2);
   }
   /**
    * Whether this rigid body may be queried in ray casts.
@@ -6170,8 +6170,8 @@ var PhysXComponent = class extends Component {
    *
    * @param b Whether this physics body is a trigger.
    */
-  set trigger(b) {
-    this.engine.wasm._wl_physx_component_set_trigger(this._id, b);
+  set trigger(b2) {
+    this.engine.wasm._wl_physx_component_set_trigger(this._id, b2);
   }
   /**
    * Whether this physics body is a trigger.
@@ -6198,10 +6198,10 @@ var PhysXComponent = class extends Component {
    * Retrieved only from {@link PhysXComponent#shapeData}.
    * @since 0.8.10
    */
-  set shapeData(d) {
-    if (d == null || !isMeshShape(this.shape))
+  set shapeData(d2) {
+    if (d2 == null || !isMeshShape(this.shape))
       return;
-    this.engine.wasm._wl_physx_component_set_shape_data(this._id, d.index);
+    this.engine.wasm._wl_physx_component_set_shape_data(this._id, d2.index);
   }
   /**
    * Additional data for the shape.
@@ -6732,9 +6732,9 @@ var Physics = class {
    * @note The returned {@link RayHit} object is owned by the {@link Physics}
    *       instance and will be reused with the next {@link Physics#rayCast} call.
    */
-  rayCast(o, d, groupMask, maxDistance = 100) {
+  rayCast(o, d2, groupMask, maxDistance = 100) {
     const scene = this._engine.scene._index;
-    this._engine.wasm._wl_physx_ray_cast(scene, o[0], o[1], o[2], d[0], d[1], d[2], groupMask, maxDistance, this._rayHit);
+    this._engine.wasm._wl_physx_ray_cast(scene, o[0], o[1], o[2], d2[0], d2[1], d2[2], groupMask, maxDistance, this._rayHit);
     return this._hit;
   }
   /** Hosting engine instance. */
@@ -7457,8 +7457,8 @@ var Object3D = class {
     return this;
   }
   /** @deprecated Please use {@link Object3D.rotateAxisAngleDegLocal} instead. */
-  rotateAxisAngleDeg(a, d) {
-    this.rotateAxisAngleDegLocal(a, d);
+  rotateAxisAngleDeg(a, d2) {
+    this.rotateAxisAngleDegLocal(a, d2);
     return this;
   }
   /**
@@ -7475,13 +7475,13 @@ var Object3D = class {
    *
    * @returns Reference to self (for method chaining).
    */
-  rotateAxisAngleDegLocal(a, d) {
-    this._engine.wasm._wl_object_rotate_axis_angle(this._id, a[0], a[1], a[2], d);
+  rotateAxisAngleDegLocal(a, d2) {
+    this._engine.wasm._wl_object_rotate_axis_angle(this._id, a[0], a[1], a[2], d2);
     return this;
   }
   /** @deprecated Please use {@link Object3D.rotateAxisAngleRadLocal} instead. */
-  rotateAxisAngleRad(a, d) {
-    return this.rotateAxisAngleRadLocal(a, d);
+  rotateAxisAngleRad(a, d2) {
+    return this.rotateAxisAngleRadLocal(a, d2);
   }
   /**
    * Rotate around given axis by given angle (radians) in local space.
@@ -7497,8 +7497,8 @@ var Object3D = class {
    *
    * @returns Reference to self (for method chaining).
    */
-  rotateAxisAngleRadLocal(a, d) {
-    this._engine.wasm._wl_object_rotate_axis_angle_rad(this._id, a[0], a[1], a[2], d);
+  rotateAxisAngleRadLocal(a, d2) {
+    this._engine.wasm._wl_object_rotate_axis_angle_rad(this._id, a[0], a[1], a[2], d2);
     return this;
   }
   /**
@@ -7514,8 +7514,8 @@ var Object3D = class {
    *
    * @returns Reference to self (for method chaining).
    */
-  rotateAxisAngleDegObject(a, d) {
-    this._engine.wasm._wl_object_rotate_axis_angle_obj(this._id, a[0], a[1], a[2], d);
+  rotateAxisAngleDegObject(a, d2) {
+    this._engine.wasm._wl_object_rotate_axis_angle_obj(this._id, a[0], a[1], a[2], d2);
     return this;
   }
   /**
@@ -7530,8 +7530,8 @@ var Object3D = class {
    *
    * @returns Reference to self (for method chaining).
    */
-  rotateAxisAngleRadObject(a, d) {
-    this._engine.wasm._wl_object_rotate_axis_angle_rad_obj(this._id, a[0], a[1], a[2], d);
+  rotateAxisAngleRadObject(a, d2) {
+    this._engine.wasm._wl_object_rotate_axis_angle_rad_obj(this._id, a[0], a[1], a[2], d2);
     return this;
   }
   /** @deprecated Please use {@link Object3D.rotateLocal} instead. */
@@ -8259,10 +8259,10 @@ var Object3D = class {
    *
    * @since 0.8.5
    */
-  set active(b) {
+  set active(b2) {
     const comps = this.getComponents();
     for (let c of comps) {
-      c.active = b;
+      c.active = b2;
     }
   }
   getComponent(typeOrClass, index = 0) {
@@ -8655,9 +8655,9 @@ var math = class {
   static cubicHermite(out, a, b, c, d, f, engine2 = WL) {
     const wasm = engine2.wasm;
     wasm._tempMemFloat.subarray(0).set(a);
-    wasm._tempMemFloat.subarray(4).set(b);
+    wasm._tempMemFloat.subarray(4).set(b2);
     wasm._tempMemFloat.subarray(8).set(c);
-    wasm._tempMemFloat.subarray(12).set(d);
+    wasm._tempMemFloat.subarray(12).set(d2);
     const isQuat = a.length == 4;
     wasm._wl_math_cubicHermite(wasm._tempMem + 4 * 16, wasm._tempMem + 4 * 0, wasm._tempMem + 4 * 4, wasm._tempMem + 4 * 8, wasm._tempMem + 4 * 12, f, isQuat);
     out[0] = wasm._tempMemFloat[16];
@@ -9505,8 +9505,8 @@ var Scene = class extends Prefab {
    * @note The returned {@link RayHit} object is owned by the {@link Scene}
    *       instance and will be reused with the next {@link Scene#rayCast} call.
    */
-  rayCast(o, d, groupMask, maxDistance = 100) {
-    this.engine.wasm._wl_scene_ray_cast(this._index, o[0], o[1], o[2], d[0], d[1], d[2], groupMask, this._rayHit, maxDistance);
+  rayCast(o, d2, groupMask, maxDistance = 100) {
+    this.engine.wasm._wl_scene_ray_cast(this._index, o[0], o[1], o[2], d2[0], d2[1], d2[2], groupMask, this._rayHit, maxDistance);
     return this._hit;
   }
   /**
@@ -9528,8 +9528,8 @@ var Scene = class extends Prefab {
    * @param b Whether to enable color clear.
    * @since 0.9.4
    */
-  set colorClearEnabled(b) {
-    this.engine.wasm._wl_scene_enableColorClear(b);
+  set colorClearEnabled(b2) {
+    this.engine.wasm._wl_scene_enableColorClear(b2);
   }
   /**
    * Load a scene file (.bin).
@@ -10558,9 +10558,9 @@ var WonderlandEngine = class {
     this.#physics = null;
     if (this.#wasm.withPhysX) {
       const physics = new Physics(this);
-      this.#wasm._wl_physx_set_collision_callback(this.#wasm.addFunction((a, index, type, b) => {
+      this.#wasm._wl_physx_set_collision_callback(this.#wasm.addFunction((a, index, type, b2) => {
         const physxA = this.scene._components.wrapPhysx(a);
-        const physxB = this.scene._components.wrapPhysx(b);
+        const physxB = this.scene._components.wrapPhysx(b2);
         const callback = physics._callbacks[physxA._id][index];
         callback(type, physxB);
       }, "viiii"));
@@ -11660,9 +11660,9 @@ var WASM = class {
     const c = components[component];
     c._triggerInit();
   }
-  _wljs_component_update(component, dt) {
+  _wljs_component_update(component, dt2) {
     const c = this._components[component];
-    c._triggerUpdate(dt);
+    c._triggerUpdate(dt2);
   }
   _wljs_component_onActivate(component) {
     const c = this._components[component];
@@ -11677,11 +11677,11 @@ var WASM = class {
     const component = scene._components.get(manager, componentId);
     component?._triggerOnDestroy();
   }
-  _wljs_swap(scene, a, b) {
+  _wljs_swap(scene, a, b2) {
     const components = this._engine._scenes[scene]._jsComponents;
     const componentA = components[a];
-    components[a] = components[b];
-    components[b] = componentA;
+    components[a] = components[b2];
+    components[b2] = componentA;
   }
   _wljs_copy(srcSceneIndex, srcIndex, dstSceneIndex, dstIndex, offsetsPtr) {
     const srcScene = this._engine._scenes[srcSceneIndex];
@@ -12220,13 +12220,13 @@ function setXRRigidTransformLocal(o, transform) {
 
 // node_modules/@wonderlandengine/components/dist/anchor.js
 var __decorate2 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var tempVec3 = new Float32Array(3);
@@ -12837,40 +12837,40 @@ function determinant(a) {
   var b11 = a22 * a33 - a23 * a32;
   return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 }
-function multiply(out, a, b) {
+function multiply(out, a, b2) {
   var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
   var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
   var a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
   var a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
-  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
-  out[0] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
-  out[1] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
-  out[2] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
-  out[3] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
-  b0 = b[4];
-  b1 = b[5];
-  b2 = b[6];
-  b3 = b[7];
-  out[4] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
-  out[5] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
-  out[6] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
-  out[7] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
-  b0 = b[8];
-  b1 = b[9];
-  b2 = b[10];
-  b3 = b[11];
-  out[8] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
-  out[9] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
-  out[10] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
-  out[11] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
-  b0 = b[12];
-  b1 = b[13];
-  b2 = b[14];
-  b3 = b[15];
-  out[12] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
-  out[13] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
-  out[14] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
-  out[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  var b0 = b2[0], b1 = b2[1], b22 = b2[2], b3 = b2[3];
+  out[0] = b0 * a00 + b1 * a10 + b22 * a20 + b3 * a30;
+  out[1] = b0 * a01 + b1 * a11 + b22 * a21 + b3 * a31;
+  out[2] = b0 * a02 + b1 * a12 + b22 * a22 + b3 * a32;
+  out[3] = b0 * a03 + b1 * a13 + b22 * a23 + b3 * a33;
+  b0 = b2[4];
+  b1 = b2[5];
+  b22 = b2[6];
+  b3 = b2[7];
+  out[4] = b0 * a00 + b1 * a10 + b22 * a20 + b3 * a30;
+  out[5] = b0 * a01 + b1 * a11 + b22 * a21 + b3 * a31;
+  out[6] = b0 * a02 + b1 * a12 + b22 * a22 + b3 * a32;
+  out[7] = b0 * a03 + b1 * a13 + b22 * a23 + b3 * a33;
+  b0 = b2[8];
+  b1 = b2[9];
+  b22 = b2[10];
+  b3 = b2[11];
+  out[8] = b0 * a00 + b1 * a10 + b22 * a20 + b3 * a30;
+  out[9] = b0 * a01 + b1 * a11 + b22 * a21 + b3 * a31;
+  out[10] = b0 * a02 + b1 * a12 + b22 * a22 + b3 * a32;
+  out[11] = b0 * a03 + b1 * a13 + b22 * a23 + b3 * a33;
+  b0 = b2[12];
+  b1 = b2[13];
+  b22 = b2[14];
+  b3 = b2[15];
+  out[12] = b0 * a00 + b1 * a10 + b22 * a20 + b3 * a30;
+  out[13] = b0 * a01 + b1 * a11 + b22 * a21 + b3 * a31;
+  out[14] = b0 * a02 + b1 * a12 + b22 * a22 + b3 * a32;
+  out[15] = b0 * a03 + b1 * a13 + b22 * a23 + b3 * a33;
   return out;
 }
 function translate(out, a, v) {
@@ -13703,61 +13703,61 @@ function str(a) {
 function frob(a) {
   return Math.hypot(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15]);
 }
-function add(out, a, b) {
-  out[0] = a[0] + b[0];
-  out[1] = a[1] + b[1];
-  out[2] = a[2] + b[2];
-  out[3] = a[3] + b[3];
-  out[4] = a[4] + b[4];
-  out[5] = a[5] + b[5];
-  out[6] = a[6] + b[6];
-  out[7] = a[7] + b[7];
-  out[8] = a[8] + b[8];
-  out[9] = a[9] + b[9];
-  out[10] = a[10] + b[10];
-  out[11] = a[11] + b[11];
-  out[12] = a[12] + b[12];
-  out[13] = a[13] + b[13];
-  out[14] = a[14] + b[14];
-  out[15] = a[15] + b[15];
+function add(out, a, b2) {
+  out[0] = a[0] + b2[0];
+  out[1] = a[1] + b2[1];
+  out[2] = a[2] + b2[2];
+  out[3] = a[3] + b2[3];
+  out[4] = a[4] + b2[4];
+  out[5] = a[5] + b2[5];
+  out[6] = a[6] + b2[6];
+  out[7] = a[7] + b2[7];
+  out[8] = a[8] + b2[8];
+  out[9] = a[9] + b2[9];
+  out[10] = a[10] + b2[10];
+  out[11] = a[11] + b2[11];
+  out[12] = a[12] + b2[12];
+  out[13] = a[13] + b2[13];
+  out[14] = a[14] + b2[14];
+  out[15] = a[15] + b2[15];
   return out;
 }
-function subtract(out, a, b) {
-  out[0] = a[0] - b[0];
-  out[1] = a[1] - b[1];
-  out[2] = a[2] - b[2];
-  out[3] = a[3] - b[3];
-  out[4] = a[4] - b[4];
-  out[5] = a[5] - b[5];
-  out[6] = a[6] - b[6];
-  out[7] = a[7] - b[7];
-  out[8] = a[8] - b[8];
-  out[9] = a[9] - b[9];
-  out[10] = a[10] - b[10];
-  out[11] = a[11] - b[11];
-  out[12] = a[12] - b[12];
-  out[13] = a[13] - b[13];
-  out[14] = a[14] - b[14];
-  out[15] = a[15] - b[15];
+function subtract(out, a, b2) {
+  out[0] = a[0] - b2[0];
+  out[1] = a[1] - b2[1];
+  out[2] = a[2] - b2[2];
+  out[3] = a[3] - b2[3];
+  out[4] = a[4] - b2[4];
+  out[5] = a[5] - b2[5];
+  out[6] = a[6] - b2[6];
+  out[7] = a[7] - b2[7];
+  out[8] = a[8] - b2[8];
+  out[9] = a[9] - b2[9];
+  out[10] = a[10] - b2[10];
+  out[11] = a[11] - b2[11];
+  out[12] = a[12] - b2[12];
+  out[13] = a[13] - b2[13];
+  out[14] = a[14] - b2[14];
+  out[15] = a[15] - b2[15];
   return out;
 }
-function multiplyScalar(out, a, b) {
-  out[0] = a[0] * b;
-  out[1] = a[1] * b;
-  out[2] = a[2] * b;
-  out[3] = a[3] * b;
-  out[4] = a[4] * b;
-  out[5] = a[5] * b;
-  out[6] = a[6] * b;
-  out[7] = a[7] * b;
-  out[8] = a[8] * b;
-  out[9] = a[9] * b;
-  out[10] = a[10] * b;
-  out[11] = a[11] * b;
-  out[12] = a[12] * b;
-  out[13] = a[13] * b;
-  out[14] = a[14] * b;
-  out[15] = a[15] * b;
+function multiplyScalar(out, a, b2) {
+  out[0] = a[0] * b2;
+  out[1] = a[1] * b2;
+  out[2] = a[2] * b2;
+  out[3] = a[3] * b2;
+  out[4] = a[4] * b2;
+  out[5] = a[5] * b2;
+  out[6] = a[6] * b2;
+  out[7] = a[7] * b2;
+  out[8] = a[8] * b2;
+  out[9] = a[9] * b2;
+  out[10] = a[10] * b2;
+  out[11] = a[11] * b2;
+  out[12] = a[12] * b2;
+  out[13] = a[13] * b2;
+  out[14] = a[14] * b2;
+  out[15] = a[15] * b2;
   return out;
 }
 function multiplyScalarAndAdd(out, a, b, scale7) {
@@ -13779,19 +13779,19 @@ function multiplyScalarAndAdd(out, a, b, scale7) {
   out[15] = a[15] + b[15] * scale7;
   return out;
 }
-function exactEquals(a, b) {
-  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5] && a[6] === b[6] && a[7] === b[7] && a[8] === b[8] && a[9] === b[9] && a[10] === b[10] && a[11] === b[11] && a[12] === b[12] && a[13] === b[13] && a[14] === b[14] && a[15] === b[15];
+function exactEquals(a, b2) {
+  return a[0] === b2[0] && a[1] === b2[1] && a[2] === b2[2] && a[3] === b2[3] && a[4] === b2[4] && a[5] === b2[5] && a[6] === b2[6] && a[7] === b2[7] && a[8] === b2[8] && a[9] === b2[9] && a[10] === b2[10] && a[11] === b2[11] && a[12] === b2[12] && a[13] === b2[13] && a[14] === b2[14] && a[15] === b2[15];
 }
-function equals(a, b) {
+function equals(a, b2) {
   var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
   var a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7];
   var a8 = a[8], a9 = a[9], a10 = a[10], a11 = a[11];
   var a12 = a[12], a13 = a[13], a14 = a[14], a15 = a[15];
-  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
-  var b4 = b[4], b5 = b[5], b6 = b[6], b7 = b[7];
-  var b8 = b[8], b9 = b[9], b10 = b[10], b11 = b[11];
-  var b12 = b[12], b13 = b[13], b14 = b[14], b15 = b[15];
-  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON * Math.max(1, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON * Math.max(1, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON * Math.max(1, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON * Math.max(1, Math.abs(a7), Math.abs(b7)) && Math.abs(a8 - b8) <= EPSILON * Math.max(1, Math.abs(a8), Math.abs(b8)) && Math.abs(a9 - b9) <= EPSILON * Math.max(1, Math.abs(a9), Math.abs(b9)) && Math.abs(a10 - b10) <= EPSILON * Math.max(1, Math.abs(a10), Math.abs(b10)) && Math.abs(a11 - b11) <= EPSILON * Math.max(1, Math.abs(a11), Math.abs(b11)) && Math.abs(a12 - b12) <= EPSILON * Math.max(1, Math.abs(a12), Math.abs(b12)) && Math.abs(a13 - b13) <= EPSILON * Math.max(1, Math.abs(a13), Math.abs(b13)) && Math.abs(a14 - b14) <= EPSILON * Math.max(1, Math.abs(a14), Math.abs(b14)) && Math.abs(a15 - b15) <= EPSILON * Math.max(1, Math.abs(a15), Math.abs(b15));
+  var b0 = b2[0], b1 = b2[1], b22 = b2[2], b3 = b2[3];
+  var b4 = b2[4], b5 = b2[5], b6 = b2[6], b7 = b2[7];
+  var b8 = b2[8], b9 = b2[9], b10 = b2[10], b11 = b2[11];
+  var b12 = b2[12], b13 = b2[13], b14 = b2[14], b15 = b2[15];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b22) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b22)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON * Math.max(1, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON * Math.max(1, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON * Math.max(1, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON * Math.max(1, Math.abs(a7), Math.abs(b7)) && Math.abs(a8 - b8) <= EPSILON * Math.max(1, Math.abs(a8), Math.abs(b8)) && Math.abs(a9 - b9) <= EPSILON * Math.max(1, Math.abs(a9), Math.abs(b9)) && Math.abs(a10 - b10) <= EPSILON * Math.max(1, Math.abs(a10), Math.abs(b10)) && Math.abs(a11 - b11) <= EPSILON * Math.max(1, Math.abs(a11), Math.abs(b11)) && Math.abs(a12 - b12) <= EPSILON * Math.max(1, Math.abs(a12), Math.abs(b12)) && Math.abs(a13 - b13) <= EPSILON * Math.max(1, Math.abs(a13), Math.abs(b13)) && Math.abs(a14 - b14) <= EPSILON * Math.max(1, Math.abs(a14), Math.abs(b14)) && Math.abs(a15 - b15) <= EPSILON * Math.max(1, Math.abs(a15), Math.abs(b15));
 }
 var mul = multiply;
 var sub = subtract;
@@ -13933,28 +13933,28 @@ function set2(out, x, y, z) {
   out[2] = z;
   return out;
 }
-function add2(out, a, b) {
-  out[0] = a[0] + b[0];
-  out[1] = a[1] + b[1];
-  out[2] = a[2] + b[2];
+function add2(out, a, b2) {
+  out[0] = a[0] + b2[0];
+  out[1] = a[1] + b2[1];
+  out[2] = a[2] + b2[2];
   return out;
 }
-function subtract2(out, a, b) {
-  out[0] = a[0] - b[0];
-  out[1] = a[1] - b[1];
-  out[2] = a[2] - b[2];
+function subtract2(out, a, b2) {
+  out[0] = a[0] - b2[0];
+  out[1] = a[1] - b2[1];
+  out[2] = a[2] - b2[2];
   return out;
 }
-function multiply2(out, a, b) {
-  out[0] = a[0] * b[0];
-  out[1] = a[1] * b[1];
-  out[2] = a[2] * b[2];
+function multiply2(out, a, b2) {
+  out[0] = a[0] * b2[0];
+  out[1] = a[1] * b2[1];
+  out[2] = a[2] * b2[2];
   return out;
 }
-function divide(out, a, b) {
-  out[0] = a[0] / b[0];
-  out[1] = a[1] / b[1];
-  out[2] = a[2] / b[2];
+function divide(out, a, b2) {
+  out[0] = a[0] / b2[0];
+  out[1] = a[1] / b2[1];
+  out[2] = a[2] / b2[2];
   return out;
 }
 function ceil(out, a) {
@@ -13969,16 +13969,16 @@ function floor(out, a) {
   out[2] = Math.floor(a[2]);
   return out;
 }
-function min(out, a, b) {
-  out[0] = Math.min(a[0], b[0]);
-  out[1] = Math.min(a[1], b[1]);
-  out[2] = Math.min(a[2], b[2]);
+function min(out, a, b2) {
+  out[0] = Math.min(a[0], b2[0]);
+  out[1] = Math.min(a[1], b2[1]);
+  out[2] = Math.min(a[2], b2[2]);
   return out;
 }
-function max(out, a, b) {
-  out[0] = Math.max(a[0], b[0]);
-  out[1] = Math.max(a[1], b[1]);
-  out[2] = Math.max(a[2], b[2]);
+function max(out, a, b2) {
+  out[0] = Math.max(a[0], b2[0]);
+  out[1] = Math.max(a[1], b2[1]);
+  out[2] = Math.max(a[2], b2[2]);
   return out;
 }
 function round(out, a) {
@@ -13987,10 +13987,10 @@ function round(out, a) {
   out[2] = Math.round(a[2]);
   return out;
 }
-function scale2(out, a, b) {
-  out[0] = a[0] * b;
-  out[1] = a[1] * b;
-  out[2] = a[2] * b;
+function scale2(out, a, b2) {
+  out[0] = a[0] * b2;
+  out[1] = a[1] * b2;
+  out[2] = a[2] * b2;
   return out;
 }
 function scaleAndAdd(out, a, b, scale7) {
@@ -14042,38 +14042,38 @@ function normalize(out, a) {
   out[2] = a[2] * len5;
   return out;
 }
-function dot(a, b) {
-  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+function dot(a, b2) {
+  return a[0] * b2[0] + a[1] * b2[1] + a[2] * b2[2];
 }
-function cross(out, a, b) {
+function cross(out, a, b2) {
   var ax = a[0], ay = a[1], az = a[2];
-  var bx = b[0], by = b[1], bz = b[2];
+  var bx = b2[0], by = b2[1], bz = b2[2];
   out[0] = ay * bz - az * by;
   out[1] = az * bx - ax * bz;
   out[2] = ax * by - ay * bx;
   return out;
 }
-function lerp(out, a, b, t) {
+function lerp(out, a, b2, t) {
   var ax = a[0];
   var ay = a[1];
   var az = a[2];
-  out[0] = ax + t * (b[0] - ax);
-  out[1] = ay + t * (b[1] - ay);
-  out[2] = az + t * (b[2] - az);
+  out[0] = ax + t * (b2[0] - ax);
+  out[1] = ay + t * (b2[1] - ay);
+  out[2] = az + t * (b2[2] - az);
   return out;
 }
-function hermite(out, a, b, c, d, t) {
+function hermite(out, a, b2, c, d2, t) {
   var factorTimes2 = t * t;
   var factor1 = factorTimes2 * (2 * t - 3) + 1;
   var factor2 = factorTimes2 * (t - 2) + t;
   var factor3 = factorTimes2 * (t - 1);
   var factor4 = factorTimes2 * (3 - 2 * t);
-  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
-  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
-  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
+  out[0] = a[0] * factor1 + b2[0] * factor2 + c[0] * factor3 + d2[0] * factor4;
+  out[1] = a[1] * factor1 + b2[1] * factor2 + c[1] * factor3 + d2[1] * factor4;
+  out[2] = a[2] * factor1 + b2[2] * factor2 + c[2] * factor3 + d2[2] * factor4;
   return out;
 }
-function bezier(out, a, b, c, d, t) {
+function bezier(out, a, b2, c, d2, t) {
   var inverseFactor = 1 - t;
   var inverseFactorTimesTwo = inverseFactor * inverseFactor;
   var factorTimes2 = t * t;
@@ -14081,9 +14081,9 @@ function bezier(out, a, b, c, d, t) {
   var factor2 = 3 * t * inverseFactorTimesTwo;
   var factor3 = 3 * factorTimes2 * inverseFactor;
   var factor4 = factorTimes2 * t;
-  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
-  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
-  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
+  out[0] = a[0] * factor1 + b2[0] * factor2 + c[0] * factor3 + d2[0] * factor4;
+  out[1] = a[1] * factor1 + b2[1] * factor2 + c[1] * factor3 + d2[1] * factor4;
+  out[2] = a[2] * factor1 + b2[2] * factor2 + c[2] * factor3 + d2[2] * factor4;
   return out;
 }
 function random(out, scale7) {
@@ -14129,47 +14129,47 @@ function transformQuat(out, a, q) {
   out[2] = z + uvz + uuvz;
   return out;
 }
-function rotateX2(out, a, b, rad) {
+function rotateX2(out, a, b2, rad) {
   var p = [], r = [];
-  p[0] = a[0] - b[0];
-  p[1] = a[1] - b[1];
-  p[2] = a[2] - b[2];
+  p[0] = a[0] - b2[0];
+  p[1] = a[1] - b2[1];
+  p[2] = a[2] - b2[2];
   r[0] = p[0];
   r[1] = p[1] * Math.cos(rad) - p[2] * Math.sin(rad);
   r[2] = p[1] * Math.sin(rad) + p[2] * Math.cos(rad);
-  out[0] = r[0] + b[0];
-  out[1] = r[1] + b[1];
-  out[2] = r[2] + b[2];
+  out[0] = r[0] + b2[0];
+  out[1] = r[1] + b2[1];
+  out[2] = r[2] + b2[2];
   return out;
 }
-function rotateY2(out, a, b, rad) {
+function rotateY2(out, a, b2, rad) {
   var p = [], r = [];
-  p[0] = a[0] - b[0];
-  p[1] = a[1] - b[1];
-  p[2] = a[2] - b[2];
+  p[0] = a[0] - b2[0];
+  p[1] = a[1] - b2[1];
+  p[2] = a[2] - b2[2];
   r[0] = p[2] * Math.sin(rad) + p[0] * Math.cos(rad);
   r[1] = p[1];
   r[2] = p[2] * Math.cos(rad) - p[0] * Math.sin(rad);
-  out[0] = r[0] + b[0];
-  out[1] = r[1] + b[1];
-  out[2] = r[2] + b[2];
+  out[0] = r[0] + b2[0];
+  out[1] = r[1] + b2[1];
+  out[2] = r[2] + b2[2];
   return out;
 }
-function rotateZ2(out, a, b, rad) {
+function rotateZ2(out, a, b2, rad) {
   var p = [], r = [];
-  p[0] = a[0] - b[0];
-  p[1] = a[1] - b[1];
-  p[2] = a[2] - b[2];
+  p[0] = a[0] - b2[0];
+  p[1] = a[1] - b2[1];
+  p[2] = a[2] - b2[2];
   r[0] = p[0] * Math.cos(rad) - p[1] * Math.sin(rad);
   r[1] = p[0] * Math.sin(rad) + p[1] * Math.cos(rad);
   r[2] = p[2];
-  out[0] = r[0] + b[0];
-  out[1] = r[1] + b[1];
-  out[2] = r[2] + b[2];
+  out[0] = r[0] + b2[0];
+  out[1] = r[1] + b2[1];
+  out[2] = r[2] + b2[2];
   return out;
 }
-function angle(a, b) {
-  var ax = a[0], ay = a[1], az = a[2], bx = b[0], by = b[1], bz = b[2], mag1 = Math.sqrt(ax * ax + ay * ay + az * az), mag2 = Math.sqrt(bx * bx + by * by + bz * bz), mag = mag1 * mag2, cosine = mag && dot(a, b) / mag;
+function angle(a, b2) {
+  var ax = a[0], ay = a[1], az = a[2], bx = b2[0], by = b2[1], bz = b2[2], mag1 = Math.sqrt(ax * ax + ay * ay + az * az), mag2 = Math.sqrt(bx * bx + by * by + bz * bz), mag = mag1 * mag2, cosine = mag && dot(a, b2) / mag;
   return Math.acos(Math.min(Math.max(cosine, -1), 1));
 }
 function zero(out) {
@@ -14181,13 +14181,13 @@ function zero(out) {
 function str2(a) {
   return "vec3(" + a[0] + ", " + a[1] + ", " + a[2] + ")";
 }
-function exactEquals2(a, b) {
-  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2];
+function exactEquals2(a, b2) {
+  return a[0] === b2[0] && a[1] === b2[1] && a[2] === b2[2];
 }
-function equals2(a, b) {
+function equals2(a, b2) {
   var a0 = a[0], a1 = a[1], a2 = a[2];
-  var b0 = b[0], b1 = b[1], b2 = b[2];
-  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2));
+  var b0 = b2[0], b1 = b2[1], b22 = b2[2];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b22) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b22));
 }
 var sub2 = subtract2;
 var mul2 = multiply2;
@@ -14265,18 +14265,18 @@ function set3(out, x, y, z, w) {
   out[3] = w;
   return out;
 }
-function add3(out, a, b) {
-  out[0] = a[0] + b[0];
-  out[1] = a[1] + b[1];
-  out[2] = a[2] + b[2];
-  out[3] = a[3] + b[3];
+function add3(out, a, b2) {
+  out[0] = a[0] + b2[0];
+  out[1] = a[1] + b2[1];
+  out[2] = a[2] + b2[2];
+  out[3] = a[3] + b2[3];
   return out;
 }
-function scale3(out, a, b) {
-  out[0] = a[0] * b;
-  out[1] = a[1] * b;
-  out[2] = a[2] * b;
-  out[3] = a[3] * b;
+function scale3(out, a, b2) {
+  out[0] = a[0] * b2;
+  out[1] = a[1] * b2;
+  out[2] = a[2] * b2;
+  out[3] = a[3] * b2;
   return out;
 }
 function length2(a) {
@@ -14308,27 +14308,27 @@ function normalize2(out, a) {
   out[3] = w * len5;
   return out;
 }
-function dot2(a, b) {
-  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+function dot2(a, b2) {
+  return a[0] * b2[0] + a[1] * b2[1] + a[2] * b2[2] + a[3] * b2[3];
 }
-function lerp2(out, a, b, t) {
+function lerp2(out, a, b2, t) {
   var ax = a[0];
   var ay = a[1];
   var az = a[2];
   var aw = a[3];
-  out[0] = ax + t * (b[0] - ax);
-  out[1] = ay + t * (b[1] - ay);
-  out[2] = az + t * (b[2] - az);
-  out[3] = aw + t * (b[3] - aw);
+  out[0] = ax + t * (b2[0] - ax);
+  out[1] = ay + t * (b2[1] - ay);
+  out[2] = az + t * (b2[2] - az);
+  out[3] = aw + t * (b2[3] - aw);
   return out;
 }
-function exactEquals3(a, b) {
-  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
+function exactEquals3(a, b2) {
+  return a[0] === b2[0] && a[1] === b2[1] && a[2] === b2[2] && a[3] === b2[3];
 }
-function equals3(a, b) {
+function equals3(a, b2) {
   var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
-  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
-  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3));
+  var b0 = b2[0], b1 = b2[1], b22 = b2[2], b3 = b2[3];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b22) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b22)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3));
 }
 var forEach2 = function() {
   var vec = create4();
@@ -14401,13 +14401,13 @@ function getAxisAngle(out_axis, q) {
   }
   return rad;
 }
-function getAngle(a, b) {
-  var dotproduct = dot3(a, b);
+function getAngle(a, b2) {
+  var dotproduct = dot3(a, b2);
   return Math.acos(2 * dotproduct * dotproduct - 1);
 }
-function multiply3(out, a, b) {
+function multiply3(out, a, b2) {
   var ax = a[0], ay = a[1], az = a[2], aw = a[3];
-  var bx = b[0], by = b[1], bz = b[2], bw = b[3];
+  var bx = b2[0], by = b2[1], bz = b2[2], bw = b2[3];
   out[0] = ax * bw + aw * bx + ay * bz - az * by;
   out[1] = ay * bw + aw * by + az * bx - ax * bz;
   out[2] = az * bw + aw * bz + ax * by - ay * bx;
@@ -14460,7 +14460,7 @@ function exp(out, a) {
   out[0] = x * s;
   out[1] = y * s;
   out[2] = z * s;
-  out[3] = et * Math.cos(r);
+  out[3] = et2 * Math.cos(r);
   return out;
 }
 function ln(out, a) {
@@ -14473,15 +14473,15 @@ function ln(out, a) {
   out[3] = 0.5 * Math.log(x * x + y * y + z * z + w * w);
   return out;
 }
-function pow(out, a, b) {
+function pow(out, a, b2) {
   ln(out, a);
-  scale4(out, out, b);
+  scale4(out, out, b2);
   exp(out, out);
   return out;
 }
-function slerp(out, a, b, t) {
+function slerp(out, a, b2, t) {
   var ax = a[0], ay = a[1], az = a[2], aw = a[3];
-  var bx = b[0], by = b[1], bz = b[2], bw = b[3];
+  var bx = b2[0], by = b2[1], bz = b2[2], bw = b2[3];
   var omega, cosom, sinom, scale0, scale1;
   cosom = ax * bx + ay * by + az * bz + aw * bw;
   if (cosom < 0) {
@@ -14618,7 +14618,7 @@ var rotationTo = function() {
       out[3] = 1;
       return out;
     } else {
-      cross(tmpvec3, a, b);
+      cross(tmpvec3, a, b2);
       out[0] = tmpvec3[0];
       out[1] = tmpvec3[1];
       out[2] = tmpvec3[2];
@@ -14630,9 +14630,9 @@ var rotationTo = function() {
 var sqlerp = function() {
   var temp1 = create5();
   var temp2 = create5();
-  return function(out, a, b, c, d, t) {
-    slerp(temp1, a, d, t);
-    slerp(temp2, b, c, t);
+  return function(out, a, b2, c, d2, t) {
+    slerp(temp1, a, d2, t);
+    slerp(temp2, b2, c, t);
     slerp(out, temp1, temp2, 2 * t * (1 - t));
     return out;
   };
@@ -14951,19 +14951,19 @@ function rotateAroundAxis(out, a, axis, rad) {
   out[7] = aw * bw - ax * bx - ay * by - az * bz;
   return out;
 }
-function add5(out, a, b) {
-  out[0] = a[0] + b[0];
-  out[1] = a[1] + b[1];
-  out[2] = a[2] + b[2];
-  out[3] = a[3] + b[3];
-  out[4] = a[4] + b[4];
-  out[5] = a[5] + b[5];
-  out[6] = a[6] + b[6];
-  out[7] = a[7] + b[7];
+function add5(out, a, b2) {
+  out[0] = a[0] + b2[0];
+  out[1] = a[1] + b2[1];
+  out[2] = a[2] + b2[2];
+  out[3] = a[3] + b2[3];
+  out[4] = a[4] + b2[4];
+  out[5] = a[5] + b2[5];
+  out[6] = a[6] + b2[6];
+  out[7] = a[7] + b2[7];
   return out;
 }
-function multiply4(out, a, b) {
-  var ax0 = a[0], ay0 = a[1], az0 = a[2], aw0 = a[3], bx1 = b[4], by1 = b[5], bz1 = b[6], bw1 = b[7], ax1 = a[4], ay1 = a[5], az1 = a[6], aw1 = a[7], bx0 = b[0], by0 = b[1], bz0 = b[2], bw0 = b[3];
+function multiply4(out, a, b2) {
+  var ax0 = a[0], ay0 = a[1], az0 = a[2], aw0 = a[3], bx1 = b2[4], by1 = b2[5], bz1 = b2[6], bw1 = b2[7], ax1 = a[4], ay1 = a[5], az1 = a[6], aw1 = a[7], bx0 = b2[0], by0 = b2[1], bz0 = b2[2], bw0 = b2[3];
   out[0] = ax0 * bw0 + aw0 * bx0 + ay0 * bz0 - az0 * by0;
   out[1] = ay0 * bw0 + aw0 * by0 + az0 * bx0 - ax0 * bz0;
   out[2] = az0 * bw0 + aw0 * bz0 + ax0 * by0 - ay0 * bx0;
@@ -14975,30 +14975,30 @@ function multiply4(out, a, b) {
   return out;
 }
 var mul4 = multiply4;
-function scale5(out, a, b) {
-  out[0] = a[0] * b;
-  out[1] = a[1] * b;
-  out[2] = a[2] * b;
-  out[3] = a[3] * b;
-  out[4] = a[4] * b;
-  out[5] = a[5] * b;
-  out[6] = a[6] * b;
-  out[7] = a[7] * b;
+function scale5(out, a, b2) {
+  out[0] = a[0] * b2;
+  out[1] = a[1] * b2;
+  out[2] = a[2] * b2;
+  out[3] = a[3] * b2;
+  out[4] = a[4] * b2;
+  out[5] = a[5] * b2;
+  out[6] = a[6] * b2;
+  out[7] = a[7] * b2;
   return out;
 }
 var dot4 = dot3;
-function lerp4(out, a, b, t) {
-  var mt = 1 - t;
-  if (dot4(a, b) < 0)
+function lerp4(out, a, b2, t) {
+  var mt2 = 1 - t;
+  if (dot4(a, b2) < 0)
     t = -t;
-  out[0] = a[0] * mt + b[0] * t;
-  out[1] = a[1] * mt + b[1] * t;
-  out[2] = a[2] * mt + b[2] * t;
-  out[3] = a[3] * mt + b[3] * t;
-  out[4] = a[4] * mt + b[4] * t;
-  out[5] = a[5] * mt + b[5] * t;
-  out[6] = a[6] * mt + b[6] * t;
-  out[7] = a[7] * mt + b[7] * t;
+  out[0] = a[0] * mt2 + b2[0] * t;
+  out[1] = a[1] * mt2 + b2[1] * t;
+  out[2] = a[2] * mt2 + b2[2] * t;
+  out[3] = a[3] * mt2 + b2[3] * t;
+  out[4] = a[4] * mt2 + b2[4] * t;
+  out[5] = a[5] * mt2 + b2[5] * t;
+  out[6] = a[6] * mt2 + b2[6] * t;
+  out[7] = a[7] * mt2 + b2[7] * t;
   return out;
 }
 function invert3(out, a) {
@@ -15055,24 +15055,24 @@ function normalize4(out, a) {
 function str4(a) {
   return "quat2(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ", " + a[4] + ", " + a[5] + ", " + a[6] + ", " + a[7] + ")";
 }
-function exactEquals5(a, b) {
-  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5] && a[6] === b[6] && a[7] === b[7];
+function exactEquals5(a, b2) {
+  return a[0] === b2[0] && a[1] === b2[1] && a[2] === b2[2] && a[3] === b2[3] && a[4] === b2[4] && a[5] === b2[5] && a[6] === b2[6] && a[7] === b2[7];
 }
-function equals5(a, b) {
+function equals5(a, b2) {
   var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7];
-  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5], b6 = b[6], b7 = b[7];
-  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON * Math.max(1, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON * Math.max(1, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON * Math.max(1, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON * Math.max(1, Math.abs(a7), Math.abs(b7));
+  var b0 = b2[0], b1 = b2[1], b22 = b2[2], b3 = b2[3], b4 = b2[4], b5 = b2[5], b6 = b2[6], b7 = b2[7];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b22) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b22)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON * Math.max(1, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON * Math.max(1, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON * Math.max(1, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON * Math.max(1, Math.abs(a7), Math.abs(b7));
 }
 
 // node_modules/@wonderlandengine/components/dist/hit-test-location.js
 var __decorate3 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var HitTestLocation = class extends Component {
@@ -15170,13 +15170,13 @@ __decorate3([
 
 // node_modules/@wonderlandengine/components/dist/cursor.js
 var __decorate4 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var tempVec2 = new Float32Array(3);
@@ -15559,8 +15559,8 @@ var Cursor = class extends Component {
     }
     let hoveringReality = false;
     if (rayHit.hitCount > 0) {
-      const d = rayHit.distances[0];
-      if (hitResultDistance >= d) {
+      const d2 = rayHit.distances[0];
+      if (hitResultDistance >= d2) {
         this.cursorPos.set(rayHit.locations[0]);
       } else {
         hoveringReality = true;
@@ -15613,13 +15613,13 @@ __decorate4([
 
 // node_modules/@wonderlandengine/components/dist/debug-object.js
 var __decorate5 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var DebugObject = class extends Component {
@@ -15663,13 +15663,13 @@ __publicField(FixedFoveation, "Properties", {
 
 // node_modules/@wonderlandengine/components/dist/hand-tracking.js
 var __decorate6 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var ORDERED_JOINTS = [
@@ -15752,7 +15752,7 @@ var HandTracking = class extends Component {
       joint.name = ORDERED_JOINTS[j];
     }
   }
-  update(dt) {
+  update(dt2) {
     if (!this.engine.xr)
       return;
     this.hasPose = false;
@@ -16005,13 +16005,13 @@ __publicField(ImageTexture, "Properties", {
 
 // node_modules/@wonderlandengine/components/dist/mouse-look.js
 var __decorate7 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var preventDefault = (e) => {
@@ -16121,13 +16121,13 @@ __decorate7([
 
 // node_modules/@wonderlandengine/components/dist/player-height.js
 var __decorate8 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var PlayerHeight = class extends Component {
@@ -16181,7 +16181,7 @@ var TargetFramerate = class extends Component {
   setTargetFramerate(s) {
     if (s.supportedFrameRates && s.updateTargetFrameRate) {
       const a = this.engine.xr.session.supportedFrameRates;
-      a.sort((a2, b) => Math.abs(a2 - this.framerate) - Math.abs(b - this.framerate));
+      a.sort((a2, b2) => Math.abs(a2 - this.framerate) - Math.abs(b2 - this.framerate));
       this.engine.xr.session.updateTargetFrameRate(a[0]);
     }
   }
@@ -16416,13 +16416,13 @@ __publicField(TeleportComponent, "Properties", {
 
 // node_modules/@wonderlandengine/components/dist/trail.js
 var __decorate9 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var direction = vec3_exports.create();
@@ -16523,9 +16523,9 @@ var Trail = class extends Component {
     this._currentPointIndex = 0;
     this._timeTillNext = this.interval;
   }
-  update(dt) {
-    this._timeTillNext -= dt;
-    if (dt > this.resetThreshold) {
+  update(dt2) {
+    this._timeTillNext -= dt2;
+    if (dt2 > this.resetThreshold) {
       this.resetTrail();
     }
     if (this._timeTillNext < 0) {
@@ -16574,8 +16574,8 @@ __decorate9([
 ], Trail.prototype, "resetThreshold", void 0);
 
 // node_modules/@wonderlandengine/components/dist/two-joint-ik-solver.js
-function clamp2(v, a, b) {
-  return Math.max(a, Math.min(v, b));
+function clamp2(v, a, b2) {
+  return Math.max(a, Math.min(v, b2));
 }
 var rootScaling = new Float32Array(3);
 var tempQuat3 = new Float32Array(4);
@@ -16595,16 +16595,16 @@ var twoJointIK = function() {
   const axis0 = new Float32Array(3);
   const axis1 = new Float32Array(3);
   const temp = new Float32Array(3);
-  return function(root, middle, b, c, targetPos2, eps, helper) {
-    ba.set(b);
+  return function(root, middle, b2, c, targetPos2, eps, helper) {
+    ba.set(b2);
     const lab = vec3_exports.length(ba);
-    vec3_exports.sub(ta, b, c);
+    vec3_exports.sub(ta, b2, c);
     const lcb = vec3_exports.length(ta);
     ta.set(targetPos2);
     const lat = clamp2(vec3_exports.length(ta), eps, lab + lcb - eps);
     ca.set(c);
-    vec3_exports.scale(ab, b, -1);
-    vec3_exports.sub(cb, c, b);
+    vec3_exports.scale(ab, b2, -1);
+    vec3_exports.sub(cb, c, b2);
     vec3_exports.normalize(ca, ca);
     vec3_exports.normalize(ba, ba);
     vec3_exports.normalize(ab, ab);
@@ -16616,7 +16616,7 @@ var twoJointIK = function() {
     const ac_ab_1 = Math.acos(clamp2((lcb * lcb - lab * lab - lat * lat) / (-2 * lab * lat), -1, 1));
     const ba_bc_1 = Math.acos(clamp2((lat * lat - lab * lab - lcb * lcb) / (-2 * lab * lcb), -1, 1));
     if (helper) {
-      vec3_exports.sub(ba, helper, b);
+      vec3_exports.sub(ba, helper, b2);
       vec3_exports.normalize(ba, ba);
     }
     vec3_exports.cross(axis0, ca, ba);
@@ -16636,8 +16636,8 @@ var TwoJointIkSolver = class extends Component {
     this.middle.getTransformLocal(middleTransform);
     this.end.getTransformLocal(endTransform);
   }
-  update(dt) {
-    this.time += dt;
+  update(dt2) {
+    this.time += dt2;
     this.root.setTransformLocal(rootTransform);
     this.middle.setTransformLocal(middleTransform);
     this.end.setTransformLocal(endTransform);
@@ -16719,7 +16719,7 @@ var VideoTexture = class extends Component {
       });
     }
   }
-  update(dt) {
+  update(dt2) {
     if (this.loaded && this.frameUpdateRequested) {
       if (this.texture) {
         this.texture.update();
@@ -16805,13 +16805,13 @@ __publicField(VrModeActiveSwitch, "Properties", {
 // node_modules/@wonderlandengine/components/dist/plane-detection.js
 var import_earcut = __toESM(require_earcut(), 1);
 var __decorate10 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var tempVec32 = new Float32Array(3);
@@ -16831,9 +16831,9 @@ function extentsFromContour(out, points) {
 function planeMeshFromContour(engine2, points, meshToUpdate = null) {
   const vertexCount = points.length;
   const vertices = new Float32Array(vertexCount * 2);
-  for (let i = 0, d = 0; i < vertexCount; ++i, d += 2) {
-    vertices[d] = points[i].x;
-    vertices[d + 1] = points[i].z;
+  for (let i = 0, d2 = 0; i < vertexCount; ++i, d2 += 2) {
+    vertices[d2] = points[i].x;
+    vertices[d2 + 1] = points[i].z;
   }
   const triangles = (0, import_earcut.default)(vertices);
   const mesh = meshToUpdate || new Mesh(engine2, {
@@ -17306,13 +17306,13 @@ var Vrm = class extends Component {
       }
     }
   }
-  update(dt) {
+  update(dt2) {
     if (!this._initialized) {
       return;
     }
     this._resolveLookAt();
     this._resolveConstraints();
-    this._updateSpringBones(dt);
+    this._updateSpringBones(dt2);
   }
   _rangeMap(rangeMap, input) {
     const maxValue = rangeMap.inputMaxValue;
@@ -17408,7 +17408,7 @@ var Vrm = class extends Component {
     quat_exports.slerp(targetQuat, dstRestQuat, targetQuat, nodeConstraint.weight);
     nodeConstraint.destination.rotationLocal = targetQuat;
   }
-  _updateSpringBones(dt) {
+  _updateSpringBones(dt2) {
     this._sphereColliders.forEach(({ object, shape, cache }) => {
       const offset2 = vec3_exports.copy(cache.head, shape.offset);
       object.transformVectorWorld(offset2);
@@ -17438,8 +17438,8 @@ var Vrm = class extends Component {
         const stiffness = vec3_exports.copy(this._stiffness, joint.state.boneAxis);
         vec3_exports.transformQuat(stiffness, stiffness, joint.state.initialLocalRotation);
         vec3_exports.transformQuat(stiffness, stiffness, parentWorldRotation);
-        vec3_exports.scale(stiffness, stiffness, dt * joint.stiffness);
-        const external = vec3_exports.scale(this._external, joint.gravityDir, dt * joint.gravityPower);
+        vec3_exports.scale(stiffness, stiffness, dt2 * joint.stiffness);
+        const external = vec3_exports.scale(this._external, joint.gravityDir, dt2 * joint.gravityPower);
         const nextTail = vec3_exports.copy(this._tempV3A, joint.state.currentTail);
         vec3_exports.add(nextTail, nextTail, inertia);
         vec3_exports.add(nextTail, nextTail, stiffness);
@@ -17592,13 +17592,13 @@ __publicField(WasdControlsComponent, "Properties", {
 
 // node_modules/@wonderlandengine/components/dist/input-profile.js
 var __decorate11 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var _tempVec = vec3_exports.create();
@@ -17885,13 +17885,13 @@ __decorate11([
 
 // node_modules/@wonderlandengine/components/dist/orbital-camera.js
 var __decorate12 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
   else
     for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      if (d2 = decorators[i])
+        r = (c < 3 ? d2(r) : c > 3 ? d2(target, key, r) : d2(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var preventDefault2 = (e) => {

@@ -16,13 +16,13 @@ const DB_ENDPOINT = 'https://api.zesty.market/api';
 const AD_REFRESH_INTERVAL = 15000;
 let prebidInit = false;
 let interval = null;
-const retryCount = 10;
-let currentTries = 0;
+const retryCount = 5;
 /** @type {HTMLIFrameElement} */
 let iframe = null;
 let ready = false;
 let bids = null;
 let heartbeatPending = false;
+const currentTries = {} // Maps retries to specific ad unit id
 
 const initPrebid = (adUnitId, format) => {
   // Load zesty prebid iframe
@@ -88,12 +88,17 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
   let overrideEntry = getOverrideUnitInfo(adUnitId);
   let shouldOverride = overrideEntry?.oldFormat && format == overrideEntry.oldFormat;
 
+  if (!adUnitId) {
+    return new Promise(res => res(getDefaultBanner(format, style, shouldOverride, overrideEntry.format)));
+  }
+
   if (!prebidInit) {
     const finalFormat = shouldOverride ? overrideEntry.format : format;
     initPrebid(adUnitId, finalFormat, style);
+    currentTries[adUnitId] = 0;
   } else {
     bids = null;
-    currentTries = 0;
+    currentTries[adUnitId] = 0;
     iframe.contentWindow.postMessage({ type: 'refresh' }, '*');
   }
 
@@ -113,20 +118,22 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
         res({ Ads: [{ asset_url, cta_url }], CampaignId: 'Prebid' });
       } else {
         // Wait to see if we get any winning bids. If we hit max retry count, fallback to Zesty ad server
-        currentTries++;
-        if (currentTries == retryCount) {
+        currentTries[adUnitId]++;
+        if (currentTries[adUnitId] == retryCount) {
           try {
             const url = encodeURI(window.top.location.href).replace(/\/$/, ''); // If URL ends with a slash, remove it
             const res = await axios.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}&url=${url}`);
-            if (res.data)
+            if (res.data) {
               res(res.data);
-            else {
+            } else {
               // No active campaign, just display default banner
               res(getDefaultBanner(format, style, shouldOverride, overrideEntry.format));
             }
+            currentTries[adUnitId] = 0;
           } catch {
             console.warn('Could not retrieve an active campaign banner. Retrieving default banner.')
             res(getDefaultBanner(format, style, shouldOverride, overrideEntry.format));
+            currentTries[adUnitId] = 0;
           }
         } else {
           setTimeout(getBanner, 1000);

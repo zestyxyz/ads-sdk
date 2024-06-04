@@ -3,6 +3,7 @@
 
 <head>
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
     <script src="../../babylonjs/dist/zesty-babylonjs-sdk.js"></script>
     <title>Babylon.js Test</title>
 </head>
@@ -32,28 +33,28 @@
                 const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 });
                 ground.material = groundMaterial;
 
-                const zestyBanner1 = new ZestyBanner("999999", 'tall', 'standard', 2, scene, xrHelper);
+                const zestyBanner1 = new ZestyBanner("999991", 'tall', 'standard', 2, scene, xrHelper);
                 zestyBanner1.position = new BABYLON.Vector3(0, 0, 0);
 
-                const zestyBanner2 = new ZestyBanner("999999", 'wide', 'standard', 2, scene, xrHelper);
+                const zestyBanner2 = new ZestyBanner("999992", 'wide', 'standard', 2, scene, xrHelper);
                 zestyBanner2.position = new BABYLON.Vector3(0, 0, 1);
 
-                const zestyBanner3 = new ZestyBanner("999999", 'square', 'standard', 2, scene, xrHelper);
+                const zestyBanner3 = new ZestyBanner("999993", 'square', 'standard', 2, scene, xrHelper);
                 zestyBanner3.position = new BABYLON.Vector3(0, 0, 2);
 
-                const zestyBanner4 = new ZestyBanner("999999", 'tall', 'minimal', 2, scene, xrHelper);
+                const zestyBanner4 = new ZestyBanner("999994", 'tall', 'minimal', 2, scene, xrHelper);
                 zestyBanner4.position = new BABYLON.Vector3(0, 0, 3);
 
-                const zestyBanner5 = new ZestyBanner("999999", 'wide', 'minimal', 2, scene, xrHelper);
+                const zestyBanner5 = new ZestyBanner("999995", 'wide', 'minimal', 2, scene, xrHelper);
                 zestyBanner5.position = new BABYLON.Vector3(0, 0, 4);
 
-                const zestyBanner6 = new ZestyBanner("999999", 'square', 'minimal', 2, scene, xrHelper);
+                const zestyBanner6 = new ZestyBanner("999996", 'square', 'minimal', 2, scene, xrHelper);
                 zestyBanner6.position = new BABYLON.Vector3(0, 0, 5);
 
-                const zestyBanner7 = new ZestyBanner("999999", 'tall', 'transparent', 2, scene, xrHelper);
+                const zestyBanner7 = new ZestyBanner("999997", 'tall', 'transparent', 2, scene, xrHelper);
                 zestyBanner7.position = new BABYLON.Vector3(0, 0, 6);
 
-                const zestyBanner8 = new ZestyBanner("999999", 'wide', 'transparent', 2, scene, xrHelper);
+                const zestyBanner8 = new ZestyBanner("999998", 'wide', 'transparent', 2, scene, xrHelper);
                 zestyBanner8.position = new BABYLON.Vector3(0, 0, 7);
 
                 const zestyBanner9 = new ZestyBanner("999999", 'square', 'transparent', 2, scene, xrHelper);
@@ -66,7 +67,6 @@
                 scene.render();
             });
         </script>
-        <!--<script src="build/bundle.js"></script>-->
     </canvas>
 </body>
 

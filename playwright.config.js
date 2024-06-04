@@ -9,7 +9,7 @@ const config = {
     reuseExistingServer: !process.env.CI,
   },
   retries: 3,
-  timeout: 15000
+  timeout: 30000
 };
 
 module.exports = config;

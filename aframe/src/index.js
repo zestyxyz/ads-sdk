@@ -112,7 +112,7 @@ AFRAME.registerComponent('zesty-banner', {
 
 async function createBanner(el, adUnit, format, style, height, beacon, visibilityCheckFunc) {
   let overrideEntry = getOverrideUnitInfo(adUnit);
-  let shouldOverride = overrideEntry && format !== overrideEntry.format;
+  let shouldOverride = overrideEntry?.format && format !== overrideEntry.format;
   const adjustedFormat = shouldOverride ? overrideEntry.format : format;
   const adjustedWidth = shouldOverride ? overrideEntry.absoluteWidth : formats[adjustedFormat].width * height;
   const adjustedHeight = shouldOverride ? overrideEntry.absoluteHeight : height;
@@ -145,7 +145,7 @@ async function createBanner(el, adUnit, format, style, height, beacon, visibilit
       return banner;
     });
   
-    bannerPromise.then(banner => updateBanner(banner, plane, el, adUnit, format, style, height, beacon));
+    bannerPromise.then(banner => updateBanner(banner, plane, el, adUnit, adjustedFormat, style, adjustedHeight, beacon));
   }
 
   getBanner();
@@ -180,7 +180,7 @@ async function loadBanner(adUnit, format, style) {
 
 async function updateBanner(banner, plane, el, adUnit, format, style, height, beacon) {
   let overrideEntry = getOverrideUnitInfo(adUnit);
-  let shouldOverride = overrideEntry && format !== overrideEntry.format;
+  let shouldOverride = overrideEntry?.format && format !== overrideEntry.oldFormat;
 
   // Reset canvas attributes
   if (el.components['zesty-banner'].canvasInterval) {
@@ -236,7 +236,7 @@ async function updateBanner(banner, plane, el, adUnit, format, style, height, be
       } else {
         plane.setAttribute('src', `#${banner.img.id}`);
       }
-      plane.setAttribute('width', shouldOverride ? overrideEntry.absoluteWidth : width * height);
+      plane.setAttribute('width', shouldOverride ? overrideEntry.absoluteWidth : formats[format].width * height);
       plane.setAttribute('height', shouldOverride ? overrideEntry.absoluteHeight : height);
 
       // for textures that are 1024x1024, not setting this causes white border

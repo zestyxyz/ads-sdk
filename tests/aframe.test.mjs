@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:8080/tests/aframe/');
+  await page.goto('http://localhost:8080/tests/aframe/', { waitUntil: 'domcontentloaded' });
   page.on('console', (msg) => {
     console.log(msg);
   });
@@ -33,7 +33,7 @@ test.describe('Standard styles', () => {
     let img;
     const banner = await page.locator('#banner1 > a-plane');
     while (!img) {
-      img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
+      img = await banner.evaluate(node => node.components.material.data.src);
       if (!img) await page.waitForTimeout(100);
     }
     expect(img.split('/').pop()).toBe('zesty-banner-tall.png');
@@ -43,7 +43,7 @@ test.describe('Standard styles', () => {
     let img;
     const banner = await page.locator('#banner2 > a-plane');
     while (!img) {
-      img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
+      img = await banner.evaluate(node => node.components.material.data.src);
       if (!img) await page.waitForTimeout(100);
     }
     expect(img.split('/').pop()).toBe('zesty-banner-wide.png');
@@ -53,7 +53,7 @@ test.describe('Standard styles', () => {
     let img;
     const banner = await page.locator('#banner3 > a-plane');
     while (!img) {
-      img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
+      img = await banner.evaluate(node => node.components.material.data.src);
       if (!img) await page.waitForTimeout(100);
     }
     expect(img.split('/').pop()).toBe('zesty-banner-square.png');
@@ -65,7 +65,7 @@ test.describe('Minimal styles', () => {
     let img;
     const banner = await page.locator('#banner4 > a-plane');
     while (!img) {
-      img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
+      img = await banner.evaluate(node => node.components.material.data.src);
       if (!img) await page.waitForTimeout(100);
     }
     expect(img.split('/').pop()).toBe('zesty-banner-tall-minimal.png');
@@ -75,7 +75,7 @@ test.describe('Minimal styles', () => {
     let img;
     const banner = await page.locator('#banner5 > a-plane');
     while (!img) {
-      img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
+      img = await banner.evaluate(node => node.components.material.data.src);
       if (!img) await page.waitForTimeout(100);
     }
     expect(img.split('/').pop()).toBe('zesty-banner-wide-minimal.png');
@@ -85,7 +85,7 @@ test.describe('Minimal styles', () => {
     let img;
     const banner = await page.locator('#banner6 > a-plane');
     while (!img) {
-      img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
+      img = await banner.evaluate(node => node.components.material.data.src);
       if (!img) await page.waitForTimeout(100);
     }
     expect(img.split('/').pop()).toBe('zesty-banner-square-minimal.png');
@@ -97,7 +97,7 @@ test.describe('Transparent styles', () => {
     let img;
     const banner = await page.locator('#banner7 > a-plane');
     while (!img) {
-      img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
+      img = await banner.evaluate(node => node.components.material.data.src);
       if (!img) await page.waitForTimeout(100);
     }
     expect(img.split('/').pop()).toBe('zesty-banner-tall-transparent.png');
@@ -107,7 +107,7 @@ test.describe('Transparent styles', () => {
     let img;
     const banner = await page.locator('#banner8 > a-plane');
     while (!img) {
-      img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
+      img = await banner.evaluate(node => node.components.material.data.src);
       if (!img) await page.waitForTimeout(100);
     }
     expect(img.split('/').pop()).toBe('zesty-banner-wide-transparent.png');
@@ -117,7 +117,7 @@ test.describe('Transparent styles', () => {
     let img;
     const banner = await page.locator('#banner9 > a-plane');
     while (!img) {
-      img = await banner.evaluate(node => node.components.material.data.src.currentSrc);
+      img = await banner.evaluate(node => node.components.material.data.src);
       if (!img) await page.waitForTimeout(100);
     }
     expect(img.split('/').pop()).toBe('zesty-banner-square-transparent.png');

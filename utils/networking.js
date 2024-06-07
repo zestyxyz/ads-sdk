@@ -91,6 +91,14 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
       if (bids && bids.length > 0) {
         // Clear the interval and grab the image+url from the prebid ad
         const { asset_url, cta_url } = JSON.parse(bids);
+        if (asset_url.startsWith('canvas://')) {
+          const canvasIframe = document.createElement('iframe');
+          canvasIframe.id = "zesty-canvas-iframe";
+          document.body.appendChild(canvasIframe);
+          canvasIframe.contentDocument.open();
+          canvasIframe.contentDocument.write(asset_url.split('canvas://')[1]);
+          canvasIframe.contentDocument.close();
+        }
         res({ Ads: [{ asset_url, cta_url }], CampaignId: 'Prebid' });
       } else {
         // Wait to see if we get any winning bids. If we hit max retry count, fallback to Zesty ad server

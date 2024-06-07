@@ -60,10 +60,11 @@ export class ZestyBanner extends Component {
     this.styleKeys = ['standard', 'minimal', 'transparent'];
     this.loadedFirstAd = false;
 
-    this.gifCanvas = null;
-    this.gifTexture = null;
-    this.gifCanvasLoaded = false;
-    this.gifTexturePipeline = null;
+    this.canvas = null;
+    this.canvasTexture = null;
+    this.canvasLoaded = false;
+    this.canvasTexturePipeline = null;
+    this.canvasIframe = null;
   }
 
   start() {
@@ -122,16 +123,18 @@ export class ZestyBanner extends Component {
   }
 
   update() {
-    if (!this.gifCanvasLoaded && this.gifCanvas?.hasAttribute('width')) {
-      this.gifTexture = this.engine.textures.create(this.gifCanvas);
-      this.gifCanvasLoaded = true;
-      if (this.gifTexturePipeline == 'flat') {
-        this.object.getComponent('mesh').material.flatTexture = this.gifTexture
+    if (!this.canvasLoaded && this.canvas?.hasAttribute('width')) {
+      this.canvasTexture = this.engine.textures.create(document.querySelector('#zestyCanvas'));
+      this.canvasLoaded = true;
+      if (this.canvasTexturePipeline == 'flat') {
+        this.object.getComponent('mesh').material.flatTexture = this.canvasTexture;
       } else {
-        this.object.getComponent('mesh').material.diffuseTexture = this.gifTexture
+        this.object.getComponent('mesh').material.diffuseTexture = this.canvasTexture;
       }
-    } else if (this.gifTexture) {
-      this.gifTexture.update();
+    } else if (this.canvasTexture) {
+      this.canvasTexture.update();
+      document.querySelector('#zestyCanvas').getContext('2d').clearRect(0, 0, this.canvas.width, this.canvas.height);
+      document.querySelector('#zestyCanvas').getContext('2d').drawImage(this.canvas, 0, 0);
     }
   }
 
@@ -139,14 +142,14 @@ export class ZestyBanner extends Component {
     if (!this.checkVisibility() && this.loadedFirstAd) return;
     if (!this.loadedFirstAd) this.loadedFirstAd = true;
 
-    // Reset gif attributes
-    if (this.gifTexture) {
-      this.gifTexture.destroy();
-      this.gifTexture = null;
+    // Reset canvas attributes
+    if (this.canvasTexture) {
+      this.canvasTexture.destroy();
+      this.canvasTexture = null;
     }
-    if (this.gifCanvas) {
-      document.body.removeChild(this.gifCanvas);
-      this.gifCanvas = null;
+    if (this.canvas) {
+      document.body.removeChild(this.canvas);
+      this.canvas = null;
     }
 
     this.loadBanner(
@@ -175,25 +178,36 @@ export class ZestyBanner extends Component {
       const m = this.mesh.material.clone();
       if (this.textureProperty === 'auto') {
         if (m.diffuseTexture || (m.hasParameter && m.hasParameter('diffuseTexture'))) {
-          if (banner.imageSrc.includes('.gif')) {
-            this.gifCanvas = document.createElement('canvas');
-            this.gifCanvas.id = 'zestyGifCanvas';
-            document.body.appendChild(this.gifCanvas);
-            gifler(banner.imageSrc).animate('#zestyGifCanvas');
-            this.gifCanvasLoaded = false;
-            this.gifTexturePipeline = 'diffuse';
+          if (banner.imageSrc.includes('canvas://')) {
+            this.canvasLoaded = false;
+            this.canvasTexturePipeline = 'diffuse';
+          } else if (banner.imageSrc.includes('.gif')) {
+            this.canvas = document.createElement('canvas');
+            this.canvas.id = 'zestyCanvas';
+            document.body.appendChild(this.canvas);
+            gifler(banner.imageSrc).animate('#zestyCanvas');
+            this.canvasLoaded = false;
+            this.canvasTexturePipeline = 'diffuse';
           } else {
             m.diffuseTexture = banner.texture;
             m.alphaMaskThreshold = 0.3;
           }
         } else if (m.flatTexture || (m.hasParameter && m.hasParameter('flatTexture'))) {
-          if (banner.imageSrc.includes('.gif')) {
-            this.gifCanvas = document.createElement('canvas');
-            this.gifCanvas.id = 'zestyGifCanvas';
-            document.body.appendChild(this.gifCanvas);
-            gifler(banner.imageSrc).animate('#zestyGifCanvas');
-            this.gifCanvasLoaded = false;
-            this.gifTexturePipeline = 'flat';
+          if (banner.imageSrc.includes('canvas://')) {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'zestyCanvas';
+            canvas.width = this.canvas.width;
+            canvas.height = this.canvas.height;
+            document.body.appendChild(canvas);
+            this.canvasLoaded = false;
+            this.canvasTexturePipeline = 'flat';
+          } else if (banner.imageSrc.includes('.gif')) {
+            this.canvas = document.createElement('canvas');
+            this.canvas.id = 'zestyCanvas';
+            document.body.appendChild(this.canvas);
+            gifler(banner.imageSrc).animate('#zestyCanvas');
+            this.canvasLoaded = false;
+            this.canvasTexturePipeline = 'flat';
           } else {
             m.flatTexture = banner.texture;
             m.alphaMaskThreshold = 0.8;
@@ -256,9 +270,16 @@ export class ZestyBanner extends Component {
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
     this.campaignId = activeCampaign.CampaignId;
 
-    return this.engine.textures.load(image, '').then(texture => {
-      return { texture, imageSrc: image, url, campaignId: activeCampaign.CampaignId };
-    });
+    if (image.includes('canvas://')) {
+      const canvasIframe = document.querySelector('#zesty-canvas-iframe');
+      const canvas = canvasIframe.contentDocument.querySelector('canvas')
+      this.canvas = canvas;
+      return { texture: {}, imageSrc: image, url, campaignId: activeCampaign.CampaignId };
+    } else {
+      return this.engine.textures.load(image, '').then(texture => {
+        return { texture, imageSrc: image, url, campaignId: activeCampaign.CampaignId };
+      });
+    }
   }
 
   /**

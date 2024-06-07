@@ -247,6 +247,14 @@ export class ZestyBanner extends Component {
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
     this.campaignId = activeCampaign.CampaignId;
 
+    // Free old banner images from the texture atlas, otherwise refreshes will eventually fill it
+    // and no further images will be able to load
+    if (this.mesh.material?.flatTexture != null) {
+      this.mesh.material.flatTexture.destroy();
+    } else if (this.mesh.material?.diffuseTexture != null) {
+      this.mesh.material.diffuseTexture.destroy();
+    }
+
     if (image.includes('canvas://')) {
       const canvasIframe = document.querySelector('#zesty-canvas-iframe');
       const canvas = canvasIframe.contentDocument.querySelector('canvas')

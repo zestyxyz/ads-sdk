@@ -143,7 +143,7 @@ async function createBanner(el, adUnit, format, style, height, beacon, visibilit
     if (!visibilityCheckFunc()) return;
 
     const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
-      if (banner.img && typeof banner.img == "Node") {
+      if (banner.img && typeof banner.img != 'string') {
         assets.appendChild(banner.img);
       }
       return banner;

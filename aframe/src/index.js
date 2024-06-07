@@ -31,6 +31,8 @@ async function getCamera() {
 
 const cameraFuture = getCamera();
 
+let sdkLoaded = false;
+
 
 AFRAME.registerComponent('zesty-banner', {
   data: {},
@@ -247,8 +249,9 @@ async function updateBanner(banner, plane, el, adUnit, format, style, height, be
       //plane.setAttribute('material', 'opacity: 0');
     }
 
-    if (beacon) {
+    if (beacon && !sdkLoaded) {
       sendOnLoadMetric(adUnit, banner.campaignId);
+      sdkLoaded = true;
     }
 
     // handle clicks

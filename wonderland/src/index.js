@@ -19,6 +19,8 @@ console.log('Zesty SDK Version: ', version);
 const formatsLink = 'https://cdn.zesty.xyz/sdk/zesty-formats.js';
 const networkingLink = 'https://cdn.zesty.xyz/sdk/zesty-networking.js';
 
+let sdkLoaded = false;
+
 /**
  * [Zesty Market](https://zesty.xyz) banner ad unit
  *
@@ -207,10 +209,11 @@ export class ZestyBanner extends Component {
         this.mesh.material[this.textureProperty] = banner.texture;
         this.mesh.material.alphaMaskTexture = banner.texture;
       }
-      if (this.beacon) {
+      if (this.beacon && !sdkLoaded) {
         this.dynamicNetworking ?
           this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) :
           sendOnLoadMetric(this.adUnit, this.banner.campaignId);
+        sdkLoaded = true;
       }
     });
   }

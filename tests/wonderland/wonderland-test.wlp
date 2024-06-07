@@ -993,7 +993,7 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "adUnit": "999991",
-                        "beacon": false,
+                        "beacon": true,
                         "format": "tall",
                         "style": "standard",
                         "dynamicNetworking": false,

@@ -86,7 +86,8 @@ const getDefaultBanner = (format, style, shouldOverride, overrideFormat) => {
 
 const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {
   if (['tall', 'wide', 'square'].includes(format)) {
-    console.warn(`The old Zesty banner formats (tall, wide, and square) are being deprecated and will be removed in a future version. Please update to one of the new IAB formats (mobile-phone-interstitial, billboard, and medium-rectangle).`);
+    console.warn(`The old Zesty banner formats (tall, wide, and square) are being deprecated and will be removed in a future version. Please update to one of the new IAB formats (mobile-phone-interstitial, billboard, and medium-rectangle).
+Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
   }
 
   let overrideEntry = getOverrideUnitInfo(adUnitId);

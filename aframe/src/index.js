@@ -1,14 +1,12 @@
 /* global AFRAME */
 
-import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession } from '../../utils/networking';
+import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession, AD_REFRESH_INTERVAL } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
 import { getV3BetaUnitInfo } from '../../utils/networking';
 
 console.log('Zesty SDK Version: ', version);
-
-const AD_REFRESH_INTERVAL = 30000; // 30 seconds
 
 function getCameraHelper(callback) {
   const camera = document.querySelector('[camera]');

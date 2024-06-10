@@ -13,6 +13,7 @@ const DB_ENDPOINT = 'https://api.zesty.market/api';
 //const sessionId = uuidv4();
 
 // Prebid variables
+const AD_REFRESH_INTERVAL = 15000;
 let prebidInit = false;
 let interval = null;
 const retryCount = 10;
@@ -172,4 +173,4 @@ const analyticsSession = async (spaceId, campaignId) => {
   }
 }
 
-export { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession, getV3BetaUnitInfo };
+export { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession, getV3BetaUnitInfo, AD_REFRESH_INTERVAL };

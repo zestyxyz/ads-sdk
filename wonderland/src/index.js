@@ -1,6 +1,6 @@
 /* global WL */
 
-import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, getV3BetaUnitInfo } from '../../utils/networking';
+import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, getV3BetaUnitInfo, AD_REFRESH_INTERVAL } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
@@ -18,7 +18,6 @@ console.log('Zesty SDK Version: ', version);
 
 const formatsLink = 'https://cdn.zesty.xyz/sdk/zesty-formats.js';
 const networkingLink = 'https://cdn.zesty.xyz/sdk/zesty-networking.js';
-const AD_REFRESH_INTERVAL = 30000; // 30 seconds
 
 /**
  * [Zesty Market](https://zesty.xyz) banner ad unit

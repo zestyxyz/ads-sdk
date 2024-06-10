@@ -45,6 +45,12 @@ const initPrebid = (adUnitId, format) => {
         break;
     }
   });
+
+  // Load gifler script in case gif creative is served
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js';
+  document.head.appendChild(script);
+
   prebidInit = true;
 }
 
@@ -85,6 +91,14 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
       if (bids && bids.length > 0) {
         // Clear the interval and grab the image+url from the prebid ad
         const { asset_url, cta_url } = JSON.parse(bids);
+        if (asset_url.startsWith('canvas://')) {
+          const canvasIframe = document.createElement('iframe');
+          canvasIframe.id = "zesty-canvas-iframe";
+          document.body.appendChild(canvasIframe);
+          canvasIframe.contentDocument.open();
+          canvasIframe.contentDocument.write(asset_url.split('canvas://')[1]);
+          canvasIframe.contentDocument.close();
+        }
         res({ Ads: [{ asset_url, cta_url }], CampaignId: 'Prebid' });
       } else {
         // Wait to see if we get any winning bids. If we hit max retry count, fallback to Zesty ad server

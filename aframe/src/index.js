@@ -57,6 +57,11 @@ AFRAME.registerComponent('zesty-banner', {
     this.sceneEl = document.querySelector('a-scene');
     this.scene = this.sceneEl.object3D;
 
+    this.canvasTexture = null;
+    this.canvasIframe = null;
+    this.canvas = null;
+    this.canvasInterval = null;
+
     this.tick = AFRAME.utils.throttleTick(this.tick, 30000, this);
     this.registerEntity();
   },
@@ -95,6 +100,15 @@ AFRAME.registerComponent('zesty-banner', {
     }
     console.log('is visible: ', isVisible);
     return isVisible;
+  },
+
+  updateCanvasTexture: function() {
+    if (!this.canvasTexture && this.canvas.hasAttribute('width')) {
+      this.canvasTexture = new THREE.CanvasTexture(this.canvas);
+      this.el.children[0].setAttribute('material', 'src', this.canvasTexture);
+    } else if (this.canvasTexture) {
+      this.canvasTexture.needsUpdate = true;
+    }
   }
 });
 
@@ -129,7 +143,7 @@ async function createBanner(el, adUnit, format, style, height, beacon, visibilit
     if (!visibilityCheckFunc()) return;
 
     const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
-      if (banner.img) {
+      if (banner.img && typeof banner.img != 'string') {
         assets.appendChild(banner.img);
       }
       return banner;
@@ -153,11 +167,18 @@ async function loadBanner(adUnit, format, style) {
   img.setAttribute('id', adUnit + Math.random());
   img.setAttribute('crossorigin', '');
   if (image) {
-    img.setAttribute('src', image);
-    return new Promise((resolve, reject) => {
-      img.onload = () => resolve({ img: img, uri: adUnit, url: url, campaignId: activeCampaign.CampaignId });
-      img.onerror = () => reject(new Error('img load error'));
-    });
+    if (image.includes('canvas://')) {
+      return new Promise(resolve => {
+        resolve({ img: { src: image }, uri: adUnit, url: url, campaignId: activeCampaign.CampaignId });
+      });
+
+    } else {
+      img.setAttribute('src', image);
+      return new Promise((resolve, reject) => {
+        img.onload = () => resolve({ img: img, uri: adUnit, url: url, campaignId: activeCampaign.CampaignId });
+        img.onerror = () => reject(new Error('img load error'));
+      });
+    }
   } else {
     return { id: 'blank' };
   }
@@ -171,10 +192,60 @@ async function updateBanner(banner, plane, el, adUnit, format, style, height, be
   } = getV3BetaUnitInfo(adUnit);
   const absoluteDimensions = adjustedHeight !== height;
 
+  // Reset canvas attributes
+  if (el.components['zesty-banner'].canvasInterval) {
+    clearInterval(el.components['zesty-banner'].canvasInterval);
+    el.components['zesty-banner'].canvasInterval = null;
+  }
+  if (el.components['zesty-banner'].canvasTexture) {
+    el.components['zesty-banner'].canvasTexture.dispose();
+    el.components['zesty-banner'].canvasTexture = null;
+  }
+  if (el.components['zesty-banner'].canvasIframe) {
+    document.body.removeChild(el.components['zesty-banner'].canvasIframe);
+    el.components['zesty-banner'].canvasIframe = null;
+  }
+  if (el.components['zesty-banner'].canvas) {
+    document.body.removeChild(el.components['zesty-banner'].canvas);
+    el.components['zesty-banner'].canvas = null;
+  }
+
   // don't attach plane if element's visibility is false
   if (el.getAttribute('visible') !== false) {
     if (banner.img) {
-      plane.setAttribute('src', `#${banner.img.id}`);
+      if (banner.img.src.includes('canvas://')) {
+        const canvasIframe = document.querySelector('#zesty-canvas-iframe');
+        const canvas = await new Promise(res => {
+          let interval = setInterval(() => {
+            const canvas = canvasIframe.contentDocument.querySelector('canvas');
+            if (canvas) {
+              clearInterval(interval);
+              res(canvas);
+            }
+          }, 25);
+        })
+        canvas.id = "zestyCanvas";
+        canvas.style.zIndex = -3;
+        document.body.appendChild(canvas);
+        el.components['zesty-banner'].canvas = canvas;
+        el.components['zesty-banner'].canvasIframe = canvasIframe;
+        el.components['zesty-banner'].canvasInterval = setInterval(() => {
+          el.components['zesty-banner'].updateCanvasTexture();
+        }, 25);
+      } else if (banner.img.src.includes('.gif')) {
+        const canvas = document.createElement('canvas');
+        canvas.id = "zestyCanvas";
+        canvas.style.zIndex = -3;
+        document.body.appendChild(canvas);
+        el.components['zesty-banner'].canvas = canvas;
+
+        gifler(banner.img.src).animate('#zestyCanvas');
+        el.components['zesty-banner'].canvasInterval = setInterval(() => {
+          el.components['zesty-banner'].updateCanvasTexture();
+        }, 100);
+      } else {
+        plane.setAttribute('src', `#${banner.img.id}`);
+      }
       plane.setAttribute('width', adjustedWidth * (absoluteDimensions ? 1 : adjustedHeight));
       plane.setAttribute('height', adjustedHeight);
       // for textures that are 1024x1024, not setting this causes white border

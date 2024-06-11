@@ -8652,14 +8652,14 @@ var math = class {
    *
    * @since 0.8.6
    */
-  static cubicHermite(out, a, b, c, d, f2, engine2 = WL) {
+  static cubicHermite(out, a, b, c, d, f, engine2 = WL) {
     const wasm = engine2.wasm;
     wasm._tempMemFloat.subarray(0).set(a);
     wasm._tempMemFloat.subarray(4).set(b);
     wasm._tempMemFloat.subarray(8).set(c);
     wasm._tempMemFloat.subarray(12).set(d);
     const isQuat = a.length == 4;
-    wasm._wl_math_cubicHermite(wasm._tempMem + 4 * 16, wasm._tempMem + 4 * 0, wasm._tempMem + 4 * 4, wasm._tempMem + 4 * 8, wasm._tempMem + 4 * 12, f2, isQuat);
+    wasm._wl_math_cubicHermite(wasm._tempMem + 4 * 16, wasm._tempMem + 4 * 0, wasm._tempMem + 4 * 4, wasm._tempMem + 4 * 8, wasm._tempMem + 4 * 12, f, isQuat);
     out[0] = wasm._tempMemFloat[16];
     out[1] = wasm._tempMemFloat[17];
     out[2] = wasm._tempMemFloat[18];
@@ -11627,8 +11627,8 @@ var WASM = class {
             value = scene.skins.wrap(value);
             break;
           case Type.Color:
-            const max2 = (1 << value.BYTES_PER_ELEMENT * 8) - 1;
-            value = Float32Array.from(value, (f2, _) => f2 / max2);
+            const max3 = (1 << value.BYTES_PER_ELEMENT * 8) - 1;
+            value = Float32Array.from(value, (f, _) => f / max3);
             break;
         }
         component[name] = value;
@@ -12407,8 +12407,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onHover.add(f);
    */
-  addHoverFunction(f2) {
-    this.onHover.add(f2);
+  addHoverFunction(f) {
+    this.onHover.add(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12416,8 +12416,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onHover.remove(f);
    */
-  removeHoverFunction(f2) {
-    this.onHover.remove(f2);
+  removeHoverFunction(f) {
+    this.onHover.remove(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12425,8 +12425,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onUnhover.add(f);
    */
-  addUnHoverFunction(f2) {
-    this.onUnhover.add(f2);
+  addUnHoverFunction(f) {
+    this.onUnhover.add(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12434,8 +12434,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onUnhover.remove(f);
    */
-  removeUnHoverFunction(f2) {
-    this.onUnhover.remove(f2);
+  removeUnHoverFunction(f) {
+    this.onUnhover.remove(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12443,8 +12443,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onClick.add(f);
    */
-  addClickFunction(f2) {
-    this.onClick.add(f2);
+  addClickFunction(f) {
+    this.onClick.add(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12452,8 +12452,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onClick.remove(f);
    */
-  removeClickFunction(f2) {
-    this.onClick.remove(f2);
+  removeClickFunction(f) {
+    this.onClick.remove(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12461,8 +12461,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onMove.add(f);
    */
-  addMoveFunction(f2) {
-    this.onMove.add(f2);
+  addMoveFunction(f) {
+    this.onMove.add(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12470,8 +12470,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onMove.remove(f);
    */
-  removeMoveFunction(f2) {
-    this.onMove.remove(f2);
+  removeMoveFunction(f) {
+    this.onMove.remove(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12479,8 +12479,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onDown.add(f);
    */
-  addDownFunction(f2) {
-    this.onDown.add(f2);
+  addDownFunction(f) {
+    this.onDown.add(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12488,8 +12488,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onDown.remove(f);
    */
-  removeDownFunction(f2) {
-    this.onDown.remove(f2);
+  removeDownFunction(f) {
+    this.onDown.remove(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12497,8 +12497,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onUp.add(f);
    */
-  addUpFunction(f2) {
-    this.onUp.add(f2);
+  addUpFunction(f) {
+    this.onUp.add(f);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12506,8 +12506,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onUp.remove(f);
    */
-  removeUpFunction(f2) {
-    this.onUp.remove(f2);
+  removeUpFunction(f) {
+    this.onUp.remove(f);
   }
 };
 __publicField(CursorTarget, "TypeName", "cursor-target");
@@ -13472,13 +13472,13 @@ function frustum(out, left, right, bottom, top, near, far) {
   return out;
 }
 function perspectiveNO(out, fovy, aspect, near, far) {
-  var f2 = 1 / Math.tan(fovy / 2), nf;
-  out[0] = f2 / aspect;
+  var f = 1 / Math.tan(fovy / 2), nf;
+  out[0] = f / aspect;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = f2;
+  out[5] = f;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
@@ -13499,13 +13499,13 @@ function perspectiveNO(out, fovy, aspect, near, far) {
 }
 var perspective = perspectiveNO;
 function perspectiveZO(out, fovy, aspect, near, far) {
-  var f2 = 1 / Math.tan(fovy / 2), nf;
-  out[0] = f2 / aspect;
+  var f = 1 / Math.tan(fovy / 2), nf;
+  out[0] = f / aspect;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = f2;
+  out[5] = f;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
@@ -13550,46 +13550,46 @@ function perspectiveFromFieldOfView(out, fov, near, far) {
   return out;
 }
 function orthoNO(out, left, right, bottom, top, near, far) {
-  var lr2 = 1 / (left - right);
-  var bt2 = 1 / (bottom - top);
+  var lr = 1 / (left - right);
+  var bt = 1 / (bottom - top);
   var nf = 1 / (near - far);
   out[0] = -2 * lr;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = -2 * bt2;
+  out[5] = -2 * bt;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
   out[9] = 0;
   out[10] = 2 * nf;
   out[11] = 0;
-  out[12] = (left + right) * lr2;
-  out[13] = (top + bottom) * bt2;
+  out[12] = (left + right) * lr;
+  out[13] = (top + bottom) * bt;
   out[14] = (far + near) * nf;
   out[15] = 1;
   return out;
 }
 var ortho = orthoNO;
 function orthoZO(out, left, right, bottom, top, near, far) {
-  var lr2 = 1 / (left - right);
-  var bt2 = 1 / (bottom - top);
+  var lr = 1 / (left - right);
+  var bt = 1 / (bottom - top);
   var nf = 1 / (near - far);
   out[0] = -2 * lr;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = -2 * bt2;
+  out[5] = -2 * bt;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
   out[9] = 0;
   out[10] = nf;
   out[11] = 0;
-  out[12] = (left + right) * lr2;
-  out[13] = (top + bottom) * bt2;
+  out[12] = (left + right) * lr;
+  out[13] = (top + bottom) * bt;
   out[14] = near * nf;
   out[15] = 1;
   return out;
@@ -14460,7 +14460,7 @@ function exp(out, a) {
   out[0] = x * s;
   out[1] = y * s;
   out[2] = z * s;
-  out[3] = et2 * Math.cos(r);
+  out[3] = et * Math.cos(r);
   return out;
 }
 function ln(out, a) {
@@ -14988,17 +14988,17 @@ function scale5(out, a, b) {
 }
 var dot4 = dot3;
 function lerp4(out, a, b, t) {
-  var mt2 = 1 - t;
+  var mt = 1 - t;
   if (dot4(a, b) < 0)
     t = -t;
-  out[0] = a[0] * mt2 + b[0] * t;
-  out[1] = a[1] * mt2 + b[1] * t;
-  out[2] = a[2] * mt2 + b[2] * t;
-  out[3] = a[3] * mt2 + b[3] * t;
-  out[4] = a[4] * mt2 + b[4] * t;
-  out[5] = a[5] * mt2 + b[5] * t;
-  out[6] = a[6] * mt2 + b[6] * t;
-  out[7] = a[7] * mt2 + b[7] * t;
+  out[0] = a[0] * mt + b[0] * t;
+  out[1] = a[1] * mt + b[1] * t;
+  out[2] = a[2] * mt + b[2] * t;
+  out[3] = a[3] * mt + b[3] * t;
+  out[4] = a[4] * mt + b[4] * t;
+  out[5] = a[5] * mt + b[5] * t;
+  out[6] = a[6] * mt + b[6] * t;
+  out[7] = a[7] * mt + b[7] * t;
   return out;
 }
 function invert3(out, a) {
@@ -15464,8 +15464,8 @@ var Cursor = class extends Component {
       this.notify("onUnhover", null);
     if (this.cursorRayObject)
       this.cursorRayObject.setScalingLocal(ZERO);
-    for (const f2 of this._onDeactivateCallbacks)
-      f2();
+    for (const f of this._onDeactivateCallbacks)
+      f();
     this._onDeactivateCallbacks.length = 0;
   }
   onDestroy() {
@@ -18684,6 +18684,7 @@ var require_settle = __commonJS2({
           response.config,
           response.request,
           response
+        ));
       }
     };
   }
@@ -19060,6 +19061,512 @@ var require_defaults = __commonJS2({
     function setContentTypeIfUnset(headers, value) {
       if (!utils.isUndefined(headers) && utils.isUndefined(headers["Content-Type"])) {
         headers["Content-Type"] = value;
+      }
+    }
+    function getDefaultAdapter() {
+      var adapter;
+      if (typeof XMLHttpRequest !== "undefined") {
+        adapter = require_xhr();
+      } else if (typeof process !== "undefined" && Object.prototype.toString.call(process) === "[object process]") {
+        adapter = require_xhr();
+      }
+      return adapter;
+    }
+    function stringifySafely(rawValue, parser, encoder) {
+      if (utils.isString(rawValue)) {
+        try {
+          (parser || JSON.parse)(rawValue);
+          return utils.trim(rawValue);
+        } catch (e) {
+          if (e.name !== "SyntaxError") {
+            throw e;
+          }
+        }
+      }
+      return (encoder || JSON.stringify)(rawValue);
+    }
+    var defaults = {
+      transitional: transitionalDefaults,
+      adapter: getDefaultAdapter(),
+      transformRequest: [function transformRequest(data, headers) {
+        normalizeHeaderName(headers, "Accept");
+        normalizeHeaderName(headers, "Content-Type");
+        if (utils.isFormData(data) || utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) {
+          return data;
+        }
+        if (utils.isArrayBufferView(data)) {
+          return data.buffer;
+        }
+        if (utils.isURLSearchParams(data)) {
+          setContentTypeIfUnset(headers, "application/x-www-form-urlencoded;charset=utf-8");
+          return data.toString();
+        }
+        var isObjectPayload = utils.isObject(data);
+        var contentType = headers && headers["Content-Type"];
+        var isFileList;
+        if ((isFileList = utils.isFileList(data)) || isObjectPayload && contentType === "multipart/form-data") {
+          var _FormData = this.env && this.env.FormData;
+          return toFormData(isFileList ? { "files[]": data } : data, _FormData && new _FormData());
+        } else if (isObjectPayload || contentType === "application/json") {
+          setContentTypeIfUnset(headers, "application/json");
+          return stringifySafely(data);
+        }
+        return data;
+      }],
+      transformResponse: [function transformResponse(data) {
+        var transitional = this.transitional || defaults.transitional;
+        var silentJSONParsing = transitional && transitional.silentJSONParsing;
+        var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
+        var strictJSONParsing = !silentJSONParsing && this.responseType === "json";
+        if (strictJSONParsing || forcedJSONParsing && utils.isString(data) && data.length) {
+          try {
+            return JSON.parse(data);
+          } catch (e) {
+            if (strictJSONParsing) {
+              if (e.name === "SyntaxError") {
+                throw AxiosError.from(e, AxiosError.ERR_BAD_RESPONSE, this, null, this.response);
+              }
+              throw e;
+            }
+          }
+        }
+        return data;
+      }],
+      /**
+       * A timeout in milliseconds to abort a request. If set to 0 (default) a
+       * timeout is not created.
+       */
+      timeout: 0,
+      xsrfCookieName: "XSRF-TOKEN",
+      xsrfHeaderName: "X-XSRF-TOKEN",
+      maxContentLength: -1,
+      maxBodyLength: -1,
+      env: {
+        FormData: require_null()
+      },
+      validateStatus: function validateStatus(status) {
+        return status >= 200 && status < 300;
+      },
+      headers: {
+        common: {
+          "Accept": "application/json, text/plain, */*"
+        }
+      }
+    };
+    utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
+      defaults.headers[method] = {};
+    });
+    utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+      defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+    });
+    module.exports = defaults;
+  }
+});
+var require_transformData = __commonJS2({
+  "../node_modules/axios/lib/core/transformData.js"(exports, module) {
+    "use strict";
+    var utils = require_utils();
+    var defaults = require_defaults();
+    module.exports = function transformData(data, headers, fns) {
+      var context = this || defaults;
+      utils.forEach(fns, function transform(fn) {
+        data = fn.call(context, data, headers);
+      });
+      return data;
+    };
+  }
+});
+var require_isCancel = __commonJS2({
+  "../node_modules/axios/lib/cancel/isCancel.js"(exports, module) {
+    "use strict";
+    module.exports = function isCancel(value) {
+      return !!(value && value.__CANCEL__);
+    };
+  }
+});
+var require_dispatchRequest = __commonJS2({
+  "../node_modules/axios/lib/core/dispatchRequest.js"(exports, module) {
+    "use strict";
+    var utils = require_utils();
+    var transformData = require_transformData();
+    var isCancel = require_isCancel();
+    var defaults = require_defaults();
+    var CanceledError = require_CanceledError();
+    function throwIfCancellationRequested(config) {
+      if (config.cancelToken) {
+        config.cancelToken.throwIfRequested();
+      }
+      if (config.signal && config.signal.aborted) {
+        throw new CanceledError();
+      }
+    }
+    module.exports = function dispatchRequest(config) {
+      throwIfCancellationRequested(config);
+      config.headers = config.headers || {};
+      config.data = transformData.call(
+        config,
+        config.data,
+        config.headers,
+        config.transformRequest
+      );
+      config.headers = utils.merge(
+        config.headers.common || {},
+        config.headers[config.method] || {},
+        config.headers
+      );
+      utils.forEach(
+        ["delete", "get", "head", "post", "put", "patch", "common"],
+        function cleanHeaderConfig(method) {
+          delete config.headers[method];
+        }
+      );
+      var adapter = config.adapter || defaults.adapter;
+      return adapter(config).then(function onAdapterResolution(response) {
+        throwIfCancellationRequested(config);
+        response.data = transformData.call(
+          config,
+          response.data,
+          response.headers,
+          config.transformResponse
+        );
+        return response;
+      }, function onAdapterRejection(reason) {
+        if (!isCancel(reason)) {
+          throwIfCancellationRequested(config);
+          if (reason && reason.response) {
+            reason.response.data = transformData.call(
+              config,
+              reason.response.data,
+              reason.response.headers,
+              config.transformResponse
+            );
+          }
+        }
+        return Promise.reject(reason);
+      });
+    };
+  }
+});
+var require_mergeConfig = __commonJS2({
+  "../node_modules/axios/lib/core/mergeConfig.js"(exports, module) {
+    "use strict";
+    var utils = require_utils();
+    module.exports = function mergeConfig(config1, config2) {
+      config2 = config2 || {};
+      var config = {};
+      function getMergedValue(target, source) {
+        if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
+          return utils.merge(target, source);
+        } else if (utils.isPlainObject(source)) {
+          return utils.merge({}, source);
+        } else if (utils.isArray(source)) {
+          return source.slice();
+        }
+        return source;
+      }
+      function mergeDeepProperties(prop) {
+        if (!utils.isUndefined(config2[prop])) {
+          return getMergedValue(config1[prop], config2[prop]);
+        } else if (!utils.isUndefined(config1[prop])) {
+          return getMergedValue(void 0, config1[prop]);
+        }
+      }
+      function valueFromConfig2(prop) {
+        if (!utils.isUndefined(config2[prop])) {
+          return getMergedValue(void 0, config2[prop]);
+        }
+      }
+      function defaultToConfig2(prop) {
+        if (!utils.isUndefined(config2[prop])) {
+          return getMergedValue(void 0, config2[prop]);
+        } else if (!utils.isUndefined(config1[prop])) {
+          return getMergedValue(void 0, config1[prop]);
+        }
+      }
+      function mergeDirectKeys(prop) {
+        if (prop in config2) {
+          return getMergedValue(config1[prop], config2[prop]);
+        } else if (prop in config1) {
+          return getMergedValue(void 0, config1[prop]);
+        }
+      }
+      var mergeMap = {
+        "url": valueFromConfig2,
+        "method": valueFromConfig2,
+        "data": valueFromConfig2,
+        "baseURL": defaultToConfig2,
+        "transformRequest": defaultToConfig2,
+        "transformResponse": defaultToConfig2,
+        "paramsSerializer": defaultToConfig2,
+        "timeout": defaultToConfig2,
+        "timeoutMessage": defaultToConfig2,
+        "withCredentials": defaultToConfig2,
+        "adapter": defaultToConfig2,
+        "responseType": defaultToConfig2,
+        "xsrfCookieName": defaultToConfig2,
+        "xsrfHeaderName": defaultToConfig2,
+        "onUploadProgress": defaultToConfig2,
+        "onDownloadProgress": defaultToConfig2,
+        "decompress": defaultToConfig2,
+        "maxContentLength": defaultToConfig2,
+        "maxBodyLength": defaultToConfig2,
+        "beforeRedirect": defaultToConfig2,
+        "transport": defaultToConfig2,
+        "httpAgent": defaultToConfig2,
+        "httpsAgent": defaultToConfig2,
+        "cancelToken": defaultToConfig2,
+        "socketPath": defaultToConfig2,
+        "responseEncoding": defaultToConfig2,
+        "validateStatus": mergeDirectKeys
+      };
+      utils.forEach(Object.keys(config1).concat(Object.keys(config2)), function computeConfigValue(prop) {
+        var merge = mergeMap[prop] || mergeDeepProperties;
+        var configValue = merge(prop);
+        utils.isUndefined(configValue) && merge !== mergeDirectKeys || (config[prop] = configValue);
+      });
+      return config;
+    };
+  }
+});
+var require_data = __commonJS2({
+  "../node_modules/axios/lib/env/data.js"(exports, module) {
+    module.exports = {
+      "version": "0.27.2"
+    };
+  }
+});
+var require_validator = __commonJS2({
+  "../node_modules/axios/lib/helpers/validator.js"(exports, module) {
+    "use strict";
+    var VERSION = require_data().version;
+    var AxiosError = require_AxiosError();
+    var validators = {};
+    ["object", "boolean", "number", "function", "string", "symbol"].forEach(function(type, i) {
+      validators[type] = function validator(thing) {
+        return typeof thing === type || "a" + (i < 1 ? "n " : " ") + type;
+      };
+    });
+    var deprecatedWarnings = {};
+    validators.transitional = function transitional(validator, version2, message) {
+      function formatMessage(opt, desc) {
+        return "[Axios v" + VERSION + "] Transitional option '" + opt + "'" + desc + (message ? ". " + message : "");
+      }
+      return function(value, opt, opts) {
+        if (validator === false) {
+          throw new AxiosError(
+            formatMessage(opt, " has been removed" + (version2 ? " in " + version2 : "")),
+            AxiosError.ERR_DEPRECATED
+          );
+        }
+        if (version2 && !deprecatedWarnings[opt]) {
+          deprecatedWarnings[opt] = true;
+          console.warn(
+            formatMessage(
+              opt,
+              " has been deprecated since v" + version2 + " and will be removed in the near future"
+            )
+          );
+        }
+        return validator ? validator(value, opt, opts) : true;
+      };
+    };
+    function assertOptions(options, schema, allowUnknown) {
+      if (typeof options !== "object") {
+        throw new AxiosError("options must be an object", AxiosError.ERR_BAD_OPTION_VALUE);
+      }
+      var keys = Object.keys(options);
+      var i = keys.length;
+      while (i-- > 0) {
+        var opt = keys[i];
+        var validator = schema[opt];
+        if (validator) {
+          var value = options[opt];
+          var result = value === void 0 || validator(value, opt, options);
+          if (result !== true) {
+            throw new AxiosError("option " + opt + " must be " + result, AxiosError.ERR_BAD_OPTION_VALUE);
+          }
+          continue;
+        }
+        if (allowUnknown !== true) {
+          throw new AxiosError("Unknown option " + opt, AxiosError.ERR_BAD_OPTION);
+        }
+      }
+    }
+    module.exports = {
+      assertOptions,
+      validators
+    };
+  }
+});
+var require_Axios = __commonJS2({
+  "../node_modules/axios/lib/core/Axios.js"(exports, module) {
+    "use strict";
+    var utils = require_utils();
+    var buildURL = require_buildURL();
+    var InterceptorManager = require_InterceptorManager();
+    var dispatchRequest = require_dispatchRequest();
+    var mergeConfig = require_mergeConfig();
+    var buildFullPath = require_buildFullPath();
+    var validator = require_validator();
+    var validators = validator.validators;
+    function Axios(instanceConfig) {
+      this.defaults = instanceConfig;
+      this.interceptors = {
+        request: new InterceptorManager(),
+        response: new InterceptorManager()
+      };
+    }
+    Axios.prototype.request = function request(configOrUrl, config) {
+      if (typeof configOrUrl === "string") {
+        config = config || {};
+        config.url = configOrUrl;
+      } else {
+        config = configOrUrl || {};
+      }
+      config = mergeConfig(this.defaults, config);
+      if (config.method) {
+        config.method = config.method.toLowerCase();
+      } else if (this.defaults.method) {
+        config.method = this.defaults.method.toLowerCase();
+      } else {
+        config.method = "get";
+      }
+      var transitional = config.transitional;
+      if (transitional !== void 0) {
+        validator.assertOptions(transitional, {
+          silentJSONParsing: validators.transitional(validators.boolean),
+          forcedJSONParsing: validators.transitional(validators.boolean),
+          clarifyTimeoutError: validators.transitional(validators.boolean)
+        }, false);
+      }
+      var requestInterceptorChain = [];
+      var synchronousRequestInterceptors = true;
+      this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+        if (typeof interceptor.runWhen === "function" && interceptor.runWhen(config) === false) {
+          return;
+        }
+        synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+        requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
+      });
+      var responseInterceptorChain = [];
+      this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+        responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
+      });
+      var promise;
+      if (!synchronousRequestInterceptors) {
+        var chain = [dispatchRequest, void 0];
+        Array.prototype.unshift.apply(chain, requestInterceptorChain);
+        chain = chain.concat(responseInterceptorChain);
+        promise = Promise.resolve(config);
+        while (chain.length) {
+          promise = promise.then(chain.shift(), chain.shift());
+        }
+        return promise;
+      }
+      var newConfig = config;
+      while (requestInterceptorChain.length) {
+        var onFulfilled = requestInterceptorChain.shift();
+        var onRejected = requestInterceptorChain.shift();
+        try {
+          newConfig = onFulfilled(newConfig);
+        } catch (error) {
+          onRejected(error);
+          break;
+        }
+      }
+      try {
+        promise = dispatchRequest(newConfig);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+      while (responseInterceptorChain.length) {
+        promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
+      }
+      return promise;
+    };
+    Axios.prototype.getUri = function getUri(config) {
+      config = mergeConfig(this.defaults, config);
+      var fullPath = buildFullPath(config.baseURL, config.url);
+      return buildURL(fullPath, config.params, config.paramsSerializer);
+    };
+    utils.forEach(["delete", "get", "head", "options"], function forEachMethodNoData(method) {
+      Axios.prototype[method] = function(url, config) {
+        return this.request(mergeConfig(config || {}, {
+          method,
+          url,
+          data: (config || {}).data
+        }));
+      };
+    });
+    utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+      function generateHTTPMethod(isForm) {
+        return function httpMethod(url, data, config) {
+          return this.request(mergeConfig(config || {}, {
+            method,
+            headers: isForm ? {
+              "Content-Type": "multipart/form-data"
+            } : {},
+            url,
+            data
+          }));
+        };
+      }
+      Axios.prototype[method] = generateHTTPMethod();
+      Axios.prototype[method + "Form"] = generateHTTPMethod(true);
+    });
+    module.exports = Axios;
+  }
+});
+var require_CancelToken = __commonJS2({
+  "../node_modules/axios/lib/cancel/CancelToken.js"(exports, module) {
+    "use strict";
+    var CanceledError = require_CanceledError();
+    function CancelToken(executor) {
+      if (typeof executor !== "function") {
+        throw new TypeError("executor must be a function.");
+      }
+      var resolvePromise;
+      this.promise = new Promise(function promiseExecutor(resolve) {
+        resolvePromise = resolve;
+      });
+      var token = this;
+      this.promise.then(function(cancel) {
+        if (!token._listeners)
+          return;
+        var i;
+        var l = token._listeners.length;
+        for (i = 0; i < l; i++) {
+          token._listeners[i](cancel);
+        }
+        token._listeners = null;
+      });
+      this.promise.then = function(onfulfilled) {
+        var _resolve;
+        var promise = new Promise(function(resolve) {
+          token.subscribe(resolve);
+          _resolve = resolve;
+        }).then(onfulfilled);
+        promise.cancel = function reject() {
+          token.unsubscribe(_resolve);
+        };
+        return promise;
+      };
+      executor(function cancel(message) {
+        if (token.reason) {
+          return;
+        }
+        token.reason = new CanceledError(message);
+        resolvePromise(token.reason);
+      });
+    }
+    CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+      if (this.reason) {
+        throw this.reason;
+      }
+    };
+    CancelToken.prototype.subscribe = function subscribe(listener) {
+      if (this.reason) {
+        listener(this.reason);
         return;
       }
       if (this._listeners) {
@@ -19414,6 +19921,10 @@ var sendOnLoadMetric = async (spaceId, campaignId = null) => {
 var sendOnClickMetric = async (spaceId, campaignId = null) => {
   const { platform, confidence } = await checkUserPlatform();
   try {
+    await import_axios.default.post(
+      BEACON_GRAPHQL_URI,
+      { query: `mutation { increment(eventType: clicks, spaceId: "${spaceId}", campaignId: "${campaignId}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
+      { headers: { "Content-Type": "application/json" } }
     );
   } catch (e) {
     console.log("Failed to emit onclick event", e.message);
@@ -19912,6 +20423,7 @@ var ZestyBanner = class extends Component {
       this.banner = banner;
       if (this.scaleToRatio) {
         this.height = this.object.scalingLocal[1];
+        const {
           absoluteWidth: adjustedWidth = this.formats[this.format].width * this.height,
           absoluteHeight: adjustedHeight = this.object.scalingLocal[1]
         } = getV3BetaUnitInfo(this.adUnit);
@@ -19940,6 +20452,7 @@ var ZestyBanner = class extends Component {
             this.canvasTexturePipeline = "diffuse";
           } else {
             m.diffuseTexture = banner.texture;
+            m.alphaMaskThreshold = 0.3;
           }
         } else if (m.flatTexture || m.hasParameter && m.hasParameter("flatTexture")) {
           if (banner.imageSrc.includes("canvas://")) {
@@ -19962,8 +20475,33 @@ var ZestyBanner = class extends Component {
             m.alphaMaskThreshold = 0.8;
           }
         } else {
+          throw Error(
+            "'zesty-banner' unable to apply banner texture: unsupported pipeline " + pipeline
+          );
+        }
+        this.mesh.material = m;
+        this.mesh.material.alphaMaskTexture = banner.texture;
+      } else {
+        this.mesh.material[this.textureProperty] = banner.texture;
+        this.mesh.material.alphaMaskTexture = banner.texture;
+      }
+      if (this.beacon) {
+        this.dynamicNetworking ? this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) : sendOnLoadMetric(this.adUnit, this.banner.campaignId);
+      }
     });
   }
+  onClick() {
+    if (this.banner?.url) {
+      if (this.engine.xr) {
+        this.engine.xr.session.end().then(this.executeClick.bind(this));
+      } else if (this.engine.xrSession) {
+        this.engine.xrSession.end().then(this.executeClick.bind(this));
+      } else {
+        this.executeClick();
+      }
+    }
+  }
+  executeClick() {
     openURL(this.banner.url);
     if (this.beacon) {
       this.dynamicNetworking ? this.zestyNetworking.sendOnClickMetric(this.adUnit, this.banner.campaignId) : sendOnClickMetric(this.adUnit, this.banner.campaignId);
@@ -19990,13 +20528,6 @@ var ZestyBanner = class extends Component {
         return { texture, imageSrc: image, url, campaignId: activeCampaign.CampaignId };
       });
     }
-=======
-    Kt(this.banner.url), this.beacon && (this.dynamicNetworking ? this.zestyNetworking.sendOnClickMetric(this.adUnit, this.banner.campaignId) : rr(this.adUnit, this.banner.campaignId));
-  }
-  async loadBanner(e, r, i) {
-    let n = this.dynamicNetworking ? await this.zestyNetworking.fetchCampaignAd(e, r, i) : await er(e, r, i), { asset_url: s, cta_url: a } = n.Ads[0];
-    return this.campaignId = n.CampaignId, this.mesh.material?.flatTexture != null ? this.mesh.material.flatTexture.destroy() : this.mesh.material?.diffuseTexture != null && this.mesh.material.diffuseTexture.destroy(), this.engine.textures.load(s, "").then((o) => ({ texture: o, imageSrc: s, url: a, campaignId: n.CampaignId }));
->>>>>>> b7ad181 (Update WLE test project)
   }
   /**
    * Checks the visibility of an object based on camera position and direction.

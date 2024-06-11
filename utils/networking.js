@@ -22,6 +22,7 @@ let currentTries = 0;
 let iframe = null;
 let ready = false;
 let bids = null;
+let heartbeatPending = false;
 
 const initPrebid = (adUnitId, format) => {
   // Load zesty prebid iframe
@@ -44,6 +45,9 @@ const initPrebid = (adUnitId, format) => {
       case 'bids':
         bids = data.content;
         break;
+      case 'heartbeat':
+        heartbeatPending = false;
+        break;
     }
   });
 
@@ -51,6 +55,19 @@ const initPrebid = (adUnitId, format) => {
   const script = document.createElement('script');
   script.src = 'https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js';
   document.head.appendChild(script);
+
+  // Send a heartbeat message to the prebid page to check that is hasn't been killed by Chrome
+  // for intensive resource usage by ad. If we don't get a heartbeat response back in 1 second,
+  // the page is dead and we need to reload it.
+  setInterval(async () => {
+    iframe.contentWindow.postMessage({ type: 'heartbeat' }, '*');
+    heartbeatPending = true;
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    if (heartbeatPending) {
+      // window.location.reload() doesn't work for cross-origin frames, but resetting src works
+      iframe.src += '';
+    }
+  }, 5000);
 
   prebidInit = true;
 }

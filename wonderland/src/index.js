@@ -1,6 +1,6 @@
 /* global WL */
 
-import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, getV3BetaUnitInfo, AD_REFRESH_INTERVAL } from '../../utils/networking';
+import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, AD_REFRESH_INTERVAL } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
@@ -18,6 +18,8 @@ console.log('Zesty SDK Version: ', version);
 
 const formatsLink = 'https://cdn.zesty.xyz/sdk/zesty-formats.js';
 const networkingLink = 'https://cdn.zesty.xyz/sdk/zesty-networking.js';
+
+let sdkLoaded = false;
 
 /**
  * [Zesty Market](https://zesty.xyz) banner ad unit
@@ -67,8 +69,6 @@ export class ZestyBanner extends Component {
   }
 
   start() {
-    const isBeta = getV3BetaUnitInfo(this.adUnit).hasOwnProperty('format');
-
     this.mesh = this.object.getComponent(MeshComponent);
     if (!this.mesh) {
       throw new Error("'zesty-banner ' missing mesh component");
@@ -100,25 +100,14 @@ export class ZestyBanner extends Component {
       import(networkingLink)
         .then(value => {
           this.zestyNetworking = Object.assign({}, value);
-          this.startLoading();
-          if (isBeta) {
-            setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
-          }
         })
         .catch(() => {
           console.error('Failed to dynamically retrieve networking code, falling back to bundled version.');
           this.dynamicNetworking = false;
-          this.startLoading();
-          if (isBeta) {
-            setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
-          }
         });
-    } else {
-      this.startLoading();
-      if (isBeta) {
-        setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
-      }
     }
+    this.startLoading();
+    setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
   }
 
   update() {
@@ -159,20 +148,18 @@ export class ZestyBanner extends Component {
       this.banner = banner;
       if (this.scaleToRatio) {
         /* Make banner always 1 meter height, adjust width according to banner aspect ratio */
-        this.height = this.object.scalingLocal[1];
-        const {
-          absoluteWidth: adjustedWidth = this.formats[this.format].width * this.height,
-          absoluteHeight: adjustedHeight = this.object.scalingLocal[1]
-        } = getV3BetaUnitInfo(this.adUnit);
+        this.height = this.object.getScalingLocal()[1];
+        this.width = this.formats[this.format].width * this.height;
+
         this.object.resetScaling();
         if (this.createAutomaticCollision) {
           this.collision.extents = [
-            adjustedWidth,
-            adjustedHeight,
+            this.width,
+            this.height,
             0.1
           ];
         }
-        this.object.scale([adjustedWidth, adjustedHeight, 1.0]);
+        this.object.scaleLocal([this.width, this.height, 1.0]);
       }
       const m = this.mesh.material.clone();
       if (this.textureProperty === 'auto') {
@@ -222,10 +209,11 @@ export class ZestyBanner extends Component {
         this.mesh.material[this.textureProperty] = banner.texture;
         this.mesh.material.alphaMaskTexture = banner.texture;
       }
-      if (this.beacon) {
+      if (this.beacon && !sdkLoaded) {
         this.dynamicNetworking ?
           this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) :
           sendOnLoadMetric(this.adUnit, this.banner.campaignId);
+        sdkLoaded = true;
       }
     });
   }
@@ -252,22 +240,20 @@ export class ZestyBanner extends Component {
   }
 
   async loadBanner(adUnit, format, style) {
-    const {
-      format: adjustedFormat = format,
-    } = getV3BetaUnitInfo(adUnit);
-
-
-    const betaFormats = ['mobile-phone-interstitial', 'billboard', 'medium-rectangle'];
-    if (betaFormats.includes(adjustedFormat)) {
-      this.format = betaFormats.indexOf(adjustedFormat) + 3;
-    }
-
     const activeCampaign = this.dynamicNetworking ?
-      await this.zestyNetworking.fetchCampaignAd(adUnit, adjustedFormat, style) :
-      await fetchCampaignAd(adUnit, adjustedFormat, style);
+      await this.zestyNetworking.fetchCampaignAd(adUnit, format, style) :
+      await fetchCampaignAd(adUnit, format, style);
 
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
     this.campaignId = activeCampaign.CampaignId;
+
+    // Free old banner images from the texture atlas, otherwise refreshes will eventually fill it
+    // and no further images will be able to load
+    if (this.mesh.material?.flatTexture != null) {
+      this.mesh.material.flatTexture.destroy();
+    } else if (this.mesh.material?.diffuseTexture != null) {
+      this.mesh.material.diffuseTexture.destroy();
+    }
 
     if (image.includes('canvas://')) {
       const canvasIframe = document.querySelector('#zesty-canvas-iframe');

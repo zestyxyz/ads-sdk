@@ -8,8 +8,8 @@ const config = {
     timeout: 180 * 1000,
     reuseExistingServer: !process.env.CI,
   },
-  retries: 10,
-  timeout: 15000
+  retries: 3,
+  timeout: 30000
 };
 
 module.exports = config;

@@ -992,8 +992,8 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999999",
-                        "beacon": false,
+                        "adUnit": "999991",
+                        "beacon": true,
                         "format": "tall",
                         "style": "standard",
                         "dynamicNetworking": false,
@@ -1038,11 +1038,12 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999999",
+                        "adUnit": "999992",
                         "beacon": false,
                         "format": "wide",
                         "style": "standard",
-                        "dynamicNetworking": false
+                        "dynamicNetworking": false,
+                        "dynamicFormats": false
                     },
                     "active": true
                 }
@@ -1083,9 +1084,11 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999999",
+                        "adUnit": "999993",
                         "beacon": false,
-                        "style": "standard"
+                        "style": "standard",
+                        "dynamicNetworking": false,
+                        "dynamicFormats": false
                     },
                     "active": true
                 }
@@ -1126,10 +1129,12 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999999",
+                        "adUnit": "999994",
                         "beacon": false,
                         "format": "tall",
-                        "style": "minimal"
+                        "style": "minimal",
+                        "dynamicNetworking": false,
+                        "dynamicFormats": false
                     },
                     "active": true
                 }
@@ -1170,10 +1175,12 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999999",
+                        "adUnit": "999995",
                         "beacon": false,
                         "format": "wide",
-                        "style": "minimal"
+                        "style": "minimal",
+                        "dynamicNetworking": false,
+                        "dynamicFormats": false
                     },
                     "active": true
                 }
@@ -1214,10 +1221,12 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999999",
+                        "adUnit": "999996",
                         "beacon": false,
                         "format": "square",
-                        "style": "minimal"
+                        "style": "minimal",
+                        "dynamicNetworking": false,
+                        "dynamicFormats": false
                     },
                     "active": true
                 }
@@ -1258,9 +1267,11 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999999",
+                        "adUnit": "999997",
                         "beacon": false,
-                        "format": "tall"
+                        "format": "tall",
+                        "dynamicNetworking": false,
+                        "dynamicFormats": false
                     },
                     "active": true
                 }
@@ -1301,9 +1312,11 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999999",
+                        "adUnit": "999998",
                         "beacon": false,
-                        "format": "wide"
+                        "format": "wide",
+                        "dynamicNetworking": false,
+                        "dynamicFormats": false
                     },
                     "active": true
                 }
@@ -1345,7 +1358,9 @@
                     "type": "zesty-banner",
                     "zesty-banner": {
                         "adUnit": "999999",
-                        "beacon": false
+                        "beacon": false,
+                        "dynamicNetworking": false,
+                        "dynamicFormats": false
                     },
                     "active": true
                 }

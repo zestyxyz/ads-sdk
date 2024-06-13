@@ -16,13 +16,13 @@ const DB_ENDPOINT = 'https://api.zesty.market/api';
 const AD_REFRESH_INTERVAL = 15000;
 let prebidInit = false;
 let interval = null;
-const retryCount = 10;
-let currentTries = 0;
+const retryCount = 5;
 /** @type {HTMLIFrameElement} */
 let iframe = null;
 let ready = false;
 let bids = null;
 let heartbeatPending = false;
+const currentTries = {} // Maps retries to specific ad unit id
 
 const initPrebid = (adUnitId, format) => {
   // Load zesty prebid iframe
@@ -72,40 +72,43 @@ const initPrebid = (adUnitId, format) => {
   prebidInit = true;
 }
 
-const betaUnits = [
-  { id: '4902864a-5531-496b-8d4d-ec7b9849e8e1', format: 'medium-rectangle', absoluteWidth: 0.75, absoluteHeight: .625 },
-  { id: '14dccdbe-18b7-40d0-93d8-c104fd9486e8', format: 'medium-rectangle' },
-  { id: 'a8e0496f-034d-4cea-ba5f-653bba4fba39', format: 'billboard' },
-  { id: 'a181cc07-fda7-462e-adba-0fd8abf0af24', format: 'billboard' },
+const unitOverrides = [
+  { id: '4902864a-5531-496b-8d4d-ec7b9849e8e1', format: 'medium-rectangle', oldFormat: 'tall', absoluteWidth: 0.75, absoluteHeight: .625 },
 ];
 
-const getV3BetaUnitInfo = (adUnitId) => {
-  return betaUnits.find(unit => unit.id === adUnitId) || {};
+const getOverrideUnitInfo = (adUnitId) => {
+  return unitOverrides.find(unit => unit.id === adUnitId) || {};
 }
 
-const getDefaultBanner = (format, style, isBeta, betaFormat) => {
-  return { Ads: [{ asset_url: formats[isBeta ? betaFormat : format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'DefaultCampaign' }
+const getDefaultBanner = (format, style, shouldOverride, overrideFormat) => {
+  return { Ads: [{ asset_url: formats[shouldOverride ? overrideFormat : format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'DefaultCampaign' }
 }
 
 const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {
-  const isBeta = betaUnits.find(unit => unit.id === adUnitId);
-  const { format: betaFormat } = getV3BetaUnitInfo(adUnitId);
-  if (isBeta) {
-    if (!prebidInit) {
-      initPrebid(adUnitId, betaFormat, style);
-    } else {
-      bids = null;
-      currentTries = 0;
-      iframe.contentWindow.postMessage({ type: 'refresh' }, '*');
-    }
+  if (['tall', 'wide', 'square'].includes(format)) {
+    console.warn(`The old Zesty banner formats (tall, wide, and square) are being deprecated and will be removed in a future version. Please update to one of the new IAB formats (mobile-phone-interstitial, billboard, and medium-rectangle).
+Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
+  }
+
+  let overrideEntry = getOverrideUnitInfo(adUnitId);
+  let shouldOverride = overrideEntry?.oldFormat && format == overrideEntry.oldFormat;
+
+  if (!adUnitId) {
+    return new Promise(res => res(getDefaultBanner(format, style, shouldOverride, overrideEntry.format)));
+  }
+
+  if (!prebidInit) {
+    const finalFormat = shouldOverride ? overrideEntry.format : format;
+    initPrebid(adUnitId, finalFormat, style);
+    currentTries[adUnitId] = 0;
+  } else {
+    bids = null;
+    currentTries[adUnitId] = 0;
+    iframe.contentWindow.postMessage({ type: 'refresh' }, '*');
   }
 
   return new Promise((res, rej) => {
     async function getBanner() {
-      // If not in beta, skip directly to ad server fallback
-      if (!isBeta) {
-        currentTries = retryCount - 1;
-      }
       if (bids && bids.length > 0) {
         // Clear the interval and grab the image+url from the prebid ad
         const { asset_url, cta_url } = JSON.parse(bids);
@@ -120,20 +123,22 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
         res({ Ads: [{ asset_url, cta_url }], CampaignId: 'Prebid' });
       } else {
         // Wait to see if we get any winning bids. If we hit max retry count, fallback to Zesty ad server
-        currentTries++;
-        if (currentTries == retryCount) {
+        currentTries[adUnitId]++;
+        if (currentTries[adUnitId] == retryCount) {
           try {
             const url = encodeURI(window.top.location.href).replace(/\/$/, ''); // If URL ends with a slash, remove it
             const res = await axios.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}&url=${url}`);
-            if (res.data)
+            if (res.data) {
               res(res.data);
-            else {
+            } else {
               // No active campaign, just display default banner
-              res(getDefaultBanner(format, style, isBeta, betaFormat));
+              res(getDefaultBanner(format, style, shouldOverride, overrideEntry.format));
             }
+            currentTries[adUnitId] = 0;
           } catch {
             console.warn('Could not retrieve an active campaign banner. Retrieving default banner.')
-            res(getDefaultBanner(format, style, isBeta, betaFormat));
+            res(getDefaultBanner(format, style, shouldOverride, overrideEntry.format));
+            currentTries[adUnitId] = 0;
           }
         } else {
           setTimeout(getBanner, 1000);
@@ -190,4 +195,4 @@ const analyticsSession = async (spaceId, campaignId) => {
   }
 }
 
-export { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession, getV3BetaUnitInfo, AD_REFRESH_INTERVAL };
+export { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession, getOverrideUnitInfo, AD_REFRESH_INTERVAL };

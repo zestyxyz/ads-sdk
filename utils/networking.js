@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { formats } from '../utils/formats.js';
 import { checkUserPlatform } from '../utils/helpers.js';
-//import { v4 as uuidv4 } from 'uuid'
+import { parse as parseUUID } from 'uuid'
 
 const BEACON_API_BASE = 'https://beacon.zesty.market'
 const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
@@ -9,8 +9,6 @@ const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
 const DB_ENDPOINT = 'https://api.zesty.market/api';
 // TODO: Determine best way to enable switching to staging
 // const STAGING_DB_ENDPOINT = 'https://api-staging.zesty.market/api';
-
-//const sessionId = uuidv4();
 
 // Prebid variables
 const AD_REFRESH_INTERVAL = 15000;
@@ -21,6 +19,7 @@ let bids = {};
 const currentTries = {} // Maps retries to specific ad unit id
 const previousUrls = {} // Maps prior fetched URLs to specific ad unit id
 let baseDivId = 'pb-slot-right-1';
+let divCount = 0;
 
 const initPrebid = (adUnitId, format) => {
   // Create div for prebid to target
@@ -51,7 +50,9 @@ const initPrebid = (adUnitId, format) => {
   document.head.appendChild(gifscript);
 
   // Select baseDivId based on format, defaulting to the one for medium rectangle
-  if (format == 'billboard') {
+  if (format == 'medium-rectangle') {
+    div.id = 'zesty-div-medium-rectangle';
+  } else if (format == 'billboard') {
     baseDivId = 'pb-slot-billboard';
     div.style.width = '728px';
     div.style.height = '90px';
@@ -105,7 +106,7 @@ const getOverrideUnitInfo = (adUnitId) => {
   return unitOverrides.find(unit => unit.id === adUnitId) || {};
 }
 
-const getDefaultBanner = (format, style, shouldOverride, overrideFormat) => {
+const getDefaultBanner = (format, style, shouldOverride = false, overrideFormat = null) => {
   return { Ads: [{ asset_url: formats[shouldOverride ? overrideFormat : format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'DefaultCampaign' }
 }
 
@@ -113,6 +114,14 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
   if (['tall', 'wide', 'square'].includes(format)) {
     console.warn(`The old Zesty banner formats (tall, wide, and square) are being deprecated and will be removed in a future version. Please update to one of the new IAB formats (mobile-phone-interstitial, billboard, and medium-rectangle).
 Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
+  }
+
+  // Early exit if ad unit ID is an invalid format and would not map to a Zesty ad unit
+  try {
+    parseUUID(adUnitId);
+  } catch (e) {
+    console.warn("Ad unit ID provided is not a valid UUID.");
+    return new Promise(res => res(getDefaultBanner(format, style)));
   }
 
   let overrideEntry = getOverrideUnitInfo(adUnitId);

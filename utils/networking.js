@@ -29,6 +29,7 @@ const initPrebid = (adUnitId, format) => {
   div.style.width = '300px';
   div.style.position = 'fixed';
   div.style.top = '0';
+  div.style.zIndex = '-2';
   document.body.appendChild(div);
 
   // Append google gpt tag
@@ -133,12 +134,13 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
 
   if (!prebidInit) {
     const finalFormat = shouldOverride ? overrideEntry.format : format;
-    initPrebid(adUnitId, finalFormat, style);
     currentTries[adUnitId] = 0;
+    previousUrls[adUnitId] = { asset_url: null, cta_url: null };
+    initPrebid(adUnitId, finalFormat, style);
   } else {
     bids = null;
     currentTries[adUnitId] = 0;
-    previousUrls[adUnitId] = null;
+    previousUrls[adUnitId] = { asset_url: null, cta_url: null };
     tude.cmd.push(function() {
       tude.refreshAdsViaDivMappings([
         {

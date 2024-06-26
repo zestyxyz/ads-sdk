@@ -74,6 +74,8 @@ const initPrebid = (adUnitId, format) => {
   });
 
   function getUrlsFromIframe(iframe) {
+    if (!iframe.contentDocument) return;
+
     const images = iframe.contentDocument.querySelectorAll('img');
     const adImage = Array.prototype.filter.call(images, image => image.height > 1);
     if (adImage.length == 0) return;

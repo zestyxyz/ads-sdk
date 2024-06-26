@@ -131,7 +131,7 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
   try {
     parseUUID(adUnitId);
   } catch (e) {
-    console.warn("Ad unit ID provided is not a valid UUID.");
+    console.warn(`Ad unit ID ${adUnitId} is not a valid UUID.`);
     return new Promise(res => res(getDefaultBanner(format, style)));
   }
 

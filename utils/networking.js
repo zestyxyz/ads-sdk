@@ -29,6 +29,7 @@ const initPrebid = (adUnitId, format) => {
   div.style.width = '300px';
   div.style.position = 'fixed';
   div.style.top = '0';
+  div.style.zIndex = '-2';
   document.body.appendChild(div);
 
   // Append google gpt tag

@@ -66,7 +66,7 @@ const initPrebid = (adUnitId, format) => {
   tude.cmd.push(function() {
     tude.refreshAdsViaDivMappings([
       {
-        divId: 'zesty-div',
+        divId: `zesty-div-${format}`,
         baseDivId,
       }
     ]);
@@ -81,7 +81,7 @@ const initPrebid = (adUnitId, format) => {
     return { asset_url, cta_url };
   }
   interval = setInterval(() => {
-      const div = document.getElementById('zesty-div');
+      const div = document.getElementById(`zesty-div-${format}`);
       const iframe = div.querySelector('iframe');
       if (iframe) {
           let urls = getUrlsFromIframe(iframe);
@@ -142,7 +142,7 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
     tude.cmd.push(function() {
       tude.refreshAdsViaDivMappings([
         {
-          divId: 'zesty-div',
+          divId: `zesty-div-${format}`,
           baseDivId,
         }
       ]);

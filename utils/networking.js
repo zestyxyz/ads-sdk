@@ -136,10 +136,11 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
     const finalFormat = shouldOverride ? overrideEntry.format : format;
     initPrebid(adUnitId, finalFormat, style);
     currentTries[adUnitId] = 0;
+    previousUrls[adUnitId] = { asset_url: null, cta_url: null };
   } else {
     bids = null;
     currentTries[adUnitId] = 0;
-    previousUrls[adUnitId] = null;
+    previousUrls[adUnitId] = { asset_url: null, cta_url: null };
     tude.cmd.push(function() {
       tude.refreshAdsViaDivMappings([
         {

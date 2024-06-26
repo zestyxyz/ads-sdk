@@ -509,18 +509,18 @@ var require_howler = __commonJS({
             self2._src = [self2._src];
           }
           for (var i = 0; i < self2._src.length; i++) {
-            var ext, str6;
+            var ext, str5;
             if (self2._format && self2._format[i]) {
               ext = self2._format[i];
             } else {
-              str6 = self2._src[i];
-              if (typeof str6 !== "string") {
+              str5 = self2._src[i];
+              if (typeof str5 !== "string") {
                 self2._emit("loaderror", null, "Non-string found in selected audio sources - ignoring.");
                 continue;
               }
-              ext = /^data:audio\/([^;,]+);/i.exec(str6);
+              ext = /^data:audio\/([^;,]+);/i.exec(str5);
               if (!ext) {
-                ext = /\.([^.]+)$/.exec(str6.split("?", 1)[0]);
+                ext = /\.([^.]+)$/.exec(str5.split("?", 1)[0]);
               }
               if (ext) {
                 ext = ext[1].toLowerCase();
@@ -938,20 +938,20 @@ var require_howler = __commonJS({
          * @param  {Number} id   The sound id (omit to fade all sounds).
          * @return {Howl}
          */
-        fade: function(from, to, len5, id) {
+        fade: function(from, to, len4, id) {
           var self2 = this;
           if (self2._state !== "loaded" || self2._playLock) {
             self2._queue.push({
               event: "fade",
               action: function() {
-                self2.fade(from, to, len5, id);
+                self2.fade(from, to, len4, id);
               }
             });
             return self2;
           }
           from = Math.min(Math.max(0, parseFloat(from)), 1);
           to = Math.min(Math.max(0, parseFloat(to)), 1);
-          len5 = parseFloat(len5);
+          len4 = parseFloat(len4);
           self2.volume(from, id);
           var ids = self2._getSoundIds(id);
           for (var i = 0; i < ids.length; i++) {
@@ -962,12 +962,12 @@ var require_howler = __commonJS({
               }
               if (self2._webAudio && !sound._muted) {
                 var currentTime = Howler2.ctx.currentTime;
-                var end = currentTime + len5 / 1e3;
+                var end = currentTime + len4 / 1e3;
                 sound._volume = from;
                 sound._node.gain.setValueAtTime(from, currentTime);
                 sound._node.gain.linearRampToValueAtTime(to, end);
               }
-              self2._startFadeInterval(sound, from, to, len5, ids[i], typeof id === "undefined");
+              self2._startFadeInterval(sound, from, to, len4, ids[i], typeof id === "undefined");
             }
           }
           return self2;
@@ -981,16 +981,16 @@ var require_howler = __commonJS({
          * @param  {Number} id   The sound id to fade.
          * @param  {Boolean} isGroup   If true, set the volume on the group.
          */
-        _startFadeInterval: function(sound, from, to, len5, id, isGroup) {
+        _startFadeInterval: function(sound, from, to, len4, id, isGroup) {
           var self2 = this;
           var vol = from;
           var diff = to - from;
           var steps = Math.abs(diff / 0.01);
-          var stepLen = Math.max(4, steps > 0 ? len5 / steps : len5);
+          var stepLen = Math.max(4, steps > 0 ? len4 / steps : len4);
           var lastTick = Date.now();
           sound._fadeTo = to;
           sound._interval = setInterval(function() {
-            var tick = (Date.now() - lastTick) / len5;
+            var tick = (Date.now() - lastTick) / len4;
             lastTick = Date.now();
             vol += diff * tick;
             vol = Math.round(vol * 100) / 100;
@@ -1826,8 +1826,8 @@ var require_howler = __commonJS({
         }
         var iOS = /iP(hone|od|ad)/.test(Howler2._navigator && Howler2._navigator.platform);
         var appVersion = Howler2._navigator && Howler2._navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
-        var version2 = appVersion ? parseInt(appVersion[1], 10) : null;
-        if (iOS && version2 && version2 < 9) {
+        var version = appVersion ? parseInt(appVersion[1], 10) : null;
+        if (iOS && version && version < 9) {
           var safari = /safari/.test(Howler2._navigator && Howler2._navigator.userAgent.toLowerCase());
           if (Howler2._navigator && !safari) {
             Howler2.usingWebAudio = false;
@@ -1878,15 +1878,15 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      HowlerGlobal.prototype.pos = function(x, y, z) {
+      HowlerGlobal.prototype.pos = function(x, y2, z) {
         var self2 = this;
         if (!self2.ctx || !self2.ctx.listener) {
           return self2;
         }
-        y = typeof y !== "number" ? self2._pos[1] : y;
+        y2 = typeof y2 !== "number" ? self2._pos[1] : y2;
         z = typeof z !== "number" ? self2._pos[2] : z;
         if (typeof x === "number") {
-          self2._pos = [x, y, z];
+          self2._pos = [x, y2, z];
           if (typeof self2.ctx.listener.positionX !== "undefined") {
             self2.ctx.listener.positionX.setTargetAtTime(self2._pos[0], Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.positionY.setTargetAtTime(self2._pos[1], Howler.ctx.currentTime, 0.1);
@@ -1899,31 +1899,31 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      HowlerGlobal.prototype.orientation = function(x, y, z, xUp, yUp, zUp) {
+      HowlerGlobal.prototype.orientation = function(x, y2, z, xUp, yUp, zUp) {
         var self2 = this;
         if (!self2.ctx || !self2.ctx.listener) {
           return self2;
         }
-        var or = self2._orientation;
-        y = typeof y !== "number" ? or[1] : y;
-        z = typeof z !== "number" ? or[2] : z;
-        xUp = typeof xUp !== "number" ? or[3] : xUp;
-        yUp = typeof yUp !== "number" ? or[4] : yUp;
-        zUp = typeof zUp !== "number" ? or[5] : zUp;
+        var or2 = self2._orientation;
+        y2 = typeof y2 !== "number" ? or2[1] : y2;
+        z = typeof z !== "number" ? or2[2] : z;
+        xUp = typeof xUp !== "number" ? or2[3] : xUp;
+        yUp = typeof yUp !== "number" ? or2[4] : yUp;
+        zUp = typeof zUp !== "number" ? or2[5] : zUp;
         if (typeof x === "number") {
-          self2._orientation = [x, y, z, xUp, yUp, zUp];
+          self2._orientation = [x, y2, z, xUp, yUp, zUp];
           if (typeof self2.ctx.listener.forwardX !== "undefined") {
             self2.ctx.listener.forwardX.setTargetAtTime(x, Howler.ctx.currentTime, 0.1);
-            self2.ctx.listener.forwardY.setTargetAtTime(y, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.forwardY.setTargetAtTime(y2, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.forwardZ.setTargetAtTime(z, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.upX.setTargetAtTime(xUp, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.upY.setTargetAtTime(yUp, Howler.ctx.currentTime, 0.1);
             self2.ctx.listener.upZ.setTargetAtTime(zUp, Howler.ctx.currentTime, 0.1);
           } else {
-            self2.ctx.listener.setOrientation(x, y, z, xUp, yUp, zUp);
+            self2.ctx.listener.setOrientation(x, y2, z, xUp, yUp, zUp);
           }
         } else {
-          return or;
+          return or2;
         }
         return self2;
       };
@@ -2004,7 +2004,7 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      Howl.prototype.pos = function(x, y, z, id) {
+      Howl.prototype.pos = function(x, y2, z, id) {
         var self2 = this;
         if (!self2._webAudio) {
           return self2;
@@ -2013,16 +2013,16 @@ var require_howler = __commonJS({
           self2._queue.push({
             event: "pos",
             action: function() {
-              self2.pos(x, y, z, id);
+              self2.pos(x, y2, z, id);
             }
           });
           return self2;
         }
-        y = typeof y !== "number" ? 0 : y;
+        y2 = typeof y2 !== "number" ? 0 : y2;
         z = typeof z !== "number" ? -0.5 : z;
         if (typeof id === "undefined") {
           if (typeof x === "number") {
-            self2._pos = [x, y, z];
+            self2._pos = [x, y2, z];
           } else {
             return self2._pos;
           }
@@ -2032,17 +2032,17 @@ var require_howler = __commonJS({
           var sound = self2._soundById(ids[i]);
           if (sound) {
             if (typeof x === "number") {
-              sound._pos = [x, y, z];
+              sound._pos = [x, y2, z];
               if (sound._node) {
                 if (!sound._panner || sound._panner.pan) {
                   setupPanner(sound, "spatial");
                 }
                 if (typeof sound._panner.positionX !== "undefined") {
                   sound._panner.positionX.setValueAtTime(x, Howler.ctx.currentTime);
-                  sound._panner.positionY.setValueAtTime(y, Howler.ctx.currentTime);
+                  sound._panner.positionY.setValueAtTime(y2, Howler.ctx.currentTime);
                   sound._panner.positionZ.setValueAtTime(z, Howler.ctx.currentTime);
                 } else {
-                  sound._panner.setPosition(x, y, z);
+                  sound._panner.setPosition(x, y2, z);
                 }
               }
               self2._emit("pos", sound._id);
@@ -2053,7 +2053,7 @@ var require_howler = __commonJS({
         }
         return self2;
       };
-      Howl.prototype.orientation = function(x, y, z, id) {
+      Howl.prototype.orientation = function(x, y2, z, id) {
         var self2 = this;
         if (!self2._webAudio) {
           return self2;
@@ -2062,16 +2062,16 @@ var require_howler = __commonJS({
           self2._queue.push({
             event: "orientation",
             action: function() {
-              self2.orientation(x, y, z, id);
+              self2.orientation(x, y2, z, id);
             }
           });
           return self2;
         }
-        y = typeof y !== "number" ? self2._orientation[1] : y;
+        y2 = typeof y2 !== "number" ? self2._orientation[1] : y2;
         z = typeof z !== "number" ? self2._orientation[2] : z;
         if (typeof id === "undefined") {
           if (typeof x === "number") {
-            self2._orientation = [x, y, z];
+            self2._orientation = [x, y2, z];
           } else {
             return self2._orientation;
           }
@@ -2081,7 +2081,7 @@ var require_howler = __commonJS({
           var sound = self2._soundById(ids[i]);
           if (sound) {
             if (typeof x === "number") {
-              sound._orientation = [x, y, z];
+              sound._orientation = [x, y2, z];
               if (sound._node) {
                 if (!sound._panner) {
                   if (!sound._pos) {
@@ -2091,10 +2091,10 @@ var require_howler = __commonJS({
                 }
                 if (typeof sound._panner.orientationX !== "undefined") {
                   sound._panner.orientationX.setValueAtTime(x, Howler.ctx.currentTime);
-                  sound._panner.orientationY.setValueAtTime(y, Howler.ctx.currentTime);
+                  sound._panner.orientationY.setValueAtTime(y2, Howler.ctx.currentTime);
                   sound._panner.orientationZ.setValueAtTime(z, Howler.ctx.currentTime);
                 } else {
-                  sound._panner.setOrientation(x, y, z);
+                  sound._panner.setOrientation(x, y2, z);
                 }
               }
               self2._emit("orientation", sound._id);
@@ -2270,7 +2270,7 @@ var require_earcut = __commonJS({
       var hasHoles = holeIndices && holeIndices.length, outerLen = hasHoles ? holeIndices[0] * dim : data.length, outerNode = linkedList(data, 0, outerLen, dim, true), triangles = [];
       if (!outerNode || outerNode.next === outerNode.prev)
         return triangles;
-      var minX, minY, maxX, maxY, x, y, invSize;
+      var minX, minY, maxX, maxY, x, y2, invSize;
       if (hasHoles)
         outerNode = eliminateHoles(data, holeIndices, outerNode, dim);
       if (data.length > 80 * dim) {
@@ -2278,15 +2278,15 @@ var require_earcut = __commonJS({
         minY = maxY = data[1];
         for (var i = dim; i < outerLen; i += dim) {
           x = data[i];
-          y = data[i + 1];
+          y2 = data[i + 1];
           if (x < minX)
             minX = x;
-          if (y < minY)
-            minY = y;
+          if (y2 < minY)
+            minY = y2;
           if (x > maxX)
             maxX = x;
-          if (y > maxY)
-            maxY = y;
+          if (y2 > maxY)
+            maxY = y2;
         }
         invSize = Math.max(maxX - minX, maxY - minY);
         invSize = invSize !== 0 ? 32767 / invSize : 0;
@@ -2303,7 +2303,7 @@ var require_earcut = __commonJS({
         for (i = end - dim; i >= start; i -= dim)
           last = insertNode(i, data[i], data[i + 1], last);
       }
-      if (last && equals7(last, last.next)) {
+      if (last && equals6(last, last.next)) {
         removeNode(last);
         last = last.next;
       }
@@ -2317,7 +2317,7 @@ var require_earcut = __commonJS({
       var p = start, again;
       do {
         again = false;
-        if (!p.steiner && (equals7(p, p.next) || area(p.prev, p, p.next) === 0)) {
+        if (!p.steiner && (equals6(p, p.next) || area(p.prev, p, p.next) === 0)) {
           removeNode(p);
           p = end = p.prev;
           if (p === p.next)
@@ -2407,7 +2407,7 @@ var require_earcut = __commonJS({
       var p = start;
       do {
         var a = p.prev, b = p.next.next;
-        if (!equals7(a, b) && intersects(a, p, p.next, b) && locallyInside(a, b) && locallyInside(b, a)) {
+        if (!equals6(a, b) && intersects(a, p, p.next, b) && locallyInside(a, b) && locallyInside(b, a)) {
           triangles.push(a.i / dim | 0);
           triangles.push(p.i / dim | 0);
           triangles.push(b.i / dim | 0);
@@ -2438,10 +2438,10 @@ var require_earcut = __commonJS({
       } while (a !== start);
     }
     function eliminateHoles(data, holeIndices, outerNode, dim) {
-      var queue = [], i, len5, start, end, list;
-      for (i = 0, len5 = holeIndices.length; i < len5; i++) {
+      var queue = [], i, len4, start, end, list;
+      for (i = 0, len4 = holeIndices.length; i < len4; i++) {
         start = holeIndices[i] * dim;
-        end = i < len5 - 1 ? holeIndices[i + 1] * dim : data.length;
+        end = i < len4 - 1 ? holeIndices[i + 1] * dim : data.length;
         list = linkedList(data, start, end, dim, false);
         if (list === list.next)
           list.steiner = true;
@@ -2466,37 +2466,37 @@ var require_earcut = __commonJS({
       return filterPoints(bridge, bridge.next);
     }
     function findHoleBridge(hole, outerNode) {
-      var p = outerNode, hx = hole.x, hy = hole.y, qx = -Infinity, m;
+      var p = outerNode, hx = hole.x, hy = hole.y, qx = -Infinity, m2;
       do {
         if (hy <= p.y && hy >= p.next.y && p.next.y !== p.y) {
           var x = p.x + (hy - p.y) * (p.next.x - p.x) / (p.next.y - p.y);
           if (x <= hx && x > qx) {
             qx = x;
-            m = p.x < p.next.x ? p : p.next;
+            m2 = p.x < p.next.x ? p : p.next;
             if (x === hx)
-              return m;
+              return m2;
           }
         }
         p = p.next;
       } while (p !== outerNode);
-      if (!m)
+      if (!m2)
         return null;
-      var stop = m, mx = m.x, my = m.y, tanMin = Infinity, tan;
-      p = m;
+      var stop = m2, mx = m2.x, my = m2.y, tanMin = Infinity, tan;
+      p = m2;
       do {
         if (hx >= p.x && p.x >= mx && hx !== p.x && pointInTriangle(hy < my ? hx : qx, hy, mx, my, hy < my ? qx : hx, hy, p.x, p.y)) {
           tan = Math.abs(hy - p.y) / (hx - p.x);
-          if (locallyInside(p, hole) && (tan < tanMin || tan === tanMin && (p.x > m.x || p.x === m.x && sectorContainsSector(m, p)))) {
-            m = p;
+          if (locallyInside(p, hole) && (tan < tanMin || tan === tanMin && (p.x > m2.x || p.x === m2.x && sectorContainsSector(m2, p)))) {
+            m2 = p;
             tanMin = tan;
           }
         }
         p = p.next;
       } while (p !== stop);
-      return m;
+      return m2;
     }
-    function sectorContainsSector(m, p) {
-      return area(m.prev, m, p.prev) < 0 && area(p.next, m, m.next) < 0;
+    function sectorContainsSector(m2, p) {
+      return area(m2.prev, m2, p.prev) < 0 && area(p.next, m2, m2.next) < 0;
     }
     function indexCurve(start, minX, minY, invSize) {
       var p = start;
@@ -2553,18 +2553,18 @@ var require_earcut = __commonJS({
       } while (numMerges > 1);
       return list;
     }
-    function zOrder(x, y, minX, minY, invSize) {
+    function zOrder(x, y2, minX, minY, invSize) {
       x = (x - minX) * invSize | 0;
-      y = (y - minY) * invSize | 0;
+      y2 = (y2 - minY) * invSize | 0;
       x = (x | x << 8) & 16711935;
       x = (x | x << 4) & 252645135;
       x = (x | x << 2) & 858993459;
       x = (x | x << 1) & 1431655765;
-      y = (y | y << 8) & 16711935;
-      y = (y | y << 4) & 252645135;
-      y = (y | y << 2) & 858993459;
-      y = (y | y << 1) & 1431655765;
-      return x | y << 1;
+      y2 = (y2 | y2 << 8) & 16711935;
+      y2 = (y2 | y2 << 4) & 252645135;
+      y2 = (y2 | y2 << 2) & 858993459;
+      y2 = (y2 | y2 << 1) & 1431655765;
+      return x | y2 << 1;
     }
     function getLeftmost(start) {
       var p = start, leftmost = start;
@@ -2582,12 +2582,12 @@ var require_earcut = __commonJS({
       return a.next.i !== b.i && a.prev.i !== b.i && !intersectsPolygon(a, b) && // dones't intersect other edges
       (locallyInside(a, b) && locallyInside(b, a) && middleInside(a, b) && // locally visible
       (area(a.prev, a, b.prev) || area(a, b.prev, b)) || // does not create opposite-facing sectors
-      equals7(a, b) && area(a.prev, a, a.next) > 0 && area(b.prev, b, b.next) > 0);
+      equals6(a, b) && area(a.prev, a, a.next) > 0 && area(b.prev, b, b.next) > 0);
     }
     function area(p, q, r) {
       return (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
     }
-    function equals7(p1, p2) {
+    function equals6(p1, p2) {
       return p1.x === p2.x && p1.y === p2.y;
     }
     function intersects(p1, q1, p2, q2) {
@@ -2646,8 +2646,8 @@ var require_earcut = __commonJS({
       b2.prev = bp;
       return b2;
     }
-    function insertNode(i, x, y, last) {
-      var p = new Node(i, x, y);
+    function insertNode(i, x, y2, last) {
+      var p = new Node(i, x, y2);
       if (!last) {
         p.prev = p;
         p.next = p;
@@ -2667,10 +2667,10 @@ var require_earcut = __commonJS({
       if (p.nextZ)
         p.nextZ.prevZ = p.prevZ;
     }
-    function Node(i, x, y) {
+    function Node(i, x, y2) {
       this.i = i;
       this.x = x;
-      this.y = y;
+      this.y = y2;
       this.prev = null;
       this.next = null;
       this.z = 0;
@@ -2683,9 +2683,9 @@ var require_earcut = __commonJS({
       var outerLen = hasHoles ? holeIndices[0] * dim : data.length;
       var polygonArea = Math.abs(signedArea(data, 0, outerLen, dim));
       if (hasHoles) {
-        for (var i = 0, len5 = holeIndices.length; i < len5; i++) {
+        for (var i = 0, len4 = holeIndices.length; i < len4; i++) {
           var start = holeIndices[i] * dim;
-          var end = i < len5 - 1 ? holeIndices[i + 1] * dim : data.length;
+          var end = i < len4 - 1 ? holeIndices[i + 1] * dim : data.length;
           polygonArea -= Math.abs(signedArea(data, start, end, dim));
         }
       }
@@ -2928,8 +2928,8 @@ var Property = {
    * @param x The x component.
    * @param y The y component.
    */
-  vector2(x = 0, y = 0) {
-    return { type: Type.Vector2, default: [x, y] };
+  vector2(x = 0, y2 = 0) {
+    return { type: Type.Vector2, default: [x, y2] };
   },
   /**
    * Create a three-element vector property.
@@ -2938,8 +2938,8 @@ var Property = {
    * @param y The y component.
    * @param z The z component.
    */
-  vector3(x = 0, y = 0, z = 0) {
-    return { type: Type.Vector3, default: [x, y, z] };
+  vector3(x = 0, y2 = 0, z = 0) {
+    return { type: Type.Vector3, default: [x, y2, z] };
   },
   /**
    * Create a four-element vector property.
@@ -2949,8 +2949,8 @@ var Property = {
    * @param z The z component.
    * @param w The w component.
    */
-  vector4(x = 0, y = 0, z = 0, w = 0) {
-    return { type: Type.Vector4, default: [x, y, z, w] };
+  vector4(x = 0, y2 = 0, z = 0, w = 0) {
+    return { type: Type.Vector4, default: [x, y2, z, w] };
   }
 };
 
@@ -4179,11 +4179,11 @@ var Prefab = class {
 };
 
 // node_modules/@wonderlandengine/api/dist/utils/misc.js
-function clamp(val, min3, max3) {
-  return Math.max(Math.min(max3, val), min3);
+function clamp(val, min2, max2) {
+  return Math.max(Math.min(max2, val), min2);
 }
-function capitalizeFirstUTF8(str6) {
-  return `${str6[0].toUpperCase()}${str6.substring(1)}`;
+function capitalizeFirstUTF8(str5) {
+  return `${str5[0].toUpperCase()}${str5.substring(1)}`;
 }
 function createDestroyedProxy2(type) {
   return new Proxy({}, {
@@ -5015,8 +5015,8 @@ var CollisionComponent = class extends Component {
    *
    */
   set radius(radius) {
-    const length6 = this.collider === Collider.Sphere ? radius : 2 * radius / SQRT_3;
-    this.extents.set([length6, length6, length6]);
+    const length5 = this.collider === Collider.Sphere ? radius : 2 * radius / SQRT_3;
+    this.extents.set([length5, length5, length5]);
   }
   /**
    * Collision component group.
@@ -5404,10 +5404,10 @@ var InputComponent = class extends Component {
    * if type {@link InputType.ControllerLeft} or {@link InputType.ControllerRight}.
    */
   get xrInputSource() {
-    const xr = this.engine.xr;
-    if (!xr)
+    const xr2 = this.engine.xr;
+    if (!xr2)
       return null;
-    for (let inputSource of xr.session.inputSources) {
+    for (let inputSource of xr2.session.inputSources) {
       if (inputSource.handedness == this.handedness) {
         return inputSource;
       }
@@ -5519,8 +5519,8 @@ var LightComponent = class extends Component {
    * @param angle Outer angle, in degrees.
    * @since 1.0.0
    */
-  set outerAngle(angle3) {
-    this.engine.wasm._wl_light_component_set_outerAngle(this._id, angle3);
+  set outerAngle(angle2) {
+    this.engine.wasm._wl_light_component_set_outerAngle(this._id, angle2);
   }
   /**
    * Inner angle for spot lights, in degrees.
@@ -5535,8 +5535,8 @@ var LightComponent = class extends Component {
    * @param angle Inner angle, in degrees.
    * @since 1.0.0
    */
-  set innerAngle(angle3) {
-    this.engine.wasm._wl_light_component_set_innerAngle(this._id, angle3);
+  set innerAngle(angle2) {
+    this.engine.wasm._wl_light_component_set_innerAngle(this._id, angle2);
   }
   /**
    * Whether the light casts shadows.
@@ -6478,8 +6478,8 @@ var PhysXComponent = class extends Component {
    *
    * @param m New mass.
    */
-  set mass(m) {
-    this.engine.wasm._wl_physx_component_set_mass(this._id, m);
+  set mass(m2) {
+    this.engine.wasm._wl_physx_component_set_mass(this._id, m2);
   }
   /** Mass */
   get mass() {
@@ -6530,13 +6530,13 @@ var PhysXComponent = class extends Component {
    * @param p Position to apply force at, default is center of mass.
    * @param local Whether position is in local space, default `false`.
    */
-  addForce(f, m = ForceMode.Force, localForce = false, p, local = false) {
+  addForce(f2, m2 = ForceMode.Force, localForce = false, p, local = false) {
     const wasm = this.engine.wasm;
     if (!p) {
-      wasm._wl_physx_component_addForce(this._id, f[0], f[1], f[2], m, localForce);
+      wasm._wl_physx_component_addForce(this._id, f2[0], f2[1], f2[2], m2, localForce);
       return;
     }
-    wasm._wl_physx_component_addForceAt(this._id, f[0], f[1], f[2], m, localForce, p[0], p[1], p[2], local);
+    wasm._wl_physx_component_addForceAt(this._id, f2[0], f2[1], f2[2], m2, localForce, p[0], p[1], p[2], local);
   }
   /**
    * Apply torque.
@@ -6548,8 +6548,8 @@ var PhysXComponent = class extends Component {
    * @param f Force vector.
    * @param m Force mode, see {@link ForceMode}, default `Force`.
    */
-  addTorque(f, m = ForceMode.Force) {
-    this.engine.wasm._wl_physx_component_addTorque(this._id, f[0], f[1], f[2], m);
+  addTorque(f2, m2 = ForceMode.Force) {
+    this.engine.wasm._wl_physx_component_addTorque(this._id, f2[0], f2[1], f2[2], m2);
   }
   /**
    * Add on collision callback.
@@ -7096,7 +7096,7 @@ var Texture = class extends Resource {
    * @param w width
    * @param h height
    */
-  updateSubImage(x, y, w, h) {
+  updateSubImage(x, y2, w, h) {
     if (this.isDestroyed)
       return;
     const image = this._imageIndex;
@@ -7120,8 +7120,8 @@ var Texture = class extends Resource {
       return;
     temp2d.canvas.width = w;
     temp2d.canvas.height = h;
-    temp2d.ctx.drawImage(img, x, y, w, h, 0, 0, w, h);
-    const yOffset = (img.videoHeight ?? img.height) - y - h;
+    temp2d.ctx.drawImage(img, x, y2, w, h, 0, 0, w, h);
+    const yOffset = (img.videoHeight ?? img.height) - y2 - h;
     wasm._images[jsImageIndex] = temp2d.canvas;
     wasm._wl_renderer_updateImage(image, x, yOffset);
     wasm._images[jsImageIndex] = img;
@@ -8652,14 +8652,14 @@ var math = class {
    *
    * @since 0.8.6
    */
-  static cubicHermite(out, a, b, c, d, f, engine2 = WL) {
+  static cubicHermite(out, a, b, c, d, f2, engine2 = WL) {
     const wasm = engine2.wasm;
     wasm._tempMemFloat.subarray(0).set(a);
     wasm._tempMemFloat.subarray(4).set(b);
     wasm._tempMemFloat.subarray(8).set(c);
     wasm._tempMemFloat.subarray(12).set(d);
     const isQuat = a.length == 4;
-    wasm._wl_math_cubicHermite(wasm._tempMem + 4 * 16, wasm._tempMem + 4 * 0, wasm._tempMem + 4 * 4, wasm._tempMem + 4 * 8, wasm._tempMem + 4 * 12, f, isQuat);
+    wasm._wl_math_cubicHermite(wasm._tempMem + 4 * 16, wasm._tempMem + 4 * 0, wasm._tempMem + 4 * 4, wasm._tempMem + 4 * 8, wasm._tempMem + 4 * 12, f2, isQuat);
     out[0] = wasm._tempMemFloat[16];
     out[1] = wasm._tempMemFloat[17];
     out[2] = wasm._tempMemFloat[18];
@@ -10468,8 +10468,8 @@ var WonderlandEngine = class {
   /** Get all uncompressed images. */
   get images() {
     const wasm = this.wasm;
-    const max3 = wasm._tempMemSize >> 1;
-    const count = wasm._wl_get_images(wasm._tempMem, max3);
+    const max2 = wasm._tempMemSize >> 1;
+    const count = wasm._wl_get_images(wasm._tempMem, max2);
     const result = new Array(count);
     for (let i = 0; i < count; ++i) {
       const index = wasm._tempMemUint16[i];
@@ -10803,12 +10803,12 @@ function decode(data, tagger = (_, value) => value, options = {}) {
   const { dictionary = "object" } = options;
   const dataView = new DataView(data.buffer, data.byteOffset, data.byteLength);
   let offset2 = 0;
-  function commitRead(length6, value) {
-    offset2 += length6;
+  function commitRead(length5, value) {
+    offset2 += length5;
     return value;
   }
-  function readArrayBuffer(length6) {
-    return commitRead(length6, data.subarray(offset2, offset2 + length6));
+  function readArrayBuffer(length5) {
+    return commitRead(length5, data.subarray(offset2, offset2 + length5));
   }
   function readFloat16() {
     const POW_2_24 = 5960464477539063e-23;
@@ -10874,25 +10874,25 @@ function decode(data, tagger = (_, value) => value, options = {}) {
     const initialByte = readUint8();
     if (initialByte === 255)
       return -1;
-    const length6 = readLength(initialByte & 31);
-    if (length6 < 0 || initialByte >> 5 !== majorType) {
+    const length5 = readLength(initialByte & 31);
+    if (length5 < 0 || initialByte >> 5 !== majorType) {
       throw new Error("CBORError: Invalid indefinite length element");
     }
-    return Number(length6);
+    return Number(length5);
   }
-  function appendUtf16Data(utf16data, length6) {
-    for (let i = 0; i < length6; ++i) {
+  function appendUtf16Data(utf16data, length5) {
+    for (let i = 0; i < length5; ++i) {
       let value = readUint8();
       if (value & 128) {
         if (value < 224) {
           value = (value & 31) << 6 | readUint8() & 63;
-          length6 -= 1;
+          length5 -= 1;
         } else if (value < 240) {
           value = (value & 15) << 12 | (readUint8() & 63) << 6 | readUint8() & 63;
-          length6 -= 2;
+          length5 -= 2;
         } else {
           value = (value & 7) << 18 | (readUint8() & 63) << 12 | (readUint8() & 63) << 6 | readUint8() & 63;
-          length6 -= 3;
+          length5 -= 3;
         }
       }
       if (value < 65536) {
@@ -10909,7 +10909,7 @@ function decode(data, tagger = (_, value) => value, options = {}) {
     const majorType = initialByte >> 5;
     const additionalInformation = initialByte & 31;
     let i;
-    let length6;
+    let length5;
     if (majorType === 7) {
       switch (additionalInformation) {
         case 25:
@@ -10920,25 +10920,25 @@ function decode(data, tagger = (_, value) => value, options = {}) {
           return readFloat64();
       }
     }
-    length6 = readLength(additionalInformation);
-    if (length6 < 0 && (majorType < 2 || 6 < majorType)) {
+    length5 = readLength(additionalInformation);
+    if (length5 < 0 && (majorType < 2 || 6 < majorType)) {
       throw new Error("CBORError: Invalid length");
     }
     switch (majorType) {
       case 0:
-        return length6;
+        return length5;
       case 1:
-        if (typeof length6 === "number") {
-          return -1 - length6;
+        if (typeof length5 === "number") {
+          return -1 - length5;
         }
-        return -1n - length6;
+        return -1n - length5;
       case 2: {
-        if (length6 < 0) {
+        if (length5 < 0) {
           const elements = [];
           let fullArrayLength = 0;
-          while ((length6 = readIndefiniteStringLength(majorType)) >= 0) {
-            fullArrayLength += length6;
-            elements.push(readArrayBuffer(length6));
+          while ((length5 = readIndefiniteStringLength(majorType)) >= 0) {
+            fullArrayLength += length5;
+            elements.push(readArrayBuffer(length5));
           }
           const fullArray = new Uint8Array(fullArrayLength);
           let fullArrayOffset = 0;
@@ -10948,16 +10948,16 @@ function decode(data, tagger = (_, value) => value, options = {}) {
           }
           return fullArray;
         }
-        return readArrayBuffer(length6).slice();
+        return readArrayBuffer(length5).slice();
       }
       case 3: {
         const utf16data = [];
-        if (length6 < 0) {
-          while ((length6 = readIndefiniteStringLength(majorType)) >= 0) {
-            appendUtf16Data(utf16data, length6);
+        if (length5 < 0) {
+          while ((length5 = readIndefiniteStringLength(majorType)) >= 0) {
+            appendUtf16Data(utf16data, length5);
           }
         } else {
-          appendUtf16Data(utf16data, length6);
+          appendUtf16Data(utf16data, length5);
         }
         let string = "";
         const DECODE_CHUNK_SIZE = 8192;
@@ -10968,15 +10968,15 @@ function decode(data, tagger = (_, value) => value, options = {}) {
       }
       case 4: {
         let retArray;
-        if (length6 < 0) {
+        if (length5 < 0) {
           retArray = [];
           let index = 0;
           while (!readBreak()) {
             retArray.push(decodeItem());
           }
         } else {
-          retArray = new Array(length6);
-          for (i = 0; i < length6; ++i) {
+          retArray = new Array(length5);
+          for (i = 0; i < length5; ++i) {
             retArray[i] = decodeItem();
           }
         }
@@ -10985,7 +10985,7 @@ function decode(data, tagger = (_, value) => value, options = {}) {
       case 5: {
         if (dictionary === "map") {
           const retMap = /* @__PURE__ */ new Map();
-          for (i = 0; i < length6 || length6 < 0 && !readBreak(); ++i) {
+          for (i = 0; i < length5 || length5 < 0 && !readBreak(); ++i) {
             const key = decodeItem();
             if (retMap.has(key)) {
               throw new Error("CBORError: Duplicate key encountered");
@@ -10995,7 +10995,7 @@ function decode(data, tagger = (_, value) => value, options = {}) {
           return retMap;
         }
         const retObject = {};
-        for (i = 0; i < length6 || length6 < 0 && !readBreak(); ++i) {
+        for (i = 0; i < length5 || length5 < 0 && !readBreak(); ++i) {
           const key = decodeItem();
           if (Object.prototype.hasOwnProperty.call(retObject, key)) {
             throw new Error("CBORError: Duplicate key encountered");
@@ -11006,7 +11006,7 @@ function decode(data, tagger = (_, value) => value, options = {}) {
       }
       case 6: {
         const value = decodeItem();
-        const tag = length6;
+        const tag = length5;
         if (value instanceof Uint8Array) {
           switch (tag) {
             case kCborTagBignum:
@@ -11041,7 +11041,7 @@ function decode(data, tagger = (_, value) => value, options = {}) {
         return tagger(tag, value);
       }
       case 7:
-        switch (length6) {
+        switch (length5) {
           case 20:
             return false;
           case 21:
@@ -11051,7 +11051,7 @@ function decode(data, tagger = (_, value) => value, options = {}) {
           case 23:
             return void 0;
           default:
-            return length6;
+            return length5;
         }
     }
   }
@@ -11458,11 +11458,11 @@ var WASM = class {
    *     the string should be written. This is useful when using multiple temporaries.
    * @return The temporary pointer onto the WASM memory
    */
-  tempUTF8(str6, byteOffset = 0) {
-    const strLen = this.lengthBytesUTF8(str6) + 1;
+  tempUTF8(str5, byteOffset = 0) {
+    const strLen = this.lengthBytesUTF8(str5) + 1;
     this.requireTempMem(strLen + byteOffset);
     const ptr = this._tempMem + byteOffset;
-    this.stringToUTF8(str6, ptr, strLen);
+    this.stringToUTF8(str5, ptr, strLen);
     return ptr;
   }
   /**
@@ -11627,8 +11627,8 @@ var WASM = class {
             value = scene.skins.wrap(value);
             break;
           case Type.Color:
-            const max3 = (1 << value.BYTES_PER_ELEMENT * 8) - 1;
-            value = Float32Array.from(value, (f, _) => f / max3);
+            const max2 = (1 << value.BYTES_PER_ELEMENT * 8) - 1;
+            value = Float32Array.from(value, (f2, _) => f2 / max2);
             break;
         }
         component[name] = value;
@@ -11775,8 +11775,8 @@ function checkXRSupport2() {
   const arPromise = xrSupported.ar !== null ? Promise.resolve() : navigator.xr.isSessionSupported("immersive-ar").then((supported) => xrSupported.ar = supported);
   return Promise.all([vrPromise, arPromise]).then(() => xrSupported);
 }
-function checkRuntimeCompatibility(version2) {
-  const { major, minor } = version2;
+function checkRuntimeCompatibility(version) {
+  const { major, minor } = version;
   let majorDiff = major - APIVersion.major;
   let minorDiff = minor - APIVersion.minor;
   if (!majorDiff && !minorDiff)
@@ -11786,7 +11786,7 @@ function checkRuntimeCompatibility(version2) {
   if (isRuntimeOlder) {
     throw new Error(`${error}	\u2192 Please use a Wonderland Engine editor version >= ${APIVersion.major}.${APIVersion.minor}.*`);
   }
-  throw new Error(`${error}	\u2192 Please use a new API version >= ${version2.major}.${version2.minor}.*`);
+  throw new Error(`${error}	\u2192 Please use a new API version >= ${version.major}.${version.minor}.*`);
 }
 async function loadRuntime(runtime, options = {}) {
   const xrPromise = checkXRSupport2();
@@ -11853,9 +11853,9 @@ async function loadRuntime(runtime, options = {}) {
   await runtimes[runtimeGlobalId](wasm);
   engine2._init();
   checkRuntimeCompatibility(engine2.runtimeVersion);
-  const xr = await xrPromise;
-  engine2.arSupported = xr.ar;
-  engine2.vrSupported = xr.vr;
+  const xr2 = await xrPromise;
+  engine2.arSupported = xr2.ar;
+  engine2.vrSupported = xr2.vr;
   engine2.xrFramebufferScaleFactor = xrFramebufferScaleFactor;
   engine2.autoResizeCanvas = true;
   engine2.start();
@@ -12407,8 +12407,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onHover.add(f);
    */
-  addHoverFunction(f) {
-    this.onHover.add(f);
+  addHoverFunction(f2) {
+    this.onHover.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12416,8 +12416,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onHover.remove(f);
    */
-  removeHoverFunction(f) {
-    this.onHover.remove(f);
+  removeHoverFunction(f2) {
+    this.onHover.remove(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12425,8 +12425,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onUnhover.add(f);
    */
-  addUnHoverFunction(f) {
-    this.onUnhover.add(f);
+  addUnHoverFunction(f2) {
+    this.onUnhover.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12434,8 +12434,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onUnhover.remove(f);
    */
-  removeUnHoverFunction(f) {
-    this.onUnhover.remove(f);
+  removeUnHoverFunction(f2) {
+    this.onUnhover.remove(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12443,8 +12443,8 @@ var CursorTarget = class extends Component {
    * @example
    *    this.onClick.add(f);
    */
-  addClickFunction(f) {
-    this.onClick.add(f);
+  addClickFunction(f2) {
+    this.onClick.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12452,8 +12452,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onClick.remove(f);
    */
-  removeClickFunction(f) {
-    this.onClick.remove(f);
+  removeClickFunction(f2) {
+    this.onClick.remove(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12461,8 +12461,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onMove.add(f);
    */
-  addMoveFunction(f) {
-    this.onMove.add(f);
+  addMoveFunction(f2) {
+    this.onMove.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12470,8 +12470,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onMove.remove(f);
    */
-  removeMoveFunction(f) {
-    this.onMove.remove(f);
+  removeMoveFunction(f2) {
+    this.onMove.remove(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12479,8 +12479,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onDown.add(f);
    */
-  addDownFunction(f) {
-    this.onDown.add(f);
+  addDownFunction(f2) {
+    this.onDown.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12488,8 +12488,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onDown.remove(f);
    */
-  removeDownFunction(f) {
-    this.onDown.remove(f);
+  removeDownFunction(f2) {
+    this.onDown.remove(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12497,8 +12497,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onUp.add(f);
    */
-  addUpFunction(f) {
-    this.onUp.add(f);
+  addUpFunction(f2) {
+    this.onUp.add(f2);
   }
   /**
    * @deprecated Use the emitter instead.
@@ -12506,8 +12506,8 @@ var CursorTarget = class extends Component {
    * @example
    *    component.onUp.remove(f);
    */
-  removeUpFunction(f) {
-    this.onUp.remove(f);
+  removeUpFunction(f2) {
+    this.onUp.remove(f2);
   }
 };
 __publicField(CursorTarget, "TypeName", "cursor-target");
@@ -12520,11 +12520,11 @@ var RANDOM = Math.random;
 var degree = Math.PI / 180;
 if (!Math.hypot)
   Math.hypot = function() {
-    var y = 0, i = arguments.length;
+    var y2 = 0, i = arguments.length;
     while (i--) {
-      y += arguments[i] * arguments[i];
+      y2 += arguments[i] * arguments[i];
     }
-    return Math.sqrt(y);
+    return Math.sqrt(y2);
   };
 
 // node_modules/gl-matrix/esm/mat3.js
@@ -12874,15 +12874,15 @@ function multiply(out, a, b) {
   return out;
 }
 function translate(out, a, v) {
-  var x = v[0], y = v[1], z = v[2];
+  var x = v[0], y2 = v[1], z = v[2];
   var a00, a01, a02, a03;
   var a10, a11, a12, a13;
   var a20, a21, a22, a23;
   if (a === out) {
-    out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
-    out[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
-    out[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
-    out[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
+    out[12] = a[0] * x + a[4] * y2 + a[8] * z + a[12];
+    out[13] = a[1] * x + a[5] * y2 + a[9] * z + a[13];
+    out[14] = a[2] * x + a[6] * y2 + a[10] * z + a[14];
+    out[15] = a[3] * x + a[7] * y2 + a[11] * z + a[15];
   } else {
     a00 = a[0];
     a01 = a[1];
@@ -12908,23 +12908,23 @@ function translate(out, a, v) {
     out[9] = a21;
     out[10] = a22;
     out[11] = a23;
-    out[12] = a00 * x + a10 * y + a20 * z + a[12];
-    out[13] = a01 * x + a11 * y + a21 * z + a[13];
-    out[14] = a02 * x + a12 * y + a22 * z + a[14];
-    out[15] = a03 * x + a13 * y + a23 * z + a[15];
+    out[12] = a00 * x + a10 * y2 + a20 * z + a[12];
+    out[13] = a01 * x + a11 * y2 + a21 * z + a[13];
+    out[14] = a02 * x + a12 * y2 + a22 * z + a[14];
+    out[15] = a03 * x + a13 * y2 + a23 * z + a[15];
   }
   return out;
 }
 function scale(out, a, v) {
-  var x = v[0], y = v[1], z = v[2];
+  var x = v[0], y2 = v[1], z = v[2];
   out[0] = a[0] * x;
   out[1] = a[1] * x;
   out[2] = a[2] * x;
   out[3] = a[3] * x;
-  out[4] = a[4] * y;
-  out[5] = a[5] * y;
-  out[6] = a[6] * y;
-  out[7] = a[7] * y;
+  out[4] = a[4] * y2;
+  out[5] = a[5] * y2;
+  out[6] = a[6] * y2;
+  out[7] = a[7] * y2;
   out[8] = a[8] * z;
   out[9] = a[9] * z;
   out[10] = a[10] * z;
@@ -12936,8 +12936,8 @@ function scale(out, a, v) {
   return out;
 }
 function rotate(out, a, rad, axis) {
-  var x = axis[0], y = axis[1], z = axis[2];
-  var len5 = Math.hypot(x, y, z);
+  var x = axis[0], y2 = axis[1], z = axis[2];
+  var len4 = Math.hypot(x, y2, z);
   var s, c, t;
   var a00, a01, a02, a03;
   var a10, a11, a12, a13;
@@ -12945,13 +12945,13 @@ function rotate(out, a, rad, axis) {
   var b00, b01, b02;
   var b10, b11, b12;
   var b20, b21, b22;
-  if (len5 < EPSILON) {
+  if (len4 < EPSILON) {
     return null;
   }
-  len5 = 1 / len5;
-  x *= len5;
-  y *= len5;
-  z *= len5;
+  len4 = 1 / len4;
+  x *= len4;
+  y2 *= len4;
+  z *= len4;
   s = Math.sin(rad);
   c = Math.cos(rad);
   t = 1 - c;
@@ -12968,13 +12968,13 @@ function rotate(out, a, rad, axis) {
   a22 = a[10];
   a23 = a[11];
   b00 = x * x * t + c;
-  b01 = y * x * t + z * s;
-  b02 = z * x * t - y * s;
-  b10 = x * y * t - z * s;
-  b11 = y * y * t + c;
-  b12 = z * y * t + x * s;
-  b20 = x * z * t + y * s;
-  b21 = y * z * t - x * s;
+  b01 = y2 * x * t + z * s;
+  b02 = z * x * t - y2 * s;
+  b10 = x * y2 * t - z * s;
+  b11 = y2 * y2 * t + c;
+  b12 = z * y2 * t + x * s;
+  b20 = x * z * t + y2 * s;
+  b21 = y2 * z * t - x * s;
   b22 = z * z * t + c;
   out[0] = a00 * b00 + a10 * b01 + a20 * b02;
   out[1] = a01 * b00 + a11 * b01 + a21 * b02;
@@ -13128,29 +13128,29 @@ function fromScaling(out, v) {
   return out;
 }
 function fromRotation(out, rad, axis) {
-  var x = axis[0], y = axis[1], z = axis[2];
-  var len5 = Math.hypot(x, y, z);
+  var x = axis[0], y2 = axis[1], z = axis[2];
+  var len4 = Math.hypot(x, y2, z);
   var s, c, t;
-  if (len5 < EPSILON) {
+  if (len4 < EPSILON) {
     return null;
   }
-  len5 = 1 / len5;
-  x *= len5;
-  y *= len5;
-  z *= len5;
+  len4 = 1 / len4;
+  x *= len4;
+  y2 *= len4;
+  z *= len4;
   s = Math.sin(rad);
   c = Math.cos(rad);
   t = 1 - c;
   out[0] = x * x * t + c;
-  out[1] = y * x * t + z * s;
-  out[2] = z * x * t - y * s;
+  out[1] = y2 * x * t + z * s;
+  out[2] = z * x * t - y2 * s;
   out[3] = 0;
-  out[4] = x * y * t - z * s;
-  out[5] = y * y * t + c;
-  out[6] = z * y * t + x * s;
+  out[4] = x * y2 * t - z * s;
+  out[5] = y2 * y2 * t + c;
+  out[6] = z * y2 * t + x * s;
   out[7] = 0;
-  out[8] = x * z * t + y * s;
-  out[9] = y * z * t - x * s;
+  out[8] = x * z * t + y2 * s;
+  out[9] = y2 * z * t - x * s;
   out[10] = z * z * t + c;
   out[11] = 0;
   out[12] = 0;
@@ -13223,18 +13223,18 @@ function fromZRotation(out, rad) {
   return out;
 }
 function fromRotationTranslation(out, q, v) {
-  var x = q[0], y = q[1], z = q[2], w = q[3];
+  var x = q[0], y2 = q[1], z = q[2], w = q[3];
   var x2 = x + x;
-  var y2 = y + y;
+  var y22 = y2 + y2;
   var z2 = z + z;
   var xx = x * x2;
-  var xy = x * y2;
+  var xy = x * y22;
   var xz = x * z2;
-  var yy = y * y2;
-  var yz = y * z2;
+  var yy = y2 * y22;
+  var yz = y2 * z2;
   var zz = z * z2;
   var wx = w * x2;
-  var wy = w * y2;
+  var wy = w * y22;
   var wz = w * z2;
   out[0] = 1 - (yy + zz);
   out[1] = xy + wz;
@@ -13336,18 +13336,18 @@ function getRotation(out, mat) {
   return out;
 }
 function fromRotationTranslationScale(out, q, v, s) {
-  var x = q[0], y = q[1], z = q[2], w = q[3];
+  var x = q[0], y2 = q[1], z = q[2], w = q[3];
   var x2 = x + x;
-  var y2 = y + y;
+  var y22 = y2 + y2;
   var z2 = z + z;
   var xx = x * x2;
-  var xy = x * y2;
+  var xy = x * y22;
   var xz = x * z2;
-  var yy = y * y2;
-  var yz = y * z2;
+  var yy = y2 * y22;
+  var yz = y2 * z2;
   var zz = z * z2;
   var wx = w * x2;
-  var wy = w * y2;
+  var wy = w * y22;
   var wz = w * z2;
   var sx = s[0];
   var sy = s[1];
@@ -13371,18 +13371,18 @@ function fromRotationTranslationScale(out, q, v, s) {
   return out;
 }
 function fromRotationTranslationScaleOrigin(out, q, v, s, o) {
-  var x = q[0], y = q[1], z = q[2], w = q[3];
+  var x = q[0], y2 = q[1], z = q[2], w = q[3];
   var x2 = x + x;
-  var y2 = y + y;
+  var y22 = y2 + y2;
   var z2 = z + z;
   var xx = x * x2;
-  var xy = x * y2;
+  var xy = x * y22;
   var xz = x * z2;
-  var yy = y * y2;
-  var yz = y * z2;
+  var yy = y2 * y22;
+  var yz = y2 * z2;
   var zz = z * z2;
   var wx = w * x2;
-  var wy = w * y2;
+  var wy = w * y22;
   var wz = w * z2;
   var sx = s[0];
   var sy = s[1];
@@ -13418,18 +13418,18 @@ function fromRotationTranslationScaleOrigin(out, q, v, s, o) {
   return out;
 }
 function fromQuat(out, q) {
-  var x = q[0], y = q[1], z = q[2], w = q[3];
+  var x = q[0], y2 = q[1], z = q[2], w = q[3];
   var x2 = x + x;
-  var y2 = y + y;
+  var y22 = y2 + y2;
   var z2 = z + z;
   var xx = x * x2;
-  var yx = y * x2;
-  var yy = y * y2;
+  var yx = y2 * x2;
+  var yy = y2 * y22;
   var zx = z * x2;
-  var zy = z * y2;
+  var zy = z * y22;
   var zz = z * z2;
   var wx = w * x2;
-  var wy = w * y2;
+  var wy = w * y22;
   var wz = w * z2;
   out[0] = 1 - yy - zz;
   out[1] = yx + wz;
@@ -13472,13 +13472,13 @@ function frustum(out, left, right, bottom, top, near, far) {
   return out;
 }
 function perspectiveNO(out, fovy, aspect, near, far) {
-  var f = 1 / Math.tan(fovy / 2), nf;
-  out[0] = f / aspect;
+  var f2 = 1 / Math.tan(fovy / 2), nf;
+  out[0] = f2 / aspect;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = f;
+  out[5] = f2;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
@@ -13499,13 +13499,13 @@ function perspectiveNO(out, fovy, aspect, near, far) {
 }
 var perspective = perspectiveNO;
 function perspectiveZO(out, fovy, aspect, near, far) {
-  var f = 1 / Math.tan(fovy / 2), nf;
-  out[0] = f / aspect;
+  var f2 = 1 / Math.tan(fovy / 2), nf;
+  out[0] = f2 / aspect;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
   out[4] = 0;
-  out[5] = f;
+  out[5] = f2;
   out[6] = 0;
   out[7] = 0;
   out[8] = 0;
@@ -13550,10 +13550,10 @@ function perspectiveFromFieldOfView(out, fov, near, far) {
   return out;
 }
 function orthoNO(out, left, right, bottom, top, near, far) {
-  var lr = 1 / (left - right);
+  var lr2 = 1 / (left - right);
   var bt = 1 / (bottom - top);
   var nf = 1 / (near - far);
-  out[0] = -2 * lr;
+  out[0] = -2 * lr2;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
@@ -13565,7 +13565,7 @@ function orthoNO(out, left, right, bottom, top, near, far) {
   out[9] = 0;
   out[10] = 2 * nf;
   out[11] = 0;
-  out[12] = (left + right) * lr;
+  out[12] = (left + right) * lr2;
   out[13] = (top + bottom) * bt;
   out[14] = (far + near) * nf;
   out[15] = 1;
@@ -13573,10 +13573,10 @@ function orthoNO(out, left, right, bottom, top, near, far) {
 }
 var ortho = orthoNO;
 function orthoZO(out, left, right, bottom, top, near, far) {
-  var lr = 1 / (left - right);
+  var lr2 = 1 / (left - right);
   var bt = 1 / (bottom - top);
   var nf = 1 / (near - far);
-  out[0] = -2 * lr;
+  out[0] = -2 * lr2;
   out[1] = 0;
   out[2] = 0;
   out[3] = 0;
@@ -13588,14 +13588,14 @@ function orthoZO(out, left, right, bottom, top, near, far) {
   out[9] = 0;
   out[10] = nf;
   out[11] = 0;
-  out[12] = (left + right) * lr;
+  out[12] = (left + right) * lr2;
   out[13] = (top + bottom) * bt;
   out[14] = near * nf;
   out[15] = 1;
   return out;
 }
 function lookAt(out, eye, center, up) {
-  var x0, x1, x2, y0, y1, y2, z0, z1, z2, len5;
+  var x0, x1, x2, y0, y1, y2, z0, z1, z2, len4;
   var eyex = eye[0];
   var eyey = eye[1];
   var eyez = eye[2];
@@ -13611,37 +13611,37 @@ function lookAt(out, eye, center, up) {
   z0 = eyex - centerx;
   z1 = eyey - centery;
   z2 = eyez - centerz;
-  len5 = 1 / Math.hypot(z0, z1, z2);
-  z0 *= len5;
-  z1 *= len5;
-  z2 *= len5;
+  len4 = 1 / Math.hypot(z0, z1, z2);
+  z0 *= len4;
+  z1 *= len4;
+  z2 *= len4;
   x0 = upy * z2 - upz * z1;
   x1 = upz * z0 - upx * z2;
   x2 = upx * z1 - upy * z0;
-  len5 = Math.hypot(x0, x1, x2);
-  if (!len5) {
+  len4 = Math.hypot(x0, x1, x2);
+  if (!len4) {
     x0 = 0;
     x1 = 0;
     x2 = 0;
   } else {
-    len5 = 1 / len5;
-    x0 *= len5;
-    x1 *= len5;
-    x2 *= len5;
+    len4 = 1 / len4;
+    x0 *= len4;
+    x1 *= len4;
+    x2 *= len4;
   }
   y0 = z1 * x2 - z2 * x1;
   y1 = z2 * x0 - z0 * x2;
   y2 = z0 * x1 - z1 * x0;
-  len5 = Math.hypot(y0, y1, y2);
-  if (!len5) {
+  len4 = Math.hypot(y0, y1, y2);
+  if (!len4) {
     y0 = 0;
     y1 = 0;
     y2 = 0;
   } else {
-    len5 = 1 / len5;
-    y0 *= len5;
-    y1 *= len5;
-    y2 *= len5;
+    len4 = 1 / len4;
+    y0 *= len4;
+    y1 *= len4;
+    y2 *= len4;
   }
   out[0] = x0;
   out[1] = y0;
@@ -13664,20 +13664,20 @@ function lookAt(out, eye, center, up) {
 function targetTo(out, eye, target, up) {
   var eyex = eye[0], eyey = eye[1], eyez = eye[2], upx = up[0], upy = up[1], upz = up[2];
   var z0 = eyex - target[0], z1 = eyey - target[1], z2 = eyez - target[2];
-  var len5 = z0 * z0 + z1 * z1 + z2 * z2;
-  if (len5 > 0) {
-    len5 = 1 / Math.sqrt(len5);
-    z0 *= len5;
-    z1 *= len5;
-    z2 *= len5;
+  var len4 = z0 * z0 + z1 * z1 + z2 * z2;
+  if (len4 > 0) {
+    len4 = 1 / Math.sqrt(len4);
+    z0 *= len4;
+    z1 *= len4;
+    z2 *= len4;
   }
   var x0 = upy * z2 - upz * z1, x1 = upz * z0 - upx * z2, x2 = upx * z1 - upy * z0;
-  len5 = x0 * x0 + x1 * x1 + x2 * x2;
-  if (len5 > 0) {
-    len5 = 1 / Math.sqrt(len5);
-    x0 *= len5;
-    x1 *= len5;
-    x2 *= len5;
+  len4 = x0 * x0 + x1 * x1 + x2 * x2;
+  if (len4 > 0) {
+    len4 = 1 / Math.sqrt(len4);
+    x0 *= len4;
+    x1 *= len4;
+    x2 *= len4;
   }
   out[0] = x0;
   out[1] = x1;
@@ -13760,23 +13760,23 @@ function multiplyScalar(out, a, b) {
   out[15] = a[15] * b;
   return out;
 }
-function multiplyScalarAndAdd(out, a, b, scale7) {
-  out[0] = a[0] + b[0] * scale7;
-  out[1] = a[1] + b[1] * scale7;
-  out[2] = a[2] + b[2] * scale7;
-  out[3] = a[3] + b[3] * scale7;
-  out[4] = a[4] + b[4] * scale7;
-  out[5] = a[5] + b[5] * scale7;
-  out[6] = a[6] + b[6] * scale7;
-  out[7] = a[7] + b[7] * scale7;
-  out[8] = a[8] + b[8] * scale7;
-  out[9] = a[9] + b[9] * scale7;
-  out[10] = a[10] + b[10] * scale7;
-  out[11] = a[11] + b[11] * scale7;
-  out[12] = a[12] + b[12] * scale7;
-  out[13] = a[13] + b[13] * scale7;
-  out[14] = a[14] + b[14] * scale7;
-  out[15] = a[15] + b[15] * scale7;
+function multiplyScalarAndAdd(out, a, b, scale6) {
+  out[0] = a[0] + b[0] * scale6;
+  out[1] = a[1] + b[1] * scale6;
+  out[2] = a[2] + b[2] * scale6;
+  out[3] = a[3] + b[3] * scale6;
+  out[4] = a[4] + b[4] * scale6;
+  out[5] = a[5] + b[5] * scale6;
+  out[6] = a[6] + b[6] * scale6;
+  out[7] = a[7] + b[7] * scale6;
+  out[8] = a[8] + b[8] * scale6;
+  out[9] = a[9] + b[9] * scale6;
+  out[10] = a[10] + b[10] * scale6;
+  out[11] = a[11] + b[11] * scale6;
+  out[12] = a[12] + b[12] * scale6;
+  out[13] = a[13] + b[13] * scale6;
+  out[14] = a[14] + b[14] * scale6;
+  out[15] = a[15] + b[15] * scale6;
   return out;
 }
 function exactEquals(a, b) {
@@ -13910,14 +13910,14 @@ function clone2(a) {
 }
 function length(a) {
   var x = a[0];
-  var y = a[1];
+  var y2 = a[1];
   var z = a[2];
-  return Math.hypot(x, y, z);
+  return Math.hypot(x, y2, z);
 }
-function fromValues2(x, y, z) {
+function fromValues2(x, y2, z) {
   var out = new ARRAY_TYPE(3);
   out[0] = x;
-  out[1] = y;
+  out[1] = y2;
   out[2] = z;
   return out;
 }
@@ -13927,9 +13927,9 @@ function copy2(out, a) {
   out[2] = a[2];
   return out;
 }
-function set2(out, x, y, z) {
+function set2(out, x, y2, z) {
   out[0] = x;
-  out[1] = y;
+  out[1] = y2;
   out[2] = z;
   return out;
 }
@@ -13993,29 +13993,29 @@ function scale2(out, a, b) {
   out[2] = a[2] * b;
   return out;
 }
-function scaleAndAdd(out, a, b, scale7) {
-  out[0] = a[0] + b[0] * scale7;
-  out[1] = a[1] + b[1] * scale7;
-  out[2] = a[2] + b[2] * scale7;
+function scaleAndAdd(out, a, b, scale6) {
+  out[0] = a[0] + b[0] * scale6;
+  out[1] = a[1] + b[1] * scale6;
+  out[2] = a[2] + b[2] * scale6;
   return out;
 }
 function distance(a, b) {
   var x = b[0] - a[0];
-  var y = b[1] - a[1];
+  var y2 = b[1] - a[1];
   var z = b[2] - a[2];
-  return Math.hypot(x, y, z);
+  return Math.hypot(x, y2, z);
 }
 function squaredDistance(a, b) {
   var x = b[0] - a[0];
-  var y = b[1] - a[1];
+  var y2 = b[1] - a[1];
   var z = b[2] - a[2];
-  return x * x + y * y + z * z;
+  return x * x + y2 * y2 + z * z;
 }
 function squaredLength(a) {
   var x = a[0];
-  var y = a[1];
+  var y2 = a[1];
   var z = a[2];
-  return x * x + y * y + z * z;
+  return x * x + y2 * y2 + z * z;
 }
 function negate(out, a) {
   out[0] = -a[0];
@@ -14031,15 +14031,15 @@ function inverse(out, a) {
 }
 function normalize(out, a) {
   var x = a[0];
-  var y = a[1];
+  var y2 = a[1];
   var z = a[2];
-  var len5 = x * x + y * y + z * z;
-  if (len5 > 0) {
-    len5 = 1 / Math.sqrt(len5);
+  var len4 = x * x + y2 * y2 + z * z;
+  if (len4 > 0) {
+    len4 = 1 / Math.sqrt(len4);
   }
-  out[0] = a[0] * len5;
-  out[1] = a[1] * len5;
-  out[2] = a[2] * len5;
+  out[0] = a[0] * len4;
+  out[1] = a[1] * len4;
+  out[2] = a[2] * len4;
   return out;
 }
 function dot(a, b) {
@@ -14086,36 +14086,36 @@ function bezier(out, a, b, c, d, t) {
   out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
   return out;
 }
-function random(out, scale7) {
-  scale7 = scale7 || 1;
+function random(out, scale6) {
+  scale6 = scale6 || 1;
   var r = RANDOM() * 2 * Math.PI;
   var z = RANDOM() * 2 - 1;
-  var zScale = Math.sqrt(1 - z * z) * scale7;
+  var zScale = Math.sqrt(1 - z * z) * scale6;
   out[0] = Math.cos(r) * zScale;
   out[1] = Math.sin(r) * zScale;
-  out[2] = z * scale7;
+  out[2] = z * scale6;
   return out;
 }
-function transformMat4(out, a, m) {
-  var x = a[0], y = a[1], z = a[2];
-  var w = m[3] * x + m[7] * y + m[11] * z + m[15];
+function transformMat4(out, a, m2) {
+  var x = a[0], y2 = a[1], z = a[2];
+  var w = m2[3] * x + m2[7] * y2 + m2[11] * z + m2[15];
   w = w || 1;
-  out[0] = (m[0] * x + m[4] * y + m[8] * z + m[12]) / w;
-  out[1] = (m[1] * x + m[5] * y + m[9] * z + m[13]) / w;
-  out[2] = (m[2] * x + m[6] * y + m[10] * z + m[14]) / w;
+  out[0] = (m2[0] * x + m2[4] * y2 + m2[8] * z + m2[12]) / w;
+  out[1] = (m2[1] * x + m2[5] * y2 + m2[9] * z + m2[13]) / w;
+  out[2] = (m2[2] * x + m2[6] * y2 + m2[10] * z + m2[14]) / w;
   return out;
 }
-function transformMat3(out, a, m) {
-  var x = a[0], y = a[1], z = a[2];
-  out[0] = x * m[0] + y * m[3] + z * m[6];
-  out[1] = x * m[1] + y * m[4] + z * m[7];
-  out[2] = x * m[2] + y * m[5] + z * m[8];
+function transformMat3(out, a, m2) {
+  var x = a[0], y2 = a[1], z = a[2];
+  out[0] = x * m2[0] + y2 * m2[3] + z * m2[6];
+  out[1] = x * m2[1] + y2 * m2[4] + z * m2[7];
+  out[2] = x * m2[2] + y2 * m2[5] + z * m2[8];
   return out;
 }
 function transformQuat(out, a, q) {
   var qx = q[0], qy = q[1], qz = q[2], qw = q[3];
-  var x = a[0], y = a[1], z = a[2];
-  var uvx = qy * z - qz * y, uvy = qz * x - qx * z, uvz = qx * y - qy * x;
+  var x = a[0], y2 = a[1], z = a[2];
+  var uvx = qy * z - qz * y2, uvy = qz * x - qx * z, uvz = qx * y2 - qy * x;
   var uuvx = qy * uvz - qz * uvy, uuvy = qz * uvx - qx * uvz, uuvz = qx * uvy - qy * uvx;
   var w2 = qw * 2;
   uvx *= w2;
@@ -14125,7 +14125,7 @@ function transformQuat(out, a, q) {
   uuvy *= 2;
   uuvz *= 2;
   out[0] = x + uvx + uuvx;
-  out[1] = y + uvy + uuvy;
+  out[1] = y2 + uvy + uuvy;
   out[2] = z + uvz + uuvz;
   return out;
 }
@@ -14243,10 +14243,10 @@ function clone3(a) {
   out[3] = a[3];
   return out;
 }
-function fromValues3(x, y, z, w) {
+function fromValues3(x, y2, z, w) {
   var out = new ARRAY_TYPE(4);
   out[0] = x;
-  out[1] = y;
+  out[1] = y2;
   out[2] = z;
   out[3] = w;
   return out;
@@ -14258,9 +14258,9 @@ function copy3(out, a) {
   out[3] = a[3];
   return out;
 }
-function set3(out, x, y, z, w) {
+function set3(out, x, y2, z, w) {
   out[0] = x;
-  out[1] = y;
+  out[1] = y2;
   out[2] = z;
   out[3] = w;
   return out;
@@ -14281,31 +14281,31 @@ function scale3(out, a, b) {
 }
 function length2(a) {
   var x = a[0];
-  var y = a[1];
+  var y2 = a[1];
   var z = a[2];
   var w = a[3];
-  return Math.hypot(x, y, z, w);
+  return Math.hypot(x, y2, z, w);
 }
 function squaredLength2(a) {
   var x = a[0];
-  var y = a[1];
+  var y2 = a[1];
   var z = a[2];
   var w = a[3];
-  return x * x + y * y + z * z + w * w;
+  return x * x + y2 * y2 + z * z + w * w;
 }
 function normalize2(out, a) {
   var x = a[0];
-  var y = a[1];
+  var y2 = a[1];
   var z = a[2];
   var w = a[3];
-  var len5 = x * x + y * y + z * z + w * w;
-  if (len5 > 0) {
-    len5 = 1 / Math.sqrt(len5);
+  var len4 = x * x + y2 * y2 + z * z + w * w;
+  if (len4 > 0) {
+    len4 = 1 / Math.sqrt(len4);
   }
-  out[0] = x * len5;
-  out[1] = y * len5;
-  out[2] = z * len5;
-  out[3] = w * len5;
+  out[0] = x * len4;
+  out[1] = y2 * len4;
+  out[2] = z * len4;
+  out[3] = w * len4;
   return out;
 }
 function dot2(a, b) {
@@ -14445,32 +14445,32 @@ function rotateZ3(out, a, rad) {
   return out;
 }
 function calculateW(out, a) {
-  var x = a[0], y = a[1], z = a[2];
+  var x = a[0], y2 = a[1], z = a[2];
   out[0] = x;
-  out[1] = y;
+  out[1] = y2;
   out[2] = z;
-  out[3] = Math.sqrt(Math.abs(1 - x * x - y * y - z * z));
+  out[3] = Math.sqrt(Math.abs(1 - x * x - y2 * y2 - z * z));
   return out;
 }
 function exp(out, a) {
-  var x = a[0], y = a[1], z = a[2], w = a[3];
-  var r = Math.sqrt(x * x + y * y + z * z);
-  var et = Math.exp(w);
-  var s = r > 0 ? et * Math.sin(r) / r : 0;
+  var x = a[0], y2 = a[1], z = a[2], w = a[3];
+  var r = Math.sqrt(x * x + y2 * y2 + z * z);
+  var et2 = Math.exp(w);
+  var s = r > 0 ? et2 * Math.sin(r) / r : 0;
   out[0] = x * s;
-  out[1] = y * s;
+  out[1] = y2 * s;
   out[2] = z * s;
-  out[3] = et * Math.cos(r);
+  out[3] = et2 * Math.cos(r);
   return out;
 }
 function ln(out, a) {
-  var x = a[0], y = a[1], z = a[2], w = a[3];
-  var r = Math.sqrt(x * x + y * y + z * z);
+  var x = a[0], y2 = a[1], z = a[2], w = a[3];
+  var r = Math.sqrt(x * x + y2 * y2 + z * z);
   var t = r > 0 ? Math.atan2(r, w) / r : 0;
   out[0] = x * t;
-  out[1] = y * t;
+  out[1] = y2 * t;
   out[2] = z * t;
-  out[3] = 0.5 * Math.log(x * x + y * y + z * z + w * w);
+  out[3] = 0.5 * Math.log(x * x + y2 * y2 + z * z + w * w);
   return out;
 }
 function pow(out, a, b) {
@@ -14520,8 +14520,8 @@ function random2(out) {
 }
 function invert2(out, a) {
   var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
-  var dot6 = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
-  var invDot = dot6 ? 1 / dot6 : 0;
+  var dot5 = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
+  var invDot = dot5 ? 1 / dot5 : 0;
   out[0] = -a0 * invDot;
   out[1] = -a1 * invDot;
   out[2] = -a2 * invDot;
@@ -14535,42 +14535,42 @@ function conjugate(out, a) {
   out[3] = a[3];
   return out;
 }
-function fromMat3(out, m) {
-  var fTrace = m[0] + m[4] + m[8];
+function fromMat3(out, m2) {
+  var fTrace = m2[0] + m2[4] + m2[8];
   var fRoot;
   if (fTrace > 0) {
     fRoot = Math.sqrt(fTrace + 1);
     out[3] = 0.5 * fRoot;
     fRoot = 0.5 / fRoot;
-    out[0] = (m[5] - m[7]) * fRoot;
-    out[1] = (m[6] - m[2]) * fRoot;
-    out[2] = (m[1] - m[3]) * fRoot;
+    out[0] = (m2[5] - m2[7]) * fRoot;
+    out[1] = (m2[6] - m2[2]) * fRoot;
+    out[2] = (m2[1] - m2[3]) * fRoot;
   } else {
     var i = 0;
-    if (m[4] > m[0])
+    if (m2[4] > m2[0])
       i = 1;
-    if (m[8] > m[i * 3 + i])
+    if (m2[8] > m2[i * 3 + i])
       i = 2;
     var j = (i + 1) % 3;
-    var k = (i + 2) % 3;
-    fRoot = Math.sqrt(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + 1);
+    var k2 = (i + 2) % 3;
+    fRoot = Math.sqrt(m2[i * 3 + i] - m2[j * 3 + j] - m2[k2 * 3 + k2] + 1);
     out[i] = 0.5 * fRoot;
     fRoot = 0.5 / fRoot;
-    out[3] = (m[j * 3 + k] - m[k * 3 + j]) * fRoot;
-    out[j] = (m[j * 3 + i] + m[i * 3 + j]) * fRoot;
-    out[k] = (m[k * 3 + i] + m[i * 3 + k]) * fRoot;
+    out[3] = (m2[j * 3 + k2] - m2[k2 * 3 + j]) * fRoot;
+    out[j] = (m2[j * 3 + i] + m2[i * 3 + j]) * fRoot;
+    out[k2] = (m2[k2 * 3 + i] + m2[i * 3 + k2]) * fRoot;
   }
   return out;
 }
-function fromEuler(out, x, y, z) {
+function fromEuler(out, x, y2, z) {
   var halfToRad = 0.5 * Math.PI / 180;
   x *= halfToRad;
-  y *= halfToRad;
+  y2 *= halfToRad;
   z *= halfToRad;
   var sx = Math.sin(x);
   var cx = Math.cos(x);
-  var sy = Math.sin(y);
-  var cy = Math.cos(y);
+  var sy = Math.sin(y2);
+  var cy = Math.cos(y2);
   var sz = Math.sin(z);
   var cz = Math.cos(z);
   out[0] = sx * cy * cz - cx * sy * sz;
@@ -14603,15 +14603,15 @@ var rotationTo = function() {
   var xUnitVec3 = fromValues2(1, 0, 0);
   var yUnitVec3 = fromValues2(0, 1, 0);
   return function(out, a, b) {
-    var dot6 = dot(a, b);
-    if (dot6 < -0.999999) {
+    var dot5 = dot(a, b);
+    if (dot5 < -0.999999) {
       cross(tmpvec3, xUnitVec3, a);
       if (len(tmpvec3) < 1e-6)
         cross(tmpvec3, yUnitVec3, a);
       normalize(tmpvec3, tmpvec3);
       setAxisAngle(out, tmpvec3, Math.PI);
       return out;
-    } else if (dot6 > 0.999999) {
+    } else if (dot5 > 0.999999) {
       out[0] = 0;
       out[1] = 0;
       out[2] = 0;
@@ -14622,7 +14622,7 @@ var rotationTo = function() {
       out[0] = tmpvec3[0];
       out[1] = tmpvec3[1];
       out[2] = tmpvec3[2];
-      out[3] = 1 + dot6;
+      out[3] = 1 + dot5;
       return normalize3(out, out);
     }
   };
@@ -15320,11 +15320,11 @@ var Cursor = class extends Component {
   _setCursorRayTransform(hitPosition) {
     if (!this.cursorRayObject)
       return;
-    const dist3 = vec3_exports.dist(this._origin, hitPosition);
-    this.cursorRayObject.setPositionLocal([0, 0, -dist3 / 2]);
+    const dist2 = vec3_exports.dist(this._origin, hitPosition);
+    this.cursorRayObject.setPositionLocal([0, 0, -dist2 / 2]);
     if (this.cursorRayScalingAxis != 4) {
       tempVec2.fill(1);
-      tempVec2[this.cursorRayScalingAxis] = dist3 / 2;
+      tempVec2[this.cursorRayScalingAxis] = dist2 / 2;
       this.cursorRayObject.setScalingLocal(tempVec2);
     }
   }
@@ -15464,8 +15464,8 @@ var Cursor = class extends Component {
       this.notify("onUnhover", null);
     if (this.cursorRayObject)
       this.cursorRayObject.setScalingLocal(ZERO);
-    for (const f of this._onDeactivateCallbacks)
-      f();
+    for (const f2 of this._onDeactivateCallbacks)
+      f2();
     this._onDeactivateCallbacks.length = 0;
   }
   onDestroy() {
@@ -17332,8 +17332,8 @@ var Vrm = class extends Component {
     const x = vec3_exports.dot(lookAtDirection, this._rightVector);
     const yaw = Math.atan2(x, z) * this._rad2deg;
     const xz = Math.sqrt(x * x + z * z);
-    const y = vec3_exports.dot(lookAtDirection, this._upVector);
-    let pitch = Math.atan2(-y, xz) * this._rad2deg;
+    const y2 = vec3_exports.dot(lookAtDirection, this._upVector);
+    let pitch = Math.atan2(-y2, xz) * this._rad2deg;
     if (pitch > 0) {
       pitch = this._rangeMap(this._lookAt.verticalDown, pitch);
     } else {
@@ -17453,10 +17453,10 @@ var Vrm = class extends Component {
           const sphereCenter = cache.head;
           tailToShape = vec3_exports.sub(tailToShape, nextTail, sphereCenter);
           const radius = shape.radius + joint.hitRadius;
-          const dist3 = vec3_exports.length(tailToShape) - radius;
-          if (dist3 < 0) {
+          const dist2 = vec3_exports.length(tailToShape) - radius;
+          if (dist2 < 0) {
             vec3_exports.normalize(tailToShape, tailToShape);
-            vec3_exports.scaleAndAdd(nextTail, nextTail, tailToShape, -dist3);
+            vec3_exports.scaleAndAdd(nextTail, nextTail, tailToShape, -dist2);
             vec3_exports.sub(nextTail, nextTail, worldPosition);
             vec3_exports.normalize(nextTail, nextTail);
             vec3_exports.scaleAndAdd(nextTail, worldPosition, nextTail, joint.state.boneLength);
@@ -17468,18 +17468,18 @@ var Vrm = class extends Component {
           const tail = cache.tail;
           tailToShape = vec3_exports.sub(tailToShape, nextTail, head);
           const headToTail = vec3_exports.sub(this._headToTail, tail, head);
-          const dot6 = vec3_exports.dot(headToTail, tailToShape);
-          if (vec3_exports.squaredLength(headToTail) <= dot6) {
+          const dot5 = vec3_exports.dot(headToTail, tailToShape);
+          if (vec3_exports.squaredLength(headToTail) <= dot5) {
             vec3_exports.sub(tailToShape, nextTail, tail);
-          } else if (dot6 > 0) {
-            vec3_exports.scale(headToTail, headToTail, dot6 / vec3_exports.squaredLength(headToTail));
+          } else if (dot5 > 0) {
+            vec3_exports.scale(headToTail, headToTail, dot5 / vec3_exports.squaredLength(headToTail));
             vec3_exports.sub(tailToShape, tailToShape, headToTail);
           }
           const radius = shape.radius + joint.hitRadius;
-          const dist3 = vec3_exports.length(tailToShape) - radius;
-          if (dist3 < 0) {
+          const dist2 = vec3_exports.length(tailToShape) - radius;
+          if (dist2 < 0) {
             vec3_exports.normalize(tailToShape, tailToShape);
-            vec3_exports.scaleAndAdd(nextTail, nextTail, tailToShape, -dist3);
+            vec3_exports.scaleAndAdd(nextTail, nextTail, tailToShape, -dist2);
             vec3_exports.sub(nextTail, nextTail, worldPosition);
             vec3_exports.normalize(nextTail, nextTail);
             vec3_exports.scaleAndAdd(nextTail, worldPosition, nextTail, joint.state.boneLength);
@@ -17832,10 +17832,10 @@ var _InputProfile = class extends Component {
    * @param value The normalized input value.
    * @hidden
    */
-  _assignTransform(target, min3, max3, value) {
-    vec3_exports.lerp(_tempVec, min3.getPositionWorld(minTemp), max3.getPositionWorld(maxTemp), value);
+  _assignTransform(target, min2, max2, value) {
+    vec3_exports.lerp(_tempVec, min2.getPositionWorld(minTemp), max2.getPositionWorld(maxTemp), value);
     target.setPositionWorld(_tempVec);
-    quat_exports.lerp(_tempQuat, min3.getRotationWorld(_tempRotation1), max3.getRotationWorld(_tempRotation2), value);
+    quat_exports.lerp(_tempQuat, min2.getRotationWorld(_tempRotation1), max2.getRotationWorld(_tempRotation2), value);
     quat_exports.normalize(_tempQuat, _tempQuat);
     target.setRotationWorld(_tempQuat);
   }
@@ -18185,2389 +18185,1159 @@ __publicField(ExposeBanners, "Properties", {
 });
 
 // js/zesty-wonderland-sdk.js
-var __create2 = Object.create;
-var __defProp2 = Object.defineProperty;
-var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames2 = Object.getOwnPropertyNames;
-var __getProtoOf2 = Object.getPrototypeOf;
-var __hasOwnProp2 = Object.prototype.hasOwnProperty;
-var __defNormalProp2 = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __commonJS2 = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames2(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+var wr = Object.create;
+var H = Object.defineProperty;
+var br = Object.getOwnPropertyDescriptor;
+var Er = Object.getOwnPropertyNames;
+var Ar = Object.getPrototypeOf;
+var Cr = Object.prototype.hasOwnProperty;
+var Rr = (t, e, r) => e in t ? H(t, e, { enumerable: true, configurable: true, writable: true, value: r }) : t[e] = r;
+var f = (t, e) => () => (e || t((e = { exports: {} }).exports, e), e.exports);
+var Tr = (t, e) => {
+  for (var r in e)
+    H(t, r, { get: e[r], enumerable: true });
 };
-var __export2 = (target, all) => {
-  for (var name in all)
-    __defProp2(target, name, { get: all[name], enumerable: true });
+var qr = (t, e, r, i) => {
+  if (e && typeof e == "object" || typeof e == "function")
+    for (let n of Er(e))
+      !Cr.call(t, n) && n !== r && H(t, n, { get: () => e[n], enumerable: !(i = br(e, n)) || i.enumerable });
+  return t;
 };
-var __copyProps2 = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames2(from))
-      if (!__hasOwnProp2.call(to, key) && key !== except)
-        __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM2 = (mod, isNodeMode, target) => (target = mod != null ? __create2(__getProtoOf2(mod)) : {}, __copyProps2(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp2(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __publicField2 = (obj, key, value) => {
-  __defNormalProp2(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
-var require_bind = __commonJS2({
-  "../node_modules/axios/lib/helpers/bind.js"(exports, module) {
-    "use strict";
-    module.exports = function bind(fn, thisArg) {
-      return function wrap() {
-        var args = new Array(arguments.length);
-        for (var i = 0; i < args.length; i++) {
-          args[i] = arguments[i];
-        }
-        return fn.apply(thisArg, args);
-      };
+var Or = (t, e, r) => (r = t != null ? wr(Ar(t)) : {}, qr(e || !t || !t.__esModule ? H(r, "default", { value: t, enumerable: true }) : r, t));
+var ae = (t, e, r) => (Rr(t, typeof e != "symbol" ? e + "" : e, r), r);
+var oe = f((zi, ke) => {
+  "use strict";
+  ke.exports = function(e, r) {
+    return function() {
+      for (var n = new Array(arguments.length), s = 0; s < n.length; s++)
+        n[s] = arguments[s];
+      return e.apply(r, n);
     };
-  }
+  };
 });
-var require_utils = __commonJS2({
-  "../node_modules/axios/lib/utils.js"(exports, module) {
-    "use strict";
-    var bind = require_bind();
-    var toString = Object.prototype.toString;
-    var kindOf = function(cache) {
-      return function(thing) {
-        var str22 = toString.call(thing);
-        return cache[str22] || (cache[str22] = str22.slice(8, -1).toLowerCase());
-      };
-    }(/* @__PURE__ */ Object.create(null));
-    function kindOfTest(type) {
-      type = type.toLowerCase();
-      return function isKindOf(thing) {
-        return kindOf(thing) === type;
-      };
-    }
-    function isArray(val) {
-      return Array.isArray(val);
-    }
-    function isUndefined(val) {
-      return typeof val === "undefined";
-    }
-    function isBuffer(val) {
-      return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor) && typeof val.constructor.isBuffer === "function" && val.constructor.isBuffer(val);
-    }
-    var isArrayBuffer = kindOfTest("ArrayBuffer");
-    function isArrayBufferView(val) {
-      var result;
-      if (typeof ArrayBuffer !== "undefined" && ArrayBuffer.isView) {
-        result = ArrayBuffer.isView(val);
-      } else {
-        result = val && val.buffer && isArrayBuffer(val.buffer);
-      }
-      return result;
-    }
-    function isString2(val) {
-      return typeof val === "string";
-    }
-    function isNumber2(val) {
-      return typeof val === "number";
-    }
-    function isObject(val) {
-      return val !== null && typeof val === "object";
-    }
-    function isPlainObject(val) {
-      if (kindOf(val) !== "object") {
-        return false;
-      }
-      var prototype = Object.getPrototypeOf(val);
-      return prototype === null || prototype === Object.prototype;
-    }
-    var isDate = kindOfTest("Date");
-    var isFile = kindOfTest("File");
-    var isBlob = kindOfTest("Blob");
-    var isFileList = kindOfTest("FileList");
-    function isFunction(val) {
-      return toString.call(val) === "[object Function]";
-    }
-    function isStream(val) {
-      return isObject(val) && isFunction(val.pipe);
-    }
-    function isFormData(thing) {
-      var pattern = "[object FormData]";
-      return thing && (typeof FormData === "function" && thing instanceof FormData || toString.call(thing) === pattern || isFunction(thing.toString) && thing.toString() === pattern);
-    }
-    var isURLSearchParams = kindOfTest("URLSearchParams");
-    function trim(str22) {
-      return str22.trim ? str22.trim() : str22.replace(/^\s+|\s+$/g, "");
-    }
-    function isStandardBrowserEnv() {
-      if (typeof navigator !== "undefined" && (navigator.product === "ReactNative" || navigator.product === "NativeScript" || navigator.product === "NS")) {
-        return false;
-      }
-      return typeof window !== "undefined" && typeof document !== "undefined";
-    }
-    function forEach22(obj, fn) {
-      if (obj === null || typeof obj === "undefined") {
-        return;
-      }
-      if (typeof obj !== "object") {
-        obj = [obj];
-      }
-      if (isArray(obj)) {
-        for (var i = 0, l = obj.length; i < l; i++) {
-          fn.call(null, obj[i], i, obj);
-        }
-      } else {
-        for (var key in obj) {
-          if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            fn.call(null, obj[key], key, obj);
-          }
-        }
-      }
-    }
-    function merge() {
-      var result = {};
-      function assignValue(val, key) {
-        if (isPlainObject(result[key]) && isPlainObject(val)) {
-          result[key] = merge(result[key], val);
-        } else if (isPlainObject(val)) {
-          result[key] = merge({}, val);
-        } else if (isArray(val)) {
-          result[key] = val.slice();
-        } else {
-          result[key] = val;
-        }
-      }
-      for (var i = 0, l = arguments.length; i < l; i++) {
-        forEach22(arguments[i], assignValue);
-      }
-      return result;
-    }
-    function extend(a, b, thisArg) {
-      forEach22(b, function assignValue(val, key) {
-        if (thisArg && typeof val === "function") {
-          a[key] = bind(val, thisArg);
-        } else {
-          a[key] = val;
-        }
-      });
-      return a;
-    }
-    function stripBOM(content) {
-      if (content.charCodeAt(0) === 65279) {
-        content = content.slice(1);
-      }
-      return content;
-    }
-    function inherits(constructor, superConstructor, props, descriptors) {
-      constructor.prototype = Object.create(superConstructor.prototype, descriptors);
-      constructor.prototype.constructor = constructor;
-      props && Object.assign(constructor.prototype, props);
-    }
-    function toFlatObject(sourceObj, destObj, filter) {
-      var props;
-      var i;
-      var prop;
-      var merged = {};
-      destObj = destObj || {};
-      do {
-        props = Object.getOwnPropertyNames(sourceObj);
-        i = props.length;
-        while (i-- > 0) {
-          prop = props[i];
-          if (!merged[prop]) {
-            destObj[prop] = sourceObj[prop];
-            merged[prop] = true;
-          }
-        }
-        sourceObj = Object.getPrototypeOf(sourceObj);
-      } while (sourceObj && (!filter || filter(sourceObj, destObj)) && sourceObj !== Object.prototype);
-      return destObj;
-    }
-    function endsWith(str22, searchString, position) {
-      str22 = String(str22);
-      if (position === void 0 || position > str22.length) {
-        position = str22.length;
-      }
-      position -= searchString.length;
-      var lastIndex = str22.indexOf(searchString, position);
-      return lastIndex !== -1 && lastIndex === position;
-    }
-    function toArray(thing) {
-      if (!thing)
-        return null;
-      var i = thing.length;
-      if (isUndefined(i))
-        return null;
-      var arr = new Array(i);
-      while (i-- > 0) {
-        arr[i] = thing[i];
-      }
-      return arr;
-    }
-    var isTypedArray = function(TypedArray) {
-      return function(thing) {
-        return TypedArray && thing instanceof TypedArray;
-      };
-    }(typeof Uint8Array !== "undefined" && Object.getPrototypeOf(Uint8Array));
-    module.exports = {
-      isArray,
-      isArrayBuffer,
-      isBuffer,
-      isFormData,
-      isArrayBufferView,
-      isString: isString2,
-      isNumber: isNumber2,
-      isObject,
-      isPlainObject,
-      isUndefined,
-      isDate,
-      isFile,
-      isBlob,
-      isFunction,
-      isStream,
-      isURLSearchParams,
-      isStandardBrowserEnv,
-      forEach: forEach22,
-      merge,
-      extend,
-      trim,
-      stripBOM,
-      inherits,
-      toFlatObject,
-      kindOf,
-      kindOfTest,
-      endsWith,
-      toArray,
-      isTypedArray,
-      isFileList
+var m = f((_i, Ie) => {
+  "use strict";
+  var Mr = oe(), ce = Object.prototype.toString, le = function(t) {
+    return function(e) {
+      var r = ce.call(e);
+      return t[r] || (t[r] = r.slice(8, -1).toLowerCase());
+    };
+  }(/* @__PURE__ */ Object.create(null));
+  function q(t) {
+    return t = t.toLowerCase(), function(r) {
+      return le(r) === t;
     };
   }
-});
-var require_buildURL = __commonJS2({
-  "../node_modules/axios/lib/helpers/buildURL.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    function encode(val) {
-      return encodeURIComponent(val).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
-    }
-    module.exports = function buildURL(url, params, paramsSerializer) {
-      if (!params) {
-        return url;
-      }
-      var serializedParams;
-      if (paramsSerializer) {
-        serializedParams = paramsSerializer(params);
-      } else if (utils.isURLSearchParams(params)) {
-        serializedParams = params.toString();
-      } else {
-        var parts = [];
-        utils.forEach(params, function serialize(val, key) {
-          if (val === null || typeof val === "undefined") {
-            return;
-          }
-          if (utils.isArray(val)) {
-            key = key + "[]";
-          } else {
-            val = [val];
-          }
-          utils.forEach(val, function parseValue(v) {
-            if (utils.isDate(v)) {
-              v = v.toISOString();
-            } else if (utils.isObject(v)) {
-              v = JSON.stringify(v);
-            }
-            parts.push(encode(key) + "=" + encode(v));
-          });
-        });
-        serializedParams = parts.join("&");
-      }
-      if (serializedParams) {
-        var hashmarkIndex = url.indexOf("#");
-        if (hashmarkIndex !== -1) {
-          url = url.slice(0, hashmarkIndex);
-        }
-        url += (url.indexOf("?") === -1 ? "?" : "&") + serializedParams;
-      }
-      return url;
-    };
+  function de(t) {
+    return Array.isArray(t);
   }
-});
-var require_InterceptorManager = __commonJS2({
-  "../node_modules/axios/lib/core/InterceptorManager.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    function InterceptorManager() {
-      this.handlers = [];
-    }
-    InterceptorManager.prototype.use = function use(fulfilled, rejected, options) {
-      this.handlers.push({
-        fulfilled,
-        rejected,
-        synchronous: options ? options.synchronous : false,
-        runWhen: options ? options.runWhen : null
-      });
-      return this.handlers.length - 1;
-    };
-    InterceptorManager.prototype.eject = function eject(id) {
-      if (this.handlers[id]) {
-        this.handlers[id] = null;
-      }
-    };
-    InterceptorManager.prototype.forEach = function forEach22(fn) {
-      utils.forEach(this.handlers, function forEachHandler(h) {
-        if (h !== null) {
-          fn(h);
-        }
-      });
-    };
-    module.exports = InterceptorManager;
+  function W(t) {
+    return typeof t > "u";
   }
-});
-var require_normalizeHeaderName = __commonJS2({
-  "../node_modules/axios/lib/helpers/normalizeHeaderName.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    module.exports = function normalizeHeaderName(headers, normalizedName) {
-      utils.forEach(headers, function processHeader(value, name) {
-        if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
-          headers[normalizedName] = value;
-          delete headers[name];
-        }
-      });
-    };
+  function Sr(t) {
+    return t !== null && !W(t) && t.constructor !== null && !W(t.constructor) && typeof t.constructor.isBuffer == "function" && t.constructor.isBuffer(t);
   }
-});
-var require_AxiosError = __commonJS2({
-  "../node_modules/axios/lib/core/AxiosError.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    function AxiosError(message, code, config, request, response) {
-      Error.call(this);
-      this.message = message;
-      this.name = "AxiosError";
-      code && (this.code = code);
-      config && (this.config = config);
-      request && (this.request = request);
-      response && (this.response = response);
+  var De = q("ArrayBuffer");
+  function Pr(t) {
+    var e;
+    return typeof ArrayBuffer < "u" && ArrayBuffer.isView ? e = ArrayBuffer.isView(t) : e = t && t.buffer && De(t.buffer), e;
+  }
+  function Nr(t) {
+    return typeof t == "string";
+  }
+  function zr(t) {
+    return typeof t == "number";
+  }
+  function Le(t) {
+    return t !== null && typeof t == "object";
+  }
+  function V(t) {
+    if (le(t) !== "object")
+      return false;
+    var e = Object.getPrototypeOf(t);
+    return e === null || e === Object.prototype;
+  }
+  var _r = q("Date"), kr = q("File"), Dr = q("Blob"), Lr = q("FileList");
+  function fe(t) {
+    return ce.call(t) === "[object Function]";
+  }
+  function Ir(t) {
+    return Le(t) && fe(t.pipe);
+  }
+  function jr(t) {
+    var e = "[object FormData]";
+    return t && (typeof FormData == "function" && t instanceof FormData || ce.call(t) === e || fe(t.toString) && t.toString() === e);
+  }
+  var Br = q("URLSearchParams");
+  function Fr(t) {
+    return t.trim ? t.trim() : t.replace(/^\s+|\s+$/g, "");
+  }
+  function Ur() {
+    return typeof navigator < "u" && (navigator.product === "ReactNative" || navigator.product === "NativeScript" || navigator.product === "NS") ? false : typeof window < "u" && typeof document < "u";
+  }
+  function he(t, e) {
+    if (!(t === null || typeof t > "u"))
+      if (typeof t != "object" && (t = [t]), de(t))
+        for (var r = 0, i = t.length; r < i; r++)
+          e.call(null, t[r], r, t);
+      else
+        for (var n in t)
+          Object.prototype.hasOwnProperty.call(t, n) && e.call(null, t[n], n, t);
+  }
+  function ue() {
+    var t = {};
+    function e(n, s) {
+      V(t[s]) && V(n) ? t[s] = ue(t[s], n) : V(n) ? t[s] = ue({}, n) : de(n) ? t[s] = n.slice() : t[s] = n;
     }
-    utils.inherits(AxiosError, Error, {
-      toJSON: function toJSON() {
-        return {
-          // Standard
-          message: this.message,
-          name: this.name,
-          // Microsoft
-          description: this.description,
-          number: this.number,
-          // Mozilla
-          fileName: this.fileName,
-          lineNumber: this.lineNumber,
-          columnNumber: this.columnNumber,
-          stack: this.stack,
-          // Axios
-          config: this.config,
-          code: this.code,
-          status: this.response && this.response.status ? this.response.status : null
-        };
-      }
+    for (var r = 0, i = arguments.length; r < i; r++)
+      he(arguments[r], e);
+    return t;
+  }
+  function $r(t, e, r) {
+    return he(e, function(n, s) {
+      r && typeof n == "function" ? t[s] = Mr(n, r) : t[s] = n;
+    }), t;
+  }
+  function Hr(t) {
+    return t.charCodeAt(0) === 65279 && (t = t.slice(1)), t;
+  }
+  function Vr(t, e, r, i) {
+    t.prototype = Object.create(e.prototype, i), t.prototype.constructor = t, r && Object.assign(t.prototype, r);
+  }
+  function Wr(t, e, r) {
+    var i, n, s, a = {};
+    e = e || {};
+    do {
+      for (i = Object.getOwnPropertyNames(t), n = i.length; n-- > 0; )
+        s = i[n], a[s] || (e[s] = t[s], a[s] = true);
+      t = Object.getPrototypeOf(t);
+    } while (t && (!r || r(t, e)) && t !== Object.prototype);
+    return e;
+  }
+  function Jr(t, e, r) {
+    t = String(t), (r === void 0 || r > t.length) && (r = t.length), r -= e.length;
+    var i = t.indexOf(e, r);
+    return i !== -1 && i === r;
+  }
+  function Yr(t) {
+    if (!t)
+      return null;
+    var e = t.length;
+    if (W(e))
+      return null;
+    for (var r = new Array(e); e-- > 0; )
+      r[e] = t[e];
+    return r;
+  }
+  var Xr = function(t) {
+    return function(e) {
+      return t && e instanceof t;
+    };
+  }(typeof Uint8Array < "u" && Object.getPrototypeOf(Uint8Array));
+  Ie.exports = { isArray: de, isArrayBuffer: De, isBuffer: Sr, isFormData: jr, isArrayBufferView: Pr, isString: Nr, isNumber: zr, isObject: Le, isPlainObject: V, isUndefined: W, isDate: _r, isFile: kr, isBlob: Dr, isFunction: fe, isStream: Ir, isURLSearchParams: Br, isStandardBrowserEnv: Ur, forEach: he, merge: ue, extend: $r, trim: Fr, stripBOM: Hr, inherits: Vr, toFlatObject: Wr, kindOf: le, kindOfTest: q, endsWith: Jr, toArray: Yr, isTypedArray: Xr, isFileList: Lr };
+});
+var pe = f((ki, Be) => {
+  "use strict";
+  var S = m();
+  function je(t) {
+    return encodeURIComponent(t).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
+  }
+  Be.exports = function(e, r, i) {
+    if (!r)
+      return e;
+    var n;
+    if (i)
+      n = i(r);
+    else if (S.isURLSearchParams(r))
+      n = r.toString();
+    else {
+      var s = [];
+      S.forEach(r, function(c, l) {
+        c === null || typeof c > "u" || (S.isArray(c) ? l = l + "[]" : c = [c], S.forEach(c, function(d) {
+          S.isDate(d) ? d = d.toISOString() : S.isObject(d) && (d = JSON.stringify(d)), s.push(je(l) + "=" + je(d));
+        }));
+      }), n = s.join("&");
+    }
+    if (n) {
+      var a = e.indexOf("#");
+      a !== -1 && (e = e.slice(0, a)), e += (e.indexOf("?") === -1 ? "?" : "&") + n;
+    }
+    return e;
+  };
+});
+var Ue = f((Di, Fe) => {
+  "use strict";
+  var Kr = m();
+  function J() {
+    this.handlers = [];
+  }
+  J.prototype.use = function(e, r, i) {
+    return this.handlers.push({ fulfilled: e, rejected: r, synchronous: i ? i.synchronous : false, runWhen: i ? i.runWhen : null }), this.handlers.length - 1;
+  };
+  J.prototype.eject = function(e) {
+    this.handlers[e] && (this.handlers[e] = null);
+  };
+  J.prototype.forEach = function(e) {
+    Kr.forEach(this.handlers, function(i) {
+      i !== null && e(i);
     });
-    var prototype = AxiosError.prototype;
-    var descriptors = {};
-    [
-      "ERR_BAD_OPTION_VALUE",
-      "ERR_BAD_OPTION",
-      "ECONNABORTED",
-      "ETIMEDOUT",
-      "ERR_NETWORK",
-      "ERR_FR_TOO_MANY_REDIRECTS",
-      "ERR_DEPRECATED",
-      "ERR_BAD_RESPONSE",
-      "ERR_BAD_REQUEST",
-      "ERR_CANCELED"
-      // eslint-disable-next-line func-names
-    ].forEach(function(code) {
-      descriptors[code] = { value: code };
+  };
+  Fe.exports = J;
+});
+var He = f((Li, $e) => {
+  "use strict";
+  var Qr = m();
+  $e.exports = function(e, r) {
+    Qr.forEach(e, function(n, s) {
+      s !== r && s.toUpperCase() === r.toUpperCase() && (e[r] = n, delete e[s]);
     });
-    Object.defineProperties(AxiosError, descriptors);
-    Object.defineProperty(prototype, "isAxiosError", { value: true });
-    AxiosError.from = function(error, code, config, request, response, customProps) {
-      var axiosError = Object.create(prototype);
-      utils.toFlatObject(error, axiosError, function filter(obj) {
-        return obj !== Error.prototype;
-      });
-      AxiosError.call(axiosError, error.message, code, config, request, response);
-      axiosError.name = error.name;
-      customProps && Object.assign(axiosError, customProps);
-      return axiosError;
-    };
-    module.exports = AxiosError;
-  }
+  };
 });
-var require_transitional = __commonJS2({
-  "../node_modules/axios/lib/defaults/transitional.js"(exports, module) {
-    "use strict";
-    module.exports = {
-      silentJSONParsing: true,
-      forcedJSONParsing: true,
-      clarifyTimeoutError: false
-    };
+var O = f((Ii, Ye) => {
+  "use strict";
+  var Ve = m();
+  function P(t, e, r, i, n) {
+    Error.call(this), this.message = t, this.name = "AxiosError", e && (this.code = e), r && (this.config = r), i && (this.request = i), n && (this.response = n);
   }
+  Ve.inherits(P, Error, { toJSON: function() {
+    return { message: this.message, name: this.name, description: this.description, number: this.number, fileName: this.fileName, lineNumber: this.lineNumber, columnNumber: this.columnNumber, stack: this.stack, config: this.config, code: this.code, status: this.response && this.response.status ? this.response.status : null };
+  } });
+  var We = P.prototype, Je = {};
+  ["ERR_BAD_OPTION_VALUE", "ERR_BAD_OPTION", "ECONNABORTED", "ETIMEDOUT", "ERR_NETWORK", "ERR_FR_TOO_MANY_REDIRECTS", "ERR_DEPRECATED", "ERR_BAD_RESPONSE", "ERR_BAD_REQUEST", "ERR_CANCELED"].forEach(function(t) {
+    Je[t] = { value: t };
+  });
+  Object.defineProperties(P, Je);
+  Object.defineProperty(We, "isAxiosError", { value: true });
+  P.from = function(t, e, r, i, n, s) {
+    var a = Object.create(We);
+    return Ve.toFlatObject(t, a, function(c) {
+      return c !== Error.prototype;
+    }), P.call(a, t.message, e, r, i, n), a.name = t.name, s && Object.assign(a, s), a;
+  };
+  Ye.exports = P;
 });
-var require_toFormData = __commonJS2({
-  "../node_modules/axios/lib/helpers/toFormData.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    function toFormData(obj, formData) {
-      formData = formData || new FormData();
-      var stack = [];
-      function convertValue(value) {
-        if (value === null)
-          return "";
-        if (utils.isDate(value)) {
-          return value.toISOString();
-        }
-        if (utils.isArrayBuffer(value) || utils.isTypedArray(value)) {
-          return typeof Blob === "function" ? new Blob([value]) : Buffer.from(value);
-        }
-        return value;
-      }
-      function build(data, parentKey) {
-        if (utils.isPlainObject(data) || utils.isArray(data)) {
-          if (stack.indexOf(data) !== -1) {
-            throw Error("Circular reference detected in " + parentKey);
-          }
-          stack.push(data);
-          utils.forEach(data, function each(value, key) {
-            if (utils.isUndefined(value))
-              return;
-            var fullKey = parentKey ? parentKey + "." + key : key;
-            var arr;
-            if (value && !parentKey && typeof value === "object") {
-              if (utils.endsWith(key, "{}")) {
-                value = JSON.stringify(value);
-              } else if (utils.endsWith(key, "[]") && (arr = utils.toArray(value))) {
-                arr.forEach(function(el) {
-                  !utils.isUndefined(el) && formData.append(fullKey, convertValue(el));
+var me = f((ji, Xe) => {
+  "use strict";
+  Xe.exports = { silentJSONParsing: true, forcedJSONParsing: true, clarifyTimeoutError: false };
+});
+var ve = f((Bi, Ke) => {
+  "use strict";
+  var b = m();
+  function Gr(t, e) {
+    e = e || new FormData();
+    var r = [];
+    function i(s) {
+      return s === null ? "" : b.isDate(s) ? s.toISOString() : b.isArrayBuffer(s) || b.isTypedArray(s) ? typeof Blob == "function" ? new Blob([s]) : Buffer.from(s) : s;
+    }
+    function n(s, a) {
+      if (b.isPlainObject(s) || b.isArray(s)) {
+        if (r.indexOf(s) !== -1)
+          throw Error("Circular reference detected in " + a);
+        r.push(s), b.forEach(s, function(c, l) {
+          if (!b.isUndefined(c)) {
+            var o = a ? a + "." + l : l, d;
+            if (c && !a && typeof c == "object") {
+              if (b.endsWith(l, "{}"))
+                c = JSON.stringify(c);
+              else if (b.endsWith(l, "[]") && (d = b.toArray(c))) {
+                d.forEach(function(h) {
+                  !b.isUndefined(h) && e.append(o, i(h));
                 });
                 return;
               }
             }
-            build(value, fullKey);
-          });
-          stack.pop();
-        } else {
-          formData.append(parentKey, convertValue(data));
-        }
-      }
-      build(obj);
-      return formData;
-    }
-    module.exports = toFormData;
-  }
-});
-var require_settle = __commonJS2({
-  "../node_modules/axios/lib/core/settle.js"(exports, module) {
-    "use strict";
-    var AxiosError = require_AxiosError();
-    module.exports = function settle(resolve, reject, response) {
-      var validateStatus = response.config.validateStatus;
-      if (!response.status || !validateStatus || validateStatus(response.status)) {
-        resolve(response);
-      } else {
-        reject(new AxiosError(
-          "Request failed with status code " + response.status,
-          [AxiosError.ERR_BAD_REQUEST, AxiosError.ERR_BAD_RESPONSE][Math.floor(response.status / 100) - 4],
-          response.config,
-          response.request,
-          response
-        ));
-      }
-    };
-  }
-});
-var require_cookies = __commonJS2({
-  "../node_modules/axios/lib/helpers/cookies.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    module.exports = utils.isStandardBrowserEnv() ? (
-      // Standard browser envs support document.cookie
-      function standardBrowserEnv() {
-        return {
-          write: function write(name, value, expires, path, domain, secure) {
-            var cookie = [];
-            cookie.push(name + "=" + encodeURIComponent(value));
-            if (utils.isNumber(expires)) {
-              cookie.push("expires=" + new Date(expires).toGMTString());
-            }
-            if (utils.isString(path)) {
-              cookie.push("path=" + path);
-            }
-            if (utils.isString(domain)) {
-              cookie.push("domain=" + domain);
-            }
-            if (secure === true) {
-              cookie.push("secure");
-            }
-            document.cookie = cookie.join("; ");
-          },
-          read: function read(name) {
-            var match = document.cookie.match(new RegExp("(^|;\\s*)(" + name + ")=([^;]*)"));
-            return match ? decodeURIComponent(match[3]) : null;
-          },
-          remove: function remove(name) {
-            this.write(name, "", Date.now() - 864e5);
+            n(c, o);
           }
-        };
-      }()
-    ) : (
-      // Non standard browser env (web workers, react-native) lack needed support.
-      function nonStandardBrowserEnv() {
-        return {
-          write: function write() {
-          },
-          read: function read() {
-            return null;
-          },
-          remove: function remove() {
-          }
-        };
-      }()
-    );
-  }
-});
-var require_isAbsoluteURL = __commonJS2({
-  "../node_modules/axios/lib/helpers/isAbsoluteURL.js"(exports, module) {
-    "use strict";
-    module.exports = function isAbsoluteURL(url) {
-      return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
-    };
-  }
-});
-var require_combineURLs = __commonJS2({
-  "../node_modules/axios/lib/helpers/combineURLs.js"(exports, module) {
-    "use strict";
-    module.exports = function combineURLs(baseURL, relativeURL) {
-      return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
-    };
-  }
-});
-var require_buildFullPath = __commonJS2({
-  "../node_modules/axios/lib/core/buildFullPath.js"(exports, module) {
-    "use strict";
-    var isAbsoluteURL = require_isAbsoluteURL();
-    var combineURLs = require_combineURLs();
-    module.exports = function buildFullPath(baseURL, requestedURL) {
-      if (baseURL && !isAbsoluteURL(requestedURL)) {
-        return combineURLs(baseURL, requestedURL);
-      }
-      return requestedURL;
-    };
-  }
-});
-var require_parseHeaders = __commonJS2({
-  "../node_modules/axios/lib/helpers/parseHeaders.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    var ignoreDuplicateOf = [
-      "age",
-      "authorization",
-      "content-length",
-      "content-type",
-      "etag",
-      "expires",
-      "from",
-      "host",
-      "if-modified-since",
-      "if-unmodified-since",
-      "last-modified",
-      "location",
-      "max-forwards",
-      "proxy-authorization",
-      "referer",
-      "retry-after",
-      "user-agent"
-    ];
-    module.exports = function parseHeaders(headers) {
-      var parsed = {};
-      var key;
-      var val;
-      var i;
-      if (!headers) {
-        return parsed;
-      }
-      utils.forEach(headers.split("\n"), function parser(line) {
-        i = line.indexOf(":");
-        key = utils.trim(line.substr(0, i)).toLowerCase();
-        val = utils.trim(line.substr(i + 1));
-        if (key) {
-          if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
-            return;
-          }
-          if (key === "set-cookie") {
-            parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
-          } else {
-            parsed[key] = parsed[key] ? parsed[key] + ", " + val : val;
-          }
-        }
-      });
-      return parsed;
-    };
-  }
-});
-var require_isURLSameOrigin = __commonJS2({
-  "../node_modules/axios/lib/helpers/isURLSameOrigin.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    module.exports = utils.isStandardBrowserEnv() ? (
-      // Standard browser envs have full support of the APIs needed to test
-      // whether the request URL is of the same origin as current location.
-      function standardBrowserEnv() {
-        var msie = /(msie|trident)/i.test(navigator.userAgent);
-        var urlParsingNode = document.createElement("a");
-        var originURL;
-        function resolveURL(url) {
-          var href = url;
-          if (msie) {
-            urlParsingNode.setAttribute("href", href);
-            href = urlParsingNode.href;
-          }
-          urlParsingNode.setAttribute("href", href);
-          return {
-            href: urlParsingNode.href,
-            protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, "") : "",
-            host: urlParsingNode.host,
-            search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, "") : "",
-            hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, "") : "",
-            hostname: urlParsingNode.hostname,
-            port: urlParsingNode.port,
-            pathname: urlParsingNode.pathname.charAt(0) === "/" ? urlParsingNode.pathname : "/" + urlParsingNode.pathname
-          };
-        }
-        originURL = resolveURL(window.location.href);
-        return function isURLSameOrigin(requestURL) {
-          var parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
-          return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
-        };
-      }()
-    ) : (
-      // Non standard browser envs (web workers, react-native) lack needed support.
-      function nonStandardBrowserEnv() {
-        return function isURLSameOrigin() {
-          return true;
-        };
-      }()
-    );
-  }
-});
-var require_CanceledError = __commonJS2({
-  "../node_modules/axios/lib/cancel/CanceledError.js"(exports, module) {
-    "use strict";
-    var AxiosError = require_AxiosError();
-    var utils = require_utils();
-    function CanceledError(message) {
-      AxiosError.call(this, message == null ? "canceled" : message, AxiosError.ERR_CANCELED);
-      this.name = "CanceledError";
+        }), r.pop();
+      } else
+        e.append(a, i(s));
     }
-    utils.inherits(CanceledError, AxiosError, {
-      __CANCEL__: true
-    });
-    module.exports = CanceledError;
+    return n(t), e;
   }
+  Ke.exports = Gr;
 });
-var require_parseProtocol = __commonJS2({
-  "../node_modules/axios/lib/helpers/parseProtocol.js"(exports, module) {
-    "use strict";
-    module.exports = function parseProtocol(url) {
-      var match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
-      return match && match[1] || "";
-    };
-  }
-});
-var require_xhr = __commonJS2({
-  "../node_modules/axios/lib/adapters/xhr.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    var settle = require_settle();
-    var cookies = require_cookies();
-    var buildURL = require_buildURL();
-    var buildFullPath = require_buildFullPath();
-    var parseHeaders = require_parseHeaders();
-    var isURLSameOrigin = require_isURLSameOrigin();
-    var transitionalDefaults = require_transitional();
-    var AxiosError = require_AxiosError();
-    var CanceledError = require_CanceledError();
-    var parseProtocol = require_parseProtocol();
-    module.exports = function xhrAdapter(config) {
-      return new Promise(function dispatchXhrRequest(resolve, reject) {
-        var requestData = config.data;
-        var requestHeaders = config.headers;
-        var responseType = config.responseType;
-        var onCanceled;
-        function done() {
-          if (config.cancelToken) {
-            config.cancelToken.unsubscribe(onCanceled);
-          }
-          if (config.signal) {
-            config.signal.removeEventListener("abort", onCanceled);
-          }
-        }
-        if (utils.isFormData(requestData) && utils.isStandardBrowserEnv()) {
-          delete requestHeaders["Content-Type"];
-        }
-        var request = new XMLHttpRequest();
-        if (config.auth) {
-          var username = config.auth.username || "";
-          var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : "";
-          requestHeaders.Authorization = "Basic " + btoa(username + ":" + password);
-        }
-        var fullPath = buildFullPath(config.baseURL, config.url);
-        request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
-        request.timeout = config.timeout;
-        function onloadend() {
-          if (!request) {
-            return;
-          }
-          var responseHeaders = "getAllResponseHeaders" in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-          var responseData = !responseType || responseType === "text" || responseType === "json" ? request.responseText : request.response;
-          var response = {
-            data: responseData,
-            status: request.status,
-            statusText: request.statusText,
-            headers: responseHeaders,
-            config,
-            request
-          };
-          settle(function _resolve(value) {
-            resolve(value);
-            done();
-          }, function _reject(err) {
-            reject(err);
-            done();
-          }, response);
-          request = null;
-        }
-        if ("onloadend" in request) {
-          request.onloadend = onloadend;
-        } else {
-          request.onreadystatechange = function handleLoad() {
-            if (!request || request.readyState !== 4) {
-              return;
-            }
-            if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf("file:") === 0)) {
-              return;
-            }
-            setTimeout(onloadend);
-          };
-        }
-        request.onabort = function handleAbort() {
-          if (!request) {
-            return;
-          }
-          reject(new AxiosError("Request aborted", AxiosError.ECONNABORTED, config, request));
-          request = null;
-        };
-        request.onerror = function handleError() {
-          reject(new AxiosError("Network Error", AxiosError.ERR_NETWORK, config, request, request));
-          request = null;
-        };
-        request.ontimeout = function handleTimeout() {
-          var timeoutErrorMessage = config.timeout ? "timeout of " + config.timeout + "ms exceeded" : "timeout exceeded";
-          var transitional = config.transitional || transitionalDefaults;
-          if (config.timeoutErrorMessage) {
-            timeoutErrorMessage = config.timeoutErrorMessage;
-          }
-          reject(new AxiosError(
-            timeoutErrorMessage,
-            transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED,
-            config,
-            request
-          ));
-          request = null;
-        };
-        if (utils.isStandardBrowserEnv()) {
-          var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : void 0;
-          if (xsrfValue) {
-            requestHeaders[config.xsrfHeaderName] = xsrfValue;
-          }
-        }
-        if ("setRequestHeader" in request) {
-          utils.forEach(requestHeaders, function setRequestHeader(val, key) {
-            if (typeof requestData === "undefined" && key.toLowerCase() === "content-type") {
-              delete requestHeaders[key];
-            } else {
-              request.setRequestHeader(key, val);
-            }
-          });
-        }
-        if (!utils.isUndefined(config.withCredentials)) {
-          request.withCredentials = !!config.withCredentials;
-        }
-        if (responseType && responseType !== "json") {
-          request.responseType = config.responseType;
-        }
-        if (typeof config.onDownloadProgress === "function") {
-          request.addEventListener("progress", config.onDownloadProgress);
-        }
-        if (typeof config.onUploadProgress === "function" && request.upload) {
-          request.upload.addEventListener("progress", config.onUploadProgress);
-        }
-        if (config.cancelToken || config.signal) {
-          onCanceled = function(cancel) {
-            if (!request) {
-              return;
-            }
-            reject(!cancel || cancel && cancel.type ? new CanceledError() : cancel);
-            request.abort();
-            request = null;
-          };
-          config.cancelToken && config.cancelToken.subscribe(onCanceled);
-          if (config.signal) {
-            config.signal.aborted ? onCanceled() : config.signal.addEventListener("abort", onCanceled);
-          }
-        }
-        if (!requestData) {
-          requestData = null;
-        }
-        var protocol = parseProtocol(fullPath);
-        if (protocol && ["http", "https", "file"].indexOf(protocol) === -1) {
-          reject(new AxiosError("Unsupported protocol " + protocol + ":", AxiosError.ERR_BAD_REQUEST, config));
-          return;
-        }
-        request.send(requestData);
-      });
-    };
-  }
-});
-var require_null = __commonJS2({
-  "../node_modules/axios/lib/helpers/null.js"(exports, module) {
-    module.exports = null;
-  }
-});
-var require_defaults = __commonJS2({
-  "../node_modules/axios/lib/defaults/index.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    var normalizeHeaderName = require_normalizeHeaderName();
-    var AxiosError = require_AxiosError();
-    var transitionalDefaults = require_transitional();
-    var toFormData = require_toFormData();
-    var DEFAULT_CONTENT_TYPE = {
-      "Content-Type": "application/x-www-form-urlencoded"
-    };
-    function setContentTypeIfUnset(headers, value) {
-      if (!utils.isUndefined(headers) && utils.isUndefined(headers["Content-Type"])) {
-        headers["Content-Type"] = value;
-      }
-    }
-    function getDefaultAdapter() {
-      var adapter;
-      if (typeof XMLHttpRequest !== "undefined") {
-        adapter = require_xhr();
-      } else if (typeof process !== "undefined" && Object.prototype.toString.call(process) === "[object process]") {
-        adapter = require_xhr();
-      }
-      return adapter;
-    }
-    function stringifySafely(rawValue, parser, encoder) {
-      if (utils.isString(rawValue)) {
-        try {
-          (parser || JSON.parse)(rawValue);
-          return utils.trim(rawValue);
-        } catch (e) {
-          if (e.name !== "SyntaxError") {
-            throw e;
-          }
-        }
-      }
-      return (encoder || JSON.stringify)(rawValue);
-    }
-    var defaults = {
-      transitional: transitionalDefaults,
-      adapter: getDefaultAdapter(),
-      transformRequest: [function transformRequest(data, headers) {
-        normalizeHeaderName(headers, "Accept");
-        normalizeHeaderName(headers, "Content-Type");
-        if (utils.isFormData(data) || utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) {
-          return data;
-        }
-        if (utils.isArrayBufferView(data)) {
-          return data.buffer;
-        }
-        if (utils.isURLSearchParams(data)) {
-          setContentTypeIfUnset(headers, "application/x-www-form-urlencoded;charset=utf-8");
-          return data.toString();
-        }
-        var isObjectPayload = utils.isObject(data);
-        var contentType = headers && headers["Content-Type"];
-        var isFileList;
-        if ((isFileList = utils.isFileList(data)) || isObjectPayload && contentType === "multipart/form-data") {
-          var _FormData = this.env && this.env.FormData;
-          return toFormData(isFileList ? { "files[]": data } : data, _FormData && new _FormData());
-        } else if (isObjectPayload || contentType === "application/json") {
-          setContentTypeIfUnset(headers, "application/json");
-          return stringifySafely(data);
-        }
-        return data;
-      }],
-      transformResponse: [function transformResponse(data) {
-        var transitional = this.transitional || defaults.transitional;
-        var silentJSONParsing = transitional && transitional.silentJSONParsing;
-        var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
-        var strictJSONParsing = !silentJSONParsing && this.responseType === "json";
-        if (strictJSONParsing || forcedJSONParsing && utils.isString(data) && data.length) {
-          try {
-            return JSON.parse(data);
-          } catch (e) {
-            if (strictJSONParsing) {
-              if (e.name === "SyntaxError") {
-                throw AxiosError.from(e, AxiosError.ERR_BAD_RESPONSE, this, null, this.response);
-              }
-              throw e;
-            }
-          }
-        }
-        return data;
-      }],
-      /**
-       * A timeout in milliseconds to abort a request. If set to 0 (default) a
-       * timeout is not created.
-       */
-      timeout: 0,
-      xsrfCookieName: "XSRF-TOKEN",
-      xsrfHeaderName: "X-XSRF-TOKEN",
-      maxContentLength: -1,
-      maxBodyLength: -1,
-      env: {
-        FormData: require_null()
-      },
-      validateStatus: function validateStatus(status) {
-        return status >= 200 && status < 300;
-      },
-      headers: {
-        common: {
-          "Accept": "application/json, text/plain, */*"
-        }
-      }
-    };
-    utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
-      defaults.headers[method] = {};
-    });
-    utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
-      defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-    });
-    module.exports = defaults;
-  }
-});
-var require_transformData = __commonJS2({
-  "../node_modules/axios/lib/core/transformData.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    var defaults = require_defaults();
-    module.exports = function transformData(data, headers, fns) {
-      var context = this || defaults;
-      utils.forEach(fns, function transform(fn) {
-        data = fn.call(context, data, headers);
-      });
-      return data;
-    };
-  }
-});
-var require_isCancel = __commonJS2({
-  "../node_modules/axios/lib/cancel/isCancel.js"(exports, module) {
-    "use strict";
-    module.exports = function isCancel(value) {
-      return !!(value && value.__CANCEL__);
-    };
-  }
-});
-var require_dispatchRequest = __commonJS2({
-  "../node_modules/axios/lib/core/dispatchRequest.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    var transformData = require_transformData();
-    var isCancel = require_isCancel();
-    var defaults = require_defaults();
-    var CanceledError = require_CanceledError();
-    function throwIfCancellationRequested(config) {
-      if (config.cancelToken) {
-        config.cancelToken.throwIfRequested();
-      }
-      if (config.signal && config.signal.aborted) {
-        throw new CanceledError();
-      }
-    }
-    module.exports = function dispatchRequest(config) {
-      throwIfCancellationRequested(config);
-      config.headers = config.headers || {};
-      config.data = transformData.call(
-        config,
-        config.data,
-        config.headers,
-        config.transformRequest
-      );
-      config.headers = utils.merge(
-        config.headers.common || {},
-        config.headers[config.method] || {},
-        config.headers
-      );
-      utils.forEach(
-        ["delete", "get", "head", "post", "put", "patch", "common"],
-        function cleanHeaderConfig(method) {
-          delete config.headers[method];
-        }
-      );
-      var adapter = config.adapter || defaults.adapter;
-      return adapter(config).then(function onAdapterResolution(response) {
-        throwIfCancellationRequested(config);
-        response.data = transformData.call(
-          config,
-          response.data,
-          response.headers,
-          config.transformResponse
-        );
-        return response;
-      }, function onAdapterRejection(reason) {
-        if (!isCancel(reason)) {
-          throwIfCancellationRequested(config);
-          if (reason && reason.response) {
-            reason.response.data = transformData.call(
-              config,
-              reason.response.data,
-              reason.response.headers,
-              config.transformResponse
-            );
-          }
-        }
-        return Promise.reject(reason);
-      });
-    };
-  }
-});
-var require_mergeConfig = __commonJS2({
-  "../node_modules/axios/lib/core/mergeConfig.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    module.exports = function mergeConfig(config1, config2) {
-      config2 = config2 || {};
-      var config = {};
-      function getMergedValue(target, source) {
-        if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
-          return utils.merge(target, source);
-        } else if (utils.isPlainObject(source)) {
-          return utils.merge({}, source);
-        } else if (utils.isArray(source)) {
-          return source.slice();
-        }
-        return source;
-      }
-      function mergeDeepProperties(prop) {
-        if (!utils.isUndefined(config2[prop])) {
-          return getMergedValue(config1[prop], config2[prop]);
-        } else if (!utils.isUndefined(config1[prop])) {
-          return getMergedValue(void 0, config1[prop]);
-        }
-      }
-      function valueFromConfig2(prop) {
-        if (!utils.isUndefined(config2[prop])) {
-          return getMergedValue(void 0, config2[prop]);
-        }
-      }
-      function defaultToConfig2(prop) {
-        if (!utils.isUndefined(config2[prop])) {
-          return getMergedValue(void 0, config2[prop]);
-        } else if (!utils.isUndefined(config1[prop])) {
-          return getMergedValue(void 0, config1[prop]);
-        }
-      }
-      function mergeDirectKeys(prop) {
-        if (prop in config2) {
-          return getMergedValue(config1[prop], config2[prop]);
-        } else if (prop in config1) {
-          return getMergedValue(void 0, config1[prop]);
-        }
-      }
-      var mergeMap = {
-        "url": valueFromConfig2,
-        "method": valueFromConfig2,
-        "data": valueFromConfig2,
-        "baseURL": defaultToConfig2,
-        "transformRequest": defaultToConfig2,
-        "transformResponse": defaultToConfig2,
-        "paramsSerializer": defaultToConfig2,
-        "timeout": defaultToConfig2,
-        "timeoutMessage": defaultToConfig2,
-        "withCredentials": defaultToConfig2,
-        "adapter": defaultToConfig2,
-        "responseType": defaultToConfig2,
-        "xsrfCookieName": defaultToConfig2,
-        "xsrfHeaderName": defaultToConfig2,
-        "onUploadProgress": defaultToConfig2,
-        "onDownloadProgress": defaultToConfig2,
-        "decompress": defaultToConfig2,
-        "maxContentLength": defaultToConfig2,
-        "maxBodyLength": defaultToConfig2,
-        "beforeRedirect": defaultToConfig2,
-        "transport": defaultToConfig2,
-        "httpAgent": defaultToConfig2,
-        "httpsAgent": defaultToConfig2,
-        "cancelToken": defaultToConfig2,
-        "socketPath": defaultToConfig2,
-        "responseEncoding": defaultToConfig2,
-        "validateStatus": mergeDirectKeys
-      };
-      utils.forEach(Object.keys(config1).concat(Object.keys(config2)), function computeConfigValue(prop) {
-        var merge = mergeMap[prop] || mergeDeepProperties;
-        var configValue = merge(prop);
-        utils.isUndefined(configValue) && merge !== mergeDirectKeys || (config[prop] = configValue);
-      });
-      return config;
-    };
-  }
-});
-var require_data = __commonJS2({
-  "../node_modules/axios/lib/env/data.js"(exports, module) {
-    module.exports = {
-      "version": "0.27.2"
-    };
-  }
-});
-var require_validator = __commonJS2({
-  "../node_modules/axios/lib/helpers/validator.js"(exports, module) {
-    "use strict";
-    var VERSION = require_data().version;
-    var AxiosError = require_AxiosError();
-    var validators = {};
-    ["object", "boolean", "number", "function", "string", "symbol"].forEach(function(type, i) {
-      validators[type] = function validator(thing) {
-        return typeof thing === type || "a" + (i < 1 ? "n " : " ") + type;
-      };
-    });
-    var deprecatedWarnings = {};
-    validators.transitional = function transitional(validator, version2, message) {
-      function formatMessage(opt, desc) {
-        return "[Axios v" + VERSION + "] Transitional option '" + opt + "'" + desc + (message ? ". " + message : "");
-      }
-      return function(value, opt, opts) {
-        if (validator === false) {
-          throw new AxiosError(
-            formatMessage(opt, " has been removed" + (version2 ? " in " + version2 : "")),
-            AxiosError.ERR_DEPRECATED
-          );
-        }
-        if (version2 && !deprecatedWarnings[opt]) {
-          deprecatedWarnings[opt] = true;
-          console.warn(
-            formatMessage(
-              opt,
-              " has been deprecated since v" + version2 + " and will be removed in the near future"
-            )
-          );
-        }
-        return validator ? validator(value, opt, opts) : true;
-      };
-    };
-    function assertOptions(options, schema, allowUnknown) {
-      if (typeof options !== "object") {
-        throw new AxiosError("options must be an object", AxiosError.ERR_BAD_OPTION_VALUE);
-      }
-      var keys = Object.keys(options);
-      var i = keys.length;
-      while (i-- > 0) {
-        var opt = keys[i];
-        var validator = schema[opt];
-        if (validator) {
-          var value = options[opt];
-          var result = value === void 0 || validator(value, opt, options);
-          if (result !== true) {
-            throw new AxiosError("option " + opt + " must be " + result, AxiosError.ERR_BAD_OPTION_VALUE);
-          }
-          continue;
-        }
-        if (allowUnknown !== true) {
-          throw new AxiosError("Unknown option " + opt, AxiosError.ERR_BAD_OPTION);
-        }
-      }
-    }
-    module.exports = {
-      assertOptions,
-      validators
-    };
-  }
-});
-var require_Axios = __commonJS2({
-  "../node_modules/axios/lib/core/Axios.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    var buildURL = require_buildURL();
-    var InterceptorManager = require_InterceptorManager();
-    var dispatchRequest = require_dispatchRequest();
-    var mergeConfig = require_mergeConfig();
-    var buildFullPath = require_buildFullPath();
-    var validator = require_validator();
-    var validators = validator.validators;
-    function Axios(instanceConfig) {
-      this.defaults = instanceConfig;
-      this.interceptors = {
-        request: new InterceptorManager(),
-        response: new InterceptorManager()
-      };
-    }
-    Axios.prototype.request = function request(configOrUrl, config) {
-      if (typeof configOrUrl === "string") {
-        config = config || {};
-        config.url = configOrUrl;
-      } else {
-        config = configOrUrl || {};
-      }
-      config = mergeConfig(this.defaults, config);
-      if (config.method) {
-        config.method = config.method.toLowerCase();
-      } else if (this.defaults.method) {
-        config.method = this.defaults.method.toLowerCase();
-      } else {
-        config.method = "get";
-      }
-      var transitional = config.transitional;
-      if (transitional !== void 0) {
-        validator.assertOptions(transitional, {
-          silentJSONParsing: validators.transitional(validators.boolean),
-          forcedJSONParsing: validators.transitional(validators.boolean),
-          clarifyTimeoutError: validators.transitional(validators.boolean)
-        }, false);
-      }
-      var requestInterceptorChain = [];
-      var synchronousRequestInterceptors = true;
-      this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-        if (typeof interceptor.runWhen === "function" && interceptor.runWhen(config) === false) {
-          return;
-        }
-        synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
-        requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
-      });
-      var responseInterceptorChain = [];
-      this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-        responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
-      });
-      var promise;
-      if (!synchronousRequestInterceptors) {
-        var chain = [dispatchRequest, void 0];
-        Array.prototype.unshift.apply(chain, requestInterceptorChain);
-        chain = chain.concat(responseInterceptorChain);
-        promise = Promise.resolve(config);
-        while (chain.length) {
-          promise = promise.then(chain.shift(), chain.shift());
-        }
-        return promise;
-      }
-      var newConfig = config;
-      while (requestInterceptorChain.length) {
-        var onFulfilled = requestInterceptorChain.shift();
-        var onRejected = requestInterceptorChain.shift();
-        try {
-          newConfig = onFulfilled(newConfig);
-        } catch (error) {
-          onRejected(error);
-          break;
-        }
-      }
-      try {
-        promise = dispatchRequest(newConfig);
-      } catch (error) {
-        return Promise.reject(error);
-      }
-      while (responseInterceptorChain.length) {
-        promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
-      }
-      return promise;
-    };
-    Axios.prototype.getUri = function getUri(config) {
-      config = mergeConfig(this.defaults, config);
-      var fullPath = buildFullPath(config.baseURL, config.url);
-      return buildURL(fullPath, config.params, config.paramsSerializer);
-    };
-    utils.forEach(["delete", "get", "head", "options"], function forEachMethodNoData(method) {
-      Axios.prototype[method] = function(url, config) {
-        return this.request(mergeConfig(config || {}, {
-          method,
-          url,
-          data: (config || {}).data
-        }));
-      };
-    });
-    utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
-      function generateHTTPMethod(isForm) {
-        return function httpMethod(url, data, config) {
-          return this.request(mergeConfig(config || {}, {
-            method,
-            headers: isForm ? {
-              "Content-Type": "multipart/form-data"
-            } : {},
-            url,
-            data
-          }));
-        };
-      }
-      Axios.prototype[method] = generateHTTPMethod();
-      Axios.prototype[method + "Form"] = generateHTTPMethod(true);
-    });
-    module.exports = Axios;
-  }
-});
-var require_CancelToken = __commonJS2({
-  "../node_modules/axios/lib/cancel/CancelToken.js"(exports, module) {
-    "use strict";
-    var CanceledError = require_CanceledError();
-    function CancelToken(executor) {
-      if (typeof executor !== "function") {
-        throw new TypeError("executor must be a function.");
-      }
-      var resolvePromise;
-      this.promise = new Promise(function promiseExecutor(resolve) {
-        resolvePromise = resolve;
-      });
-      var token = this;
-      this.promise.then(function(cancel) {
-        if (!token._listeners)
-          return;
-        var i;
-        var l = token._listeners.length;
-        for (i = 0; i < l; i++) {
-          token._listeners[i](cancel);
-        }
-        token._listeners = null;
-      });
-      this.promise.then = function(onfulfilled) {
-        var _resolve;
-        var promise = new Promise(function(resolve) {
-          token.subscribe(resolve);
-          _resolve = resolve;
-        }).then(onfulfilled);
-        promise.cancel = function reject() {
-          token.unsubscribe(_resolve);
-        };
-        return promise;
-      };
-      executor(function cancel(message) {
-        if (token.reason) {
-          return;
-        }
-        token.reason = new CanceledError(message);
-        resolvePromise(token.reason);
-      });
-    }
-    CancelToken.prototype.throwIfRequested = function throwIfRequested() {
-      if (this.reason) {
-        throw this.reason;
-      }
-    };
-    CancelToken.prototype.subscribe = function subscribe(listener) {
-      if (this.reason) {
-        listener(this.reason);
-        return;
-      }
-      if (this._listeners) {
-        this._listeners.push(listener);
-      } else {
-        this._listeners = [listener];
-      }
-    };
-    CancelToken.prototype.unsubscribe = function unsubscribe(listener) {
-      if (!this._listeners) {
-        return;
-      }
-      var index = this._listeners.indexOf(listener);
-      if (index !== -1) {
-        this._listeners.splice(index, 1);
-      }
-    };
-    CancelToken.source = function source() {
-      var cancel;
-      var token = new CancelToken(function executor(c) {
-        cancel = c;
-      });
-      return {
-        token,
-        cancel
-      };
-    };
-    module.exports = CancelToken;
-  }
-});
-var require_spread = __commonJS2({
-  "../node_modules/axios/lib/helpers/spread.js"(exports, module) {
-    "use strict";
-    module.exports = function spread(callback) {
-      return function wrap(arr) {
-        return callback.apply(null, arr);
-      };
-    };
-  }
-});
-var require_isAxiosError = __commonJS2({
-  "../node_modules/axios/lib/helpers/isAxiosError.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    module.exports = function isAxiosError(payload) {
-      return utils.isObject(payload) && payload.isAxiosError === true;
-    };
-  }
-});
-var require_axios = __commonJS2({
-  "../node_modules/axios/lib/axios.js"(exports, module) {
-    "use strict";
-    var utils = require_utils();
-    var bind = require_bind();
-    var Axios = require_Axios();
-    var mergeConfig = require_mergeConfig();
-    var defaults = require_defaults();
-    function createInstance(defaultConfig) {
-      var context = new Axios(defaultConfig);
-      var instance = bind(Axios.prototype.request, context);
-      utils.extend(instance, Axios.prototype, context);
-      utils.extend(instance, context);
-      instance.create = function create22(instanceConfig) {
-        return createInstance(mergeConfig(defaultConfig, instanceConfig));
-      };
-      return instance;
-    }
-    var axios2 = createInstance(defaults);
-    axios2.Axios = Axios;
-    axios2.CanceledError = require_CanceledError();
-    axios2.CancelToken = require_CancelToken();
-    axios2.isCancel = require_isCancel();
-    axios2.VERSION = require_data().version;
-    axios2.toFormData = require_toFormData();
-    axios2.AxiosError = require_AxiosError();
-    axios2.Cancel = axios2.CanceledError;
-    axios2.all = function all(promises) {
-      return Promise.all(promises);
-    };
-    axios2.spread = require_spread();
-    axios2.isAxiosError = require_isAxiosError();
-    module.exports = axios2;
-    module.exports.default = axios2;
-  }
-});
-var require_axios2 = __commonJS2({
-  "../node_modules/axios/index.js"(exports, module) {
-    module.exports = require_axios();
-  }
-});
-var import_axios = __toESM2(require_axios2(), 1);
-var assetsURL = "https://cdn.zesty.xyz/images/zesty";
-var formats = {
-  "tall": {
-    width: 0.75,
-    height: 1,
-    style: {
-      "standard": `${assetsURL}/zesty-banner-tall.png`,
-      "minimal": `${assetsURL}/zesty-banner-tall-minimal.png`,
-      "transparent": `${assetsURL}/zesty-banner-tall-transparent.png`
-    }
-  },
-  "wide": {
-    width: 4,
-    height: 1,
-    style: {
-      "standard": `${assetsURL}/zesty-banner-wide.png`,
-      "minimal": `${assetsURL}/zesty-banner-wide-minimal.png`,
-      "transparent": `${assetsURL}/zesty-banner-wide-transparent.png`
-    }
-  },
-  "square": {
-    width: 1,
-    height: 1,
-    style: {
-      "standard": `${assetsURL}/zesty-banner-square.png`,
-      "minimal": `${assetsURL}/zesty-banner-square-minimal.png`,
-      "transparent": `${assetsURL}/zesty-banner-square-transparent.png`
-    }
-  },
-  "mobile-phone-interstitial": {
-    width: 0.56,
-    height: 1,
-    style: {
-      "standard": `${assetsURL}/zesty-default-mobile-phone-interstitial.png`,
-      "minimal": `${assetsURL}/zesty-default-mobile-phone-interstitial.png`,
-      "transparent": `${assetsURL}/zesty-default-mobile-phone-interstitial.png`
-    }
-  },
-  "billboard": {
-    width: 3.88,
-    height: 1,
-    style: {
-      "standard": `${assetsURL}/zesty-default-billboard.png`,
-      "minimal": `${assetsURL}/zesty-default-billboard.png`,
-      "transparent": `${assetsURL}/zesty-default-billboard.png`
-    }
-  },
-  "medium-rectangle": {
-    width: 1.2,
-    height: 1,
-    style: {
-      "standard": `${assetsURL}/zesty-default-medium-rectangle.png`,
-      "minimal": `${assetsURL}/zesty-default-medium-rectangle.png`,
-      "transparent": `${assetsURL}/zesty-default-medium-rectangle.png`
-    }
-  }
-};
-var checkOculusBrowser = () => {
-  const featureDetect = window.XRHand != null && window.XRMediaBinding != null;
-  const uaCheck = navigator.userAgent.includes("OculusBrowser");
-  const confidence = featureDetect && uaCheck ? "Full" : featureDetect || uaCheck ? "Partial" : "None";
-  return { match: confidence !== "None", confidence };
-};
-var checkWolvicBrowser = () => {
-  const featureDetect = window.mozInnerScreenX != null && window.speechSynthesis == null;
-  const uaCheck = navigator.userAgent.includes("Mobile VR") && !navigator.userAgent.includes("OculusBrowser");
-  const confidence = featureDetect && uaCheck ? "Full" : featureDetect || uaCheck ? "Partial" : "None";
-  return { match: confidence !== "None", confidence };
-};
-var checkPicoBrowser = async () => {
-  const featureDetect = navigator.xr && (await navigator.xr.isSessionSupported("immersive-vr") && await navigator.xr.isSessionSupported("immersive-ar"));
-  const uaCheck = navigator.userAgent.includes("Pico Neo 3 Link");
-  const confidence = featureDetect && uaCheck ? "Full" : featureDetect || uaCheck ? "Partial" : "None";
-  return { match: confidence !== "None", confidence };
-};
-var checkDesktopBrowser = () => {
-  const featureDetect = navigator.maxTouchPoints === 0 || navigator.msMaxTouchPoints === 0;
-  const uaCheck = !navigator.userAgent.includes("Android") && !navigator.userAgent.includes("Mobile");
-  const confidence = featureDetect && uaCheck ? "Full" : featureDetect || uaCheck ? "Partial" : "None";
-  return { match: confidence !== "None", confidence };
-};
-var checkUserPlatform = async () => {
-  let currentMatch = {
-    platform: "",
-    confidence: ""
+var Ge = f((Fi, Qe) => {
+  "use strict";
+  var ye = O();
+  Qe.exports = function(e, r, i) {
+    var n = i.config.validateStatus;
+    !i.status || !n || n(i.status) ? e(i) : r(new ye("Request failed with status code " + i.status, [ye.ERR_BAD_REQUEST, ye.ERR_BAD_RESPONSE][Math.floor(i.status / 100) - 4], i.config, i.request, i));
   };
-  if (checkOculusBrowser().match) {
-    currentMatch = { platform: "Oculus", confidence: checkOculusBrowser().confidence };
-  } else if (checkWolvicBrowser().match) {
-    currentMatch = { platform: "Wolvic", confidence: checkWolvicBrowser().confidence };
-  } else if (await checkPicoBrowser().match) {
-    currentMatch = { platform: "Pico", confidence: await checkPicoBrowser().confidence };
-  } else if (checkDesktopBrowser().match) {
-    currentMatch = { platform: "Desktop", confidence: checkDesktopBrowser().confidence };
-  } else {
-    currentMatch = { platform: "Unknown", confidence: "None" };
+});
+var et = f((Ui, Ze) => {
+  "use strict";
+  var Y = m();
+  Ze.exports = Y.isStandardBrowserEnv() ? function() {
+    return { write: function(r, i, n, s, a, u) {
+      var c = [];
+      c.push(r + "=" + encodeURIComponent(i)), Y.isNumber(n) && c.push("expires=" + new Date(n).toGMTString()), Y.isString(s) && c.push("path=" + s), Y.isString(a) && c.push("domain=" + a), u === true && c.push("secure"), document.cookie = c.join("; ");
+    }, read: function(r) {
+      var i = document.cookie.match(new RegExp("(^|;\\s*)(" + r + ")=([^;]*)"));
+      return i ? decodeURIComponent(i[3]) : null;
+    }, remove: function(r) {
+      this.write(r, "", Date.now() - 864e5);
+    } };
+  }() : function() {
+    return { write: function() {
+    }, read: function() {
+      return null;
+    }, remove: function() {
+    } };
+  }();
+});
+var rt = f(($i, tt) => {
+  "use strict";
+  tt.exports = function(e) {
+    return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(e);
+  };
+});
+var it = f((Hi, nt) => {
+  "use strict";
+  nt.exports = function(e, r) {
+    return r ? e.replace(/\/+$/, "") + "/" + r.replace(/^\/+/, "") : e;
+  };
+});
+var xe = f((Vi, st) => {
+  "use strict";
+  var Zr = rt(), en = it();
+  st.exports = function(e, r) {
+    return e && !Zr(r) ? en(e, r) : r;
+  };
+});
+var ot = f((Wi, at) => {
+  "use strict";
+  var ge = m(), tn = ["age", "authorization", "content-length", "content-type", "etag", "expires", "from", "host", "if-modified-since", "if-unmodified-since", "last-modified", "location", "max-forwards", "proxy-authorization", "referer", "retry-after", "user-agent"];
+  at.exports = function(e) {
+    var r = {}, i, n, s;
+    return e && ge.forEach(e.split(`
+`), function(u) {
+      if (s = u.indexOf(":"), i = ge.trim(u.substr(0, s)).toLowerCase(), n = ge.trim(u.substr(s + 1)), i) {
+        if (r[i] && tn.indexOf(i) >= 0)
+          return;
+        i === "set-cookie" ? r[i] = (r[i] ? r[i] : []).concat([n]) : r[i] = r[i] ? r[i] + ", " + n : n;
+      }
+    }), r;
+  };
+});
+var lt = f((Ji, ct) => {
+  "use strict";
+  var ut = m();
+  ct.exports = ut.isStandardBrowserEnv() ? function() {
+    var e = /(msie|trident)/i.test(navigator.userAgent), r = document.createElement("a"), i;
+    function n(s) {
+      var a = s;
+      return e && (r.setAttribute("href", a), a = r.href), r.setAttribute("href", a), { href: r.href, protocol: r.protocol ? r.protocol.replace(/:$/, "") : "", host: r.host, search: r.search ? r.search.replace(/^\?/, "") : "", hash: r.hash ? r.hash.replace(/^#/, "") : "", hostname: r.hostname, port: r.port, pathname: r.pathname.charAt(0) === "/" ? r.pathname : "/" + r.pathname };
+    }
+    return i = n(window.location.href), function(a) {
+      var u = ut.isString(a) ? n(a) : a;
+      return u.protocol === i.protocol && u.host === i.host;
+    };
+  }() : function() {
+    return function() {
+      return true;
+    };
+  }();
+});
+var I = f((Yi, ft) => {
+  "use strict";
+  var we = O(), rn = m();
+  function dt(t) {
+    we.call(this, t ?? "canceled", we.ERR_CANCELED), this.name = "CanceledError";
   }
-  return currentMatch;
-};
-var openURL = (url) => {
-  if (!url)
-    return;
-  if (checkOculusBrowser().match) {
-    if (url.includes("https://www.meta.com/experiences/")) {
-      setTimeout(() => {
-        window.open(url, "_blank");
-      }, 1e3);
+  rn.inherits(dt, we, { __CANCEL__: true });
+  ft.exports = dt;
+});
+var pt = f((Xi, ht) => {
+  "use strict";
+  ht.exports = function(e) {
+    var r = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
+    return r && r[1] || "";
+  };
+});
+var be = f((Ki, mt) => {
+  "use strict";
+  var j = m(), nn = Ge(), sn = et(), an = pe(), on = xe(), un = ot(), cn = lt(), ln2 = me(), E = O(), dn = I(), fn = pt();
+  mt.exports = function(e) {
+    return new Promise(function(i, n) {
+      var s = e.data, a = e.headers, u = e.responseType, c;
+      function l() {
+        e.cancelToken && e.cancelToken.unsubscribe(c), e.signal && e.signal.removeEventListener("abort", c);
+      }
+      j.isFormData(s) && j.isStandardBrowserEnv() && delete a["Content-Type"];
+      var o = new XMLHttpRequest();
+      if (e.auth) {
+        var d = e.auth.username || "", h = e.auth.password ? unescape(encodeURIComponent(e.auth.password)) : "";
+        a.Authorization = "Basic " + btoa(d + ":" + h);
+      }
+      var p = on(e.baseURL, e.url);
+      o.open(e.method.toUpperCase(), an(p, e.params, e.paramsSerializer), true), o.timeout = e.timeout;
+      function D() {
+        if (o) {
+          var w = "getAllResponseHeaders" in o ? un(o.getAllResponseHeaders()) : null, M = !u || u === "text" || u === "json" ? o.responseText : o.response, T = { data: M, status: o.status, statusText: o.statusText, headers: w, config: e, request: o };
+          nn(function(se) {
+            i(se), l();
+          }, function(se) {
+            n(se), l();
+          }, T), o = null;
+        }
+      }
+      if ("onloadend" in o ? o.onloadend = D : o.onreadystatechange = function() {
+        !o || o.readyState !== 4 || o.status === 0 && !(o.responseURL && o.responseURL.indexOf("file:") === 0) || setTimeout(D);
+      }, o.onabort = function() {
+        o && (n(new E("Request aborted", E.ECONNABORTED, e, o)), o = null);
+      }, o.onerror = function() {
+        n(new E("Network Error", E.ERR_NETWORK, e, o, o)), o = null;
+      }, o.ontimeout = function() {
+        var M = e.timeout ? "timeout of " + e.timeout + "ms exceeded" : "timeout exceeded", T = e.transitional || ln2;
+        e.timeoutErrorMessage && (M = e.timeoutErrorMessage), n(new E(M, T.clarifyTimeoutError ? E.ETIMEDOUT : E.ECONNABORTED, e, o)), o = null;
+      }, j.isStandardBrowserEnv()) {
+        var L = (e.withCredentials || cn(p)) && e.xsrfCookieName ? sn.read(e.xsrfCookieName) : void 0;
+        L && (a[e.xsrfHeaderName] = L);
+      }
+      "setRequestHeader" in o && j.forEach(a, function(M, T) {
+        typeof s > "u" && T.toLowerCase() === "content-type" ? delete a[T] : o.setRequestHeader(T, M);
+      }), j.isUndefined(e.withCredentials) || (o.withCredentials = !!e.withCredentials), u && u !== "json" && (o.responseType = e.responseType), typeof e.onDownloadProgress == "function" && o.addEventListener("progress", e.onDownloadProgress), typeof e.onUploadProgress == "function" && o.upload && o.upload.addEventListener("progress", e.onUploadProgress), (e.cancelToken || e.signal) && (c = function(w) {
+        o && (n(!w || w && w.type ? new dn() : w), o.abort(), o = null);
+      }, e.cancelToken && e.cancelToken.subscribe(c), e.signal && (e.signal.aborted ? c() : e.signal.addEventListener("abort", c))), s || (s = null);
+      var R = fn(p);
+      if (R && ["http", "https", "file"].indexOf(R) === -1) {
+        n(new E("Unsupported protocol " + R + ":", E.ERR_BAD_REQUEST, e));
+        return;
+      }
+      o.send(s);
+    });
+  };
+});
+var yt = f((Qi, vt) => {
+  vt.exports = null;
+});
+var K = f((Gi, bt) => {
+  "use strict";
+  var v = m(), xt = He(), gt = O(), hn = me(), pn = ve(), mn = { "Content-Type": "application/x-www-form-urlencoded" };
+  function wt(t, e) {
+    !v.isUndefined(t) && v.isUndefined(t["Content-Type"]) && (t["Content-Type"] = e);
+  }
+  function vn() {
+    var t;
+    return typeof XMLHttpRequest < "u" ? t = be() : typeof process < "u" && Object.prototype.toString.call(process) === "[object process]" && (t = be()), t;
+  }
+  function yn(t, e, r) {
+    if (v.isString(t))
+      try {
+        return (e || JSON.parse)(t), v.trim(t);
+      } catch (i) {
+        if (i.name !== "SyntaxError")
+          throw i;
+      }
+    return (r || JSON.stringify)(t);
+  }
+  var X = { transitional: hn, adapter: vn(), transformRequest: [function(e, r) {
+    if (xt(r, "Accept"), xt(r, "Content-Type"), v.isFormData(e) || v.isArrayBuffer(e) || v.isBuffer(e) || v.isStream(e) || v.isFile(e) || v.isBlob(e))
+      return e;
+    if (v.isArrayBufferView(e))
+      return e.buffer;
+    if (v.isURLSearchParams(e))
+      return wt(r, "application/x-www-form-urlencoded;charset=utf-8"), e.toString();
+    var i = v.isObject(e), n = r && r["Content-Type"], s;
+    if ((s = v.isFileList(e)) || i && n === "multipart/form-data") {
+      var a = this.env && this.env.FormData;
+      return pn(s ? { "files[]": e } : e, a && new a());
+    } else if (i || n === "application/json")
+      return wt(r, "application/json"), yn(e);
+    return e;
+  }], transformResponse: [function(e) {
+    var r = this.transitional || X.transitional, i = r && r.silentJSONParsing, n = r && r.forcedJSONParsing, s = !i && this.responseType === "json";
+    if (s || n && v.isString(e) && e.length)
+      try {
+        return JSON.parse(e);
+      } catch (a) {
+        if (s)
+          throw a.name === "SyntaxError" ? gt.from(a, gt.ERR_BAD_RESPONSE, this, null, this.response) : a;
+      }
+    return e;
+  }], timeout: 0, xsrfCookieName: "XSRF-TOKEN", xsrfHeaderName: "X-XSRF-TOKEN", maxContentLength: -1, maxBodyLength: -1, env: { FormData: yt() }, validateStatus: function(e) {
+    return e >= 200 && e < 300;
+  }, headers: { common: { Accept: "application/json, text/plain, */*" } } };
+  v.forEach(["delete", "get", "head"], function(e) {
+    X.headers[e] = {};
+  });
+  v.forEach(["post", "put", "patch"], function(e) {
+    X.headers[e] = v.merge(mn);
+  });
+  bt.exports = X;
+});
+var At = f((Zi, Et) => {
+  "use strict";
+  var xn = m(), gn = K();
+  Et.exports = function(e, r, i) {
+    var n = this || gn;
+    return xn.forEach(i, function(a) {
+      e = a.call(n, e, r);
+    }), e;
+  };
+});
+var Ee = f((es, Ct) => {
+  "use strict";
+  Ct.exports = function(e) {
+    return !!(e && e.__CANCEL__);
+  };
+});
+var qt = f((ts, Tt) => {
+  "use strict";
+  var Rt = m(), Ae = At(), wn = Ee(), bn = K(), En = I();
+  function Ce(t) {
+    if (t.cancelToken && t.cancelToken.throwIfRequested(), t.signal && t.signal.aborted)
+      throw new En();
+  }
+  Tt.exports = function(e) {
+    Ce(e), e.headers = e.headers || {}, e.data = Ae.call(e, e.data, e.headers, e.transformRequest), e.headers = Rt.merge(e.headers.common || {}, e.headers[e.method] || {}, e.headers), Rt.forEach(["delete", "get", "head", "post", "put", "patch", "common"], function(n) {
+      delete e.headers[n];
+    });
+    var r = e.adapter || bn.adapter;
+    return r(e).then(function(n) {
+      return Ce(e), n.data = Ae.call(e, n.data, n.headers, e.transformResponse), n;
+    }, function(n) {
+      return wn(n) || (Ce(e), n && n.response && (n.response.data = Ae.call(e, n.response.data, n.response.headers, e.transformResponse))), Promise.reject(n);
+    });
+  };
+});
+var Re = f((rs, Ot) => {
+  "use strict";
+  var g = m();
+  Ot.exports = function(e, r) {
+    r = r || {};
+    var i = {};
+    function n(o, d) {
+      return g.isPlainObject(o) && g.isPlainObject(d) ? g.merge(o, d) : g.isPlainObject(d) ? g.merge({}, d) : g.isArray(d) ? d.slice() : d;
+    }
+    function s(o) {
+      if (g.isUndefined(r[o])) {
+        if (!g.isUndefined(e[o]))
+          return n(void 0, e[o]);
+      } else
+        return n(e[o], r[o]);
+    }
+    function a(o) {
+      if (!g.isUndefined(r[o]))
+        return n(void 0, r[o]);
+    }
+    function u(o) {
+      if (g.isUndefined(r[o])) {
+        if (!g.isUndefined(e[o]))
+          return n(void 0, e[o]);
+      } else
+        return n(void 0, r[o]);
+    }
+    function c(o) {
+      if (o in r)
+        return n(e[o], r[o]);
+      if (o in e)
+        return n(void 0, e[o]);
+    }
+    var l = { url: a, method: a, data: a, baseURL: u, transformRequest: u, transformResponse: u, paramsSerializer: u, timeout: u, timeoutMessage: u, withCredentials: u, adapter: u, responseType: u, xsrfCookieName: u, xsrfHeaderName: u, onUploadProgress: u, onDownloadProgress: u, decompress: u, maxContentLength: u, maxBodyLength: u, beforeRedirect: u, transport: u, httpAgent: u, httpsAgent: u, cancelToken: u, socketPath: u, responseEncoding: u, validateStatus: c };
+    return g.forEach(Object.keys(e).concat(Object.keys(r)), function(d) {
+      var h = l[d] || s, p = h(d);
+      g.isUndefined(p) && h !== c || (i[d] = p);
+    }), i;
+  };
+});
+var Te = f((ns, Mt) => {
+  Mt.exports = { version: "0.27.2" };
+});
+var Nt = f((is, Pt) => {
+  "use strict";
+  var An = Te().version, C = O(), qe = {};
+  ["object", "boolean", "number", "function", "string", "symbol"].forEach(function(t, e) {
+    qe[t] = function(i) {
+      return typeof i === t || "a" + (e < 1 ? "n " : " ") + t;
+    };
+  });
+  var St = {};
+  qe.transitional = function(e, r, i) {
+    function n(s, a) {
+      return "[Axios v" + An + "] Transitional option '" + s + "'" + a + (i ? ". " + i : "");
+    }
+    return function(s, a, u) {
+      if (e === false)
+        throw new C(n(a, " has been removed" + (r ? " in " + r : "")), C.ERR_DEPRECATED);
+      return r && !St[a] && (St[a] = true, console.warn(n(a, " has been deprecated since v" + r + " and will be removed in the near future"))), e ? e(s, a, u) : true;
+    };
+  };
+  function Cn(t, e, r) {
+    if (typeof t != "object")
+      throw new C("options must be an object", C.ERR_BAD_OPTION_VALUE);
+    for (var i = Object.keys(t), n = i.length; n-- > 0; ) {
+      var s = i[n], a = e[s];
+      if (a) {
+        var u = t[s], c = u === void 0 || a(u, s, t);
+        if (c !== true)
+          throw new C("option " + s + " must be " + c, C.ERR_BAD_OPTION_VALUE);
+        continue;
+      }
+      if (r !== true)
+        throw new C("Unknown option " + s, C.ERR_BAD_OPTION);
+    }
+  }
+  Pt.exports = { assertOptions: Cn, validators: qe };
+});
+var It = f((ss, Lt) => {
+  "use strict";
+  var kt = m(), Rn = pe(), zt = Ue(), _t = qt(), Q = Re(), Tn = xe(), Dt = Nt(), N = Dt.validators;
+  function z(t) {
+    this.defaults = t, this.interceptors = { request: new zt(), response: new zt() };
+  }
+  z.prototype.request = function(e, r) {
+    typeof e == "string" ? (r = r || {}, r.url = e) : r = e || {}, r = Q(this.defaults, r), r.method ? r.method = r.method.toLowerCase() : this.defaults.method ? r.method = this.defaults.method.toLowerCase() : r.method = "get";
+    var i = r.transitional;
+    i !== void 0 && Dt.assertOptions(i, { silentJSONParsing: N.transitional(N.boolean), forcedJSONParsing: N.transitional(N.boolean), clarifyTimeoutError: N.transitional(N.boolean) }, false);
+    var n = [], s = true;
+    this.interceptors.request.forEach(function(p) {
+      typeof p.runWhen == "function" && p.runWhen(r) === false || (s = s && p.synchronous, n.unshift(p.fulfilled, p.rejected));
+    });
+    var a = [];
+    this.interceptors.response.forEach(function(p) {
+      a.push(p.fulfilled, p.rejected);
+    });
+    var u;
+    if (!s) {
+      var c = [_t, void 0];
+      for (Array.prototype.unshift.apply(c, n), c = c.concat(a), u = Promise.resolve(r); c.length; )
+        u = u.then(c.shift(), c.shift());
+      return u;
+    }
+    for (var l = r; n.length; ) {
+      var o = n.shift(), d = n.shift();
+      try {
+        l = o(l);
+      } catch (h) {
+        d(h);
+        break;
+      }
+    }
+    try {
+      u = _t(l);
+    } catch (h) {
+      return Promise.reject(h);
+    }
+    for (; a.length; )
+      u = u.then(a.shift(), a.shift());
+    return u;
+  };
+  z.prototype.getUri = function(e) {
+    e = Q(this.defaults, e);
+    var r = Tn(e.baseURL, e.url);
+    return Rn(r, e.params, e.paramsSerializer);
+  };
+  kt.forEach(["delete", "get", "head", "options"], function(e) {
+    z.prototype[e] = function(r, i) {
+      return this.request(Q(i || {}, { method: e, url: r, data: (i || {}).data }));
+    };
+  });
+  kt.forEach(["post", "put", "patch"], function(e) {
+    function r(i) {
+      return function(s, a, u) {
+        return this.request(Q(u || {}, { method: e, headers: i ? { "Content-Type": "multipart/form-data" } : {}, url: s, data: a }));
+      };
+    }
+    z.prototype[e] = r(), z.prototype[e + "Form"] = r(true);
+  });
+  Lt.exports = z;
+});
+var Bt = f((as, jt) => {
+  "use strict";
+  var qn = I();
+  function _(t) {
+    if (typeof t != "function")
+      throw new TypeError("executor must be a function.");
+    var e;
+    this.promise = new Promise(function(n) {
+      e = n;
+    });
+    var r = this;
+    this.promise.then(function(i) {
+      if (r._listeners) {
+        var n, s = r._listeners.length;
+        for (n = 0; n < s; n++)
+          r._listeners[n](i);
+        r._listeners = null;
+      }
+    }), this.promise.then = function(i) {
+      var n, s = new Promise(function(a) {
+        r.subscribe(a), n = a;
+      }).then(i);
+      return s.cancel = function() {
+        r.unsubscribe(n);
+      }, s;
+    }, t(function(n) {
+      r.reason || (r.reason = new qn(n), e(r.reason));
+    });
+  }
+  _.prototype.throwIfRequested = function() {
+    if (this.reason)
+      throw this.reason;
+  };
+  _.prototype.subscribe = function(e) {
+    if (this.reason) {
+      e(this.reason);
       return;
     }
-  } else if (checkWolvicBrowser().match) {
-    const modal = document.createElement("div");
-    const content = document.createElement("div");
-    const message = document.createElement("p");
-    const yes = document.createElement("button");
-    const no = document.createElement("button");
-    modal.style.backgroundColor = "rgb(0, 0, 0, 0.75)";
-    modal.style.color = "white";
-    modal.style.textAlign = "center";
-    modal.style.position = "fixed";
-    modal.style.top = "50%";
-    modal.style.left = "50%";
-    modal.style.padding = "5%";
-    modal.style.borderRadius = "5%";
-    modal.style.transform = "translate(-50%, -50%)";
-    message.innerHTML = `<b>This billboard leads to ${url}. Continue?</b>`;
-    yes.innerText = "Move cursor back into window.";
-    yes.style.width = "100vw";
-    yes.style.height = "100vh";
-    yes.onmouseenter = () => {
-      yes.style.width = "auto";
-      yes.style.height = "auto";
-      yes.innerText = "Yes";
-    };
-    yes.onclick = () => {
-      window.open(url, "_blank");
-      modal.remove();
-    };
-    no.innerText = "No";
-    no.onclick = () => {
-      modal.remove();
-    };
-    modal.append(content);
-    content.append(message);
-    content.append(yes);
-    content.append(no);
-    document.body.append(modal);
-    return;
-  }
-  window.open(url, "_blank");
-};
-var BEACON_GRAPHQL_URI = "https://beacon2.zesty.market/zgraphql";
-var DB_ENDPOINT = "https://api.zesty.market/api";
-var prebidInit = false;
-var retryCount = 10;
-var currentTries = 0;
-var iframe = null;
-var ready = false;
-var bids = null;
-var initPrebid = (adUnitId, format) => {
-  iframe = document.createElement("iframe");
-  iframe.src = `https://www.zesty.xyz/prebid/?size=${format}&source=${Math.round(Math.random())}&ad_unit_id=${adUnitId}&utm_source=${adUnitId}`;
-  iframe.width = "1";
-  iframe.height = "1";
-  iframe.style.position = "fixed";
-  iframe.style.border = "none";
-  iframe.style.zIndex = "-2";
-  document.body.prepend(iframe);
-  iframe.onload = () => {
-    iframe.contentWindow.postMessage({ type: "readycheck" }, "*");
+    this._listeners ? this._listeners.push(e) : this._listeners = [e];
   };
-  window.addEventListener("message", ({ data }) => {
-    switch (data.type) {
-      case "readystatus":
-        ready = data.content;
-        break;
-      case "bids":
-        bids = data.content;
-        break;
+  _.prototype.unsubscribe = function(e) {
+    if (this._listeners) {
+      var r = this._listeners.indexOf(e);
+      r !== -1 && this._listeners.splice(r, 1);
     }
-  });
-  const script = document.createElement("script");
-  script.src = "https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js";
-  document.head.appendChild(script);
-  prebidInit = true;
-};
-var betaUnits = [
-  { id: "4902864a-5531-496b-8d4d-ec7b9849e8e1", format: "medium-rectangle", absoluteWidth: 0.75, absoluteHeight: 0.625 },
-  { id: "14dccdbe-18b7-40d0-93d8-c104fd9486e8", format: "medium-rectangle" },
-  { id: "a8e0496f-034d-4cea-ba5f-653bba4fba39", format: "billboard" },
-  { id: "a181cc07-fda7-462e-adba-0fd8abf0af24", format: "billboard" }
-];
-var getV3BetaUnitInfo = (adUnitId) => {
-  return betaUnits.find((unit) => unit.id === adUnitId) || {};
-};
-var getDefaultBanner = (format, style, isBeta, betaFormat) => {
-  return { Ads: [{ asset_url: formats[isBeta ? betaFormat : format].style[style], cta_url: "https://www.zesty.xyz" }], CampaignId: "DefaultCampaign" };
-};
-var fetchCampaignAd = async (adUnitId, format = "tall", style = "standard") => {
-  const isBeta = betaUnits.find((unit) => unit.id === adUnitId);
-  const { format: betaFormat } = getV3BetaUnitInfo(adUnitId);
-  if (isBeta) {
-    if (!prebidInit) {
-      initPrebid(adUnitId, betaFormat, style);
-    } else {
-      bids = null;
-      currentTries = 0;
-      iframe.contentWindow.postMessage({ type: "refresh" }, "*");
-    }
-  }
-  return new Promise((res, rej) => {
-    async function getBanner() {
-      if (!isBeta) {
-        currentTries = retryCount - 1;
-      }
-      if (bids && bids.length > 0) {
-        const { asset_url, cta_url } = JSON.parse(bids);
-        if (asset_url.startsWith("canvas://")) {
-          const canvasIframe = document.createElement("iframe");
-          canvasIframe.id = "zesty-canvas-iframe";
-          document.body.appendChild(canvasIframe);
-          canvasIframe.contentDocument.open();
-          canvasIframe.contentDocument.write(asset_url.split("canvas://")[1]);
-          canvasIframe.contentDocument.close();
-        }
-        res({ Ads: [{ asset_url, cta_url }], CampaignId: "Prebid" });
-      } else {
-        currentTries++;
-        if (currentTries == retryCount) {
-          try {
-            const url = encodeURI(window.top.location.href).replace(/\/$/, "");
-            const res2 = await import_axios.default.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}&url=${url}`);
-            if (res2.data)
-              res2(res2.data);
-            else {
-              res2(getDefaultBanner(format, style, isBeta, betaFormat));
-            }
-          } catch {
-            console.warn("Could not retrieve an active campaign banner. Retrieving default banner.");
-            res(getDefaultBanner(format, style, isBeta, betaFormat));
-          }
-        } else {
-          setTimeout(getBanner, 1e3);
-        }
-      }
-    }
-    getBanner();
-  });
-};
-var sendOnLoadMetric = async (spaceId, campaignId = null) => {
-  const { platform, confidence } = await checkUserPlatform();
-  try {
-    await import_axios.default.post(
-      BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: visits, spaceId: "${spaceId}", campaignId: "${campaignId}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
-      { headers: { "Content-Type": "application/json" } }
-    );
-  } catch (e) {
-    console.log("Failed to emit onload event", e.message);
-  }
-};
-var sendOnClickMetric = async (spaceId, campaignId = null) => {
-  const { platform, confidence } = await checkUserPlatform();
-  try {
-    await import_axios.default.post(
-      BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: clicks, spaceId: "${spaceId}", campaignId: "${campaignId}", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
-      { headers: { "Content-Type": "application/json" } }
-    );
-  } catch (e) {
-    console.log("Failed to emit onclick event", e.message);
-  }
-};
-var version = "3.0.0-beta.1";
-var EPSILON2 = 1e-6;
-var ARRAY_TYPE2 = typeof Float32Array !== "undefined" ? Float32Array : Array;
-var RANDOM2 = Math.random;
-var degree2 = Math.PI / 180;
-if (!Math.hypot)
-  Math.hypot = function() {
-    var y = 0, i = arguments.length;
-    while (i--) {
-      y += arguments[i] * arguments[i];
-    }
-    return Math.sqrt(y);
   };
-var vec3_exports2 = {};
-__export2(vec3_exports2, {
-  add: () => add6,
-  angle: () => angle2,
-  bezier: () => bezier2,
-  ceil: () => ceil2,
-  clone: () => clone6,
-  copy: () => copy6,
-  create: () => create7,
-  cross: () => cross2,
-  dist: () => dist2,
-  distance: () => distance2,
-  div: () => div2,
-  divide: () => divide2,
-  dot: () => dot5,
-  equals: () => equals6,
-  exactEquals: () => exactEquals6,
-  floor: () => floor2,
-  forEach: () => forEach3,
-  fromValues: () => fromValues6,
-  hermite: () => hermite2,
-  inverse: () => inverse2,
-  len: () => len4,
-  length: () => length5,
-  lerp: () => lerp5,
-  max: () => max2,
-  min: () => min2,
-  mul: () => mul5,
-  multiply: () => multiply5,
-  negate: () => negate2,
-  normalize: () => normalize5,
-  random: () => random3,
-  rotateX: () => rotateX5,
-  rotateY: () => rotateY5,
-  rotateZ: () => rotateZ5,
-  round: () => round2,
-  scale: () => scale6,
-  scaleAndAdd: () => scaleAndAdd2,
-  set: () => set6,
-  sqrDist: () => sqrDist2,
-  sqrLen: () => sqrLen4,
-  squaredDistance: () => squaredDistance2,
-  squaredLength: () => squaredLength5,
-  str: () => str5,
-  sub: () => sub3,
-  subtract: () => subtract3,
-  transformMat3: () => transformMat32,
-  transformMat4: () => transformMat42,
-  transformQuat: () => transformQuat2,
-  zero: () => zero2
+  _.source = function() {
+    var e, r = new _(function(n) {
+      e = n;
+    });
+    return { token: r, cancel: e };
+  };
+  jt.exports = _;
 });
-function create7() {
-  var out = new ARRAY_TYPE2(3);
-  if (ARRAY_TYPE2 != Float32Array) {
-    out[0] = 0;
-    out[1] = 0;
-    out[2] = 0;
+var Ut = f((os, Ft) => {
+  "use strict";
+  Ft.exports = function(e) {
+    return function(i) {
+      return e.apply(null, i);
+    };
+  };
+});
+var Ht = f((us, $t) => {
+  "use strict";
+  var On = m();
+  $t.exports = function(e) {
+    return On.isObject(e) && e.isAxiosError === true;
+  };
+});
+var Jt = f((cs, Oe) => {
+  "use strict";
+  var Vt = m(), Mn = oe(), G = It(), Sn = Re(), Pn = K();
+  function Wt(t) {
+    var e = new G(t), r = Mn(G.prototype.request, e);
+    return Vt.extend(r, G.prototype, e), Vt.extend(r, e), r.create = function(n) {
+      return Wt(Sn(t, n));
+    }, r;
   }
-  return out;
-}
-function clone6(a) {
-  var out = new ARRAY_TYPE2(3);
-  out[0] = a[0];
-  out[1] = a[1];
-  out[2] = a[2];
-  return out;
-}
-function length5(a) {
-  var x = a[0];
-  var y = a[1];
-  var z = a[2];
-  return Math.hypot(x, y, z);
-}
-function fromValues6(x, y, z) {
-  var out = new ARRAY_TYPE2(3);
-  out[0] = x;
-  out[1] = y;
-  out[2] = z;
-  return out;
-}
-function copy6(out, a) {
-  out[0] = a[0];
-  out[1] = a[1];
-  out[2] = a[2];
-  return out;
-}
-function set6(out, x, y, z) {
-  out[0] = x;
-  out[1] = y;
-  out[2] = z;
-  return out;
-}
-function add6(out, a, b) {
-  out[0] = a[0] + b[0];
-  out[1] = a[1] + b[1];
-  out[2] = a[2] + b[2];
-  return out;
-}
-function subtract3(out, a, b) {
-  out[0] = a[0] - b[0];
-  out[1] = a[1] - b[1];
-  out[2] = a[2] - b[2];
-  return out;
-}
-function multiply5(out, a, b) {
-  out[0] = a[0] * b[0];
-  out[1] = a[1] * b[1];
-  out[2] = a[2] * b[2];
-  return out;
-}
-function divide2(out, a, b) {
-  out[0] = a[0] / b[0];
-  out[1] = a[1] / b[1];
-  out[2] = a[2] / b[2];
-  return out;
-}
-function ceil2(out, a) {
-  out[0] = Math.ceil(a[0]);
-  out[1] = Math.ceil(a[1]);
-  out[2] = Math.ceil(a[2]);
-  return out;
-}
-function floor2(out, a) {
-  out[0] = Math.floor(a[0]);
-  out[1] = Math.floor(a[1]);
-  out[2] = Math.floor(a[2]);
-  return out;
-}
-function min2(out, a, b) {
-  out[0] = Math.min(a[0], b[0]);
-  out[1] = Math.min(a[1], b[1]);
-  out[2] = Math.min(a[2], b[2]);
-  return out;
-}
-function max2(out, a, b) {
-  out[0] = Math.max(a[0], b[0]);
-  out[1] = Math.max(a[1], b[1]);
-  out[2] = Math.max(a[2], b[2]);
-  return out;
-}
-function round2(out, a) {
-  out[0] = Math.round(a[0]);
-  out[1] = Math.round(a[1]);
-  out[2] = Math.round(a[2]);
-  return out;
-}
-function scale6(out, a, b) {
-  out[0] = a[0] * b;
-  out[1] = a[1] * b;
-  out[2] = a[2] * b;
-  return out;
-}
-function scaleAndAdd2(out, a, b, scale22) {
-  out[0] = a[0] + b[0] * scale22;
-  out[1] = a[1] + b[1] * scale22;
-  out[2] = a[2] + b[2] * scale22;
-  return out;
-}
-function distance2(a, b) {
-  var x = b[0] - a[0];
-  var y = b[1] - a[1];
-  var z = b[2] - a[2];
-  return Math.hypot(x, y, z);
-}
-function squaredDistance2(a, b) {
-  var x = b[0] - a[0];
-  var y = b[1] - a[1];
-  var z = b[2] - a[2];
-  return x * x + y * y + z * z;
-}
-function squaredLength5(a) {
-  var x = a[0];
-  var y = a[1];
-  var z = a[2];
-  return x * x + y * y + z * z;
-}
-function negate2(out, a) {
-  out[0] = -a[0];
-  out[1] = -a[1];
-  out[2] = -a[2];
-  return out;
-}
-function inverse2(out, a) {
-  out[0] = 1 / a[0];
-  out[1] = 1 / a[1];
-  out[2] = 1 / a[2];
-  return out;
-}
-function normalize5(out, a) {
-  var x = a[0];
-  var y = a[1];
-  var z = a[2];
-  var len22 = x * x + y * y + z * z;
-  if (len22 > 0) {
-    len22 = 1 / Math.sqrt(len22);
+  var x = Wt(Pn);
+  x.Axios = G;
+  x.CanceledError = I();
+  x.CancelToken = Bt();
+  x.isCancel = Ee();
+  x.VERSION = Te().version;
+  x.toFormData = ve();
+  x.AxiosError = O();
+  x.Cancel = x.CanceledError;
+  x.all = function(e) {
+    return Promise.all(e);
+  };
+  x.spread = Ut();
+  x.isAxiosError = Ht();
+  Oe.exports = x;
+  Oe.exports.default = x;
+});
+var Xt = f((ls, Yt) => {
+  Yt.exports = Jt();
+});
+var re = Or(Xt(), 1);
+var y = "https://cdn.zesty.xyz/images/zesty";
+var B = { tall: { width: 0.75, height: 1, style: { standard: `${y}/zesty-banner-tall.png`, minimal: `${y}/zesty-banner-tall-minimal.png`, transparent: `${y}/zesty-banner-tall-transparent.png` } }, wide: { width: 4, height: 1, style: { standard: `${y}/zesty-banner-wide.png`, minimal: `${y}/zesty-banner-wide-minimal.png`, transparent: `${y}/zesty-banner-wide-transparent.png` } }, square: { width: 1, height: 1, style: { standard: `${y}/zesty-banner-square.png`, minimal: `${y}/zesty-banner-square-minimal.png`, transparent: `${y}/zesty-banner-square-transparent.png` } }, "mobile-phone-interstitial": { width: 0.56, height: 1, style: { standard: `${y}/zesty-default-mobile-phone-interstitial.png`, minimal: `${y}/zesty-default-mobile-phone-interstitial.png`, transparent: `${y}/zesty-default-mobile-phone-interstitial.png` } }, billboard: { width: 3.88, height: 1, style: { standard: `${y}/zesty-default-billboard.png`, minimal: `${y}/zesty-default-billboard.png`, transparent: `${y}/zesty-default-billboard.png` } }, "medium-rectangle": { width: 1.2, height: 1, style: { standard: `${y}/zesty-default-medium-rectangle.png`, minimal: `${y}/zesty-default-medium-rectangle.png`, transparent: `${y}/zesty-default-medium-rectangle.png` } } };
+var Me = () => {
+  let t = window.XRHand != null && window.XRMediaBinding != null, e = navigator.userAgent.includes("OculusBrowser"), r = t && e ? "Full" : t || e ? "Partial" : "None";
+  return { match: r !== "None", confidence: r };
+};
+var Se = () => {
+  let t = window.mozInnerScreenX != null && window.speechSynthesis == null, e = navigator.userAgent.includes("Mobile VR") && !navigator.userAgent.includes("OculusBrowser"), r = t && e ? "Full" : t || e ? "Partial" : "None";
+  return { match: r !== "None", confidence: r };
+};
+var Kt = async () => {
+  let t = navigator.xr && await navigator.xr.isSessionSupported("immersive-vr") && await navigator.xr.isSessionSupported("immersive-ar"), e = navigator.userAgent.includes("Pico Neo 3 Link"), r = t && e ? "Full" : t || e ? "Partial" : "None";
+  return { match: r !== "None", confidence: r };
+};
+var Qt = () => {
+  let t = navigator.maxTouchPoints === 0 || navigator.msMaxTouchPoints === 0, e = !navigator.userAgent.includes("Android") && !navigator.userAgent.includes("Mobile"), r = t && e ? "Full" : t || e ? "Partial" : "None";
+  return { match: r !== "None", confidence: r };
+};
+var Pe = async () => {
+  let t = { platform: "", confidence: "" };
+  return Me().match ? t = { platform: "Oculus", confidence: Me().confidence } : Se().match ? t = { platform: "Wolvic", confidence: Se().confidence } : await Kt().match ? t = { platform: "Pico", confidence: await Kt().confidence } : Qt().match ? t = { platform: "Desktop", confidence: Qt().confidence } : t = { platform: "Unknown", confidence: "None" }, t;
+};
+var Gt = (t) => {
+  if (t) {
+    if (Me().match) {
+      if (t.includes("https://www.meta.com/experiences/")) {
+        setTimeout(() => {
+          window.open(t, "_blank");
+        }, 1e3);
+        return;
+      }
+    } else if (Se().match) {
+      let e = document.createElement("div"), r = document.createElement("div"), i = document.createElement("p"), n = document.createElement("button"), s = document.createElement("button");
+      e.style.backgroundColor = "rgb(0, 0, 0, 0.75)", e.style.color = "white", e.style.textAlign = "center", e.style.position = "fixed", e.style.top = "50%", e.style.left = "50%", e.style.padding = "5%", e.style.borderRadius = "5%", e.style.transform = "translate(-50%, -50%)", i.innerHTML = `<b>This billboard leads to ${t}. Continue?</b>`, n.innerText = "Move cursor back into window.", n.style.width = "100vw", n.style.height = "100vh", n.onmouseenter = () => {
+        n.style.width = "auto", n.style.height = "auto", n.innerText = "Yes";
+      }, n.onclick = () => {
+        window.open(t, "_blank"), e.remove();
+      }, s.innerText = "No", s.onclick = () => {
+        e.remove();
+      }, e.append(r), r.append(i), r.append(n), r.append(s), document.body.append(e);
+      return;
+    }
+    window.open(t, "_blank");
   }
-  out[0] = a[0] * len22;
-  out[1] = a[1] * len22;
-  out[2] = a[2] * len22;
-  return out;
+};
+var Zt = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
+function Nn(t) {
+  return typeof t == "string" && Zt.test(t);
 }
-function dot5(a, b) {
-  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+var er = Nn;
+function zn(t) {
+  if (!er(t))
+    throw TypeError("Invalid UUID");
+  var e, r = new Uint8Array(16);
+  return r[0] = (e = parseInt(t.slice(0, 8), 16)) >>> 24, r[1] = e >>> 16 & 255, r[2] = e >>> 8 & 255, r[3] = e & 255, r[4] = (e = parseInt(t.slice(9, 13), 16)) >>> 8, r[5] = e & 255, r[6] = (e = parseInt(t.slice(14, 18), 16)) >>> 8, r[7] = e & 255, r[8] = (e = parseInt(t.slice(19, 23), 16)) >>> 8, r[9] = e & 255, r[10] = (e = parseInt(t.slice(24, 36), 16)) / 1099511627776 & 255, r[11] = e / 4294967296 & 255, r[12] = e >>> 24 & 255, r[13] = e >>> 16 & 255, r[14] = e >>> 8 & 255, r[15] = e & 255, r;
 }
-function cross2(out, a, b) {
-  var ax = a[0], ay = a[1], az = a[2];
-  var bx = b[0], by = b[1], bz = b[2];
-  out[0] = ay * bz - az * by;
-  out[1] = az * bx - ax * bz;
-  out[2] = ax * by - ay * bx;
-  return out;
-}
-function lerp5(out, a, b, t) {
-  var ax = a[0];
-  var ay = a[1];
-  var az = a[2];
-  out[0] = ax + t * (b[0] - ax);
-  out[1] = ay + t * (b[1] - ay);
-  out[2] = az + t * (b[2] - az);
-  return out;
-}
-function hermite2(out, a, b, c, d, t) {
-  var factorTimes2 = t * t;
-  var factor1 = factorTimes2 * (2 * t - 3) + 1;
-  var factor2 = factorTimes2 * (t - 2) + t;
-  var factor3 = factorTimes2 * (t - 1);
-  var factor4 = factorTimes2 * (3 - 2 * t);
-  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
-  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
-  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
-  return out;
-}
-function bezier2(out, a, b, c, d, t) {
-  var inverseFactor = 1 - t;
-  var inverseFactorTimesTwo = inverseFactor * inverseFactor;
-  var factorTimes2 = t * t;
-  var factor1 = inverseFactorTimesTwo * inverseFactor;
-  var factor2 = 3 * t * inverseFactorTimesTwo;
-  var factor3 = 3 * factorTimes2 * inverseFactor;
-  var factor4 = factorTimes2 * t;
-  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
-  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
-  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
-  return out;
-}
-function random3(out, scale22) {
-  scale22 = scale22 || 1;
-  var r = RANDOM2() * 2 * Math.PI;
-  var z = RANDOM2() * 2 - 1;
-  var zScale = Math.sqrt(1 - z * z) * scale22;
-  out[0] = Math.cos(r) * zScale;
-  out[1] = Math.sin(r) * zScale;
-  out[2] = z * scale22;
-  return out;
-}
-function transformMat42(out, a, m) {
-  var x = a[0], y = a[1], z = a[2];
-  var w = m[3] * x + m[7] * y + m[11] * z + m[15];
-  w = w || 1;
-  out[0] = (m[0] * x + m[4] * y + m[8] * z + m[12]) / w;
-  out[1] = (m[1] * x + m[5] * y + m[9] * z + m[13]) / w;
-  out[2] = (m[2] * x + m[6] * y + m[10] * z + m[14]) / w;
-  return out;
-}
-function transformMat32(out, a, m) {
-  var x = a[0], y = a[1], z = a[2];
-  out[0] = x * m[0] + y * m[3] + z * m[6];
-  out[1] = x * m[1] + y * m[4] + z * m[7];
-  out[2] = x * m[2] + y * m[5] + z * m[8];
-  return out;
-}
-function transformQuat2(out, a, q) {
-  var qx = q[0], qy = q[1], qz = q[2], qw = q[3];
-  var x = a[0], y = a[1], z = a[2];
-  var uvx = qy * z - qz * y, uvy = qz * x - qx * z, uvz = qx * y - qy * x;
-  var uuvx = qy * uvz - qz * uvy, uuvy = qz * uvx - qx * uvz, uuvz = qx * uvy - qy * uvx;
-  var w2 = qw * 2;
-  uvx *= w2;
-  uvy *= w2;
-  uvz *= w2;
-  uuvx *= 2;
-  uuvy *= 2;
-  uuvz *= 2;
-  out[0] = x + uvx + uuvx;
-  out[1] = y + uvy + uuvy;
-  out[2] = z + uvz + uuvz;
-  return out;
-}
-function rotateX5(out, a, b, rad) {
-  var p = [], r = [];
-  p[0] = a[0] - b[0];
-  p[1] = a[1] - b[1];
-  p[2] = a[2] - b[2];
-  r[0] = p[0];
-  r[1] = p[1] * Math.cos(rad) - p[2] * Math.sin(rad);
-  r[2] = p[1] * Math.sin(rad) + p[2] * Math.cos(rad);
-  out[0] = r[0] + b[0];
-  out[1] = r[1] + b[1];
-  out[2] = r[2] + b[2];
-  return out;
-}
-function rotateY5(out, a, b, rad) {
-  var p = [], r = [];
-  p[0] = a[0] - b[0];
-  p[1] = a[1] - b[1];
-  p[2] = a[2] - b[2];
-  r[0] = p[2] * Math.sin(rad) + p[0] * Math.cos(rad);
-  r[1] = p[1];
-  r[2] = p[2] * Math.cos(rad) - p[0] * Math.sin(rad);
-  out[0] = r[0] + b[0];
-  out[1] = r[1] + b[1];
-  out[2] = r[2] + b[2];
-  return out;
-}
-function rotateZ5(out, a, b, rad) {
-  var p = [], r = [];
-  p[0] = a[0] - b[0];
-  p[1] = a[1] - b[1];
-  p[2] = a[2] - b[2];
-  r[0] = p[0] * Math.cos(rad) - p[1] * Math.sin(rad);
-  r[1] = p[0] * Math.sin(rad) + p[1] * Math.cos(rad);
-  r[2] = p[2];
-  out[0] = r[0] + b[0];
-  out[1] = r[1] + b[1];
-  out[2] = r[2] + b[2];
-  return out;
-}
-function angle2(a, b) {
-  var ax = a[0], ay = a[1], az = a[2], bx = b[0], by = b[1], bz = b[2], mag1 = Math.sqrt(ax * ax + ay * ay + az * az), mag2 = Math.sqrt(bx * bx + by * by + bz * bz), mag = mag1 * mag2, cosine = mag && dot5(a, b) / mag;
-  return Math.acos(Math.min(Math.max(cosine, -1), 1));
-}
-function zero2(out) {
-  out[0] = 0;
-  out[1] = 0;
-  out[2] = 0;
-  return out;
-}
-function str5(a) {
-  return "vec3(" + a[0] + ", " + a[1] + ", " + a[2] + ")";
-}
-function exactEquals6(a, b) {
-  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2];
-}
-function equals6(a, b) {
-  var a0 = a[0], a1 = a[1], a2 = a[2];
-  var b0 = b[0], b1 = b[1], b2 = b[2];
-  return Math.abs(a0 - b0) <= EPSILON2 * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON2 * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON2 * Math.max(1, Math.abs(a2), Math.abs(b2));
-}
-var sub3 = subtract3;
-var mul5 = multiply5;
-var div2 = divide2;
-var dist2 = distance2;
-var sqrDist2 = squaredDistance2;
-var len4 = length5;
-var sqrLen4 = squaredLength5;
-var forEach3 = function() {
-  var vec = create7();
-  return function(a, stride, offset2, count, fn, arg) {
-    var i, l;
-    if (!stride) {
-      stride = 3;
+var Ne = zn;
+var tr = "https://beacon2.zesty.market/zgraphql";
+var _n = "https://api.zesty.market/api";
+var rr = 15e3;
+var nr = false;
+var kn = null;
+var Dn = 5;
+var F = {};
+var k = {};
+var ee = {};
+var te = "pb-slot-right-1";
+var Ln = (t, e) => {
+  let r = document.createElement("div");
+  r.id = "zesty-div", r.style.height = "250px", r.style.width = "300px", r.style.position = "fixed", r.style.top = "0", document.body.appendChild(r);
+  let i = document.createElement("link");
+  i.href = "https://www.googletagservices.com/tag/js/gpt.js", i.rel = "preload", i.as = "script", document.head.appendChild(i);
+  let n = document.createElement("script");
+  n.src = "https://dn0qt3r0xannq.cloudfront.net/zesty-ig89tpzq8N/zesty-longform/prebid-load.js", n.async = true, document.head.appendChild(n);
+  let s = document.createElement("script");
+  s.src = "https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js", document.head.appendChild(s), e == "medium-rectangle" ? r.id = "zesty-div-medium-rectangle" : e == "billboard" ? (te = "pb-slot-billboard", r.style.width = "728px", r.style.height = "90px") : e == "mobile-phone-interstitial" && (te = "pb-slot-interstitial", r.style.width = "1080px", r.style.height = "1920px"), window.tude = window.tude || { cmd: [] }, tude.cmd.push(function() {
+    tude.refreshAdsViaDivMappings([{ divId: "zesty-div", baseDivId: te }]);
+  });
+  function a(u) {
+    let c = u.contentDocument.querySelectorAll("img"), l = Array.prototype.filter.call(c, (h) => h.height > 1);
+    if (l.length == 0)
+      return;
+    let o = l[0].src, d = l[0].parentElement.href;
+    return { asset_url: o, cta_url: d };
+  }
+  kn = setInterval(() => {
+    let c = document.getElementById("zesty-div").querySelector("iframe");
+    if (c) {
+      let l = a(c);
+      if (l) {
+        let { asset_url: o, cta_url: d } = l;
+        (o !== ee[t].asset_url || d !== ee[t].cta_url) && (ee[t] = { asset_url: o, cta_url: d }, F = { asset_url: o, cta_url: d });
+      }
     }
-    if (!offset2) {
-      offset2 = 0;
+  }, 1e3), nr = true;
+};
+var In = [{ id: "4902864a-5531-496b-8d4d-ec7b9849e8e1", format: "medium-rectangle", oldFormat: "tall", absoluteWidth: 0.75, absoluteHeight: 0.625 }];
+var jn = (t) => In.find((e) => e.id === t) || {};
+var Z = (t, e, r = false, i = null) => ({ Ads: [{ asset_url: B[r ? i : t].style[e], cta_url: "https://www.zesty.xyz" }], CampaignId: "DefaultCampaign" });
+var ir = async (t, e = "tall", r = "standard") => {
+  ["tall", "wide", "square"].includes(e) && console.warn(`The old Zesty banner formats (tall, wide, and square) are being deprecated and will be removed in a future version. Please update to one of the new IAB formats (mobile-phone-interstitial, billboard, and medium-rectangle).
+Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
+  try {
+    Ne(t);
+  } catch {
+    return console.warn("Ad unit ID provided is not a valid UUID."), new Promise((a) => a(Z(e, r)));
+  }
+  let i = jn(t), n = i?.oldFormat && e == i.oldFormat;
+  if (!t)
+    return new Promise((s) => s(Z(e, r, n, i.format)));
+  if (nr)
+    F = null, k[t] = 0, ee[t] = null, tude.cmd.push(function() {
+      tude.refreshAdsViaDivMappings([{ divId: "zesty-div", baseDivId: te }]);
+    });
+  else {
+    let s = n ? i.format : e;
+    Ln(t, s, r), k[t] = 0;
+  }
+  return new Promise((s, a) => {
+    async function u() {
+      if (F?.asset_url && F?.cta_url) {
+        let { asset_url: c, cta_url: l } = F;
+        if (c.startsWith("canvas://")) {
+          let o = document.createElement("iframe");
+          o.id = "zesty-canvas-iframe", document.body.appendChild(o), o.contentDocument.open(), o.contentDocument.write(c.split("canvas://")[1]), o.contentDocument.close();
+        }
+        s({ Ads: [{ asset_url: c, cta_url: l }], CampaignId: "Prebid" });
+      } else if (k[t]++, k[t] == Dn)
+        try {
+          let c = encodeURI(window.top.location.href).replace(/\/$/, ""), l = await re.default.get(`${_n}/ad?ad_unit_id=${t}&url=${c}`);
+          l.data ? l(l.data) : l(Z(e, r, n, i.format)), k[t] = 0;
+        } catch {
+          console.warn("Could not retrieve an active campaign banner. Retrieving default banner."), s(Z(e, r, n, i.format)), k[t] = 0;
+        }
+      else
+        setTimeout(u, 1e3);
     }
-    if (count) {
-      l = Math.min(count * stride + offset2, a.length);
-    } else {
-      l = a.length;
-    }
-    for (i = offset2; i < l; i += stride) {
-      vec[0] = a[i];
-      vec[1] = a[i + 1];
-      vec[2] = a[i + 2];
-      fn(vec, vec, arg);
-      a[i] = vec[0];
-      a[i + 1] = vec[1];
-      a[i + 2] = vec[2];
-    }
-    return a;
+    u();
+  });
+};
+var sr = async (t, e = null) => {
+  let { platform: r, confidence: i } = await Pe();
+  try {
+    await re.default.post(tr, { query: `mutation { increment(eventType: visits, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${i} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
+  } catch (n) {
+    console.log("Failed to emit onload event", n.message);
+  }
+};
+var ar = async (t, e = null) => {
+  let { platform: r, confidence: i } = await Pe();
+  try {
+    await re.default.post(tr, { query: `mutation { increment(eventType: clicks, spaceId: "${t}", campaignId: "${e}", platform: { name: ${r}, confidence: ${i} }) { message } }` }, { headers: { "Content-Type": "application/json" } });
+  } catch (n) {
+    console.log("Failed to emit onclick event", n.message);
+  }
+};
+var or = "3.0.0";
+var ne = 1e-6;
+var U = typeof Float32Array < "u" ? Float32Array : Array;
+var ze = Math.random;
+var Rs = Math.PI / 180;
+Math.hypot || (Math.hypot = function() {
+  for (var t = 0, e = arguments.length; e--; )
+    t += arguments[e] * arguments[e];
+  return Math.sqrt(t);
+});
+var $ = {};
+Tr($, { add: () => Wn, angle: () => pi, bezier: () => ai, ceil: () => Jn, clone: () => Un, copy: () => Hn, create: () => ur, cross: () => ni, dist: () => Ei, distance: () => hr, div: () => bi, divide: () => fr, dot: () => vr, equals: () => xi, exactEquals: () => yi, floor: () => Yn, forEach: () => Ti, fromValues: () => $n, hermite: () => si, inverse: () => ti, len: () => Ci, length: () => cr, lerp: () => ii, max: () => Kn, min: () => Xn, mul: () => wi, multiply: () => dr, negate: () => ei, normalize: () => ri, random: () => oi, rotateX: () => di, rotateY: () => fi, rotateZ: () => hi, round: () => Qn, scale: () => Gn, scaleAndAdd: () => Zn, set: () => Vn, sqrDist: () => Ai, sqrLen: () => Ri, squaredDistance: () => pr, squaredLength: () => mr, str: () => vi, sub: () => gi, subtract: () => lr, transformMat3: () => ci, transformMat4: () => ui, transformQuat: () => li, zero: () => mi });
+function ur() {
+  var t = new U(3);
+  return U != Float32Array && (t[0] = 0, t[1] = 0, t[2] = 0), t;
+}
+function Un(t) {
+  var e = new U(3);
+  return e[0] = t[0], e[1] = t[1], e[2] = t[2], e;
+}
+function cr(t) {
+  var e = t[0], r = t[1], i = t[2];
+  return Math.hypot(e, r, i);
+}
+function $n(t, e, r) {
+  var i = new U(3);
+  return i[0] = t, i[1] = e, i[2] = r, i;
+}
+function Hn(t, e) {
+  return t[0] = e[0], t[1] = e[1], t[2] = e[2], t;
+}
+function Vn(t, e, r, i) {
+  return t[0] = e, t[1] = r, t[2] = i, t;
+}
+function Wn(t, e, r) {
+  return t[0] = e[0] + r[0], t[1] = e[1] + r[1], t[2] = e[2] + r[2], t;
+}
+function lr(t, e, r) {
+  return t[0] = e[0] - r[0], t[1] = e[1] - r[1], t[2] = e[2] - r[2], t;
+}
+function dr(t, e, r) {
+  return t[0] = e[0] * r[0], t[1] = e[1] * r[1], t[2] = e[2] * r[2], t;
+}
+function fr(t, e, r) {
+  return t[0] = e[0] / r[0], t[1] = e[1] / r[1], t[2] = e[2] / r[2], t;
+}
+function Jn(t, e) {
+  return t[0] = Math.ceil(e[0]), t[1] = Math.ceil(e[1]), t[2] = Math.ceil(e[2]), t;
+}
+function Yn(t, e) {
+  return t[0] = Math.floor(e[0]), t[1] = Math.floor(e[1]), t[2] = Math.floor(e[2]), t;
+}
+function Xn(t, e, r) {
+  return t[0] = Math.min(e[0], r[0]), t[1] = Math.min(e[1], r[1]), t[2] = Math.min(e[2], r[2]), t;
+}
+function Kn(t, e, r) {
+  return t[0] = Math.max(e[0], r[0]), t[1] = Math.max(e[1], r[1]), t[2] = Math.max(e[2], r[2]), t;
+}
+function Qn(t, e) {
+  return t[0] = Math.round(e[0]), t[1] = Math.round(e[1]), t[2] = Math.round(e[2]), t;
+}
+function Gn(t, e, r) {
+  return t[0] = e[0] * r, t[1] = e[1] * r, t[2] = e[2] * r, t;
+}
+function Zn(t, e, r, i) {
+  return t[0] = e[0] + r[0] * i, t[1] = e[1] + r[1] * i, t[2] = e[2] + r[2] * i, t;
+}
+function hr(t, e) {
+  var r = e[0] - t[0], i = e[1] - t[1], n = e[2] - t[2];
+  return Math.hypot(r, i, n);
+}
+function pr(t, e) {
+  var r = e[0] - t[0], i = e[1] - t[1], n = e[2] - t[2];
+  return r * r + i * i + n * n;
+}
+function mr(t) {
+  var e = t[0], r = t[1], i = t[2];
+  return e * e + r * r + i * i;
+}
+function ei(t, e) {
+  return t[0] = -e[0], t[1] = -e[1], t[2] = -e[2], t;
+}
+function ti(t, e) {
+  return t[0] = 1 / e[0], t[1] = 1 / e[1], t[2] = 1 / e[2], t;
+}
+function ri(t, e) {
+  var r = e[0], i = e[1], n = e[2], s = r * r + i * i + n * n;
+  return s > 0 && (s = 1 / Math.sqrt(s)), t[0] = e[0] * s, t[1] = e[1] * s, t[2] = e[2] * s, t;
+}
+function vr(t, e) {
+  return t[0] * e[0] + t[1] * e[1] + t[2] * e[2];
+}
+function ni(t, e, r) {
+  var i = e[0], n = e[1], s = e[2], a = r[0], u = r[1], c = r[2];
+  return t[0] = n * c - s * u, t[1] = s * a - i * c, t[2] = i * u - n * a, t;
+}
+function ii(t, e, r, i) {
+  var n = e[0], s = e[1], a = e[2];
+  return t[0] = n + i * (r[0] - n), t[1] = s + i * (r[1] - s), t[2] = a + i * (r[2] - a), t;
+}
+function si(t, e, r, i, n, s) {
+  var a = s * s, u = a * (2 * s - 3) + 1, c = a * (s - 2) + s, l = a * (s - 1), o = a * (3 - 2 * s);
+  return t[0] = e[0] * u + r[0] * c + i[0] * l + n[0] * o, t[1] = e[1] * u + r[1] * c + i[1] * l + n[1] * o, t[2] = e[2] * u + r[2] * c + i[2] * l + n[2] * o, t;
+}
+function ai(t, e, r, i, n, s) {
+  var a = 1 - s, u = a * a, c = s * s, l = u * a, o = 3 * s * u, d = 3 * c * a, h = c * s;
+  return t[0] = e[0] * l + r[0] * o + i[0] * d + n[0] * h, t[1] = e[1] * l + r[1] * o + i[1] * d + n[1] * h, t[2] = e[2] * l + r[2] * o + i[2] * d + n[2] * h, t;
+}
+function oi(t, e) {
+  e = e || 1;
+  var r = ze() * 2 * Math.PI, i = ze() * 2 - 1, n = Math.sqrt(1 - i * i) * e;
+  return t[0] = Math.cos(r) * n, t[1] = Math.sin(r) * n, t[2] = i * e, t;
+}
+function ui(t, e, r) {
+  var i = e[0], n = e[1], s = e[2], a = r[3] * i + r[7] * n + r[11] * s + r[15];
+  return a = a || 1, t[0] = (r[0] * i + r[4] * n + r[8] * s + r[12]) / a, t[1] = (r[1] * i + r[5] * n + r[9] * s + r[13]) / a, t[2] = (r[2] * i + r[6] * n + r[10] * s + r[14]) / a, t;
+}
+function ci(t, e, r) {
+  var i = e[0], n = e[1], s = e[2];
+  return t[0] = i * r[0] + n * r[3] + s * r[6], t[1] = i * r[1] + n * r[4] + s * r[7], t[2] = i * r[2] + n * r[5] + s * r[8], t;
+}
+function li(t, e, r) {
+  var i = r[0], n = r[1], s = r[2], a = r[3], u = e[0], c = e[1], l = e[2], o = n * l - s * c, d = s * u - i * l, h = i * c - n * u, p = n * h - s * d, D = s * o - i * h, L = i * d - n * o, R = a * 2;
+  return o *= R, d *= R, h *= R, p *= 2, D *= 2, L *= 2, t[0] = u + o + p, t[1] = c + d + D, t[2] = l + h + L, t;
+}
+function di(t, e, r, i) {
+  var n = [], s = [];
+  return n[0] = e[0] - r[0], n[1] = e[1] - r[1], n[2] = e[2] - r[2], s[0] = n[0], s[1] = n[1] * Math.cos(i) - n[2] * Math.sin(i), s[2] = n[1] * Math.sin(i) + n[2] * Math.cos(i), t[0] = s[0] + r[0], t[1] = s[1] + r[1], t[2] = s[2] + r[2], t;
+}
+function fi(t, e, r, i) {
+  var n = [], s = [];
+  return n[0] = e[0] - r[0], n[1] = e[1] - r[1], n[2] = e[2] - r[2], s[0] = n[2] * Math.sin(i) + n[0] * Math.cos(i), s[1] = n[1], s[2] = n[2] * Math.cos(i) - n[0] * Math.sin(i), t[0] = s[0] + r[0], t[1] = s[1] + r[1], t[2] = s[2] + r[2], t;
+}
+function hi(t, e, r, i) {
+  var n = [], s = [];
+  return n[0] = e[0] - r[0], n[1] = e[1] - r[1], n[2] = e[2] - r[2], s[0] = n[0] * Math.cos(i) - n[1] * Math.sin(i), s[1] = n[0] * Math.sin(i) + n[1] * Math.cos(i), s[2] = n[2], t[0] = s[0] + r[0], t[1] = s[1] + r[1], t[2] = s[2] + r[2], t;
+}
+function pi(t, e) {
+  var r = t[0], i = t[1], n = t[2], s = e[0], a = e[1], u = e[2], c = Math.sqrt(r * r + i * i + n * n), l = Math.sqrt(s * s + a * a + u * u), o = c * l, d = o && vr(t, e) / o;
+  return Math.acos(Math.min(Math.max(d, -1), 1));
+}
+function mi(t) {
+  return t[0] = 0, t[1] = 0, t[2] = 0, t;
+}
+function vi(t) {
+  return "vec3(" + t[0] + ", " + t[1] + ", " + t[2] + ")";
+}
+function yi(t, e) {
+  return t[0] === e[0] && t[1] === e[1] && t[2] === e[2];
+}
+function xi(t, e) {
+  var r = t[0], i = t[1], n = t[2], s = e[0], a = e[1], u = e[2];
+  return Math.abs(r - s) <= ne * Math.max(1, Math.abs(r), Math.abs(s)) && Math.abs(i - a) <= ne * Math.max(1, Math.abs(i), Math.abs(a)) && Math.abs(n - u) <= ne * Math.max(1, Math.abs(n), Math.abs(u));
+}
+var gi = lr;
+var wi = dr;
+var bi = fr;
+var Ei = hr;
+var Ai = pr;
+var Ci = cr;
+var Ri = mr;
+var Ti = function() {
+  var t = ur();
+  return function(e, r, i, n, s, a) {
+    var u, c;
+    for (r || (r = 3), i || (i = 0), n ? c = Math.min(n * r + i, e.length) : c = e.length, u = i; u < c; u += r)
+      t[0] = e[u], t[1] = e[u + 1], t[2] = e[u + 2], s(t, t, a), e[u] = t[0], e[u + 1] = t[1], e[u + 2] = t[2];
+    return e;
   };
 }();
-console.log("Zesty SDK Version: ", version);
-var formatsLink = "https://cdn.zesty.xyz/sdk/zesty-formats.js";
-var networkingLink = "https://cdn.zesty.xyz/sdk/zesty-networking.js";
-var AD_REFRESH_INTERVAL = 3e4;
-var ZestyBanner = class extends Component {
-  static onRegister(engine2) {
-    engine2.registerComponent(CursorTarget);
+console.log("Zesty SDK Version: ", or);
+var Si = "https://cdn.zesty.xyz/sdk/zesty-formats.js";
+var Pi = "https://cdn.zesty.xyz/sdk/zesty-networking.js";
+var xr = false;
+var ie = class extends Component {
+  static onRegister(e) {
+    e.registerComponent(CursorTarget);
   }
   init() {
-    this.formats = Object.values(formats);
-    this.formatKeys = Object.keys(formats);
-    this.styleKeys = ["standard", "minimal", "transparent"];
-    this.loadedFirstAd = false;
-    this.canvas = null;
-    this.canvasTexture = null;
-    this.canvasLoaded = false;
-    this.canvasTexturePipeline = null;
-    this.canvasIframe = null;
+    this.formats = Object.values(B), this.formatKeys = Object.keys(B), this.styleKeys = ["standard", "minimal", "transparent"], this.loadedFirstAd = false, this.canvas = null, this.canvasTexture = null, this.canvasLoaded = false, this.canvasTexturePipeline = null, this.canvasIframe = null;
   }
   start() {
-    const isBeta = getV3BetaUnitInfo(this.adUnit).hasOwnProperty("format");
-    this.mesh = this.object.getComponent(MeshComponent);
-    if (!this.mesh) {
+    if (this.mesh = this.object.getComponent(MeshComponent), !this.mesh)
       throw new Error("'zesty-banner ' missing mesh component");
-    }
-    this.collision = this.object.getComponent(CollisionComponent) || this.object.addComponent(CollisionComponent, {
-      collider: Collider.Box,
-      group: 2
-    });
-    this.cursorTarget = this.object.getComponent(CursorTarget) || this.object.addComponent(CursorTarget);
-    this.cursorTarget.onClick.add(this.onClick.bind(this));
-    if (this.dynamicFormats) {
-      let formatsScript = document.createElement("script");
-      formatsScript.onload = () => {
+    if (this.collision = this.object.getComponent(CollisionComponent) || this.object.addComponent(CollisionComponent, { collider: Collider.Box, group: 2 }), this.cursorTarget = this.object.getComponent(CursorTarget) || this.object.addComponent(CursorTarget), this.cursorTarget.onClick.add(this.onClick.bind(this)), this.dynamicFormats) {
+      let e = document.createElement("script");
+      e.onload = () => {
         this.formatsOverride = zestyFormats.formats;
-      };
-      formatsScript.setAttribute("src", formatsLink);
-      formatsScript.setAttribute("crossorigin", "anonymous");
-      document.body.appendChild(formatsScript);
+      }, e.setAttribute("src", Si), e.setAttribute("crossorigin", "anonymous"), document.body.appendChild(e);
     }
-    if (this.dynamicNetworking) {
-      import(networkingLink).then((value) => {
-        this.zestyNetworking = Object.assign({}, value);
-        this.startLoading();
-        if (isBeta) {
-          setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
-        }
-      }).catch(() => {
-        console.error("Failed to dynamically retrieve networking code, falling back to bundled version.");
-        this.dynamicNetworking = false;
-        this.startLoading();
-        if (isBeta) {
-          setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
-        }
-      });
-    } else {
-      this.startLoading();
-      if (isBeta) {
-        setInterval(this.startLoading.bind(this), AD_REFRESH_INTERVAL);
-      }
-    }
+    this.dynamicNetworking && import(Pi).then((e) => {
+      this.zestyNetworking = Object.assign({}, e);
+    }).catch(() => {
+      console.error("Failed to dynamically retrieve networking code, falling back to bundled version."), this.dynamicNetworking = false;
+    }), this.startLoading(), setInterval(this.startLoading.bind(this), rr);
   }
   update() {
-    if (!this.canvasLoaded && this.canvas?.hasAttribute("width")) {
-      this.canvasTexture = this.engine.textures.create(document.querySelector("#zestyCanvas"));
-      this.canvasLoaded = true;
-      if (this.canvasTexturePipeline == "flat") {
-        this.object.getComponent("mesh").material.flatTexture = this.canvasTexture;
-      } else {
-        this.object.getComponent("mesh").material.diffuseTexture = this.canvasTexture;
-      }
-    } else if (this.canvasTexture) {
-      this.canvasTexture.update();
-      document.querySelector("#zestyCanvas").getContext("2d").clearRect(0, 0, this.canvas.width, this.canvas.height);
-      document.querySelector("#zestyCanvas").getContext("2d").drawImage(this.canvas, 0, 0);
-    }
+    !this.canvasLoaded && this.canvas?.hasAttribute("width") ? (this.canvasTexture = this.engine.textures.create(document.querySelector("#zestyCanvas")), this.canvasLoaded = true, this.canvasTexturePipeline == "flat" ? this.object.getComponent("mesh").material.flatTexture = this.canvasTexture : this.object.getComponent("mesh").material.diffuseTexture = this.canvasTexture) : this.canvasTexture && (this.canvasTexture.update(), document.querySelector("#zestyCanvas").getContext("2d").clearRect(0, 0, this.canvas.width, this.canvas.height), document.querySelector("#zestyCanvas").getContext("2d").drawImage(this.canvas, 0, 0));
   }
   startLoading() {
-    if (!this.checkVisibility() && this.loadedFirstAd)
-      return;
-    if (!this.loadedFirstAd)
-      this.loadedFirstAd = true;
-    if (this.canvasTexture) {
-      this.canvasTexture.destroy();
-      this.canvasTexture = null;
-    }
-    if (this.canvas) {
-      document.body.removeChild(this.canvas);
-      this.canvas = null;
-    }
-    this.loadBanner(
-      this.adUnit,
-      this.formatKeys[this.format],
-      this.styleKeys[this.style]
-    ).then((banner) => {
-      this.banner = banner;
-      if (this.scaleToRatio) {
-        this.height = this.object.scalingLocal[1];
-        const {
-          absoluteWidth: adjustedWidth = this.formats[this.format].width * this.height,
-          absoluteHeight: adjustedHeight = this.object.scalingLocal[1]
-        } = getV3BetaUnitInfo(this.adUnit);
-        this.object.resetScaling();
-        if (this.createAutomaticCollision) {
-          this.collision.extents = [
-            adjustedWidth,
-            adjustedHeight,
-            0.1
-          ];
-        }
-        this.object.scale([adjustedWidth, adjustedHeight, 1]);
-      }
-      const m = this.mesh.material.clone();
+    !this.checkVisibility() && this.loadedFirstAd || (this.loadedFirstAd || (this.loadedFirstAd = true), this.canvasTexture && (this.canvasTexture.destroy(), this.canvasTexture = null), this.canvas && (document.body.removeChild(this.canvas), this.canvas = null), this.loadBanner(this.adUnit, this.formatKeys[this.format], this.styleKeys[this.style]).then((e) => {
+      this.banner = e, this.scaleToRatio && (this.height = this.object.getScalingLocal()[1], this.width = this.formats[this.format].width * this.height, this.object.resetScaling(), this.createAutomaticCollision && (this.collision.extents = [this.width, this.height, 0.1]), this.object.scaleLocal([this.width, this.height, 1]));
+      let r = this.mesh.material.clone();
       if (this.textureProperty === "auto") {
-        if (m.diffuseTexture || m.hasParameter && m.hasParameter("diffuseTexture")) {
-          if (banner.imageSrc.includes("canvas://")) {
-            this.canvasLoaded = false;
-            this.canvasTexturePipeline = "diffuse";
-          } else if (banner.imageSrc.includes(".gif")) {
-            this.canvas = document.createElement("canvas");
-            this.canvas.id = "zestyCanvas";
-            document.body.appendChild(this.canvas);
-            gifler(banner.imageSrc).animate("#zestyCanvas");
-            this.canvasLoaded = false;
-            this.canvasTexturePipeline = "diffuse";
-          } else {
-            m.diffuseTexture = banner.texture;
-            m.alphaMaskThreshold = 0.3;
-          }
-        } else if (m.flatTexture || m.hasParameter && m.hasParameter("flatTexture")) {
-          if (banner.imageSrc.includes("canvas://")) {
-            const canvas2 = document.createElement("canvas");
-            canvas2.id = "zestyCanvas";
-            canvas2.width = this.canvas.width;
-            canvas2.height = this.canvas.height;
-            document.body.appendChild(canvas2);
-            this.canvasLoaded = false;
-            this.canvasTexturePipeline = "flat";
-          } else if (banner.imageSrc.includes(".gif")) {
-            this.canvas = document.createElement("canvas");
-            this.canvas.id = "zestyCanvas";
-            document.body.appendChild(this.canvas);
-            gifler(banner.imageSrc).animate("#zestyCanvas");
-            this.canvasLoaded = false;
-            this.canvasTexturePipeline = "flat";
-          } else {
-            m.flatTexture = banner.texture;
-            m.alphaMaskThreshold = 0.8;
-          }
-        } else {
-          throw Error(
-            "'zesty-banner' unable to apply banner texture: unsupported pipeline " + pipeline
-          );
-        }
-        this.mesh.material = m;
-        this.mesh.material.alphaMaskTexture = banner.texture;
-      } else {
-        this.mesh.material[this.textureProperty] = banner.texture;
-        this.mesh.material.alphaMaskTexture = banner.texture;
-      }
-      if (this.beacon) {
-        this.dynamicNetworking ? this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) : sendOnLoadMetric(this.adUnit, this.banner.campaignId);
-      }
-    });
+        if (r.diffuseTexture || r.hasParameter && r.hasParameter("diffuseTexture"))
+          e.imageSrc.includes("canvas://") ? (this.canvasLoaded = false, this.canvasTexturePipeline = "diffuse") : e.imageSrc.includes(".gif") ? (this.canvas = document.createElement("canvas"), this.canvas.id = "zestyCanvas", document.body.appendChild(this.canvas), gifler(e.imageSrc).animate("#zestyCanvas"), this.canvasLoaded = false, this.canvasTexturePipeline = "diffuse") : (r.diffuseTexture = e.texture, r.alphaMaskThreshold = 0.3);
+        else if (r.flatTexture || r.hasParameter && r.hasParameter("flatTexture"))
+          if (e.imageSrc.includes("canvas://")) {
+            let i = document.createElement("canvas");
+            i.id = "zestyCanvas", i.width = this.canvas.width, i.height = this.canvas.height, document.body.appendChild(i), this.canvasLoaded = false, this.canvasTexturePipeline = "flat";
+          } else
+            e.imageSrc.includes(".gif") ? (this.canvas = document.createElement("canvas"), this.canvas.id = "zestyCanvas", document.body.appendChild(this.canvas), gifler(e.imageSrc).animate("#zestyCanvas"), this.canvasLoaded = false, this.canvasTexturePipeline = "flat") : (r.flatTexture = e.texture, r.alphaMaskThreshold = 0.8);
+        else
+          throw Error("'zesty-banner' unable to apply banner texture: unsupported pipeline " + pipeline);
+        this.mesh.material = r, this.mesh.material.alphaMaskTexture = e.texture;
+      } else
+        this.mesh.material[this.textureProperty] = e.texture, this.mesh.material.alphaMaskTexture = e.texture;
+      this.beacon && !xr && (this.dynamicNetworking ? this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) : sr(this.adUnit, this.banner.campaignId), xr = true);
+    }));
   }
   onClick() {
-    if (this.banner?.url) {
-      if (this.engine.xr) {
-        this.engine.xr.session.end().then(this.executeClick.bind(this));
-      } else if (this.engine.xrSession) {
-        this.engine.xrSession.end().then(this.executeClick.bind(this));
-      } else {
-        this.executeClick();
-      }
-    }
+    this.banner?.url && (this.engine.xr ? this.engine.xr.session.end().then(this.executeClick.bind(this)) : this.engine.xrSession ? this.engine.xrSession.end().then(this.executeClick.bind(this)) : this.executeClick());
   }
   executeClick() {
-    openURL(this.banner.url);
-    if (this.beacon) {
-      this.dynamicNetworking ? this.zestyNetworking.sendOnClickMetric(this.adUnit, this.banner.campaignId) : sendOnClickMetric(this.adUnit, this.banner.campaignId);
-    }
+    Gt(this.banner.url), this.beacon && (this.dynamicNetworking ? this.zestyNetworking.sendOnClickMetric(this.adUnit, this.banner.campaignId) : ar(this.adUnit, this.banner.campaignId));
   }
-  async loadBanner(adUnit, format, style) {
-    const {
-      format: adjustedFormat = format
-    } = getV3BetaUnitInfo(adUnit);
-    const betaFormats = ["mobile-phone-interstitial", "billboard", "medium-rectangle"];
-    if (betaFormats.includes(adjustedFormat)) {
-      this.format = betaFormats.indexOf(adjustedFormat) + 3;
-    }
-    const activeCampaign = this.dynamicNetworking ? await this.zestyNetworking.fetchCampaignAd(adUnit, adjustedFormat, style) : await fetchCampaignAd(adUnit, adjustedFormat, style);
-    const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
-    this.campaignId = activeCampaign.CampaignId;
-    if (image.includes("canvas://")) {
-      const canvasIframe = document.querySelector("#zesty-canvas-iframe");
-      const canvas2 = canvasIframe.contentDocument.querySelector("canvas");
-      this.canvas = canvas2;
-      return { texture: {}, imageSrc: image, url, campaignId: activeCampaign.CampaignId };
-    } else {
-      return this.engine.textures.load(image, "").then((texture) => {
-        return { texture, imageSrc: image, url, campaignId: activeCampaign.CampaignId };
-      });
-    }
+  async loadBanner(e, r, i) {
+    let n = this.dynamicNetworking ? await this.zestyNetworking.fetchCampaignAd(e, r, i) : await ir(e, r, i), { asset_url: s, cta_url: a } = n.Ads[0];
+    if (this.campaignId = n.CampaignId, this.mesh.material?.flatTexture != null ? this.mesh.material.flatTexture.destroy() : this.mesh.material?.diffuseTexture != null && this.mesh.material.diffuseTexture.destroy(), s.includes("canvas://")) {
+      let c = document.querySelector("#zesty-canvas-iframe").contentDocument.querySelector("canvas");
+      return this.canvas = c, { texture: {}, imageSrc: s, url: a, campaignId: n.CampaignId };
+    } else
+      return this.engine.textures.load(s, "").then((u) => ({ texture: u, imageSrc: s, url: a, campaignId: n.CampaignId }));
   }
-  /**
-   * Checks the visibility of an object based on camera position and direction.
-   * We do this by calculating the dot product of the camera's forward vector
-   * and the vector from the object's position to the camera. If the dot product
-   * is above PI/2 (corresponding to at most a 90 degree angle rotation away),
-   * the object is considered visible.
-   *
-   * @return {boolean} Whether the object is visible or not.
-   */
   checkVisibility() {
-    let objectOrigin = this.object.getPositionWorld([]);
-    let cameraOrigin = WL.scene.activeViews[0].object.getPositionWorld([]);
-    let cameraDirection = WL.scene.activeViews[0].object.getForwardWorld([]);
-    let diff = vec3_exports2.sub([], objectOrigin, cameraOrigin);
-    let dot22 = vec3_exports2.dot(cameraDirection, diff);
-    return dot22 > Math.PI / 2;
+    let e = this.object.getPositionWorld([]), r = WL.scene.activeViews[0].object.getPositionWorld([]), i = WL.scene.activeViews[0].object.getForwardWorld([]), n = $.sub([], e, r);
+    return $.dot(i, n) > Math.PI / 2;
   }
 };
-__publicField2(ZestyBanner, "TypeName", "zesty-banner");
-__publicField2(ZestyBanner, "Properties", {
-  /* Your banner ad unit ID */
-  adUnit: Property.string(""),
-  /* The default banner format, determines aspect ratio */
-  format: Property.enum(["tall", "wide", "square", "mobile-phone-interstitial", "billboard", "medium-rectangle"], "square"),
-  /* The default banner visual style */
-  style: Property.enum(["standard", "minimal", "transparent"], "transparent"),
-  /* Scale width of the object to banner ratio (see format) and set the collider */
-  scaleToRatio: Property.bool(true),
-  /* Texture property to set after banner is loaded. Leave "auto" to detect from
-  * known pipelines (Phong Opaque Textured, Flat Opaque Textured) */
-  textureProperty: Property.string("auto"),
-  /* Whether to assign the banner to the alphaMaskTexture property of the material */
-  assignAlphaMaskTexture: Property.bool(true),
-  beacon: Property.bool(true),
-  /* Load default image uris at runtime, if false at build time */
-  dynamicFormats: Property.bool(true),
-  /* Load networking logic at runtime, if false at build time */
-  dynamicNetworking: Property.bool(true)
-});
+ae(ie, "TypeName", "zesty-banner"), ae(ie, "Properties", { adUnit: Property.string(""), format: Property.enum(["tall", "wide", "square", "mobile-phone-interstitial", "billboard", "medium-rectangle"], "square"), style: Property.enum(["standard", "minimal", "transparent"], "transparent"), scaleToRatio: Property.bool(true), textureProperty: Property.string("auto"), assignAlphaMaskTexture: Property.bool(true), beacon: Property.bool(true), dynamicFormats: Property.bool(true), dynamicNetworking: Property.bool(true) });
 
 // js/index.js
 var Constants = {
@@ -20622,7 +19392,7 @@ engine.registerComponent(MouseLookComponent);
 engine.registerComponent(PlayerHeight);
 engine.registerComponent(VrModeActiveSwitch);
 engine.registerComponent(ExposeBanners);
-engine.registerComponent(ZestyBanner);
+engine.registerComponent(ie);
 engine.scene.load(`${Constants.ProjectName}.bin`);
 /*! Bundled license information:
 

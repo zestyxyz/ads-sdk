@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { formats } from '../utils/formats.js';
 import { checkUserPlatform } from '../utils/helpers.js';
-//import { v4 as uuidv4 } from 'uuid'
+import { parse as parseUUID } from 'uuid'
 
 const BEACON_API_BASE = 'https://beacon.zesty.market'
 const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
@@ -10,64 +10,90 @@ const DB_ENDPOINT = 'https://api.zesty.market/api';
 // TODO: Determine best way to enable switching to staging
 // const STAGING_DB_ENDPOINT = 'https://api-staging.zesty.market/api';
 
-//const sessionId = uuidv4();
-
 // Prebid variables
 const AD_REFRESH_INTERVAL = 15000;
 let prebidInit = false;
 let interval = null;
 const retryCount = 5;
-/** @type {HTMLIFrameElement} */
-let iframe = null;
-let ready = false;
-let bids = null;
-let heartbeatPending = false;
+let bids = {};
 const currentTries = {} // Maps retries to specific ad unit id
+const previousUrls = {} // Maps prior fetched URLs to specific ad unit id
+let baseDivId = 'pb-slot-right-1';
+let divCount = 0;
 
 const initPrebid = (adUnitId, format) => {
-  // Load zesty prebid iframe
-  iframe = document.createElement('iframe');
-  iframe.src = `https://www.zesty.xyz/prebid/?size=${format}&source=${Math.round(Math.random())}&ad_unit_id=${adUnitId}&utm_source=${adUnitId}`;
-  iframe.width = '1';
-  iframe.height = '1';
-  iframe.style.position = 'fixed';
-  iframe.style.border = 'none';
-  iframe.style.zIndex = '-2';
-  document.body.prepend(iframe);
-  iframe.onload = () => {
-    iframe.contentWindow.postMessage({ type: 'readycheck' }, '*');
-  }
-  window.addEventListener('message', ({ data }) => {
-    switch (data.type) {
-      case 'readystatus':
-        ready = data.content;
-        break;
-      case 'bids':
-        bids = data.content;
-        break;
-      case 'heartbeat':
-        heartbeatPending = false;
-        break;
-    }
-  });
+  // Create div for prebid to target
+  const div = document.createElement('div');
+  div.id = 'zesty-div';
+  div.style.height = '250px';
+  div.style.width = '300px';
+  div.style.position = 'fixed';
+  div.style.top = '0';
+  document.body.appendChild(div);
 
-  // Load gifler script in case gif creative is served
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js';
+  // Append google gpt tag
+  const script = document.createElement('link');
+  script.href = 'https://www.googletagservices.com/tag/js/gpt.js';
+  script.rel = 'preload';
+  script.as = 'script';
   document.head.appendChild(script);
 
-  // Send a heartbeat message to the prebid page to check that is hasn't been killed by Chrome
-  // for intensive resource usage by ad. If we don't get a heartbeat response back in 1 second,
-  // the page is dead and we need to reload it.
-  setInterval(async () => {
-    iframe.contentWindow.postMessage({ type: 'heartbeat' }, '*');
-    heartbeatPending = true;
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    if (heartbeatPending) {
-      // window.location.reload() doesn't work for cross-origin frames, but resetting src works
-      iframe.src += '';
-    }
-  }, 5000);
+  // Append aditude wrapper tag
+  const aditudeScript = document.createElement('script');
+  aditudeScript.src = 'https://dn0qt3r0xannq.cloudfront.net/zesty-ig89tpzq8N/zesty-longform/prebid-load.js';
+  aditudeScript.async = true;
+  document.head.appendChild(aditudeScript);
+
+  // Load gifler script in case gif creative is served
+  const gifscript = document.createElement('script');
+  gifscript.src = 'https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js';
+  document.head.appendChild(gifscript);
+
+  // Select baseDivId based on format, defaulting to the one for medium rectangle
+  if (format == 'medium-rectangle') {
+    div.id = 'zesty-div-medium-rectangle';
+  } else if (format == 'billboard') {
+    baseDivId = 'pb-slot-billboard';
+    div.style.width = '728px';
+    div.style.height = '90px';
+  } else if (format == 'mobile-phone-interstitial') {
+    baseDivId = 'pb-slot-interstitial';
+    div.style.width = '1080px';
+    div.style.height = '1920px';
+  }
+
+  window.tude = window.tude || { cmd: [] };
+  tude.cmd.push(function() {
+    tude.refreshAdsViaDivMappings([
+      {
+        divId: 'zesty-div',
+        baseDivId,
+      }
+    ]);
+  });
+
+  function getUrlsFromIframe(iframe) {
+    const images = iframe.contentDocument.querySelectorAll('img');
+    const adImage = Array.prototype.filter.call(images, image => image.height > 1);
+    if (adImage.length == 0) return;
+    const asset_url = adImage[0].src;
+    const cta_url = adImage[0].parentElement.href;
+    return { asset_url, cta_url };
+  }
+  interval = setInterval(() => {
+      const div = document.getElementById('zesty-div');
+      const iframe = div.querySelector('iframe');
+      if (iframe) {
+          let urls = getUrlsFromIframe(iframe);
+          if (urls) {
+              const { asset_url, cta_url } = urls;
+              if (asset_url !== previousUrls[adUnitId].asset_url || cta_url !== previousUrls[adUnitId].cta_url) {
+                  previousUrls[adUnitId] = { asset_url, cta_url };
+                  bids = { asset_url, cta_url };
+              }
+          }
+      }
+  }, 1000);
 
   prebidInit = true;
 }
@@ -80,7 +106,7 @@ const getOverrideUnitInfo = (adUnitId) => {
   return unitOverrides.find(unit => unit.id === adUnitId) || {};
 }
 
-const getDefaultBanner = (format, style, shouldOverride, overrideFormat) => {
+const getDefaultBanner = (format, style, shouldOverride = false, overrideFormat = null) => {
   return { Ads: [{ asset_url: formats[shouldOverride ? overrideFormat : format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'DefaultCampaign' }
 }
 
@@ -88,6 +114,14 @@ const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') =>
   if (['tall', 'wide', 'square'].includes(format)) {
     console.warn(`The old Zesty banner formats (tall, wide, and square) are being deprecated and will be removed in a future version. Please update to one of the new IAB formats (mobile-phone-interstitial, billboard, and medium-rectangle).
 Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
+  }
+
+  // Early exit if ad unit ID is an invalid format and would not map to a Zesty ad unit
+  try {
+    parseUUID(adUnitId);
+  } catch (e) {
+    console.warn("Ad unit ID provided is not a valid UUID.");
+    return new Promise(res => res(getDefaultBanner(format, style)));
   }
 
   let overrideEntry = getOverrideUnitInfo(adUnitId);
@@ -104,14 +138,22 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
   } else {
     bids = null;
     currentTries[adUnitId] = 0;
-    iframe.contentWindow.postMessage({ type: 'refresh' }, '*');
+    previousUrls[adUnitId] = null;
+    tude.cmd.push(function() {
+      tude.refreshAdsViaDivMappings([
+        {
+          divId: 'zesty-div',
+          baseDivId,
+        }
+      ]);
+    });
   }
 
   return new Promise((res, rej) => {
     async function getBanner() {
-      if (bids && bids.length > 0) {
+      if (bids?.asset_url && bids?.cta_url) {
         // Clear the interval and grab the image+url from the prebid ad
-        const { asset_url, cta_url } = JSON.parse(bids);
+        const { asset_url, cta_url } = bids;
         if (asset_url.startsWith('canvas://')) {
           const canvasIframe = document.createElement('iframe');
           canvasIframe.id = "zesty-canvas-iframe";

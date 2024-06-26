@@ -134,9 +134,9 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
 
   if (!prebidInit) {
     const finalFormat = shouldOverride ? overrideEntry.format : format;
-    initPrebid(adUnitId, finalFormat, style);
     currentTries[adUnitId] = 0;
     previousUrls[adUnitId] = { asset_url: null, cta_url: null };
+    initPrebid(adUnitId, finalFormat, style);
   } else {
     bids = null;
     currentTries[adUnitId] = 0;

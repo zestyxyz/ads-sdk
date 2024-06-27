@@ -63,6 +63,14 @@ const initPrebid = (adUnitId, format) => {
     div.style.height = '1920px';
   }
 
+  // Pass ad unit id as a custom param for prebid metrics
+  window.Raven = window.Raven || { cmd: [] };
+  window.Raven.cmd.push(({ config }) => {
+    config.setCustom({
+      param1: adUnitId,
+    });
+  });
+
   window.tude = window.tude || { cmd: [] };
   tude.cmd.push(function() {
     tude.refreshAdsViaDivMappings([

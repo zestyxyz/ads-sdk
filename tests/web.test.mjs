@@ -55,3 +55,36 @@ test.describe('Navigation', () => {
     expect(title).not.toBe('Web Test');
   });
 });
+
+test.describe('Prebid', () => {
+  async function injectIFrame(page, url, image) {
+    await page.waitForFunction(() => document.querySelector('#zesty-div-medium-rectangle') != null);
+    await page.evaluate(([url, image]) => {
+      const iframe = document.createElement('iframe');
+      iframe.id = 'injected';
+      document.querySelector('#zesty-div-medium-rectangle').appendChild(iframe)
+      iframe.contentDocument.write(`<html><body><a href="${url}"><img src="${image}"></a></body></html>`);
+    }, [url, image]);
+  }
+
+  test('Ad creative is loaded once bids is no longer null', async ({ page }) => {
+    await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/250');
+    await new Promise(res => setTimeout(res, 5000));
+    const img = await page.evaluate(
+      () => document.getElementById('banner1').shadowRoot.children[0].src
+    );
+    expect(img.split('/').pop()).toBe('250');
+  });
+
+  test('A new ad creative is loaded after passing visibility check', async ({ page }) => {
+    await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/250');
+    await new Promise(res => setTimeout(res, 15000));
+    await page.evaluate(() => document.querySelector('#injected').remove());
+    await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/300');
+    await new Promise(res => setTimeout(res, 5000));
+    const img = await page.evaluate(
+      () => document.getElementById('banner1').shadowRoot.children[0].src
+    );
+    expect(img.split('/').pop()).toBe('300');
+  });
+});

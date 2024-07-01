@@ -3,9 +3,10 @@ import {
   MeshBasicMaterial,
   WebGLRenderer,
   PlaneGeometry,
-  TextureLoader
+  TextureLoader,
+  Vector3
 } from 'three';
-import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd } from '../../utils/networking';
+import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd, AD_REFRESH_INTERVAL } from '../../utils/networking';
 import { formats } from '../../utils/formats';
 import { openURL } from '../../utils/helpers';
 import { version } from '../package.json';
@@ -43,6 +44,18 @@ export default class ZestyBanner extends Mesh {
       }
     });
     this.onClick = this.onClick.bind(this);
+
+    setInterval(() => {
+      const isVisible = this.checkVisibility();
+      if (isVisible) {
+        loadBanner(adUnit, format, style).then(banner => {
+          this.material.map = banner.texture;
+          this.material.needsUpdate = true;
+          this.banner = banner;
+        });
+        console.log('Refreshed ' + adUnit);
+      }
+    }, AD_REFRESH_INTERVAL);
   }
 
   onClick() {
@@ -57,6 +70,38 @@ export default class ZestyBanner extends Mesh {
       }
     }
   }
+
+  checkVisibility() {
+    let camera = null;
+    let cameraDir = new Vector3();
+    let bannerPos = new Vector3();
+    let cameraPos = new Vector3();
+    let getScene = () => {
+      let parent = this.parent;
+      while (parent.parent != null) {
+        parent = parent.parent;
+      }
+      return parent;
+    }
+    // Get the origin of the banner object
+    this.getWorldPosition(bannerPos);
+    // Get the origin of the camera
+    if (this.renderer.xr.isPresenting) {
+      camera = this.renderer.xr.getCamera();
+    } else {
+      camera = getScene().getObjectByProperty('isCamera', true);
+    }
+    camera.getWorldPosition(cameraPos);
+    // Get the direction of the camera
+    camera.getWorldDirection(cameraDir);
+    // Calculate the difference between the object and camera origins
+    const diff = bannerPos.sub(cameraPos);
+    diff.normalize();
+    // Calculate the dot product of the camera's direction and the difference
+    const dot = cameraDir.dot(diff);
+    // Return true if the dot product is above PI/2, corresponding to a degree range of 90 degrees
+    return dot > Math.cos(Math.PI / 4);
+  }
 }
 
 async function loadBanner(adUnit, format, style) {
@@ -70,6 +115,7 @@ async function loadBanner(adUnit, format, style) {
     loader.load(
       image,
       function(texture) {
+        texture.needsUpdate = true;
         resolve({ texture: texture, src: image, uri: activeBanner.uri, url: url, campaignId: activeBanner.CampaignId });
       },
       undefined,

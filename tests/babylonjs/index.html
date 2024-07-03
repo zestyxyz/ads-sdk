@@ -6,25 +6,34 @@
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
     <script src="../../babylonjs/dist/zesty-babylonjs-sdk.js"></script>
     <title>Babylon.js Test</title>
+    <style>
+        html, body {
+            margin: 0;
+        }
+
+        canvas {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <body>
     <canvas id="renderCanvas">
         <script type="module">            
             const canvas = document.getElementById("renderCanvas");
-            canvas.style.width = "100%";
-            canvas.style.height = "100%";
             const engine = new BABYLON.Engine(canvas, true);
             let scene;
 
             const createScene = (async function () {
                 scene = new BABYLON.Scene(engine);
                 scene.clearColor = new BABYLON.Color3.Blue();
+
+                var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 1, 0), scene, true);
+
                 const xrHelper = await scene.createDefaultXRExperienceAsync();
 
-                var camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, -1), scene);
-
-                //var light = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(0, -1, 1), scene);
                 var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
 
                 const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
@@ -33,14 +42,14 @@
                 const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 });
                 ground.material = groundMaterial;
 
-                const zestyBanner1 = new ZestyBanner("00000000-0000-0000-0000-000000000000", 'medium-rectangle', 'standard', 2, scene, xrHelper);
-                zestyBanner1.position = new BABYLON.Vector3(0, 0, 0);
+                const zestyBanner1 = new ZestyBanner("00000000-0000-0000-0000-000000000000", 'medium-rectangle', 'standard', 1, scene, xrHelper);
+                zestyBanner1.position = new BABYLON.Vector3(0, 1, 1);
 
-                const zestyBanner2 = new ZestyBanner("10000000-0000-0000-0000-000000000000", 'billboard', 'standard', 2, scene, xrHelper);
-                zestyBanner2.position = new BABYLON.Vector3(0, 0, 1);
+                const zestyBanner2 = new ZestyBanner("10000000-0000-0000-0000-000000000000", 'billboard', 'standard', 1, scene, xrHelper);
+                zestyBanner2.position = new BABYLON.Vector3(0, 1, 2);
 
-                const zestyBanner3 = new ZestyBanner("20000000-0000-0000-0000-000000000000", 'mobile-phone-interstitial', 'standard', 2, scene, xrHelper);
-                zestyBanner3.position = new BABYLON.Vector3(0, 0, 2);
+                const zestyBanner3 = new ZestyBanner("20000000-0000-0000-0000-000000000000", 'mobile-phone-interstitial', 'standard', 1, scene, xrHelper);
+                zestyBanner3.position = new BABYLON.Vector3(0, 1, 3);
             })();
 
             window.scene = scene;

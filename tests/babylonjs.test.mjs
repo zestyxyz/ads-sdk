@@ -69,19 +69,19 @@ test.describe('Prebid', () => {
     await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/250');
     await new Promise(res => setTimeout(res, 5000));
     const img = await page.evaluate(
-      () => window.scene.meshes[4].material.diffuseTexture.name
+      () => window.scene.meshes[4].material.diffuseTexture.url
     );
     expect(img.split('/').pop()).toBe('250');
   });
 
   test('A new ad creative is loaded after passing visibility check', async ({ page }) => {
     await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/250');
-    await new Promise(res => setTimeout(res, 15000));
+    await new Promise(res => setTimeout(res, 8000));
     await page.evaluate(() => document.querySelector('#injected').remove());
     await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/300');
-    await new Promise(res => setTimeout(res, 5000));
+    await new Promise(res => setTimeout(res, 8000));
     const img = await page.evaluate(
-      () => window.scene.meshes[4].material.diffuseTexture.name
+      () => window.scene.meshes[4].material.diffuseTexture.url
     );
     expect(img.split('/').pop()).toBe('300');
   });

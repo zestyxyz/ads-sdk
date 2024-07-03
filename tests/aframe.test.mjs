@@ -76,9 +76,10 @@ test.describe('Navigation', () => {
       img = await banner.evaluate(srcEvaluate);
       if (!img) await page.waitForTimeout(100);
     }
+    await new Promise(resolve => setTimeout(resolve, 5000));
     const [newPage] = await Promise.all([
       context.waitForEvent('page'),
-      page.evaluate(() => document.querySelector('#banner3 > a-plane').click())
+      page.mouse.click(page.viewportSize().width / 2, page.viewportSize().height / 2)
     ])
     await newPage.waitForLoadState('domcontentloaded', { timeout: 60000 }); // Adjust timeout as needed
     const title = await newPage.title();

@@ -24,8 +24,9 @@ jobs:
           WLE_CREDENTIALS: ${{ secrets.WLE_CREDENTIALS }}
       - name: Test
         run: |
-          cd ~/work/ads-sdk/ads-sdk
-          npx playwright install
+          DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata
+          npm exec playwright install-deps
+          npm exec playwright install
           yarn run test
   deploy:
     runs-on: ubuntu-latest

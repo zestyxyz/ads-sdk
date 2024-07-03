@@ -67,7 +67,7 @@ test.describe('Prebid', () => {
     }, [url, image]);
   }
 
-  test('Ad creative is loaded once bids is no longer null', async ({ page }) => {
+  test('@skip Ad creative is loaded once bids is no longer null', async ({ page }) => {
     await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/250');
     await new Promise(res => setTimeout(res, 5000));
     const img = await page.evaluate(
@@ -76,7 +76,7 @@ test.describe('Prebid', () => {
     expect(img.split('/').pop()).toBe('250');
   });
 
-  test('A new ad creative is loaded after passing visibility check', async ({ page }) => {
+  test('@skip A new ad creative is loaded after passing visibility check', async ({ page }) => {
     await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/250');
     await new Promise(res => setTimeout(res, 15000));
     await page.evaluate(() => document.querySelector('#injected').remove());

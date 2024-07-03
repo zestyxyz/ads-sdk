@@ -93,7 +93,7 @@ const initPrebid = (adUnitId, format) => {
   }
   interval = setInterval(() => {
       const div = document.getElementById(`zesty-div-${format}`);
-      const iframe = div.querySelector('iframe');
+      const iframe = div.querySelector('iframe:not([title*="prpb"])'); // Don't grab the iframe if professor prebid is installed
       if (iframe) {
           let urls = getUrlsFromIframe(iframe);
           if (urls) {

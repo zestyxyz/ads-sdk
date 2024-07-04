@@ -15,6 +15,7 @@ jobs:
           npm install -g yarn
           cd wonderland
           yarn && yarn build
+          cp dist/zesty-wonderland-sdk.js ../tests/wonderland/js/
       - name: Build WLE Project
         run: /usr/local/bin/entrypoint.sh WonderlandEditor --windowless --package --project tests/wonderland/wonderland-test.wlp --output tests/wonderland/deploy/ --credentials $WLE_CREDENTIALS
         env:

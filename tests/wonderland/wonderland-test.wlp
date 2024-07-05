@@ -3,7 +3,7 @@
         "14": {
             "name": "Player",
             "translation": [
-                -2.5,
+                0.0,
                 0.0,
                 1.1575535
             ],
@@ -992,7 +992,7 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "00000000-0000-0000-000000000000",
+                        "adUnit": "00000000-0000-0000-0000-000000000000",
                         "beacon": true,
                         "format": "medium-rectangle",
                         "style": "standard",
@@ -1038,7 +1038,7 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "10000000-0000-0000-000000000000",
+                        "adUnit": "10000000-0000-0000-0000-000000000000",
                         "beacon": false,
                         "format": "billboard",
                         "style": "standard",
@@ -1084,7 +1084,7 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "20000000-0000-0000-000000000000",
+                        "adUnit": "20000000-0000-0000-0000-000000000000",
                         "beacon": false,
                         "style": "standard",
                         "dynamicNetworking": false,

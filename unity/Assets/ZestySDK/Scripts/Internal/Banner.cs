@@ -37,7 +37,7 @@ namespace Zesty
         [DllImport("__Internal")] private static extern void _sendOnLoadMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _sendOnClickMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _open(string url);
-        [DllImport("__Internal")] private static extern void _initPrebid(string adUnitId);
+        [DllImport("__Internal")] private static extern void _initPrebid(string adUnitId, string format);
         [DllImport("__Internal")] private static extern string _tryGetWinningBidInfo();
         string bannerTextureURL;
         string campaignId = "";
@@ -51,7 +51,7 @@ namespace Zesty
             if (Constants.PREBID)
             {
 #if !UNITY_EDITOR
-                _initPrebid(adUnit);
+                _initPrebid(adUnit, format);
                 StartCoroutine(TryGetWinningBidInfo());
 #endif
             }
@@ -99,15 +99,15 @@ namespace Zesty
             {
                 switch (format)
                 {
-                    case Formats.Types.Tall:
-                        StartCoroutine(API.GetTexture(Formats.Tall.Images[(int)style], SetTexture));
+                    case Formats.Types.MobilePhoneInterstitial:
+                        StartCoroutine(API.GetTexture(Formats.MobilePhoneInterstitial.Images[0], SetTexture));
                         break;
-                    case Formats.Types.Wide:
-                        StartCoroutine(API.GetTexture(Formats.Wide.Images[(int)style], SetTexture));
+                    case Formats.Types.Billboard:
+                        StartCoroutine(API.GetTexture(Formats.Billboard.Images[0], SetTexture));
                         break;
-                    case Formats.Types.Square:
+                    case Formats.Types.MediumRectangle:
                     default:
-                        StartCoroutine(API.GetTexture(Formats.Square.Images[(int)style], SetTexture));
+                        StartCoroutine(API.GetTexture(Formats.MediumRectangle.Images[0], SetTexture));
                         break;
                 }
                 SetURL($"https://www.zesty.market/");
@@ -203,16 +203,16 @@ namespace Zesty
         {
             switch (format)
             {
-                case Formats.Types.Tall:
-                    transform.localScale = new Vector3(transform.localScale.x, (float)(transform.localScale.x * (4f / 3f)), .001f);
+                case Formats.Types.MobilePhoneInterstitial:
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x / (float)Formats.MobilePhoneInterstitial.Width, .001f);
                     gameObject.GetComponent<Renderer>().material = placeholderMaterials[0];
                     break;
-                case Formats.Types.Wide:
-                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x / 4, .001f);
+                case Formats.Types.Billboard:
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x /(float)Formats.Billboard.Width, .001f);
                     gameObject.GetComponent<Renderer>().material = placeholderMaterials[1];
                     break;
-                case Formats.Types.Square:
-                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x, .001f);
+                case Formats.Types.MediumRectangle:
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x / (float)Formats.MediumRectangle.Width, .001f);
                     gameObject.GetComponent<Renderer>().material = placeholderMaterials[2];
                     break;
             }

@@ -2,7 +2,7 @@
 
 import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, AD_REFRESH_INTERVAL } from '../../utils/networking';
 import { formats } from '../../utils/formats';
-import { openURL } from '../../utils/helpers';
+import { openURL, visibilityCheck } from '../../utils/helpers';
 import { version } from '../package.json';
 
 console.log('Zesty SDK Version: ', version);
@@ -43,7 +43,14 @@ export default class ZestyBanner {
     });
 
     setInterval(() => {
-      const isVisible = this.checkVisibility();
+      const camera = this.getCamera();
+      const boundingBox = this.zestyBanner.getBoundingInfo().boundingBox;
+      const isVisible = visibilityCheck(
+        boundingBox.minimumWorld.asArray(),
+        boundingBox.maximumWorld.asArray(),
+        camera.getProjectionMatrix().asArray(),
+        camera.getWorldMatrix().asArray()
+      );
       if (isVisible) {
         loadBanner(adUnit, format, style).then(banner => {
           this.zestyBanner.material.diffuseTexture.updateURL(banner.src);
@@ -54,27 +61,17 @@ export default class ZestyBanner {
     return this.zestyBanner;
   }
 
-  checkVisibility() {
+  getCamera() {
     let camera = null;
 
-    // Get the origin of the banner object
-    const bannerPos = this.zestyBanner.getAbsolutePosition();
     // Get the origin of the camera
-    if (this.xr?.baseExperience) {
+    if (this.xr?.baseExperience && this.xr.baseExperience.state == BABYLON.WebXRState.IN_XR) {
       camera = this.xr.baseExperience.camera;
     } else {
       camera = this.scene.cameras[0];
     }
-    const cameraPos = camera.globalPosition;
-    // Get the direction of the camera
-    const cameraDir = camera.getForwardRay().direction;
-    // Calculate the difference between the object and camera origins
-    const diff = bannerPos.subtract(cameraPos);
-    diff.normalize();
-    // Calculate the dot product of the camera's direction and the difference
-    const dot = cameraDir.dot(diff);
-    // Return true if the dot product is below PI/2, corresponding to a degree range of 90 degrees
-    return dot < Math.PI / 2;
+
+    return camera;
   }
 }
 

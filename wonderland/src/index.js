@@ -2,7 +2,7 @@
 
 import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, AD_REFRESH_INTERVAL } from '../../utils/networking';
 import { formats, defaultFormat } from '../../utils/formats';
-import { openURL } from '../../utils/helpers';
+import { openURL, visibilityCheck } from '../../utils/helpers';
 import { version } from '../package.json';
 import {
   Component,
@@ -12,7 +12,7 @@ import {
   Property
 } from '@wonderlandengine/api';
 import { CursorTarget } from '@wonderlandengine/components';
-import { vec3 } from 'gl-matrix';
+import { mat4 } from 'gl-matrix';
 
 console.log('Zesty SDK Version: ', version);
 
@@ -127,7 +127,17 @@ export class ZestyBanner extends Component {
   }
 
   startLoading() {
-    if (!this.checkVisibility() && this.loadedFirstAd) return;
+    const camera = WL.scene.activeViews[0];
+    const worldTransform = camera.object.getTransformWorld([]);
+    const worldMatrix = mat4.fromQuat2([], worldTransform);
+    const { bbMin, bbMax } = this.calculateBoundingBox();
+    const isVisible = visibilityCheck(
+      bbMin,
+      bbMax,
+      camera.projectionMatrix,
+      worldMatrix
+    )
+    if (!isVisible && this.loadedFirstAd) return;
     if (!this.loadedFirstAd) this.loadedFirstAd = true;
 
     // Reset canvas attributes
@@ -268,20 +278,48 @@ export class ZestyBanner extends Component {
   }
 
   /**
-   * Checks the visibility of an object based on camera position and direction.
-   * We do this by calculating the dot product of the camera's forward vector
-   * and the vector from the object's position to the camera. If the dot product
-   * is above PI/2 (corresponding to at most a 90 degree angle rotation away),
-   * the object is considered visible.
-   *
-   * @return {boolean} Whether the object is visible or not.
+   * This calculates a bounding box for the object based by
+   * iterating over the mesh vertices and finding the min/max
+   * values for x, y, and z, accounting for translation and scaling.
+   * @returns {{bbMin: number[], bbMax: number[]}}
    */
-  checkVisibility() {
-    let objectOrigin = this.object.getPositionWorld([])
-    let cameraOrigin = WL.scene.activeViews[0].object.getPositionWorld([]);
-    let cameraDirection = WL.scene.activeViews[0].object.getForwardWorld([]);
-    let diff = vec3.sub([], objectOrigin, cameraOrigin);
-    let dot = vec3.dot(cameraDirection, diff);
-    return dot > Math.PI / 2
+  calculateBoundingBox() {
+    const vertices = this.mesh.mesh.attribute(WL.MeshAttribute.Position);
+    const worldPosition = this.object.getPositionWorld([]);
+    const scale = this.object.getScalingLocal([]);
+
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    let minZ = Infinity;
+    let maxZ = -Infinity;
+
+    const temp = vertices.createArray();
+
+    for (let i = 0; i < vertices.length; i++) {
+      vertices.get(i, temp);
+
+      if (temp[0] < minX) minX = temp[0];
+      else if (temp[0] > maxX) maxX = temp[0];
+
+      if (temp[1] < minY) minY = temp[1];
+      else if (temp[1] > maxY) maxY = temp[1];
+
+      if (temp[2] < minZ) minZ = temp[2];
+      else if (temp[2] > maxZ) maxZ = temp[2];
+    }
+
+    let bbMinX = minX * (scale[0] / 2) + worldPosition[0];
+    let bbMaxX = maxX * (scale[0] / 2) + worldPosition[0];
+    let bbMinY = minY * (scale[1] / 2) + worldPosition[1];
+    let bbMaxY = maxY * (scale[1] / 2) + worldPosition[1];
+    let bbMinZ = minZ * (scale[2] / 2) + worldPosition[2];
+    let bbMaxZ = maxZ * (scale[2] / 2) + worldPosition[2];
+
+    return {
+      bbMin: [bbMinX, bbMinY, bbMinZ],
+      bbMax: [bbMaxX, bbMaxY, bbMaxZ],
+    }
   }
 }

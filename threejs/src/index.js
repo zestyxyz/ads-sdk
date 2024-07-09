@@ -1,14 +1,15 @@
-import { 
+import {
+  Camera,
   Mesh, 
   MeshBasicMaterial,
   WebGLRenderer,
   PlaneGeometry,
   TextureLoader,
-  Vector3
+  Box3
 } from 'three';
 import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd, AD_REFRESH_INTERVAL } from '../../utils/networking';
 import { formats } from '../../utils/formats';
-import { openURL } from '../../utils/helpers';
+import { openURL, visibilityCheck } from '../../utils/helpers';
 import { version } from '../package.json';
 
 console.log('Zesty SDK Version: ', version);
@@ -46,7 +47,15 @@ export default class ZestyBanner extends Mesh {
     this.onClick = this.onClick.bind(this);
 
     setInterval(() => {
-      const isVisible = this.checkVisibility();
+      const camera = this.getCamera();
+      this.geometry.computeBoundingBox();
+      const bb = new Box3().setFromObject(this);
+      const isVisible = visibilityCheck(
+        bb.min.toArray(),
+        bb.max.toArray(),
+        camera.projectionMatrix.toArray(),
+        camera.matrixWorld.toArray(),
+      );
       if (isVisible) {
         loadBanner(adUnit, format, style).then(banner => {
           this.material.map = banner.texture;
@@ -71,11 +80,9 @@ export default class ZestyBanner extends Mesh {
     }
   }
 
-  checkVisibility() {
+  getCamera() {
+    /** @type {Camera} */
     let camera = null;
-    let cameraDir = new Vector3();
-    let bannerPos = new Vector3();
-    let cameraPos = new Vector3();
     let getScene = () => {
       let parent = this.parent;
       while (parent.parent != null) {
@@ -83,24 +90,13 @@ export default class ZestyBanner extends Mesh {
       }
       return parent;
     }
-    // Get the origin of the banner object
-    this.getWorldPosition(bannerPos);
     // Get the origin of the camera
     if (this.renderer.xr.isPresenting) {
       camera = this.renderer.xr.getCamera();
     } else {
       camera = getScene().getObjectByProperty('isCamera', true);
     }
-    camera.getWorldPosition(cameraPos);
-    // Get the direction of the camera
-    camera.getWorldDirection(cameraDir);
-    // Calculate the difference between the object and camera origins
-    const diff = bannerPos.sub(cameraPos);
-    diff.normalize();
-    // Calculate the dot product of the camera's direction and the difference
-    const dot = cameraDir.dot(diff);
-    // Return true if the dot product is above PI/2, corresponding to a degree range of 90 degrees
-    return dot > Math.cos(Math.PI / 4);
+    return camera;
   }
 }
 

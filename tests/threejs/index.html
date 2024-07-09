@@ -41,16 +41,16 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
-      const banner = new ZestyBanner("00000000-0000-0000-0000-000000000000", 'medium-rectangle', 'standard', 3, renderer);
-      banner.position.set(0, 0, -1);
+      const banner = new ZestyBanner("00000000-0000-0000-0000-000000000000", 'medium-rectangle', 'standard', 1, renderer);
+      banner.position.set(0, 1, -2);
       scene.add(banner);
 
-      const banner2 = new ZestyBanner("10000000-0000-0000-0000-000000000000", 'billboard', 'standard', 3, renderer);
+      const banner2 = new ZestyBanner("10000000-0000-0000-0000-000000000000", 'billboard', 'standard', 1, renderer);
       banner2.position.set(0, 0, -2);
       scene.add(banner2);
 
-      const banner3 = new ZestyBanner("20000000-0000-0000-0000-000000000000", 'mobile-phone-interstitial', 'standard', 3, renderer);
-      banner3.position.set(0, 0, -3);
+      const banner3 = new ZestyBanner("20000000-0000-0000-0000-000000000000", 'mobile-phone-interstitial', 'standard', 1, renderer);
+      banner3.position.set(0, -1, -2);
       scene.add(banner3);
 
       document.body.appendChild(VRButton.createButton(renderer));

@@ -2,7 +2,7 @@
 
 import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, analyticsSession, AD_REFRESH_INTERVAL } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { openURL } from '../../utils/helpers';
+import { openURL, visibilityCheck } from '../../utils/helpers';
 import { version } from '../package.json';
 import { getOverrideUnitInfo } from '../../utils/networking';
 
@@ -69,7 +69,7 @@ AFRAME.registerComponent('zesty-banner', {
   registerEntity: function() {
     const adUnit = this.data.adUnit;
     const format = this.data.format || defaultFormat;
-    createBanner(this.el, adUnit, format, this.data.style, this.data.height, this.data.beacon, this.checkVisibility.bind(this));
+    createBanner(this.el, adUnit, format, this.data.style, this.data.height, this.data.beacon);
   },
 
   // Every 30sec check for `visible` component
@@ -85,23 +85,6 @@ AFRAME.registerComponent('zesty-banner', {
     }
   },
 
-  checkVisibility: function() {
-    if (!this.loadedFirstAd) {
-      this.loadedFirstAd = true;
-      return true;
-    }
-    let isVisible = false;
-    const boundingBox = new THREE.Box3().setFromObject(this.el.object3D);
-    const frustum = new THREE.Frustum();
-    frustum.setFromProjectionMatrix(this.camera.projectionMatrix)
-    frustum.planes.forEach(plane => plane.applyMatrix4(this.camera.matrixWorld));
-    if (frustum.intersectsBox(boundingBox)) {
-      isVisible = true;
-    }
-    console.log('is visible: ', isVisible);
-    return isVisible;
-  },
-
   updateCanvasTexture: function() {
     if (!this.canvasTexture && this.canvas.hasAttribute('width')) {
       this.canvasTexture = new THREE.CanvasTexture(this.canvas);
@@ -112,7 +95,7 @@ AFRAME.registerComponent('zesty-banner', {
   }
 });
 
-async function createBanner(el, adUnit, format, style, height, beacon, visibilityCheckFunc) {
+async function createBanner(el, adUnit, format, style, height, beacon) {
   let overrideEntry = getOverrideUnitInfo(adUnit);
   let shouldOverride = overrideEntry?.format && format !== overrideEntry.format;
   const adjustedFormat = shouldOverride ? overrideEntry.format : format;
@@ -138,7 +121,17 @@ async function createBanner(el, adUnit, format, style, height, beacon, visibilit
   el.appendChild(plane);
 
   const getBanner = () => {
-    if (!visibilityCheckFunc()) return;
+    const mesh = el.object3D.getObjectByProperty('isMesh', true);
+    if (mesh) {
+      mesh.geometry.computeBoundingBox();
+    }
+    const { min, max } = new THREE.Box3().setFromObject(el.object3D);
+    const camera = el.components['zesty-banner'].camera;
+    if (!el.components['zesty-banner'].loadedFirstAd) {
+      el.components['zesty-banner'].loadedFirstAd = true;
+    } else {
+      if (!visibilityCheck([min.x, min.y, min.z], [max.x, max.y, max.z], camera.projectionMatrix.toArray(), camera.matrixWorld.toArray())) return;
+    }
 
     const bannerPromise = loadBanner(adUnit, format, style, beacon).then(banner => {
       if (banner.img && typeof banner.img != 'string') {

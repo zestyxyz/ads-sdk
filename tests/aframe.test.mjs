@@ -1,4 +1,12 @@
 import { test, expect } from '@playwright/test';
+import {
+  injectIFrame,
+  EXAMPLE_URL,
+  EXAMPLE_IMAGE,
+  EXAMPLE_IMAGE2,
+  PREBID_LOAD_TEST_WAIT_INTERVAL,
+  PREBID_REFRESH_TEST_WAIT_INTERVAL
+} from './test-constants.mjs';
 
 function srcEvaluate(node) {
   if (typeof node.components.material.data.src === 'string') {
@@ -88,31 +96,21 @@ test.describe('Navigation', () => {
 });
 
 test.describe('Prebid', () => {
-  async function injectIFrame(page, url, image) {
-    await page.waitForFunction(() => document.querySelector('#zesty-div-medium-rectangle') != null);
-    await page.evaluate(([url, image]) => {
-      const iframe = document.createElement('iframe');
-      iframe.id = 'injected';
-      document.querySelector('#zesty-div-medium-rectangle').appendChild(iframe)
-      iframe.contentDocument.write(`<html><body><a href="${url}"><img src="${image}"></a></body></html>`);
-    }, [url, image]);
-  }
-
   test('Ad creative is loaded once bids is no longer null', async ({ page }) => {
     const banner = await page.locator('#banner1 > a-plane');
-    await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/250');
-    await new Promise(res => setTimeout(res, 5000));
+    await injectIFrame(page, EXAMPLE_URL, EXAMPLE_IMAGE);
+    await new Promise(res => setTimeout(res, PREBID_LOAD_TEST_WAIT_INTERVAL));
     const img = await banner.evaluate(srcEvaluate);
     expect(img.split('/').pop()).toBe('250');
   });
 
   test('A new ad creative is loaded after passing visibility check', async ({ page }) => {
     const banner = await page.locator('#banner1 > a-plane');
-    await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/250');
-    await new Promise(res => setTimeout(res, 15000));
+    await injectIFrame(page, EXAMPLE_URL, EXAMPLE_IMAGE);
+    await new Promise(res => setTimeout(res, PREBID_REFRESH_TEST_WAIT_INTERVAL));
     await page.evaluate(() => document.querySelector('#injected').remove());
-    await injectIFrame(page, 'https://www.example.com', 'https://picsum.photos/300/300');
-    await new Promise(res => setTimeout(res, 5000));
+    await injectIFrame(page, EXAMPLE_URL, EXAMPLE_IMAGE2);
+    await new Promise(res => setTimeout(res, PREBID_REFRESH_TEST_WAIT_INTERVAL));
     const img = await banner.evaluate(srcEvaluate);
     expect(img.split('/').pop()).toBe('300');
   });

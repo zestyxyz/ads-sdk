@@ -1,3 +1,5 @@
+import { Box3, Frustum, Matrix4, Vector3 } from 'three';
+
 /**
  * For each of the following browser checking functions, we have a match with a
  * confidence of "Full" if both the feature detection check and user agent check
@@ -162,6 +164,23 @@ const appendUTMParams = (url, spaceId) => {
   return new_url.href;
 }
 
+/**
+ * Calculates whether an object is visible by checking for intersections between
+ * the object's bounding box and the camera's frustum.
+ * @param {min: number[]} bbMin
+ * @param {max: number[]} bbMax
+ * @param {number[]} cameraProjMatrix
+ * @param {number[]} cameraWorldMatrix
+ * @returns
+ */
+const visibilityCheck = (bbMin, bbMax, cameraProjMatrix, cameraWorldMatrix) => {
+  const boundingBox = new Box3(new Vector3().fromArray(bbMin), new Vector3().fromArray(bbMax));
+  const frustum = new Frustum().setFromProjectionMatrix(new Matrix4().fromArray(cameraProjMatrix));
+  frustum.planes.forEach(plane => plane.applyMatrix4(new Matrix4().fromArray(cameraWorldMatrix)));
+  console.log('is visible: ', frustum.intersectsBox(boundingBox));
+  return frustum.intersectsBox(boundingBox);
+}
+
 export {
   checkOculusBrowser,
   checkWolvicBrowser,
@@ -170,5 +189,6 @@ export {
   checkUserPlatform,
   openURL,
   urlContainsUTMParams,
-  appendUTMParams
+  appendUTMParams,
+  visibilityCheck,
 };

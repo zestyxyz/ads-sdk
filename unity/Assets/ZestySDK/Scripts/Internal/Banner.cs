@@ -1,5 +1,4 @@
-﻿using SimpleJSON;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -22,7 +21,6 @@ namespace Zesty
         public string adUnit;
         public string hostURL;
         public Formats.Types format;
-        public Formats.Styles style;
         public bool beaconEnabled = true;
 
         public Material[] placeholderMaterials = new Material[3];
@@ -129,8 +127,6 @@ namespace Zesty
             {
 #if UNITY_EDITOR
 #else
-                // Fire onLoad signal to v1 beacon
-                StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/{adUnit}", "onLoad"));
                 // Fire increment mutation to v2 beacon
                 _sendOnLoadMetric(adUnit, campaignId);
 #endif
@@ -166,14 +162,6 @@ namespace Zesty
             this.url = url;
         }
 
-        /*public void GazingUpon () {
-            isGazingUpon = true;
-        }
-
-        public void NotGazingUpon () {
-            isGazingUpon = false;
-        }*/
-
         public void onClick()
         {
             if (Application.platform == RuntimePlatform.WebGLPlayer)
@@ -183,8 +171,6 @@ namespace Zesty
 
             if (beaconEnabled)
             {
-                // Fire onClick signal to beacon
-                StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/click/{adUnit}", "onClick"));
                 // Fire increment mutation to v2 beacon
                 _sendOnClickMetric(adUnit, campaignId);
             }

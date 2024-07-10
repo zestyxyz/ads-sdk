@@ -9,13 +9,6 @@ namespace Zesty
             MediumRectangle
         }
 
-        public enum Styles
-        {
-            Standard,
-            Minimal,
-            Transparent
-        }
-
         public struct Format
         {
             public Format(double width, double height, string[] images)

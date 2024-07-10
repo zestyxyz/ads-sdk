@@ -219,31 +219,34 @@ namespace Zesty
 
         private IEnumerator TryGetWinningBidInfo()
         {
-            for (int i = 0; i < Constants.MAX_PREBID_RETRIES; i++)
+            if (m_Renderer.isVisible)
             {
-                string adInfo = _tryGetWinningBidInfo();
-                if (adInfo == "")
+                for (int i = 0; i < Constants.MAX_PREBID_RETRIES; i++)
                 {
-                    yield return new WaitForSeconds(1);
-                }
-                else
-                {
-                    string[] els = adInfo.Split('|');
-                    BannerInfo bannerData = new()
+                    string adInfo = _tryGetWinningBidInfo();
+                    if (adInfo == "")
                     {
-                        Ads = new List<Ad>()
-                    };
-                    Ad ad = new()
+                        yield return new WaitForSeconds(1);
+                    }
+                    else
                     {
-                        asset_url = els[0],
-                        cta_url = els[1]
-                    };
-                    bannerData.Ads.Add(ad);
-                    bannerData.CampaignId = els[2];
+                        string[] els = adInfo.Split('|');
+                        BannerInfo bannerData = new()
+                        {
+                            Ads = new List<Ad>()
+                        };
+                        Ad ad = new()
+                        {
+                            asset_url = els[0],
+                            cta_url = els[1]
+                        };
+                        bannerData.Ads.Add(ad);
+                        bannerData.CampaignId = els[2];
 
-                    SetBannerInfo(bannerData);
+                        SetBannerInfo(bannerData);
 
-                    break;
+                        break;
+                    }
                 }
             }
 

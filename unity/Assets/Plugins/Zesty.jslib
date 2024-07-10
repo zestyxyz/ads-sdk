@@ -109,7 +109,6 @@ mergeInto(LibraryManager.library, {
     let formatString;
 
     Module['Zesty'].prebid.previousUrls[idString] = { asset_url: null, cta_url: null };
-    console.log(format);
 
     switch (format) {
       case 0:

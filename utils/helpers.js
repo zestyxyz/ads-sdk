@@ -177,7 +177,6 @@ const visibilityCheck = (bbMin, bbMax, cameraProjMatrix, cameraWorldMatrix) => {
   const boundingBox = new Box3(new Vector3().fromArray(bbMin), new Vector3().fromArray(bbMax));
   const frustum = new Frustum().setFromProjectionMatrix(new Matrix4().fromArray(cameraProjMatrix));
   frustum.planes.forEach(plane => plane.applyMatrix4(new Matrix4().fromArray(cameraWorldMatrix)));
-  console.log('is visible: ', frustum.intersectsBox(boundingBox));
   return frustum.intersectsBox(boundingBox);
 }
 

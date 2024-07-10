@@ -122,7 +122,6 @@ MonoBehaviour:
   adUnit: 
   hostURL: 
   format: 2
-  style: 0
   beaconEnabled: 0
   placeholderMaterials:
   - {fileID: 2100000, guid: 5feaf6a65b3da9d4bbf4cd9da63b4ab1, type: 2}

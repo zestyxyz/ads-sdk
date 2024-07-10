@@ -7,5 +7,6 @@
         public const string CDN_URL = "https://cdn.zesty.xyz";
         public const bool PREBID = true;
         public const int MAX_PREBID_RETRIES = 4;
+        public const int PREBID_REFRESH_INTERVAL = 15; // 15 seconds
     }
 }

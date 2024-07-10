@@ -104,88 +104,135 @@ mergeInto(LibraryManager.library, {
     }
     window.open(urlString, "_blank");
   },
-  _initPrebid: function (adUnitId) {
-    var id = UTF8ToString(adUnitId);
+  _initPrebid: function (adUnitId, format) {
+    var idString = UTF8ToString(adUnitId);
+    let formatString;
 
-    // Prebid render callbacks
-    function renderAllAdUnits() {
-      var winners = window.pbjs.getHighestCpmBids();
-      for (var i = 0; i < winners.length; i++) {
-        renderOne(winners[i]);
-      }
+    Module['Zesty'].prebid.previousUrls[idString] = { asset_url: null, cta_url: null };
+    console.log(format);
+
+    switch (format) {
+      case 0:
+        formatString = 'mobile-phone-interstitial';
+        break;
+      case 1:
+        formatString = 'billboard';
+        break;
+      case 2:
+        formatString = 'medium-rectangle';
+        break;
+      default:
+        formatString = 'medium-rectangle';
     }
 
-    function renderOne(winningBid) {
-      if (winningBid && winningBid.adId) {
-        var div = document.getElementById(winningBid.adUnitCode);
-        if (div) {
-          const iframe = document.createElement('iframe');
-          div.appendChild(iframe);
-          const iframeDoc = iframe.contentWindow.document;
-          window.pbjs.renderAd(iframeDoc, winningBid.adId);
-          iframe.style.display = 'none';
-        }
-      }
-    }
-
-    // Create prebid window objects
-    window.pbjs = window.pbjs || {};
-    window.pbjs.que = window.pbjs.que || [];
-
-    // Construct an ad unit and respective div
-    const adUnit = {
-      code: id,
-      mediaTypes: {
-        banner: {
-          sizes: [[300, 250]]
-        }
-      },
-      bids: [
-        {
-          bidder: 'appnexus',
-          params: {
-            placementId: 13144370
-          }
-        }
-      ]
-    }
+    // Create div for prebid to target
     const div = document.createElement('div');
-    div.id = adUnit.code;
+    div.id = 'zesty-div';
+    div.style.height = '250px';
+    div.style.width = '300px';
+    div.style.position = 'fixed';
+    div.style.top = '0';
+    div.style.zIndex = '-2';
     document.body.appendChild(div);
 
-    // Load our prebid script and add it to the page
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://cdn.zesty.xyz/sdk/zesty-prebid.js';
+    // Append google gpt tag
+    const script = document.createElement('link');
+    script.href = 'https://www.googletagservices.com/tag/js/gpt.js';
+    script.rel = 'preload';
+    script.as = 'script';
     document.head.appendChild(script);
 
-    // Add our ad unit to the queue and request bids
-    window.pbjs.que.push(function () {
-      window.pbjs.addAdUnits([adUnit]);
-    });
+    // Append aditude wrapper tag
+    const aditudeScript = document.createElement('script');
+    aditudeScript.src = 'https://dn0qt3r0xannq.cloudfront.net/zesty-ig89tpzq8N/zesty-longform/prebid-load.js';
+    aditudeScript.async = true;
+    document.head.appendChild(aditudeScript);
 
-    window.pbjs.que.push(function () {
-      window.pbjs.requestBids({
-        timeout: 2000,
-        bidsBackHandler: renderAllAdUnits
+    // Load gifler script in case gif creative is served
+    const gifscript = document.createElement('script');
+    gifscript.src = 'https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js';
+    document.head.appendChild(gifscript);
+
+    // Select baseDivId based on format, defaulting to the one for medium rectangle
+    if (formatString == 'medium-rectangle') {
+      div.id = 'zesty-div-medium-rectangle';
+    } else if (formatString == 'billboard') {
+      Module['Zesty'].prebid.baseDivId = 'pb-slot-billboard';
+      div.id = 'zesty-div-billboard';
+      div.style.width = '728px';
+      div.style.height = '90px';
+    } else if (formatString == 'mobile-phone-interstitial') {
+      Module['Zesty'].prebid.baseDivId = 'pb-slot-interstitial';
+      div.id = 'zesty-div-mobile-phone-interstitial';
+      div.style.width = '1080px';
+      div.style.height = '1920px';
+    }
+
+    // Pass ad unit id as a custom param for prebid metrics
+    window.Raven = window.Raven || { cmd: [] };
+    window.Raven.cmd.push(({ config }) => {
+      config.setCustom({
+        param1: idString,
       });
     });
+
+    window.tude = window.tude || { cmd: [] };
+    tude.cmd.push(function() {
+      tude.refreshAdsViaDivMappings([
+        {
+          divId: `zesty-div-${formatString}`,
+          baseDivId: Module['Zesty'].prebid.baseDivId,
+        }
+      ]);
+    });
+
+    function getUrlsFromIframe(iframe) {
+      if (!iframe.contentDocument) return;
+  
+      const images = iframe.contentDocument.querySelectorAll('img');
+      const adImage = Array.prototype.filter.call(images, image => image.height > 1);
+      if (adImage.length == 0) return;
+      const asset_url = adImage[0].src;
+      const cta_url = adImage[0].parentElement.href;
+      return { asset_url, cta_url };
+    }
+    Module['Zesty'].prebid.interval = setInterval(() => {
+        const div = document.getElementById(`zesty-div-${formatString}`);
+        if (!div) return;
+
+        const iframe = div.querySelector('iframe');
+        if (iframe) {
+            let urls = getUrlsFromIframe(iframe);
+            if (urls) {
+                if (urls.asset_url !== Module['Zesty'].prebid.previousUrls[idString].asset_url || urls.cta_url !== Module['Zesty'].prebid.previousUrls[idString].cta_url) {
+                    Module['Zesty'].prebid.previousUrls[idString] = { asset_url: urls.asset_url, cta_url: urls.cta_url };
+                    Module['Zesty'].prebid.bids = { asset_url: urls.asset_url, cta_url: urls.cta_url };
+                }
+            }
+        }
+    }, 1000);
+
+    Module['Zesty'].prebid.prebidInit = true;
   },
   _tryGetWinningBidInfo: function () {
-    if (!window.pbjs.getAllWinningBids || window.pbjs.getAllWinningBids().length === 0) {
-      const returnStr = "";
+    if (Module['Zesty'].prebid.bids.asset_url && Module['Zesty'].prebid.bids.cta_url) {
+      // Clear the interval and grab the image+url from the prebid ad
+      const urls = Module['Zesty'].prebid.bids;
+      if (urls.asset_url.startsWith('canvas://')) {
+        const canvasIframe = document.createElement('iframe');
+        canvasIframe.id = "zesty-canvas-iframe";
+        document.body.appendChild(canvasIframe);
+        canvasIframe.contentDocument.open();
+        canvasIframe.contentDocument.write(asset_url.split('canvas://')[1]);
+        canvasIframe.contentDocument.close();
+      }
+      const returnStr = `${urls.asset_url}|${urls.cta_url}|Prebid`;
       const bufferSize = lengthBytesUTF8(returnStr) + 1;
       const buffer = _malloc(bufferSize);
       stringToUTF8(returnStr, buffer, bufferSize);
       return buffer;
     } else {
-      const winner = window.pbjs.getAllWinningBids()[0];
-      const regex = /(?:https:\/\/)[^\s"']+?(?=["']|\s)/g;
-      const matches = winner.ad.match(regex);
-      const adUrl = matches[0];
-      const assetUrl = matches[1];
-
-      const returnStr = `{ "Ads": [{ "asset_url": "${assetUrl}", "cta_url": "${adUrl}" }], "CampaignId": "TestCampaign" }`;
+      const returnStr = "";
       const bufferSize = lengthBytesUTF8(returnStr) + 1;
       const buffer = _malloc(bufferSize);
       stringToUTF8(returnStr, buffer, bufferSize);

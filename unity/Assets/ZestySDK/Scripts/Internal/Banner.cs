@@ -1,4 +1,5 @@
 ﻿using SimpleJSON;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -37,7 +38,7 @@ namespace Zesty
         [DllImport("__Internal")] private static extern void _sendOnLoadMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _sendOnClickMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _open(string url);
-        [DllImport("__Internal")] private static extern void _initPrebid(string adUnitId, string format);
+        [DllImport("__Internal")] private static extern void _initPrebid(string adUnitId, int format);
         [DllImport("__Internal")] private static extern string _tryGetWinningBidInfo();
         string bannerTextureURL;
         string campaignId = "";
@@ -51,7 +52,7 @@ namespace Zesty
             if (Constants.PREBID)
             {
 #if !UNITY_EDITOR
-                _initPrebid(adUnit, format);
+                _initPrebid(adUnit, (int)format);
                 StartCoroutine(TryGetWinningBidInfo());
 #endif
             }
@@ -114,7 +115,6 @@ namespace Zesty
             }
             else if (bannerInfo.Ads.Count > 0)
             {
-                Debug.Log("Should be setting banner info now");
                 bannerTextureURL = bannerInfo.Ads[0].asset_url;
                 StartCoroutine(API.GetTexture(bannerTextureURL, SetTexture));
                 SetURL(bannerInfo.Ads[0].cta_url);
@@ -143,7 +143,6 @@ namespace Zesty
         /// <param name="texture">The texture to set the banner to.</param>
         public void SetTexture(Texture texture) {
             if (texture != null) {
-                Debug.Log("Should be setting texture now");
                 Material bannerMaterial = new Material(runtimeBanner);
                 m_Renderer.sharedMaterial = bannerMaterial;
                 bannerMaterial.mainTexture = texture;
@@ -222,35 +221,34 @@ namespace Zesty
         {
             for (int i = 0; i < Constants.MAX_PREBID_RETRIES; i++)
             {
-                string json = _tryGetWinningBidInfo();
-                Debug.Log(json);
-                if (json == "")
+                string adInfo = _tryGetWinningBidInfo();
+                if (adInfo == "")
                 {
                     yield return new WaitForSeconds(1);
                 }
                 else
                 {
-                    var response = JSON.Parse(json);
-                    BannerInfo bannerData = new BannerInfo();
-
-                    List<Ad> ads = new List<Ad>();
-                    for (int j = 0; j < response["Ads"].Count; j++)
+                    string[] els = adInfo.Split('|');
+                    BannerInfo bannerData = new()
                     {
-                        Ad ad = new Ad();
-                        ad.asset_url = response["Ads"][j]["asset_url"];
-                        ad.cta_url = response["Ads"][j]["cta_url"];
-                        ads.Add(ad);
-                    }
-                    bannerData.Ads = ads;
-                    bannerData.CampaignId = response["CampaignId"];
-
-                    Debug.Log(bannerData);
+                        Ads = new List<Ad>()
+                    };
+                    Ad ad = new()
+                    {
+                        asset_url = els[0],
+                        cta_url = els[1]
+                    };
+                    bannerData.Ads.Add(ad);
+                    bannerData.CampaignId = els[2];
 
                     SetBannerInfo(bannerData);
 
                     break;
                 }
             }
+
+            yield return new WaitForSeconds(Constants.PREBID_REFRESH_INTERVAL);
+            StartCoroutine(TryGetWinningBidInfo());
         }
     }
 }

@@ -29,6 +29,8 @@ export default class ZestyBanner extends Mesh {
 
     this.type = 'ZestyBanner';
     this.adUnit = adUnit;
+    this.format = format;
+    this.style = style;
     this.renderer = renderer;
     this.beacon = beacon;
     this.banner = {};
@@ -46,25 +48,7 @@ export default class ZestyBanner extends Mesh {
     });
     this.onClick = this.onClick.bind(this);
 
-    setInterval(() => {
-      const camera = this.getCamera();
-      this.geometry.computeBoundingBox();
-      const bb = new Box3().setFromObject(this);
-      const isVisible = visibilityCheck(
-        bb.min.toArray(),
-        bb.max.toArray(),
-        camera.projectionMatrix.toArray(),
-        camera.matrixWorld.toArray(),
-      );
-      if (isVisible) {
-        loadBanner(adUnit, format, style).then(banner => {
-          this.material.map = banner.texture;
-          this.material.needsUpdate = true;
-          this.banner = banner;
-        });
-        console.log('Refreshed ' + adUnit);
-      }
-    }, AD_REFRESH_INTERVAL);
+    setInterval(this.refreshIfVisible.bind(this), AD_REFRESH_INTERVAL);
   }
 
   onClick() {
@@ -97,6 +81,25 @@ export default class ZestyBanner extends Mesh {
       camera = getScene().getObjectByProperty('isCamera', true);
     }
     return camera;
+  }
+
+  refreshIfVisible() {
+    const camera = this.getCamera();
+    this.geometry.computeBoundingBox();
+    const bb = new Box3().setFromObject(this);
+    const isVisible = visibilityCheck(
+      bb.min.toArray(),
+      bb.max.toArray(),
+      camera.projectionMatrix.toArray(),
+      camera.matrixWorld.toArray(),
+    );
+    if (isVisible) {
+      loadBanner(this.adUnit, this.format, this.style).then(banner => {
+        this.material.map = banner.texture;
+        this.material.needsUpdate = true;
+        this.banner = banner;
+      });
+    }
   }
 }
 

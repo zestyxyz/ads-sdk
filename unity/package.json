@@ -1,0 +1,8 @@
+{
+	"name": "com.zesty.unity-sdk",
+	"displayName":"com.zesty.unity-sdk",
+	"version": "3.0.0",
+	"unity": "2020.0",
+	"description": "Zesty ads integration for Unity.",
+	"dependencies": {}
+}

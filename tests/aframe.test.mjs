@@ -1,4 +1,12 @@
 import { test, expect } from '@playwright/test';
+import {
+  injectIFrame,
+  EXAMPLE_URL,
+  EXAMPLE_IMAGE,
+  EXAMPLE_IMAGE2,
+  PREBID_LOAD_TEST_WAIT_INTERVAL,
+  PREBID_REFRESH_TEST_WAIT_INTERVAL
+} from './test-constants.mjs';
 
 function srcEvaluate(node) {
   if (typeof node.components.material.data.src === 'string') {
@@ -9,6 +17,7 @@ function srcEvaluate(node) {
 }
 
 test.beforeEach(async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto('http://localhost:8080/tests/aframe/', { waitUntil: 'domcontentloaded' });
   page.on('console', (msg) => {
     console.log(msg);
@@ -20,132 +29,98 @@ test.describe('Initial load', () => {
     await expect(page).toHaveTitle('A-Frame Test');
   });
 
-  test('The tall banner is present', async ({ page }) => {
+  test('The medium-rectangle banner is present', async ({ page }) => {
     const banner = await page.locator('#banner1').getAttribute('zesty-banner');
     expect(banner).not.toBeFalsy();
   });
 
-  test('The wide banner is present', async ({ page }) => {
+  test('The billboard banner is present', async ({ page }) => {
     const banner = await page.locator('#banner2').getAttribute('zesty-banner');
     expect(banner).not.toBeFalsy();
   });
 
-  test('The square banner is present', async ({ page }) => {
+  test('The mobile-phone-interstitial banner is present', async ({ page }) => {
     const banner = await page.locator('#banner3').getAttribute('zesty-banner');
     expect(banner).not.toBeFalsy();
   });
 });
 
-test.describe('Standard styles', () => {
-  test('The tall standard banner is displaying the correct default image', async ({ page }) => {
+test.describe('Default banners', () => {
+  test('The medium-rectangle banner is displaying the correct default image', async ({ page }) => {
     let img;
     const banner = await page.locator('#banner1 > a-plane');
     while (!img) {
       img = await banner.evaluate(srcEvaluate);
       if (!img) await page.waitForTimeout(100);
     }
-    expect(img.split('/').pop()).toBe('zesty-banner-tall.png');
+    expect(img.split('/').pop()).toBe('zesty-default-medium-rectangle.png');
   });
 
-  test('The wide standard banner is displaying the correct default image', async ({ page }) => {
+  test('The billboard banner is displaying the correct default image', async ({ page }) => {
     let img;
     const banner = await page.locator('#banner2 > a-plane');
     while (!img) {
       img = await banner.evaluate(srcEvaluate);
       if (!img) await page.waitForTimeout(100);
     }
-    expect(img.split('/').pop()).toBe('zesty-banner-wide.png');
+    expect(img.split('/').pop()).toBe('zesty-default-billboard.png');
   });
 
-  test('The square standard banner is displaying the correct default image', async ({ page }) => {
+  test('The mobile-phone-interstitial banner is displaying the correct default image', async ({ page }) => {
     let img;
     const banner = await page.locator('#banner3 > a-plane');
     while (!img) {
       img = await banner.evaluate(srcEvaluate);
       if (!img) await page.waitForTimeout(100);
     }
-    expect(img.split('/').pop()).toBe('zesty-banner-square.png');
-  });
-});
-
-test.describe('Minimal styles', () => {
-  test('The tall minimal banner is displaying the correct default image', async ({ page }) => {
-    let img;
-    const banner = await page.locator('#banner4 > a-plane');
-    while (!img) {
-      img = await banner.evaluate(srcEvaluate);
-      if (!img) await page.waitForTimeout(100);
-    }
-    expect(img.split('/').pop()).toBe('zesty-banner-tall-minimal.png');
-  });
-
-  test('The wide minimal banner is displaying the correct default image', async ({ page }) => {
-    let img;
-    const banner = await page.locator('#banner5 > a-plane');
-    while (!img) {
-      img = await banner.evaluate(srcEvaluate);
-      if (!img) await page.waitForTimeout(100);
-    }
-    expect(img.split('/').pop()).toBe('zesty-banner-wide-minimal.png');
-  });
-
-  test('The square minimal banner is displaying the correct default image', async ({ page }) => {
-    let img;
-    const banner = await page.locator('#banner6 > a-plane');
-    while (!img) {
-      img = await banner.evaluate(srcEvaluate);
-      if (!img) await page.waitForTimeout(100);
-    }
-    expect(img.split('/').pop()).toBe('zesty-banner-square-minimal.png');
-  });
-});
-
-test.describe('Transparent styles', () => {
-  test('The tall transparent banner is displaying the correct default image', async ({ page }) => {
-    let img;
-    const banner = await page.locator('#banner7 > a-plane');
-    while (!img) {
-      img = await banner.evaluate(srcEvaluate);
-      if (!img) await page.waitForTimeout(100);
-    }
-    expect(img.split('/').pop()).toBe('zesty-banner-tall-transparent.png');
-  });
-
-  test('The wide transparent banner is displaying the correct default image', async ({ page }) => {
-    let img;
-    const banner = await page.locator('#banner8 > a-plane');
-    while (!img) {
-      img = await banner.evaluate(srcEvaluate);
-      if (!img) await page.waitForTimeout(100);
-    }
-    expect(img.split('/').pop()).toBe('zesty-banner-wide-transparent.png');
-  });
-
-  test('The square transparent banner is displaying the correct default image', async ({ page }) => {
-    let img;
-    const banner = await page.locator('#banner9 > a-plane');
-    while (!img) {
-      img = await banner.evaluate(srcEvaluate);
-      if (!img) await page.waitForTimeout(100);
-    }
-    expect(img.split('/').pop()).toBe('zesty-banner-square-transparent.png');
+    expect(img.split('/').pop()).toBe('zesty-default-mobile-phone-interstitial.png');
   });
 });
 
 test.describe('Navigation', () => {
   test('Clicking the banner navigates to a new page', async ({ page, context }) => {
     let img;
-    const banner = await page.locator('#banner9 > a-plane');
+    const banner = await page.locator('#banner3 > a-plane');
     while (!img) {
       img = await banner.evaluate(srcEvaluate);
       if (!img) await page.waitForTimeout(100);
     }
+    await new Promise(resolve => setTimeout(resolve, 5000));
     const [newPage] = await Promise.all([
       context.waitForEvent('page'),
-      page.evaluate(() => document.querySelector('#banner9 > a-plane').click())
+      page.mouse.click(page.viewportSize().width / 2, page.viewportSize().height / 2)
     ])
     await newPage.waitForLoadState('domcontentloaded', { timeout: 60000 }); // Adjust timeout as needed
     const title = await newPage.title();
     expect(title).not.toBe('A-Frame Test');
+  });
+});
+
+test.describe('Prebid', () => {
+  test('Ad creative is loaded once bids is no longer null', async ({ page }) => {
+    const banner = await page.locator('#banner1 > a-plane');
+    await injectIFrame(page, EXAMPLE_URL, EXAMPLE_IMAGE);
+    await new Promise(res => setTimeout(res, PREBID_LOAD_TEST_WAIT_INTERVAL));
+    const img = await banner.evaluate(srcEvaluate);
+    expect(img.split('/').pop()).toBe('250');
+  });
+
+  test('Ad creative links out to correct URL', async ({ page }) => {
+    const banner = await page.locator('#banner1');
+    await injectIFrame(page, EXAMPLE_URL, EXAMPLE_IMAGE);
+    await new Promise(res => setTimeout(res, PREBID_LOAD_TEST_WAIT_INTERVAL));
+    const link = await banner.evaluate(node => node.url);
+    expect(link).toContain(EXAMPLE_URL);
+  });
+
+  test('A new ad creative is loaded after passing visibility check', async ({ page }) => {
+    const banner = await page.locator('#banner1 > a-plane');
+    await injectIFrame(page, EXAMPLE_URL, EXAMPLE_IMAGE);
+    await new Promise(res => setTimeout(res, PREBID_REFRESH_TEST_WAIT_INTERVAL));
+    await page.evaluate(() => document.querySelector('#injected').remove());
+    await injectIFrame(page, EXAMPLE_URL, EXAMPLE_IMAGE2);
+    await new Promise(res => setTimeout(res, PREBID_REFRESH_TEST_WAIT_INTERVAL));
+    const img = await banner.evaluate(srcEvaluate);
+    expect(img.split('/').pop()).toBe('300');
   });
 });

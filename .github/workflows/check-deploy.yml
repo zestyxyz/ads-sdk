@@ -6,6 +6,28 @@ on:
       - main
 
 jobs:
+  build-wle-project:
+    runs-on: ubuntu-latest
+    container:
+      image: wonderlandengine/editor:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run: |
+          npm install -g yarn
+          cd wonderland
+          yarn && yarn build
+          cp dist/zesty-wonderland-sdk.js ../tests/wonderland/js/
+      - name: Build WLE Project
+        run: /usr/local/bin/entrypoint.sh WonderlandEditor --windowless --package --project tests/wonderland/wonderland-test.wlp --output tests/wonderland/deploy/ --credentials $WLE_CREDENTIALS
+        env:
+          WLE_CREDENTIALS: ${{ secrets.WLE_CREDENTIALS }}
+      - name: Upload WLE build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: wle-build-artifacts
+          path: tests/wonderland/deploy/
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -15,11 +37,19 @@ jobs:
           chmod +x scripts/build.sh
           chmod +x scripts/deploy.sh
           scripts/build.sh
-      - name: Test
+      - name: Download WLE build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: wle-build-artifacts
+          path: tests/wonderland/deploy/
+      - name: Install dependencies
         run: |
-          cd ~/work/ads-sdk/ads-sdk
+          npx playwright install-deps
           npx playwright install
-          yarn run test
+      - name: Run tests
+        run: yarn run test
+    needs: build-wle-project
+
   deploy:
     runs-on: ubuntu-latest
     needs: test

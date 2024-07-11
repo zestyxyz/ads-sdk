@@ -1,8 +1,8 @@
 /* global BABYLON */
 
-import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric } from '../../utils/networking';
+import { fetchCampaignAd, sendOnLoadMetric, sendOnClickMetric, AD_REFRESH_INTERVAL } from '../../utils/networking';
 import { formats } from '../../utils/formats';
-import { openURL } from '../../utils/helpers';
+import { openURL, visibilityCheck } from '../../utils/helpers';
 import { version } from '../package.json';
 
 console.log('Zesty SDK Version: ', version);
@@ -15,10 +15,13 @@ export default class ZestyBanner {
     };
 
     this.zestyBanner = BABYLON.MeshBuilder.CreatePlane('zestybanner', options);
+    this.scene = scene;
+    this.xr = webXRExperienceHelper;
 
     loadBanner(adUnit, format, style).then(data => {
       this.zestyBanner.material = data.mat;
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
+      this.zestyBanner.url = data.url;
 
       if (beacon) {
         sendOnLoadMetric(adUnit, data.campaignId);
@@ -40,7 +43,36 @@ export default class ZestyBanner {
       );
     });
 
+    setInterval(() => {
+      const camera = this.getCamera();
+      const boundingBox = this.zestyBanner.getBoundingInfo().boundingBox;
+      const isVisible = visibilityCheck(
+        boundingBox.minimumWorld.asArray(),
+        boundingBox.maximumWorld.asArray(),
+        camera.getProjectionMatrix().asArray(),
+        camera.getWorldMatrix().asArray()
+      );
+      if (isVisible) {
+        loadBanner(adUnit, format, style).then(banner => {
+          this.zestyBanner.material.diffuseTexture.updateURL(banner.src);
+        });
+      }
+    }, AD_REFRESH_INTERVAL);
+
     return this.zestyBanner;
+  }
+
+  getCamera() {
+    let camera = null;
+
+    // Get the origin of the camera
+    if (this.xr?.baseExperience && this.xr.baseExperience.state == BABYLON.WebXRState.IN_XR) {
+      camera = this.xr.baseExperience.camera;
+    } else {
+      camera = this.scene.cameras[0];
+    }
+
+    return camera;
   }
 }
 

@@ -3,7 +3,7 @@
         "14": {
             "name": "Player",
             "translation": [
-                -2.5,
+                0.0,
                 0.0,
                 1.1575535
             ],
@@ -992,9 +992,9 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999991",
+                        "adUnit": "00000000-0000-0000-0000-000000000000",
                         "beacon": true,
-                        "format": "tall",
+                        "format": "medium-rectangle",
                         "style": "standard",
                         "dynamicNetworking": false,
                         "dynamicFormats": false,
@@ -1004,9 +1004,20 @@
                 }
             ],
             "translation": [
-                -4.0,
-                6.0,
-                -1.7
+                0.0,
+                4.0,
+                -6.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         },
         "243": {
@@ -1038,9 +1049,9 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999992",
+                        "adUnit": "10000000-0000-0000-0000-000000000000",
                         "beacon": false,
-                        "format": "wide",
+                        "format": "billboard",
                         "style": "standard",
                         "dynamicNetworking": false,
                         "dynamicFormats": false
@@ -1050,9 +1061,20 @@
             ],
             "parent": null,
             "translation": [
-                -4.0,
-                4.0,
-                -1.7
+                0.0,
+                2.0,
+                -6.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         },
         "244": {
@@ -1084,194 +1106,12 @@
                 {
                     "type": "zesty-banner",
                     "zesty-banner": {
-                        "adUnit": "999993",
+                        "adUnit": "20000000-0000-0000-0000-000000000000",
                         "beacon": false,
                         "style": "standard",
                         "dynamicNetworking": false,
-                        "dynamicFormats": false
-                    },
-                    "active": true
-                }
-            ],
-            "parent": null,
-            "translation": [
-                -4.0,
-                2.0,
-                -1.7
-            ]
-        },
-        "245": {
-            "name": "ZestyBanner4",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "7",
-                        "material": "242"
-                    }
-                },
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                1.0,
-                                1.0,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "cursor-target"
-                },
-                {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "adUnit": "999994",
-                        "beacon": false,
-                        "format": "tall",
-                        "style": "minimal",
-                        "dynamicNetworking": false,
-                        "dynamicFormats": false
-                    },
-                    "active": true
-                }
-            ],
-            "parent": null,
-            "translation": [
-                -2.0,
-                6.0,
-                -1.7
-            ]
-        },
-        "246": {
-            "name": "ZestyBanner5",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "7",
-                        "material": "242"
-                    }
-                },
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                1.0,
-                                1.0,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "cursor-target"
-                },
-                {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "adUnit": "999995",
-                        "beacon": false,
-                        "format": "wide",
-                        "style": "minimal",
-                        "dynamicNetworking": false,
-                        "dynamicFormats": false
-                    },
-                    "active": true
-                }
-            ],
-            "parent": null,
-            "translation": [
-                -2.0,
-                4.0,
-                -1.7
-            ]
-        },
-        "247": {
-            "name": "ZestyBanner6",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "7",
-                        "material": "242"
-                    }
-                },
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                1.0,
-                                1.0,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "cursor-target"
-                },
-                {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "adUnit": "999996",
-                        "beacon": false,
-                        "format": "square",
-                        "style": "minimal",
-                        "dynamicNetworking": false,
-                        "dynamicFormats": false
-                    },
-                    "active": true
-                }
-            ],
-            "parent": null,
-            "translation": [
-                -2.0,
-                2.0,
-                -1.7
-            ]
-        },
-        "248": {
-            "name": "ZestyBanner7",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "7",
-                        "material": "242"
-                    }
-                },
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                1.0,
-                                1.0,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "cursor-target"
-                },
-                {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "adUnit": "999997",
-                        "beacon": false,
-                        "format": "tall",
-                        "dynamicNetworking": false,
-                        "dynamicFormats": false
+                        "dynamicFormats": false,
+                        "format": "mobile-phone-interstitial"
                     },
                     "active": true
                 }
@@ -1279,97 +1119,19 @@
             "parent": null,
             "translation": [
                 0.0,
-                6.0,
-                -1.7
-            ]
-        },
-        "249": {
-            "name": "ZestyBanner8",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "7",
-                        "material": "242"
-                    }
-                },
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                1.0,
-                                1.0,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "cursor-target"
-                },
-                {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "adUnit": "999998",
-                        "beacon": false,
-                        "format": "wide",
-                        "dynamicNetworking": false,
-                        "dynamicFormats": false
-                    },
-                    "active": true
-                }
-            ],
-            "parent": null,
-            "translation": [
                 0.0,
-                4.0,
-                -1.7
-            ]
-        },
-        "250": {
-            "name": "ZestyBanner9",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "7",
-                        "material": "242"
-                    }
-                },
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                1.0,
-                                1.0,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "cursor-target"
-                },
-                {
-                    "type": "zesty-banner",
-                    "zesty-banner": {
-                        "adUnit": "999999",
-                        "beacon": false,
-                        "dynamicNetworking": false,
-                        "dynamicFormats": false
-                    },
-                    "active": true
-                }
+                -6.0
             ],
-            "parent": null,
-            "translation": [
+            "rotation": [
                 0.0,
-                2.0,
-                -1.7
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         },
         "251": {
@@ -2140,7 +1902,7 @@
             "version": [
                 1,
                 2,
-                1
+                2
             ]
         },
         "vr": {

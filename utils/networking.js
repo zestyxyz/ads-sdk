@@ -93,7 +93,7 @@ const initPrebid = (adUnitId, format) => {
   }
   interval = setInterval(() => {
       const div = document.getElementById(`zesty-div-${format}`);
-      const iframe = div.querySelector('iframe');
+      const iframe = div.querySelector('iframe:not([title*="prpb"])'); // Don't grab the iframe if professor prebid is installed
       if (iframe) {
           let urls = getUrlsFromIframe(iframe);
           if (urls) {
@@ -131,7 +131,7 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
   try {
     parseUUID(adUnitId);
   } catch (e) {
-    console.warn("Ad unit ID provided is not a valid UUID.");
+    console.warn(`Ad unit ID ${adUnitId} is not a valid UUID.`);
     return new Promise(res => res(getDefaultBanner(format, style)));
   }
 

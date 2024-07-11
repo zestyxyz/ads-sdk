@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import React, { useRef, useState, useEffect } from 'react';
-import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd } from '../../utils/networking';
+import { useThree } from '@react-three/fiber';
+import { sendOnLoadMetric, sendOnClickMetric, fetchCampaignAd, AD_REFRESH_INTERVAL } from '../../utils/networking';
 import { formats, defaultFormat, defaultStyle } from '../../utils/formats';
-import { openURL } from '../../utils/helpers';
+import { openURL, visibilityCheck } from '../../utils/helpers';
 
 export * from '../../utils/formats';
 import { version } from '../package.json';
@@ -12,6 +13,8 @@ console.log('Zesty SDK Version: ', version);
 export default function ZestyBanner(props) {
   const [bannerData, setBannerData] = useState(false);
   const [material, setMaterial] = useState(new THREE.MeshBasicMaterial());
+  const [refreshInterval, setRefreshInterval] = useState(null);
+  const { scene, gl } = useThree();
   const mesh = useRef();
 
   const adUnit = props.adUnit;
@@ -33,6 +36,7 @@ export default function ZestyBanner(props) {
     loadBanner(adUnit, format, newStyle).then((data) => {
       if (beacon) sendOnLoadMetric(adUnit, data.campaignId);
       setBannerData({ image: data.asset_url, url: data.cta_url, campaignId: data.campaignId });
+      mesh.current.url = data.cta_url;
     });
   }, [adUnit]);
 
@@ -45,12 +49,48 @@ export default function ZestyBanner(props) {
     }
   }, [bannerData]);
 
+
   const onClick = (event) => {
     const banner = bannerData;
     let url = banner.url || banner.properties?.url;
     openURL(url);
     if (props.beacon) sendOnClickMetric(props.adUnit, bannerData.campaignId);
   };
+
+  const getCamera = () => {
+    /** @type {THREE.Camera} */
+    let camera = null;
+
+    // Get the origin of the camera
+    if (gl.xr.isPresenting) {
+      camera = gl.xr.getCamera();
+    } else {
+      camera = scene.getObjectByProperty('isCamera', true);
+    }
+
+    return camera;
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const camera = getCamera();
+      mesh.current.geometry.computeBoundingBox();
+      const bb = new THREE.Box3().setFromObject(mesh.current);
+      const isVisible = visibilityCheck(
+        bb.min.toArray(),
+        bb.max.toArray(),
+        camera.projectionMatrix.toArray(),
+        camera.matrixWorld.toArray(),
+      );
+      if (isVisible) {
+        loadBanner(adUnit, format, newStyle).then(banner => {
+          setMaterial(new THREE.MeshBasicMaterial({ map: banner.texture, transparent: true }));
+          this.banner = banner;
+        });
+      }
+    }, AD_REFRESH_INTERVAL);
+    setRefreshInterval(interval);
+  }, []);
 
   return (
     <mesh {...props} ref={mesh} scale={0.5} onClick={onClick} material={material}>

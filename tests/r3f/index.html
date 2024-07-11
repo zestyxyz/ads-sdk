@@ -1,57 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <title>React Three Fiber Test</title>
     <style>
+      html, body {
+        margin: 0;
+      }
+
       #root {
         width: 100vw;
         height: 100vh;
       }
     </style>
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://esm.sh/three@0.148.0/build/three.module.js",
-          "react": "https://esm.sh/react",
-          "@react-three/fiber": "https://esm.sh/@react-three/fiber",
-          "@react-three/xr": "https://esm.sh/@react-three/xr"
-        }
-      }
-    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module">
-      import htm from 'https://esm.sh/htm'
-      import ReactDOM from 'https://esm.sh/react-dom'
-      import React, { useRef, useState } from 'react'
-      import { Canvas, useFrame, extend } from '@react-three/fiber'
-      import { XR } from '@react-three/xr'
-      import ZestyBanner from '../../r3f/dist/zesty-reactxr-sdk.js'
-
-      const html = htm.bind(React.createElement)
-
-      ReactDOM.render(
-        html`
-        <${React.StrictMode}>
-        <${Canvas}>
-          <${XR}>
-            <ambientLight />
-            <pointLight position=${[10, 10, 10]} />
-            <${ZestyBanner} adUnit=${'e26728b0-0928-43e3-9a40-6b440f496b5e'} format=${'tall'} style=${'standard'} position=${[-1.5, 2, 0]} height=${4} beacon=${false} />
-            <${ZestyBanner} adUnit=${'1'} format=${'tall'} style=${'minimal'} position=${[0, 2, 0]} height=${4} beacon=${false} />
-            <${ZestyBanner} adUnit=${'2'} format=${'tall'} style=${'transparent'} position=${[1.5, 2, 0]} height=${4} beacon=${false} />
-            <${ZestyBanner} adUnit=${'3'} format=${'wide'} style=${'standard'} position=${[-2, 0, 0]} height=${1} beacon=${false} />
-            <${ZestyBanner} adUnit=${'4'} format=${'wide'} style=${'minimal'} position=${[0, 0, 0]} height=${1} beacon=${false} />
-            <${ZestyBanner} adUnit=${'5'} format=${'wide'} style=${'transparent'} position=${[2, 0, 0]} height=${1} beacon=${false} />
-            <${ZestyBanner} adUnit=${'6'} format=${'square'} style=${'standard'} position=${[-2, -2, 0]} height=${4} beacon=${false} />
-            <${ZestyBanner} adUnit=${'7'} format=${'square'} style=${'minimal'} position=${[0, -2, 0]} height=${4} beacon=${false} />
-            <${ZestyBanner} adUnit=${'8'} format=${'square'} style=${'transparent'} position=${[2, -2, 0]} height=${4} beacon=${false} />
-          <//>
-        <//>
-        <//>`,
-        document.getElementById('root'),
-      )
-    </script>  
+    <script type="module" src="./src/index.jsx"></script>
   </body>
 </html>

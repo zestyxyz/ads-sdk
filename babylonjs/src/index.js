@@ -21,6 +21,7 @@ export default class ZestyBanner {
     loadBanner(adUnit, format, style).then(data => {
       this.zestyBanner.material = data.mat;
       this.zestyBanner.actionManager = new BABYLON.ActionManager(scene);
+      this.zestyBanner.url = data.url;
 
       if (beacon) {
         sendOnLoadMetric(adUnit, data.campaignId);

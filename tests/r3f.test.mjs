@@ -65,6 +65,13 @@ test.describe('Prebid', () => {
     expect(img.split('/').pop()).toBe('250');
   });
 
+  test('Ad creative links out to correct URL', async ({ page }) => {
+    await injectIFrame(page, EXAMPLE_URL, EXAMPLE_IMAGE);
+    await new Promise(res => setTimeout(res, PREBID_LOAD_TEST_WAIT_INTERVAL));
+    const link = await page.evaluate(() => window.scene.children[1].children[0].url);
+    expect(link).toContain(EXAMPLE_URL);
+  });
+
   test('A new ad creative is loaded after passing visibility check', async ({ page }) => {
     await injectIFrame(page, EXAMPLE_URL, EXAMPLE_IMAGE);
     await new Promise(res => setTimeout(res, PREBID_REFRESH_TEST_WAIT_INTERVAL));

@@ -39,6 +39,7 @@ export default function ZestyBanner(props) {
     loadBanner(adUnit, format, newStyle).then((data) => {
       if (beacon) sendOnLoadMetric(adUnit, data.campaignId);
       setBannerData({ image: data.asset_url, url: data.cta_url, campaignId: data.campaignId });
+      mesh.current.url = data.cta_url;
     });
   }, [adUnit]);
 

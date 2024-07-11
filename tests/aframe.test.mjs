@@ -17,6 +17,7 @@ function srcEvaluate(node) {
 }
 
 test.beforeEach(async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto('http://localhost:8080/tests/aframe/', { waitUntil: 'domcontentloaded' });
   page.on('console', (msg) => {
     console.log(msg);
@@ -102,6 +103,14 @@ test.describe('Prebid', () => {
     await new Promise(res => setTimeout(res, PREBID_LOAD_TEST_WAIT_INTERVAL));
     const img = await banner.evaluate(srcEvaluate);
     expect(img.split('/').pop()).toBe('250');
+  });
+
+  test('Ad creative links out to correct URL', async ({ page }) => {
+    const banner = await page.locator('#banner1');
+    await injectIFrame(page, EXAMPLE_URL, EXAMPLE_IMAGE);
+    await new Promise(res => setTimeout(res, PREBID_LOAD_TEST_WAIT_INTERVAL));
+    const link = await banner.evaluate(node => node.url);
+    expect(link).toContain(EXAMPLE_URL);
   });
 
   test('A new ad creative is loaded after passing visibility check', async ({ page }) => {

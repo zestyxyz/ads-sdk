@@ -263,7 +263,7 @@ async function updateBanner(banner, plane, el, adUnit, format, style, height, be
     // Set ad properties
     el.bannerURI = banner.uri;
     el.imgSrc = banner.img.src;
-    el.url = banner.cta;
+    el.url = banner.url;
   }
 }
 

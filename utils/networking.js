@@ -11,7 +11,7 @@ const DB_ENDPOINT = 'https://api.zesty.market/api';
 // const STAGING_DB_ENDPOINT = 'https://api-staging.zesty.market/api';
 
 // Prebid variables
-const AD_REFRESH_INTERVAL = 15000;
+const AD_REFRESH_INTERVAL = 10000;
 let prebidInit = false;
 let interval = null;
 const retryCount = 5;
@@ -55,10 +55,12 @@ const initPrebid = (adUnitId, format) => {
     div.id = 'zesty-div-medium-rectangle';
   } else if (format == 'billboard') {
     baseDivId = 'pb-slot-billboard';
+    div.id = 'zesty-div-billboard';
     div.style.width = '728px';
     div.style.height = '90px';
   } else if (format == 'mobile-phone-interstitial') {
     baseDivId = 'pb-slot-interstitial';
+    div.id = 'zesty-div-mobile-phone-interstitial';
     div.style.width = '1080px';
     div.style.height = '1920px';
   }

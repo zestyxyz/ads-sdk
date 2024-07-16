@@ -4,16 +4,9 @@ namespace Zesty
     {
         public enum Types
         {
-            Tall,
-            Wide,
-            Square
-        }
-
-        public enum Styles
-        {
-            Standard,
-            Minimal,
-            Transparent
+            MobilePhoneInterstitial,
+            Billboard,
+            MediumRectangle
         }
 
         public struct Format
@@ -30,29 +23,23 @@ namespace Zesty
             public string[] Images { get; }
         }
 
-        // Tall
-        static string[] tallImages = {
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-tall.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-tall-minimal.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-tall-transparent.png",
+        // Moible Phone Interstitial
+        static string[] mobilePhoneInterstitialImages = {
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-mobile-phone-interstitial.png",
         };
-        public static Format Tall = new Format(0.75, 1, tallImages);
+        public static Format MobilePhoneInterstitial = new Format(0.56, 1, mobilePhoneInterstitialImages);
 
-        // Wide
-        static string[] wideImages = {
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-wide.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-wide-minimal.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-wide-transparent.png",
+        // Billboard
+        static string[] billboardImages = {
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-billboard.png",
         };
-        public static Format Wide = new Format(4, 1, wideImages);
+        public static Format Billboard = new Format(3.88, 1, billboardImages);
 
-        // Square
-        static string[] squareImages = {
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-square.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-square-minimal.png",
-            $"{Constants.CDN_URL}/images/zesty/zesty-banner-square-transparent.png",
+        // Medium Rectangle
+        static string[] mediumRectangleImages = {
+            $"{Constants.CDN_URL}/images/zesty/zesty-default-medium-rectangle.png",
         };
-        public static Format Square = new Format(1, 1, squareImages);
+        public static Format MediumRectangle = new Format(1.2, 1, mediumRectangleImages);
 
     }
 }

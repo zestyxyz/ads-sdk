@@ -63,3 +63,15 @@ Module['Zesty'].checkUserPlatform = async function() {
 
     return currentMatch;
 }
+
+Module['Zesty'].prebid = {
+    AD_REFRESH_INTERVAL: 15000,
+    prebidInit: false,
+    interval: null,
+    retryCount: 5,
+    bids: {},
+    currentTries: {}, // Maps retries to specific ad unit id
+    previousUrls: {}, // Maps prior fetched URLs to specific ad unit id
+    baseDivId: 'pb-slot-right-1',
+    divCount: 0,
+}

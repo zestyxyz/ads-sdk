@@ -1,4 +1,4 @@
-﻿using SimpleJSON;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -21,7 +21,6 @@ namespace Zesty
         public string adUnit;
         public string hostURL;
         public Formats.Types format;
-        public Formats.Styles style;
         public bool beaconEnabled = true;
 
         public Material[] placeholderMaterials = new Material[3];
@@ -37,7 +36,7 @@ namespace Zesty
         [DllImport("__Internal")] private static extern void _sendOnLoadMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _sendOnClickMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _open(string url);
-        [DllImport("__Internal")] private static extern void _initPrebid(string adUnitId);
+        [DllImport("__Internal")] private static extern void _initPrebid(string adUnitId, int format);
         [DllImport("__Internal")] private static extern string _tryGetWinningBidInfo();
         string bannerTextureURL;
         string campaignId = "";
@@ -51,7 +50,7 @@ namespace Zesty
             if (Constants.PREBID)
             {
 #if !UNITY_EDITOR
-                _initPrebid(adUnit);
+                _initPrebid(adUnit, (int)format);
                 StartCoroutine(TryGetWinningBidInfo());
 #endif
             }
@@ -99,22 +98,21 @@ namespace Zesty
             {
                 switch (format)
                 {
-                    case Formats.Types.Tall:
-                        StartCoroutine(API.GetTexture(Formats.Tall.Images[(int)style], SetTexture));
+                    case Formats.Types.MobilePhoneInterstitial:
+                        StartCoroutine(API.GetTexture(Formats.MobilePhoneInterstitial.Images[0], SetTexture));
                         break;
-                    case Formats.Types.Wide:
-                        StartCoroutine(API.GetTexture(Formats.Wide.Images[(int)style], SetTexture));
+                    case Formats.Types.Billboard:
+                        StartCoroutine(API.GetTexture(Formats.Billboard.Images[0], SetTexture));
                         break;
-                    case Formats.Types.Square:
+                    case Formats.Types.MediumRectangle:
                     default:
-                        StartCoroutine(API.GetTexture(Formats.Square.Images[(int)style], SetTexture));
+                        StartCoroutine(API.GetTexture(Formats.MediumRectangle.Images[0], SetTexture));
                         break;
                 }
                 SetURL($"https://www.zesty.market/");
             }
             else if (bannerInfo.Ads.Count > 0)
             {
-                Debug.Log("Should be setting banner info now");
                 bannerTextureURL = bannerInfo.Ads[0].asset_url;
                 StartCoroutine(API.GetTexture(bannerTextureURL, SetTexture));
                 SetURL(bannerInfo.Ads[0].cta_url);
@@ -129,8 +127,6 @@ namespace Zesty
             {
 #if UNITY_EDITOR
 #else
-                // Fire onLoad signal to v1 beacon
-                StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/{adUnit}", "onLoad"));
                 // Fire increment mutation to v2 beacon
                 _sendOnLoadMetric(adUnit, campaignId);
 #endif
@@ -143,7 +139,6 @@ namespace Zesty
         /// <param name="texture">The texture to set the banner to.</param>
         public void SetTexture(Texture texture) {
             if (texture != null) {
-                Debug.Log("Should be setting texture now");
                 Material bannerMaterial = new Material(runtimeBanner);
                 m_Renderer.sharedMaterial = bannerMaterial;
                 bannerMaterial.mainTexture = texture;
@@ -167,14 +162,6 @@ namespace Zesty
             this.url = url;
         }
 
-        /*public void GazingUpon () {
-            isGazingUpon = true;
-        }
-
-        public void NotGazingUpon () {
-            isGazingUpon = false;
-        }*/
-
         public void onClick()
         {
             if (Application.platform == RuntimePlatform.WebGLPlayer)
@@ -184,8 +171,6 @@ namespace Zesty
 
             if (beaconEnabled)
             {
-                // Fire onClick signal to beacon
-                StartCoroutine(API.PutRequest(Constants.BEACON_URL + $"/space/click/{adUnit}", "onClick"));
                 // Fire increment mutation to v2 beacon
                 _sendOnClickMetric(adUnit, campaignId);
             }
@@ -203,16 +188,16 @@ namespace Zesty
         {
             switch (format)
             {
-                case Formats.Types.Tall:
-                    transform.localScale = new Vector3(transform.localScale.x, (float)(transform.localScale.x * (4f / 3f)), .001f);
+                case Formats.Types.MobilePhoneInterstitial:
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x / (float)Formats.MobilePhoneInterstitial.Width, .001f);
                     gameObject.GetComponent<Renderer>().material = placeholderMaterials[0];
                     break;
-                case Formats.Types.Wide:
-                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x / 4, .001f);
+                case Formats.Types.Billboard:
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x /(float)Formats.Billboard.Width, .001f);
                     gameObject.GetComponent<Renderer>().material = placeholderMaterials[1];
                     break;
-                case Formats.Types.Square:
-                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x, .001f);
+                case Formats.Types.MediumRectangle:
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x / (float)Formats.MediumRectangle.Width, .001f);
                     gameObject.GetComponent<Renderer>().material = placeholderMaterials[2];
                     break;
             }
@@ -220,37 +205,39 @@ namespace Zesty
 
         private IEnumerator TryGetWinningBidInfo()
         {
-            for (int i = 0; i < Constants.MAX_PREBID_RETRIES; i++)
+            if (m_Renderer.isVisible)
             {
-                string json = _tryGetWinningBidInfo();
-                Debug.Log(json);
-                if (json == "")
+                for (int i = 0; i < Constants.MAX_PREBID_RETRIES; i++)
                 {
-                    yield return new WaitForSeconds(1);
-                }
-                else
-                {
-                    var response = JSON.Parse(json);
-                    BannerInfo bannerData = new BannerInfo();
-
-                    List<Ad> ads = new List<Ad>();
-                    for (int j = 0; j < response["Ads"].Count; j++)
+                    string adInfo = _tryGetWinningBidInfo();
+                    if (adInfo == "")
                     {
-                        Ad ad = new Ad();
-                        ad.asset_url = response["Ads"][j]["asset_url"];
-                        ad.cta_url = response["Ads"][j]["cta_url"];
-                        ads.Add(ad);
+                        yield return new WaitForSeconds(1);
                     }
-                    bannerData.Ads = ads;
-                    bannerData.CampaignId = response["CampaignId"];
+                    else
+                    {
+                        string[] els = adInfo.Split('|');
+                        BannerInfo bannerData = new()
+                        {
+                            Ads = new List<Ad>()
+                        };
+                        Ad ad = new()
+                        {
+                            asset_url = els[0],
+                            cta_url = els[1]
+                        };
+                        bannerData.Ads.Add(ad);
+                        bannerData.CampaignId = els[2];
 
-                    Debug.Log(bannerData);
+                        SetBannerInfo(bannerData);
 
-                    SetBannerInfo(bannerData);
-
-                    break;
+                        break;
+                    }
                 }
             }
+
+            yield return new WaitForSeconds(Constants.PREBID_REFRESH_INTERVAL);
+            StartCoroutine(TryGetWinningBidInfo());
         }
     }
 }

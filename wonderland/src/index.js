@@ -100,7 +100,7 @@ export class ZestyBanner extends Component {
     if (this.dynamicNetworking) {
       import(networkingLink)
         .then(value => {
-          this.zestyNetworking = Object.assign({}, value);
+          this.dynamicNetworkFunctions = Object.assign({}, value);
         })
         .catch(() => {
           console.error('Failed to dynamically retrieve networking code, falling back to bundled version.');
@@ -221,8 +221,8 @@ export class ZestyBanner extends Component {
         this.mesh.material.alphaMaskTexture = banner.texture;
       }
       if (this.beacon && !sdkLoaded) {
-        this.dynamicNetworking && this.zestyNetworking?.sendOnLoadMetric ?
-          this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) :
+        this.dynamicNetworking && this.dynamicNetworkFunctions?.sendOnLoadMetric ?
+          this.dynamicNetworkFunctions.sendOnLoadMetric(this.adUnit, this.banner.campaignId) :
           sendOnLoadMetric(this.adUnit, this.banner.campaignId);
         sdkLoaded = true;
       }
@@ -244,15 +244,15 @@ export class ZestyBanner extends Component {
   executeClick() {
     openURL(this.banner.url);
     if (this.beacon) {
-      this.dynamicNetworking && this.zestyNetworking?.sendOnClickMetric ?
-        this.zestyNetworking.sendOnClickMetric(this.adUnit, this.banner.campaignId) :
+      this.dynamicNetworking && this.dynamicNetworkFunctions?.sendOnClickMetric ?
+        this.dynamicNetworkFunctions.sendOnClickMetric(this.adUnit, this.banner.campaignId) :
         sendOnClickMetric(this.adUnit, this.banner.campaignId);
     }
   }
 
   async loadBanner(adUnit, format, style) {
-    const activeCampaign = this.dynamicNetworking && this.zestyNetworking?.fetchCampaignAd ?
-      await this.zestyNetworking.fetchCampaignAd(adUnit, format, style) :
+    const activeCampaign = this.dynamicNetworking && this.dynamicNetworkFunctions?.fetchCampaignAd ?
+      await this.dynamicNetworkFunctions.fetchCampaignAd(adUnit, format, style) :
       await fetchCampaignAd(adUnit, format, style);
 
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];

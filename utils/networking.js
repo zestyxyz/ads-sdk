@@ -10,6 +10,8 @@ const DB_ENDPOINT = 'https://api.zesty.market/api';
 // TODO: Determine best way to enable switching to staging
 // const STAGING_DB_ENDPOINT = 'https://api-staging.zesty.market/api';
 
+const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+
 // Prebid variables
 const AD_REFRESH_INTERVAL = 10000;
 let prebidInit = false;
@@ -211,6 +213,8 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
  * @returns A Promise representing the POST request
  */
 const sendOnLoadMetric = async (adUnitId, campaignId = null) => {
+  if (isLocalhost) return;
+  
   const { platform, confidence } = await checkUserPlatform();
 
   try {
@@ -225,6 +229,8 @@ const sendOnLoadMetric = async (adUnitId, campaignId = null) => {
 };
 
 const sendOnClickMetric = async (adUnitId, campaignId = null) => {
+  if (isLocalhost) return;
+
   const { platform, confidence } = await checkUserPlatform();
 
   try {
@@ -239,6 +245,8 @@ const sendOnClickMetric = async (adUnitId, campaignId = null) => {
 }
 
 const analyticsSession = async (adUnitId, campaignId) => {
+  if (isLocalhost) return;
+
   const { platform, confidence } = await checkUserPlatform();
   try {
     await axios.post(

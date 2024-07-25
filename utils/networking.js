@@ -206,17 +206,17 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
 }
 
 /**
- * Increment the on-load event count for the space
- * @param {string} spaceId The space ID
+ * Increment the on-load event count for the ad unit
+ * @param {string} adUnit The ad unit ID
  * @returns A Promise representing the POST request
  */
-const sendOnLoadMetric = async (spaceId, campaignId = null) => {
+const sendOnLoadMetric = async (adUnitId, campaignId = null) => {
   const { platform, confidence } = await checkUserPlatform();
 
   try {
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: visits, spaceId: \"${spaceId}\", campaignId: \"${campaignId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
+      { query: `mutation { increment(eventType: visits, spaceId: \"${adUnitId}\", campaignId: \"${campaignId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
       { headers: { 'Content-Type': 'application/json' } }
     )
   } catch (e) {
@@ -224,13 +224,13 @@ const sendOnLoadMetric = async (spaceId, campaignId = null) => {
   }
 };
 
-const sendOnClickMetric = async (spaceId, campaignId = null) => {
+const sendOnClickMetric = async (adUnitId, campaignId = null) => {
   const { platform, confidence } = await checkUserPlatform();
 
   try {
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: clicks, spaceId: \"${spaceId}\", campaignId: \"${campaignId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
+      { query: `mutation { increment(eventType: clicks, spaceId: \"${adUnitId}\", campaignId: \"${campaignId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
       { headers: { 'Content-Type': 'application/json' } }
     )
   } catch (e) {
@@ -238,12 +238,12 @@ const sendOnClickMetric = async (spaceId, campaignId = null) => {
   }
 }
 
-const analyticsSession = async (spaceId, campaignId) => {
+const analyticsSession = async (adUnitId, campaignId) => {
   const { platform, confidence } = await checkUserPlatform();
   try {
     await axios.post(
       BEACON_GRAPHQL_URI,
-      { query: `mutation { increment(eventType: session, spaceId: \"${spaceId}\", campaignId: \"${campaignId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
+      { query: `mutation { increment(eventType: session, spaceId: \"${adUnitId}\", campaignId: \"${campaignId}\", platform: { name: ${platform}, confidence: ${confidence} }) { message } }` },
       { headers: { 'Content-Type': 'application/json' } }
     )
   } catch (e) {

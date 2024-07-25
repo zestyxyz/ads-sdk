@@ -42,5 +42,5 @@ export function checkUserPlatform(): Promise<{
 }>;
 export function openURL(url: any): void;
 export function urlContainsUTMParams(url: any): boolean;
-export function appendUTMParams(url: any, spaceId: any): string;
+export function appendUTMParams(url: any, adUnitId: any): string;
 export function visibilityCheck(bbMin: number[], bbMax: number[], cameraProjMatrix: number[], cameraWorldMatrix: number[]): boolean;

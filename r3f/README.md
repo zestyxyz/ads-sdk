@@ -8,8 +8,8 @@ Import the ZestyBanner component and add it to the scene like so:
 
 ```js
 <ZestyBanner
-   adUnit={'YOUR_ADUNIT_ID'}
-   format={'YOUR_ADUNIT_FORMAT'}
+   adUnit={'YOUR_AD_UNIT_ID'}
+   format={'YOUR_AD_UNIT_FORMAT'}
    position={[X, Y, Z]} />
 ```
 

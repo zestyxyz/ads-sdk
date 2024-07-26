@@ -75,7 +75,7 @@ export default class ZestyBanner extends Mesh {
       return parent;
     }
     // Get the origin of the camera
-    if (this.renderer.xr.isPresenting) {
+    if (this.renderer?.xr.isPresenting) {
       camera = this.renderer.xr.getCamera();
     } else {
       camera = getScene().getObjectByProperty('isCamera', true);

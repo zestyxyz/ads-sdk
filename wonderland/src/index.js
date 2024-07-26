@@ -7,6 +7,7 @@ import { version } from '../package.json';
 import {
   Component,
   Collider,
+  MeshAttribute,
   MeshComponent,
   CollisionComponent,
   Property
@@ -99,7 +100,7 @@ export class ZestyBanner extends Component {
     if (this.dynamicNetworking) {
       import(networkingLink)
         .then(value => {
-          this.zestyNetworking = Object.assign({}, value);
+          this.dynamicNetworkFunctions = Object.assign({}, value);
         })
         .catch(() => {
           console.error('Failed to dynamically retrieve networking code, falling back to bundled version.');
@@ -127,7 +128,7 @@ export class ZestyBanner extends Component {
   }
 
   startLoading() {
-    const camera = WL.scene.activeViews[0];
+    const camera = this.engine.scene.activeViews[0];
     const worldTransform = camera.object.getTransformWorld([]);
     const worldMatrix = mat4.fromQuat2([], worldTransform);
     const { bbMin, bbMax } = this.calculateBoundingBox();
@@ -210,7 +211,7 @@ export class ZestyBanner extends Component {
           }
         } else {
           throw Error(
-            "'zesty-banner' unable to apply banner texture: unsupported pipeline " + pipeline
+            "'zesty-banner' unable to apply banner texture: unsupported pipeline"
           );
         }
         this.mesh.material = m;
@@ -220,8 +221,8 @@ export class ZestyBanner extends Component {
         this.mesh.material.alphaMaskTexture = banner.texture;
       }
       if (this.beacon && !sdkLoaded) {
-        this.dynamicNetworking ?
-          this.zestyNetworking.sendOnLoadMetric(this.adUnit, this.banner.campaignId) :
+        this.dynamicNetworking && this.dynamicNetworkFunctions?.sendOnLoadMetric ?
+          this.dynamicNetworkFunctions.sendOnLoadMetric(this.adUnit, this.banner.campaignId) :
           sendOnLoadMetric(this.adUnit, this.banner.campaignId);
         sdkLoaded = true;
       }
@@ -243,15 +244,15 @@ export class ZestyBanner extends Component {
   executeClick() {
     openURL(this.banner.url);
     if (this.beacon) {
-      this.dynamicNetworking ?
-        this.zestyNetworking.sendOnClickMetric(this.adUnit, this.banner.campaignId) :
+      this.dynamicNetworking && this.dynamicNetworkFunctions?.sendOnClickMetric ?
+        this.dynamicNetworkFunctions.sendOnClickMetric(this.adUnit, this.banner.campaignId) :
         sendOnClickMetric(this.adUnit, this.banner.campaignId);
     }
   }
 
   async loadBanner(adUnit, format, style) {
-    const activeCampaign = this.dynamicNetworking ?
-      await this.zestyNetworking.fetchCampaignAd(adUnit, format, style) :
+    const activeCampaign = this.dynamicNetworking && this.dynamicNetworkFunctions?.fetchCampaignAd ?
+      await this.dynamicNetworkFunctions.fetchCampaignAd(adUnit, format, style) :
       await fetchCampaignAd(adUnit, format, style);
 
     const { asset_url: image, cta_url: url } = activeCampaign.Ads[0];
@@ -284,7 +285,7 @@ export class ZestyBanner extends Component {
    * @returns {{bbMin: number[], bbMax: number[]}}
    */
   calculateBoundingBox() {
-    const vertices = this.mesh.mesh.attribute(WL.MeshAttribute.Position);
+    const vertices = this.mesh.mesh.attribute(MeshAttribute.Position);
     const worldPosition = this.object.getPositionWorld([]);
     const scale = this.object.getScalingLocal([]);
 

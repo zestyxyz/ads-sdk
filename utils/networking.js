@@ -163,7 +163,7 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
     });
   }
 
-  return new Promise((res, rej) => {
+  return new Promise((resolve, reject) => {
     async function getBanner() {
       if (bids?.asset_url && bids?.cta_url) {
         // Clear the interval and grab the image+url from the prebid ad
@@ -176,7 +176,7 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
           canvasIframe.contentDocument.write(asset_url.split('canvas://')[1]);
           canvasIframe.contentDocument.close();
         }
-        res({ Ads: [{ asset_url, cta_url }], CampaignId: 'Prebid' });
+        resolve({ Ads: [{ asset_url, cta_url }], CampaignId: 'Prebid' });
       } else {
         // Wait to see if we get any winning bids. If we hit max retry count, fallback to Zesty ad server
         currentTries[adUnitId]++;
@@ -185,15 +185,16 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
             const url = encodeURI(window.top.location.href).replace(/\/$/, ''); // If URL ends with a slash, remove it
             const res = await axios.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}&url=${url}`);
             if (res.data) {
-              res(res.data);
+              resolve(res.data);
             } else {
               // No active campaign, just display default banner
-              res(getDefaultBanner(format, style, shouldOverride, overrideEntry.format));
+              resolve(getDefaultBanner(format, style, shouldOverride, overrideEntry.format));
             }
             currentTries[adUnitId] = 0;
-          } catch {
-            console.warn('Could not retrieve an active campaign banner. Retrieving default banner.')
-            res(getDefaultBanner(format, style, shouldOverride, overrideEntry.format));
+          } catch(e) {
+            console.error(e);
+            console.warn('Error retrieving an active campaign banner. Retrieving default banner.')
+            resolve(getDefaultBanner(format, style, shouldOverride, overrideEntry.format));
             currentTries[adUnitId] = 0;
           }
         } else {

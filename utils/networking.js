@@ -18,6 +18,7 @@ const retryCount = 5;
 let bids = {};
 const currentTries = {} // Maps retries to specific ad unit id
 const previousUrls = {} // Maps prior fetched URLs to specific ad unit id
+const adUnitDivIds = {} // Maps ad units to their div ids
 let baseDivId = 'pb-slot-right-1';
 let divCount = 0;
 
@@ -65,6 +66,8 @@ const initPrebid = (adUnitId, format) => {
     div.style.height = '1920px';
   }
 
+  adUnitDivIds[adUnitId] = div.id;
+
   // Pass ad unit id as a custom param for prebid metrics
   window.Raven = window.Raven || { cmd: [] };
   window.Raven.cmd.push(({ config }) => {
@@ -93,19 +96,26 @@ const initPrebid = (adUnitId, format) => {
     const cta_url = adImage[0].parentElement.href;
     return { asset_url, cta_url };
   }
+
   interval = setInterval(() => {
-      const div = document.getElementById(`zesty-div-${format}`);
-      const iframe = div.querySelector('iframe:not([title*="prpb"])'); // Don't grab the iframe if professor prebid is installed
-      if (iframe) {
-          let urls = getUrlsFromIframe(iframe);
-          if (urls) {
-              const { asset_url, cta_url } = urls;
-              if (asset_url !== previousUrls[adUnitId].asset_url || cta_url !== previousUrls[adUnitId].cta_url) {
-                  previousUrls[adUnitId] = { asset_url, cta_url };
-                  bids = { asset_url, cta_url };
-              }
-          }
+    let div = document.getElementById(`zesty-div-${format}`);
+    if (!div) {
+      // If for some reason we can't find the proper div (e.g. the given format is invalid),
+      // fallback to the plain name
+      div = document.getElementById('zesty-div');
+      adUnitDivIds[adUnitId] = div.id;
+    }
+    const iframe = div?.querySelector('iframe:not([title*="prpb"])'); // Don't grab the iframe if professor prebid is installed
+    if (iframe) {
+      let urls = getUrlsFromIframe(iframe);
+      if (urls) {
+        const { asset_url, cta_url } = urls;
+        if (asset_url !== previousUrls[adUnitId].asset_url || cta_url !== previousUrls[adUnitId].cta_url) {
+          previousUrls[adUnitId] = { asset_url, cta_url };
+          bids = { asset_url, cta_url };
+        }
       }
+    }
   }, 1000);
 
   prebidInit = true;
@@ -156,7 +166,7 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
     tude.cmd.push(function() {
       tude.refreshAdsViaDivMappings([
         {
-          divId: `zesty-div-${format}`,
+          divId: adUnitDivIds[adUnitId],
           baseDivId,
         }
       ]);

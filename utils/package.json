@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "beacon-prototype": "^0.0.1",
     "three": "^0.166.1",
     "uuid": "^8.3.2"
   },

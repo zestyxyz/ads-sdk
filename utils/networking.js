@@ -2,6 +2,7 @@ import axios from 'axios';
 import { formats } from '../utils/formats.js';
 import { checkUserPlatform } from '../utils/helpers.js';
 import { parse as parseUUID } from 'uuid'
+import Beacon from 'sig-beacon';
 
 const BEACON_API_BASE = 'https://beacon.zesty.market'
 const BEACON_GRAPHQL_URI = 'https://beacon2.zesty.market/zgraphql'
@@ -21,6 +22,11 @@ const previousUrls = {} // Maps prior fetched URLs to specific ad unit id
 const adUnitDivIds = {} // Maps ad units to their div ids
 let baseDivId = 'pb-slot-right-1';
 let divCount = 0;
+
+// Instantiate the beacon prototype as an import side-effect for now
+// just so we don't need to modify all the other SDKs
+const beacon = new Beacon('https://relay-dev.zesty.xyz');
+beacon.signal();
 
 const initPrebid = (adUnitId, format) => {
   // Create div for prebid to target

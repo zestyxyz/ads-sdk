@@ -1955,11 +1955,6 @@ batch@0.6.1:
   resolved "https://registry.npmjs.org/batch/-/batch-0.6.1.tgz"
   integrity sha512-x+VAiMRL6UPkx+kudNvxTl6hB2XNNCG2r+7wixVfIYwu/2HKRXimwQyaumLjMveWvT2Hkd/cAJw+QBMfJ/EKVw==
 
-beacon-prototype@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/beacon-prototype/-/beacon-prototype-0.0.1.tgz#1630d88166b097d81cf0f3fbea17e408431e19c0"
-  integrity sha512-qAhPx/6gBIys5O3zrG/vHO71UpzX0dwcGLjhUS8V8S6FlSlu8J3F0TAcVRiNB9S9KYU/FurxMkVNIvBYvrarZQ==
-
 big.js@^5.2.2:
   version "5.2.2"
   resolved "https://registry.npmjs.org/big.js/-/big.js-5.2.2.tgz"
@@ -4657,6 +4652,11 @@ side-channel@^1.0.6:
     es-errors "^1.3.0"
     get-intrinsic "^1.2.4"
     object-inspect "^1.13.1"
+
+sig-beacon@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/sig-beacon/-/sig-beacon-0.0.2.tgz#7aac1afdc57167f0add0fba260ca554cea97f148"
+  integrity sha512-8E5eMFvUF3kT7bc85HmR4a0l9Tw/GFRC9NgZHjaY/+dZ7JU5EXaMtfC8RJrYcs8a4FPeYWfw/qCK9g8QLj5X6A==
 
 signal-exit@^3.0.3:
   version "3.0.7"

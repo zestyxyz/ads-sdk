@@ -32,7 +32,7 @@ namespace Zesty
         private MeshCollider m_Collider;
 
         // Banner info
-        string url;
+        string url = Constants.ZESTY_URL;
         [DllImport("__Internal")] private static extern void _sendOnLoadMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _sendOnClickMetric(string adUnitId, string campaignId);
         [DllImport("__Internal")] private static extern void _open(string url);

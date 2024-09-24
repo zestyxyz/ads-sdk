@@ -13,3 +13,25 @@ export async function injectIFrame(page, url, image) {
     iframe.contentDocument.write(`<html><body><a href="${url}"><img src="${image}"></a></body></html>`);
   }, [url, image]);
 }
+
+export async function checkZestyDiv(page, format) {
+  let div;
+  if (!format) {
+    div = await page.frameLocator('#unknown').locator('#zesty-div');
+  } else {
+    div = await page.frameLocator(`#${format}`).locator(`#zesty-div-${format}`);
+  }
+
+  const { width, height } = await div.boundingBox();
+  switch (format) {
+    case 'medium-rectangle':
+      if (width == 300 && height == 250) return true;
+    case 'billboard':
+      if (width == 728 && height == 90) return true;
+    case 'mobile-phone-interstitial':
+      if (width == 1080 && height == 1920) return true;
+    default:
+      if (width == 300 && height == 250) return true;
+  }
+  return false;
+}

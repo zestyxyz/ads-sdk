@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 8735804587134163808}
   - component: {fileID: 9058018533655132307}
   - component: {fileID: 1634627533352169413}
-  - component: {fileID: 4280504236707935613}
-  - component: {fileID: 6148877625606582636}
   m_Layer: 0
   m_Name: ZestySDK
   m_TagString: Untagged
@@ -27,12 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563859477077416462}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.0286646, y: 0.47134098, z: -4.541621}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9058018533655132307
 MonoBehaviour:
@@ -59,28 +58,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sessionID: 
---- !u!114 &4280504236707935613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7563859477077416462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cc8c16f7a67fd94b8c3d1fccdaa1f66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewCamera: {fileID: 0}
---- !u!114 &6148877625606582636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7563859477077416462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e456eb3b70efe64db4f4a0298dd69da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

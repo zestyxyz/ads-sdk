@@ -4653,10 +4653,10 @@ side-channel@^1.0.6:
     get-intrinsic "^1.2.4"
     object-inspect "^1.13.1"
 
-sig-beacon@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/sig-beacon/-/sig-beacon-0.0.5.tgz#e4b5d8e266245bf49d3b1f52789edecf82915ae8"
-  integrity sha512-2g57+yCoopwWFGB1cIOH7ZdqnRuVmDqR5Pa8kYyq94kBjzNqoZC0InFyxmHGs/WyNTDdrCYUGEbwyC012hulrQ==
+sig-beacon@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/sig-beacon/-/sig-beacon-0.0.6.tgz#10ebd449b02a2238979f1f76776b62edc5ac9a87"
+  integrity sha512-PNijbCZXtBiHo6sU0EIHBu6uvbicnucS9O3XLrEJEGd1FUp1POAQ0z53iEXbGShErBhdkKHXKjHJ6toFpBvMYw==
 
 signal-exit@^3.0.3:
   version "3.0.7"

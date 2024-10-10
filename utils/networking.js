@@ -25,7 +25,7 @@ let divCount = 0;
 
 // Instantiate the beacon prototype as an import side-effect for now
 // just so we don't need to modify all the other SDKs
-const beacon = new Beacon('https://relay-dev.zesty.xyz');
+const beacon = new Beacon('https://relay.zesty.xyz');
 beacon.signal();
 
 const initPrebid = (adUnitId, format) => {

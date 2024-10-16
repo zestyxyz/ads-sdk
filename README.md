@@ -8,7 +8,6 @@ Currently, we support the following platforms:
 - [babylon.js](https://github.com/zestyxyz/ads-sdk/tree/main/babylonjs)
 - [react-three-fiber](https://github.com/zestyxyz/ads-sdk/tree/main/r3f)
 - [three.js](https://github.com/zestyxyz/ads-sdk/tree/main/threejs)
-- [web](https://github.com/zestyxyz/ads-sdk/tree/main/web)
 - [unity](https://github.com/zestyxyz/ads-sdk/tree/main/unity)
 - [wonderland](https://github.com/zestyxyz/ads-sdk/tree/main/wonderland)
 

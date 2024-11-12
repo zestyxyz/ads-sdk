@@ -136,7 +136,7 @@ const getOverrideUnitInfo = (adUnitId) => {
 }
 
 const getDefaultBanner = (format, style, shouldOverride = false, overrideFormat = null) => {
-  return { Ads: [{ asset_url: formats[shouldOverride ? overrideFormat : format].style[style], cta_url: 'https://www.zesty.xyz' }], CampaignId: 'DefaultCampaign' }
+  return { Ads: [{ asset_url: formats[shouldOverride ? overrideFormat : format].style[style], cta_url: 'https://relay.zesty.xyz' }], CampaignId: 'DefaultCampaign' }
 }
 
 const fetchCampaignAd = async (adUnitId, format = 'tall', style = 'standard') => {

@@ -25,19 +25,19 @@ namespace Zesty
 
         // Moible Phone Interstitial
         static string[] mobilePhoneInterstitialImages = {
-            $"{Constants.CDN_URL}/images/zesty/zesty-default-mobile-phone-interstitial.png",
+            $"{Constants.CDN_URL}/sdk/assets/zesty-default-mobile-phone-interstitial.png",
         };
         public static Format MobilePhoneInterstitial = new Format(0.56, 1, mobilePhoneInterstitialImages);
 
         // Billboard
         static string[] billboardImages = {
-            $"{Constants.CDN_URL}/images/zesty/zesty-default-billboard.png",
+            $"{Constants.CDN_URL}/sdk/assets/zesty-default-billboard.png",
         };
         public static Format Billboard = new Format(3.88, 1, billboardImages);
 
         // Medium Rectangle
         static string[] mediumRectangleImages = {
-            $"{Constants.CDN_URL}/images/zesty/zesty-default-medium-rectangle.png",
+            $"{Constants.CDN_URL}/sdk/assets/zesty-default-medium-rectangle.png",
         };
         public static Format MediumRectangle = new Format(1.2, 1, mediumRectangleImages);
 

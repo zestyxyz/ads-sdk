@@ -1,4 +1,4 @@
-const assetsURL = 'https://cdn.zesty.xyz/images/zesty';
+const assetsURL = 'https://cdn.zesty.xyz/sdk/assets';
 
 const formats = {
     'tall': {

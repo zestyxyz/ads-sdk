@@ -23,7 +23,7 @@ jobs:
         env:
           WLE_CREDENTIALS: ${{ secrets.WLE_CREDENTIALS }}
       - name: Upload WLE build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wle-build-artifacts
           path: tests/wonderland/deploy/
@@ -38,7 +38,7 @@ jobs:
           chmod +x scripts/deploy.sh
           scripts/build.sh
       - name: Download WLE build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: wle-build-artifacts
           path: tests/wonderland/deploy/

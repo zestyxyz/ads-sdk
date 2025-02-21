@@ -198,7 +198,7 @@ Check https://docs.zesty.xyz/guides/developers/ad-units for more information.`);
         currentTries[adUnitId]++;
         if (currentTries[adUnitId] == retryCount) {
           try {
-            const url = encodeURI(window.top.location.href).replace(/\/$/, ''); // If URL ends with a slash, remove it
+            const url = encodeURI(window.location.href).replace(/\/$/, ''); // If URL ends with a slash, remove it
             const res = await axios.get(`${DB_ENDPOINT}/ad?ad_unit_id=${adUnitId}&url=${url}`);
             if (res.data) {
               resolve(res.data);
